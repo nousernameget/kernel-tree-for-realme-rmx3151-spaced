@@ -4481,7 +4481,7 @@ int mtk_p2p_cfg80211_testmode_sw_cmd(IN struct wiphy *wiphy,
 /* Move to global to fix build error
  * Cannot allocate big array in local function
  * which will cause stack overflow.
- * GCC option: -Werror=frame-larget-than
+ * GCC option: =frame-larget-than
  */
 /* For ACS information print */
 int8_t acLogChannel[ACS_PRINT_BUFFER_LEN];

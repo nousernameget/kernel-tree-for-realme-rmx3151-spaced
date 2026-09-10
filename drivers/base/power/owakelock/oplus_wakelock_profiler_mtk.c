@@ -780,7 +780,7 @@ static struct kobj_attribute all_resume_reason_stastics_reset = __ATTR_RW(all_re
 
 /*-------------------------Function: add for statistics kernel_time  -------------------------*/
 
-extern inline bool ws_all_release(void);
+bool ws_all_release(void);
 struct ws_time_statistics {
 	ktime_t start;
 	ktime_t end;

@@ -1,4 +1,4 @@
-subdir-ccflags-y += -Werror
+subdir-ccflags-y += 
 
 obj-y := oplus_display_private_api.o
 

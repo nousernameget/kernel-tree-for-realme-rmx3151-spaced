@@ -32,7 +32,7 @@
 /*wangtao@ODM.HQ.BSP.CHG 2019/10/17 modify kernel error*/
 #include <mt-plat/charger_class.h>
 #else
-#include "../../../../kernel-4.14/drivers/misc/mediatek/include/mt-plat/charger_class.h"
+#include "../../../../drivers/misc/mediatek/include/mt-plat/charger_class.h"
 #endif
 /* PD */
 #include "../../../../kernel-4.9/drivers/misc/mediatek/typec/tcpc/inc/tcpm.h"
@@ -42,7 +42,7 @@
 struct charger_manager;
 #include "../../../../kernel-4.9/drivers/power/supply/mediatek/charger/mtk_pe_intf.h"
 #include "../../../../kernel-4.9/drivers/power/supply/mediatek/charger/mtk_pe20_intf.h"
-#include "../../../../kernel-4.14/drivers/power/supply/mediatek/charger/mtk_pdc_intf.h"
+#include "../../../../drivers/power/supply/mediatek/charger/mtk_pdc_intf.h"
 
 //====================================================================//
 /* mtk_pe40_intf begin */

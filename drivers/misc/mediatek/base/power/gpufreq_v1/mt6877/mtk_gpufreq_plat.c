@@ -3453,7 +3453,7 @@ static void __mt_gpufreq_init_power(void)
  * this function can simulate gpu dfd trigger scenario
  *
  * to let this function work, you need modify
- * /kernel-4.14/drivers/clk/mediatek/clk-mt6885-pg.c
+ * /drivers/clk/mediatek/clk-mt6885-pg.c
  * + #define IGNORE_MTCMOS_CHECK
  */
 static void __mt_gpufreq_gpu_dfd_trigger_simulate(void)

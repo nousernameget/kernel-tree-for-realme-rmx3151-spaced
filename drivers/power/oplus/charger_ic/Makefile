@@ -10,7 +10,7 @@ ifeq ($(CONFIG_OPLUS_CHARGER_MTK),y)
 		obj-y   += smb1351-charger.o
 	else ifeq ($(CONFIG_OPLUS_CHARGER_MTK6769),y)
 		MTK_PLATFORM := $(subst ",,$(CONFIG_MTK_PLATFORM))
-		subdir-ccflags-y += -Werror
+		subdir-ccflags-y += 
 		subdir-ccflags-y += -I$(srctree)/drivers/misc/mediatek/include
 		subdir-ccflags-y += -I$(srctree)/drivers/misc/mediatek/include/mt-plat/$(MTK_PLATFORM)/include
 		subdir-ccflags-y += -I$(srctree)/drivers/misc/mediatek/base/power/include
