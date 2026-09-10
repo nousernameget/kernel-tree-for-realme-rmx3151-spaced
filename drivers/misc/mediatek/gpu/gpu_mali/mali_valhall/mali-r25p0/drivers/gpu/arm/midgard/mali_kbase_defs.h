@@ -294,13 +294,13 @@ struct kbase_mmu_table {
 
 #include "jm/mali_kbase_jm_defs.h"
 
-static inline int kbase_as_has_bus_fault(struct kbase_as *as,
+static int kbase_as_has_bus_fault(struct kbase_as *as,
 	struct kbase_fault *fault)
 {
 	return (fault == &as->bf_data);
 }
 
-static inline int kbase_as_has_page_fault(struct kbase_as *as,
+static int kbase_as_has_page_fault(struct kbase_as *as,
 	struct kbase_fault *fault)
 {
 	return (fault == &as->pf_data);
@@ -1799,7 +1799,7 @@ enum kbase_share_attr_bits {
  *
  * Return: true if the device access are coherent, false if not.
  */
-static inline bool kbase_device_is_cpu_coherent(struct kbase_device *kbdev)
+static bool kbase_device_is_cpu_coherent(struct kbase_device *kbdev)
 {
 	if ((kbdev->system_coherency == COHERENCY_ACE_LITE) ||
 			(kbdev->system_coherency == COHERENCY_ACE))

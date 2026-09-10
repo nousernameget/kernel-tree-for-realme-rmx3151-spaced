@@ -174,7 +174,7 @@ enum {
 extern unsigned int
 _drbd_insert_fault(struct drbd_device *device, unsigned int type);
 
-static inline int
+static int
 drbd_insert_fault(struct drbd_device *device, unsigned int type) {
 #ifdef CONFIG_DRBD_FAULT_INJECTION
 	return drbd_fault_rate &&
@@ -217,7 +217,7 @@ struct bm_xfer_ctx {
 extern void INFO_bm_xfer_stats(struct drbd_device *device,
 		const char *direction, struct bm_xfer_ctx *c);
 
-static inline void bm_xfer_ctx_bit_to_word_offset(struct bm_xfer_ctx *c)
+static void bm_xfer_ctx_bit_to_word_offset(struct bm_xfer_ctx *c)
 {
 	/* word_offset counts "native long words" (32 or 64 bit),
 	 * aligned at 64 bit.
@@ -258,7 +258,7 @@ struct drbd_thread {
 	const char *name;
 };
 
-static inline enum drbd_thread_state get_t_state(struct drbd_thread *thi)
+static enum drbd_thread_state get_t_state(struct drbd_thread *thi)
 {
 	/* THINK testing the t_state seems to be uncritical in all cases
 	 * (but thread_{start,stop}), so we can read it *without* the lock.
@@ -781,7 +781,7 @@ struct drbd_connection {
 	} send;
 };
 
-static inline bool has_net_conf(struct drbd_connection *connection)
+static bool has_net_conf(struct drbd_connection *connection)
 {
 	bool has_net_conf;
 
@@ -1017,17 +1017,17 @@ struct drbd_config_context {
 	struct drbd_connection *connection;
 };
 
-static inline struct drbd_device *minor_to_device(unsigned int minor)
+static struct drbd_device *minor_to_device(unsigned int minor)
 {
 	return (struct drbd_device *)idr_find(&drbd_devices, minor);
 }
 
-static inline struct drbd_peer_device *first_peer_device(struct drbd_device *device)
+static struct drbd_peer_device *first_peer_device(struct drbd_device *device)
 {
 	return list_first_entry_or_null(&device->peer_devices, struct drbd_peer_device, peer_devices);
 }
 
-static inline struct drbd_peer_device *
+static struct drbd_peer_device *
 conn_peer_device(struct drbd_connection *connection, int volume_number)
 {
 	return idr_find(&connection->peer_devices, volume_number);
@@ -1060,7 +1060,7 @@ conn_peer_device(struct drbd_connection *connection, int volume_number)
 #define for_each_peer_device_safe(peer_device, tmp, device) \
 	list_for_each_entry_safe(peer_device, tmp, &device->peer_devices, peer_devices)
 
-static inline unsigned int device_to_minor(struct drbd_device *device)
+static unsigned int device_to_minor(struct drbd_device *device)
 {
 	return device->minor;
 }
@@ -1522,7 +1522,7 @@ extern void wait_until_done_or_force_detached(struct drbd_device *device,
 		struct drbd_backing_dev *bdev, unsigned int *done);
 extern void drbd_rs_controller_reset(struct drbd_device *device);
 
-static inline void ov_out_of_sync_print(struct drbd_device *device)
+static void ov_out_of_sync_print(struct drbd_device *device)
 {
 	if (device->ov_last_oos_size) {
 		drbd_err(device, "Out of sync: start=%llu, size=%lu (sectors)\n",
@@ -1581,28 +1581,28 @@ extern void drbd_set_recv_tcq(struct drbd_device *device, int tcq_enabled);
 extern void _drbd_clear_done_ee(struct drbd_device *device, struct list_head *to_be_freed);
 extern int drbd_connected(struct drbd_peer_device *);
 
-static inline void drbd_tcp_cork(struct socket *sock)
+static void drbd_tcp_cork(struct socket *sock)
 {
 	int val = 1;
 	(void) kernel_setsockopt(sock, SOL_TCP, TCP_CORK,
 			(char*)&val, sizeof(val));
 }
 
-static inline void drbd_tcp_uncork(struct socket *sock)
+static void drbd_tcp_uncork(struct socket *sock)
 {
 	int val = 0;
 	(void) kernel_setsockopt(sock, SOL_TCP, TCP_CORK,
 			(char*)&val, sizeof(val));
 }
 
-static inline void drbd_tcp_nodelay(struct socket *sock)
+static void drbd_tcp_nodelay(struct socket *sock)
 {
 	int val = 1;
 	(void) kernel_setsockopt(sock, SOL_TCP, TCP_NODELAY,
 			(char*)&val, sizeof(val));
 }
 
-static inline void drbd_tcp_quickack(struct socket *sock)
+static void drbd_tcp_quickack(struct socket *sock)
 {
 	int val = 2;
 	(void) kernel_setsockopt(sock, SOL_TCP, TCP_QUICKACK,
@@ -1610,7 +1610,7 @@ static inline void drbd_tcp_quickack(struct socket *sock)
 }
 
 /* sets the number of 512 byte sectors of our virtual device */
-static inline void drbd_set_my_capacity(struct drbd_device *device,
+static void drbd_set_my_capacity(struct drbd_device *device,
 					sector_t size)
 {
 	/* set_capacity(device->this_bdev->bd_disk, size); */
@@ -1621,7 +1621,7 @@ static inline void drbd_set_my_capacity(struct drbd_device *device,
 /*
  * used to submit our private bio
  */
-static inline void drbd_generic_make_request(struct drbd_device *device,
+static void drbd_generic_make_request(struct drbd_device *device,
 					     int fault_type, struct bio *bio)
 {
 	__release(local);
@@ -1714,11 +1714,11 @@ extern void notify_helper(enum drbd_notification_type, struct drbd_device *,
 			  struct drbd_connection *, const char *, int);
 
 /*
- * inline helper functions
+ * helper functions
  *************************/
 
 /* see also page_chain_add and friends in drbd_receiver.c */
-static inline struct page *page_chain_next(struct page *page)
+static struct page *page_chain_next(struct page *page)
 {
 	return (struct page *)page_private(page);
 }
@@ -1729,7 +1729,7 @@ static inline struct page *page_chain_next(struct page *page)
 	for (; page && ({ n = page_chain_next(page); 1; }); page = n)
 
 
-static inline int drbd_peer_req_has_active_page(struct drbd_peer_request *peer_req)
+static int drbd_peer_req_has_active_page(struct drbd_peer_request *peer_req)
 {
 	struct page *page = peer_req->pages;
 	page_chain_for_each(page) {
@@ -1739,7 +1739,7 @@ static inline int drbd_peer_req_has_active_page(struct drbd_peer_request *peer_r
 	return 0;
 }
 
-static inline union drbd_state drbd_read_state(struct drbd_device *device)
+static union drbd_state drbd_read_state(struct drbd_device *device)
 {
 	struct drbd_resource *resource = device->resource;
 	union drbd_state rv;
@@ -1760,7 +1760,7 @@ enum drbd_force_detach_flags {
 };
 
 #define __drbd_chk_io_error(m,f) __drbd_chk_io_error_(m,f, __func__)
-static inline void __drbd_chk_io_error_(struct drbd_device *device,
+static void __drbd_chk_io_error_(struct drbd_device *device,
 		enum drbd_force_detach_flags df,
 		const char *where)
 {
@@ -1824,7 +1824,7 @@ static inline void __drbd_chk_io_error_(struct drbd_device *device,
  * See also drbd_main.c:after_state_ch() if (os.disk > D_FAILED && ns.disk == D_FAILED)
  */
 #define drbd_chk_io_error(m,e,f) drbd_chk_io_error_(m,e,f, __func__)
-static inline void drbd_chk_io_error_(struct drbd_device *device,
+static void drbd_chk_io_error_(struct drbd_device *device,
 	int error, enum drbd_force_detach_flags forcedetach, const char *where)
 {
 	if (error) {
@@ -1843,7 +1843,7 @@ static inline void drbd_chk_io_error_(struct drbd_device *device,
  * BTW, for internal meta data, this happens to be the maximum capacity
  * we could agree upon with our peer node.
  */
-static inline sector_t drbd_md_first_sector(struct drbd_backing_dev *bdev)
+static sector_t drbd_md_first_sector(struct drbd_backing_dev *bdev)
 {
 	switch (bdev->md.meta_dev_idx) {
 	case DRBD_MD_INDEX_INTERNAL:
@@ -1859,7 +1859,7 @@ static inline sector_t drbd_md_first_sector(struct drbd_backing_dev *bdev)
  * drbd_md_last_sector() - Return the last sector number of the meta data area
  * @bdev:	Meta data block device.
  */
-static inline sector_t drbd_md_last_sector(struct drbd_backing_dev *bdev)
+static sector_t drbd_md_last_sector(struct drbd_backing_dev *bdev)
 {
 	switch (bdev->md.meta_dev_idx) {
 	case DRBD_MD_INDEX_INTERNAL:
@@ -1872,7 +1872,7 @@ static inline sector_t drbd_md_last_sector(struct drbd_backing_dev *bdev)
 }
 
 /* Returns the number of 512 byte sectors of the device */
-static inline sector_t drbd_get_capacity(struct block_device *bdev)
+static sector_t drbd_get_capacity(struct block_device *bdev)
 {
 	/* return bdev ? get_capacity(bdev->bd_disk) : 0; */
 	return bdev ? i_size_read(bdev->bd_inode) >> 9 : 0;
@@ -1886,7 +1886,7 @@ static inline sector_t drbd_get_capacity(struct block_device *bdev)
  * various MAX_SECTORS, because if we don't, current implementation will
  * oops sooner or later
  */
-static inline sector_t drbd_get_max_capacity(struct drbd_backing_dev *bdev)
+static sector_t drbd_get_max_capacity(struct drbd_backing_dev *bdev)
 {
 	sector_t s;
 
@@ -1917,7 +1917,7 @@ static inline sector_t drbd_get_max_capacity(struct drbd_backing_dev *bdev)
  * drbd_md_ss() - Return the sector number of our meta data super block
  * @bdev:	Meta data block device.
  */
-static inline sector_t drbd_md_ss(struct drbd_backing_dev *bdev)
+static sector_t drbd_md_ss(struct drbd_backing_dev *bdev)
 {
 	const int meta_dev_idx = bdev->md.meta_dev_idx;
 
@@ -1934,7 +1934,7 @@ static inline sector_t drbd_md_ss(struct drbd_backing_dev *bdev)
 	return MD_128MB_SECT * bdev->md.meta_dev_idx;
 }
 
-static inline void
+static void
 drbd_queue_work(struct drbd_work_queue *q, struct drbd_work *w)
 {
 	unsigned long flags;
@@ -1944,7 +1944,7 @@ drbd_queue_work(struct drbd_work_queue *q, struct drbd_work *w)
 	wake_up(&q->q_wait);
 }
 
-static inline void
+static void
 drbd_queue_work_if_unqueued(struct drbd_work_queue *q, struct drbd_work *w)
 {
 	unsigned long flags;
@@ -1955,7 +1955,7 @@ drbd_queue_work_if_unqueued(struct drbd_work_queue *q, struct drbd_work *w)
 	wake_up(&q->q_wait);
 }
 
-static inline void
+static void
 drbd_device_post_work(struct drbd_device *device, int work_bit)
 {
 	if (!test_and_set_bit(work_bit, &device->flags)) {
@@ -1973,14 +1973,14 @@ extern void drbd_flush_workqueue(struct drbd_work_queue *work_queue);
  * so it can change its sk_rcvtimeo from idle- to ping-timeout,
  * and send a ping, we need to send a signal.
  * Which signal we send is irrelevant. */
-static inline void wake_ack_receiver(struct drbd_connection *connection)
+static void wake_ack_receiver(struct drbd_connection *connection)
 {
 	struct task_struct *task = connection->ack_receiver.task;
 	if (task && get_t_state(&connection->ack_receiver) == RUNNING)
 		force_sig(SIGXCPU, task);
 }
 
-static inline void request_ping(struct drbd_connection *connection)
+static void request_ping(struct drbd_connection *connection)
 {
 	set_bit(SEND_PING, &connection->flags);
 	wake_ack_receiver(connection);
@@ -2000,17 +2000,17 @@ extern int drbd_send_ping_ack(struct drbd_connection *connection);
 extern int drbd_send_state_req(struct drbd_peer_device *, union drbd_state, union drbd_state);
 extern int conn_send_state_req(struct drbd_connection *, union drbd_state, union drbd_state);
 
-static inline void drbd_thread_stop(struct drbd_thread *thi)
+static void drbd_thread_stop(struct drbd_thread *thi)
 {
 	_drbd_thread_stop(thi, false, true);
 }
 
-static inline void drbd_thread_stop_nowait(struct drbd_thread *thi)
+static void drbd_thread_stop_nowait(struct drbd_thread *thi)
 {
 	_drbd_thread_stop(thi, false, false);
 }
 
-static inline void drbd_thread_restart_nowait(struct drbd_thread *thi)
+static void drbd_thread_restart_nowait(struct drbd_thread *thi)
 {
 	_drbd_thread_stop(thi, true, false);
 }
@@ -2037,7 +2037,7 @@ static inline void drbd_thread_restart_nowait(struct drbd_thread *thi)
  *  _req_mod(req, CONNECTION_LOST_WHILE_PENDING)
  *     [from tl_clear_barrier]
  */
-static inline void inc_ap_pending(struct drbd_device *device)
+static void inc_ap_pending(struct drbd_device *device)
 {
 	atomic_inc(&device->ap_pending_cnt);
 }
@@ -2049,7 +2049,7 @@ static inline void inc_ap_pending(struct drbd_device *device)
 			atomic_read(&device->which))
 
 #define dec_ap_pending(device) _dec_ap_pending(device, __func__, __LINE__)
-static inline void _dec_ap_pending(struct drbd_device *device, const char *func, int line)
+static void _dec_ap_pending(struct drbd_device *device, const char *func, int line)
 {
 	if (atomic_dec_and_test(&device->ap_pending_cnt))
 		wake_up(&device->misc_wait);
@@ -2062,13 +2062,13 @@ static inline void _dec_ap_pending(struct drbd_device *device, const char *func,
  * C_SYNC_SOURCE sends P_RS_DATA_REPLY   (and expects P_WRITE_ACK with ID_SYNCER)
  *					   (or P_NEG_ACK with ID_SYNCER)
  */
-static inline void inc_rs_pending(struct drbd_device *device)
+static void inc_rs_pending(struct drbd_device *device)
 {
 	atomic_inc(&device->rs_pending_cnt);
 }
 
 #define dec_rs_pending(device) _dec_rs_pending(device, __func__, __LINE__)
-static inline void _dec_rs_pending(struct drbd_device *device, const char *func, int line)
+static void _dec_rs_pending(struct drbd_device *device, const char *func, int line)
 {
 	atomic_dec(&device->rs_pending_cnt);
 	ERR_IF_CNT_IS_NEGATIVE(rs_pending_cnt, func, line);
@@ -2083,38 +2083,38 @@ static inline void _dec_rs_pending(struct drbd_device *device, const char *func,
  *  receive_DataRequest (receive_RSDataRequest) we need to send back P_DATA
  *  receive_Barrier_*	we need to send a P_BARRIER_ACK
  */
-static inline void inc_unacked(struct drbd_device *device)
+static void inc_unacked(struct drbd_device *device)
 {
 	atomic_inc(&device->unacked_cnt);
 }
 
 #define dec_unacked(device) _dec_unacked(device, __func__, __LINE__)
-static inline void _dec_unacked(struct drbd_device *device, const char *func, int line)
+static void _dec_unacked(struct drbd_device *device, const char *func, int line)
 {
 	atomic_dec(&device->unacked_cnt);
 	ERR_IF_CNT_IS_NEGATIVE(unacked_cnt, func, line);
 }
 
 #define sub_unacked(device, n) _sub_unacked(device, n, __func__, __LINE__)
-static inline void _sub_unacked(struct drbd_device *device, int n, const char *func, int line)
+static void _sub_unacked(struct drbd_device *device, int n, const char *func, int line)
 {
 	atomic_sub(n, &device->unacked_cnt);
 	ERR_IF_CNT_IS_NEGATIVE(unacked_cnt, func, line);
 }
 
-static inline bool is_sync_target_state(enum drbd_conns connection_state)
+static bool is_sync_target_state(enum drbd_conns connection_state)
 {
 	return	connection_state == C_SYNC_TARGET ||
 		connection_state == C_PAUSED_SYNC_T;
 }
 
-static inline bool is_sync_source_state(enum drbd_conns connection_state)
+static bool is_sync_source_state(enum drbd_conns connection_state)
 {
 	return	connection_state == C_SYNC_SOURCE ||
 		connection_state == C_PAUSED_SYNC_S;
 }
 
-static inline bool is_sync_state(enum drbd_conns connection_state)
+static bool is_sync_state(enum drbd_conns connection_state)
 {
 	return	is_sync_source_state(connection_state) ||
 		is_sync_target_state(connection_state);
@@ -2132,7 +2132,7 @@ static inline bool is_sync_state(enum drbd_conns connection_state)
 	 ({ __acquire(x); true; }) : false)
 #define get_ldev(_device) get_ldev_if_state(_device, D_INCONSISTENT)
 
-static inline void put_ldev(struct drbd_device *device)
+static void put_ldev(struct drbd_device *device)
 {
 	enum drbd_disk_state disk_state = device->state.disk;
 	/* We must check the state *before* the atomic_dec becomes visible,
@@ -2159,7 +2159,7 @@ static inline void put_ldev(struct drbd_device *device)
 }
 
 #ifndef __CHECKER__
-static inline int _get_ldev_if_state(struct drbd_device *device, enum drbd_disk_state mins)
+static int _get_ldev_if_state(struct drbd_device *device, enum drbd_disk_state mins)
 {
 	int io_allowed;
 
@@ -2180,7 +2180,7 @@ extern int _get_ldev_if_state(struct drbd_device *device, enum drbd_disk_state m
 /* this throttles on-the-fly application requests
  * according to max_buffers settings;
  * maybe re-implement using semaphores? */
-static inline int drbd_get_max_buffers(struct drbd_device *device)
+static int drbd_get_max_buffers(struct drbd_device *device)
 {
 	struct net_conf *nc;
 	int mxb;
@@ -2193,7 +2193,7 @@ static inline int drbd_get_max_buffers(struct drbd_device *device)
 	return mxb;
 }
 
-static inline int drbd_state_is_stable(struct drbd_device *device)
+static int drbd_state_is_stable(struct drbd_device *device)
 {
 	union drbd_dev_state s = device->state;
 
@@ -2263,14 +2263,14 @@ static inline int drbd_state_is_stable(struct drbd_device *device)
 	return 1;
 }
 
-static inline int drbd_suspended(struct drbd_device *device)
+static int drbd_suspended(struct drbd_device *device)
 {
 	struct drbd_resource *resource = device->resource;
 
 	return resource->susp || resource->susp_fen || resource->susp_nod;
 }
 
-static inline bool may_inc_ap_bio(struct drbd_device *device)
+static bool may_inc_ap_bio(struct drbd_device *device)
 {
 	int mxb = drbd_get_max_buffers(device);
 
@@ -2296,7 +2296,7 @@ static inline bool may_inc_ap_bio(struct drbd_device *device)
 	return true;
 }
 
-static inline bool inc_ap_bio_cond(struct drbd_device *device)
+static bool inc_ap_bio_cond(struct drbd_device *device)
 {
 	bool rv = false;
 
@@ -2309,7 +2309,7 @@ static inline bool inc_ap_bio_cond(struct drbd_device *device)
 	return rv;
 }
 
-static inline void inc_ap_bio(struct drbd_device *device)
+static void inc_ap_bio(struct drbd_device *device)
 {
 	/* we wait here
 	 *    as long as the device is suspended
@@ -2322,7 +2322,7 @@ static inline void inc_ap_bio(struct drbd_device *device)
 	wait_event(device->misc_wait, inc_ap_bio_cond(device));
 }
 
-static inline void dec_ap_bio(struct drbd_device *device)
+static void dec_ap_bio(struct drbd_device *device)
 {
 	int mxb = drbd_get_max_buffers(device);
 	int ap_bio = atomic_dec_return(&device->ap_bio_cnt);
@@ -2343,20 +2343,20 @@ static inline void dec_ap_bio(struct drbd_device *device)
 		wake_up(&device->misc_wait);
 }
 
-static inline bool verify_can_do_stop_sector(struct drbd_device *device)
+static bool verify_can_do_stop_sector(struct drbd_device *device)
 {
 	return first_peer_device(device)->connection->agreed_pro_version >= 97 &&
 		first_peer_device(device)->connection->agreed_pro_version != 100;
 }
 
-static inline int drbd_set_ed_uuid(struct drbd_device *device, u64 val)
+static int drbd_set_ed_uuid(struct drbd_device *device, u64 val)
 {
 	int changed = device->ed_uuid != val;
 	device->ed_uuid = val;
 	return changed;
 }
 
-static inline int drbd_queue_order_type(struct drbd_device *device)
+static int drbd_queue_order_type(struct drbd_device *device)
 {
 	/* sorry, we currently have no working implementation
 	 * of distributed TCQ stuff */
@@ -2366,7 +2366,7 @@ static inline int drbd_queue_order_type(struct drbd_device *device)
 	return QUEUE_ORDERED_NONE;
 }
 
-static inline struct drbd_connection *first_connection(struct drbd_resource *resource)
+static struct drbd_connection *first_connection(struct drbd_resource *resource)
 {
 	return list_first_entry_or_null(&resource->connections,
 				struct drbd_connection, connections);

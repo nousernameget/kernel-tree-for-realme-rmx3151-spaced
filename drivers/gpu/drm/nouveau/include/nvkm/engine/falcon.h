@@ -89,19 +89,19 @@ struct nvkm_falcon_func {
 	struct nvkm_sclass sclass[];
 };
 
-static inline u32
+static u32
 nvkm_falcon_rd32(struct nvkm_falcon *falcon, u32 addr)
 {
 	return nvkm_rd32(falcon->owner->device, falcon->addr + addr);
 }
 
-static inline void
+static void
 nvkm_falcon_wr32(struct nvkm_falcon *falcon, u32 addr, u32 data)
 {
 	nvkm_wr32(falcon->owner->device, falcon->addr + addr, data);
 }
 
-static inline u32
+static u32
 nvkm_falcon_mask(struct nvkm_falcon *falcon, u32 addr, u32 mask, u32 val)
 {
 	struct nvkm_device *device = falcon->owner->device;

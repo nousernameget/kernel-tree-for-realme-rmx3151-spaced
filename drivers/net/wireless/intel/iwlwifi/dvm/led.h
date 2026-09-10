@@ -41,13 +41,13 @@ void iwlagn_led_enable(struct iwl_priv *priv);
 void iwl_leds_init(struct iwl_priv *priv);
 void iwl_leds_exit(struct iwl_priv *priv);
 #else
-static inline void iwlagn_led_enable(struct iwl_priv *priv)
+static void iwlagn_led_enable(struct iwl_priv *priv)
 {
 }
-static inline void iwl_leds_init(struct iwl_priv *priv)
+static void iwl_leds_init(struct iwl_priv *priv)
 {
 }
-static inline void iwl_leds_exit(struct iwl_priv *priv)
+static void iwl_leds_exit(struct iwl_priv *priv)
 {
 }
 #endif

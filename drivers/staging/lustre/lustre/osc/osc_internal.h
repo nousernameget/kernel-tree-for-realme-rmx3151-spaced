@@ -78,7 +78,7 @@ struct osc_async_page {
 #define oap_count       oap_brw_page.count
 #define oap_brw_flags   oap_brw_page.flag
 
-static inline struct osc_async_page *brw_page2oap(struct brw_page *pga)
+static struct osc_async_page *brw_page2oap(struct brw_page *pga)
 {
 	return (struct osc_async_page *)container_of(pga, struct osc_async_page,
 						     oap_brw_page);
@@ -145,18 +145,18 @@ void lprocfs_osc_init_vars(struct lprocfs_static_vars *lvars);
 
 extern struct lu_device_type osc_device_type;
 
-static inline int osc_recoverable_error(int rc)
+static int osc_recoverable_error(int rc)
 {
 	return (rc == -EIO || rc == -EROFS || rc == -ENOMEM ||
 		rc == -EAGAIN || rc == -EINPROGRESS);
 }
 
-static inline unsigned long rpcs_in_flight(struct client_obd *cli)
+static unsigned long rpcs_in_flight(struct client_obd *cli)
 {
 	return cli->cl_r_in_flight + cli->cl_w_in_flight;
 }
 
-static inline char *cli_name(struct client_obd *cli)
+static char *cli_name(struct client_obd *cli)
 {
 	return cli->cl_import->imp_obd->obd_name;
 }
@@ -177,7 +177,7 @@ struct osc_device {
 	int		 od_lockless_truncate;
 };
 
-static inline struct osc_device *obd2osc_dev(const struct obd_device *d)
+static struct osc_device *obd2osc_dev(const struct obd_device *d)
 {
 	return container_of0(d->obd_lu_dev, struct osc_device, od_cl.cd_lu_dev);
 }

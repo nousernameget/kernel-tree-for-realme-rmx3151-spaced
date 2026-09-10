@@ -65,7 +65,7 @@ vmw_fence_manager_init(struct vmw_private *dev_priv);
 
 extern void vmw_fence_manager_takedown(struct vmw_fence_manager *fman);
 
-static inline void
+static void
 vmw_fence_obj_unreference(struct vmw_fence_obj **fence_p)
 {
 	struct vmw_fence_obj *fence = *fence_p;
@@ -75,7 +75,7 @@ vmw_fence_obj_unreference(struct vmw_fence_obj **fence_p)
 		dma_fence_put(&fence->base);
 }
 
-static inline struct vmw_fence_obj *
+static struct vmw_fence_obj *
 vmw_fence_obj_reference(struct vmw_fence_obj *fence)
 {
 	if (fence)

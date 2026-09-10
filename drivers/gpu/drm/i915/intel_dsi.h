@@ -117,14 +117,14 @@ struct intel_dsi_host {
 	struct mipi_dsi_device *device;
 };
 
-static inline struct intel_dsi_host *to_intel_dsi_host(struct mipi_dsi_host *h)
+static struct intel_dsi_host *to_intel_dsi_host(struct mipi_dsi_host *h)
 {
 	return container_of(h, struct intel_dsi_host, base);
 }
 
 #define for_each_dsi_port(__port, __ports_mask) for_each_port_masked(__port, __ports_mask)
 
-static inline struct intel_dsi *enc_to_intel_dsi(struct drm_encoder *encoder)
+static struct intel_dsi *enc_to_intel_dsi(struct drm_encoder *encoder)
 {
 	return container_of(encoder, struct intel_dsi, base.base);
 }

@@ -299,42 +299,42 @@ enum fp_registers {
 
 /* register access functions */
 
-static inline uint32_t read_gp(struct gxfb_par *par, int reg)
+static uint32_t read_gp(struct gxfb_par *par, int reg)
 {
 	return readl(par->gp_regs + 4*reg);
 }
 
-static inline void write_gp(struct gxfb_par *par, int reg, uint32_t val)
+static void write_gp(struct gxfb_par *par, int reg, uint32_t val)
 {
 	writel(val, par->gp_regs + 4*reg);
 }
 
-static inline uint32_t read_dc(struct gxfb_par *par, int reg)
+static uint32_t read_dc(struct gxfb_par *par, int reg)
 {
 	return readl(par->dc_regs + 4*reg);
 }
 
-static inline void write_dc(struct gxfb_par *par, int reg, uint32_t val)
+static void write_dc(struct gxfb_par *par, int reg, uint32_t val)
 {
 	writel(val, par->dc_regs + 4*reg);
 }
 
-static inline uint32_t read_vp(struct gxfb_par *par, int reg)
+static uint32_t read_vp(struct gxfb_par *par, int reg)
 {
 	return readl(par->vid_regs + 8*reg);
 }
 
-static inline void write_vp(struct gxfb_par *par, int reg, uint32_t val)
+static void write_vp(struct gxfb_par *par, int reg, uint32_t val)
 {
 	writel(val, par->vid_regs + 8*reg);
 }
 
-static inline uint32_t read_fp(struct gxfb_par *par, int reg)
+static uint32_t read_fp(struct gxfb_par *par, int reg)
 {
 	return readl(par->vid_regs + 8*reg + VP_FP_START);
 }
 
-static inline void write_fp(struct gxfb_par *par, int reg, uint32_t val)
+static void write_fp(struct gxfb_par *par, int reg, uint32_t val)
 {
 	writel(val, par->vid_regs + 8*reg + VP_FP_START);
 }

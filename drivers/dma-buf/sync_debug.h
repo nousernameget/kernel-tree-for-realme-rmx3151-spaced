@@ -45,7 +45,7 @@ struct sync_timeline {
 	struct list_head	sync_timeline_list;
 };
 
-static inline struct sync_timeline *dma_fence_parent(struct dma_fence *fence)
+static struct sync_timeline *dma_fence_parent(struct dma_fence *fence)
 {
 	return container_of(fence->lock, struct sync_timeline, lock);
 }

@@ -155,7 +155,7 @@ typedef enum _ENUM_HIF_RX_PKT_TYPE_T {
 *                  F U N C T I O N   D E C L A R A T I O N S
 ********************************************************************************
 */
-static inline VOID hifDataTypeCheck(VOID);
+static VOID hifDataTypeCheck(VOID);
 
 /*******************************************************************************
 *                              F U N C T I O N S
@@ -166,7 +166,7 @@ static inline VOID hifDataTypeCheck(VOID);
  * It will check automatically while at compile time.
  * We'll need this for porting driver to different RTOS.
  */
-static inline VOID hifDataTypeCheck(VOID)
+static VOID hifDataTypeCheck(VOID)
 {
 	DATA_STRUCT_INSPECTING_ASSERT(sizeof(HIF_RX_HEADER_T) == 12);
 

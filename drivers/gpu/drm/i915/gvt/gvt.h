@@ -278,7 +278,7 @@ struct intel_gvt {
 	unsigned long service_request;
 };
 
-static inline struct intel_gvt *to_gvt(struct drm_i915_private *i915)
+static struct intel_gvt *to_gvt(struct drm_i915_private *i915)
 {
 	return i915->gvt;
 }
@@ -293,7 +293,7 @@ enum {
 	INTEL_GVT_REQUEST_EVENT_SCHED = 2,
 };
 
-static inline void intel_gvt_request_service(struct intel_gvt *gvt,
+static void intel_gvt_request_service(struct intel_gvt *gvt,
 		int service)
 {
 	set_bit(service, (void *)&gvt->service_request);
@@ -397,7 +397,7 @@ void intel_vgpu_write_fence(struct intel_vgpu *vgpu,
 	idr_for_each_entry((&(gvt)->vgpu_idr), (vgpu), (id)) \
 		for_each_if(vgpu->active)
 
-static inline void intel_vgpu_write_pci_bar(struct intel_vgpu *vgpu,
+static void intel_vgpu_write_pci_bar(struct intel_vgpu *vgpu,
 					    u32 offset, u32 val, bool low)
 {
 	u32 *pval;
@@ -508,12 +508,12 @@ enum {
 	GVT_FAILSAFE_INSUFFICIENT_RESOURCE,
 };
 
-static inline void mmio_hw_access_pre(struct drm_i915_private *dev_priv)
+static void mmio_hw_access_pre(struct drm_i915_private *dev_priv)
 {
 	intel_runtime_pm_get(dev_priv);
 }
 
-static inline void mmio_hw_access_post(struct drm_i915_private *dev_priv)
+static void mmio_hw_access_post(struct drm_i915_private *dev_priv)
 {
 	intel_runtime_pm_put(dev_priv);
 }
@@ -524,7 +524,7 @@ static inline void mmio_hw_access_post(struct drm_i915_private *dev_priv)
  * @offset: register offset
  *
  */
-static inline void intel_gvt_mmio_set_accessed(
+static void intel_gvt_mmio_set_accessed(
 			struct intel_gvt *gvt, unsigned int offset)
 {
 	gvt->mmio.mmio_attribute[offset >> 2] |= F_ACCESSED;
@@ -536,7 +536,7 @@ static inline void intel_gvt_mmio_set_accessed(
  * @offset: register offset
  *
  */
-static inline bool intel_gvt_mmio_is_cmd_access(
+static bool intel_gvt_mmio_is_cmd_access(
 			struct intel_gvt *gvt, unsigned int offset)
 {
 	return gvt->mmio.mmio_attribute[offset >> 2] & F_CMD_ACCESS;
@@ -548,7 +548,7 @@ static inline bool intel_gvt_mmio_is_cmd_access(
  * @offset: register offset
  *
  */
-static inline bool intel_gvt_mmio_is_unalign(
+static bool intel_gvt_mmio_is_unalign(
 			struct intel_gvt *gvt, unsigned int offset)
 {
 	return gvt->mmio.mmio_attribute[offset >> 2] & F_UNALIGN;
@@ -560,7 +560,7 @@ static inline bool intel_gvt_mmio_is_unalign(
  * @offset: register offset
  *
  */
-static inline void intel_gvt_mmio_set_cmd_accessed(
+static void intel_gvt_mmio_set_cmd_accessed(
 			struct intel_gvt *gvt, unsigned int offset)
 {
 	gvt->mmio.mmio_attribute[offset >> 2] |= F_CMD_ACCESSED;
@@ -575,7 +575,7 @@ static inline void intel_gvt_mmio_set_cmd_accessed(
  * True if a MMIO has a mode mask in its higher 16 bits, false if it isn't.
  *
  */
-static inline bool intel_gvt_mmio_has_mode_mask(
+static bool intel_gvt_mmio_has_mode_mask(
 			struct intel_gvt *gvt, unsigned int offset)
 {
 	return gvt->mmio.mmio_attribute[offset >> 2] & F_MODE_MASK;

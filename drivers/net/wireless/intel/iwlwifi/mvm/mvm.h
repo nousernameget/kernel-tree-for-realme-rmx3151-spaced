@@ -447,7 +447,7 @@ struct iwl_mvm_vif {
 	bool lqm_active;
 };
 
-static inline struct iwl_mvm_vif *
+static struct iwl_mvm_vif *
 iwl_mvm_vif_from_mac80211(struct ieee80211_vif *vif)
 {
 	if (!vif)
@@ -1069,18 +1069,18 @@ enum iwl_mvm_init_status {
 	IWL_MVM_INIT_STATUS_TOF_INIT_COMPLETE = BIT(3),
 };
 
-static inline bool iwl_mvm_is_radio_killed(struct iwl_mvm *mvm)
+static bool iwl_mvm_is_radio_killed(struct iwl_mvm *mvm)
 {
 	return test_bit(IWL_MVM_STATUS_HW_RFKILL, &mvm->status) ||
 	       test_bit(IWL_MVM_STATUS_HW_CTKILL, &mvm->status);
 }
 
-static inline bool iwl_mvm_is_radio_hw_killed(struct iwl_mvm *mvm)
+static bool iwl_mvm_is_radio_hw_killed(struct iwl_mvm *mvm)
 {
 	return test_bit(IWL_MVM_STATUS_HW_RFKILL, &mvm->status);
 }
 
-static inline bool iwl_mvm_firmware_running(struct iwl_mvm *mvm)
+static bool iwl_mvm_firmware_running(struct iwl_mvm *mvm)
 {
 	return test_bit(IWL_MVM_STATUS_FIRMWARE_RUNNING, &mvm->status);
 }
@@ -1088,7 +1088,7 @@ static inline bool iwl_mvm_firmware_running(struct iwl_mvm *mvm)
 /* Must be called with rcu_read_lock() held and it can only be
  * released when mvmsta is not needed anymore.
  */
-static inline struct iwl_mvm_sta *
+static struct iwl_mvm_sta *
 iwl_mvm_sta_from_staid_rcu(struct iwl_mvm *mvm, u8 sta_id)
 {
 	struct ieee80211_sta *sta;
@@ -1105,7 +1105,7 @@ iwl_mvm_sta_from_staid_rcu(struct iwl_mvm *mvm, u8 sta_id)
 	return iwl_mvm_sta_from_mac80211(sta);
 }
 
-static inline struct iwl_mvm_sta *
+static struct iwl_mvm_sta *
 iwl_mvm_sta_from_staid_protected(struct iwl_mvm *mvm, u8 sta_id)
 {
 	struct ieee80211_sta *sta;
@@ -1123,20 +1123,20 @@ iwl_mvm_sta_from_staid_protected(struct iwl_mvm *mvm, u8 sta_id)
 	return iwl_mvm_sta_from_mac80211(sta);
 }
 
-static inline bool iwl_mvm_is_d0i3_supported(struct iwl_mvm *mvm)
+static bool iwl_mvm_is_d0i3_supported(struct iwl_mvm *mvm)
 {
 	return !iwlwifi_mod_params.d0i3_disable &&
 		fw_has_capa(&mvm->fw->ucode_capa,
 			    IWL_UCODE_TLV_CAPA_D0I3_SUPPORT);
 }
 
-static inline bool iwl_mvm_is_adaptive_dwell_supported(struct iwl_mvm *mvm)
+static bool iwl_mvm_is_adaptive_dwell_supported(struct iwl_mvm *mvm)
 {
 	return fw_has_api(&mvm->fw->ucode_capa,
 			  IWL_UCODE_TLV_API_ADAPTIVE_DWELL);
 }
 
-static inline bool iwl_mvm_enter_d0i3_on_suspend(struct iwl_mvm *mvm)
+static bool iwl_mvm_enter_d0i3_on_suspend(struct iwl_mvm *mvm)
 {
 	/* For now we only use this mode to differentiate between
 	 * slave transports, which handle D0i3 entry in suspend by
@@ -1149,19 +1149,19 @@ static inline bool iwl_mvm_enter_d0i3_on_suspend(struct iwl_mvm *mvm)
 		(mvm->trans->runtime_pm_mode != IWL_PLAT_PM_MODE_D0I3);
 }
 
-static inline bool iwl_mvm_is_dqa_data_queue(struct iwl_mvm *mvm, u8 queue)
+static bool iwl_mvm_is_dqa_data_queue(struct iwl_mvm *mvm, u8 queue)
 {
 	return (queue >= IWL_MVM_DQA_MIN_DATA_QUEUE) &&
 	       (queue <= IWL_MVM_DQA_MAX_DATA_QUEUE);
 }
 
-static inline bool iwl_mvm_is_dqa_mgmt_queue(struct iwl_mvm *mvm, u8 queue)
+static bool iwl_mvm_is_dqa_mgmt_queue(struct iwl_mvm *mvm, u8 queue)
 {
 	return (queue >= IWL_MVM_DQA_MIN_MGMT_QUEUE) &&
 	       (queue <= IWL_MVM_DQA_MAX_MGMT_QUEUE);
 }
 
-static inline bool iwl_mvm_is_lar_supported(struct iwl_mvm *mvm)
+static bool iwl_mvm_is_lar_supported(struct iwl_mvm *mvm)
 {
 	bool nvm_lar = mvm->nvm_data->lar_enabled;
 	bool tlv_lar = fw_has_capa(&mvm->fw->ucode_capa,
@@ -1180,7 +1180,7 @@ static inline bool iwl_mvm_is_lar_supported(struct iwl_mvm *mvm)
 		return tlv_lar;
 }
 
-static inline bool iwl_mvm_is_wifi_mcc_supported(struct iwl_mvm *mvm)
+static bool iwl_mvm_is_wifi_mcc_supported(struct iwl_mvm *mvm)
 {
 	return fw_has_api(&mvm->fw->ucode_capa,
 			  IWL_UCODE_TLV_API_WIFI_MCC_UPDATE) ||
@@ -1188,21 +1188,21 @@ static inline bool iwl_mvm_is_wifi_mcc_supported(struct iwl_mvm *mvm)
 			   IWL_UCODE_TLV_CAPA_LAR_MULTI_MCC);
 }
 
-static inline bool iwl_mvm_bt_is_rrc_supported(struct iwl_mvm *mvm)
+static bool iwl_mvm_bt_is_rrc_supported(struct iwl_mvm *mvm)
 {
 	return fw_has_capa(&mvm->fw->ucode_capa,
 			   IWL_UCODE_TLV_CAPA_BT_COEX_RRC) &&
 		IWL_MVM_BT_COEX_RRC;
 }
 
-static inline bool iwl_mvm_is_csum_supported(struct iwl_mvm *mvm)
+static bool iwl_mvm_is_csum_supported(struct iwl_mvm *mvm)
 {
 	return fw_has_capa(&mvm->fw->ucode_capa,
 			   IWL_UCODE_TLV_CAPA_CSUM_SUPPORT) &&
                !IWL_MVM_HW_CSUM_DISABLE;
 }
 
-static inline bool iwl_mvm_is_mplut_supported(struct iwl_mvm *mvm)
+static bool iwl_mvm_is_mplut_supported(struct iwl_mvm *mvm)
 {
 	return fw_has_capa(&mvm->fw->ucode_capa,
 			   IWL_UCODE_TLV_CAPA_BT_MPLUT_SUPPORT) &&
@@ -1218,25 +1218,25 @@ bool iwl_mvm_is_p2p_scm_uapsd_supported(struct iwl_mvm *mvm)
 		  IWL_DISABLE_UAPSD_P2P_CLIENT);
 }
 
-static inline bool iwl_mvm_has_new_rx_api(struct iwl_mvm *mvm)
+static bool iwl_mvm_has_new_rx_api(struct iwl_mvm *mvm)
 {
 	return fw_has_capa(&mvm->fw->ucode_capa,
 			   IWL_UCODE_TLV_CAPA_MULTI_QUEUE_RX_SUPPORT);
 }
 
-static inline bool iwl_mvm_has_new_tx_api(struct iwl_mvm *mvm)
+static bool iwl_mvm_has_new_tx_api(struct iwl_mvm *mvm)
 {
 	/* TODO - replace with TLV once defined */
 	return mvm->trans->cfg->use_tfh;
 }
 
-static inline bool iwl_mvm_has_unified_ucode(struct iwl_mvm *mvm)
+static bool iwl_mvm_has_unified_ucode(struct iwl_mvm *mvm)
 {
 	/* TODO - better define this */
 	return mvm->trans->cfg->device_family >= IWL_DEVICE_FAMILY_A000;
 }
 
-static inline bool iwl_mvm_is_cdb_supported(struct iwl_mvm *mvm)
+static bool iwl_mvm_is_cdb_supported(struct iwl_mvm *mvm)
 {
 	/*
 	 * TODO:
@@ -1251,19 +1251,19 @@ static inline bool iwl_mvm_is_cdb_supported(struct iwl_mvm *mvm)
 			   IWL_UCODE_TLV_CAPA_CDB_SUPPORT);
 }
 
-static inline bool iwl_mvm_has_new_rx_stats_api(struct iwl_mvm *mvm)
+static bool iwl_mvm_has_new_rx_stats_api(struct iwl_mvm *mvm)
 {
 	return fw_has_api(&mvm->fw->ucode_capa,
 			  IWL_UCODE_TLV_API_NEW_RX_STATS);
 }
 
-static inline bool iwl_mvm_has_new_ats_coex_api(struct iwl_mvm *mvm)
+static bool iwl_mvm_has_new_ats_coex_api(struct iwl_mvm *mvm)
 {
 	return fw_has_api(&mvm->fw->ucode_capa,
 			  IWL_UCODE_TLV_API_COEX_ATS_EXTERNAL);
 }
 
-static inline struct agg_tx_status *
+static struct agg_tx_status *
 iwl_mvm_get_agg_status(struct iwl_mvm *mvm, void *tx_resp)
 {
 	if (iwl_mvm_has_new_tx_api(mvm))
@@ -1272,7 +1272,7 @@ iwl_mvm_get_agg_status(struct iwl_mvm *mvm, void *tx_resp)
 		return ((struct iwl_mvm_tx_resp_v3 *)tx_resp)->status;
 }
 
-static inline bool iwl_mvm_is_tt_in_fw(struct iwl_mvm *mvm)
+static bool iwl_mvm_is_tt_in_fw(struct iwl_mvm *mvm)
 {
 #ifdef CONFIG_THERMAL
 	/* these two TLV are redundant since the responsibility to CT-kill by
@@ -1288,7 +1288,7 @@ static inline bool iwl_mvm_is_tt_in_fw(struct iwl_mvm *mvm)
 #endif /* CONFIG_THERMAL */
 }
 
-static inline bool iwl_mvm_is_ctdp_supported(struct iwl_mvm *mvm)
+static bool iwl_mvm_is_ctdp_supported(struct iwl_mvm *mvm)
 {
 	return fw_has_capa(&mvm->fw->ucode_capa,
 			   IWL_UCODE_TLV_CAPA_CTDP_SUPPORT);
@@ -1297,7 +1297,7 @@ static inline bool iwl_mvm_is_ctdp_supported(struct iwl_mvm *mvm)
 extern const u8 iwl_mvm_ac_to_tx_fifo[];
 extern const u8 iwl_mvm_ac_to_gen2_tx_fifo[];
 
-static inline u8 iwl_mvm_mac_ac_to_tx_fifo(struct iwl_mvm *mvm,
+static u8 iwl_mvm_mac_ac_to_tx_fifo(struct iwl_mvm *mvm,
 					   enum ieee80211_ac_numbers ac)
 {
 	return iwl_mvm_has_new_tx_api(mvm) ?
@@ -1365,7 +1365,7 @@ int iwl_mvm_flush_sta_tids(struct iwl_mvm *mvm, u32 sta_id,
 
 void iwl_mvm_async_handlers_purge(struct iwl_mvm *mvm);
 
-static inline void iwl_mvm_set_tx_cmd_ccmp(struct ieee80211_tx_info *info,
+static void iwl_mvm_set_tx_cmd_ccmp(struct ieee80211_tx_info *info,
 					   struct iwl_tx_cmd *tx_cmd)
 {
 	struct ieee80211_key_conf *keyconf = info->control.hw_key;
@@ -1374,7 +1374,7 @@ static inline void iwl_mvm_set_tx_cmd_ccmp(struct ieee80211_tx_info *info,
 	memcpy(tx_cmd->key, keyconf->key, keyconf->keylen);
 }
 
-static inline void iwl_mvm_wait_for_async_handlers(struct iwl_mvm *mvm)
+static void iwl_mvm_wait_for_async_handlers(struct iwl_mvm *mvm)
 {
 	flush_work(&mvm->async_handlers_wk);
 }
@@ -1392,21 +1392,21 @@ int iwl_nvm_init(struct iwl_mvm *mvm);
 int iwl_mvm_load_nvm_to_nic(struct iwl_mvm *mvm);
 int iwl_mvm_read_external_nvm(struct iwl_mvm *mvm);
 
-static inline u8 iwl_mvm_get_valid_tx_ant(struct iwl_mvm *mvm)
+static u8 iwl_mvm_get_valid_tx_ant(struct iwl_mvm *mvm)
 {
 	return mvm->nvm_data && mvm->nvm_data->valid_tx_ant ?
 	       mvm->fw->valid_tx_ant & mvm->nvm_data->valid_tx_ant :
 	       mvm->fw->valid_tx_ant;
 }
 
-static inline u8 iwl_mvm_get_valid_rx_ant(struct iwl_mvm *mvm)
+static u8 iwl_mvm_get_valid_rx_ant(struct iwl_mvm *mvm)
 {
 	return mvm->nvm_data && mvm->nvm_data->valid_rx_ant ?
 	       mvm->fw->valid_rx_ant & mvm->nvm_data->valid_rx_ant :
 	       mvm->fw->valid_rx_ant;
 }
 
-static inline u32 iwl_mvm_get_phy_config(struct iwl_mvm *mvm)
+static u32 iwl_mvm_get_phy_config(struct iwl_mvm *mvm)
 {
 	u32 phy_config = ~(FW_PHY_CFG_TX_CHAIN |
 			   FW_PHY_CFG_RX_CHAIN);
@@ -1540,16 +1540,16 @@ int iwl_mvm_dbgfs_register(struct iwl_mvm *mvm, struct dentry *dbgfs_dir);
 void iwl_mvm_vif_dbgfs_register(struct iwl_mvm *mvm, struct ieee80211_vif *vif);
 void iwl_mvm_vif_dbgfs_clean(struct iwl_mvm *mvm, struct ieee80211_vif *vif);
 #else
-static inline int iwl_mvm_dbgfs_register(struct iwl_mvm *mvm,
+static int iwl_mvm_dbgfs_register(struct iwl_mvm *mvm,
 					 struct dentry *dbgfs_dir)
 {
 	return 0;
 }
-static inline void
+static void
 iwl_mvm_vif_dbgfs_register(struct iwl_mvm *mvm, struct ieee80211_vif *vif)
 {
 }
-static inline void
+static void
 iwl_mvm_vif_dbgfs_clean(struct iwl_mvm *mvm, struct ieee80211_vif *vif)
 {
 }
@@ -1579,14 +1579,14 @@ int iwl_mvm_leds_init(struct iwl_mvm *mvm);
 void iwl_mvm_leds_exit(struct iwl_mvm *mvm);
 void iwl_mvm_leds_sync(struct iwl_mvm *mvm);
 #else
-static inline int iwl_mvm_leds_init(struct iwl_mvm *mvm)
+static int iwl_mvm_leds_init(struct iwl_mvm *mvm)
 {
 	return 0;
 }
-static inline void iwl_mvm_leds_exit(struct iwl_mvm *mvm)
+static void iwl_mvm_leds_exit(struct iwl_mvm *mvm)
 {
 }
-static inline void iwl_mvm_leds_sync(struct iwl_mvm *mvm)
+static void iwl_mvm_leds_sync(struct iwl_mvm *mvm)
 {
 }
 #endif
@@ -1615,7 +1615,7 @@ void iwl_mvm_d0i3_update_keys(struct iwl_mvm *mvm,
 void iwl_mvm_set_last_nonqos_seq(struct iwl_mvm *mvm,
 				 struct ieee80211_vif *vif);
 #else
-static inline int iwl_mvm_wowlan_config_key_params(struct iwl_mvm *mvm,
+static int iwl_mvm_wowlan_config_key_params(struct iwl_mvm *mvm,
 						   struct ieee80211_vif *vif,
 						   bool host_awake,
 						   u32 cmd_flags)
@@ -1623,13 +1623,13 @@ static inline int iwl_mvm_wowlan_config_key_params(struct iwl_mvm *mvm,
 	return 0;
 }
 
-static inline void iwl_mvm_d0i3_update_keys(struct iwl_mvm *mvm,
+static void iwl_mvm_d0i3_update_keys(struct iwl_mvm *mvm,
 					    struct ieee80211_vif *vif,
 					    struct iwl_wowlan_status *status)
 {
 }
 
-static inline void
+static void
 iwl_mvm_set_last_nonqos_seq(struct iwl_mvm *mvm, struct ieee80211_vif *vif)
 {
 }
@@ -1676,7 +1676,7 @@ void
 iwl_mvm_beacon_filter_debugfs_parameters(struct ieee80211_vif *vif,
 					 struct iwl_beacon_filter_cmd *cmd);
 #else
-static inline void
+static void
 iwl_mvm_beacon_filter_debugfs_parameters(struct ieee80211_vif *vif,
 					 struct iwl_beacon_filter_cmd *cmd)
 {}
@@ -1702,7 +1702,7 @@ int iwl_mvm_update_low_latency(struct iwl_mvm *mvm, struct ieee80211_vif *vif,
 /* get SystemLowLatencyMode - only needed for beacon threshold? */
 bool iwl_mvm_low_latency(struct iwl_mvm *mvm);
 /* get VMACLowLatencyMode */
-static inline bool iwl_mvm_vif_low_latency(struct iwl_mvm_vif *mvmvif)
+static bool iwl_mvm_vif_low_latency(struct iwl_mvm_vif *mvmvif)
 {
 	/*
 	 * should this consider associated/active/... state?
@@ -1733,13 +1733,13 @@ int iwl_mvm_find_free_queue(struct iwl_mvm *mvm, u8 sta_id, u8 minq, u8 maxq);
 /* Return a bitmask with all the hw supported queues, except for the
  * command queue, which can't be flushed.
  */
-static inline u32 iwl_mvm_flushable_queues(struct iwl_mvm *mvm)
+static u32 iwl_mvm_flushable_queues(struct iwl_mvm *mvm)
 {
 	return ((BIT(mvm->cfg->base_params->num_of_queues) - 1) &
 		~BIT(IWL_MVM_DQA_CMD_QUEUE));
 }
 
-static inline void iwl_mvm_stop_device(struct iwl_mvm *mvm)
+static void iwl_mvm_stop_device(struct iwl_mvm *mvm)
 {
 	iwl_free_fw_paging(&mvm->fwrt);
 	clear_bit(IWL_MVM_STATUS_FIRMWARE_RUNNING, &mvm->status);

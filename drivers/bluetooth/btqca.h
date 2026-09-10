@@ -122,12 +122,12 @@ int qca_uart_setup_rome(struct hci_dev *hdev, uint8_t baudrate);
 
 #else
 
-static inline int qca_set_bdaddr_rome(struct hci_dev *hdev, const bdaddr_t *bdaddr)
+static int qca_set_bdaddr_rome(struct hci_dev *hdev, const bdaddr_t *bdaddr)
 {
 	return -EOPNOTSUPP;
 }
 
-static inline int qca_uart_setup_rome(struct hci_dev *hdev, int speed)
+static int qca_uart_setup_rome(struct hci_dev *hdev, int speed)
 {
 	return -EOPNOTSUPP;
 }

@@ -41,26 +41,26 @@ void apei_exec_ctx_init(struct apei_exec_context *ctx,
 			struct acpi_whea_header *action_table,
 			u32 entries);
 
-static inline void apei_exec_ctx_set_input(struct apei_exec_context *ctx,
+static void apei_exec_ctx_set_input(struct apei_exec_context *ctx,
 					   u64 input)
 {
 	ctx->value = input;
 }
 
-static inline u64 apei_exec_ctx_get_output(struct apei_exec_context *ctx)
+static u64 apei_exec_ctx_get_output(struct apei_exec_context *ctx)
 {
 	return ctx->value;
 }
 
 int __apei_exec_run(struct apei_exec_context *ctx, u8 action, bool optional);
 
-static inline int apei_exec_run(struct apei_exec_context *ctx, u8 action)
+static int apei_exec_run(struct apei_exec_context *ctx, u8 action)
 {
 	return __apei_exec_run(ctx, action, 0);
 }
 
 /* It is optional whether the firmware provides the action */
-static inline int apei_exec_run_optional(struct apei_exec_context *ctx, u8 action)
+static int apei_exec_run_optional(struct apei_exec_context *ctx, u8 action)
 {
 	return __apei_exec_run(ctx, action, 1);
 }
@@ -72,7 +72,7 @@ static inline int apei_exec_run_optional(struct apei_exec_context *ctx, u8 actio
 
 int apei_map_generic_address(struct acpi_generic_address *reg);
 
-static inline void apei_unmap_generic_address(struct acpi_generic_address *reg)
+static void apei_unmap_generic_address(struct acpi_generic_address *reg)
 {
 	acpi_os_unmap_generic_address(reg);
 }
@@ -100,7 +100,7 @@ struct apei_resources {
 	struct list_head ioport;
 };
 
-static inline void apei_resources_init(struct apei_resources *resources)
+static void apei_resources_init(struct apei_resources *resources)
 {
 	INIT_LIST_HEAD(&resources->iomem);
 	INIT_LIST_HEAD(&resources->ioport);
@@ -121,7 +121,7 @@ int apei_exec_collect_resources(struct apei_exec_context *ctx,
 struct dentry;
 struct dentry *apei_get_debugfs_dir(void);
 
-static inline u32 cper_estatus_len(struct acpi_hest_generic_status *estatus)
+static u32 cper_estatus_len(struct acpi_hest_generic_status *estatus)
 {
 	if (estatus->raw_data_length)
 		return estatus->raw_data_offset + \

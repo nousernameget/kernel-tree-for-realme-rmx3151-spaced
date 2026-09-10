@@ -23,7 +23,7 @@ struct clk_fixup_div {
 
 };
 
-static inline struct clk_fixup_div *to_clk_fixup_div(struct clk_hw *hw)
+static struct clk_fixup_div *to_clk_fixup_div(struct clk_hw *hw)
 {
 	struct clk_divider *divider = to_clk_divider(hw);
 

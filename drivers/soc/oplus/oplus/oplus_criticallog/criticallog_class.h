@@ -42,7 +42,7 @@ struct gpio_criticallog_platform_data {
 extern int criticallog_dev_register(struct criticallog_dev *sdev);
 extern void criticallog_dev_unregister(struct criticallog_dev *sdev);
 
-static inline int criticallog_get_state(struct criticallog_dev *sdev)
+static int criticallog_get_state(struct criticallog_dev *sdev)
 {
   return sdev->state;
 }

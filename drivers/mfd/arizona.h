@@ -56,7 +56,7 @@ int arizona_irq_exit(struct arizona *arizona);
 #ifdef CONFIG_OF
 unsigned long arizona_of_get_type(struct device *dev);
 #else
-static inline unsigned long arizona_of_get_type(struct device *dev)
+static unsigned long arizona_of_get_type(struct device *dev)
 {
 	return 0;
 }

@@ -315,7 +315,7 @@ struct ath9k_htc_tx_ctl {
 	unsigned long timestamp;
 };
 
-static inline struct ath9k_htc_tx_ctl *HTC_SKB_CB(struct sk_buff *skb)
+static struct ath9k_htc_tx_ctl *HTC_SKB_CB(struct sk_buff *skb)
 {
 	struct ieee80211_tx_info *tx_info = IEEE80211_SKB_CB(skb);
 
@@ -380,7 +380,7 @@ void ath9k_htc_get_et_stats(struct ieee80211_hw *hw,
 
 #define TX_QSTAT_INC(c) do { } while (0)
 
-static inline void ath9k_htc_err_stat_rx(struct ath9k_htc_priv *priv,
+static void ath9k_htc_err_stat_rx(struct ath9k_htc_priv *priv,
 					 struct ath_rx_status *rs)
 {
 }
@@ -429,13 +429,13 @@ void ath9k_htc_init_btcoex(struct ath9k_htc_priv *priv, char *product);
 void ath9k_htc_start_btcoex(struct ath9k_htc_priv *priv);
 void ath9k_htc_stop_btcoex(struct ath9k_htc_priv *priv);
 #else
-static inline void ath9k_htc_init_btcoex(struct ath9k_htc_priv *priv, char *product)
+static void ath9k_htc_init_btcoex(struct ath9k_htc_priv *priv, char *product)
 {
 }
-static inline void ath9k_htc_start_btcoex(struct ath9k_htc_priv *priv)
+static void ath9k_htc_start_btcoex(struct ath9k_htc_priv *priv)
 {
 }
-static inline void ath9k_htc_stop_btcoex(struct ath9k_htc_priv *priv)
+static void ath9k_htc_stop_btcoex(struct ath9k_htc_priv *priv)
 {
 }
 #endif /* CONFIG_ATH9K_BTCOEX_SUPPORT */
@@ -534,7 +534,7 @@ struct ath9k_htc_priv {
 	struct ieee80211_vif *csa_vif;
 };
 
-static inline void ath_read_cachesize(struct ath_common *common, int *csz)
+static void ath_read_cachesize(struct ath_common *common, int *csz)
 {
 	common->bus_ops->read_cachesize(common, csz);
 }
@@ -610,19 +610,19 @@ void ath9k_init_leds(struct ath9k_htc_priv *priv);
 void ath9k_deinit_leds(struct ath9k_htc_priv *priv);
 void ath9k_led_work(struct work_struct *work);
 #else
-static inline void ath9k_configure_leds(struct ath9k_htc_priv *priv)
+static void ath9k_configure_leds(struct ath9k_htc_priv *priv)
 {
 }
 
-static inline void ath9k_init_leds(struct ath9k_htc_priv *priv)
+static void ath9k_init_leds(struct ath9k_htc_priv *priv)
 {
 }
 
-static inline void ath9k_deinit_leds(struct ath9k_htc_priv *priv)
+static void ath9k_deinit_leds(struct ath9k_htc_priv *priv)
 {
 }
 
-static inline void ath9k_led_work(struct work_struct *work)
+static void ath9k_led_work(struct work_struct *work)
 {
 }
 #endif
@@ -639,7 +639,7 @@ int ath9k_htc_init_debug(struct ath_hw *ah);
 void ath9k_htc_deinit_debug(struct ath9k_htc_priv *priv);
 #else
 static inline int ath9k_htc_init_debug(struct ath_hw *ah) { return 0; };
-static inline void ath9k_htc_deinit_debug(struct ath9k_htc_priv *priv)
+static void ath9k_htc_deinit_debug(struct ath9k_htc_priv *priv)
 {
 }
 #endif /* CONFIG_ATH9K_HTC_DEBUGFS */

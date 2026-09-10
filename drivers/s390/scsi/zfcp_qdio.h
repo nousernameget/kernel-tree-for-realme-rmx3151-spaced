@@ -73,7 +73,7 @@ struct zfcp_qdio_req {
  * @q_rec: pointer to struct zfcp_qdio_req
  * Returns: pointer to qdio_buffer_element (sbale) structure
  */
-static inline struct qdio_buffer_element *
+static struct qdio_buffer_element *
 zfcp_qdio_sbale_req(struct zfcp_qdio *qdio, struct zfcp_qdio_req *q_req)
 {
 	return &qdio->req_q[q_req->sbal_last]->element[0];
@@ -85,7 +85,7 @@ zfcp_qdio_sbale_req(struct zfcp_qdio *qdio, struct zfcp_qdio_req *q_req)
  * @fsf_req: pointer to struct zfcp_fsf_req
  * Returns: pointer to qdio_buffer_element (sbale) structure
  */
-static inline struct qdio_buffer_element *
+static struct qdio_buffer_element *
 zfcp_qdio_sbale_curr(struct zfcp_qdio *qdio, struct zfcp_qdio_req *q_req)
 {
 	return &qdio->req_q[q_req->sbal_last]->element[q_req->sbale_curr];

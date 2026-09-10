@@ -297,7 +297,7 @@ struct cx25821_dev {
 	struct cx25821_video_out_data vid_out_data[2];
 };
 
-static inline struct cx25821_dev *get_cx25821(struct v4l2_device *v4l2_dev)
+static struct cx25821_dev *get_cx25821(struct v4l2_device *v4l2_dev)
 {
 	return container_of(v4l2_dev, struct cx25821_dev, v4l2_dev);
 }

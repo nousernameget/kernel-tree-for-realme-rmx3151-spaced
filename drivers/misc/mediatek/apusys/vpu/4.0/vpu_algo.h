@@ -78,7 +78,7 @@ struct vpu_algo_list {
 	struct vpu_algo_ops *ops;
 };
 
-static inline void
+static void
 vpu_algo_list_init(struct vpu_device *vd, struct vpu_algo_list *al,
 	struct vpu_algo_ops *ops, const char *name) {
 	if (!vd || !al)

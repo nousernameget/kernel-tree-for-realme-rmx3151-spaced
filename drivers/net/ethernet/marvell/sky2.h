@@ -2312,38 +2312,38 @@ struct sky2_hw {
 	char		     irq_name[0];
 };
 
-static inline int sky2_is_copper(const struct sky2_hw *hw)
+static int sky2_is_copper(const struct sky2_hw *hw)
 {
 	return !(hw->flags & SKY2_HW_FIBRE_PHY);
 }
 
 /* Register accessor for memory mapped device */
-static inline u32 sky2_read32(const struct sky2_hw *hw, unsigned reg)
+static u32 sky2_read32(const struct sky2_hw *hw, unsigned reg)
 {
 	return readl(hw->regs + reg);
 }
 
-static inline u16 sky2_read16(const struct sky2_hw *hw, unsigned reg)
+static u16 sky2_read16(const struct sky2_hw *hw, unsigned reg)
 {
 	return readw(hw->regs + reg);
 }
 
-static inline u8 sky2_read8(const struct sky2_hw *hw, unsigned reg)
+static u8 sky2_read8(const struct sky2_hw *hw, unsigned reg)
 {
 	return readb(hw->regs + reg);
 }
 
-static inline void sky2_write32(const struct sky2_hw *hw, unsigned reg, u32 val)
+static void sky2_write32(const struct sky2_hw *hw, unsigned reg, u32 val)
 {
 	writel(val, hw->regs + reg);
 }
 
-static inline void sky2_write16(const struct sky2_hw *hw, unsigned reg, u16 val)
+static void sky2_write16(const struct sky2_hw *hw, unsigned reg, u16 val)
 {
 	writew(val, hw->regs + reg);
 }
 
-static inline void sky2_write8(const struct sky2_hw *hw, unsigned reg, u8 val)
+static void sky2_write8(const struct sky2_hw *hw, unsigned reg, u8 val)
 {
 	writeb(val, hw->regs + reg);
 }
@@ -2353,19 +2353,19 @@ static inline void sky2_write8(const struct sky2_hw *hw, unsigned reg, u8 val)
 	(BASE_GMAC_1 + (port) * (BASE_GMAC_2-BASE_GMAC_1) + (reg))
 #define GM_PHY_RETRIES	100
 
-static inline u16 gma_read16(const struct sky2_hw *hw, unsigned port, unsigned reg)
+static u16 gma_read16(const struct sky2_hw *hw, unsigned port, unsigned reg)
 {
 	return sky2_read16(hw, SK_GMAC_REG(port,reg));
 }
 
-static inline u32 gma_read32(struct sky2_hw *hw, unsigned port, unsigned reg)
+static u32 gma_read32(struct sky2_hw *hw, unsigned port, unsigned reg)
 {
 	unsigned base = SK_GMAC_REG(port, reg);
 	return (u32) sky2_read16(hw, base)
 		| (u32) sky2_read16(hw, base+4) << 16;
 }
 
-static inline u64 gma_read64(struct sky2_hw *hw, unsigned port, unsigned reg)
+static u64 gma_read64(struct sky2_hw *hw, unsigned port, unsigned reg)
 {
 	unsigned base = SK_GMAC_REG(port, reg);
 
@@ -2376,7 +2376,7 @@ static inline u64 gma_read64(struct sky2_hw *hw, unsigned port, unsigned reg)
 }
 
 /* There is no way to atomically read32 bit values from PHY, so retry */
-static inline u32 get_stats32(struct sky2_hw *hw, unsigned port, unsigned reg)
+static u32 get_stats32(struct sky2_hw *hw, unsigned port, unsigned reg)
 {
 	u32 val;
 
@@ -2387,7 +2387,7 @@ static inline u32 get_stats32(struct sky2_hw *hw, unsigned port, unsigned reg)
 	return val;
 }
 
-static inline u64 get_stats64(struct sky2_hw *hw, unsigned port, unsigned reg)
+static u64 get_stats64(struct sky2_hw *hw, unsigned port, unsigned reg)
 {
 	u64 val;
 
@@ -2398,12 +2398,12 @@ static inline u64 get_stats64(struct sky2_hw *hw, unsigned port, unsigned reg)
 	return val;
 }
 
-static inline void gma_write16(const struct sky2_hw *hw, unsigned port, int r, u16 v)
+static void gma_write16(const struct sky2_hw *hw, unsigned port, int r, u16 v)
 {
 	sky2_write16(hw, SK_GMAC_REG(port,r), v);
 }
 
-static inline void gma_set_addr(struct sky2_hw *hw, unsigned port, unsigned reg,
+static void gma_set_addr(struct sky2_hw *hw, unsigned port, unsigned reg,
 				    const u8 *addr)
 {
 	gma_write16(hw, port, reg,  (u16) addr[0] | ((u16) addr[1] << 8));
@@ -2412,22 +2412,22 @@ static inline void gma_set_addr(struct sky2_hw *hw, unsigned port, unsigned reg,
 }
 
 /* PCI config space access */
-static inline u32 sky2_pci_read32(const struct sky2_hw *hw, unsigned reg)
+static u32 sky2_pci_read32(const struct sky2_hw *hw, unsigned reg)
 {
 	return sky2_read32(hw, Y2_CFG_SPC + reg);
 }
 
-static inline u16 sky2_pci_read16(const struct sky2_hw *hw, unsigned reg)
+static u16 sky2_pci_read16(const struct sky2_hw *hw, unsigned reg)
 {
 	return sky2_read16(hw, Y2_CFG_SPC + reg);
 }
 
-static inline void sky2_pci_write32(struct sky2_hw *hw, unsigned reg, u32 val)
+static void sky2_pci_write32(struct sky2_hw *hw, unsigned reg, u32 val)
 {
 	sky2_write32(hw, Y2_CFG_SPC + reg, val);
 }
 
-static inline void sky2_pci_write16(struct sky2_hw *hw, unsigned reg, u16 val)
+static void sky2_pci_write16(struct sky2_hw *hw, unsigned reg, u16 val)
 {
 	sky2_write16(hw, Y2_CFG_SPC + reg, val);
 }

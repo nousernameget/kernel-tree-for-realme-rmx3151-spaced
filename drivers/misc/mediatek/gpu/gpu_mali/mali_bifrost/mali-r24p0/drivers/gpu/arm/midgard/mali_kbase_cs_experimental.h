@@ -46,12 +46,12 @@
  *
  * Return: true if built with CS_EXPERIMENTAL false otherwise
  */
-static inline bool mali_kbase_has_cs_experimental(void)
+static bool mali_kbase_has_cs_experimental(void)
 {
 	return true;
 }
 #else
-static inline bool mali_kbase_has_cs_experimental(void)
+static bool mali_kbase_has_cs_experimental(void)
 {
 	return false;
 }
@@ -61,7 +61,7 @@ static inline bool mali_kbase_has_cs_experimental(void)
  * mali_kbase_print_cs_experimental() - Print a string if built with
  *   CS_EXPERIMENTAL=y
  */
-static inline void mali_kbase_print_cs_experimental(void)
+static void mali_kbase_print_cs_experimental(void)
 {
 	if (mali_kbase_has_cs_experimental())
 		pr_info("mali_kbase: EXPERIMENTAL (MALI_CS_EXPERIMENTAL) flag enabled");

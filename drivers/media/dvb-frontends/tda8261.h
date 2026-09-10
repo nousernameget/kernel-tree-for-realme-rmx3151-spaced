@@ -42,7 +42,7 @@ extern struct dvb_frontend *tda8261_attach(struct dvb_frontend *fe,
 
 #else
 
-static inline struct dvb_frontend *tda8261_attach(struct dvb_frontend *fe,
+static struct dvb_frontend *tda8261_attach(struct dvb_frontend *fe,
 						  const struct tda8261_config *config,
 						  struct i2c_adapter *i2c)
 {

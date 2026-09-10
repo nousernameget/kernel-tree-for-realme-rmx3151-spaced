@@ -40,7 +40,7 @@
 
 #define ENIC_SETTING(enic, f) ((enic->config.flags & VENETF_##f) ? 1 : 0)
 
-static inline void enic_queue_wq_desc_ex(struct vnic_wq *wq,
+static void enic_queue_wq_desc_ex(struct vnic_wq *wq,
 	void *os_buf, dma_addr_t dma_addr, unsigned int len,
 	unsigned int mss_or_csum_offset, unsigned int hdr_len,
 	int vlan_tag_insert, unsigned int vlan_tag,
@@ -66,7 +66,7 @@ static inline void enic_queue_wq_desc_ex(struct vnic_wq *wq,
 			(u8)cq_entry, compressed_send, wrid);
 }
 
-static inline void enic_queue_wq_desc_cont(struct vnic_wq *wq,
+static void enic_queue_wq_desc_cont(struct vnic_wq *wq,
 	void *os_buf, dma_addr_t dma_addr, unsigned int len,
 	int eop, int loopback)
 {
@@ -75,7 +75,7 @@ static inline void enic_queue_wq_desc_cont(struct vnic_wq *wq,
 		eop, 0 /* !SOP */, eop, loopback);
 }
 
-static inline void enic_queue_wq_desc(struct vnic_wq *wq, void *os_buf,
+static void enic_queue_wq_desc(struct vnic_wq *wq, void *os_buf,
 	dma_addr_t dma_addr, unsigned int len, int vlan_tag_insert,
 	unsigned int vlan_tag, int eop, int loopback)
 {
@@ -85,7 +85,7 @@ static inline void enic_queue_wq_desc(struct vnic_wq *wq, void *os_buf,
 		eop, 1 /* SOP */, eop, loopback);
 }
 
-static inline void enic_queue_wq_desc_csum(struct vnic_wq *wq,
+static void enic_queue_wq_desc_csum(struct vnic_wq *wq,
 	void *os_buf, dma_addr_t dma_addr, unsigned int len,
 	int ip_csum, int tcpudp_csum, int vlan_tag_insert,
 	unsigned int vlan_tag, int eop, int loopback)
@@ -97,7 +97,7 @@ static inline void enic_queue_wq_desc_csum(struct vnic_wq *wq,
 		eop, 1 /* SOP */, eop, loopback);
 }
 
-static inline void enic_queue_wq_desc_csum_l4(struct vnic_wq *wq,
+static void enic_queue_wq_desc_csum_l4(struct vnic_wq *wq,
 	void *os_buf, dma_addr_t dma_addr, unsigned int len,
 	unsigned int csum_offset, unsigned int hdr_len,
 	int vlan_tag_insert, unsigned int vlan_tag, int eop, int loopback)
@@ -108,7 +108,7 @@ static inline void enic_queue_wq_desc_csum_l4(struct vnic_wq *wq,
 		eop, 1 /* SOP */, eop, loopback);
 }
 
-static inline void enic_queue_wq_desc_tso(struct vnic_wq *wq,
+static void enic_queue_wq_desc_tso(struct vnic_wq *wq,
 	void *os_buf, dma_addr_t dma_addr, unsigned int len,
 	unsigned int mss, unsigned int hdr_len, int vlan_tag_insert,
 	unsigned int vlan_tag, int eop, int loopback)
@@ -119,7 +119,7 @@ static inline void enic_queue_wq_desc_tso(struct vnic_wq *wq,
 		eop, 1 /* SOP */, eop, loopback);
 }
 
-static inline void enic_queue_rq_desc(struct vnic_rq *rq,
+static void enic_queue_rq_desc(struct vnic_rq *rq,
 	void *os_buf, unsigned int os_buf_index,
 	dma_addr_t dma_addr, unsigned int len)
 {

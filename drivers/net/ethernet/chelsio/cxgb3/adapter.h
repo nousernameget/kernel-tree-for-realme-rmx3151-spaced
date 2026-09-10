@@ -267,7 +267,7 @@ struct adapter {
 	struct sk_buff *nofail_skb;
 };
 
-static inline u32 t3_read_reg(struct adapter *adapter, u32 reg_addr)
+static u32 t3_read_reg(struct adapter *adapter, u32 reg_addr)
 {
 	u32 val = readl(adapter->regs + reg_addr);
 
@@ -275,18 +275,18 @@ static inline u32 t3_read_reg(struct adapter *adapter, u32 reg_addr)
 	return val;
 }
 
-static inline void t3_write_reg(struct adapter *adapter, u32 reg_addr, u32 val)
+static void t3_write_reg(struct adapter *adapter, u32 reg_addr, u32 val)
 {
 	CH_DBG(adapter, MMIO, "setting register 0x%x to 0x%x\n", reg_addr, val);
 	writel(val, adapter->regs + reg_addr);
 }
 
-static inline struct port_info *adap2pinfo(struct adapter *adap, int idx)
+static struct port_info *adap2pinfo(struct adapter *adap, int idx)
 {
 	return netdev_priv(adap->port[idx]);
 }
 
-static inline int phy2portid(struct cphy *phy)
+static int phy2portid(struct cphy *phy)
 {
 	struct adapter *adap = phy->adapter;
 	struct port_info *port0 = adap2pinfo(adap, 0);
@@ -298,7 +298,7 @@ static inline int phy2portid(struct cphy *phy)
 
 #define tdev2adap(d) container_of(d, struct adapter, tdev)
 
-static inline int offload_running(struct adapter *adapter)
+static int offload_running(struct adapter *adapter)
 {
 	return test_bit(OFFLOAD_DEVMAP_BIT, &adapter->open_device_map);
 }

@@ -768,7 +768,7 @@ struct cxl_process_element {
 	__be32 software_state;
 } __packed;
 
-static inline bool cxl_adapter_link_ok(struct cxl *cxl, struct cxl_afu *afu)
+static bool cxl_adapter_link_ok(struct cxl *cxl, struct cxl_afu *afu)
 {
 	struct pci_dev *pdev;
 
@@ -779,19 +779,19 @@ static inline bool cxl_adapter_link_ok(struct cxl *cxl, struct cxl_afu *afu)
 	return true;
 }
 
-static inline void __iomem *_cxl_p1_addr(struct cxl *cxl, cxl_p1_reg_t reg)
+static void __iomem *_cxl_p1_addr(struct cxl *cxl, cxl_p1_reg_t reg)
 {
 	WARN_ON(!cpu_has_feature(CPU_FTR_HVMODE));
 	return cxl->native->p1_mmio + cxl_reg_off(reg);
 }
 
-static inline void cxl_p1_write(struct cxl *cxl, cxl_p1_reg_t reg, u64 val)
+static void cxl_p1_write(struct cxl *cxl, cxl_p1_reg_t reg, u64 val)
 {
 	if (likely(cxl_adapter_link_ok(cxl, NULL)))
 		out_be64(_cxl_p1_addr(cxl, reg), val);
 }
 
-static inline u64 cxl_p1_read(struct cxl *cxl, cxl_p1_reg_t reg)
+static u64 cxl_p1_read(struct cxl *cxl, cxl_p1_reg_t reg)
 {
 	if (likely(cxl_adapter_link_ok(cxl, NULL)))
 		return in_be64(_cxl_p1_addr(cxl, reg));
@@ -799,19 +799,19 @@ static inline u64 cxl_p1_read(struct cxl *cxl, cxl_p1_reg_t reg)
 		return ~0ULL;
 }
 
-static inline void __iomem *_cxl_p1n_addr(struct cxl_afu *afu, cxl_p1n_reg_t reg)
+static void __iomem *_cxl_p1n_addr(struct cxl_afu *afu, cxl_p1n_reg_t reg)
 {
 	WARN_ON(!cpu_has_feature(CPU_FTR_HVMODE));
 	return afu->native->p1n_mmio + cxl_reg_off(reg);
 }
 
-static inline void cxl_p1n_write(struct cxl_afu *afu, cxl_p1n_reg_t reg, u64 val)
+static void cxl_p1n_write(struct cxl_afu *afu, cxl_p1n_reg_t reg, u64 val)
 {
 	if (likely(cxl_adapter_link_ok(afu->adapter, afu)))
 		out_be64(_cxl_p1n_addr(afu, reg), val);
 }
 
-static inline u64 cxl_p1n_read(struct cxl_afu *afu, cxl_p1n_reg_t reg)
+static u64 cxl_p1n_read(struct cxl_afu *afu, cxl_p1n_reg_t reg)
 {
 	if (likely(cxl_adapter_link_ok(afu->adapter, afu)))
 		return in_be64(_cxl_p1n_addr(afu, reg));
@@ -819,18 +819,18 @@ static inline u64 cxl_p1n_read(struct cxl_afu *afu, cxl_p1n_reg_t reg)
 		return ~0ULL;
 }
 
-static inline void __iomem *_cxl_p2n_addr(struct cxl_afu *afu, cxl_p2n_reg_t reg)
+static void __iomem *_cxl_p2n_addr(struct cxl_afu *afu, cxl_p2n_reg_t reg)
 {
 	return afu->p2n_mmio + cxl_reg_off(reg);
 }
 
-static inline void cxl_p2n_write(struct cxl_afu *afu, cxl_p2n_reg_t reg, u64 val)
+static void cxl_p2n_write(struct cxl_afu *afu, cxl_p2n_reg_t reg, u64 val)
 {
 	if (likely(cxl_adapter_link_ok(afu->adapter, afu)))
 		out_be64(_cxl_p2n_addr(afu, reg), val);
 }
 
-static inline u64 cxl_p2n_read(struct cxl_afu *afu, cxl_p2n_reg_t reg)
+static u64 cxl_p2n_read(struct cxl_afu *afu, cxl_p2n_reg_t reg)
 {
 	if (likely(cxl_adapter_link_ok(afu->adapter, afu)))
 		return in_be64(_cxl_p2n_addr(afu, reg));
@@ -838,7 +838,7 @@ static inline u64 cxl_p2n_read(struct cxl_afu *afu, cxl_p2n_reg_t reg)
 		return ~0ULL;
 }
 
-static inline bool cxl_is_power8(void)
+static bool cxl_is_power8(void)
 {
 	if ((pvr_version_is(PVR_POWER8E)) ||
 	    (pvr_version_is(PVR_POWER8NVL)) ||
@@ -847,14 +847,14 @@ static inline bool cxl_is_power8(void)
 	return false;
 }
 
-static inline bool cxl_is_power9(void)
+static bool cxl_is_power9(void)
 {
 	if (pvr_version_is(PVR_POWER9))
 		return true;
 	return false;
 }
 
-static inline bool cxl_is_power9_dd1(void)
+static bool cxl_is_power9_dd1(void)
 {
 	if ((pvr_version_is(PVR_POWER9)) &&
 	    cpu_has_feature(CPU_FTR_POWER9_DD1))
@@ -952,61 +952,61 @@ void cxl_debugfs_add_afu_regs_psl8(struct cxl_afu *afu, struct dentry *dir);
 
 #else /* CONFIG_DEBUG_FS */
 
-static inline int __init cxl_debugfs_init(void)
+static int __init cxl_debugfs_init(void)
 {
 	return 0;
 }
 
-static inline void cxl_debugfs_exit(void)
+static void cxl_debugfs_exit(void)
 {
 }
 
-static inline int cxl_debugfs_adapter_add(struct cxl *adapter)
-{
-	return 0;
-}
-
-static inline void cxl_debugfs_adapter_remove(struct cxl *adapter)
-{
-}
-
-static inline int cxl_debugfs_afu_add(struct cxl_afu *afu)
+static int cxl_debugfs_adapter_add(struct cxl *adapter)
 {
 	return 0;
 }
 
-static inline void cxl_debugfs_afu_remove(struct cxl_afu *afu)
+static void cxl_debugfs_adapter_remove(struct cxl *adapter)
 {
 }
 
-static inline void cxl_stop_trace_psl9(struct cxl *cxl)
+static int cxl_debugfs_afu_add(struct cxl_afu *afu)
+{
+	return 0;
+}
+
+static void cxl_debugfs_afu_remove(struct cxl_afu *afu)
 {
 }
 
-static inline void cxl_stop_trace_psl8(struct cxl *cxl)
+static void cxl_stop_trace_psl9(struct cxl *cxl)
 {
 }
 
-static inline void cxl_debugfs_add_adapter_regs_psl9(struct cxl *adapter,
+static void cxl_stop_trace_psl8(struct cxl *cxl)
+{
+}
+
+static void cxl_debugfs_add_adapter_regs_psl9(struct cxl *adapter,
 						    struct dentry *dir)
 {
 }
 
-static inline void cxl_debugfs_add_adapter_regs_psl8(struct cxl *adapter,
+static void cxl_debugfs_add_adapter_regs_psl8(struct cxl *adapter,
 						    struct dentry *dir)
 {
 }
 
-static inline void cxl_debugfs_add_adapter_regs_xsl(struct cxl *adapter,
+static void cxl_debugfs_add_adapter_regs_xsl(struct cxl *adapter,
 						    struct dentry *dir)
 {
 }
 
-static inline void cxl_debugfs_add_afu_regs_psl9(struct cxl_afu *afu, struct dentry *dir)
+static void cxl_debugfs_add_afu_regs_psl9(struct cxl_afu *afu, struct dentry *dir)
 {
 }
 
-static inline void cxl_debugfs_add_afu_regs_psl8(struct cxl_afu *afu, struct dentry *dir)
+static void cxl_debugfs_add_afu_regs_psl8(struct cxl_afu *afu, struct dentry *dir)
 {
 }
 

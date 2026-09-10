@@ -136,7 +136,7 @@ void cxgb4_dcb_handle_fw_update(struct adapter *, const struct fw_port_cmd *);
 void cxgb4_dcb_set_caps(struct adapter *, const struct fw_port_cmd *);
 extern const struct dcbnl_rtnl_ops cxgb4_dcb_ops;
 
-static inline __u8 bitswap_1(unsigned char val)
+static __u8 bitswap_1(unsigned char val)
 {
 	return ((val & 0x80) >> 7) |
 	       ((val & 0x40) >> 5) |
@@ -151,7 +151,7 @@ static inline __u8 bitswap_1(unsigned char val)
 
 #else /* !CONFIG_CHELSIO_T4_DCB */
 
-static inline void cxgb4_dcb_state_init(struct net_device *dev)
+static void cxgb4_dcb_state_init(struct net_device *dev)
 {
 }
 

@@ -90,7 +90,7 @@ struct dpaa2_dq {
  * dpaa2_dq_flags() - Get the stat field of dequeue response
  * @dq: the dequeue result.
  */
-static inline u32 dpaa2_dq_flags(const struct dpaa2_dq *dq)
+static u32 dpaa2_dq_flags(const struct dpaa2_dq *dq)
 {
 	return dq->dq.stat;
 }
@@ -102,7 +102,7 @@ static inline u32 dpaa2_dq_flags(const struct dpaa2_dq *dq)
  *
  * Return 1 for volatile(pull) dequeue, 0 for static dequeue.
  */
-static inline int dpaa2_dq_is_pull(const struct dpaa2_dq *dq)
+static int dpaa2_dq_is_pull(const struct dpaa2_dq *dq)
 {
 	return (int)(dpaa2_dq_flags(dq) & DPAA2_DQ_STAT_VOLATILE);
 }
@@ -113,7 +113,7 @@ static inline int dpaa2_dq_is_pull(const struct dpaa2_dq *dq)
  *
  * Return boolean.
  */
-static inline bool dpaa2_dq_is_pull_complete(const struct dpaa2_dq *dq)
+static bool dpaa2_dq_is_pull_complete(const struct dpaa2_dq *dq)
 {
 	return !!(dpaa2_dq_flags(dq) & DPAA2_DQ_STAT_EXPIRED);
 }
@@ -126,7 +126,7 @@ static inline bool dpaa2_dq_is_pull_complete(const struct dpaa2_dq *dq)
  *
  * Return seqnum.
  */
-static inline u16 dpaa2_dq_seqnum(const struct dpaa2_dq *dq)
+static u16 dpaa2_dq_seqnum(const struct dpaa2_dq *dq)
 {
 	return le16_to_cpu(dq->dq.seqnum);
 }
@@ -139,7 +139,7 @@ static inline u16 dpaa2_dq_seqnum(const struct dpaa2_dq *dq)
  *
  * Return odpid.
  */
-static inline u16 dpaa2_dq_odpid(const struct dpaa2_dq *dq)
+static u16 dpaa2_dq_odpid(const struct dpaa2_dq *dq)
 {
 	return le16_to_cpu(dq->dq.oprid);
 }
@@ -150,7 +150,7 @@ static inline u16 dpaa2_dq_odpid(const struct dpaa2_dq *dq)
  *
  * Return fqid.
  */
-static inline u32 dpaa2_dq_fqid(const struct dpaa2_dq *dq)
+static u32 dpaa2_dq_fqid(const struct dpaa2_dq *dq)
 {
 	return le32_to_cpu(dq->dq.fqid) & DQ_FQID_MASK;
 }
@@ -161,7 +161,7 @@ static inline u32 dpaa2_dq_fqid(const struct dpaa2_dq *dq)
  *
  * Return the byte count remaining in the FQ.
  */
-static inline u32 dpaa2_dq_byte_count(const struct dpaa2_dq *dq)
+static u32 dpaa2_dq_byte_count(const struct dpaa2_dq *dq)
 {
 	return le32_to_cpu(dq->dq.fq_byte_cnt);
 }
@@ -172,7 +172,7 @@ static inline u32 dpaa2_dq_byte_count(const struct dpaa2_dq *dq)
  *
  * Return the frame count remaining in the FQ.
  */
-static inline u32 dpaa2_dq_frame_count(const struct dpaa2_dq *dq)
+static u32 dpaa2_dq_frame_count(const struct dpaa2_dq *dq)
 {
 	return le32_to_cpu(dq->dq.fq_frm_cnt) & DQ_FRAME_COUNT_MASK;
 }
@@ -183,7 +183,7 @@ static inline u32 dpaa2_dq_frame_count(const struct dpaa2_dq *dq)
  *
  * Return the frame queue context.
  */
-static inline u64 dpaa2_dq_fqd_ctx(const struct dpaa2_dq *dq)
+static u64 dpaa2_dq_fqd_ctx(const struct dpaa2_dq *dq)
 {
 	return le64_to_cpu(dq->dq.fqd_ctx);
 }
@@ -194,7 +194,7 @@ static inline u64 dpaa2_dq_fqd_ctx(const struct dpaa2_dq *dq)
  *
  * Return the frame descriptor.
  */
-static inline const struct dpaa2_fd *dpaa2_dq_fd(const struct dpaa2_dq *dq)
+static const struct dpaa2_fd *dpaa2_dq_fd(const struct dpaa2_dq *dq)
 {
 	return (const struct dpaa2_fd *)&dq->dq.fd[0];
 }

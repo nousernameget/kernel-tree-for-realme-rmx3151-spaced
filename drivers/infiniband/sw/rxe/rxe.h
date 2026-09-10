@@ -65,7 +65,7 @@
 
 #define RXE_ROCE_V2_SPORT		(0xc000)
 
-static inline u32 rxe_crc32(struct rxe_dev *rxe,
+static u32 rxe_crc32(struct rxe_dev *rxe,
 			    u32 crc, void *next, size_t len)
 {
 	u32 retval;

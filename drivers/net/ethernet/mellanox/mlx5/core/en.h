@@ -126,7 +126,7 @@
 
 #define MLX5E_NUM_MAIN_GROUPS 9
 
-static inline u16 mlx5_min_rx_wqes(int wq_type, u32 wq_size)
+static u16 mlx5_min_rx_wqes(int wq_type, u32 wq_size)
 {
 	switch (wq_type) {
 	case MLX5_WQ_TYPE_LINKED_LIST_STRIDING_RQ:
@@ -138,7 +138,7 @@ static inline u16 mlx5_min_rx_wqes(int wq_type, u32 wq_size)
 	}
 }
 
-static inline int mlx5_min_log_rq_size(int wq_type)
+static int mlx5_min_log_rq_size(int wq_type)
 {
 	switch (wq_type) {
 	case MLX5_WQ_TYPE_LINKED_LIST_STRIDING_RQ:
@@ -148,7 +148,7 @@ static inline int mlx5_min_log_rq_size(int wq_type)
 	}
 }
 
-static inline int mlx5_max_log_rq_size(int wq_type)
+static int mlx5_max_log_rq_size(int wq_type)
 {
 	switch (wq_type) {
 	case MLX5_WQ_TYPE_LINKED_LIST_STRIDING_RQ:
@@ -158,7 +158,7 @@ static inline int mlx5_max_log_rq_size(int wq_type)
 	}
 }
 
-static inline int mlx5e_get_max_num_channels(struct mlx5_core_dev *mdev)
+static int mlx5e_get_max_num_channels(struct mlx5_core_dev *mdev)
 {
 	return is_kdump_kernel() ?
 		MLX5E_MIN_NUM_CHANNELS :
@@ -441,7 +441,7 @@ struct mlx5e_icosq {
 	struct mlx5e_channel      *channel;
 } ____cacheline_aligned_in_smp;
 
-static inline bool
+static bool
 mlx5e_wqc_has_room_for(struct mlx5_wq_cyc *wq, u16 cc, u16 pc, u16 n)
 {
 	return (((wq->sz_m1 & (cc - pc)) >= n) || (cc == pc));
@@ -934,7 +934,7 @@ void mlx5e_set_rx_cq_mode_params(struct mlx5e_params *params,
 void mlx5e_set_rq_type_params(struct mlx5_core_dev *mdev,
 			      struct mlx5e_params *params, u8 rq_type);
 
-static inline bool mlx5e_tunnel_inner_ft_supported(struct mlx5_core_dev *mdev)
+static bool mlx5e_tunnel_inner_ft_supported(struct mlx5_core_dev *mdev)
 {
 	return (MLX5_CAP_ETH(mdev, tunnel_stateless_gre) &&
 		MLX5_CAP_FLOWTABLE_NIC_RX(mdev, ft_field_support.inner_ip_version));
@@ -976,7 +976,7 @@ void mlx5e_notify_hw(struct mlx5_wq_cyc *wq, u16 pc,
 	mlx5_write64((__be32 *)ctrl, uar_map, NULL);
 }
 
-static inline void mlx5e_cq_arm(struct mlx5e_cq *cq)
+static void mlx5e_cq_arm(struct mlx5e_cq *cq)
 {
 	struct mlx5_core_cq *mcq;
 
@@ -984,7 +984,7 @@ static inline void mlx5e_cq_arm(struct mlx5e_cq *cq)
 	mlx5_cq_arm(mcq, MLX5_CQ_DB_REQ_NOT, mcq->uar->map, cq->wq.cc);
 }
 
-static inline u32 mlx5e_get_wqe_mtt_offset(struct mlx5e_rq *rq, u16 wqe_ix)
+static u32 mlx5e_get_wqe_mtt_offset(struct mlx5e_rq *rq, u16 wqe_ix)
 {
 	return wqe_ix * ALIGN(MLX5_MPWRQ_PAGES_PER_WQE, 8);
 }
@@ -997,19 +997,19 @@ void mlx5e_dcbnl_initialize(struct mlx5e_priv *priv);
 #endif
 
 #ifndef CONFIG_RFS_ACCEL
-static inline int mlx5e_arfs_create_tables(struct mlx5e_priv *priv)
+static int mlx5e_arfs_create_tables(struct mlx5e_priv *priv)
 {
 	return 0;
 }
 
 static inline void mlx5e_arfs_destroy_tables(struct mlx5e_priv *priv) {}
 
-static inline int mlx5e_arfs_enable(struct mlx5e_priv *priv)
+static int mlx5e_arfs_enable(struct mlx5e_priv *priv)
 {
 	return -EOPNOTSUPP;
 }
 
-static inline int mlx5e_arfs_disable(struct mlx5e_priv *priv)
+static int mlx5e_arfs_disable(struct mlx5e_priv *priv)
 {
 	return -EOPNOTSUPP;
 }

@@ -29,13 +29,13 @@
 
 const struct rtl818x_rf_ops * rtl8187_detect_rf(struct ieee80211_hw *);
 
-static inline void rtl8225_write_phy_ofdm(struct ieee80211_hw *dev,
+static void rtl8225_write_phy_ofdm(struct ieee80211_hw *dev,
 					  u8 addr, u32 data)
 {
 	rtl8187_write_phy(dev, addr, data);
 }
 
-static inline void rtl8225_write_phy_cck(struct ieee80211_hw *dev,
+static void rtl8225_write_phy_cck(struct ieee80211_hw *dev,
 					 u8 addr, u32 data)
 {
 	rtl8187_write_phy(dev, addr, data | 0x10000);

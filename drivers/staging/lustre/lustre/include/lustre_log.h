@@ -255,7 +255,7 @@ struct llog_ctxt {
 #define LLOG_PROC_BREAK 0x0001
 #define LLOG_DEL_RECORD 0x0002
 
-static inline int llog_handle2ops(struct llog_handle *loghandle,
+static int llog_handle2ops(struct llog_handle *loghandle,
 				  struct llog_operations **lop)
 {
 	if (!loghandle || !loghandle->lgh_logops)
@@ -265,7 +265,7 @@ static inline int llog_handle2ops(struct llog_handle *loghandle,
 	return 0;
 }
 
-static inline struct llog_ctxt *llog_ctxt_get(struct llog_ctxt *ctxt)
+static struct llog_ctxt *llog_ctxt_get(struct llog_ctxt *ctxt)
 {
 	atomic_inc(&ctxt->loc_refcount);
 	CDEBUG(D_INFO, "GETting ctxt %p : new refcount %d\n", ctxt,
@@ -273,7 +273,7 @@ static inline struct llog_ctxt *llog_ctxt_get(struct llog_ctxt *ctxt)
 	return ctxt;
 }
 
-static inline void llog_ctxt_put(struct llog_ctxt *ctxt)
+static void llog_ctxt_put(struct llog_ctxt *ctxt)
 {
 	if (!ctxt)
 		return;
@@ -283,14 +283,14 @@ static inline void llog_ctxt_put(struct llog_ctxt *ctxt)
 	__llog_ctxt_put(NULL, ctxt);
 }
 
-static inline void llog_group_init(struct obd_llog_group *olg)
+static void llog_group_init(struct obd_llog_group *olg)
 {
 	init_waitqueue_head(&olg->olg_waitq);
 	spin_lock_init(&olg->olg_lock);
 	mutex_init(&olg->olg_cat_processing);
 }
 
-static inline int llog_group_set_ctxt(struct obd_llog_group *olg,
+static int llog_group_set_ctxt(struct obd_llog_group *olg,
 				      struct llog_ctxt *ctxt, int index)
 {
 	LASSERT(index >= 0 && index < LLOG_MAX_CTXTS);
@@ -305,7 +305,7 @@ static inline int llog_group_set_ctxt(struct obd_llog_group *olg,
 	return 0;
 }
 
-static inline struct llog_ctxt *llog_group_get_ctxt(struct obd_llog_group *olg,
+static struct llog_ctxt *llog_group_get_ctxt(struct obd_llog_group *olg,
 						    int index)
 {
 	struct llog_ctxt *ctxt;
@@ -321,7 +321,7 @@ static inline struct llog_ctxt *llog_group_get_ctxt(struct obd_llog_group *olg,
 	return ctxt;
 }
 
-static inline void llog_group_clear_ctxt(struct obd_llog_group *olg, int index)
+static void llog_group_clear_ctxt(struct obd_llog_group *olg, int index)
 {
 	LASSERT(index >= 0 && index < LLOG_MAX_CTXTS);
 	spin_lock(&olg->olg_lock);
@@ -329,23 +329,23 @@ static inline void llog_group_clear_ctxt(struct obd_llog_group *olg, int index)
 	spin_unlock(&olg->olg_lock);
 }
 
-static inline struct llog_ctxt *llog_get_context(struct obd_device *obd,
+static struct llog_ctxt *llog_get_context(struct obd_device *obd,
 						 int index)
 {
 	return llog_group_get_ctxt(&obd->obd_olg, index);
 }
 
-static inline int llog_group_ctxt_null(struct obd_llog_group *olg, int index)
+static int llog_group_ctxt_null(struct obd_llog_group *olg, int index)
 {
 	return (!olg->olg_ctxts[index]);
 }
 
-static inline int llog_ctxt_null(struct obd_device *obd, int index)
+static int llog_ctxt_null(struct obd_device *obd, int index)
 {
 	return llog_group_ctxt_null(&obd->obd_olg, index);
 }
 
-static inline int llog_next_block(const struct lu_env *env,
+static int llog_next_block(const struct lu_env *env,
 				  struct llog_handle *loghandle, int *cur_idx,
 				  int next_idx, __u64 *cur_offset, void *buf,
 				  int len)

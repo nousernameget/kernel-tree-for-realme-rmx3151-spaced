@@ -562,49 +562,49 @@ struct gru_blade_state {
 /* Lock hierarchy checking enabled only in emulator */
 
 /* 0 = lock failed, 1 = locked */
-static inline int __trylock_handle(void *h)
+static int __trylock_handle(void *h)
 {
 	return !test_and_set_bit(1, h);
 }
 
-static inline void __lock_handle(void *h)
+static void __lock_handle(void *h)
 {
 	while (test_and_set_bit(1, h))
 		cpu_relax();
 }
 
-static inline void __unlock_handle(void *h)
+static void __unlock_handle(void *h)
 {
 	clear_bit(1, h);
 }
 
-static inline int trylock_cch_handle(struct gru_context_configuration_handle *cch)
+static int trylock_cch_handle(struct gru_context_configuration_handle *cch)
 {
 	return __trylock_handle(cch);
 }
 
-static inline void lock_cch_handle(struct gru_context_configuration_handle *cch)
+static void lock_cch_handle(struct gru_context_configuration_handle *cch)
 {
 	__lock_handle(cch);
 }
 
-static inline void unlock_cch_handle(struct gru_context_configuration_handle
+static void unlock_cch_handle(struct gru_context_configuration_handle
 				     *cch)
 {
 	__unlock_handle(cch);
 }
 
-static inline void lock_tgh_handle(struct gru_tlb_global_handle *tgh)
+static void lock_tgh_handle(struct gru_tlb_global_handle *tgh)
 {
 	__lock_handle(tgh);
 }
 
-static inline void unlock_tgh_handle(struct gru_tlb_global_handle *tgh)
+static void unlock_tgh_handle(struct gru_tlb_global_handle *tgh)
 {
 	__unlock_handle(tgh);
 }
 
-static inline int is_kernel_context(struct gru_thread_state *gts)
+static int is_kernel_context(struct gru_thread_state *gts)
 {
 	return !gts->ts_mm;
 }

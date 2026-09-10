@@ -902,7 +902,7 @@ struct chip_data_s3706 {
         unsigned long rotation_changed_time;        //remember rotation changed time
 };
 
-static inline int secure_memcpy(unsigned char *dest, unsigned int dest_size,
+static int secure_memcpy(unsigned char *dest, unsigned int dest_size,
                 const unsigned char *src, unsigned int src_size,
                 unsigned int count)
 {

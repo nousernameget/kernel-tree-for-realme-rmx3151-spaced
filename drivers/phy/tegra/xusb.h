@@ -60,7 +60,7 @@ struct tegra_xusb_usb2_lane {
 	u32 hs_curr_level_offset;
 };
 
-static inline struct tegra_xusb_usb2_lane *
+static struct tegra_xusb_usb2_lane *
 to_usb2_lane(struct tegra_xusb_lane *lane)
 {
 	return container_of(lane, struct tegra_xusb_usb2_lane, base);
@@ -70,7 +70,7 @@ struct tegra_xusb_ulpi_lane {
 	struct tegra_xusb_lane base;
 };
 
-static inline struct tegra_xusb_ulpi_lane *
+static struct tegra_xusb_ulpi_lane *
 to_ulpi_lane(struct tegra_xusb_lane *lane)
 {
 	return container_of(lane, struct tegra_xusb_ulpi_lane, base);
@@ -89,7 +89,7 @@ struct tegra_xusb_hsic_lane {
 	bool auto_term;
 };
 
-static inline struct tegra_xusb_hsic_lane *
+static struct tegra_xusb_hsic_lane *
 to_hsic_lane(struct tegra_xusb_lane *lane)
 {
 	return container_of(lane, struct tegra_xusb_hsic_lane, base);
@@ -99,7 +99,7 @@ struct tegra_xusb_pcie_lane {
 	struct tegra_xusb_lane base;
 };
 
-static inline struct tegra_xusb_pcie_lane *
+static struct tegra_xusb_pcie_lane *
 to_pcie_lane(struct tegra_xusb_lane *lane)
 {
 	return container_of(lane, struct tegra_xusb_pcie_lane, base);
@@ -109,7 +109,7 @@ struct tegra_xusb_sata_lane {
 	struct tegra_xusb_lane base;
 };
 
-static inline struct tegra_xusb_sata_lane *
+static struct tegra_xusb_sata_lane *
 to_sata_lane(struct tegra_xusb_lane *lane)
 {
 	return container_of(lane, struct tegra_xusb_sata_lane, base);
@@ -156,7 +156,7 @@ struct tegra_xusb_pad {
 	struct list_head list;
 };
 
-static inline struct tegra_xusb_pad *to_tegra_xusb_pad(struct device *dev)
+static struct tegra_xusb_pad *to_tegra_xusb_pad(struct device *dev)
 {
 	return container_of(dev, struct tegra_xusb_pad, dev);
 }
@@ -176,7 +176,7 @@ struct tegra_xusb_usb2_pad {
 	struct mutex lock;
 };
 
-static inline struct tegra_xusb_usb2_pad *
+static struct tegra_xusb_usb2_pad *
 to_usb2_pad(struct tegra_xusb_pad *pad)
 {
 	return container_of(pad, struct tegra_xusb_usb2_pad, base);
@@ -186,7 +186,7 @@ struct tegra_xusb_ulpi_pad {
 	struct tegra_xusb_pad base;
 };
 
-static inline struct tegra_xusb_ulpi_pad *
+static struct tegra_xusb_ulpi_pad *
 to_ulpi_pad(struct tegra_xusb_pad *pad)
 {
 	return container_of(pad, struct tegra_xusb_ulpi_pad, base);
@@ -199,7 +199,7 @@ struct tegra_xusb_hsic_pad {
 	struct clk *clk;
 };
 
-static inline struct tegra_xusb_hsic_pad *
+static struct tegra_xusb_hsic_pad *
 to_hsic_pad(struct tegra_xusb_pad *pad)
 {
 	return container_of(pad, struct tegra_xusb_hsic_pad, base);
@@ -214,7 +214,7 @@ struct tegra_xusb_pcie_pad {
 	unsigned int enable;
 };
 
-static inline struct tegra_xusb_pcie_pad *
+static struct tegra_xusb_pcie_pad *
 to_pcie_pad(struct tegra_xusb_pad *pad)
 {
 	return container_of(pad, struct tegra_xusb_pcie_pad, base);
@@ -229,7 +229,7 @@ struct tegra_xusb_sata_pad {
 	unsigned int enable;
 };
 
-static inline struct tegra_xusb_sata_pad *
+static struct tegra_xusb_sata_pad *
 to_sata_pad(struct tegra_xusb_pad *pad)
 {
 	return container_of(pad, struct tegra_xusb_sata_pad, base);
@@ -274,7 +274,7 @@ struct tegra_xusb_usb2_port {
 	bool internal;
 };
 
-static inline struct tegra_xusb_usb2_port *
+static struct tegra_xusb_usb2_port *
 to_usb2_port(struct tegra_xusb_port *port)
 {
 	return container_of(port, struct tegra_xusb_usb2_port, base);
@@ -291,7 +291,7 @@ struct tegra_xusb_ulpi_port {
 	bool internal;
 };
 
-static inline struct tegra_xusb_ulpi_port *
+static struct tegra_xusb_ulpi_port *
 to_ulpi_port(struct tegra_xusb_port *port)
 {
 	return container_of(port, struct tegra_xusb_ulpi_port, base);
@@ -301,7 +301,7 @@ struct tegra_xusb_hsic_port {
 	struct tegra_xusb_port base;
 };
 
-static inline struct tegra_xusb_hsic_port *
+static struct tegra_xusb_hsic_port *
 to_hsic_port(struct tegra_xusb_port *port)
 {
 	return container_of(port, struct tegra_xusb_hsic_port, base);
@@ -320,7 +320,7 @@ struct tegra_xusb_usb3_port {
 	u32 ctle_g;
 };
 
-static inline struct tegra_xusb_usb3_port *
+static struct tegra_xusb_usb3_port *
 to_usb3_port(struct tegra_xusb_port *port)
 {
 	return container_of(port, struct tegra_xusb_usb3_port, base);
@@ -392,14 +392,14 @@ struct tegra_xusb_padctl {
 	struct clk *clk;
 };
 
-static inline void padctl_writel(struct tegra_xusb_padctl *padctl, u32 value,
+static void padctl_writel(struct tegra_xusb_padctl *padctl, u32 value,
 				 unsigned long offset)
 {
 	dev_dbg(padctl->dev, "%08lx < %08x\n", offset, value);
 	writel(value, padctl->regs + offset);
 }
 
-static inline u32 padctl_readl(struct tegra_xusb_padctl *padctl,
+static u32 padctl_readl(struct tegra_xusb_padctl *padctl,
 			       unsigned long offset)
 {
 	u32 value = readl(padctl->regs + offset);

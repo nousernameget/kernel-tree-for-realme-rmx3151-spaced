@@ -423,7 +423,7 @@ enum { /* adapter flags */
  *
  * Returns the 32-bit value of the given HW register.
  */
-static inline u32 t4_read_reg(struct adapter *adapter, u32 reg_addr)
+static u32 t4_read_reg(struct adapter *adapter, u32 reg_addr)
 {
 	return readl(adapter->regs + reg_addr);
 }
@@ -436,18 +436,18 @@ static inline u32 t4_read_reg(struct adapter *adapter, u32 reg_addr)
  *
  * Write a 32-bit value into the given HW register.
  */
-static inline void t4_write_reg(struct adapter *adapter, u32 reg_addr, u32 val)
+static void t4_write_reg(struct adapter *adapter, u32 reg_addr, u32 val)
 {
 	writel(val, adapter->regs + reg_addr);
 }
 
 #ifndef readq
-static inline u64 readq(const volatile void __iomem *addr)
+static u64 readq(const volatile void __iomem *addr)
 {
 	return readl(addr) + ((u64)readl(addr + 4) << 32);
 }
 
-static inline void writeq(u64 val, volatile void __iomem *addr)
+static void writeq(u64 val, volatile void __iomem *addr)
 {
 	writel(val, addr);
 	writel(val >> 32, addr + 4);
@@ -461,7 +461,7 @@ static inline void writeq(u64 val, volatile void __iomem *addr)
  *
  * Returns the 64-bit value of the given HW register.
  */
-static inline u64 t4_read_reg64(struct adapter *adapter, u32 reg_addr)
+static u64 t4_read_reg64(struct adapter *adapter, u32 reg_addr)
 {
 	return readq(adapter->regs + reg_addr);
 }
@@ -474,7 +474,7 @@ static inline u64 t4_read_reg64(struct adapter *adapter, u32 reg_addr)
  *
  * Write a 64-bit value into the given HW register.
  */
-static inline void t4_write_reg64(struct adapter *adapter, u32 reg_addr,
+static void t4_write_reg64(struct adapter *adapter, u32 reg_addr,
 				  u64 val)
 {
 	writeq(val, adapter->regs + reg_addr);
@@ -487,7 +487,7 @@ static inline void t4_write_reg64(struct adapter *adapter, u32 reg_addr,
  *
  * Return the string name of the selected port.
  */
-static inline const char *port_name(struct adapter *adapter, int pidx)
+static const char *port_name(struct adapter *adapter, int pidx)
 {
 	return adapter->port[pidx]->name;
 }
@@ -501,7 +501,7 @@ static inline const char *port_name(struct adapter *adapter, int pidx)
  * Store the Ethernet address of the given port in SW.  Called by the common
  * code when it retrieves a port's Ethernet address from EEPROM.
  */
-static inline void t4_os_set_hw_addr(struct adapter *adapter, int pidx,
+static void t4_os_set_hw_addr(struct adapter *adapter, int pidx,
 				     u8 hw_addr[])
 {
 	memcpy(adapter->port[pidx]->dev_addr, hw_addr, ETH_ALEN);
@@ -513,7 +513,7 @@ static inline void t4_os_set_hw_addr(struct adapter *adapter, int pidx,
  *
  * Return the struct port_info associated with a net_device
  */
-static inline struct port_info *netdev2pinfo(const struct net_device *dev)
+static struct port_info *netdev2pinfo(const struct net_device *dev)
 {
 	return netdev_priv(dev);
 }
@@ -525,7 +525,7 @@ static inline struct port_info *netdev2pinfo(const struct net_device *dev)
  *
  * Return the port_info structure for the adapter.
  */
-static inline struct port_info *adap2pinfo(struct adapter *adapter, int pidx)
+static struct port_info *adap2pinfo(struct adapter *adapter, int pidx)
 {
 	return netdev_priv(adapter->port[pidx]);
 }
@@ -536,7 +536,7 @@ static inline struct port_info *adap2pinfo(struct adapter *adapter, int pidx)
  *
  * Return the struct adapter associated with a net_device
  */
-static inline struct adapter *netdev2adap(const struct net_device *dev)
+static struct adapter *netdev2adap(const struct net_device *dev)
 {
 	return netdev2pinfo(dev)->adapter;
 }

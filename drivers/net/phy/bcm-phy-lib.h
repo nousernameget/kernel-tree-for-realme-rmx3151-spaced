@@ -20,7 +20,7 @@
 int bcm_phy_write_exp(struct phy_device *phydev, u16 reg, u16 val);
 int bcm_phy_read_exp(struct phy_device *phydev, u16 reg);
 
-static inline int bcm_phy_write_exp_sel(struct phy_device *phydev,
+static int bcm_phy_write_exp_sel(struct phy_device *phydev,
 					u16 reg, u16 val)
 {
 	return bcm_phy_write_exp(phydev, reg | MII_BCM54XX_EXP_SEL_ER, val);

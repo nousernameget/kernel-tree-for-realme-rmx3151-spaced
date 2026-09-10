@@ -275,12 +275,12 @@ struct b43_dmaring {
 #endif /* CONFIG_B43_DEBUG */
 };
 
-static inline u32 b43_dma_read(struct b43_dmaring *ring, u16 offset)
+static u32 b43_dma_read(struct b43_dmaring *ring, u16 offset)
 {
 	return b43_read32(ring->dev, ring->mmio_base + offset);
 }
 
-static inline void b43_dma_write(struct b43_dmaring *ring, u16 offset, u32 value)
+static void b43_dma_write(struct b43_dmaring *ring, u16 offset, u32 value)
 {
 	b43_write32(ring->dev, ring->mmio_base + offset, value);
 }

@@ -44,7 +44,7 @@ enum {
 extern struct dvb_frontend *m88rs2000_attach(
 	const struct m88rs2000_config *config, struct i2c_adapter *i2c);
 #else
-static inline struct dvb_frontend *m88rs2000_attach(
+static struct dvb_frontend *m88rs2000_attach(
 	const struct m88rs2000_config *config, struct i2c_adapter *i2c)
 {
 	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);

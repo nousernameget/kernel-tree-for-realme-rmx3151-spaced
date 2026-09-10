@@ -411,7 +411,7 @@ struct tpm_buf {
 	u8 *data;
 };
 
-static inline int tpm_buf_init(struct tpm_buf *buf, u16 tag, u32 ordinal)
+static int tpm_buf_init(struct tpm_buf *buf, u16 tag, u32 ordinal)
 {
 	struct tpm_input_header *head;
 
@@ -431,27 +431,27 @@ static inline int tpm_buf_init(struct tpm_buf *buf, u16 tag, u32 ordinal)
 	return 0;
 }
 
-static inline void tpm_buf_destroy(struct tpm_buf *buf)
+static void tpm_buf_destroy(struct tpm_buf *buf)
 {
 	kunmap(buf->data_page);
 	__free_page(buf->data_page);
 }
 
-static inline u32 tpm_buf_length(struct tpm_buf *buf)
+static u32 tpm_buf_length(struct tpm_buf *buf)
 {
 	struct tpm_input_header *head = (struct tpm_input_header *) buf->data;
 
 	return be32_to_cpu(head->length);
 }
 
-static inline u16 tpm_buf_tag(struct tpm_buf *buf)
+static u16 tpm_buf_tag(struct tpm_buf *buf)
 {
 	struct tpm_input_header *head = (struct tpm_input_header *) buf->data;
 
 	return be16_to_cpu(head->tag);
 }
 
-static inline void tpm_buf_append(struct tpm_buf *buf,
+static void tpm_buf_append(struct tpm_buf *buf,
 				  const unsigned char *new_data,
 				  unsigned int new_len)
 {
@@ -472,19 +472,19 @@ static inline void tpm_buf_append(struct tpm_buf *buf,
 	head->length = cpu_to_be32(len + new_len);
 }
 
-static inline void tpm_buf_append_u8(struct tpm_buf *buf, const u8 value)
+static void tpm_buf_append_u8(struct tpm_buf *buf, const u8 value)
 {
 	tpm_buf_append(buf, &value, 1);
 }
 
-static inline void tpm_buf_append_u16(struct tpm_buf *buf, const u16 value)
+static void tpm_buf_append_u16(struct tpm_buf *buf, const u16 value)
 {
 	__be16 value2 = cpu_to_be16(value);
 
 	tpm_buf_append(buf, (u8 *) &value2, 2);
 }
 
-static inline void tpm_buf_append_u32(struct tpm_buf *buf, const u32 value)
+static void tpm_buf_append_u32(struct tpm_buf *buf, const u32 value)
 {
 	__be32 value2 = cpu_to_be32(value);
 
@@ -529,7 +529,7 @@ int tpm_pm_resume(struct device *dev);
 int wait_for_tpm_stat(struct tpm_chip *chip, u8 mask, unsigned long timeout,
 		      wait_queue_head_t *queue, bool check_cancel);
 
-static inline void tpm_msleep(unsigned int delay_msec)
+static void tpm_msleep(unsigned int delay_msec)
 {
 	usleep_range(delay_msec * 1000,
 		     (delay_msec * 1000) + TPM_TIMEOUT_RANGE_US);
@@ -553,12 +553,12 @@ int tpm_pcr_read_dev(struct tpm_chip *chip, int pcr_idx, u8 *res_buf);
 #ifdef CONFIG_ACPI
 extern void tpm_add_ppi(struct tpm_chip *chip);
 #else
-static inline void tpm_add_ppi(struct tpm_chip *chip)
+static void tpm_add_ppi(struct tpm_chip *chip)
 {
 }
 #endif
 
-static inline inline u32 tpm2_rc_value(u32 rc)
+static u32 tpm2_rc_value(u32 rc)
 {
 	return (rc & BIT(7)) ? rc & 0xff : rc;
 }

@@ -875,7 +875,7 @@ void ubi_update_reserved(struct ubi_device *ubi);
 void ubi_calculate_reserved(struct ubi_device *ubi);
 int ubi_check_pattern(const void *buf, uint8_t patt, int size);
 
-static inline bool ubi_leb_valid(struct ubi_volume *vol, int lnum)
+static bool ubi_leb_valid(struct ubi_volume *vol, int lnum)
 {
 	return lnum >= 0 && lnum < vol->reserved_pebs;
 }
@@ -989,11 +989,11 @@ int ubiblock_remove(struct ubi_volume_info *vi);
 #else
 static inline int ubiblock_init(void) { return 0; }
 static inline void ubiblock_exit(void) {}
-static inline int ubiblock_create(struct ubi_volume_info *vi)
+static int ubiblock_create(struct ubi_volume_info *vi)
 {
 	return -ENOSYS;
 }
-static inline int ubiblock_remove(struct ubi_volume_info *vi)
+static int ubiblock_remove(struct ubi_volume_info *vi)
 {
 	return -ENOSYS;
 }
@@ -1057,7 +1057,7 @@ static inline int ubiblock_remove(struct ubi_volume_info *vi)
  * @aeb: attaching eraseblock information
  * @list: the list to move to
  */
-static inline void ubi_move_aeb_to_list(struct ubi_ainf_volume *av,
+static void ubi_move_aeb_to_list(struct ubi_ainf_volume *av,
 					 struct ubi_ainf_peb *aeb,
 					 struct list_head *list)
 {
@@ -1071,7 +1071,7 @@ static inline void ubi_move_aeb_to_list(struct ubi_ainf_volume *av,
  * @vidb: the VID buffer to initialize
  * @buf: the underlying buffer
  */
-static inline void ubi_init_vid_buf(const struct ubi_device *ubi,
+static void ubi_init_vid_buf(const struct ubi_device *ubi,
 				    struct ubi_vid_io_buf *vidb,
 				    void *buf)
 {
@@ -1087,7 +1087,7 @@ static inline void ubi_init_vid_buf(const struct ubi_device *ubi,
  * @ubi: the UBI device
  * @gfp_flags: GFP flags to use for the allocation
  */
-static inline struct ubi_vid_io_buf *
+static struct ubi_vid_io_buf *
 ubi_alloc_vid_buf(const struct ubi_device *ubi, gfp_t gfp_flags)
 {
 	struct ubi_vid_io_buf *vidb;
@@ -1112,7 +1112,7 @@ ubi_alloc_vid_buf(const struct ubi_device *ubi, gfp_t gfp_flags)
  * ubi_free_vid_buf - Free a VID buffer
  * @vidb: the VID buffer to free
  */
-static inline void ubi_free_vid_buf(struct ubi_vid_io_buf *vidb)
+static void ubi_free_vid_buf(struct ubi_vid_io_buf *vidb)
 {
 	if (!vidb)
 		return;
@@ -1125,7 +1125,7 @@ static inline void ubi_free_vid_buf(struct ubi_vid_io_buf *vidb)
  * ubi_get_vid_hdr - Get the VID header attached to a VID buffer
  * @vidb: VID buffer
  */
-static inline struct ubi_vid_hdr *ubi_get_vid_hdr(struct ubi_vid_io_buf *vidb)
+static struct ubi_vid_hdr *ubi_get_vid_hdr(struct ubi_vid_io_buf *vidb)
 {
 	return vidb->hdr;
 }
@@ -1135,7 +1135,7 @@ static inline struct ubi_vid_hdr *ubi_get_vid_hdr(struct ubi_vid_io_buf *vidb)
  * the beginning of the logical eraseblock, not to the beginning of the
  * physical eraseblock.
  */
-static inline int ubi_io_read_data(const struct ubi_device *ubi, void *buf,
+static int ubi_io_read_data(const struct ubi_device *ubi, void *buf,
 				   int pnum, int offset, int len)
 {
 	ubi_assert(offset >= 0);
@@ -1147,7 +1147,7 @@ static inline int ubi_io_read_data(const struct ubi_device *ubi, void *buf,
  * the beginning of the logical eraseblock, not to the beginning of the
  * physical eraseblock.
  */
-static inline int ubi_io_write_data(struct ubi_device *ubi, const void *buf,
+static int ubi_io_write_data(struct ubi_device *ubi, const void *buf,
 				    int pnum, int offset, int len)
 {
 	ubi_assert(offset >= 0);
@@ -1158,7 +1158,7 @@ static inline int ubi_io_write_data(struct ubi_device *ubi, const void *buf,
  * ubi_ro_mode - switch to read-only mode.
  * @ubi: UBI device description object
  */
-static inline void ubi_ro_mode(struct ubi_device *ubi)
+static void ubi_ro_mode(struct ubi_device *ubi)
 {
 	if (!ubi->ro_mode) {
 		ubi->ro_mode = 1;
@@ -1172,7 +1172,7 @@ static inline void ubi_ro_mode(struct ubi_device *ubi)
  * @ubi: UBI device description object
  * @vol_id: volume ID
  */
-static inline int vol_id2idx(const struct ubi_device *ubi, int vol_id)
+static int vol_id2idx(const struct ubi_device *ubi, int vol_id)
 {
 	if (vol_id >= UBI_INTERNAL_VOL_START)
 		return vol_id - UBI_INTERNAL_VOL_START + ubi->vtbl_slots;
@@ -1185,7 +1185,7 @@ static inline int vol_id2idx(const struct ubi_device *ubi, int vol_id)
  * @ubi: UBI device description object
  * @idx: table index
  */
-static inline int idx2vol_id(const struct ubi_device *ubi, int idx)
+static int idx2vol_id(const struct ubi_device *ubi, int idx)
 {
 	if (idx >= ubi->vtbl_slots)
 		return idx - ubi->vtbl_slots + UBI_INTERNAL_VOL_START;
@@ -1197,7 +1197,7 @@ static inline int idx2vol_id(const struct ubi_device *ubi, int idx)
  * ubi_is_fm_vol - check whether a volume ID is a Fastmap volume.
  * @vol_id: volume ID
  */
-static inline bool ubi_is_fm_vol(int vol_id)
+static bool ubi_is_fm_vol(int vol_id)
 {
 	switch (vol_id) {
 		case UBI_FM_SB_VOLUME_ID:
@@ -1216,7 +1216,7 @@ static inline bool ubi_is_fm_vol(int vol_id)
  * This function returns a wear leveling object if @pnum relates to the current
  * fastmap, @NULL otherwise.
  */
-static inline struct ubi_wl_entry *ubi_find_fm_block(const struct ubi_device *ubi,
+static struct ubi_wl_entry *ubi_find_fm_block(const struct ubi_device *ubi,
 						     int pnum)
 {
 	int i;

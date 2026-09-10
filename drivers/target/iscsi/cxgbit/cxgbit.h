@@ -106,7 +106,7 @@ union cxgbit_skb_cb {
 #define cxgbit_skcb_rx_backlog_fn(skb)	(CXGBIT_SKB_CB(skb)->rx.backlog_fn)
 #define cxgbit_rx_pdu_cb(skb)		(CXGBIT_SKB_CB(skb)->rx.pdu_cb)
 
-static inline void *cplhdr(struct sk_buff *skb)
+static void *cplhdr(struct sk_buff *skb)
 {
 	return skb->data;
 }
@@ -248,48 +248,48 @@ void _cxgbit_free_cdev(struct kref *kref);
 void _cxgbit_free_csk(struct kref *kref);
 void _cxgbit_free_cnp(struct kref *kref);
 
-static inline void cxgbit_get_cdev(struct cxgbit_device *cdev)
+static void cxgbit_get_cdev(struct cxgbit_device *cdev)
 {
 	kref_get(&cdev->kref);
 }
 
-static inline void cxgbit_put_cdev(struct cxgbit_device *cdev)
+static void cxgbit_put_cdev(struct cxgbit_device *cdev)
 {
 	kref_put(&cdev->kref, _cxgbit_free_cdev);
 }
 
-static inline void cxgbit_get_csk(struct cxgbit_sock *csk)
+static void cxgbit_get_csk(struct cxgbit_sock *csk)
 {
 	kref_get(&csk->kref);
 }
 
-static inline void cxgbit_put_csk(struct cxgbit_sock *csk)
+static void cxgbit_put_csk(struct cxgbit_sock *csk)
 {
 	kref_put(&csk->kref, _cxgbit_free_csk);
 }
 
-static inline void cxgbit_get_cnp(struct cxgbit_np *cnp)
+static void cxgbit_get_cnp(struct cxgbit_np *cnp)
 {
 	kref_get(&cnp->kref);
 }
 
-static inline void cxgbit_put_cnp(struct cxgbit_np *cnp)
+static void cxgbit_put_cnp(struct cxgbit_np *cnp)
 {
 	kref_put(&cnp->kref, _cxgbit_free_cnp);
 }
 
-static inline void cxgbit_sock_reset_wr_list(struct cxgbit_sock *csk)
+static void cxgbit_sock_reset_wr_list(struct cxgbit_sock *csk)
 {
 	csk->wr_pending_tail = NULL;
 	csk->wr_pending_head = NULL;
 }
 
-static inline struct sk_buff *cxgbit_sock_peek_wr(const struct cxgbit_sock *csk)
+static struct sk_buff *cxgbit_sock_peek_wr(const struct cxgbit_sock *csk)
 {
 	return csk->wr_pending_head;
 }
 
-static inline void
+static void
 cxgbit_sock_enqueue_wr(struct cxgbit_sock *csk, struct sk_buff *skb)
 {
 	cxgbit_skcb_tx_wr_next(skb) = NULL;
@@ -303,7 +303,7 @@ cxgbit_sock_enqueue_wr(struct cxgbit_sock *csk, struct sk_buff *skb)
 	csk->wr_pending_tail = skb;
 }
 
-static inline struct sk_buff *cxgbit_sock_dequeue_wr(struct cxgbit_sock *csk)
+static struct sk_buff *cxgbit_sock_dequeue_wr(struct cxgbit_sock *csk)
 {
 	struct sk_buff *skb = csk->wr_pending_head;
 

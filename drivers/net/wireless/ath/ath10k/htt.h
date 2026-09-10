@@ -646,7 +646,7 @@ struct htt_rx_indication {
 	struct htt_rx_indication_mpdu_range mpdu_ranges[0];
 } __packed;
 
-static inline struct htt_rx_indication_mpdu_range *
+static struct htt_rx_indication_mpdu_range *
 		htt_rx_ind_get_mpdu_ranges(struct htt_rx_indication *rx_ind)
 {
 	void *ptr = rx_ind;
@@ -916,12 +916,12 @@ struct htt_rx_test {
 	u8 payload[0];
 } __packed;
 
-static inline __le32 *htt_rx_test_get_ints(struct htt_rx_test *rx_test)
+static __le32 *htt_rx_test_get_ints(struct htt_rx_test *rx_test)
 {
 	return (__le32 *)rx_test->payload;
 }
 
-static inline u8 *htt_rx_test_get_chars(struct htt_rx_test *rx_test)
+static u8 *htt_rx_test_get_chars(struct htt_rx_test *rx_test)
 {
 	return rx_test->payload + (rx_test->num_ints * sizeof(__le32));
 }
@@ -1248,7 +1248,7 @@ struct htt_stats_conf {
 	struct htt_stats_conf_item items[0];
 } __packed;
 
-static inline struct htt_stats_conf_item *htt_stats_conf_next_item(
+static struct htt_stats_conf_item *htt_stats_conf_next_item(
 					const struct htt_stats_conf_item *item)
 {
 	return (void *)item + sizeof(*item) + roundup(item->length, 4);
@@ -1414,7 +1414,7 @@ struct htt_tx_fetch_ind {
 	__le32 resp_ids[0]; /* ath10k_htt_get_tx_fetch_ind_resp_ids() */
 } __packed;
 
-static inline void *
+static void *
 ath10k_htt_get_tx_fetch_ind_resp_ids(struct htt_tx_fetch_ind *ind)
 {
 	return (void *)&ind->records[le16_to_cpu(ind->num_records)];

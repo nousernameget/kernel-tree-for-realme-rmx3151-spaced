@@ -1159,7 +1159,7 @@ static __KAL_INLINE__ void glPacketDataTypeCheck(void)
 		PACKET_PRIVATE_DATA) <= sizeof(((struct sk_buff *) 0)->cb));
 }
 
-static inline u16 mtk_wlan_ndev_select_queue(
+static u16 mtk_wlan_ndev_select_queue(
 	struct sk_buff *skb)
 {
 	static u16 ieee8021d_to_queue[8] = { 1, 0, 0, 1, 2, 2, 3, 3 };

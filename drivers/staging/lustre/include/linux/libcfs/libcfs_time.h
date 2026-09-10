@@ -39,27 +39,27 @@
  * generic time manipulation functions.
  */
 
-static inline unsigned long cfs_time_add(unsigned long t, long d)
+static unsigned long cfs_time_add(unsigned long t, long d)
 {
 	return (unsigned long)(t + d);
 }
 
-static inline unsigned long cfs_time_sub(unsigned long t1, unsigned long t2)
+static unsigned long cfs_time_sub(unsigned long t1, unsigned long t2)
 {
 	return (unsigned long)(t1 - t2);
 }
 
-static inline int cfs_time_after(unsigned long t1, unsigned long t2)
+static int cfs_time_after(unsigned long t1, unsigned long t2)
 {
 	return time_before(t2, t1);
 }
 
-static inline int cfs_time_aftereq(unsigned long t1, unsigned long t2)
+static int cfs_time_aftereq(unsigned long t1, unsigned long t2)
 {
 	return time_before_eq(t2, t1);
 }
 
-static inline unsigned long cfs_time_shift(int seconds)
+static unsigned long cfs_time_shift(int seconds)
 {
 	return cfs_time_add(cfs_time_current(), cfs_time_seconds(seconds));
 }
@@ -68,7 +68,7 @@ static inline unsigned long cfs_time_shift(int seconds)
  * return valid time-out based on user supplied one. Currently we only check
  * that time-out is not shorted than allowed.
  */
-static inline long cfs_timeout_cap(long timeout)
+static long cfs_timeout_cap(long timeout)
 {
 	if (timeout < CFS_TICK)
 		timeout = CFS_TICK;

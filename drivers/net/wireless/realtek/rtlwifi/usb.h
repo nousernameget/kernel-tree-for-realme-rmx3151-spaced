@@ -68,7 +68,7 @@ struct _trx_info {
 	u32 ep_num;
 };
 
-static inline void _rtl_install_trx_info(struct rtl_usb *rtlusb,
+static void _rtl_install_trx_info(struct rtl_usb *rtlusb,
 					 struct sk_buff *skb,
 					 u32 ep_num)
 {

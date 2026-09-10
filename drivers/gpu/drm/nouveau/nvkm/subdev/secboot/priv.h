@@ -44,12 +44,12 @@ struct flcn_u64 {
 	u32 hi;
 };
 
-static inline u64 flcn64_to_u64(const struct flcn_u64 f)
+static u64 flcn64_to_u64(const struct flcn_u64 f)
 {
 	return ((u64)f.hi) << 32 | f.lo;
 }
 
-static inline struct flcn_u64 u64_to_flcn64(u64 u)
+static struct flcn_u64 u64_to_flcn64(u64 u)
 {
 	struct flcn_u64 ret;
 

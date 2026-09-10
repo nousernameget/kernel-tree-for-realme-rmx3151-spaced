@@ -107,7 +107,7 @@ struct ishtp_cl_rb {
 
 /*
  * Control info for IPC messages ISHTP/IPC sending FIFO -
- * list with inline data buffer
+ * list with data buffer
  * This structure will be filled with parameters submitted
  * by the caller glue layer
  * 'buf' may be pointing to the external buffer or to 'inline_data'
@@ -253,7 +253,7 @@ struct ishtp_device {
 	char hw[0] __aligned(sizeof(void *));
 };
 
-static inline unsigned long ishtp_secs_to_jiffies(unsigned long sec)
+static unsigned long ishtp_secs_to_jiffies(unsigned long sec)
 {
 	return msecs_to_jiffies(sec * MSEC_PER_SEC);
 }
@@ -261,12 +261,12 @@ static inline unsigned long ishtp_secs_to_jiffies(unsigned long sec)
 /*
  * Register Access Function
  */
-static inline int ish_ipc_reset(struct ishtp_device *dev)
+static int ish_ipc_reset(struct ishtp_device *dev)
 {
 	return dev->ops->ipc_reset(dev);
 }
 
-static inline int ish_hw_reset(struct ishtp_device *dev)
+static int ish_hw_reset(struct ishtp_device *dev)
 {
 	return dev->ops->hw_reset(dev);
 }

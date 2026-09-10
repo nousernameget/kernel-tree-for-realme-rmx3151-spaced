@@ -149,12 +149,12 @@ struct mmc_fixup {
 /*
  * Unconditionally quirk add/remove.
  */
-static inline void __maybe_unused add_quirk(struct mmc_card *card, int data)
+static void __maybe_unused add_quirk(struct mmc_card *card, int data)
 {
 	card->quirks |= data;
 }
 
-static inline void __maybe_unused remove_quirk(struct mmc_card *card, int data)
+static void __maybe_unused remove_quirk(struct mmc_card *card, int data)
 {
 	card->quirks &= ~data;
 }
@@ -162,13 +162,13 @@ static inline void __maybe_unused remove_quirk(struct mmc_card *card, int data)
 /*
  * Quirk add/remove for MMC products.
  */
-static inline void __maybe_unused add_quirk_mmc(struct mmc_card *card, int data)
+static void __maybe_unused add_quirk_mmc(struct mmc_card *card, int data)
 {
 	if (mmc_card_mmc(card))
 		card->quirks |= data;
 }
 
-static inline void __maybe_unused remove_quirk_mmc(struct mmc_card *card,
+static void __maybe_unused remove_quirk_mmc(struct mmc_card *card,
 						   int data)
 {
 	if (mmc_card_mmc(card))
@@ -178,55 +178,55 @@ static inline void __maybe_unused remove_quirk_mmc(struct mmc_card *card,
 /*
  * Quirk add/remove for SD products.
  */
-static inline void __maybe_unused add_quirk_sd(struct mmc_card *card, int data)
+static void __maybe_unused add_quirk_sd(struct mmc_card *card, int data)
 {
 	if (mmc_card_sd(card))
 		card->quirks |= data;
 }
 
-static inline void __maybe_unused remove_quirk_sd(struct mmc_card *card,
+static void __maybe_unused remove_quirk_sd(struct mmc_card *card,
 						   int data)
 {
 	if (mmc_card_sd(card))
 		card->quirks &= ~data;
 }
 
-static inline int mmc_card_lenient_fn0(const struct mmc_card *c)
+static int mmc_card_lenient_fn0(const struct mmc_card *c)
 {
 	return c->quirks & MMC_QUIRK_LENIENT_FN0;
 }
 
-static inline int mmc_blksz_for_byte_mode(const struct mmc_card *c)
+static int mmc_blksz_for_byte_mode(const struct mmc_card *c)
 {
 	return c->quirks & MMC_QUIRK_BLKSZ_FOR_BYTE_MODE;
 }
 
-static inline int mmc_card_disable_cd(const struct mmc_card *c)
+static int mmc_card_disable_cd(const struct mmc_card *c)
 {
 	return c->quirks & MMC_QUIRK_DISABLE_CD;
 }
 
-static inline int mmc_card_nonstd_func_interface(const struct mmc_card *c)
+static int mmc_card_nonstd_func_interface(const struct mmc_card *c)
 {
 	return c->quirks & MMC_QUIRK_NONSTD_FUNC_IF;
 }
 
-static inline int mmc_card_broken_byte_mode_512(const struct mmc_card *c)
+static int mmc_card_broken_byte_mode_512(const struct mmc_card *c)
 {
 	return c->quirks & MMC_QUIRK_BROKEN_BYTE_MODE_512;
 }
 
-static inline int mmc_card_long_read_time(const struct mmc_card *c)
+static int mmc_card_long_read_time(const struct mmc_card *c)
 {
 	return c->quirks & MMC_QUIRK_LONG_READ_TIME;
 }
 
-static inline int mmc_card_broken_irq_polling(const struct mmc_card *c)
+static int mmc_card_broken_irq_polling(const struct mmc_card *c)
 {
 	return c->quirks & MMC_QUIRK_BROKEN_IRQ_POLLING;
 }
 
-static inline int mmc_card_broken_hpi(const struct mmc_card *c)
+static int mmc_card_broken_hpi(const struct mmc_card *c)
 {
 	return c->quirks & MMC_QUIRK_BROKEN_HPI;
 }

@@ -527,34 +527,34 @@ extern const struct e1000_info e1000_es2_info;
 void e1000e_ptp_init(struct e1000_adapter *adapter);
 void e1000e_ptp_remove(struct e1000_adapter *adapter);
 
-static inline s32 e1000_phy_hw_reset(struct e1000_hw *hw)
+static s32 e1000_phy_hw_reset(struct e1000_hw *hw)
 {
 	return hw->phy.ops.reset(hw);
 }
 
-static inline s32 e1e_rphy(struct e1000_hw *hw, u32 offset, u16 *data)
+static s32 e1e_rphy(struct e1000_hw *hw, u32 offset, u16 *data)
 {
 	return hw->phy.ops.read_reg(hw, offset, data);
 }
 
-static inline s32 e1e_rphy_locked(struct e1000_hw *hw, u32 offset, u16 *data)
+static s32 e1e_rphy_locked(struct e1000_hw *hw, u32 offset, u16 *data)
 {
 	return hw->phy.ops.read_reg_locked(hw, offset, data);
 }
 
-static inline s32 e1e_wphy(struct e1000_hw *hw, u32 offset, u16 data)
+static s32 e1e_wphy(struct e1000_hw *hw, u32 offset, u16 data)
 {
 	return hw->phy.ops.write_reg(hw, offset, data);
 }
 
-static inline s32 e1e_wphy_locked(struct e1000_hw *hw, u32 offset, u16 data)
+static s32 e1e_wphy_locked(struct e1000_hw *hw, u32 offset, u16 data)
 {
 	return hw->phy.ops.write_reg_locked(hw, offset, data);
 }
 
 void e1000e_reload_nvm_generic(struct e1000_hw *hw);
 
-static inline s32 e1000e_read_mac_addr(struct e1000_hw *hw)
+static s32 e1000e_read_mac_addr(struct e1000_hw *hw)
 {
 	if (hw->mac.ops.read_mac_addr)
 		return hw->mac.ops.read_mac_addr(hw);
@@ -562,34 +562,34 @@ static inline s32 e1000e_read_mac_addr(struct e1000_hw *hw)
 	return e1000_read_mac_addr_generic(hw);
 }
 
-static inline s32 e1000_validate_nvm_checksum(struct e1000_hw *hw)
+static s32 e1000_validate_nvm_checksum(struct e1000_hw *hw)
 {
 	return hw->nvm.ops.validate(hw);
 }
 
-static inline s32 e1000e_update_nvm_checksum(struct e1000_hw *hw)
+static s32 e1000e_update_nvm_checksum(struct e1000_hw *hw)
 {
 	return hw->nvm.ops.update(hw);
 }
 
-static inline s32 e1000_read_nvm(struct e1000_hw *hw, u16 offset, u16 words,
+static s32 e1000_read_nvm(struct e1000_hw *hw, u16 offset, u16 words,
 				 u16 *data)
 {
 	return hw->nvm.ops.read(hw, offset, words, data);
 }
 
-static inline s32 e1000_write_nvm(struct e1000_hw *hw, u16 offset, u16 words,
+static s32 e1000_write_nvm(struct e1000_hw *hw, u16 offset, u16 words,
 				  u16 *data)
 {
 	return hw->nvm.ops.write(hw, offset, words, data);
 }
 
-static inline s32 e1000_get_phy_info(struct e1000_hw *hw)
+static s32 e1000_get_phy_info(struct e1000_hw *hw)
 {
 	return hw->phy.ops.get_info(hw);
 }
 
-static inline u32 __er32(struct e1000_hw *hw, unsigned long reg)
+static u32 __er32(struct e1000_hw *hw, unsigned long reg)
 {
 	return readl(hw->hw_addr + reg);
 }

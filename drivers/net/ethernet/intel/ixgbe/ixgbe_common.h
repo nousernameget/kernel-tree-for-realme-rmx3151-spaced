@@ -154,12 +154,12 @@ void ixgbe_set_soft_rate_select_speed(struct ixgbe_hw *hw,
 u16 ixgbe_read_pci_cfg_word(struct ixgbe_hw *hw, u32 reg);
 void ixgbe_write_pci_cfg_word(struct ixgbe_hw *hw, u32 reg, u16 value);
 
-static inline bool ixgbe_removed(void __iomem *addr)
+static bool ixgbe_removed(void __iomem *addr)
 {
 	return unlikely(!addr);
 }
 
-static inline void ixgbe_write_reg(struct ixgbe_hw *hw, u32 reg, u32 value)
+static void ixgbe_write_reg(struct ixgbe_hw *hw, u32 reg, u32 value)
 {
 	u8 __iomem *reg_addr = ACCESS_ONCE(hw->hw_addr);
 
@@ -171,14 +171,14 @@ static inline void ixgbe_write_reg(struct ixgbe_hw *hw, u32 reg, u32 value)
 
 #ifndef writeq
 #define writeq writeq
-static inline void writeq(u64 val, void __iomem *addr)
+static void writeq(u64 val, void __iomem *addr)
 {
 	writel((u32)val, addr);
 	writel((u32)(val >> 32), addr + 4);
 }
 #endif
 
-static inline void ixgbe_write_reg64(struct ixgbe_hw *hw, u32 reg, u64 value)
+static void ixgbe_write_reg64(struct ixgbe_hw *hw, u32 reg, u64 value)
 {
 	u8 __iomem *reg_addr = ACCESS_ONCE(hw->hw_addr);
 

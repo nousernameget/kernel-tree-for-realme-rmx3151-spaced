@@ -195,7 +195,7 @@ enum wlcore_queue_stop_reason {
 	WLCORE_QUEUE_STOP_REASON_SPARE_BLK, /* 18xx specific */
 };
 
-static inline int wl1271_tx_get_queue(int queue)
+static int wl1271_tx_get_queue(int queue)
 {
 	switch (queue) {
 	case 0:
@@ -230,7 +230,7 @@ int wlcore_tx_get_mac80211_queue(struct wl12xx_vif *wlvif, int queue)
 	}
 }
 
-static inline int wl1271_tx_total_queue_count(struct wl1271 *wl)
+static int wl1271_tx_total_queue_count(struct wl1271 *wl)
 {
 	int i, count = 0;
 

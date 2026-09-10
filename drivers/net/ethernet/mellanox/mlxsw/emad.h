@@ -79,7 +79,7 @@ enum mlxsw_emad_op_tlv_status {
 	MLXSW_EMAD_OP_TLV_STATUS_INTERNAL_ERROR = 0x70,
 };
 
-static inline char *mlxsw_emad_op_tlv_status_str(u8 status)
+static char *mlxsw_emad_op_tlv_status_str(u8 status)
 {
 	switch (status) {
 	case MLXSW_EMAD_OP_TLV_STATUS_SUCCESS:

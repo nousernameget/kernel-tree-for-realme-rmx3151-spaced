@@ -157,9 +157,9 @@ typedef enum _ENUM_HIF_OOB_CTRL_PKT_TYPE_T {
 /* Kevin: we don't have to call following function to inspect the data structure.
  * It will check automatically while at compile time.
  */
-static inline VOID hif_txDataTypeCheck(VOID);
+static VOID hif_txDataTypeCheck(VOID);
 
-static inline VOID hif_txDataTypeCheck(VOID)
+static VOID hif_txDataTypeCheck(VOID)
 {
 	DATA_STRUCT_INSPECTING_ASSERT(sizeof(HIF_TX_HEADER_T) == 16);
 

@@ -44,12 +44,12 @@ void st_press_deallocate_ring(struct iio_dev *indio_dev);
 int st_press_trig_set_state(struct iio_trigger *trig, bool state);
 #define ST_PRESS_TRIGGER_SET_STATE (&st_press_trig_set_state)
 #else /* CONFIG_IIO_BUFFER */
-static inline int st_press_allocate_ring(struct iio_dev *indio_dev)
+static int st_press_allocate_ring(struct iio_dev *indio_dev)
 {
 	return 0;
 }
 
-static inline void st_press_deallocate_ring(struct iio_dev *indio_dev)
+static void st_press_deallocate_ring(struct iio_dev *indio_dev)
 {
 }
 #define ST_PRESS_TRIGGER_SET_STATE NULL

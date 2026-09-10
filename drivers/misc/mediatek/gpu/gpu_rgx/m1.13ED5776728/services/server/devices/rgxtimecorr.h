@@ -101,7 +101,7 @@ typedef enum
  @Return      0 on failure, conversion factor otherwise
 
 ******************************************************************************/
-static inline IMG_UINT64 RGXTimeCorrGetConversionFactor(IMG_UINT32 ui32ClockSpeed)
+static IMG_UINT64 RGXTimeCorrGetConversionFactor(IMG_UINT32 ui32ClockSpeed)
 {
 	IMG_UINT32 ui32Remainder;
 

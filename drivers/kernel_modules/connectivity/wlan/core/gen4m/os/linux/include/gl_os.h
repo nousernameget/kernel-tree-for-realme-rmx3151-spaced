@@ -1222,7 +1222,7 @@ static bool is_critical_packet(struct net_device *dev,
 #endif
 }
 
-static inline u16 mtk_wlan_ndev_select_queue(
+static u16 mtk_wlan_ndev_select_queue(
 	struct net_device *dev,
 	struct sk_buff *skb)
 {

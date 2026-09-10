@@ -128,7 +128,7 @@ struct whc_urb {
  * whc_std_last - is this sTD the URB's last?
  * @std: the sTD to check.
  */
-static inline bool whc_std_last(struct whc_std *std)
+static bool whc_std_last(struct whc_std *std)
 {
 	return std->ntds_remaining <= 1;
 }

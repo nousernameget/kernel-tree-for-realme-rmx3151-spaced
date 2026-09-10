@@ -674,7 +674,7 @@ struct task_struct {
 
 /****************************************************************************
  * TODO: Functions prototype, which could be realized as follows
- * 1) inline function
+ * 1) function
  * 2) os API with same functionality
  * 3) implemented in gl_dependent.c
  ****************************************************************************

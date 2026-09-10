@@ -24,14 +24,14 @@
 #define QUEUE_NOT_FULL                  1
 #define QUEUE_FULL                      0
 
-static inline int rsi_init_event(struct rsi_event *pevent)
+static int rsi_init_event(struct rsi_event *pevent)
 {
 	atomic_set(&pevent->event_condition, 1);
 	init_waitqueue_head(&pevent->event_queue);
 	return 0;
 }
 
-static inline int rsi_wait_event(struct rsi_event *event, u32 timeout)
+static int rsi_wait_event(struct rsi_event *event, u32 timeout)
 {
 	int status = 0;
 
@@ -45,18 +45,18 @@ static inline int rsi_wait_event(struct rsi_event *event, u32 timeout)
 	return status;
 }
 
-static inline void rsi_set_event(struct rsi_event *event)
+static void rsi_set_event(struct rsi_event *event)
 {
 	atomic_set(&event->event_condition, 0);
 	wake_up_interruptible(&event->event_queue);
 }
 
-static inline void rsi_reset_event(struct rsi_event *event)
+static void rsi_reset_event(struct rsi_event *event)
 {
 	atomic_set(&event->event_condition, 1);
 }
 
-static inline int rsi_create_kthread(struct rsi_common *common,
+static int rsi_create_kthread(struct rsi_common *common,
 				     struct rsi_thread *thread,
 				     void *func_ptr,
 				     u8 *name)
@@ -69,7 +69,7 @@ static inline int rsi_create_kthread(struct rsi_common *common,
 	return 0;
 }
 
-static inline int rsi_kill_thread(struct rsi_thread *handle)
+static int rsi_kill_thread(struct rsi_thread *handle)
 {
 	atomic_inc(&handle->thread_done);
 	rsi_set_event(&handle->event);

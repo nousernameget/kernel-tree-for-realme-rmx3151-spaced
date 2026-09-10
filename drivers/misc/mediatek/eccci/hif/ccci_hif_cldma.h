@@ -124,7 +124,7 @@ struct ccci_fast_header {
 };
 #endif
 
-static inline struct cldma_request *cldma_ring_step_forward(
+static struct cldma_request *cldma_ring_step_forward(
 	struct cldma_ring *ring, struct cldma_request *req)
 {
 	struct cldma_request *next_req;
@@ -138,7 +138,7 @@ static inline struct cldma_request *cldma_ring_step_forward(
 	return next_req;
 }
 
-static inline struct cldma_request *cldma_ring_step_backward(
+static struct cldma_request *cldma_ring_step_backward(
 	struct cldma_ring *ring, struct cldma_request *req)
 {
 	struct cldma_request *prev_req;
@@ -350,7 +350,7 @@ enum {
 	CCCI_TRACE_RX_IRQ = 1,
 };
 
-static inline void md_cd_queue_struct_init(struct md_cd_queue *queue,
+static void md_cd_queue_struct_init(struct md_cd_queue *queue,
 	unsigned char hif_id, enum DIRECTION dir, unsigned char index)
 {
 	queue->dir = dir;
@@ -367,7 +367,7 @@ static inline void md_cd_queue_struct_init(struct md_cd_queue *queue,
 #endif
 }
 
-static inline int ccci_cldma_hif_send_skb(unsigned char hif_id, int tx_qno,
+static int ccci_cldma_hif_send_skb(unsigned char hif_id, int tx_qno,
 	struct sk_buff *skb, int from_pool, int blocking)
 {
 	struct md_cd_ctrl *md_ctrl =
@@ -380,7 +380,7 @@ static inline int ccci_cldma_hif_send_skb(unsigned char hif_id, int tx_qno,
 		return -1;
 }
 
-static inline int ccci_cldma_hif_write_room(unsigned char hif_id,
+static int ccci_cldma_hif_write_room(unsigned char hif_id,
 	unsigned char qno)
 {
 	struct md_cd_ctrl *md_ctrl =
@@ -392,7 +392,7 @@ static inline int ccci_cldma_hif_write_room(unsigned char hif_id,
 		return -1;
 
 }
-static inline int ccci_cldma_hif_give_more(unsigned char hif_id, int rx_qno)
+static int ccci_cldma_hif_give_more(unsigned char hif_id, int rx_qno)
 {
 	struct md_cd_ctrl *md_ctrl =
 		(struct md_cd_ctrl *)ccci_hif_get_by_id(hif_id);
@@ -404,7 +404,7 @@ static inline int ccci_cldma_hif_give_more(unsigned char hif_id, int rx_qno)
 
 }
 
-static inline int ccci_cldma_hif_dump_status(unsigned char hif_id,
+static int ccci_cldma_hif_dump_status(unsigned char hif_id,
 	enum MODEM_DUMP_FLAG dump_flag, int length)
 {
 	struct md_cd_ctrl *md_ctrl =
@@ -417,7 +417,7 @@ static inline int ccci_cldma_hif_dump_status(unsigned char hif_id,
 
 }
 
-static inline int ccci_cldma_hif_set_wakeup_src(unsigned char hif_id,
+static int ccci_cldma_hif_set_wakeup_src(unsigned char hif_id,
 	int value)
 {
 	struct md_cd_ctrl *md_ctrl =

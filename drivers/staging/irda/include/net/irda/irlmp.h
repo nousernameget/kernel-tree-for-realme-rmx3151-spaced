@@ -246,12 +246,12 @@ void irlmp_flow_indication(struct lap_cb *self, LOCAL_FLOW flow);
 
 LM_REASON irlmp_convert_lap_reason(LAP_REASON);
 
-static inline __u32 irlmp_get_saddr(const struct lsap_cb *self)
+static __u32 irlmp_get_saddr(const struct lsap_cb *self)
 {
 	return (self && self->lap) ? self->lap->saddr : 0;
 }
 
-static inline __u32 irlmp_get_daddr(const struct lsap_cb *self)
+static __u32 irlmp_get_daddr(const struct lsap_cb *self)
 {
 	return (self && self->lap) ? self->lap->daddr : 0;
 }
@@ -266,7 +266,7 @@ extern struct irlmp_cb *irlmp;
 
 /* Check if LAP queue is full.
  * Used by IrTTP for low control, see comments in irlap.h - Jean II */
-static inline int irlmp_lap_tx_queue_full(struct lsap_cb *self)
+static int irlmp_lap_tx_queue_full(struct lsap_cb *self)
 {
 	if (self == NULL)
 		return 0;
@@ -283,7 +283,7 @@ static inline int irlmp_lap_tx_queue_full(struct lsap_cb *self)
  * Note : this can be used *only* if the socket is not yet connected
  * (i.e. NO irlmp_connect_response() done on this socket).
  * - Jean II */
-static inline void irlmp_listen(struct lsap_cb *self)
+static void irlmp_listen(struct lsap_cb *self)
 {
 	self->dlsap_sel = LSAP_ANY;
 	self->lap = NULL;

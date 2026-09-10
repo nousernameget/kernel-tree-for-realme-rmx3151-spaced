@@ -22,7 +22,7 @@ struct imx_crtc_state {
 	int					di_vsync_pin;
 };
 
-static inline struct imx_crtc_state *to_imx_crtc_state(struct drm_crtc_state *s)
+static struct imx_crtc_state *to_imx_crtc_state(struct drm_crtc_state *s)
 {
 	return container_of(s, struct imx_crtc_state, base);
 }

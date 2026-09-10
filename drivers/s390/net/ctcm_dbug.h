@@ -67,7 +67,7 @@ int ctcm_register_dbf_views(void);
 void ctcm_unregister_dbf_views(void);
 void ctcm_dbf_longtext(enum ctcm_dbf_names dbf_nix, int level, char *text, ...);
 
-static inline const char *strtail(const char *s, int n)
+static const char *strtail(const char *s, int n)
 {
 	int l = strlen(s);
 	return (l > n) ? s + (l - n) : s;

@@ -39,7 +39,7 @@
  * mali_kbase_print_cs_experimental() - Print a string for every Core Services
  * experimental feature that is enabled
  */
-static inline void mali_kbase_print_cs_experimental(void)
+static void mali_kbase_print_cs_experimental(void)
 {
 #if MALI_INCREMENTAL_RENDERING
 	pr_info("mali_kbase: INCREMENTAL_RENDERING (experimental) enabled");

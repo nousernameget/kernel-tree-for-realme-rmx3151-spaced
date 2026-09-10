@@ -70,7 +70,7 @@ enum pvrdma_mtu {
 	PVRDMA_MTU_4096 = 5,
 };
 
-static inline int pvrdma_mtu_enum_to_int(enum pvrdma_mtu mtu)
+static int pvrdma_mtu_enum_to_int(enum pvrdma_mtu mtu)
 {
 	switch (mtu) {
 	case PVRDMA_MTU_256:	return  256;
@@ -82,7 +82,7 @@ static inline int pvrdma_mtu_enum_to_int(enum pvrdma_mtu mtu)
 	}
 }
 
-static inline enum pvrdma_mtu pvrdma_mtu_int_to_enum(int mtu)
+static enum pvrdma_mtu pvrdma_mtu_int_to_enum(int mtu)
 {
 	switch (mtu) {
 	case 256:	return PVRDMA_MTU_256;
@@ -138,7 +138,7 @@ enum pvrdma_port_width {
 	PVRDMA_WIDTH_12X	= 8,
 };
 
-static inline int pvrdma_width_enum_to_int(enum pvrdma_port_width width)
+static int pvrdma_width_enum_to_int(enum pvrdma_port_width width)
 {
 	switch (width) {
 	case PVRDMA_WIDTH_1X:	return  1;

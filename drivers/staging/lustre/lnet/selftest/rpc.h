@@ -273,7 +273,7 @@ struct srpc_msg {
 	}     msg_body;
 } WIRE_ATTR;
 
-static inline void
+static void
 srpc_unpack_msg_hdr(struct srpc_msg *msg)
 {
 	if (msg->msg_magic == SRPC_MSG_MAGIC)

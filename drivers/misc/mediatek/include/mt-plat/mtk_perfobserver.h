@@ -60,14 +60,14 @@ extern int pob_fpsgo_fstb_stats_update(unsigned long infonum,
 extern int pob_fpsgo_qtsk_update(unsigned long infonum,
 			struct pob_fpsgo_qtsk_info *info);
 #else
-static inline int pob_fpsgo_register_client(struct notifier_block *nb)
+static int pob_fpsgo_register_client(struct notifier_block *nb)
 { return 0; }
-static inline int pob_fpsgo_unregister_client(struct notifier_block *nb)
+static int pob_fpsgo_unregister_client(struct notifier_block *nb)
 { return 0; }
-static inline int pob_fpsgo_fstb_stats_update(unsigned long infonum,
+static int pob_fpsgo_fstb_stats_update(unsigned long infonum,
 			struct pob_fpsgo_fpsstats_info *info)
 { return 0; }
-static inline int pob_fpsgo_qtsk_update(unsigned long infonum,
+static int pob_fpsgo_qtsk_update(unsigned long infonum,
 			struct pob_fpsgo_qtsk_info *info)
 { return 0; }
 #endif
@@ -92,15 +92,15 @@ extern int pob_qos_monitor_update(enum pob_qos_info_num info_num,
 
 extern void pob_qos_tracker(u64 wallclock);
 #else
-static inline int pob_qos_register_client(struct notifier_block *nb)
+static int pob_qos_register_client(struct notifier_block *nb)
 { return 0; }
-static inline int pob_qos_unregister_client(struct notifier_block *nb)
+static int pob_qos_unregister_client(struct notifier_block *nb)
 { return 0; }
-static inline int pob_qos_monitor_update(enum pob_qos_info_num info_num,
+static int pob_qos_monitor_update(enum pob_qos_info_num info_num,
 						void *info)
 { return 0; }
 
-static inline void pob_qos_tracker(u64 wallclock)
+static void pob_qos_tracker(u64 wallclock)
 { return; }
 #endif
 
@@ -118,11 +118,11 @@ extern int pob_qos_ind_unregister_client(struct notifier_block *nb);
 extern int pob_qos_ind_monitor_update(enum pob_qos_ind_info_num info_num,
 					void *info);
 #else
-static inline int pob_qos_ind_register_client(struct notifier_block *nb)
+static int pob_qos_ind_register_client(struct notifier_block *nb)
 { return 0; }
-static inline int pob_qos_ind_unregister_client(struct notifier_block *nb)
+static int pob_qos_ind_unregister_client(struct notifier_block *nb)
 { return 0; }
-static inline int pob_qos_ind_monitor_update(enum pob_qos_ind_info_num info_num,
+static int pob_qos_ind_monitor_update(enum pob_qos_ind_info_num info_num,
 					void *info)
 { return 0; }
 #endif
@@ -145,11 +145,11 @@ extern int pob_nn_unregister_client(struct notifier_block *nb);
 extern int pob_nn_update(enum pob_nn_info_num info_num,
 				void *info);
 #else
-static inline int pob_nn_register_client(struct notifier_block *nb)
+static int pob_nn_register_client(struct notifier_block *nb)
 { return 0; }
-static inline int pob_nn_unregister_client(struct notifier_block *nb)
+static int pob_nn_unregister_client(struct notifier_block *nb)
 { return 0; }
-static inline int pob_nn_update(enum pob_nn_info_num info_num,
+static int pob_nn_update(enum pob_nn_info_num info_num,
 				void *info)
 { return 0; }
 #endif
@@ -171,11 +171,11 @@ extern int pob_xpufreq_unregister_client(struct notifier_block *nb);
 extern int pob_xpufreq_update(enum pob_xpufreq_info_num info_num,
 				struct pob_xpufreq_info *info);
 #else
-static inline int pob_xpufreq_register_client(struct notifier_block *nb)
+static int pob_xpufreq_register_client(struct notifier_block *nb)
 { return 0; }
-static inline int pob_xpufreq_unregister_client(struct notifier_block *nb)
+static int pob_xpufreq_unregister_client(struct notifier_block *nb)
 { return 0; }
-static inline int pob_xpufreq_update(enum pob_xpufreq_info_num info_num,
+static int pob_xpufreq_update(enum pob_xpufreq_info_num info_num,
 			struct pob_xpufreq_info *info)
 { return 0; }
 #endif
@@ -191,11 +191,11 @@ extern int pob_eara_thrm_unregister_client(struct notifier_block *nb);
 
 extern int pob_eara_thrm_stats_update(enum pob_eara_thrm_info_num info_num);
 #else
-static inline int pob_eara_thrm_register_client(struct notifier_block *nb)
+static int pob_eara_thrm_register_client(struct notifier_block *nb)
 { return 0; }
-static inline int pob_eara_thrm_unregister_client(struct notifier_block *nb)
+static int pob_eara_thrm_unregister_client(struct notifier_block *nb)
 { return 0; }
-static inline int pob_eara_thrm_stats_update(
+static int pob_eara_thrm_stats_update(
 		enum pob_eara_thrm_info_num info_num)
 { return 0; }
 #endif

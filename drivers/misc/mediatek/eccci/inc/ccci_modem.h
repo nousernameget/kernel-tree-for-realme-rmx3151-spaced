@@ -431,7 +431,7 @@ struct ccci_per_md {
 };
 struct ccci_per_md *ccci_get_per_md_data(unsigned char md_id);
 
-static inline int ccci_md_get_cap_by_id(int md_id)
+static int ccci_md_get_cap_by_id(int md_id)
 {
 	struct ccci_per_md *per_md_data = ccci_get_per_md_data(md_id);
 

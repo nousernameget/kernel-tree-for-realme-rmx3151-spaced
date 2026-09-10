@@ -358,7 +358,7 @@ struct safexcel_token {
 #define EIP197_TOKEN_OPCODE_NOOP		EIP197_TOKEN_OPCODE_INSERT
 #define EIP197_TOKEN_OPCODE_BYPASS		GENMASK(3, 0)
 
-static inline void eip197_noop_token(struct safexcel_token *token)
+static void eip197_noop_token(struct safexcel_token *token)
 {
 	token->opcode = EIP197_TOKEN_OPCODE_NOOP;
 	token->packet_length = BIT(2);

@@ -369,22 +369,22 @@ struct mv88e6xxx_hw_stat {
 	int type;
 };
 
-static inline bool mv88e6xxx_has_pvt(struct mv88e6xxx_chip *chip)
+static bool mv88e6xxx_has_pvt(struct mv88e6xxx_chip *chip)
 {
 	return chip->info->pvt;
 }
 
-static inline unsigned int mv88e6xxx_num_databases(struct mv88e6xxx_chip *chip)
+static unsigned int mv88e6xxx_num_databases(struct mv88e6xxx_chip *chip)
 {
 	return chip->info->num_databases;
 }
 
-static inline unsigned int mv88e6xxx_num_ports(struct mv88e6xxx_chip *chip)
+static unsigned int mv88e6xxx_num_ports(struct mv88e6xxx_chip *chip)
 {
 	return chip->info->num_ports;
 }
 
-static inline u16 mv88e6xxx_port_mask(struct mv88e6xxx_chip *chip)
+static u16 mv88e6xxx_port_mask(struct mv88e6xxx_chip *chip)
 {
 	return GENMASK(mv88e6xxx_num_ports(chip) - 1, 0);
 }

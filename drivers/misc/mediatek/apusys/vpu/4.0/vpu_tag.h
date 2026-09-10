@@ -52,12 +52,12 @@ struct vpu_tag {
 int vpu_init_drv_tags(void);
 void vpu_exit_drv_tags(void);
 #else
-static inline int vpu_init_drv_tags(void)
+static int vpu_init_drv_tags(void)
 {
 	return 0;
 }
 
-static inline void vpu_exit_drv_tags(void)
+static void vpu_exit_drv_tags(void)
 {
 }
 #endif

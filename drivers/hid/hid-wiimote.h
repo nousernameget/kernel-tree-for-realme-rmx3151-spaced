@@ -292,21 +292,21 @@ static inline void wiidebug_deinit(void *u) { }
 #endif
 
 /* requires the state.lock spinlock to be held */
-static inline bool wiimote_cmd_pending(struct wiimote_data *wdata, int cmd,
+static bool wiimote_cmd_pending(struct wiimote_data *wdata, int cmd,
 								__u32 opt)
 {
 	return wdata->state.cmd == cmd && wdata->state.opt == opt;
 }
 
 /* requires the state.lock spinlock to be held */
-static inline void wiimote_cmd_complete(struct wiimote_data *wdata)
+static void wiimote_cmd_complete(struct wiimote_data *wdata)
 {
 	wdata->state.cmd = WIIPROTO_REQ_NULL;
 	complete(&wdata->state.ready);
 }
 
 /* requires the state.lock spinlock to be held */
-static inline void wiimote_cmd_abort(struct wiimote_data *wdata)
+static void wiimote_cmd_abort(struct wiimote_data *wdata)
 {
 	/* Abort synchronous request by waking up the sleeping caller. But
 	 * reset the state.cmd field to an invalid value so no further event
@@ -315,18 +315,18 @@ static inline void wiimote_cmd_abort(struct wiimote_data *wdata)
 	complete(&wdata->state.ready);
 }
 
-static inline int wiimote_cmd_acquire(struct wiimote_data *wdata)
+static int wiimote_cmd_acquire(struct wiimote_data *wdata)
 {
 	return mutex_lock_interruptible(&wdata->state.sync) ? -ERESTARTSYS : 0;
 }
 
-static inline void wiimote_cmd_acquire_noint(struct wiimote_data *wdata)
+static void wiimote_cmd_acquire_noint(struct wiimote_data *wdata)
 {
 	mutex_lock(&wdata->state.sync);
 }
 
 /* requires the state.lock spinlock to be held */
-static inline void wiimote_cmd_set(struct wiimote_data *wdata, int cmd,
+static void wiimote_cmd_set(struct wiimote_data *wdata, int cmd,
 								__u32 opt)
 {
 	reinit_completion(&wdata->state.ready);
@@ -334,12 +334,12 @@ static inline void wiimote_cmd_set(struct wiimote_data *wdata, int cmd,
 	wdata->state.opt = opt;
 }
 
-static inline void wiimote_cmd_release(struct wiimote_data *wdata)
+static void wiimote_cmd_release(struct wiimote_data *wdata)
 {
 	mutex_unlock(&wdata->state.sync);
 }
 
-static inline int wiimote_cmd_wait(struct wiimote_data *wdata)
+static int wiimote_cmd_wait(struct wiimote_data *wdata)
 {
 	int ret;
 
@@ -358,7 +358,7 @@ static inline int wiimote_cmd_wait(struct wiimote_data *wdata)
 		return 0;
 }
 
-static inline int wiimote_cmd_wait_noint(struct wiimote_data *wdata)
+static int wiimote_cmd_wait_noint(struct wiimote_data *wdata)
 {
 	unsigned long ret;
 

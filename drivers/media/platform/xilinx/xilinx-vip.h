@@ -135,22 +135,22 @@ int xvip_enum_frame_size(struct v4l2_subdev *subdev,
 			 struct v4l2_subdev_pad_config *cfg,
 			 struct v4l2_subdev_frame_size_enum *fse);
 
-static inline u32 xvip_read(struct xvip_device *xvip, u32 addr)
+static u32 xvip_read(struct xvip_device *xvip, u32 addr)
 {
 	return ioread32(xvip->iomem + addr);
 }
 
-static inline void xvip_write(struct xvip_device *xvip, u32 addr, u32 value)
+static void xvip_write(struct xvip_device *xvip, u32 addr, u32 value)
 {
 	iowrite32(value, xvip->iomem + addr);
 }
 
-static inline void xvip_clr(struct xvip_device *xvip, u32 addr, u32 clr)
+static void xvip_clr(struct xvip_device *xvip, u32 addr, u32 clr)
 {
 	xvip_write(xvip, addr, xvip_read(xvip, addr) & ~clr);
 }
 
-static inline void xvip_set(struct xvip_device *xvip, u32 addr, u32 set)
+static void xvip_set(struct xvip_device *xvip, u32 addr, u32 set)
 {
 	xvip_write(xvip, addr, xvip_read(xvip, addr) | set);
 }
@@ -161,36 +161,36 @@ void xvip_clr_and_set(struct xvip_device *xvip, u32 addr, u32 clr, u32 set);
 int xvip_init_resources(struct xvip_device *xvip);
 void xvip_cleanup_resources(struct xvip_device *xvip);
 
-static inline void xvip_reset(struct xvip_device *xvip)
+static void xvip_reset(struct xvip_device *xvip)
 {
 	xvip_write(xvip, XVIP_CTRL_CONTROL, XVIP_CTRL_CONTROL_SW_RESET);
 }
 
-static inline void xvip_start(struct xvip_device *xvip)
+static void xvip_start(struct xvip_device *xvip)
 {
 	xvip_set(xvip, XVIP_CTRL_CONTROL,
 		 XVIP_CTRL_CONTROL_SW_ENABLE | XVIP_CTRL_CONTROL_REG_UPDATE);
 }
 
-static inline void xvip_stop(struct xvip_device *xvip)
+static void xvip_stop(struct xvip_device *xvip)
 {
 	xvip_clr(xvip, XVIP_CTRL_CONTROL, XVIP_CTRL_CONTROL_SW_ENABLE);
 }
 
-static inline void xvip_resume(struct xvip_device *xvip)
+static void xvip_resume(struct xvip_device *xvip)
 {
 	xvip_write(xvip, XVIP_CTRL_CONTROL,
 		   xvip->saved_ctrl | XVIP_CTRL_CONTROL_SW_ENABLE);
 }
 
-static inline void xvip_suspend(struct xvip_device *xvip)
+static void xvip_suspend(struct xvip_device *xvip)
 {
 	xvip->saved_ctrl = xvip_read(xvip, XVIP_CTRL_CONTROL);
 	xvip_write(xvip, XVIP_CTRL_CONTROL,
 		   xvip->saved_ctrl & ~XVIP_CTRL_CONTROL_SW_ENABLE);
 }
 
-static inline void xvip_set_frame_size(struct xvip_device *xvip,
+static void xvip_set_frame_size(struct xvip_device *xvip,
 				       const struct v4l2_mbus_framefmt *format)
 {
 	xvip_write(xvip, XVIP_ACTIVE_SIZE,
@@ -198,7 +198,7 @@ static inline void xvip_set_frame_size(struct xvip_device *xvip,
 		   (format->width << XVIP_ACTIVE_HSIZE_SHIFT));
 }
 
-static inline void xvip_get_frame_size(struct xvip_device *xvip,
+static void xvip_get_frame_size(struct xvip_device *xvip,
 				       struct v4l2_mbus_framefmt *format)
 {
 	u32 reg;
@@ -210,17 +210,17 @@ static inline void xvip_get_frame_size(struct xvip_device *xvip,
 			 XVIP_ACTIVE_VSIZE_SHIFT;
 }
 
-static inline void xvip_enable_reg_update(struct xvip_device *xvip)
+static void xvip_enable_reg_update(struct xvip_device *xvip)
 {
 	xvip_set(xvip, XVIP_CTRL_CONTROL, XVIP_CTRL_CONTROL_REG_UPDATE);
 }
 
-static inline void xvip_disable_reg_update(struct xvip_device *xvip)
+static void xvip_disable_reg_update(struct xvip_device *xvip)
 {
 	xvip_clr(xvip, XVIP_CTRL_CONTROL, XVIP_CTRL_CONTROL_REG_UPDATE);
 }
 
-static inline void xvip_print_version(struct xvip_device *xvip)
+static void xvip_print_version(struct xvip_device *xvip)
 {
 	u32 version;
 

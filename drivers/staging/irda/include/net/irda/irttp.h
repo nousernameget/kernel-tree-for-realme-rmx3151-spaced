@@ -169,17 +169,17 @@ int irttp_disconnect_request(struct tsap_cb *self, struct sk_buff *skb,
 void irttp_flow_request(struct tsap_cb *self, LOCAL_FLOW flow);
 struct tsap_cb *irttp_dup(struct tsap_cb *self, void *instance);
 
-static inline __u32 irttp_get_saddr(struct tsap_cb *self)
+static __u32 irttp_get_saddr(struct tsap_cb *self)
 {
 	return irlmp_get_saddr(self->lsap);
 }
 
-static inline __u32 irttp_get_daddr(struct tsap_cb *self)
+static __u32 irttp_get_daddr(struct tsap_cb *self)
 {
 	return irlmp_get_daddr(self->lsap);
 }
 
-static inline __u32 irttp_get_max_seg_size(struct tsap_cb *self)
+static __u32 irttp_get_max_seg_size(struct tsap_cb *self)
 {
 	return self->max_seg_size;
 }
@@ -189,7 +189,7 @@ static inline __u32 irttp_get_max_seg_size(struct tsap_cb *self)
  * Note : this can be used *only* if the socket is not yet connected
  * (i.e. NO irttp_connect_response() done on this socket).
  * - Jean II */
-static inline void irttp_listen(struct tsap_cb *self)
+static void irttp_listen(struct tsap_cb *self)
 {
 	irlmp_listen(self->lsap);
 	self->dtsap_sel = LSAP_ANY;
@@ -197,7 +197,7 @@ static inline void irttp_listen(struct tsap_cb *self)
 
 /* Return TRUE if the node is in primary mode (i.e. master)
  * - Jean II */
-static inline int irttp_is_primary(struct tsap_cb *self)
+static int irttp_is_primary(struct tsap_cb *self)
 {
 	if ((self == NULL) ||
 	    (self->lsap == NULL) ||

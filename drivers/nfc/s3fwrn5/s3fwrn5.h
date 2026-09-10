@@ -52,7 +52,7 @@ struct s3fwrn5_info {
 	struct mutex mutex;
 };
 
-static inline int s3fwrn5_set_mode(struct s3fwrn5_info *info,
+static int s3fwrn5_set_mode(struct s3fwrn5_info *info,
 	enum s3fwrn5_mode mode)
 {
 	if (!info->phy_ops->set_mode)
@@ -63,7 +63,7 @@ static inline int s3fwrn5_set_mode(struct s3fwrn5_info *info,
 	return 0;
 }
 
-static inline enum s3fwrn5_mode s3fwrn5_get_mode(struct s3fwrn5_info *info)
+static enum s3fwrn5_mode s3fwrn5_get_mode(struct s3fwrn5_info *info)
 {
 	if (!info->phy_ops->get_mode)
 		return -ENOTSUPP;
@@ -71,7 +71,7 @@ static inline enum s3fwrn5_mode s3fwrn5_get_mode(struct s3fwrn5_info *info)
 	return info->phy_ops->get_mode(info->phy_id);
 }
 
-static inline int s3fwrn5_set_wake(struct s3fwrn5_info *info, bool wake)
+static int s3fwrn5_set_wake(struct s3fwrn5_info *info, bool wake)
 {
 	if (!info->phy_ops->set_wake)
 		return -ENOTSUPP;
@@ -81,7 +81,7 @@ static inline int s3fwrn5_set_wake(struct s3fwrn5_info *info, bool wake)
 	return 0;
 }
 
-static inline int s3fwrn5_write(struct s3fwrn5_info *info, struct sk_buff *skb)
+static int s3fwrn5_write(struct s3fwrn5_info *info, struct sk_buff *skb)
 {
 	if (!info->phy_ops->write)
 		return -ENOTSUPP;

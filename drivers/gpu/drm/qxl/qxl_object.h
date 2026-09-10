@@ -27,7 +27,7 @@
 
 #include "qxl_drv.h"
 
-static inline int qxl_bo_reserve(struct qxl_bo *bo, bool no_wait)
+static int qxl_bo_reserve(struct qxl_bo *bo, bool no_wait)
 {
 	int r;
 
@@ -42,27 +42,27 @@ static inline int qxl_bo_reserve(struct qxl_bo *bo, bool no_wait)
 	return 0;
 }
 
-static inline void qxl_bo_unreserve(struct qxl_bo *bo)
+static void qxl_bo_unreserve(struct qxl_bo *bo)
 {
 	ttm_bo_unreserve(&bo->tbo);
 }
 
-static inline u64 qxl_bo_gpu_offset(struct qxl_bo *bo)
+static u64 qxl_bo_gpu_offset(struct qxl_bo *bo)
 {
 	return bo->tbo.offset;
 }
 
-static inline unsigned long qxl_bo_size(struct qxl_bo *bo)
+static unsigned long qxl_bo_size(struct qxl_bo *bo)
 {
 	return bo->tbo.num_pages << PAGE_SHIFT;
 }
 
-static inline u64 qxl_bo_mmap_offset(struct qxl_bo *bo)
+static u64 qxl_bo_mmap_offset(struct qxl_bo *bo)
 {
 	return drm_vma_node_offset_addr(&bo->tbo.vma_node);
 }
 
-static inline int qxl_bo_wait(struct qxl_bo *bo, u32 *mem_type,
+static int qxl_bo_wait(struct qxl_bo *bo, u32 *mem_type,
 			      bool no_wait)
 {
 	int r;

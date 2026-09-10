@@ -57,7 +57,7 @@ struct bfa_dma {
 /* BFA dma address assignment macro. (big endian format) */
 #define bfa_dma_be_addr_set(dma_addr, pa)	\
 		__bfa_dma_be_addr_set(&dma_addr, (u64)pa)
-static inline void
+static void
 __bfa_dma_be_addr_set(union bfi_addr_u *dma_addr, u64 pa)
 {
 	dma_addr->a32.addr_lo = (u32) htonl(pa);
@@ -67,7 +67,7 @@ __bfa_dma_be_addr_set(union bfi_addr_u *dma_addr, u64 pa)
 #define bfa_alen_set(__alen, __len, __pa)	\
 	__bfa_alen_set(__alen, __len, (u64)__pa)
 
-static inline void
+static void
 __bfa_alen_set(struct bfi_alen *alen, u32 len, u64 pa)
 {
 	alen->al_len = cpu_to_be32(len);

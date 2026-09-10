@@ -185,7 +185,7 @@ struct whc_qhead {
  *
  * Returns the QH type field for a USB core pipe type.
  */
-static inline unsigned usb_pipe_to_qh_type(unsigned pipe)
+static unsigned usb_pipe_to_qh_type(unsigned pipe)
 {
 	static const unsigned type[] = {
 		[PIPE_ISOCHRONOUS] = QH_INFO1_TR_TYPE_ISOC,
@@ -265,7 +265,7 @@ struct whc_qset {
 	uint8_t max_seq;
 };
 
-static inline void whc_qset_set_link_ptr(u64 *ptr, u64 target)
+static void whc_qset_set_link_ptr(u64 *ptr, u64 target)
 {
 	if (target)
 		*ptr = (*ptr & ~(QH_LINK_PTR_MASK | QH_LINK_T)) | QH_LINK_PTR(target);

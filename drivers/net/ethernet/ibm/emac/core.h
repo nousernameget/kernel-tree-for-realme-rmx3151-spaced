@@ -60,7 +60,7 @@
 #define EMAC_MTU_OVERHEAD		(6 * 2 + 2 + 4)
 
 /* RX BD size for the given MTU */
-static inline int emac_rx_size(int mtu)
+static int emac_rx_size(int mtu)
 {
 	if (mtu > ETH_DATA_LEN)
 		return MAL_MAX_RX_SIZE;
@@ -74,14 +74,14 @@ static inline int emac_rx_size(int mtu)
 	EMAC_DMA_ALIGN(CONFIG_IBM_EMAC_RX_SKB_HEADROOM)
 
 /* Size of RX skb for the given MTU */
-static inline int emac_rx_skb_size(int mtu)
+static int emac_rx_skb_size(int mtu)
 {
 	int size = max(mtu + EMAC_MTU_OVERHEAD, emac_rx_size(mtu));
 	return EMAC_DMA_ALIGN(size + 2) + EMAC_RX_SKB_HEADROOM;
 }
 
 /* RX DMA sync size */
-static inline int emac_rx_sync_size(int mtu)
+static int emac_rx_sync_size(int mtu)
 {
 	return EMAC_DMA_ALIGN(emac_rx_size(mtu) + 2);
 }
@@ -366,7 +366,7 @@ enum {
 	EMAC_FTR_APM821XX_NO_HALF_DUPLEX,
 };
 
-static inline int emac_has_feature(struct emac_instance *dev,
+static int emac_has_feature(struct emac_instance *dev,
 				   unsigned long feature)
 {
 	return (EMAC_FTRS_ALWAYS & feature) ||
@@ -407,7 +407,7 @@ static inline int emac_has_feature(struct emac_instance *dev,
 	((u32)(1 << (EMAC_XAHT_WIDTH(dev) - 1)) >>	\
 	 ((slot) & (u32)(EMAC_XAHT_WIDTH(dev) - 1)))
 
-static inline u32 *emac_xaht_base(struct emac_instance *dev)
+static u32 *emac_xaht_base(struct emac_instance *dev)
 {
 	struct emac_regs __iomem *p = dev->emacp;
 	int offset;
@@ -423,7 +423,7 @@ static inline u32 *emac_xaht_base(struct emac_instance *dev)
 	return (u32 *)((ptrdiff_t)p + offset);
 }
 
-static inline u32 *emac_gaht_base(struct emac_instance *dev)
+static u32 *emac_gaht_base(struct emac_instance *dev)
 {
 	/* GAHT registers always come after an identical number of
 	 * IAHT registers.
@@ -431,7 +431,7 @@ static inline u32 *emac_gaht_base(struct emac_instance *dev)
 	return emac_xaht_base(dev) + EMAC_XAHT_REGS(dev);
 }
 
-static inline u32 *emac_iaht_base(struct emac_instance *dev)
+static u32 *emac_iaht_base(struct emac_instance *dev)
 {
 	/* IAHT registers always come before an identical number of
 	 * GAHT registers.

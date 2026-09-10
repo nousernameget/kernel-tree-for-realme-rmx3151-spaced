@@ -35,7 +35,7 @@ struct nouveau_led {
 	struct led_classdev led;
 };
 
-static inline struct nouveau_led *
+static struct nouveau_led *
 nouveau_led(struct drm_device *dev)
 {
 	return nouveau_drm(dev)->led;

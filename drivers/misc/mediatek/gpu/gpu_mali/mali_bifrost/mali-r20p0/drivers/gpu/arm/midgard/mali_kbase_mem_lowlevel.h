@@ -69,7 +69,7 @@ struct tagged_addr { phys_addr_t tagged_addr; };
  *
  * Return: physical address corresponding to tagged address.
  */
-static inline phys_addr_t as_phys_addr_t(struct tagged_addr t)
+static phys_addr_t as_phys_addr_t(struct tagged_addr t)
 {
 	return t.tagged_addr & PAGE_MASK;
 }
@@ -80,7 +80,7 @@ static inline phys_addr_t as_phys_addr_t(struct tagged_addr t)
  *
  * Return: pointer to struct page corresponding to tagged address.
  */
-static inline struct page *as_page(struct tagged_addr t)
+static struct page *as_page(struct tagged_addr t)
 {
 	return phys_to_page(as_phys_addr_t(t));
 }
@@ -97,7 +97,7 @@ static inline struct page *as_page(struct tagged_addr t)
  *
  * Return: address of tagged address type.
  */
-static inline struct tagged_addr as_tagged(phys_addr_t phys)
+static struct tagged_addr as_tagged(phys_addr_t phys)
 {
 	struct tagged_addr t;
 
@@ -115,7 +115,7 @@ static inline struct tagged_addr as_tagged(phys_addr_t phys)
  *
  * Return: tagged address storing physical address & tag.
  */
-static inline struct tagged_addr as_tagged_tag(phys_addr_t phys, int tag)
+static struct tagged_addr as_tagged_tag(phys_addr_t phys, int tag)
 {
 	struct tagged_addr t;
 
@@ -130,7 +130,7 @@ static inline struct tagged_addr as_tagged_tag(phys_addr_t phys, int tag)
  *
  * Return: true if page belongs to large page, or false
  */
-static inline bool is_huge(struct tagged_addr t)
+static bool is_huge(struct tagged_addr t)
 {
 	return t.tagged_addr & HUGE_PAGE;
 }
@@ -143,7 +143,7 @@ static inline bool is_huge(struct tagged_addr t)
  *
  * Return: true if page is the first page of a large page, or false
  */
-static inline bool is_huge_head(struct tagged_addr t)
+static bool is_huge_head(struct tagged_addr t)
 {
 	int mask = HUGE_HEAD | HUGE_PAGE;
 
@@ -158,7 +158,7 @@ static inline bool is_huge_head(struct tagged_addr t)
  *
  * Return: true if page was taken from large page used partially, or false
  */
-static inline bool is_partial(struct tagged_addr t)
+static bool is_partial(struct tagged_addr t)
 {
 	return t.tagged_addr & FROM_PARTIAL;
 }

@@ -40,13 +40,13 @@
 #define VPU_CLR_BIT(reg, bit)   \
 	((*(unsigned int *)((uintptr_t)reg)) &= ~((unsigned int)(1 << (bit))))
 
-static inline unsigned int vpu_read_reg32(
+static unsigned int vpu_read_reg32(
 	unsigned long vpu_base, unsigned int offset)
 {
 	return ioread32((void *) (vpu_base + offset));
 }
 
-static inline void vpu_write_reg32(
+static void vpu_write_reg32(
 	unsigned long vpu_base, unsigned int offset, unsigned int val)
 {
 	mt_reg_sync_writel(val, (void *) (vpu_base + offset));

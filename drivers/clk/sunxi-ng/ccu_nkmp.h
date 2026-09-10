@@ -59,7 +59,7 @@ struct ccu_nkmp {
 		},							\
 	}
 
-static inline struct ccu_nkmp *hw_to_ccu_nkmp(struct clk_hw *hw)
+static struct ccu_nkmp *hw_to_ccu_nkmp(struct clk_hw *hw)
 {
 	struct ccu_common *common = hw_to_ccu_common(hw);
 

@@ -155,7 +155,7 @@ struct sun4i_backend {
 	struct reset_control	*sat_reset;
 };
 
-static inline struct sun4i_backend *
+static struct sun4i_backend *
 engine_to_sun4i_backend(struct sunxi_engine *engine)
 {
 	return container_of(engine, struct sun4i_backend, engine);

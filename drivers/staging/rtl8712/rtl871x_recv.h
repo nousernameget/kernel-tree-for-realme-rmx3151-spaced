@@ -135,7 +135,7 @@ void r8712_free_recvframe_queue(struct  __queue *pframequeue,
 int r8712_wlanhdr_to_ethhdr(union recv_frame *precvframe);
 int recv_func(struct _adapter *padapter, void *pcontext);
 
-static inline u8 *get_rxmem(union recv_frame *precvframe)
+static u8 *get_rxmem(union recv_frame *precvframe)
 {
 	/* always return rx_head... */
 	if (precvframe == NULL)
@@ -143,7 +143,7 @@ static inline u8 *get_rxmem(union recv_frame *precvframe)
 	return precvframe->u.hdr.rx_head;
 }
 
-static inline u8 *get_recvframe_data(union recv_frame *precvframe)
+static u8 *get_recvframe_data(union recv_frame *precvframe)
 {
 	/* always return rx_data */
 	if (precvframe == NULL)
@@ -151,7 +151,7 @@ static inline u8 *get_recvframe_data(union recv_frame *precvframe)
 	return precvframe->u.hdr.rx_data;
 }
 
-static inline u8 *recvframe_pull(union recv_frame *precvframe, sint sz)
+static u8 *recvframe_pull(union recv_frame *precvframe, sint sz)
 {
 	/* used for extract sz bytes from rx_data, update rx_data and return
 	 * the updated rx_data to the caller
@@ -167,7 +167,7 @@ static inline u8 *recvframe_pull(union recv_frame *precvframe, sint sz)
 	return precvframe->u.hdr.rx_data;
 }
 
-static inline u8 *recvframe_put(union recv_frame *precvframe, sint sz)
+static u8 *recvframe_put(union recv_frame *precvframe, sint sz)
 {
 	/* used for append sz bytes from ptr to rx_tail, update rx_tail and
 	 * return the updated rx_tail to the caller
@@ -184,7 +184,7 @@ static inline u8 *recvframe_put(union recv_frame *precvframe, sint sz)
 	return precvframe->u.hdr.rx_tail;
 }
 
-static inline u8 *recvframe_pull_tail(union recv_frame *precvframe, sint sz)
+static u8 *recvframe_pull_tail(union recv_frame *precvframe, sint sz)
 {
 	/* rmv data from rx_tail (by yitsen)
 	 * used for extract sz bytes from rx_end, update rx_end and return the

@@ -52,7 +52,7 @@ void kbase_ipa_model_param_set_s32(struct kbase_ipa_model *model,
 
 #else /* CONFIG_DEBUG_FS */
 
-static inline int kbase_ipa_model_param_add(struct kbase_ipa_model *model,
+static int kbase_ipa_model_param_add(struct kbase_ipa_model *model,
 					    const char *name, void *addr,
 					    size_t size,
 					    enum kbase_ipa_model_param_type type)
@@ -60,7 +60,7 @@ static inline int kbase_ipa_model_param_add(struct kbase_ipa_model *model,
 	return 0;
 }
 
-static inline void kbase_ipa_model_param_free_all(struct kbase_ipa_model *model)
+static void kbase_ipa_model_param_free_all(struct kbase_ipa_model *model)
 { }
 
 #endif /* CONFIG_DEBUG_FS */

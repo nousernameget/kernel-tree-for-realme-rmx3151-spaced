@@ -519,7 +519,7 @@ extern const struct tulip_chip_table tulip_tbl[];
 void oom_timer(unsigned long data);
 extern u8 t21040_csr13[];
 
-static inline void tulip_start_rxtx(struct tulip_private *tp)
+static void tulip_start_rxtx(struct tulip_private *tp)
 {
 	void __iomem *ioaddr = tp->base_addr;
 	iowrite32(tp->csr6 | RxTx, ioaddr + CSR6);
@@ -527,7 +527,7 @@ static inline void tulip_start_rxtx(struct tulip_private *tp)
 	(void) ioread32(ioaddr + CSR6); /* mmio sync */
 }
 
-static inline void tulip_stop_rxtx(struct tulip_private *tp)
+static void tulip_stop_rxtx(struct tulip_private *tp)
 {
 	void __iomem *ioaddr = tp->base_addr;
 	u32 csr6 = ioread32(ioaddr + CSR6);
@@ -550,14 +550,14 @@ static inline void tulip_stop_rxtx(struct tulip_private *tp)
 	}
 }
 
-static inline void tulip_restart_rxtx(struct tulip_private *tp)
+static void tulip_restart_rxtx(struct tulip_private *tp)
 {
 	tulip_stop_rxtx(tp);
 	udelay(5);
 	tulip_start_rxtx(tp);
 }
 
-static inline void tulip_tx_timeout_complete(struct tulip_private *tp, void __iomem *ioaddr)
+static void tulip_tx_timeout_complete(struct tulip_private *tp, void __iomem *ioaddr)
 {
 	/* Stop and restart the chip's Tx processes. */
 	tulip_restart_rxtx(tp);

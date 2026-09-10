@@ -81,12 +81,12 @@ struct bnxt_qplib_cmdqe {
 	u8		data[16];
 };
 
-static inline u32 get_cmdq_pg(u32 val)
+static u32 get_cmdq_pg(u32 val)
 {
 	return (val & ~MAX_CMDQ_IDX_PER_PG) / BNXT_QPLIB_CMDQE_CNT_PER_PG;
 }
 
-static inline u32 get_cmdq_idx(u32 val)
+static u32 get_cmdq_idx(u32 val)
 {
 	return val & MAX_CMDQ_IDX_PER_PG;
 }
@@ -105,12 +105,12 @@ struct bnxt_qplib_crsbe {
 #define MAX_CREQ_IDX			(BNXT_QPLIB_CREQE_MAX_CNT - 1)
 #define MAX_CREQ_IDX_PER_PG		(BNXT_QPLIB_CREQE_CNT_PER_PG - 1)
 
-static inline u32 get_creq_pg(u32 val)
+static u32 get_creq_pg(u32 val)
 {
 	return (val & ~MAX_CREQ_IDX_PER_PG) / BNXT_QPLIB_CREQE_CNT_PER_PG;
 }
 
-static inline u32 get_creq_idx(u32 val)
+static u32 get_creq_idx(u32 val)
 {
 	return val & MAX_CREQ_IDX_PER_PG;
 }

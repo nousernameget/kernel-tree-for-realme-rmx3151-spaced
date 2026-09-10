@@ -88,12 +88,12 @@ void ci_hdrc_gadget_destroy(struct ci_hdrc *ci);
 
 #else
 
-static inline int ci_hdrc_gadget_init(struct ci_hdrc *ci)
+static int ci_hdrc_gadget_init(struct ci_hdrc *ci)
 {
 	return -ENXIO;
 }
 
-static inline void ci_hdrc_gadget_destroy(struct ci_hdrc *ci)
+static void ci_hdrc_gadget_destroy(struct ci_hdrc *ci)
 {
 
 }

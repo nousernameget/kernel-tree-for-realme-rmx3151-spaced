@@ -103,7 +103,7 @@ struct tcm *sita_init(u16 width, u16 height);
  *	   even on failure.  Some error codes: -ENODEV: invalid
  *	   manager.
  */
-static inline void tcm_deinit(struct tcm *tcm)
+static void tcm_deinit(struct tcm *tcm)
 {
 	if (tcm)
 		tcm->deinit(tcm);
@@ -130,7 +130,7 @@ static inline void tcm_deinit(struct tcm *tcm)
  *	   -EINVAL: invalid area, -ENOMEM: not enough space for
  *	    allocation.
  */
-static inline s32 tcm_reserve_2d(struct tcm *tcm, u16 width, u16 height,
+static s32 tcm_reserve_2d(struct tcm *tcm, u16 width, u16 height,
 				u16 align, int16_t offset, uint16_t slot_bytes,
 				struct tcm_area *area)
 {
@@ -164,7 +164,7 @@ static inline s32 tcm_reserve_2d(struct tcm *tcm, u16 width, u16 height,
  *	   -EINVAL: invalid area, -ENOMEM: not enough space for
  *	    allocation.
  */
-static inline s32 tcm_reserve_1d(struct tcm *tcm, u32 slots,
+static s32 tcm_reserve_1d(struct tcm *tcm, u32 slots,
 				 struct tcm_area *area)
 {
 	/* perform rudimentary error checking */
@@ -194,7 +194,7 @@ static inline s32 tcm_reserve_1d(struct tcm *tcm, u32 slots,
  *	   freeing.  This call will succeed even if supplying
  *	   the area from a failed reserved call.
  */
-static inline s32 tcm_free(struct tcm_area *area)
+static s32 tcm_free(struct tcm_area *area)
 {
 	s32 res = 0; /* free succeeds by default */
 
@@ -221,7 +221,7 @@ static inline s32 tcm_free(struct tcm_area *area)
  * @param parent	Pointer to a VALID parent area that will get modified
  * @param slice		Pointer to the slice area that will get modified
  */
-static inline void tcm_slice(struct tcm_area *parent, struct tcm_area *slice)
+static void tcm_slice(struct tcm_area *parent, struct tcm_area *slice)
 {
 	*slice = *parent;
 
@@ -242,7 +242,7 @@ static inline void tcm_slice(struct tcm_area *parent, struct tcm_area *slice)
 }
 
 /* Verify if a tcm area is logically valid */
-static inline bool tcm_area_is_valid(struct tcm_area *area)
+static bool tcm_area_is_valid(struct tcm_area *area)
 {
 	return area && area->tcm &&
 		/* coordinate bounds */
@@ -260,7 +260,7 @@ static inline bool tcm_area_is_valid(struct tcm_area *area)
 }
 
 /* see if a coordinate is within an area */
-static inline bool __tcm_is_in(struct tcm_pt *p, struct tcm_area *a)
+static bool __tcm_is_in(struct tcm_pt *p, struct tcm_area *a)
 {
 	u16 i;
 
@@ -275,19 +275,19 @@ static inline bool __tcm_is_in(struct tcm_pt *p, struct tcm_area *a)
 }
 
 /* calculate area width */
-static inline u16 __tcm_area_width(struct tcm_area *area)
+static u16 __tcm_area_width(struct tcm_area *area)
 {
 	return area->p1.x - area->p0.x + 1;
 }
 
 /* calculate area height */
-static inline u16 __tcm_area_height(struct tcm_area *area)
+static u16 __tcm_area_height(struct tcm_area *area)
 {
 	return area->p1.y - area->p0.y + 1;
 }
 
 /* calculate number of slots in an area */
-static inline u16 __tcm_sizeof(struct tcm_area *area)
+static u16 __tcm_sizeof(struct tcm_area *area)
 {
 	return area->is2d ?
 		__tcm_area_width(area) * __tcm_area_height(area) :
@@ -300,7 +300,7 @@ static inline u16 __tcm_sizeof(struct tcm_area *area)
 #define tcm_is_in(pt, area) __tcm_is_in(&(pt), &(area))
 
 /* limit a 1D area to the first N pages */
-static inline s32 tcm_1d_limit(struct tcm_area *a, u32 num_pg)
+static s32 tcm_1d_limit(struct tcm_area *a, u32 num_pg)
 {
 	if (__tcm_sizeof(a) < num_pg)
 		return -ENOMEM;

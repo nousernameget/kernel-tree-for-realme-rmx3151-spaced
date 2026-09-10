@@ -16,7 +16,7 @@
 #define NANDX_PLATFORM	NANDX_NONE
 #endif
 
-static inline enum IC_VER nandx_get_chip_version(void)
+static enum IC_VER nandx_get_chip_version(void)
 {
 	if (NANDX_PLATFORM == NANDX_NONE)
 		NANDX_ASSERT(0);
@@ -24,7 +24,7 @@ static inline enum IC_VER nandx_get_chip_version(void)
 	return NANDX_PLATFORM;
 }
 
-static inline struct nfc_resource *nandx_get_nfc_resource(enum IC_VER ver)
+static struct nfc_resource *nandx_get_nfc_resource(enum IC_VER ver)
 {
 	extern struct nfc_resource nandx_resource[];
 

@@ -52,7 +52,7 @@ extern int ibmasm_debug;
 			printk(KERN_DEBUG STR , ##ARGS);	\
 	} while (0)
 
-static inline char *get_timestamp(char *buf)
+static char *get_timestamp(char *buf)
 {
 	struct timespec64 now;
 
@@ -102,7 +102,7 @@ struct command {
 #define to_command(c) container_of(c, struct command, kref)
 
 void ibmasm_free_command(struct kref *kref);
-static inline void command_put(struct command *cmd)
+static void command_put(struct command *cmd)
 {
 	unsigned long flags;
 	spinlock_t *lock = cmd->lock;
@@ -112,7 +112,7 @@ static inline void command_put(struct command *cmd)
 	spin_unlock_irqrestore(lock, flags);
 }
 
-static inline void command_get(struct command *cmd)
+static void command_get(struct command *cmd)
 {
 	kref_get(&cmd->kref);
 }

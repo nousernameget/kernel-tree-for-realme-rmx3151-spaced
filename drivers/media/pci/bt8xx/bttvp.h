@@ -507,7 +507,7 @@ struct bttv {
 	__s32			crop_start;
 };
 
-static inline struct bttv *to_bttv(struct v4l2_device *v4l2_dev)
+static struct bttv *to_bttv(struct v4l2_device *v4l2_dev)
 {
 	return container_of(v4l2_dev, struct bttv, c.v4l2_dev);
 }
@@ -517,7 +517,7 @@ static inline struct bttv *to_bttv(struct v4l2_device *v4l2_dev)
 extern unsigned int bttv_num;
 extern struct bttv *bttvs[BTTV_MAX];
 
-static inline unsigned int bttv_muxsel(const struct bttv *btv,
+static unsigned int bttv_muxsel(const struct bttv *btv,
 				       unsigned int input)
 {
 	return (bttv_tvcards[btv->c.type].muxsel >> (input * 2)) & 3;

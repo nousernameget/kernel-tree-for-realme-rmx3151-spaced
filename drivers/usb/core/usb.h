@@ -46,7 +46,7 @@ extern char *usb_cache_string(struct usb_device *udev, int index);
 extern int usb_set_configuration(struct usb_device *dev, int configuration);
 extern int usb_choose_configuration(struct usb_device *udev);
 
-static inline unsigned usb_get_max_power(struct usb_device *udev,
+static unsigned usb_get_max_power(struct usb_device *udev,
 		struct usb_host_config *c)
 {
 	/* SuperSpeed power is in 8 mA units; others are in 2 mA units */
@@ -94,28 +94,28 @@ extern int usb_disable_usb2_hardware_lpm(struct usb_device *udev);
 
 #else
 
-static inline int usb_port_suspend(struct usb_device *udev, pm_message_t msg)
+static int usb_port_suspend(struct usb_device *udev, pm_message_t msg)
 {
 	return 0;
 }
 
-static inline int usb_port_resume(struct usb_device *udev, pm_message_t msg)
+static int usb_port_resume(struct usb_device *udev, pm_message_t msg)
 {
 	return 0;
 }
 
 #define usb_autosuspend_device(udev)		do {} while (0)
-static inline int usb_autoresume_device(struct usb_device *udev)
+static int usb_autoresume_device(struct usb_device *udev)
 {
 	return 0;
 }
 
-static inline int usb_enable_usb2_hardware_lpm(struct usb_device *udev)
+static int usb_enable_usb2_hardware_lpm(struct usb_device *udev)
 {
 	return 0;
 }
 
-static inline int usb_disable_usb2_hardware_lpm(struct usb_device *udev)
+static int usb_disable_usb2_hardware_lpm(struct usb_device *udev)
 {
 	return 0;
 }
@@ -130,29 +130,29 @@ extern struct device_type usb_ep_device_type;
 extern struct device_type usb_port_device_type;
 extern struct usb_device_driver usb_generic_driver;
 
-static inline int is_usb_device(const struct device *dev)
+static int is_usb_device(const struct device *dev)
 {
 	return dev->type == &usb_device_type;
 }
 
-static inline int is_usb_interface(const struct device *dev)
+static int is_usb_interface(const struct device *dev)
 {
 	return dev->type == &usb_if_device_type;
 }
 
-static inline int is_usb_endpoint(const struct device *dev)
+static int is_usb_endpoint(const struct device *dev)
 {
 	return dev->type == &usb_ep_device_type;
 }
 
-static inline int is_usb_port(const struct device *dev)
+static int is_usb_port(const struct device *dev)
 {
 	return dev->type == &usb_port_device_type;
 }
 
 /* Do the same for device drivers and interface drivers. */
 
-static inline int is_usb_device_driver(struct device_driver *drv)
+static int is_usb_device_driver(struct device_driver *drv)
 {
 	return container_of(drv, struct usbdrv_wrap, driver)->
 			for_devices;

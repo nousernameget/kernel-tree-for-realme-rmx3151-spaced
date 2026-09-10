@@ -1334,7 +1334,7 @@ struct bnxt {
 #define SFF_MODULE_ID_QSFP28			0x11
 #define BNXT_MAX_PHY_I2C_RESP_SIZE		64
 
-static inline u32 bnxt_tx_avail(struct bnxt *bp, struct bnxt_tx_ring_info *txr)
+static u32 bnxt_tx_avail(struct bnxt *bp, struct bnxt_tx_ring_info *txr)
 {
 	/* Tell compiler to fetch tx indices from memory. */
 	barrier();
@@ -1344,7 +1344,7 @@ static inline u32 bnxt_tx_avail(struct bnxt *bp, struct bnxt_tx_ring_info *txr)
 }
 
 /* For TX and RX ring doorbells */
-static inline void bnxt_db_write(struct bnxt *bp, void __iomem *db, u32 val)
+static void bnxt_db_write(struct bnxt *bp, void __iomem *db, u32 val)
 {
 	writel(val, db);
 	if (bp->flags & BNXT_FLAG_DOUBLE_DB)

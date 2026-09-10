@@ -538,7 +538,7 @@ struct i40e_pf {
  *
  * Simply copies the address and returns it as a u64 for hashing
  **/
-static inline u64 i40e_addr_to_hkey(const u8 *macaddr)
+static u64 i40e_addr_to_hkey(const u8 *macaddr)
 {
 	u64 key = 0;
 
@@ -738,7 +738,7 @@ struct i40e_device {
  * i40e_nvm_version_str - format the NVM version strings
  * @hw: ptr to the hardware info
  **/
-static inline char *i40e_nvm_version_str(struct i40e_hw *hw)
+static char *i40e_nvm_version_str(struct i40e_hw *hw)
 {
 	static char buf[32];
 	u32 full_ver;
@@ -782,7 +782,7 @@ static inline char *i40e_nvm_version_str(struct i40e_hw *hw)
  *
  * Return the PF struct for the given netdev
  **/
-static inline struct i40e_pf *i40e_netdev_to_pf(struct net_device *netdev)
+static struct i40e_pf *i40e_netdev_to_pf(struct net_device *netdev)
 {
 	struct i40e_netdev_priv *np = netdev_priv(netdev);
 	struct i40e_vsi *vsi = np->vsi;
@@ -790,7 +790,7 @@ static inline struct i40e_pf *i40e_netdev_to_pf(struct net_device *netdev)
 	return vsi->back;
 }
 
-static inline void i40e_vsi_setup_irqhandler(struct i40e_vsi *vsi,
+static void i40e_vsi_setup_irqhandler(struct i40e_vsi *vsi,
 				irqreturn_t (*irq_handler)(int, void *))
 {
 	vsi->irq_handler = irq_handler;
@@ -800,7 +800,7 @@ static inline void i40e_vsi_setup_irqhandler(struct i40e_vsi *vsi,
  * i40e_get_fd_cnt_all - get the total FD filter space available
  * @pf: pointer to the PF struct
  **/
-static inline int i40e_get_fd_cnt_all(struct i40e_pf *pf)
+static int i40e_get_fd_cnt_all(struct i40e_pf *pf)
 {
 	return pf->hw.fdir_shared_filter_count + pf->fdir_pf_filter_count;
 }
@@ -813,7 +813,7 @@ static inline int i40e_get_fd_cnt_all(struct i40e_pf *pf)
  * This function reads value of flow director input set register
  * specified by 'addr' (which is specific to flow-type)
  **/
-static inline u64 i40e_read_fd_input_set(struct i40e_pf *pf, u16 addr)
+static u64 i40e_read_fd_input_set(struct i40e_pf *pf, u16 addr)
 {
 	u64 val;
 
@@ -833,7 +833,7 @@ static inline u64 i40e_read_fd_input_set(struct i40e_pf *pf, u16 addr)
  * This function writes specified value to the register specified by 'addr'.
  * This register is input set register based on flow-type.
  **/
-static inline void i40e_write_fd_input_set(struct i40e_pf *pf,
+static void i40e_write_fd_input_set(struct i40e_pf *pf,
 					   u16 addr, u64 val)
 {
 	i40e_write_rx_ctl(&pf->hw, I40E_PRTQF_FD_INSET(addr, 1),
@@ -859,7 +859,7 @@ struct i40e_vsi *i40e_find_vsi_from_id(struct i40e_pf *pf, u16 id);
  * @pf: PF to search for VSI
  * @type: Value indicating type of VSI we are looking for
  **/
-static inline struct i40e_vsi *
+static struct i40e_vsi *
 i40e_find_vsi_by_type(struct i40e_pf *pf, u16 type)
 {
 	int i;
@@ -939,7 +939,7 @@ int i40e_vf_client_capable(struct i40e_pf *pf, u32 vf_id);
  * @vsi: pointer to a vsi
  * @vector: enable a particular Hw Interrupt vector, without base_vector
  **/
-static inline void i40e_irq_dynamic_enable(struct i40e_vsi *vsi, int vector)
+static void i40e_irq_dynamic_enable(struct i40e_vsi *vsi, int vector)
 {
 	struct i40e_pf *pf = vsi->back;
 	struct i40e_hw *hw = &pf->hw;
@@ -997,7 +997,7 @@ i40e_status i40e_set_partition_bw_setting(struct i40e_pf *pf);
 i40e_status i40e_commit_partition_bw_setting(struct i40e_pf *pf);
 void i40e_print_link_message(struct i40e_vsi *vsi, bool isup);
 
-static inline bool i40e_enabled_xdp_vsi(struct i40e_vsi *vsi)
+static bool i40e_enabled_xdp_vsi(struct i40e_vsi *vsi)
 {
 	return !!vsi->xdp_prog;
 }

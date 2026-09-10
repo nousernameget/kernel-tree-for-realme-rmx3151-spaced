@@ -233,7 +233,7 @@ struct ath10k_pci {
 	struct ath10k_ahb ahb[0];
 };
 
-static inline struct ath10k_pci *ath10k_pci_priv(struct ath10k *ar)
+static struct ath10k_pci *ath10k_pci_priv(struct ath10k *ar)
 {
 	return (struct ath10k_pci *)ar->drv_priv;
 }

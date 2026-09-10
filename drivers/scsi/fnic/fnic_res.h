@@ -27,7 +27,7 @@
 #include "vnic_wq_copy.h"
 #include "vnic_cq_copy.h"
 
-static inline void fnic_queue_wq_desc(struct vnic_wq *wq,
+static void fnic_queue_wq_desc(struct vnic_wq *wq,
 				      void *os_buf, dma_addr_t dma_addr,
 				      unsigned int len, unsigned int fc_eof,
 				      int vlan_tag_insert,
@@ -51,7 +51,7 @@ static inline void fnic_queue_wq_desc(struct vnic_wq *wq,
 	vnic_wq_post(wq, os_buf, dma_addr, len, sop, eop);
 }
 
-static inline void fnic_queue_wq_eth_desc(struct vnic_wq *wq,
+static void fnic_queue_wq_eth_desc(struct vnic_wq *wq,
 				      void *os_buf, dma_addr_t dma_addr,
 				      unsigned int len,
 				      int vlan_tag_insert,
@@ -76,7 +76,7 @@ static inline void fnic_queue_wq_eth_desc(struct vnic_wq *wq,
 	vnic_wq_post(wq, os_buf, dma_addr, len, 1, 1);
 }
 
-static inline void fnic_queue_wq_copy_desc_icmnd_16(struct vnic_wq_copy *wq,
+static void fnic_queue_wq_copy_desc_icmnd_16(struct vnic_wq_copy *wq,
 						    u32 req_id,
 						    u32 lunmap_id, u8 spl_flags,
 						    u32 sgl_cnt, u32 sense_len,
@@ -121,7 +121,7 @@ static inline void fnic_queue_wq_copy_desc_icmnd_16(struct vnic_wq_copy *wq,
 	vnic_wq_copy_post(wq);
 }
 
-static inline void fnic_queue_wq_copy_desc_itmf(struct vnic_wq_copy *wq,
+static void fnic_queue_wq_copy_desc_itmf(struct vnic_wq_copy *wq,
 						u32 req_id, u32 lunmap_id,
 						u32 tm_req, u32 tm_id, u8 *lun,
 						u32 d_id, u32 r_a_tov,
@@ -147,7 +147,7 @@ static inline void fnic_queue_wq_copy_desc_itmf(struct vnic_wq_copy *wq,
 	vnic_wq_copy_post(wq);
 }
 
-static inline void fnic_queue_wq_copy_desc_flogi_reg(struct vnic_wq_copy *wq,
+static void fnic_queue_wq_copy_desc_flogi_reg(struct vnic_wq_copy *wq,
 						     u32 req_id, u8 format,
 						     u32 s_id, u8 *gw_mac)
 {
@@ -166,7 +166,7 @@ static inline void fnic_queue_wq_copy_desc_flogi_reg(struct vnic_wq_copy *wq,
 	vnic_wq_copy_post(wq);
 }
 
-static inline void fnic_queue_wq_copy_desc_fip_reg(struct vnic_wq_copy *wq,
+static void fnic_queue_wq_copy_desc_fip_reg(struct vnic_wq_copy *wq,
 						   u32 req_id, u32 s_id,
 						   u8 *fcf_mac, u8 *ha_mac,
 						   u32 r_a_tov, u32 e_d_tov)
@@ -190,7 +190,7 @@ static inline void fnic_queue_wq_copy_desc_fip_reg(struct vnic_wq_copy *wq,
 	vnic_wq_copy_post(wq);
 }
 
-static inline void fnic_queue_wq_copy_desc_fw_reset(struct vnic_wq_copy *wq,
+static void fnic_queue_wq_copy_desc_fw_reset(struct vnic_wq_copy *wq,
 						    u32 req_id)
 {
 	struct fcpio_host_req *desc = vnic_wq_copy_next_desc(wq);
@@ -203,7 +203,7 @@ static inline void fnic_queue_wq_copy_desc_fw_reset(struct vnic_wq_copy *wq,
 	vnic_wq_copy_post(wq);
 }
 
-static inline void fnic_queue_wq_copy_desc_lunmap(struct vnic_wq_copy *wq,
+static void fnic_queue_wq_copy_desc_lunmap(struct vnic_wq_copy *wq,
 						  u32 req_id, u64 lunmap_addr,
 						  u32 lunmap_len)
 {
@@ -220,7 +220,7 @@ static inline void fnic_queue_wq_copy_desc_lunmap(struct vnic_wq_copy *wq,
 	vnic_wq_copy_post(wq);
 }
 
-static inline void fnic_queue_rq_desc(struct vnic_rq *rq,
+static void fnic_queue_rq_desc(struct vnic_rq *rq,
 				      void *os_buf, dma_addr_t dma_addr,
 				      u16 len)
 {

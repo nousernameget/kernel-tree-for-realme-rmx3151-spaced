@@ -67,7 +67,7 @@ extern unsigned int musb_debug;
 extern unsigned int musb_debug_limit;
 extern unsigned int musb_uart_debug;
 
-static inline int _dbg_level(unsigned int level)
+static int _dbg_level(unsigned int level)
 {
 	return level <= musb_debug;
 }

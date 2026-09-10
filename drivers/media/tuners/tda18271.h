@@ -126,7 +126,7 @@ extern struct dvb_frontend *tda18271_attach(struct dvb_frontend *fe, u8 addr,
 					    struct i2c_adapter *i2c,
 					    struct tda18271_config *cfg);
 #else
-static inline struct dvb_frontend *tda18271_attach(struct dvb_frontend *fe,
+static struct dvb_frontend *tda18271_attach(struct dvb_frontend *fe,
 						   u8 addr,
 						   struct i2c_adapter *i2c,
 						   struct tda18271_config *cfg)

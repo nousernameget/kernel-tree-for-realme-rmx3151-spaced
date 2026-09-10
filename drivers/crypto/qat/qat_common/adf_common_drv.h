@@ -93,7 +93,7 @@ struct service_hndl {
 	struct list_head list;
 };
 
-static inline int get_current_node(void)
+static int get_current_node(void)
 {
 	return topology_physical_package_id(raw_smp_processor_id());
 }
@@ -246,47 +246,47 @@ void adf_exit_pf_wq(void);
 int adf_init_vf_wq(void);
 void adf_exit_vf_wq(void);
 #else
-static inline int adf_sriov_configure(struct pci_dev *pdev, int numvfs)
+static int adf_sriov_configure(struct pci_dev *pdev, int numvfs)
 {
 	return 0;
 }
 
-static inline void adf_disable_sriov(struct adf_accel_dev *accel_dev)
+static void adf_disable_sriov(struct adf_accel_dev *accel_dev)
 {
 }
 
-static inline void adf_enable_pf2vf_interrupts(struct adf_accel_dev *accel_dev)
+static void adf_enable_pf2vf_interrupts(struct adf_accel_dev *accel_dev)
 {
 }
 
-static inline void adf_disable_pf2vf_interrupts(struct adf_accel_dev *accel_dev)
+static void adf_disable_pf2vf_interrupts(struct adf_accel_dev *accel_dev)
 {
 }
 
-static inline int adf_vf2pf_init(struct adf_accel_dev *accel_dev)
-{
-	return 0;
-}
-
-static inline void adf_vf2pf_shutdown(struct adf_accel_dev *accel_dev)
-{
-}
-
-static inline int adf_init_pf_wq(void)
+static int adf_vf2pf_init(struct adf_accel_dev *accel_dev)
 {
 	return 0;
 }
 
-static inline void adf_exit_pf_wq(void)
+static void adf_vf2pf_shutdown(struct adf_accel_dev *accel_dev)
 {
 }
 
-static inline int adf_init_vf_wq(void)
+static int adf_init_pf_wq(void)
 {
 	return 0;
 }
 
-static inline void adf_exit_vf_wq(void)
+static void adf_exit_pf_wq(void)
+{
+}
+
+static int adf_init_vf_wq(void)
+{
+	return 0;
+}
+
+static void adf_exit_vf_wq(void)
 {
 }
 

@@ -37,12 +37,12 @@
 
 #include <rdma/ib_sa.h>
 
-static inline void ib_sa_client_get(struct ib_sa_client *client)
+static void ib_sa_client_get(struct ib_sa_client *client)
 {
 	atomic_inc(&client->users);
 }
 
-static inline void ib_sa_client_put(struct ib_sa_client *client)
+static void ib_sa_client_put(struct ib_sa_client *client)
 {
 	if (atomic_dec_and_test(&client->users))
 		complete(&client->comp);

@@ -200,73 +200,73 @@ struct i915_gem_context {
 	struct list_head handles_list;
 };
 
-static inline bool i915_gem_context_is_closed(const struct i915_gem_context *ctx)
+static bool i915_gem_context_is_closed(const struct i915_gem_context *ctx)
 {
 	return test_bit(CONTEXT_CLOSED, &ctx->flags);
 }
 
-static inline void i915_gem_context_set_closed(struct i915_gem_context *ctx)
+static void i915_gem_context_set_closed(struct i915_gem_context *ctx)
 {
 	GEM_BUG_ON(i915_gem_context_is_closed(ctx));
 	__set_bit(CONTEXT_CLOSED, &ctx->flags);
 }
 
-static inline bool i915_gem_context_no_error_capture(const struct i915_gem_context *ctx)
+static bool i915_gem_context_no_error_capture(const struct i915_gem_context *ctx)
 {
 	return test_bit(CONTEXT_NO_ERROR_CAPTURE, &ctx->flags);
 }
 
-static inline void i915_gem_context_set_no_error_capture(struct i915_gem_context *ctx)
+static void i915_gem_context_set_no_error_capture(struct i915_gem_context *ctx)
 {
 	__set_bit(CONTEXT_NO_ERROR_CAPTURE, &ctx->flags);
 }
 
-static inline void i915_gem_context_clear_no_error_capture(struct i915_gem_context *ctx)
+static void i915_gem_context_clear_no_error_capture(struct i915_gem_context *ctx)
 {
 	__clear_bit(CONTEXT_NO_ERROR_CAPTURE, &ctx->flags);
 }
 
-static inline bool i915_gem_context_is_bannable(const struct i915_gem_context *ctx)
+static bool i915_gem_context_is_bannable(const struct i915_gem_context *ctx)
 {
 	return test_bit(CONTEXT_BANNABLE, &ctx->flags);
 }
 
-static inline void i915_gem_context_set_bannable(struct i915_gem_context *ctx)
+static void i915_gem_context_set_bannable(struct i915_gem_context *ctx)
 {
 	__set_bit(CONTEXT_BANNABLE, &ctx->flags);
 }
 
-static inline void i915_gem_context_clear_bannable(struct i915_gem_context *ctx)
+static void i915_gem_context_clear_bannable(struct i915_gem_context *ctx)
 {
 	__clear_bit(CONTEXT_BANNABLE, &ctx->flags);
 }
 
-static inline bool i915_gem_context_is_banned(const struct i915_gem_context *ctx)
+static bool i915_gem_context_is_banned(const struct i915_gem_context *ctx)
 {
 	return test_bit(CONTEXT_BANNED, &ctx->flags);
 }
 
-static inline void i915_gem_context_set_banned(struct i915_gem_context *ctx)
+static void i915_gem_context_set_banned(struct i915_gem_context *ctx)
 {
 	__set_bit(CONTEXT_BANNED, &ctx->flags);
 }
 
-static inline bool i915_gem_context_force_single_submission(const struct i915_gem_context *ctx)
+static bool i915_gem_context_force_single_submission(const struct i915_gem_context *ctx)
 {
 	return test_bit(CONTEXT_FORCE_SINGLE_SUBMISSION, &ctx->flags);
 }
 
-static inline void i915_gem_context_set_force_single_submission(struct i915_gem_context *ctx)
+static void i915_gem_context_set_force_single_submission(struct i915_gem_context *ctx)
 {
 	__set_bit(CONTEXT_FORCE_SINGLE_SUBMISSION, &ctx->flags);
 }
 
-static inline bool i915_gem_context_is_default(const struct i915_gem_context *c)
+static bool i915_gem_context_is_default(const struct i915_gem_context *c)
 {
 	return c->user_handle == DEFAULT_CONTEXT_HANDLE;
 }
 
-static inline bool i915_gem_context_is_kernel(struct i915_gem_context *ctx)
+static bool i915_gem_context_is_kernel(struct i915_gem_context *ctx)
 {
 	return !ctx->file_priv;
 }
@@ -298,14 +298,14 @@ int i915_gem_context_setparam_ioctl(struct drm_device *dev, void *data,
 int i915_gem_context_reset_stats_ioctl(struct drm_device *dev, void *data,
 				       struct drm_file *file);
 
-static inline struct i915_gem_context *
+static struct i915_gem_context *
 i915_gem_context_get(struct i915_gem_context *ctx)
 {
 	kref_get(&ctx->ref);
 	return ctx;
 }
 
-static inline void i915_gem_context_put(struct i915_gem_context *ctx)
+static void i915_gem_context_put(struct i915_gem_context *ctx)
 {
 	kref_put(&ctx->ref, i915_gem_context_release);
 }

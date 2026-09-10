@@ -98,73 +98,73 @@
 
 
 /* General addressing macros. */
-static inline void *get_gseg_base_address(void *base, int ctxnum)
+static void *get_gseg_base_address(void *base, int ctxnum)
 {
 	return (void *)(base + GRU_GSEG0_BASE + GRU_GSEG_STRIDE * ctxnum);
 }
 
-static inline void *get_gseg_base_address_cb(void *base, int ctxnum, int line)
+static void *get_gseg_base_address_cb(void *base, int ctxnum, int line)
 {
 	return (void *)(get_gseg_base_address(base, ctxnum) +
 			GRU_CB_BASE + GRU_HANDLE_STRIDE * line);
 }
 
-static inline void *get_gseg_base_address_ds(void *base, int ctxnum, int line)
+static void *get_gseg_base_address_ds(void *base, int ctxnum, int line)
 {
 	return (void *)(get_gseg_base_address(base, ctxnum) + GRU_DS_BASE +
 			GRU_CACHE_LINE_BYTES * line);
 }
 
-static inline struct gru_tlb_fault_map *get_tfm(void *base, int ctxnum)
+static struct gru_tlb_fault_map *get_tfm(void *base, int ctxnum)
 {
 	return (struct gru_tlb_fault_map *)(base + GRU_TFM_BASE +
 					ctxnum * GRU_HANDLE_STRIDE);
 }
 
-static inline struct gru_tlb_global_handle *get_tgh(void *base, int ctxnum)
+static struct gru_tlb_global_handle *get_tgh(void *base, int ctxnum)
 {
 	return (struct gru_tlb_global_handle *)(base + GRU_TGH_BASE +
 					ctxnum * GRU_HANDLE_STRIDE);
 }
 
-static inline struct gru_control_block_extended *get_cbe(void *base, int ctxnum)
+static struct gru_control_block_extended *get_cbe(void *base, int ctxnum)
 {
 	return (struct gru_control_block_extended *)(base + GRU_CBE_BASE +
 					ctxnum * GRU_HANDLE_STRIDE);
 }
 
-static inline struct gru_tlb_fault_handle *get_tfh(void *base, int ctxnum)
+static struct gru_tlb_fault_handle *get_tfh(void *base, int ctxnum)
 {
 	return (struct gru_tlb_fault_handle *)(base + GRU_TFH_BASE +
 					ctxnum * GRU_HANDLE_STRIDE);
 }
 
-static inline struct gru_context_configuration_handle *get_cch(void *base,
+static struct gru_context_configuration_handle *get_cch(void *base,
 					int ctxnum)
 {
 	return (struct gru_context_configuration_handle *)(base +
 				GRU_CCH_BASE + ctxnum * GRU_HANDLE_STRIDE);
 }
 
-static inline unsigned long get_cb_number(void *cb)
+static unsigned long get_cb_number(void *cb)
 {
 	return (((unsigned long)cb - GRU_CB_BASE) % GRU_GSEG_PAGESIZE) /
 					GRU_HANDLE_STRIDE;
 }
 
 /* byte offset to a specific GRU chiplet. (p=pnode, c=chiplet (0 or 1)*/
-static inline unsigned long gru_chiplet_paddr(unsigned long paddr, int pnode,
+static unsigned long gru_chiplet_paddr(unsigned long paddr, int pnode,
 							int chiplet)
 {
 	return paddr + GRU_SIZE * (2 * pnode  + chiplet);
 }
 
-static inline void *gru_chiplet_vaddr(void *vaddr, int pnode, int chiplet)
+static void *gru_chiplet_vaddr(void *vaddr, int pnode, int chiplet)
 {
 	return vaddr + GRU_SIZE * (2 * pnode  + chiplet);
 }
 
-static inline struct gru_control_block_extended *gru_tfh_to_cbe(
+static struct gru_control_block_extended *gru_tfh_to_cbe(
 					struct gru_tlb_fault_handle *tfh)
 {
 	unsigned long cbe;

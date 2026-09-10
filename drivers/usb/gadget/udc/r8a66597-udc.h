@@ -122,12 +122,12 @@ struct r8a66597 {
 #define r8a66597_to_gadget(r8a66597) (&r8a66597->gadget)
 #define r8a66597_to_dev(r8a66597)	(r8a66597->gadget.dev.parent)
 
-static inline u16 r8a66597_read(struct r8a66597 *r8a66597, unsigned long offset)
+static u16 r8a66597_read(struct r8a66597 *r8a66597, unsigned long offset)
 {
 	return ioread16(r8a66597->reg + offset);
 }
 
-static inline void r8a66597_read_fifo(struct r8a66597 *r8a66597,
+static void r8a66597_read_fifo(struct r8a66597 *r8a66597,
 				      unsigned long offset,
 				      unsigned char *buf,
 				      int len)
@@ -173,13 +173,13 @@ static inline void r8a66597_read_fifo(struct r8a66597 *r8a66597,
 	}
 }
 
-static inline void r8a66597_write(struct r8a66597 *r8a66597, u16 val,
+static void r8a66597_write(struct r8a66597 *r8a66597, u16 val,
 				  unsigned long offset)
 {
 	iowrite16(val, r8a66597->reg + offset);
 }
 
-static inline void r8a66597_mdfy(struct r8a66597 *r8a66597,
+static void r8a66597_mdfy(struct r8a66597 *r8a66597,
 				 u16 val, u16 pat, unsigned long offset)
 {
 	u16 tmp;
@@ -194,7 +194,7 @@ static inline void r8a66597_mdfy(struct r8a66597 *r8a66597,
 #define r8a66597_bset(r8a66597, val, offset)	\
 			r8a66597_mdfy(r8a66597, val, 0, offset)
 
-static inline void r8a66597_write_fifo(struct r8a66597 *r8a66597,
+static void r8a66597_write_fifo(struct r8a66597 *r8a66597,
 				       struct r8a66597_ep *ep,
 				       unsigned char *buf,
 				       int len)
@@ -235,7 +235,7 @@ static inline void r8a66597_write_fifo(struct r8a66597 *r8a66597,
 		r8a66597_bclr(r8a66597, MBW_16, ep->fifosel);
 }
 
-static inline u16 get_xtal_from_pdata(struct r8a66597_platdata *pdata)
+static u16 get_xtal_from_pdata(struct r8a66597_platdata *pdata)
 {
 	u16 clock = 0;
 
@@ -257,13 +257,13 @@ static inline u16 get_xtal_from_pdata(struct r8a66597_platdata *pdata)
 	return clock;
 }
 
-static inline u32 r8a66597_sudmac_read(struct r8a66597 *r8a66597,
+static u32 r8a66597_sudmac_read(struct r8a66597 *r8a66597,
 				       unsigned long offset)
 {
 	return ioread32(r8a66597->sudmac_reg + offset);
 }
 
-static inline void r8a66597_sudmac_write(struct r8a66597 *r8a66597, u32 val,
+static void r8a66597_sudmac_write(struct r8a66597 *r8a66597, u32 val,
 					 unsigned long offset)
 {
 	iowrite32(val, r8a66597->sudmac_reg + offset);

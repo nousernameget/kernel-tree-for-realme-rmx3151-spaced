@@ -152,7 +152,7 @@ bool back_kmsg_dump_get_buffer(struct kmsg_dumper *dumper, bool syslog,
 			  char *buf, size_t size, size_t *len);
 
 #else
-static inline bool back_kmsg_dump_get_buffer(struct kmsg_dumper *dumper, bool syslog,
+static bool back_kmsg_dump_get_buffer(struct kmsg_dumper *dumper, bool syslog,
 			  char *buf, size_t size, size_t *len)
 {
 	return false;

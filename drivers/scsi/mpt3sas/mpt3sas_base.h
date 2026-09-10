@@ -493,17 +493,17 @@ struct _sas_device {
 	struct kref refcount;
 };
 
-static inline void sas_device_get(struct _sas_device *s)
+static void sas_device_get(struct _sas_device *s)
 {
 	kref_get(&s->refcount);
 }
 
-static inline void sas_device_free(struct kref *r)
+static void sas_device_free(struct kref *r)
 {
 	kfree(container_of(r, struct _sas_device, refcount));
 }
 
-static inline void sas_device_put(struct _sas_device *s)
+static void sas_device_put(struct _sas_device *s)
 {
 	kref_put(&s->refcount, sas_device_free);
 }

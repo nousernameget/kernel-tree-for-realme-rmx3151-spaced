@@ -527,37 +527,37 @@ struct vivid_dev {
 	unsigned long			osd_jiffies;
 };
 
-static inline bool vivid_is_webcam(const struct vivid_dev *dev)
+static bool vivid_is_webcam(const struct vivid_dev *dev)
 {
 	return dev->input_type[dev->input] == WEBCAM;
 }
 
-static inline bool vivid_is_tv_cap(const struct vivid_dev *dev)
+static bool vivid_is_tv_cap(const struct vivid_dev *dev)
 {
 	return dev->input_type[dev->input] == TV;
 }
 
-static inline bool vivid_is_svid_cap(const struct vivid_dev *dev)
+static bool vivid_is_svid_cap(const struct vivid_dev *dev)
 {
 	return dev->input_type[dev->input] == SVID;
 }
 
-static inline bool vivid_is_hdmi_cap(const struct vivid_dev *dev)
+static bool vivid_is_hdmi_cap(const struct vivid_dev *dev)
 {
 	return dev->input_type[dev->input] == HDMI;
 }
 
-static inline bool vivid_is_sdtv_cap(const struct vivid_dev *dev)
+static bool vivid_is_sdtv_cap(const struct vivid_dev *dev)
 {
 	return vivid_is_tv_cap(dev) || vivid_is_svid_cap(dev);
 }
 
-static inline bool vivid_is_svid_out(const struct vivid_dev *dev)
+static bool vivid_is_svid_out(const struct vivid_dev *dev)
 {
 	return dev->output_type[dev->output] == SVID;
 }
 
-static inline bool vivid_is_hdmi_out(const struct vivid_dev *dev)
+static bool vivid_is_hdmi_out(const struct vivid_dev *dev)
 {
 	return dev->output_type[dev->output] == HDMI;
 }

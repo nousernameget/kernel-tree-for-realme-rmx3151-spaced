@@ -42,7 +42,7 @@ void mmc_pwrseq_free(struct mmc_host *host);
 
 #else
 
-static inline int mmc_pwrseq_register(struct mmc_pwrseq *pwrseq)
+static int mmc_pwrseq_register(struct mmc_pwrseq *pwrseq)
 {
 	return -ENOSYS;
 }

@@ -501,13 +501,13 @@ struct carl9170_tx_info {
 #define IS_ACCEPTING_CMD(a)	(CHK_DEV_STATE(a, CARL9170_IDLE))
 #define IS_STARTED(a)		(CHK_DEV_STATE(a, CARL9170_STARTED))
 
-static inline void __carl9170_set_state(struct ar9170 *ar,
+static void __carl9170_set_state(struct ar9170 *ar,
 	enum carl9170_device_state newstate)
 {
 	ar->state = newstate;
 }
 
-static inline void carl9170_set_state(struct ar9170 *ar,
+static void carl9170_set_state(struct ar9170 *ar,
 	enum carl9170_device_state newstate)
 {
 	unsigned long flags;
@@ -517,7 +517,7 @@ static inline void carl9170_set_state(struct ar9170 *ar,
 	spin_unlock_irqrestore(&ar->state_lock, flags);
 }
 
-static inline void carl9170_set_state_when(struct ar9170 *ar,
+static void carl9170_set_state_when(struct ar9170 *ar,
 	enum carl9170_device_state min, enum carl9170_device_state newstate)
 {
 	unsigned long flags;
@@ -606,46 +606,46 @@ int carl9170_parse_firmware(struct ar9170 *ar);
 extern struct ieee80211_rate __carl9170_ratetable[];
 extern int modparam_noht;
 
-static inline struct ar9170 *carl9170_get_priv(struct carl9170_vif *carl_vif)
+static struct ar9170 *carl9170_get_priv(struct carl9170_vif *carl_vif)
 {
 	return container_of(carl_vif, struct ar9170,
 			    vif_priv[carl_vif->id]);
 }
 
-static inline struct ieee80211_hdr *carl9170_get_hdr(struct sk_buff *skb)
+static struct ieee80211_hdr *carl9170_get_hdr(struct sk_buff *skb)
 {
 	return (void *)((struct _carl9170_tx_superframe *)
 		skb->data)->frame_data;
 }
 
-static inline u16 get_seq_h(struct ieee80211_hdr *hdr)
+static u16 get_seq_h(struct ieee80211_hdr *hdr)
 {
 	return le16_to_cpu(hdr->seq_ctrl) >> 4;
 }
 
-static inline u16 carl9170_get_seq(struct sk_buff *skb)
+static u16 carl9170_get_seq(struct sk_buff *skb)
 {
 	return get_seq_h(carl9170_get_hdr(skb));
 }
 
-static inline u16 get_tid_h(struct ieee80211_hdr *hdr)
+static u16 get_tid_h(struct ieee80211_hdr *hdr)
 {
 	return (ieee80211_get_qos_ctl(hdr))[0] & IEEE80211_QOS_CTL_TID_MASK;
 }
 
-static inline u16 carl9170_get_tid(struct sk_buff *skb)
+static u16 carl9170_get_tid(struct sk_buff *skb)
 {
 	return get_tid_h(carl9170_get_hdr(skb));
 }
 
-static inline struct ieee80211_vif *
+static struct ieee80211_vif *
 carl9170_get_vif(struct carl9170_vif_info *priv)
 {
 	return container_of((void *)priv, struct ieee80211_vif, drv_priv);
 }
 
 /* Protected by ar->mutex or RCU */
-static inline struct ieee80211_vif *carl9170_get_main_vif(struct ar9170 *ar)
+static struct ieee80211_vif *carl9170_get_main_vif(struct ar9170 *ar)
 {
 	struct carl9170_vif_info *cvif;
 
@@ -657,7 +657,7 @@ static inline struct ieee80211_vif *carl9170_get_main_vif(struct ar9170 *ar)
 	return NULL;
 }
 
-static inline bool is_main_vif(struct ar9170 *ar, struct ieee80211_vif *vif)
+static bool is_main_vif(struct ar9170 *ar, struct ieee80211_vif *vif)
 {
 	bool ret;
 

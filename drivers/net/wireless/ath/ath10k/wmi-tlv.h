@@ -978,7 +978,7 @@ enum wmi_tlv_service {
 			__set_bit(y, out); \
 	} while (0)
 
-static inline void
+static void
 wmi_tlv_svc_map(const __le32 *in, unsigned long *out, size_t len)
 {
 	SVCMAP(WMI_TLV_SERVICE_BEACON_OFFLOAD,

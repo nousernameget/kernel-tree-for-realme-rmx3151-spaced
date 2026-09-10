@@ -45,7 +45,7 @@ extern struct dvb_frontend *ascot2e_attach(struct dvb_frontend *fe,
 					const struct ascot2e_config *config,
 					struct i2c_adapter *i2c);
 #else
-static inline struct dvb_frontend *ascot2e_attach(struct dvb_frontend *fe,
+static struct dvb_frontend *ascot2e_attach(struct dvb_frontend *fe,
 					const struct ascot2e_config *config,
 					struct i2c_adapter *i2c)
 {

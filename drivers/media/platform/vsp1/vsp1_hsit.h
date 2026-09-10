@@ -28,7 +28,7 @@ struct vsp1_hsit {
 	bool inverse;
 };
 
-static inline struct vsp1_hsit *to_hsit(struct v4l2_subdev *subdev)
+static struct vsp1_hsit *to_hsit(struct v4l2_subdev *subdev)
 {
 	return container_of(subdev, struct vsp1_hsit, entity.subdev);
 }

@@ -94,12 +94,12 @@ struct xge_desc_ring {
 	struct pkt_info (*pkt_info);
 };
 
-static inline u64 xge_set_desc_bits(int pos, int len, u64 val)
+static u64 xge_set_desc_bits(int pos, int len, u64 val)
 {
 	return (val & ((1ULL << len) - 1)) << pos;
 }
 
-static inline u64 xge_get_desc_bits(int pos, int len, u64 src)
+static u64 xge_get_desc_bits(int pos, int len, u64 src)
 {
 	return (src >> pos) & ((1ULL << len) - 1);
 }

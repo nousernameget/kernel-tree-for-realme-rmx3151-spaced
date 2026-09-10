@@ -183,7 +183,7 @@ struct nps_enet_priv {
  * @reg:        Register offset from base address.
  * @value:      Value to set in register.
  */
-static inline void nps_enet_reg_set(struct nps_enet_priv *priv,
+static void nps_enet_reg_set(struct nps_enet_priv *priv,
 				    s32 reg, s32 value)
 {
 	iowrite32be(value, priv->regs_base + reg);
@@ -196,7 +196,7 @@ static inline void nps_enet_reg_set(struct nps_enet_priv *priv,
  *
  * returns:     Value of requested register.
  */
-static inline u32 nps_enet_reg_get(struct nps_enet_priv *priv, s32 reg)
+static u32 nps_enet_reg_get(struct nps_enet_priv *priv, s32 reg)
 {
 	return ioread32be(priv->regs_base + reg);
 }

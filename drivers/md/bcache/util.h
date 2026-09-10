@@ -291,7 +291,7 @@ int bch_strtouint_h(const char *, unsigned int *);
 int bch_strtoll_h(const char *, long long *);
 int bch_strtoull_h(const char *, unsigned long long *);
 
-static inline int bch_strtol_h(const char *cp, long *res)
+static int bch_strtol_h(const char *cp, long *res)
 {
 #if BITS_PER_LONG == 32
 	return bch_strtoint_h(cp, (int *) res);
@@ -300,7 +300,7 @@ static inline int bch_strtol_h(const char *cp, long *res)
 #endif
 }
 
-static inline int bch_strtoul_h(const char *cp, long *res)
+static int bch_strtoul_h(const char *cp, long *res)
 {
 #if BITS_PER_LONG == 32
 	return bch_strtouint_h(cp, (unsigned int *) res);
@@ -382,7 +382,7 @@ struct time_stats {
 
 void bch_time_stats_update(struct time_stats *stats, uint64_t time);
 
-static inline unsigned local_clock_us(void)
+static unsigned local_clock_us(void)
 {
 	return local_clock() >> 10;
 }
@@ -448,7 +448,7 @@ struct bch_ratelimit {
 	unsigned		rate;
 };
 
-static inline void bch_ratelimit_reset(struct bch_ratelimit *d)
+static void bch_ratelimit_reset(struct bch_ratelimit *d)
 {
 	d->next = local_clock();
 }
@@ -546,7 +546,7 @@ dup:									\
 	container_of_or_null(rb_prev(&(ptr)->member), typeof(*ptr), member)
 
 /* Does linear interpolation between powers of two */
-static inline unsigned fract_exp_two(unsigned x, unsigned fract_bits)
+static unsigned fract_exp_two(unsigned x, unsigned fract_bits)
 {
 	unsigned fract = x & ~(~0 << fract_bits);
 
@@ -559,7 +559,7 @@ static inline unsigned fract_exp_two(unsigned x, unsigned fract_bits)
 
 void bch_bio_map(struct bio *bio, void *base);
 
-static inline sector_t bdev_sectors(struct block_device *bdev)
+static sector_t bdev_sectors(struct block_device *bdev)
 {
 	return bdev->bd_inode->i_size >> 9;
 }

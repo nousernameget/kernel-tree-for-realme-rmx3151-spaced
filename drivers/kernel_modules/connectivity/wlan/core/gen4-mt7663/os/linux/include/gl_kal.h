@@ -577,7 +577,7 @@ enum ENUM_CFG80211_TX_FLAG {
  * struct cfg80211_scan_info, but we don't use all fields yet.
  */
 #if KERNEL_VERSION(4, 8, 0) <= CFG80211_VERSION_CODE
-static inline void kalCfg80211ScanDone(struct cfg80211_scan_request *request,
+static void kalCfg80211ScanDone(struct cfg80211_scan_request *request,
 				       bool aborted)
 {
 	struct cfg80211_scan_info info = {.aborted = aborted };
@@ -585,7 +585,7 @@ static inline void kalCfg80211ScanDone(struct cfg80211_scan_request *request,
 	cfg80211_scan_done(request, &info);
 }
 #else
-static inline void kalCfg80211ScanDone(struct cfg80211_scan_request *request,
+static void kalCfg80211ScanDone(struct cfg80211_scan_request *request,
 				       bool aborted)
 {
 	cfg80211_scan_done(request, aborted);
@@ -1440,7 +1440,7 @@ kalGetIPv6Address(IN struct net_device *prDev,
 		  IN uint32_t u4MaxNumOfAddr, OUT uint8_t *pucIpv6Addrs,
 		  OUT uint32_t *pu4NumOfIpv6Addr);
 #else
-static inline u_int8_t
+static u_int8_t
 kalGetIPv6Address(IN struct net_device *prDev,
 		  IN uint32_t u4MaxNumOfAddr, OUT uint8_t *pucIpv6Addrs,
 		  OUT uint32_t *pu4NumOfIpv6Addr) {
@@ -1604,13 +1604,13 @@ void kalFbNotifierUnReg(void);
 
 #if KERNEL_VERSION(3, 0, 0) <= LINUX_VERSION_CODE
 /* since: 0b5c9db1b11d3175bb42b80663a9f072f801edf5 */
-static inline void kal_skb_reset_mac_len(struct sk_buff
+static void kal_skb_reset_mac_len(struct sk_buff
 		*skb)
 {
 	skb_reset_mac_len(skb);
 }
 #else
-static inline void kal_skb_reset_mac_len(struct sk_buff
+static void kal_skb_reset_mac_len(struct sk_buff
 		*skb)
 {
 	skb->mac_len = skb->network_header - skb->mac_header;

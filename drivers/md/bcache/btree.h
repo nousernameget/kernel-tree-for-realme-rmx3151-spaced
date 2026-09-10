@@ -148,10 +148,10 @@ struct btree {
 };
 
 #define BTREE_FLAG(flag)						\
-static inline bool btree_node_ ## flag(struct btree *b)			\
+static bool btree_node_ ## flag(struct btree *b)			\
 {	return test_bit(BTREE_NODE_ ## flag, &b->flags); }		\
 									\
-static inline void set_btree_node_ ## flag(struct btree *b)		\
+static void set_btree_node_ ## flag(struct btree *b)		\
 {	set_bit(BTREE_NODE_ ## flag, &b->flags); }			\
 
 enum btree_flags {
@@ -164,32 +164,32 @@ BTREE_FLAG(io_error);
 BTREE_FLAG(dirty);
 BTREE_FLAG(write_idx);
 
-static inline struct btree_write *btree_current_write(struct btree *b)
+static struct btree_write *btree_current_write(struct btree *b)
 {
 	return b->writes + btree_node_write_idx(b);
 }
 
-static inline struct btree_write *btree_prev_write(struct btree *b)
+static struct btree_write *btree_prev_write(struct btree *b)
 {
 	return b->writes + (btree_node_write_idx(b) ^ 1);
 }
 
-static inline struct bset *btree_bset_first(struct btree *b)
+static struct bset *btree_bset_first(struct btree *b)
 {
 	return b->keys.set->data;
 }
 
-static inline struct bset *btree_bset_last(struct btree *b)
+static struct bset *btree_bset_last(struct btree *b)
 {
 	return bset_tree_last(&b->keys)->data;
 }
 
-static inline unsigned bset_block_offset(struct btree *b, struct bset *i)
+static unsigned bset_block_offset(struct btree *b, struct bset *i)
 {
 	return bset_sector_offset(&b->keys, i) >> b->c->block_bits;
 }
 
-static inline void set_gc_sectors(struct cache_set *c)
+static void set_gc_sectors(struct cache_set *c)
 {
 	atomic_set(&c->sectors_to_gc, c->sb.bucket_size * c->nbuckets / 16);
 }
@@ -216,14 +216,14 @@ struct btree_op {
 	unsigned		insert_collision:1;
 };
 
-static inline void bch_btree_op_init(struct btree_op *op, int write_lock_level)
+static void bch_btree_op_init(struct btree_op *op, int write_lock_level)
 {
 	memset(op, 0, sizeof(struct btree_op));
 	init_wait(&op->wait);
 	op->lock = write_lock_level;
 }
 
-static inline void rw_lock(bool w, struct btree *b, int level)
+static void rw_lock(bool w, struct btree *b, int level)
 {
 	w ? down_write_nested(&b->lock, level + 1)
 	  : down_read_nested(&b->lock, level + 1);
@@ -231,7 +231,7 @@ static inline void rw_lock(bool w, struct btree *b, int level)
 		b->seq++;
 }
 
-static inline void rw_unlock(bool w, struct btree *b)
+static void rw_unlock(bool w, struct btree *b)
 {
 	if (w)
 		b->seq++;
@@ -259,7 +259,7 @@ void bch_moving_gc(struct cache_set *);
 int bch_btree_check(struct cache_set *);
 void bch_initial_mark_key(struct cache_set *, int, struct bkey *);
 
-static inline void wake_up_gc(struct cache_set *c)
+static void wake_up_gc(struct cache_set *c)
 {
 	wake_up(&c->gc_wait);
 }
@@ -276,13 +276,13 @@ typedef int (btree_map_nodes_fn)(struct btree_op *, struct btree *);
 int __bch_btree_map_nodes(struct btree_op *, struct cache_set *,
 			  struct bkey *, btree_map_nodes_fn *, int);
 
-static inline int bch_btree_map_nodes(struct btree_op *op, struct cache_set *c,
+static int bch_btree_map_nodes(struct btree_op *op, struct cache_set *c,
 				      struct bkey *from, btree_map_nodes_fn *fn)
 {
 	return __bch_btree_map_nodes(op, c, from, fn, MAP_ALL_NODES);
 }
 
-static inline int bch_btree_map_leaf_nodes(struct btree_op *op,
+static int bch_btree_map_leaf_nodes(struct btree_op *op,
 					   struct cache_set *c,
 					   struct bkey *from,
 					   btree_map_nodes_fn *fn)

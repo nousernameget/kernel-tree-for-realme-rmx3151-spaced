@@ -367,7 +367,7 @@ struct mtu3_request {
 	int epnum;
 };
 
-static inline struct ssusb_mtk *dev_to_ssusb(struct device *dev)
+static struct ssusb_mtk *dev_to_ssusb(struct device *dev)
 {
 	return dev_get_drvdata(dev);
 }
@@ -425,44 +425,44 @@ struct mtu3 {
 	struct delayed_work check_ltssm_work;
 };
 
-static inline struct mtu3 *gadget_to_mtu3(struct usb_gadget *g)
+static struct mtu3 *gadget_to_mtu3(struct usb_gadget *g)
 {
 	return container_of(g, struct mtu3, g);
 }
 
-static inline int is_first_entry(const struct list_head *list,
+static int is_first_entry(const struct list_head *list,
 	const struct list_head *head)
 {
 	return list_is_last(head, list);
 }
 
-static inline struct mtu3_request *to_mtu3_request(struct usb_request *req)
+static struct mtu3_request *to_mtu3_request(struct usb_request *req)
 {
 	return req ? container_of(req, struct mtu3_request, request) : NULL;
 }
 
-static inline struct mtu3_ep *to_mtu3_ep(struct usb_ep *ep)
+static struct mtu3_ep *to_mtu3_ep(struct usb_ep *ep)
 {
 	return ep ? container_of(ep, struct mtu3_ep, ep) : NULL;
 }
 
-static inline struct mtu3_request *next_request(struct mtu3_ep *mep)
+static struct mtu3_request *next_request(struct mtu3_ep *mep)
 {
 	return list_first_entry_or_null(&mep->req_list, struct mtu3_request,
 					list);
 }
 
-static inline void mtu3_writel(void __iomem *base, u32 offset, u32 data)
+static void mtu3_writel(void __iomem *base, u32 offset, u32 data)
 {
 	writel(data, base + offset);
 }
 
-static inline u32 mtu3_readl(void __iomem *base, u32 offset)
+static u32 mtu3_readl(void __iomem *base, u32 offset)
 {
 	return readl(base + offset);
 }
 
-static inline void mtu3_setbits(void __iomem *base, u32 offset, u32 bits)
+static void mtu3_setbits(void __iomem *base, u32 offset, u32 bits)
 {
 	void __iomem *addr = base + offset;
 	u32 tmp = readl(addr);
@@ -470,7 +470,7 @@ static inline void mtu3_setbits(void __iomem *base, u32 offset, u32 bits)
 	writel((tmp | (bits)), addr);
 }
 
-static inline void mtu3_clrbits(void __iomem *base, u32 offset, u32 bits)
+static void mtu3_clrbits(void __iomem *base, u32 offset, u32 bits)
 {
 	void __iomem *addr = base + offset;
 	u32 tmp = readl(addr);

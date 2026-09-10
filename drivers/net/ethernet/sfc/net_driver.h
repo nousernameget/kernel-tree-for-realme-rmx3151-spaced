@@ -594,7 +594,7 @@ struct efx_link_state {
 	unsigned int speed;
 };
 
-static inline bool efx_link_state_equal(const struct efx_link_state *left,
+static bool efx_link_state_equal(const struct efx_link_state *left,
 					const struct efx_link_state *right)
 {
 	return left->up == right->up && left->fd == right->fd &&
@@ -657,7 +657,7 @@ enum efx_phy_mode {
 	PHY_MODE_SPECIAL	= 8,
 };
 
-static inline bool efx_phy_mode_disabled(enum efx_phy_mode mode)
+static bool efx_phy_mode_disabled(enum efx_phy_mode mode)
 {
 	return !!(mode & ~PHY_MODE_TX_DISABLED);
 }
@@ -977,12 +977,12 @@ struct efx_nic {
 	atomic_t n_rx_noskb_drops;
 };
 
-static inline int efx_dev_registered(struct efx_nic *efx)
+static int efx_dev_registered(struct efx_nic *efx)
 {
 	return efx->net_dev->reg_state == NETREG_REGISTERED;
 }
 
-static inline unsigned int efx_port_num(struct efx_nic *efx)
+static unsigned int efx_port_num(struct efx_nic *efx)
 {
 	return efx->port_num;
 }
@@ -1115,7 +1115,7 @@ struct efx_udp_tunnel {
  *	also notifies the driver that a writer has finished using this
  *	partition.
  * @ptp_write_host_time: Send host time to MC as part of sync protocol
- * @ptp_set_ts_sync_events: Enable or disable sync events for inline RX
+ * @ptp_set_ts_sync_events: Enable or disable sync events for RX
  *	timestamping, possibly only temporarily for the purposes of a reset.
  * @ptp_set_ts_config: Set hardware timestamp configuration.  The flags
  *	and tx_type will already have been validated but this operation
@@ -1320,11 +1320,11 @@ struct efx_nic_type {
 
 /**************************************************************************
  *
- * Prototypes and inline functions
+ * Prototypes and functions
  *
  *************************************************************************/
 
-static inline struct efx_channel *
+static struct efx_channel *
 efx_get_channel(struct efx_nic *efx, unsigned index)
 {
 	EFX_WARN_ON_ONCE_PARANOID(index >= efx->n_channels);
@@ -1345,7 +1345,7 @@ efx_get_channel(struct efx_nic *efx, unsigned index)
 	     _channel = _channel->channel ?				\
 		     (_efx)->channel[_channel->channel - 1] : NULL)
 
-static inline struct efx_tx_queue *
+static struct efx_tx_queue *
 efx_get_tx_queue(struct efx_nic *efx, unsigned index, unsigned type)
 {
 	EFX_WARN_ON_ONCE_PARANOID(index >= efx->n_tx_channels ||
@@ -1353,13 +1353,13 @@ efx_get_tx_queue(struct efx_nic *efx, unsigned index, unsigned type)
 	return &efx->channel[efx->tx_channel_offset + index]->tx_queue[type];
 }
 
-static inline bool efx_channel_has_tx_queues(struct efx_channel *channel)
+static bool efx_channel_has_tx_queues(struct efx_channel *channel)
 {
 	return channel->channel - channel->efx->tx_channel_offset <
 		channel->efx->n_tx_channels;
 }
 
-static inline struct efx_tx_queue *
+static struct efx_tx_queue *
 efx_channel_get_tx_queue(struct efx_channel *channel, unsigned type)
 {
 	EFX_WARN_ON_ONCE_PARANOID(!efx_channel_has_tx_queues(channel) ||
@@ -1367,7 +1367,7 @@ efx_channel_get_tx_queue(struct efx_channel *channel, unsigned type)
 	return &channel->tx_queue[type];
 }
 
-static inline bool efx_tx_queue_used(struct efx_tx_queue *tx_queue)
+static bool efx_tx_queue_used(struct efx_tx_queue *tx_queue)
 {
 	return !(tx_queue->efx->net_dev->num_tc < 2 &&
 		 tx_queue->queue & EFX_TXQ_TYPE_HIGHPRI);
@@ -1392,12 +1392,12 @@ static inline bool efx_tx_queue_used(struct efx_tx_queue *tx_queue)
 		     _tx_queue < (_channel)->tx_queue + EFX_TXQ_TYPES;	\
 		     _tx_queue++)
 
-static inline bool efx_channel_has_rx_queue(struct efx_channel *channel)
+static bool efx_channel_has_rx_queue(struct efx_channel *channel)
 {
 	return channel->rx_queue.core_index >= 0;
 }
 
-static inline struct efx_rx_queue *
+static struct efx_rx_queue *
 efx_channel_get_rx_queue(struct efx_channel *channel)
 {
 	EFX_WARN_ON_ONCE_PARANOID(!efx_channel_has_rx_queue(channel));
@@ -1413,13 +1413,13 @@ efx_channel_get_rx_queue(struct efx_channel *channel)
 		     _rx_queue;						\
 		     _rx_queue = NULL)
 
-static inline struct efx_channel *
+static struct efx_channel *
 efx_rx_queue_channel(struct efx_rx_queue *rx_queue)
 {
 	return container_of(rx_queue, struct efx_channel, rx_queue);
 }
 
-static inline int efx_rx_queue_index(struct efx_rx_queue *rx_queue)
+static int efx_rx_queue_index(struct efx_rx_queue *rx_queue)
 {
 	return efx_rx_queue_channel(rx_queue)->channel;
 }
@@ -1427,7 +1427,7 @@ static inline int efx_rx_queue_index(struct efx_rx_queue *rx_queue)
 /* Returns a pointer to the specified receive buffer in the RX
  * descriptor queue.
  */
-static inline struct efx_rx_buffer *efx_rx_buffer(struct efx_rx_queue *rx_queue,
+static struct efx_rx_buffer *efx_rx_buffer(struct efx_rx_queue *rx_queue,
 						  unsigned int index)
 {
 	return &rx_queue->buffer[index];
@@ -1454,11 +1454,11 @@ static inline struct efx_rx_buffer *efx_rx_buffer(struct efx_rx_queue *rx_queue,
 #define EFX_MAX_FRAME_LEN(mtu) \
 	(ALIGN(((mtu) + ETH_HLEN + VLAN_HLEN + ETH_FCS_LEN + EFX_FRAME_PAD), 8))
 
-static inline bool efx_xmit_with_hwtstamp(struct sk_buff *skb)
+static bool efx_xmit_with_hwtstamp(struct sk_buff *skb)
 {
 	return skb_shinfo(skb)->tx_flags & SKBTX_HW_TSTAMP;
 }
-static inline void efx_xmit_hwtstamp_pending(struct sk_buff *skb)
+static void efx_xmit_hwtstamp_pending(struct sk_buff *skb)
 {
 	skb_shinfo(skb)->tx_flags |= SKBTX_IN_PROGRESS;
 }
@@ -1468,7 +1468,7 @@ static inline void efx_xmit_hwtstamp_pending(struct sk_buff *skb)
  * If a feature is fixed, it does not present in hw_features, but
  * always in features.
  */
-static inline netdev_features_t efx_supported_features(const struct efx_nic *efx)
+static netdev_features_t efx_supported_features(const struct efx_nic *efx)
 {
 	const struct net_device *net_dev = efx->net_dev;
 
@@ -1476,21 +1476,21 @@ static inline netdev_features_t efx_supported_features(const struct efx_nic *efx
 }
 
 /* Get the current TX queue insert index. */
-static inline unsigned int
+static unsigned int
 efx_tx_queue_get_insert_index(const struct efx_tx_queue *tx_queue)
 {
 	return tx_queue->insert_count & tx_queue->ptr_mask;
 }
 
 /* Get a TX buffer. */
-static inline struct efx_tx_buffer *
+static struct efx_tx_buffer *
 __efx_tx_queue_get_insert_buffer(const struct efx_tx_queue *tx_queue)
 {
 	return &tx_queue->buffer[efx_tx_queue_get_insert_index(tx_queue)];
 }
 
 /* Get a TX buffer, checking it's not currently in use. */
-static inline struct efx_tx_buffer *
+static struct efx_tx_buffer *
 efx_tx_queue_get_insert_buffer(const struct efx_tx_queue *tx_queue)
 {
 	struct efx_tx_buffer *buffer =

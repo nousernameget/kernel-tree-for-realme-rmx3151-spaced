@@ -101,12 +101,12 @@ enum nfp_repr_type {
 
 extern const struct net_device_ops nfp_repr_netdev_ops;
 
-static inline bool nfp_netdev_is_nfp_repr(struct net_device *netdev)
+static bool nfp_netdev_is_nfp_repr(struct net_device *netdev)
 {
 	return netdev->netdev_ops == &nfp_repr_netdev_ops;
 }
 
-static inline int nfp_repr_get_port_id(struct net_device *netdev)
+static int nfp_repr_get_port_id(struct net_device *netdev)
 {
 	struct nfp_repr *priv = netdev_priv(netdev);
 

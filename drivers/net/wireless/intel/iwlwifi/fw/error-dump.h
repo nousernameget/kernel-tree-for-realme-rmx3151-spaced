@@ -297,7 +297,7 @@ struct iwl_fw_error_dump_paging {
  * @data: previous data block
  * Returns: next data block
  */
-static inline struct iwl_fw_error_dump_data *
+static struct iwl_fw_error_dump_data *
 iwl_fw_error_next_data(struct iwl_fw_error_dump_data *data)
 {
 	return (void *)(data->data + le32_to_cpu(data->len));

@@ -110,7 +110,7 @@ struct snic_io_hdr {
 };
 
 /* auxillary funciton for encoding the snic_io_hdr */
-static inline void
+static void
 snic_io_hdr_enc(struct snic_io_hdr *hdr, u8 typ, u8 status, u32 id, u32 hid,
 		u16 sg_cnt, ulong ctx)
 {
@@ -125,7 +125,7 @@ snic_io_hdr_enc(struct snic_io_hdr *hdr, u8 typ, u8 status, u32 id, u32 hid,
 }
 
 /* auxillary funciton for decoding the snic_io_hdr */
-static inline void
+static void
 snic_io_hdr_dec(struct snic_io_hdr *hdr, u8 *typ, u8 *stat, u32 *cmnd_id,
 		u32 *hid, ulong *ctx)
 {
@@ -498,7 +498,7 @@ struct snic_fw_req {
  * Access routines to encode and decode the color bit, which is the most
  * significant bit of the structure.
  */
-static inline void
+static void
 snic_color_enc(struct snic_fw_req *req, u8 color)
 {
 	u8 *c = ((u8 *) req) + sizeof(struct snic_fw_req) - 1;
@@ -509,7 +509,7 @@ snic_color_enc(struct snic_fw_req *req, u8 color)
 		*c &= ~0x80;
 }
 
-static inline void
+static void
 snic_color_dec(struct snic_fw_req *req, u8 *color)
 {
 	u8 *c = ((u8 *) req) + sizeof(struct snic_fw_req) - 1;

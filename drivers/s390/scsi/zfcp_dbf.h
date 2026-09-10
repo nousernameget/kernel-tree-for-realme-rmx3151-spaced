@@ -427,7 +427,7 @@ void zfcp_dbf_scsi_devreset(char *tag, struct scsi_cmnd *scmnd, u8 flag,
  * @scmnd: SCSI command that was NULLified.
  * @fsf_req: request that owned @scmnd.
  */
-static inline void zfcp_dbf_scsi_nullcmnd(struct scsi_cmnd *scmnd,
+static void zfcp_dbf_scsi_nullcmnd(struct scsi_cmnd *scmnd,
 					  struct zfcp_fsf_req *fsf_req)
 {
 	_zfcp_dbf_scsi("scfc__1", 3, scmnd, fsf_req);

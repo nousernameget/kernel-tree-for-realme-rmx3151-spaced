@@ -18,12 +18,12 @@ struct gbphy_device {
 };
 #define to_gbphy_dev(d) container_of(d, struct gbphy_device, dev)
 
-static inline void *gb_gbphy_get_data(struct gbphy_device *gdev)
+static void *gb_gbphy_get_data(struct gbphy_device *gdev)
 {
 	return dev_get_drvdata(&gdev->dev);
 }
 
-static inline void gb_gbphy_set_data(struct gbphy_device *gdev, void *data)
+static void gb_gbphy_set_data(struct gbphy_device *gdev, void *data)
 {
 	dev_set_drvdata(&gdev->dev, data);
 }
@@ -67,7 +67,7 @@ void gb_gbphy_deregister_driver(struct gbphy_driver *driver);
 	module_driver(__gbphy_driver, gb_gbphy_register, gb_gbphy_deregister)
 
 #ifdef CONFIG_PM
-static inline int gbphy_runtime_get_sync(struct gbphy_device *gbphy_dev)
+static int gbphy_runtime_get_sync(struct gbphy_device *gbphy_dev)
 {
 	struct device *dev = &gbphy_dev->dev;
 	int ret;
@@ -82,7 +82,7 @@ static inline int gbphy_runtime_get_sync(struct gbphy_device *gbphy_dev)
 	return 0;
 }
 
-static inline void gbphy_runtime_put_autosuspend(struct gbphy_device *gbphy_dev)
+static void gbphy_runtime_put_autosuspend(struct gbphy_device *gbphy_dev)
 {
 	struct device *dev = &gbphy_dev->dev;
 
@@ -90,12 +90,12 @@ static inline void gbphy_runtime_put_autosuspend(struct gbphy_device *gbphy_dev)
 	pm_runtime_put_autosuspend(dev);
 }
 
-static inline void gbphy_runtime_get_noresume(struct gbphy_device *gbphy_dev)
+static void gbphy_runtime_get_noresume(struct gbphy_device *gbphy_dev)
 {
 	pm_runtime_get_noresume(&gbphy_dev->dev);
 }
 
-static inline void gbphy_runtime_put_noidle(struct gbphy_device *gbphy_dev)
+static void gbphy_runtime_put_noidle(struct gbphy_device *gbphy_dev)
 {
 	pm_runtime_put_noidle(&gbphy_dev->dev);
 }

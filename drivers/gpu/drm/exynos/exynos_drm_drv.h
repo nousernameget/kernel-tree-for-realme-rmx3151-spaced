@@ -66,7 +66,7 @@ struct exynos_drm_plane_state {
 	unsigned int v_ratio;
 };
 
-static inline struct exynos_drm_plane_state *
+static struct exynos_drm_plane_state *
 to_exynos_plane_state(struct drm_plane_state *state)
 {
 	return container_of(state, struct exynos_drm_plane_state, base);
@@ -168,7 +168,7 @@ struct exynos_drm_crtc {
 	bool				i80_mode : 1;
 };
 
-static inline void exynos_drm_pipe_clk_enable(struct exynos_drm_crtc *crtc,
+static void exynos_drm_pipe_clk_enable(struct exynos_drm_crtc *crtc,
 					      bool enable)
 {
 	if (crtc->pipe_clk)
@@ -212,7 +212,7 @@ struct exynos_drm_private {
 	wait_queue_head_t	wait;
 };
 
-static inline struct device *to_dma_dev(struct drm_device *dev)
+static struct device *to_dma_dev(struct drm_device *dev)
 {
 	struct exynos_drm_private *priv = dev->dev_private;
 
@@ -262,13 +262,13 @@ struct drm_encoder *exynos_dpi_probe(struct device *dev);
 int exynos_dpi_remove(struct drm_encoder *encoder);
 int exynos_dpi_bind(struct drm_device *dev, struct drm_encoder *encoder);
 #else
-static inline struct drm_encoder *
+static struct drm_encoder *
 exynos_dpi_probe(struct device *dev) { return NULL; }
-static inline int exynos_dpi_remove(struct drm_encoder *encoder)
+static int exynos_dpi_remove(struct drm_encoder *encoder)
 {
 	return 0;
 }
-static inline int exynos_dpi_bind(struct drm_device *dev,
+static int exynos_dpi_bind(struct drm_device *dev,
 				  struct drm_encoder *encoder)
 {
 	return 0;

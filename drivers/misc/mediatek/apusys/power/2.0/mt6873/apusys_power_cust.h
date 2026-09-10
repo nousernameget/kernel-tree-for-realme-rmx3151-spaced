@@ -203,7 +203,7 @@ extern struct apusys_aging_steps aging_tbl[APUSYS_MAX_NUM_OPPS]
 extern struct ipuif_opp_table g_ipuif_opp_table[];
 #endif
 #ifdef APUPWR_TASK_DEBOUNCE
-static inline void task_debounce(void)
+static void task_debounce(void)
 {
 	msleep_interruptible(20);
 }

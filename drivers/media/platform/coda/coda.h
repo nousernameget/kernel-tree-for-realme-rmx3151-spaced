@@ -270,7 +270,7 @@ void coda_fill_bitstream(struct coda_ctx *ctx, struct list_head *buffer_list);
 
 void coda_set_gdi_regs(struct coda_ctx *ctx);
 
-static inline struct coda_q_data *get_q_data(struct coda_ctx *ctx,
+static struct coda_q_data *get_q_data(struct coda_ctx *ctx,
 					     enum v4l2_buf_type type)
 {
 	switch (type) {
@@ -287,7 +287,7 @@ const char *coda_product_name(int product);
 
 int coda_check_firmware(struct coda_dev *dev);
 
-static inline unsigned int coda_get_bitstream_payload(struct coda_ctx *ctx)
+static unsigned int coda_get_bitstream_payload(struct coda_ctx *ctx)
 {
 	return kfifo_len(&ctx->bitstream_fifo);
 }

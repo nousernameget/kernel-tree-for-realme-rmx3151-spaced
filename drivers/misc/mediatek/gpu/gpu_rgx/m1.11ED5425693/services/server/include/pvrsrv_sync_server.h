@@ -71,24 +71,24 @@ typedef struct _SYNC_FENCE_OBJ_
 	PVRSRV_FENCE hFence; /* Reference to implementation-independent fence object */
 } SYNC_FENCE_OBJ;
 
-static inline void SyncClearTimelineObj(SYNC_TIMELINE_OBJ *psSTO)
+static void SyncClearTimelineObj(SYNC_TIMELINE_OBJ *psSTO)
 {
 	psSTO->pvTlObj = NULL;
 	psSTO->hTimeline = PVRSRV_NO_TIMELINE;
 }
 
-static inline IMG_BOOL SyncIsTimelineObjValid(const SYNC_TIMELINE_OBJ *psSTO)
+static IMG_BOOL SyncIsTimelineObjValid(const SYNC_TIMELINE_OBJ *psSTO)
 {
 	return psSTO->pvTlObj != NULL;
 }
 
-static inline void SyncClearFenceObj(SYNC_FENCE_OBJ *psSFO)
+static void SyncClearFenceObj(SYNC_FENCE_OBJ *psSFO)
 {
 	psSFO->pvFenceObj = NULL;
 	psSFO->hFence = PVRSRV_NO_FENCE;
 }
 
-static inline IMG_BOOL SyncIsFenceObjValid(const SYNC_FENCE_OBJ *psSFO)
+static IMG_BOOL SyncIsFenceObjValid(const SYNC_FENCE_OBJ *psSFO)
 {
 	return psSFO->pvFenceObj != NULL;
 }
@@ -133,7 +133,7 @@ static inline IMG_BOOL SyncIsFenceObjValid(const SYNC_FENCE_OBJ *psSFO)
                 PVRSRV_ERROR_TIMEOUT    if the poll has exceeded the timeout
                 PVRSRV_ERROR_FAILED_DEPENDENCIES Other sync-impl specific error
 */ /**************************************************************************/
-static inline PVRSRV_ERROR
+static PVRSRV_ERROR
 SyncFenceWaitKM(PVRSRV_DEVICE_NODE *psDevNode,
                 const SYNC_FENCE_OBJ *psFenceObj,
                 IMG_UINT32 ui32TimeoutInMs)
@@ -175,7 +175,7 @@ SyncFenceWaitKM(PVRSRV_DEVICE_NODE *psDevNode,
 
 @Return         PVRSRV_ERROR  PVRSRV_OK, on success
 */ /**************************************************************************/
-static inline PVRSRV_ERROR
+static PVRSRV_ERROR
 SyncGetFenceObj(PVRSRV_FENCE iFence,
                 SYNC_FENCE_OBJ *psFenceObj)
 {
@@ -204,7 +204,7 @@ PVRSRV_ERROR SyncFenceReleaseKM(const SYNC_FENCE_OBJ *psFenceObj)
 /*                                                                           */
 /*****************************************************************************/
 
-static inline PVRSRV_ERROR
+static PVRSRV_ERROR
 SyncSWTimelineFenceCreateKM(PVRSRV_DEVICE_NODE *psDevNode,
                             PVRSRV_TIMELINE hSWTimeline,
                             const IMG_CHAR *pszFenceName,
@@ -225,7 +225,7 @@ SyncSWTimelineFenceCreateKM(PVRSRV_DEVICE_NODE *psDevNode,
 	return eError;
 }
 
-static inline PVRSRV_ERROR
+static PVRSRV_ERROR
 SyncSWTimelineAdvanceKM(PVRSRV_DEVICE_NODE *psDevNode,
                         const SYNC_TIMELINE_OBJ *psSWTimelineObj)
 {
@@ -244,7 +244,7 @@ SyncSWTimelineAdvanceKM(PVRSRV_DEVICE_NODE *psDevNode,
 	return eError;
 }
 
-static inline PVRSRV_ERROR
+static PVRSRV_ERROR
 SyncSWGetTimelineObj(PVRSRV_TIMELINE hSWTimeline,
                      SYNC_TIMELINE_OBJ *psSWTimelineObj)
 {
@@ -252,13 +252,13 @@ SyncSWGetTimelineObj(PVRSRV_TIMELINE hSWTimeline,
 	return SyncSWGetTimelineObj_(hSWTimeline, &psSWTimelineObj->pvTlObj);
 }
 
-static inline PVRSRV_ERROR
+static PVRSRV_ERROR
 SyncSWTimelineReleaseKM(const SYNC_TIMELINE_OBJ *psSWTimelineObj)
 {
 	return SyncSWTimelineReleaseKM_(psSWTimelineObj->pvTlObj);
 }
 
-static inline PVRSRV_ERROR
+static PVRSRV_ERROR
 SyncDumpFence(const SYNC_FENCE_OBJ *psFenceObj,
               DUMPDEBUG_PRINTF_FUNC *pfnDumpDebugPrintf,
               void *pvDumpDebugFile)
@@ -266,7 +266,7 @@ SyncDumpFence(const SYNC_FENCE_OBJ *psFenceObj,
 	return SyncDumpFence_(psFenceObj->pvFenceObj, pfnDumpDebugPrintf, pvDumpDebugFile);
 }
 
-static inline PVRSRV_ERROR
+static PVRSRV_ERROR
 SyncSWDumpTimeline(const SYNC_TIMELINE_OBJ *psSWTimelineObj,
                    DUMPDEBUG_PRINTF_FUNC *pfnDumpDebugPrintf,
                    void *pvDumpDebugFile)

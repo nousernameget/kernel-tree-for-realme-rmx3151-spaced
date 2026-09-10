@@ -82,32 +82,32 @@ typedef __u32 lnet_pid_t;
 /* how an LNET NID encodes net:address */
 /** extract the address part of an lnet_nid_t */
 
-static inline __u32 LNET_NIDADDR(lnet_nid_t nid)
+static __u32 LNET_NIDADDR(lnet_nid_t nid)
 {
 	return nid & 0xffffffff;
 }
 
-static inline __u32 LNET_NIDNET(lnet_nid_t nid)
+static __u32 LNET_NIDNET(lnet_nid_t nid)
 {
 	return (nid >> 32) & 0xffffffff;
 }
 
-static inline lnet_nid_t LNET_MKNID(__u32 net, __u32 addr)
+static lnet_nid_t LNET_MKNID(__u32 net, __u32 addr)
 {
 	return (((__u64)net) << 32) | addr;
 }
 
-static inline __u32 LNET_NETNUM(__u32 net)
+static __u32 LNET_NETNUM(__u32 net)
 {
 	return net & 0xffff;
 }
 
-static inline __u32 LNET_NETTYP(__u32 net)
+static __u32 LNET_NETTYP(__u32 net)
 {
 	return (net >> 16) & 0xffff;
 }
 
-static inline __u32 LNET_MKNET(__u32 type, __u32 num)
+static __u32 LNET_MKNET(__u32 type, __u32 num)
 {
 	return (type << 16) | num;
 }
@@ -286,7 +286,7 @@ struct lnet_handle_eq {
 /**
  * Invalidate eq handle @h.
  */
-static inline void LNetInvalidateEQHandle(struct lnet_handle_eq *h)
+static void LNetInvalidateEQHandle(struct lnet_handle_eq *h)
 {
 	h->cookie = LNET_WIRE_HANDLE_COOKIE_NONE;
 }
@@ -296,7 +296,7 @@ static inline void LNetInvalidateEQHandle(struct lnet_handle_eq *h)
  *
  * @return 1 if handle is invalid, 0 if valid.
  */
-static inline int LNetEQHandleIsInvalid(struct lnet_handle_eq h)
+static int LNetEQHandleIsInvalid(struct lnet_handle_eq h)
 {
 	return (LNET_WIRE_HANDLE_COOKIE_NONE == h.cookie);
 }
@@ -308,7 +308,7 @@ struct lnet_handle_md {
 /**
  * Invalidate md handle @h.
  */
-static inline void LNetInvalidateMDHandle(struct lnet_handle_md *h)
+static void LNetInvalidateMDHandle(struct lnet_handle_md *h)
 {
 	h->cookie = LNET_WIRE_HANDLE_COOKIE_NONE;
 }
@@ -318,7 +318,7 @@ static inline void LNetInvalidateMDHandle(struct lnet_handle_md *h)
  *
  * @return 1 if handle is invalid, 0 if valid.
  */
-static inline int LNetMDHandleIsInvalid(struct lnet_handle_md h)
+static int LNetMDHandleIsInvalid(struct lnet_handle_md h)
 {
 	return (LNET_WIRE_HANDLE_COOKIE_NONE == h.cookie);
 }

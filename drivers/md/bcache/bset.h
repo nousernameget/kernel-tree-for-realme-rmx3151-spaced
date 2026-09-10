@@ -224,27 +224,27 @@ struct btree_keys {
 	struct bset_tree	set[MAX_BSETS];
 };
 
-static inline struct bset_tree *bset_tree_last(struct btree_keys *b)
+static struct bset_tree *bset_tree_last(struct btree_keys *b)
 {
 	return b->set + b->nsets;
 }
 
-static inline bool bset_written(struct btree_keys *b, struct bset_tree *t)
+static bool bset_written(struct btree_keys *b, struct bset_tree *t)
 {
 	return t <= b->set + b->nsets - b->last_set_unwritten;
 }
 
-static inline bool bkey_written(struct btree_keys *b, struct bkey *k)
+static bool bkey_written(struct btree_keys *b, struct bkey *k)
 {
 	return !b->last_set_unwritten || k < b->set[b->nsets].data->start;
 }
 
-static inline unsigned bset_byte_offset(struct btree_keys *b, struct bset *i)
+static unsigned bset_byte_offset(struct btree_keys *b, struct bset *i)
 {
 	return ((size_t) i) - ((size_t) b->set->data);
 }
 
-static inline unsigned bset_sector_offset(struct btree_keys *b, struct bset *i)
+static unsigned bset_sector_offset(struct btree_keys *b, struct bset *i)
 {
 	return bset_byte_offset(b, i) >> 9;
 }
@@ -257,7 +257,7 @@ static inline unsigned bset_sector_offset(struct btree_keys *b, struct bset *i)
 #define set_blocks(i, block_bytes)				\
 	__set_blocks(i, (i)->keys, block_bytes)
 
-static inline size_t bch_btree_keys_u64s_remaining(struct btree_keys *b)
+static size_t bch_btree_keys_u64s_remaining(struct btree_keys *b)
 {
 	struct bset_tree *t = bset_tree_last(b);
 
@@ -272,7 +272,7 @@ static inline size_t bch_btree_keys_u64s_remaining(struct btree_keys *b)
 		sizeof(u64);
 }
 
-static inline struct bset *bset_next_set(struct btree_keys *b,
+static struct bset *bset_next_set(struct btree_keys *b,
 					 unsigned block_bytes)
 {
 	struct bset *i = bset_tree_last(b)->data;
@@ -329,7 +329,7 @@ struct bkey *__bch_bset_search(struct btree_keys *, struct bset_tree *,
 /*
  * Returns the first key that is strictly greater than search
  */
-static inline struct bkey *bch_bset_search(struct btree_keys *b,
+static struct bkey *bch_bset_search(struct btree_keys *b,
 					   struct bset_tree *t,
 					   const struct bkey *search)
 {
@@ -365,7 +365,7 @@ void bch_btree_sort_and_fix_extents(struct btree_keys *, struct btree_iter *,
 void bch_btree_sort_partial(struct btree_keys *, unsigned,
 			    struct bset_sort_state *);
 
-static inline void bch_btree_sort(struct btree_keys *b,
+static void bch_btree_sort(struct btree_keys *b,
 				  struct bset_sort_state *state)
 {
 	bch_btree_sort_partial(b, 0, state);
@@ -384,12 +384,12 @@ void bch_btree_keys_stats(struct btree_keys *, struct bset_stats *);
 #define bset_bkey_last(i)	bkey_idx((struct bkey *) (i)->d, \
 					 (unsigned int)(i)->keys)
 
-static inline struct bkey *bset_bkey_idx(struct bset *i, unsigned idx)
+static struct bkey *bset_bkey_idx(struct bset *i, unsigned idx)
 {
 	return bkey_idx(i->start, idx);
 }
 
-static inline void bkey_init(struct bkey *k)
+static void bkey_init(struct bkey *k)
 {
 	*k = ZERO_KEY;
 }
@@ -407,13 +407,13 @@ void bch_bkey_copy_single_ptr(struct bkey *, const struct bkey *,
 bool __bch_cut_front(const struct bkey *, struct bkey *);
 bool __bch_cut_back(const struct bkey *, struct bkey *);
 
-static inline bool bch_cut_front(const struct bkey *where, struct bkey *k)
+static bool bch_cut_front(const struct bkey *where, struct bkey *k)
 {
 	BUG_ON(bkey_cmp(where, k) > 0);
 	return __bch_cut_front(where, k);
 }
 
-static inline bool bch_cut_back(const struct bkey *where, struct bkey *k)
+static bool bch_cut_back(const struct bkey *where, struct bkey *k)
 {
 	BUG_ON(bkey_cmp(where, &START_KEY(k)) < 0);
 	return __bch_cut_back(where, k);
@@ -428,7 +428,7 @@ static inline bool bch_cut_back(const struct bkey *where, struct bkey *k)
  * and it points to an on-stack variable, so the memory release is handled
  * by stackframe itself.
  */
-static inline void preceding_key(struct bkey *k, struct bkey **preceding_key_p)
+static void preceding_key(struct bkey *k, struct bkey **preceding_key_p)
 {
 	if (KEY_INODE(k) || KEY_OFFSET(k)) {
 		(**preceding_key_p) = KEY(KEY_INODE(k), KEY_OFFSET(k), 0);
@@ -440,23 +440,23 @@ static inline void preceding_key(struct bkey *k, struct bkey **preceding_key_p)
 	}
 }
 
-static inline bool bch_ptr_invalid(struct btree_keys *b, const struct bkey *k)
+static bool bch_ptr_invalid(struct btree_keys *b, const struct bkey *k)
 {
 	return b->ops->key_invalid(b, k);
 }
 
-static inline bool bch_ptr_bad(struct btree_keys *b, const struct bkey *k)
+static bool bch_ptr_bad(struct btree_keys *b, const struct bkey *k)
 {
 	return b->ops->key_bad(b, k);
 }
 
-static inline void bch_bkey_to_text(struct btree_keys *b, char *buf,
+static void bch_bkey_to_text(struct btree_keys *b, char *buf,
 				    size_t size, const struct bkey *k)
 {
 	return b->ops->key_to_text(buf, size, k);
 }
 
-static inline bool bch_bkey_equal_header(const struct bkey *l,
+static bool bch_bkey_equal_header(const struct bkey *l,
 					 const struct bkey *r)
 {
 	return (KEY_DIRTY(l) == KEY_DIRTY(r) &&
@@ -481,50 +481,50 @@ struct keylist {
 	uint64_t		inline_keys[KEYLIST_INLINE];
 };
 
-static inline void bch_keylist_init(struct keylist *l)
+static void bch_keylist_init(struct keylist *l)
 {
 	l->top_p = l->keys_p = l->inline_keys;
 }
 
-static inline void bch_keylist_init_single(struct keylist *l, struct bkey *k)
+static void bch_keylist_init_single(struct keylist *l, struct bkey *k)
 {
 	l->keys = k;
 	l->top = bkey_next(k);
 }
 
-static inline void bch_keylist_push(struct keylist *l)
+static void bch_keylist_push(struct keylist *l)
 {
 	l->top = bkey_next(l->top);
 }
 
-static inline void bch_keylist_add(struct keylist *l, struct bkey *k)
+static void bch_keylist_add(struct keylist *l, struct bkey *k)
 {
 	bkey_copy(l->top, k);
 	bch_keylist_push(l);
 }
 
-static inline bool bch_keylist_empty(struct keylist *l)
+static bool bch_keylist_empty(struct keylist *l)
 {
 	return l->top == l->keys;
 }
 
-static inline void bch_keylist_reset(struct keylist *l)
+static void bch_keylist_reset(struct keylist *l)
 {
 	l->top = l->keys;
 }
 
-static inline void bch_keylist_free(struct keylist *l)
+static void bch_keylist_free(struct keylist *l)
 {
 	if (l->keys_p != l->inline_keys)
 		kfree(l->keys_p);
 }
 
-static inline size_t bch_keylist_nkeys(struct keylist *l)
+static size_t bch_keylist_nkeys(struct keylist *l)
 {
 	return l->top_p - l->keys_p;
 }
 
-static inline size_t bch_keylist_bytes(struct keylist *l)
+static size_t bch_keylist_bytes(struct keylist *l)
 {
 	return bch_keylist_nkeys(l) * sizeof(uint64_t);
 }
@@ -551,7 +551,7 @@ void bch_dump_bset(struct btree_keys *, struct bset *, unsigned);
 
 #endif
 
-static inline bool btree_keys_expensive_checks(struct btree_keys *b)
+static bool btree_keys_expensive_checks(struct btree_keys *b)
 {
 #ifdef CONFIG_BCACHE_DEBUG
 	return *b->expensive_debug_checks;
@@ -560,7 +560,7 @@ static inline bool btree_keys_expensive_checks(struct btree_keys *b)
 #endif
 }
 
-static inline int bch_count_data(struct btree_keys *b)
+static int bch_count_data(struct btree_keys *b)
 {
 	return btree_keys_expensive_checks(b) ? __bch_count_data(b) : -1;
 }

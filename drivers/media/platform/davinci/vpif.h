@@ -134,12 +134,12 @@ extern spinlock_t vpif_lock;
 #define VPIF_IODFT_CTRL			(0x01c0)
 
 /* Functions for bit Manipulation */
-static inline void vpif_set_bit(u32 reg, u32 bit)
+static void vpif_set_bit(u32 reg, u32 bit)
 {
 	regw((regr(reg)) | (0x01 << bit), reg);
 }
 
-static inline void vpif_clr_bit(u32 reg, u32 bit)
+static void vpif_clr_bit(u32 reg, u32 bit)
 {
 	regw(((regr(reg)) & ~(0x01 << bit)), reg);
 }
@@ -267,8 +267,8 @@ static inline void vpif_clr_bit(u32 reg, u32 bit)
 
 extern u8 irq_vpif_capture_channel[VPIF_NUM_CHANNELS];
 
-/* inline function to enable/disable channel0 */
-static inline void enable_channel0(int enable)
+/* function to enable/disable channel0 */
+static void enable_channel0(int enable)
 {
 	if (enable)
 		regw((regr(VPIF_CH0_CTRL) | (VPIF_CH0_EN)), VPIF_CH0_CTRL);
@@ -276,8 +276,8 @@ static inline void enable_channel0(int enable)
 		regw((regr(VPIF_CH0_CTRL) & (~VPIF_CH0_EN)), VPIF_CH0_CTRL);
 }
 
-/* inline function to enable/disable channel1 */
-static inline void enable_channel1(int enable)
+/* function to enable/disable channel1 */
+static void enable_channel1(int enable)
 {
 	if (enable)
 		regw((regr(VPIF_CH1_CTRL) | (VPIF_CH1_EN)), VPIF_CH1_CTRL);
@@ -285,8 +285,8 @@ static inline void enable_channel1(int enable)
 		regw((regr(VPIF_CH1_CTRL) & (~VPIF_CH1_EN)), VPIF_CH1_CTRL);
 }
 
-/* inline function to enable interrupt for channel0 */
-static inline void channel0_intr_enable(int enable)
+/* function to enable interrupt for channel0 */
+static void channel0_intr_enable(int enable)
 {
 	unsigned long flags;
 
@@ -307,8 +307,8 @@ static inline void channel0_intr_enable(int enable)
 	spin_unlock_irqrestore(&vpif_lock, flags);
 }
 
-/* inline function to enable interrupt for channel1 */
-static inline void channel1_intr_enable(int enable)
+/* function to enable interrupt for channel1 */
+static void channel1_intr_enable(int enable)
 {
 	unsigned long flags;
 
@@ -329,8 +329,8 @@ static inline void channel1_intr_enable(int enable)
 	spin_unlock_irqrestore(&vpif_lock, flags);
 }
 
-/* inline function to set buffer addresses in case of Y/C non mux mode */
-static inline void ch0_set_videobuf_addr_yc_nmux(unsigned long top_strt_luma,
+/* function to set buffer addresses in case of Y/C non mux mode */
+static void ch0_set_videobuf_addr_yc_nmux(unsigned long top_strt_luma,
 						 unsigned long btm_strt_luma,
 						 unsigned long top_strt_chroma,
 						 unsigned long btm_strt_chroma)
@@ -341,8 +341,8 @@ static inline void ch0_set_videobuf_addr_yc_nmux(unsigned long top_strt_luma,
 	regw(btm_strt_chroma, VPIF_CH1_BTM_STRT_ADD_CHROMA);
 }
 
-/* inline function to set buffer addresses in VPIF registers for video data */
-static inline void ch0_set_videobuf_addr(unsigned long top_strt_luma,
+/* function to set buffer addresses in VPIF registers for video data */
+static void ch0_set_videobuf_addr(unsigned long top_strt_luma,
 					 unsigned long btm_strt_luma,
 					 unsigned long top_strt_chroma,
 					 unsigned long btm_strt_chroma)
@@ -353,7 +353,7 @@ static inline void ch0_set_videobuf_addr(unsigned long top_strt_luma,
 	regw(btm_strt_chroma, VPIF_CH0_BTM_STRT_ADD_CHROMA);
 }
 
-static inline void ch1_set_videobuf_addr(unsigned long top_strt_luma,
+static void ch1_set_videobuf_addr(unsigned long top_strt_luma,
 					 unsigned long btm_strt_luma,
 					 unsigned long top_strt_chroma,
 					 unsigned long btm_strt_chroma)
@@ -365,28 +365,28 @@ static inline void ch1_set_videobuf_addr(unsigned long top_strt_luma,
 	regw(btm_strt_chroma, VPIF_CH1_BTM_STRT_ADD_CHROMA);
 }
 
-static inline void ch0_set_vbi_addr(unsigned long top_vbi,
+static void ch0_set_vbi_addr(unsigned long top_vbi,
 	unsigned long btm_vbi, unsigned long a, unsigned long b)
 {
 	regw(top_vbi, VPIF_CH0_TOP_STRT_ADD_VANC);
 	regw(btm_vbi, VPIF_CH0_BTM_STRT_ADD_VANC);
 }
 
-static inline void ch0_set_hbi_addr(unsigned long top_vbi,
+static void ch0_set_hbi_addr(unsigned long top_vbi,
 	unsigned long btm_vbi, unsigned long a, unsigned long b)
 {
 	regw(top_vbi, VPIF_CH0_TOP_STRT_ADD_HANC);
 	regw(btm_vbi, VPIF_CH0_BTM_STRT_ADD_HANC);
 }
 
-static inline void ch1_set_vbi_addr(unsigned long top_vbi,
+static void ch1_set_vbi_addr(unsigned long top_vbi,
 	unsigned long btm_vbi, unsigned long a, unsigned long b)
 {
 	regw(top_vbi, VPIF_CH1_TOP_STRT_ADD_VANC);
 	regw(btm_vbi, VPIF_CH1_BTM_STRT_ADD_VANC);
 }
 
-static inline void ch1_set_hbi_addr(unsigned long top_vbi,
+static void ch1_set_hbi_addr(unsigned long top_vbi,
 	unsigned long btm_vbi, unsigned long a, unsigned long b)
 {
 	regw(top_vbi, VPIF_CH1_TOP_STRT_ADD_HANC);
@@ -394,7 +394,7 @@ static inline void ch1_set_hbi_addr(unsigned long top_vbi,
 }
 
 /* Inline function to enable raw vbi in the given channel */
-static inline void disable_raw_feature(u8 channel_id, u8 index)
+static void disable_raw_feature(u8 channel_id, u8 index)
 {
 	u32 ctrl_reg;
 	if (0 == channel_id)
@@ -408,7 +408,7 @@ static inline void disable_raw_feature(u8 channel_id, u8 index)
 		vpif_clr_bit(ctrl_reg, VPIF_CH_HANC_EN_BIT);
 }
 
-static inline void enable_raw_feature(u8 channel_id, u8 index)
+static void enable_raw_feature(u8 channel_id, u8 index)
 {
 	u32 ctrl_reg;
 	if (0 == channel_id)
@@ -422,8 +422,8 @@ static inline void enable_raw_feature(u8 channel_id, u8 index)
 		vpif_set_bit(ctrl_reg, VPIF_CH_HANC_EN_BIT);
 }
 
-/* inline function to enable/disable channel2 */
-static inline void enable_channel2(int enable)
+/* function to enable/disable channel2 */
+static void enable_channel2(int enable)
 {
 	if (enable) {
 		regw((regr(VPIF_CH2_CTRL) | (VPIF_CH2_CLK_EN)), VPIF_CH2_CTRL);
@@ -434,8 +434,8 @@ static inline void enable_channel2(int enable)
 	}
 }
 
-/* inline function to enable/disable channel3 */
-static inline void enable_channel3(int enable)
+/* function to enable/disable channel3 */
+static void enable_channel3(int enable)
 {
 	if (enable) {
 		regw((regr(VPIF_CH3_CTRL) | (VPIF_CH3_CLK_EN)), VPIF_CH3_CTRL);
@@ -446,8 +446,8 @@ static inline void enable_channel3(int enable)
 	}
 }
 
-/* inline function to enable interrupt for channel2 */
-static inline void channel2_intr_enable(int enable)
+/* function to enable interrupt for channel2 */
+static void channel2_intr_enable(int enable)
 {
 	unsigned long flags;
 
@@ -467,8 +467,8 @@ static inline void channel2_intr_enable(int enable)
 	spin_unlock_irqrestore(&vpif_lock, flags);
 }
 
-/* inline function to enable interrupt for channel3 */
-static inline void channel3_intr_enable(int enable)
+/* function to enable interrupt for channel3 */
+static void channel3_intr_enable(int enable)
 {
 	unsigned long flags;
 
@@ -489,8 +489,8 @@ static inline void channel3_intr_enable(int enable)
 	spin_unlock_irqrestore(&vpif_lock, flags);
 }
 
-/* inline function to enable raw vbi data for channel2 */
-static inline void channel2_raw_enable(int enable, u8 index)
+/* function to enable raw vbi data for channel2 */
+static void channel2_raw_enable(int enable, u8 index)
 {
 	u32 mask;
 
@@ -505,8 +505,8 @@ static inline void channel2_raw_enable(int enable, u8 index)
 		vpif_clr_bit(VPIF_CH2_CTRL, mask);
 }
 
-/* inline function to enable raw vbi data for channel3*/
-static inline void channel3_raw_enable(int enable, u8 index)
+/* function to enable raw vbi data for channel3*/
+static void channel3_raw_enable(int enable, u8 index)
 {
 	u32 mask;
 
@@ -522,7 +522,7 @@ static inline void channel3_raw_enable(int enable, u8 index)
 }
 
 /* function to enable clipping (for both active and blanking regions) on ch 2 */
-static inline void channel2_clipping_enable(int enable)
+static void channel2_clipping_enable(int enable)
 {
 	if (enable) {
 		vpif_set_bit(VPIF_CH2_CTRL, VPIF_CH2_CLIP_ANC_EN);
@@ -534,7 +534,7 @@ static inline void channel2_clipping_enable(int enable)
 }
 
 /* function to enable clipping (for both active and blanking regions) on ch 3 */
-static inline void channel3_clipping_enable(int enable)
+static void channel3_clipping_enable(int enable)
 {
 	if (enable) {
 		vpif_set_bit(VPIF_CH3_CTRL, VPIF_CH3_CLIP_ANC_EN);
@@ -545,8 +545,8 @@ static inline void channel3_clipping_enable(int enable)
 	}
 }
 
-/* inline function to set buffer addresses in case of Y/C non mux mode */
-static inline void ch2_set_videobuf_addr_yc_nmux(unsigned long top_strt_luma,
+/* function to set buffer addresses in case of Y/C non mux mode */
+static void ch2_set_videobuf_addr_yc_nmux(unsigned long top_strt_luma,
 						 unsigned long btm_strt_luma,
 						 unsigned long top_strt_chroma,
 						 unsigned long btm_strt_chroma)
@@ -557,8 +557,8 @@ static inline void ch2_set_videobuf_addr_yc_nmux(unsigned long top_strt_luma,
 	regw(btm_strt_chroma, VPIF_CH3_BTM_STRT_ADD_CHROMA);
 }
 
-/* inline function to set buffer addresses in VPIF registers for video data */
-static inline void ch2_set_videobuf_addr(unsigned long top_strt_luma,
+/* function to set buffer addresses in VPIF registers for video data */
+static void ch2_set_videobuf_addr(unsigned long top_strt_luma,
 					 unsigned long btm_strt_luma,
 					 unsigned long top_strt_chroma,
 					 unsigned long btm_strt_chroma)
@@ -569,7 +569,7 @@ static inline void ch2_set_videobuf_addr(unsigned long top_strt_luma,
 	regw(btm_strt_chroma, VPIF_CH2_BTM_STRT_ADD_CHROMA);
 }
 
-static inline void ch3_set_videobuf_addr(unsigned long top_strt_luma,
+static void ch3_set_videobuf_addr(unsigned long top_strt_luma,
 					 unsigned long btm_strt_luma,
 					 unsigned long top_strt_chroma,
 					 unsigned long btm_strt_chroma)
@@ -580,8 +580,8 @@ static inline void ch3_set_videobuf_addr(unsigned long top_strt_luma,
 	regw(btm_strt_chroma, VPIF_CH3_BTM_STRT_ADD_CHROMA);
 }
 
-/* inline function to set buffer addresses in VPIF registers for vbi data */
-static inline void ch2_set_vbi_addr(unsigned long top_strt_luma,
+/* function to set buffer addresses in VPIF registers for vbi data */
+static void ch2_set_vbi_addr(unsigned long top_strt_luma,
 					 unsigned long btm_strt_luma,
 					 unsigned long top_strt_chroma,
 					 unsigned long btm_strt_chroma)
@@ -590,7 +590,7 @@ static inline void ch2_set_vbi_addr(unsigned long top_strt_luma,
 	regw(btm_strt_luma, VPIF_CH2_BTM_STRT_ADD_VANC);
 }
 
-static inline void ch3_set_vbi_addr(unsigned long top_strt_luma,
+static void ch3_set_vbi_addr(unsigned long top_strt_luma,
 					 unsigned long btm_strt_luma,
 					 unsigned long top_strt_chroma,
 					 unsigned long btm_strt_chroma)
@@ -599,7 +599,7 @@ static inline void ch3_set_vbi_addr(unsigned long top_strt_luma,
 	regw(btm_strt_luma, VPIF_CH3_BTM_STRT_ADD_VANC);
 }
 
-static inline int vpif_intr_status(int channel)
+static int vpif_intr_status(int channel)
 {
 	int status = 0;
 	int mask;

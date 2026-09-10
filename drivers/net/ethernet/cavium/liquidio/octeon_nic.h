@@ -116,13 +116,13 @@ union octnic_cmd_setup {
 
 };
 
-static inline int octnet_iq_is_full(struct octeon_device *oct, u32 q_no)
+static int octnet_iq_is_full(struct octeon_device *oct, u32 q_no)
 {
 	return ((u32)atomic_read(&oct->instr_queue[q_no]->instr_pending)
 		>= (oct->instr_queue[q_no]->max_count - 2));
 }
 
-static inline void
+static void
 octnet_prepare_pci_cmd_o2(struct octeon_device *oct,
 			  union octeon_instr_64B *cmd,
 			  union octnic_cmd_setup *setup, u32 tag)
@@ -176,7 +176,7 @@ octnet_prepare_pci_cmd_o2(struct octeon_device *oct,
 	irh->ossp = packet_params.u32;
 }
 
-static inline void
+static void
 octnet_prepare_pci_cmd_o3(struct octeon_device *oct,
 			  union octeon_instr_64B *cmd,
 			  union octnic_cmd_setup *setup, u32 tag)
@@ -246,7 +246,7 @@ octnet_prepare_pci_cmd_o3(struct octeon_device *oct,
  *
  * Assumes the cmd instruction is pre-allocated, but no fields are filled in.
  */
-static inline void
+static void
 octnet_prepare_pci_cmd(struct octeon_device *oct, union octeon_instr_64B *cmd,
 		       union octnic_cmd_setup *setup, u32 tag)
 {

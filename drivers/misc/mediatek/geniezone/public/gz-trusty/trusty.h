@@ -77,7 +77,7 @@ struct trusty_nop {
 	u32 args[3];
 };
 
-static inline void trusty_nop_init(struct trusty_nop *nop,
+static void trusty_nop_init(struct trusty_nop *nop,
 				   u32 arg0, u32 arg1, u32 arg2)
 {
 	INIT_LIST_HEAD(&nop->node);

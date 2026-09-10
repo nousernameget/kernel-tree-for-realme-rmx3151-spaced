@@ -70,7 +70,7 @@ struct cpci_hp_controller {
 	struct cpci_hp_controller_ops *ops;
 };
 
-static inline const char *slot_name(struct slot *slot)
+static const char *slot_name(struct slot *slot)
 {
 	return hotplug_slot_name(slot->hotplug_slot);
 }

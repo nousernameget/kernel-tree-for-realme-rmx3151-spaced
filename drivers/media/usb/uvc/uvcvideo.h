@@ -685,7 +685,7 @@ extern unsigned long uvc_queue_get_unmapped_area(struct uvc_video_queue *queue,
 		unsigned long pgoff);
 #endif
 extern int uvc_queue_allocated(struct uvc_video_queue *queue);
-static inline int uvc_queue_streaming(struct uvc_video_queue *queue)
+static int uvc_queue_streaming(struct uvc_video_queue *queue)
 {
 	return vb2_is_streaming(&queue->queue);
 }
@@ -735,13 +735,13 @@ extern int uvc_ctrl_begin(struct uvc_video_chain *chain);
 extern int __uvc_ctrl_commit(struct uvc_fh *handle, int rollback,
 			const struct v4l2_ext_control *xctrls,
 			unsigned int xctrls_count);
-static inline int uvc_ctrl_commit(struct uvc_fh *handle,
+static int uvc_ctrl_commit(struct uvc_fh *handle,
 			const struct v4l2_ext_control *xctrls,
 			unsigned int xctrls_count)
 {
 	return __uvc_ctrl_commit(handle, 0, xctrls, xctrls_count);
 }
-static inline int uvc_ctrl_rollback(struct uvc_fh *handle)
+static int uvc_ctrl_rollback(struct uvc_fh *handle)
 {
 	return __uvc_ctrl_commit(handle, 1, NULL, 0);
 }

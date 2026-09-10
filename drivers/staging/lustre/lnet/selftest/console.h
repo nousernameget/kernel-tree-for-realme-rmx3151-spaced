@@ -172,13 +172,13 @@ struct lstcon_session {
 
 extern struct lstcon_session	 console_session;
 
-static inline struct lstcon_trans_stat *
+static struct lstcon_trans_stat *
 lstcon_trans_stat(void)
 {
 	return &console_session.ses_trans_stat;
 }
 
-static inline struct list_head *
+static struct list_head *
 lstcon_id2hash(struct lnet_process_id id, struct list_head *hash)
 {
 	unsigned int idx = LNET_NIDADDR(id.nid) % LST_NODE_HASHSIZE;

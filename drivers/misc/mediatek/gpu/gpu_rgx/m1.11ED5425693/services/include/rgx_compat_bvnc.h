@@ -116,7 +116,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /**************************************************************************//**
  * Utility function for packing BVNC
  *****************************************************************************/
-static inline IMG_UINT64 rgx_bvnc_pack(IMG_UINT32 ui32B, IMG_UINT32 ui32V, IMG_UINT32 ui32N, IMG_UINT32 ui32C)
+static IMG_UINT64 rgx_bvnc_pack(IMG_UINT32 ui32B, IMG_UINT32 ui32V, IMG_UINT32 ui32N, IMG_UINT32 ui32C)
 {
 	/*
 	 * Test for input B, V, N and C exceeding max bit width.

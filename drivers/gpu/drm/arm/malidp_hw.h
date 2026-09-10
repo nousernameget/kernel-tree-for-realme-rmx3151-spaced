@@ -204,20 +204,20 @@ enum {
 
 extern const struct malidp_hw_device malidp_device[MALIDP_MAX_DEVICES];
 
-static inline u32 malidp_hw_read(struct malidp_hw_device *hwdev, u32 reg)
+static u32 malidp_hw_read(struct malidp_hw_device *hwdev, u32 reg)
 {
 	WARN_ON(hwdev->pm_suspended);
 	return readl(hwdev->regs + reg);
 }
 
-static inline void malidp_hw_write(struct malidp_hw_device *hwdev,
+static void malidp_hw_write(struct malidp_hw_device *hwdev,
 				   u32 value, u32 reg)
 {
 	WARN_ON(hwdev->pm_suspended);
 	writel(value, hwdev->regs + reg);
 }
 
-static inline void malidp_hw_setbits(struct malidp_hw_device *hwdev,
+static void malidp_hw_setbits(struct malidp_hw_device *hwdev,
 				     u32 mask, u32 reg)
 {
 	u32 data = malidp_hw_read(hwdev, reg);
@@ -226,7 +226,7 @@ static inline void malidp_hw_setbits(struct malidp_hw_device *hwdev,
 	malidp_hw_write(hwdev, data, reg);
 }
 
-static inline void malidp_hw_clearbits(struct malidp_hw_device *hwdev,
+static void malidp_hw_clearbits(struct malidp_hw_device *hwdev,
 				       u32 mask, u32 reg)
 {
 	u32 data = malidp_hw_read(hwdev, reg);
@@ -235,7 +235,7 @@ static inline void malidp_hw_clearbits(struct malidp_hw_device *hwdev,
 	malidp_hw_write(hwdev, data, reg);
 }
 
-static inline u32 malidp_get_block_base(struct malidp_hw_device *hwdev,
+static u32 malidp_get_block_base(struct malidp_hw_device *hwdev,
 					u8 block)
 {
 	switch (block) {
@@ -248,7 +248,7 @@ static inline u32 malidp_get_block_base(struct malidp_hw_device *hwdev,
 	return 0;
 }
 
-static inline void malidp_hw_disable_irq(struct malidp_hw_device *hwdev,
+static void malidp_hw_disable_irq(struct malidp_hw_device *hwdev,
 					 u8 block, u32 irq)
 {
 	u32 base = malidp_get_block_base(hwdev, block);
@@ -256,7 +256,7 @@ static inline void malidp_hw_disable_irq(struct malidp_hw_device *hwdev,
 	malidp_hw_clearbits(hwdev, irq, base + MALIDP_REG_MASKIRQ);
 }
 
-static inline void malidp_hw_enable_irq(struct malidp_hw_device *hwdev,
+static void malidp_hw_enable_irq(struct malidp_hw_device *hwdev,
 					u8 block, u32 irq)
 {
 	u32 base = malidp_get_block_base(hwdev, block);
@@ -272,7 +272,7 @@ void malidp_se_irq_fini(struct drm_device *drm);
 u8 malidp_hw_get_format_id(const struct malidp_hw_regmap *map,
 			   u8 layer_id, u32 format);
 
-static inline bool malidp_hw_pitch_valid(struct malidp_hw_device *hwdev,
+static bool malidp_hw_pitch_valid(struct malidp_hw_device *hwdev,
 					 unsigned int pitch)
 {
 	return !(pitch & (hwdev->map.bus_align_bytes - 1));
@@ -285,7 +285,7 @@ static inline bool malidp_hw_pitch_valid(struct malidp_hw_device *hwdev,
 #define FP_0_36363	0x00005D17	/* 0.36363 = 1/2.75 */
 #define FP_0_25000	0x00004000	/* 0.25 = 1/4 */
 
-static inline enum malidp_scaling_coeff_set
+static enum malidp_scaling_coeff_set
 malidp_se_select_coeffs(u32 upscale_factor)
 {
 	return (upscale_factor >= FP_1_00000) ? MALIDP_UPSCALING_COEFFS :
@@ -301,7 +301,7 @@ malidp_se_select_coeffs(u32 upscale_factor)
 #undef FP_0_66667
 #undef FP_1_00000
 
-static inline void malidp_se_set_enh_coeffs(struct malidp_hw_device *hwdev)
+static void malidp_se_set_enh_coeffs(struct malidp_hw_device *hwdev)
 {
 	static const s32 enhancer_coeffs[] = {
 		-8, -8, -8, -8, 128, -8, -8, -8, -8

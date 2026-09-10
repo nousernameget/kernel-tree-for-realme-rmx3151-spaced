@@ -238,7 +238,7 @@ int iwl_mvm_schedule_csa_period(struct iwl_mvm *mvm,
  *
  * This function returns true iff this TE is added to the fw.
  */
-static inline bool
+static bool
 iwl_mvm_te_scheduled(struct iwl_mvm_time_event_data *te_data)
 {
 	if (!te_data)

@@ -243,790 +243,790 @@ extern void ram_console_write(struct console *console, const char *s,
 				unsigned int count);
 extern void aee_sram_fiq_save_bin(const char *buffer, size_t len);
 #else
-static inline void aee_rr_rec_clk(int id, u32 val)
+static void aee_rr_rec_clk(int id, u32 val)
 {
 }
 
-static inline int aee_rr_reboot_reason_show(struct seq_file *m, void *v)
-{
-	return 0;
-}
-
-static inline int aee_rr_last_fiq_step(void)
+static int aee_rr_reboot_reason_show(struct seq_file *m, void *v)
 {
 	return 0;
 }
 
-static inline void aee_rr_rec_exp_type(unsigned int type)
-{
-}
-
-static inline unsigned int aee_rr_curr_exp_type(void)
+static int aee_rr_last_fiq_step(void)
 {
 	return 0;
 }
 
-static inline void aee_rr_rec_scp(void)
+static void aee_rr_rec_exp_type(unsigned int type)
 {
 }
 
-static inline void aee_rr_rec_kaslr_offset(u64 value64)
-{
-}
-
-static inline void aee_rr_rec_cpu_dvfs_vproc_big(u8 val)
-{
-}
-
-static inline void aee_rr_rec_cpu_dvfs_vproc_little(u8 val)
-{
-}
-
-static inline void aee_rr_rec_cpu_dvfs_oppidx(u8 val)
-{
-}
-
-static inline void aee_rr_rec_cpu_dvfs_cci_oppidx(u8 val)
-{
-}
-
-static inline void aee_rr_rec_cpu_dvfs_status(u8 val)
-{
-}
-
-static inline void aee_rr_rec_cpu_dvfs_step(u8 val)
-{
-}
-
-static inline void aee_rr_rec_cpu_dvfs_cb(u8 val)
-{
-}
-
-static inline void aee_rr_rec_cpufreq_cb(u8 val)
-{
-}
-
-static inline u8 aee_rr_curr_cpu_dvfs_oppidx(void)
+static unsigned int aee_rr_curr_exp_type(void)
 {
 	return 0;
 }
 
-static inline u8 aee_rr_curr_cpu_dvfs_cci_oppidx(void)
+static void aee_rr_rec_scp(void)
+{
+}
+
+static void aee_rr_rec_kaslr_offset(u64 value64)
+{
+}
+
+static void aee_rr_rec_cpu_dvfs_vproc_big(u8 val)
+{
+}
+
+static void aee_rr_rec_cpu_dvfs_vproc_little(u8 val)
+{
+}
+
+static void aee_rr_rec_cpu_dvfs_oppidx(u8 val)
+{
+}
+
+static void aee_rr_rec_cpu_dvfs_cci_oppidx(u8 val)
+{
+}
+
+static void aee_rr_rec_cpu_dvfs_status(u8 val)
+{
+}
+
+static void aee_rr_rec_cpu_dvfs_step(u8 val)
+{
+}
+
+static void aee_rr_rec_cpu_dvfs_cb(u8 val)
+{
+}
+
+static void aee_rr_rec_cpufreq_cb(u8 val)
+{
+}
+
+static u8 aee_rr_curr_cpu_dvfs_oppidx(void)
 {
 	return 0;
 }
 
-static inline u8 aee_rr_curr_cpu_dvfs_status(void)
+static u8 aee_rr_curr_cpu_dvfs_cci_oppidx(void)
 {
 	return 0;
 }
 
-static inline u8 aee_rr_curr_cpu_dvfs_step(void)
+static u8 aee_rr_curr_cpu_dvfs_status(void)
 {
 	return 0;
 }
 
-static inline u8 aee_rr_curr_cpu_dvfs_cb(void)
+static u8 aee_rr_curr_cpu_dvfs_step(void)
 {
 	return 0;
 }
 
-static inline u8 aee_rr_curr_cpufreq_cb(void)
+static u8 aee_rr_curr_cpu_dvfs_cb(void)
 {
 	return 0;
 }
 
-static inline void aee_rr_rec_ptp_devinfo_0(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_devinfo_1(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_devinfo_2(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_devinfo_3(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_devinfo_4(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_devinfo_5(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_devinfo_6(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_devinfo_7(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_e0(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_e1(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_e2(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_e3(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_e4(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_e5(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_e6(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_e7(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_e8(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_e9(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_e10(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_e11(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_vboot(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_cpu_big_volt(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_cpu_big_volt_1(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_cpu_big_volt_2(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_cpu_big_volt_3(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_gpu_volt(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_gpu_volt_1(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_gpu_volt_2(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_gpu_volt_3(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_cpu_little_volt(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_cpu_little_volt_1(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_cpu_little_volt_2(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_cpu_little_volt_3(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_cpu_2_little_volt(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_cpu_2_little_volt_1(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_cpu_2_little_volt_2(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_cpu_2_little_volt_3(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_cpu_cci_volt(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_cpu_cci_volt_1(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_cpu_cci_volt_2(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_cpu_cci_volt_3(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_temp(u64 val)
-{
-}
-
-static inline void aee_rr_rec_ptp_status(u8 val)
-{
-}
-
-static inline void aee_rr_rec_eem_pi_offset(u8 val)
-{
-}
-
-static inline u32 aee_rr_curr_ptp_devinfo_0(void)
+static u8 aee_rr_curr_cpufreq_cb(void)
 {
 	return 0;
 }
 
-static inline u32 aee_rr_curr_ptp_devinfo_1(void)
+static void aee_rr_rec_ptp_devinfo_0(u32 val)
+{
+}
+
+static void aee_rr_rec_ptp_devinfo_1(u32 val)
+{
+}
+
+static void aee_rr_rec_ptp_devinfo_2(u32 val)
+{
+}
+
+static void aee_rr_rec_ptp_devinfo_3(u32 val)
+{
+}
+
+static void aee_rr_rec_ptp_devinfo_4(u32 val)
+{
+}
+
+static void aee_rr_rec_ptp_devinfo_5(u32 val)
+{
+}
+
+static void aee_rr_rec_ptp_devinfo_6(u32 val)
+{
+}
+
+static void aee_rr_rec_ptp_devinfo_7(u32 val)
+{
+}
+
+static void aee_rr_rec_ptp_e0(u32 val)
+{
+}
+
+static void aee_rr_rec_ptp_e1(u32 val)
+{
+}
+
+static void aee_rr_rec_ptp_e2(u32 val)
+{
+}
+
+static void aee_rr_rec_ptp_e3(u32 val)
+{
+}
+
+static void aee_rr_rec_ptp_e4(u32 val)
+{
+}
+
+static void aee_rr_rec_ptp_e5(u32 val)
+{
+}
+
+static void aee_rr_rec_ptp_e6(u32 val)
+{
+}
+
+static void aee_rr_rec_ptp_e7(u32 val)
+{
+}
+
+static void aee_rr_rec_ptp_e8(u32 val)
+{
+}
+
+static void aee_rr_rec_ptp_e9(u32 val)
+{
+}
+
+static void aee_rr_rec_ptp_e10(u32 val)
+{
+}
+
+static void aee_rr_rec_ptp_e11(u32 val)
+{
+}
+
+static void aee_rr_rec_ptp_vboot(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_cpu_big_volt(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_cpu_big_volt_1(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_cpu_big_volt_2(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_cpu_big_volt_3(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_gpu_volt(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_gpu_volt_1(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_gpu_volt_2(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_gpu_volt_3(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_cpu_little_volt(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_cpu_little_volt_1(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_cpu_little_volt_2(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_cpu_little_volt_3(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_cpu_2_little_volt(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_cpu_2_little_volt_1(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_cpu_2_little_volt_2(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_cpu_2_little_volt_3(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_cpu_cci_volt(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_cpu_cci_volt_1(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_cpu_cci_volt_2(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_cpu_cci_volt_3(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_temp(u64 val)
+{
+}
+
+static void aee_rr_rec_ptp_status(u8 val)
+{
+}
+
+static void aee_rr_rec_eem_pi_offset(u8 val)
+{
+}
+
+static u32 aee_rr_curr_ptp_devinfo_0(void)
 {
 	return 0;
 }
 
-static inline u32 aee_rr_curr_ptp_devinfo_2(void)
+static u32 aee_rr_curr_ptp_devinfo_1(void)
 {
 	return 0;
 }
 
-static inline u32 aee_rr_curr_ptp_devinfo_3(void)
+static u32 aee_rr_curr_ptp_devinfo_2(void)
 {
 	return 0;
 }
 
-static inline u32 aee_rr_curr_ptp_devinfo_4(void)
+static u32 aee_rr_curr_ptp_devinfo_3(void)
 {
 	return 0;
 }
 
-static inline u32 aee_rr_curr_ptp_devinfo_5(void)
+static u32 aee_rr_curr_ptp_devinfo_4(void)
 {
 	return 0;
 }
 
-static inline u32 aee_rr_curr_ptp_devinfo_6(void)
+static u32 aee_rr_curr_ptp_devinfo_5(void)
 {
 	return 0;
 }
 
-static inline u32 aee_rr_curr_ptp_devinfo_7(void)
+static u32 aee_rr_curr_ptp_devinfo_6(void)
 {
 	return 0;
 }
 
-static inline u32 aee_rr_curr_ptp_e0(void)
+static u32 aee_rr_curr_ptp_devinfo_7(void)
 {
 	return 0;
 }
 
-static inline u32 aee_rr_curr_ptp_e1(void)
+static u32 aee_rr_curr_ptp_e0(void)
 {
 	return 0;
 }
 
-static inline u32 aee_rr_curr_ptp_e2(void)
+static u32 aee_rr_curr_ptp_e1(void)
 {
 	return 0;
 }
 
-static inline u32 aee_rr_curr_ptp_e3(void)
+static u32 aee_rr_curr_ptp_e2(void)
 {
 	return 0;
 }
 
-static inline u32 aee_rr_curr_ptp_e4(void)
+static u32 aee_rr_curr_ptp_e3(void)
 {
 	return 0;
 }
 
-static inline u32 aee_rr_curr_ptp_e5(void)
+static u32 aee_rr_curr_ptp_e4(void)
 {
 	return 0;
 }
 
-static inline u32 aee_rr_curr_ptp_e6(void)
+static u32 aee_rr_curr_ptp_e5(void)
 {
 	return 0;
 }
 
-static inline u32 aee_rr_curr_ptp_e7(void)
+static u32 aee_rr_curr_ptp_e6(void)
 {
 	return 0;
 }
 
-static inline u32 aee_rr_curr_ptp_e8(void)
+static u32 aee_rr_curr_ptp_e7(void)
 {
 	return 0;
 }
 
-static inline u32 aee_rr_curr_ptp_e9(void)
+static u32 aee_rr_curr_ptp_e8(void)
 {
 	return 0;
 }
 
-static inline u32 aee_rr_curr_ptp_e10(void)
+static u32 aee_rr_curr_ptp_e9(void)
 {
 	return 0;
 }
 
-static inline u32 aee_rr_curr_ptp_e11(void)
+static u32 aee_rr_curr_ptp_e10(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_vboot(void)
+static u32 aee_rr_curr_ptp_e11(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_cpu_big_volt(void)
+static u64 aee_rr_curr_ptp_vboot(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_cpu_big_volt_1(void)
+static u64 aee_rr_curr_ptp_cpu_big_volt(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_cpu_big_volt_2(void)
+static u64 aee_rr_curr_ptp_cpu_big_volt_1(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_cpu_big_volt_3(void)
+static u64 aee_rr_curr_ptp_cpu_big_volt_2(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_gpu_volt(void)
+static u64 aee_rr_curr_ptp_cpu_big_volt_3(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_gpu_volt_1(void)
+static u64 aee_rr_curr_ptp_gpu_volt(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_gpu_volt_2(void)
+static u64 aee_rr_curr_ptp_gpu_volt_1(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_gpu_volt_3(void)
+static u64 aee_rr_curr_ptp_gpu_volt_2(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_cpu_little_volt(void)
+static u64 aee_rr_curr_ptp_gpu_volt_3(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_cpu_little_volt_1(void)
+static u64 aee_rr_curr_ptp_cpu_little_volt(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_cpu_little_volt_2(void)
+static u64 aee_rr_curr_ptp_cpu_little_volt_1(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_cpu_little_volt_3(void)
+static u64 aee_rr_curr_ptp_cpu_little_volt_2(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_cpu_2_little_volt(void)
+static u64 aee_rr_curr_ptp_cpu_little_volt_3(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_cpu_2_little_volt_1(void)
+static u64 aee_rr_curr_ptp_cpu_2_little_volt(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_cpu_2_little_volt_2(void)
+static u64 aee_rr_curr_ptp_cpu_2_little_volt_1(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_cpu_2_little_volt_3(void)
+static u64 aee_rr_curr_ptp_cpu_2_little_volt_2(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_cpu_cci_volt(void)
+static u64 aee_rr_curr_ptp_cpu_2_little_volt_3(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_cpu_cci_volt_1(void)
+static u64 aee_rr_curr_ptp_cpu_cci_volt(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_cpu_cci_volt_2(void)
+static u64 aee_rr_curr_ptp_cpu_cci_volt_1(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_cpu_cci_volt_3(void)
+static u64 aee_rr_curr_ptp_cpu_cci_volt_2(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_ptp_temp(void)
+static u64 aee_rr_curr_ptp_cpu_cci_volt_3(void)
 {
 	return 0;
 }
 
-static inline u8 aee_rr_curr_ptp_status(void)
+static u64 aee_rr_curr_ptp_temp(void)
 {
 	return 0;
 }
 
-static inline unsigned long *aee_rr_rec_mtk_cpuidle_footprint_va(void)
+static u8 aee_rr_curr_ptp_status(void)
+{
+	return 0;
+}
+
+static unsigned long *aee_rr_rec_mtk_cpuidle_footprint_va(void)
 {
 	return NULL;
 }
 
-static inline unsigned long *aee_rr_rec_mtk_cpuidle_footprint_pa(void)
+static unsigned long *aee_rr_rec_mtk_cpuidle_footprint_pa(void)
 {
 	return NULL;
 }
 
-static inline void aee_rr_rec_sodi3_val(u32 val)
+static void aee_rr_rec_sodi3_val(u32 val)
 {
 }
 
-static inline u32 aee_rr_curr_sodi3_val(void)
-{
-	return 0;
-}
-
-static inline void aee_rr_rec_sodi_val(u32 val)
-{
-}
-
-static inline u32 aee_rr_curr_sodi_val(void)
+static u32 aee_rr_curr_sodi3_val(void)
 {
 	return 0;
 }
 
-static inline void aee_rr_rec_deepidle_val(u32 val)
+static void aee_rr_rec_sodi_val(u32 val)
 {
 }
 
-static inline u32 aee_rr_curr_deepidle_val(void)
-{
-	return 0;
-}
-
-static inline void aee_rr_rec_spm_suspend_val(u32 val)
-{
-}
-
-static inline u32 aee_rr_curr_spm_suspend_val(void)
+static u32 aee_rr_curr_sodi_val(void)
 {
 	return 0;
 }
 
-static inline void aee_rr_rec_vcore_dvfs_status(u32 val)
+static void aee_rr_rec_deepidle_val(u32 val)
 {
 }
 
-static inline u32 aee_rr_curr_vcore_dvfs_status(void)
+static u32 aee_rr_curr_deepidle_val(void)
 {
 	return 0;
 }
 
-static inline unsigned int *aee_rr_rec_mcdi_wfi(void)
+static void aee_rr_rec_spm_suspend_val(u32 val)
+{
+}
+
+static u32 aee_rr_curr_spm_suspend_val(void)
+{
+	return 0;
+}
+
+static void aee_rr_rec_vcore_dvfs_status(u32 val)
+{
+}
+
+static u32 aee_rr_curr_vcore_dvfs_status(void)
+{
+	return 0;
+}
+
+static unsigned int *aee_rr_rec_mcdi_wfi(void)
 {
 	return NULL;
 }
 
-static inline void aee_rr_rec_mcdi_val(int id, u32 val)
+static void aee_rr_rec_mcdi_val(int id, u32 val)
 {
 }
 
-static inline void aee_rr_rec_vcore_dvfs_opp(u32 val)
+static void aee_rr_rec_vcore_dvfs_opp(u32 val)
 {
 }
 
-static inline u32 aee_rr_curr_vcore_dvfs_opp(void)
-{
-	return 0;
-}
-
-static inline void aee_rr_rec_ocp_target_limit(int id, u32 val)
-{
-}
-
-static inline u32 aee_rr_curr_ocp_target_limit(int id)
+static u32 aee_rr_curr_vcore_dvfs_opp(void)
 {
 	return 0;
 }
 
-static inline void aee_rr_rec_ocp_enable(u8 val)
+static void aee_rr_rec_ocp_target_limit(int id, u32 val)
 {
 }
 
-static inline u8 aee_rr_curr_ocp_enable(void)
-{
-	return 0;
-}
-
-static inline void aee_rr_rec_ppm_cluster_limit(int id, u32 val)
-{
-}
-
-static inline void aee_rr_rec_ppm_step(u8 val)
-{
-}
-
-static inline void aee_rr_rec_ppm_cur_state(u8 val)
-{
-}
-
-static inline void aee_rr_rec_ppm_min_pwr_bgt(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ppm_policy_mask(u32 val)
-{
-}
-
-static inline void aee_rr_rec_ppm_waiting_for_pbm(u8 val)
-{
-}
-
-static inline void aee_rr_rec_gpu_dvfs_vgpu(u8 val)
-{
-}
-
-static inline u8 aee_rr_curr_gpu_dvfs_vgpu(void)
+static u32 aee_rr_curr_ocp_target_limit(int id)
 {
 	return 0;
 }
 
-static inline void aee_rr_rec_gpu_dvfs_oppidx(u8 val)
+static void aee_rr_rec_ocp_enable(u8 val)
 {
 }
 
-static inline void aee_rr_rec_gpu_dvfs_status(u8 val)
-{
-}
-
-static inline u8 aee_rr_curr_gpu_dvfs_status(void)
+static u8 aee_rr_curr_ocp_enable(void)
 {
 	return 0;
 }
 
-static inline void aee_rr_rec_gpu_dvfs_power_count(int val)
+static void aee_rr_rec_ppm_cluster_limit(int id, u32 val)
 {
 }
 
-static inline void aee_rr_rec_hang_detect_timeout_count(unsigned int val)
+static void aee_rr_rec_ppm_step(u8 val)
 {
 }
 
-static inline int aee_rr_curr_fiq_step(void)
-{
-	return 0;
-}
-
-static inline void aee_rr_rec_fiq_step(u8 i)
+static void aee_rr_rec_ppm_cur_state(u8 val)
 {
 }
 
-static inline void aee_rr_rec_last_irq_enter(int cpu, int irq, u64 j)
+static void aee_rr_rec_ppm_min_pwr_bgt(u32 val)
 {
 }
 
-static inline void aee_rr_rec_last_irq_exit(int cpu, int irq, u64 j)
+static void aee_rr_rec_ppm_policy_mask(u32 val)
 {
 }
 
-static inline void aee_rr_rec_hotplug_footprint(int cpu, u8 fp)
+static void aee_rr_rec_ppm_waiting_for_pbm(u8 val)
 {
 }
 
-static inline void aee_rr_rec_hotplug_cpu_event(u8 val)
+static void aee_rr_rec_gpu_dvfs_vgpu(u8 val)
 {
 }
 
-static inline void aee_rr_rec_hotplug_cb_index(u8 val)
-{
-}
-
-static inline void aee_rr_rec_hotplug_cb_fp(unsigned long val)
-{
-}
-
-static inline void aee_rr_rec_hotplug_cb_times(unsigned long val)
-{
-}
-
-static inline void aee_rr_rec_hps_cb_enter_times(unsigned long long val)
-{
-}
-
-static inline void aee_rr_rec_hps_cb_cpu_bitmask(unsigned int val)
-{
-}
-
-static inline void aee_rr_rec_hps_cb_footprint(unsigned int val)
-{
-}
-
-static inline void aee_rr_rec_hps_cb_fp_times(unsigned long long val)
-{
-}
-
-static inline void aee_rr_rec_last_init_func(unsigned long val)
-{
-}
-
-static inline void aee_rr_rec_last_sync_func(unsigned long val)
-{
-}
-
-static inline void aee_rr_rec_last_async_func(unsigned long val)
-{
-}
-
-static inline void aee_rr_rec_set_bit_pmic_ext_buck(int bit, int loc)
-{
-}
-
-static inline void aee_rr_init_thermal_temp(int num)
-{
-}
-
-static inline void aee_rr_rec_thermal_temp(int index, s16 val)
-{
-}
-
-static inline void aee_rr_rec_thermal_status(u8 val)
-{
-}
-
-static inline void aee_rr_rec_thermal_ATM_status(u8 val)
-{
-}
-
-static inline void aee_rr_rec_thermal_ktime(u64 val)
-{
-}
-
-static inline s16 aee_rr_curr_thermal_temp(int index)
+static u8 aee_rr_curr_gpu_dvfs_vgpu(void)
 {
 	return 0;
 }
 
-static inline u8 aee_rr_curr_thermal_status(void)
+static void aee_rr_rec_gpu_dvfs_oppidx(u8 val)
+{
+}
+
+static void aee_rr_rec_gpu_dvfs_status(u8 val)
+{
+}
+
+static u8 aee_rr_curr_gpu_dvfs_status(void)
 {
 	return 0;
 }
 
-static inline u8 aee_rr_curr_thermal_ATM_status(void)
+static void aee_rr_rec_gpu_dvfs_power_count(int val)
+{
+}
+
+static void aee_rr_rec_hang_detect_timeout_count(unsigned int val)
+{
+}
+
+static int aee_rr_curr_fiq_step(void)
 {
 	return 0;
 }
 
-static inline u64 aee_rr_curr_thermal_ktime(void)
+static void aee_rr_rec_fiq_step(u8 i)
+{
+}
+
+static void aee_rr_rec_last_irq_enter(int cpu, int irq, u64 j)
+{
+}
+
+static void aee_rr_rec_last_irq_exit(int cpu, int irq, u64 j)
+{
+}
+
+static void aee_rr_rec_hotplug_footprint(int cpu, u8 fp)
+{
+}
+
+static void aee_rr_rec_hotplug_cpu_event(u8 val)
+{
+}
+
+static void aee_rr_rec_hotplug_cb_index(u8 val)
+{
+}
+
+static void aee_rr_rec_hotplug_cb_fp(unsigned long val)
+{
+}
+
+static void aee_rr_rec_hotplug_cb_times(unsigned long val)
+{
+}
+
+static void aee_rr_rec_hps_cb_enter_times(unsigned long long val)
+{
+}
+
+static void aee_rr_rec_hps_cb_cpu_bitmask(unsigned int val)
+{
+}
+
+static void aee_rr_rec_hps_cb_footprint(unsigned int val)
+{
+}
+
+static void aee_rr_rec_hps_cb_fp_times(unsigned long long val)
+{
+}
+
+static void aee_rr_rec_last_init_func(unsigned long val)
+{
+}
+
+static void aee_rr_rec_last_sync_func(unsigned long val)
+{
+}
+
+static void aee_rr_rec_last_async_func(unsigned long val)
+{
+}
+
+static void aee_rr_rec_set_bit_pmic_ext_buck(int bit, int loc)
+{
+}
+
+static void aee_rr_init_thermal_temp(int num)
+{
+}
+
+static void aee_rr_rec_thermal_temp(int index, s16 val)
+{
+}
+
+static void aee_rr_rec_thermal_status(u8 val)
+{
+}
+
+static void aee_rr_rec_thermal_ATM_status(u8 val)
+{
+}
+
+static void aee_rr_rec_thermal_ktime(u64 val)
+{
+}
+
+static s16 aee_rr_curr_thermal_temp(int index)
 {
 	return 0;
 }
 
-static inline void aee_rr_rec_cpu_caller(u32 val)
+static u8 aee_rr_curr_thermal_status(void)
+{
+	return 0;
+}
+
+static u8 aee_rr_curr_thermal_ATM_status(void)
+{
+	return 0;
+}
+
+static u64 aee_rr_curr_thermal_ktime(void)
+{
+	return 0;
+}
+
+static void aee_rr_rec_cpu_caller(u32 val)
 {
 }
 
-static inline void aee_rr_rec_cpu_callee(u32 val)
+static void aee_rr_rec_cpu_callee(u32 val)
 {
 }
 
-static inline void aee_rr_rec_cpu_up_prepare_ktime(u64 val)
+static void aee_rr_rec_cpu_up_prepare_ktime(u64 val)
 {
 }
 
-static inline void aee_rr_rec_cpu_starting_ktime(u64 val)
+static void aee_rr_rec_cpu_starting_ktime(u64 val)
 {
 }
 
-static inline void aee_rr_rec_cpu_online_ktime(u64 val)
+static void aee_rr_rec_cpu_online_ktime(u64 val)
 {
 }
 
-static inline void aee_rr_rec_cpu_down_prepare_ktime(u64 val)
+static void aee_rr_rec_cpu_down_prepare_ktime(u64 val)
 {
 }
 
-static inline void aee_rr_rec_cpu_dying_ktime(u64 val)
+static void aee_rr_rec_cpu_dying_ktime(u64 val)
 {
 }
 
-static inline void aee_rr_rec_cpu_dead_ktime(u64 val)
+static void aee_rr_rec_cpu_dead_ktime(u64 val)
 {
 }
 
-static inline void aee_rr_rec_cpu_post_dead_ktime(u64 val)
+static void aee_rr_rec_cpu_post_dead_ktime(u64 val)
 {
 }
 
-static inline void aee_sram_fiq_log(const char *msg)
+static void aee_sram_fiq_log(const char *msg)
 {
 }
 
-static inline void ram_console_write(struct console *console, const char *s,
+static void ram_console_write(struct console *console, const char *s,
 				unsigned int count)
 {
 }
 
-static inline void aee_sram_fiq_save_bin(unsigned char *buffer, size_t len)
+static void aee_sram_fiq_save_bin(unsigned char *buffer, size_t len)
 {
 }
 
@@ -1037,13 +1037,13 @@ extern int ipanic_kmsg_write(unsigned int part, const char *buf, size_t size);
 extern int ipanic_kmsg_get_next(int *count, u64 *id, enum pstore_type_id *type,
 		struct timespec *time, char **buf, struct pstore_info *psi);
 #else
-static inline int ipanic_kmsg_write(unsigned int part, const char *buf,
+static int ipanic_kmsg_write(unsigned int part, const char *buf,
 				size_t size)
 {
 	return 0;
 }
 
-static inline int ipanic_kmsg_get_next(int *count, u64 *id,
+static int ipanic_kmsg_get_next(int *count, u64 *id,
 			enum pstore_type_id *type, struct timespec *time,
 			char **buf, struct pstore_info *psi)
 {

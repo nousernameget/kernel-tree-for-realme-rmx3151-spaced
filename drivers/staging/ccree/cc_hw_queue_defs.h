@@ -211,7 +211,7 @@ enum cc_hw_des_key_size {
  * Init a HW descriptor struct
  * @pdesc: pointer HW descriptor struct
  */
-static inline void hw_desc_init(struct cc_hw_desc *pdesc)
+static void hw_desc_init(struct cc_hw_desc *pdesc)
 {
 	memset(pdesc, 0, sizeof(struct cc_hw_desc));
 }
@@ -221,7 +221,7 @@ static inline void hw_desc_init(struct cc_hw_desc *pdesc)
  *
  * @pdesc: pointer HW descriptor struct
  */
-static inline void set_queue_last_ind(struct cc_hw_desc *pdesc)
+static void set_queue_last_ind(struct cc_hw_desc *pdesc)
 {
 	pdesc->word[3] |= FIELD_PREP(WORD3_QUEUE_LAST_IND, 1);
 }
@@ -235,7 +235,7 @@ static inline void set_queue_last_ind(struct cc_hw_desc *pdesc)
  * @size: Data size in bytes
  * @axi_sec: AXI secure bit
  */
-static inline void set_din_type(struct cc_hw_desc *pdesc,
+static void set_din_type(struct cc_hw_desc *pdesc,
 				enum cc_dma_mode dma_mode, dma_addr_t addr,
 				u32 size, enum cc_axi_sec axi_sec)
 {
@@ -256,7 +256,7 @@ static inline void set_din_type(struct cc_hw_desc *pdesc,
  * @addr: DIN address
  * @size: Data size in bytes
  */
-static inline void set_din_no_dma(struct cc_hw_desc *pdesc, u32 addr, u32 size)
+static void set_din_no_dma(struct cc_hw_desc *pdesc, u32 addr, u32 size)
 {
 	pdesc->word[0] = addr;
 	pdesc->word[1] |= FIELD_PREP(WORD1_DIN_SIZE, size);
@@ -271,7 +271,7 @@ static inline void set_din_no_dma(struct cc_hw_desc *pdesc, u32 addr, u32 size)
  * @addr: DIN address
  * @size Data size in bytes
  */
-static inline void set_din_sram(struct cc_hw_desc *pdesc, dma_addr_t addr,
+static void set_din_sram(struct cc_hw_desc *pdesc, dma_addr_t addr,
 				u32 size)
 {
 	pdesc->word[0] = (u32)addr;
@@ -286,7 +286,7 @@ static inline void set_din_sram(struct cc_hw_desc *pdesc, dma_addr_t addr,
  * @val: DIN const value
  * @size: Data size in bytes
  */
-static inline void set_din_const(struct cc_hw_desc *pdesc, u32 val, u32 size)
+static void set_din_const(struct cc_hw_desc *pdesc, u32 val, u32 size)
 {
 	pdesc->word[0] = val;
 	pdesc->word[1] |= FIELD_PREP(WORD1_DIN_CONST_VALUE, 1) |
@@ -299,7 +299,7 @@ static inline void set_din_const(struct cc_hw_desc *pdesc, u32 val, u32 size)
  *
  * @pdesc: pointer HW descriptor struct
  */
-static inline void set_din_not_last_indication(struct cc_hw_desc *pdesc)
+static void set_din_not_last_indication(struct cc_hw_desc *pdesc)
 {
 	pdesc->word[1] |= FIELD_PREP(WORD1_NOT_LAST, 1);
 }
@@ -313,7 +313,7 @@ static inline void set_din_not_last_indication(struct cc_hw_desc *pdesc)
  * @size: Data size in bytes
  * @axi_sec: AXI secure bit
  */
-static inline void set_dout_type(struct cc_hw_desc *pdesc,
+static void set_dout_type(struct cc_hw_desc *pdesc,
 				 enum cc_dma_mode dma_mode, dma_addr_t addr,
 				 u32 size, enum cc_axi_sec axi_sec)
 {
@@ -336,7 +336,7 @@ static inline void set_dout_type(struct cc_hw_desc *pdesc,
  * @last_ind: The last indication bit
  * @axi_sec: AXI secure bit
  */
-static inline void set_dout_dlli(struct cc_hw_desc *pdesc, dma_addr_t addr,
+static void set_dout_dlli(struct cc_hw_desc *pdesc, dma_addr_t addr,
 				 u32 size, enum cc_axi_sec axi_sec,
 				 u32 last_ind)
 {
@@ -354,7 +354,7 @@ static inline void set_dout_dlli(struct cc_hw_desc *pdesc, dma_addr_t addr,
  * @last_ind: The last indication bit
  * @axi_sec: AXI secure bit
  */
-static inline void set_dout_mlli(struct cc_hw_desc *pdesc, dma_addr_t addr,
+static void set_dout_mlli(struct cc_hw_desc *pdesc, dma_addr_t addr,
 				 u32 size, enum cc_axi_sec axi_sec,
 				 bool last_ind)
 {
@@ -371,7 +371,7 @@ static inline void set_dout_mlli(struct cc_hw_desc *pdesc, dma_addr_t addr,
  * @size: Data size in bytes
  * @write_enable: Enables a write operation to a register
  */
-static inline void set_dout_no_dma(struct cc_hw_desc *pdesc, u32 addr,
+static void set_dout_no_dma(struct cc_hw_desc *pdesc, u32 addr,
 				   u32 size, bool write_enable)
 {
 	pdesc->word[2] = addr;
@@ -385,7 +385,7 @@ static inline void set_dout_no_dma(struct cc_hw_desc *pdesc, u32 addr,
  * @pdesc: pointer HW descriptor struct
  * @val: xor data value
  */
-static inline void set_xor_val(struct cc_hw_desc *pdesc, u32 val)
+static void set_xor_val(struct cc_hw_desc *pdesc, u32 val)
 {
 	pdesc->word[2] = val;
 }
@@ -395,7 +395,7 @@ static inline void set_xor_val(struct cc_hw_desc *pdesc, u32 val)
  *
  * @pdesc: pointer HW descriptor struct
  */
-static inline void set_xor_active(struct cc_hw_desc *pdesc)
+static void set_xor_active(struct cc_hw_desc *pdesc)
 {
 	pdesc->word[3] |= FIELD_PREP(WORD3_HASH_XOR_BIT, 1);
 }
@@ -406,7 +406,7 @@ static inline void set_xor_active(struct cc_hw_desc *pdesc)
  *
  * @pdesc: pointer HW descriptor struct
  */
-static inline void set_aes_not_hash_mode(struct cc_hw_desc *pdesc)
+static void set_aes_not_hash_mode(struct cc_hw_desc *pdesc)
 {
 	pdesc->word[4] |= FIELD_PREP(WORD4_AES_SEL_N_HASH, 1);
 }
@@ -420,7 +420,7 @@ static inline void set_aes_not_hash_mode(struct cc_hw_desc *pdesc)
  * @addr: DOUT address
  * @size: Data size in bytes
  */
-static inline void set_dout_sram(struct cc_hw_desc *pdesc, u32 addr, u32 size)
+static void set_dout_sram(struct cc_hw_desc *pdesc, u32 addr, u32 size)
 {
 	pdesc->word[2] = addr;
 	pdesc->word[3] |= FIELD_PREP(WORD3_DOUT_DMA_MODE, DMA_SRAM) |
@@ -433,7 +433,7 @@ static inline void set_dout_sram(struct cc_hw_desc *pdesc, u32 addr, u32 size)
  * @pdesc: pDesc pointer HW descriptor struct
  * @size: data unit size for XEX mode
  */
-static inline void set_xex_data_unit_size(struct cc_hw_desc *pdesc, u32 size)
+static void set_xex_data_unit_size(struct cc_hw_desc *pdesc, u32 size)
 {
 	pdesc->word[2] = size;
 }
@@ -444,7 +444,7 @@ static inline void set_xex_data_unit_size(struct cc_hw_desc *pdesc, u32 size)
  * @pdesc: pointer HW descriptor struct
  * @num: number of rounds for Multi2
  */
-static inline void set_multi2_num_rounds(struct cc_hw_desc *pdesc, u32 num)
+static void set_multi2_num_rounds(struct cc_hw_desc *pdesc, u32 num)
 {
 	pdesc->word[2] = num;
 }
@@ -455,7 +455,7 @@ static inline void set_multi2_num_rounds(struct cc_hw_desc *pdesc, u32 num)
  * @pdesc: pointer HW descriptor struct
  * @mode: Any one of the modes defined in [CC7x-DESC]
  */
-static inline void set_flow_mode(struct cc_hw_desc *pdesc,
+static void set_flow_mode(struct cc_hw_desc *pdesc,
 				 enum cc_flow_mode mode)
 {
 	pdesc->word[4] |= FIELD_PREP(WORD4_DATA_FLOW_MODE, mode);
@@ -467,7 +467,7 @@ static inline void set_flow_mode(struct cc_hw_desc *pdesc,
  * @pdesc: pointer HW descriptor struct
  * @mode:  Any one of the modes defined in [CC7x-DESC]
  */
-static inline void set_cipher_mode(struct cc_hw_desc *pdesc, int mode)
+static void set_cipher_mode(struct cc_hw_desc *pdesc, int mode)
 {
 	pdesc->word[4] |= FIELD_PREP(WORD4_CIPHER_MODE, mode);
 }
@@ -478,7 +478,7 @@ static inline void set_cipher_mode(struct cc_hw_desc *pdesc, int mode)
  * @pdesc: pointer HW descriptor struct
  * @mode: Any one of the modes defined in [CC7x-DESC]
  */
-static inline void set_cipher_config0(struct cc_hw_desc *pdesc, int mode)
+static void set_cipher_config0(struct cc_hw_desc *pdesc, int mode)
 {
 	pdesc->word[4] |= FIELD_PREP(WORD4_CIPHER_CONF0, mode);
 }
@@ -489,7 +489,7 @@ static inline void set_cipher_config0(struct cc_hw_desc *pdesc, int mode)
  * @pdesc: pointer HW descriptor struct
  * @config: Any one of the modes defined in [CC7x-DESC]
  */
-static inline void set_cipher_config1(struct cc_hw_desc *pdesc,
+static void set_cipher_config1(struct cc_hw_desc *pdesc,
 				      enum cc_hash_conf_pad config)
 {
 	pdesc->word[4] |= FIELD_PREP(WORD4_CIPHER_CONF1, config);
@@ -501,7 +501,7 @@ static inline void set_cipher_config1(struct cc_hw_desc *pdesc,
  * @pdesc: pointer HW descriptor struct
  * @hw_key: The HW key slot asdefined in enum cc_hw_crypto_key
  */
-static inline void set_hw_crypto_key(struct cc_hw_desc *pdesc,
+static void set_hw_crypto_key(struct cc_hw_desc *pdesc,
 				     enum cc_hw_crypto_key hw_key)
 {
 	pdesc->word[4] |= FIELD_PREP(WORD4_CIPHER_DO,
@@ -516,7 +516,7 @@ static inline void set_hw_crypto_key(struct cc_hw_desc *pdesc,
  * @pdesc: pointer HW descriptor struct
  * @config: Any one of the modes defined in [CC7x-DESC]
  */
-static inline void set_bytes_swap(struct cc_hw_desc *pdesc, bool config)
+static void set_bytes_swap(struct cc_hw_desc *pdesc, bool config)
 {
 	pdesc->word[4] |= FIELD_PREP(WORD4_BYTES_SWAP, config);
 }
@@ -526,7 +526,7 @@ static inline void set_bytes_swap(struct cc_hw_desc *pdesc, bool config)
  *
  * @pdesc: pointer HW descriptor struct
  */
-static inline void set_cmac_size0_mode(struct cc_hw_desc *pdesc)
+static void set_cmac_size0_mode(struct cc_hw_desc *pdesc)
 {
 	pdesc->word[4] |= FIELD_PREP(WORD4_CMAC_SIZE0, 1);
 }
@@ -537,7 +537,7 @@ static inline void set_cmac_size0_mode(struct cc_hw_desc *pdesc)
  * @pdesc: pointer HW descriptor struct
  * @size: key size in bytes (NOT size code)
  */
-static inline void set_key_size(struct cc_hw_desc *pdesc, u32 size)
+static void set_key_size(struct cc_hw_desc *pdesc, u32 size)
 {
 	pdesc->word[4] |= FIELD_PREP(WORD4_KEY_SIZE, size);
 }
@@ -548,7 +548,7 @@ static inline void set_key_size(struct cc_hw_desc *pdesc, u32 size)
  * @pdesc: pointer HW descriptor struct
  * @size: key size in bytes (NOT size code)
  */
-static inline void set_key_size_aes(struct cc_hw_desc *pdesc, u32 size)
+static void set_key_size_aes(struct cc_hw_desc *pdesc, u32 size)
 {
 	set_key_size(pdesc, ((size >> 3) - 2));
 }
@@ -559,7 +559,7 @@ static inline void set_key_size_aes(struct cc_hw_desc *pdesc, u32 size)
  * @pdesc: pointer HW descriptor struct
  * @size: key size in bytes (NOT size code)
  */
-static inline void set_key_size_des(struct cc_hw_desc *pdesc, u32 size)
+static void set_key_size_des(struct cc_hw_desc *pdesc, u32 size)
 {
 	set_key_size(pdesc, ((size >> 3) - 1));
 }
@@ -570,7 +570,7 @@ static inline void set_key_size_des(struct cc_hw_desc *pdesc, u32 size)
  * @pdesc: pointer HW descriptor struct
  * @mode: Any one of the setup modes defined in [CC7x-DESC]
  */
-static inline void set_setup_mode(struct cc_hw_desc *pdesc,
+static void set_setup_mode(struct cc_hw_desc *pdesc,
 				  enum cc_setup_op mode)
 {
 	pdesc->word[4] |= FIELD_PREP(WORD4_SETUP_OPERATION, mode);
@@ -582,7 +582,7 @@ static inline void set_setup_mode(struct cc_hw_desc *pdesc,
  * @pdesc: pointer HW descriptor struct
  * @config: Any one of the cipher do defined in [CC7x-DESC]
  */
-static inline void set_cipher_do(struct cc_hw_desc *pdesc,
+static void set_cipher_do(struct cc_hw_desc *pdesc,
 				 enum cc_hash_cipher_pad config)
 {
 	pdesc->word[4] |= FIELD_PREP(WORD4_CIPHER_DO,

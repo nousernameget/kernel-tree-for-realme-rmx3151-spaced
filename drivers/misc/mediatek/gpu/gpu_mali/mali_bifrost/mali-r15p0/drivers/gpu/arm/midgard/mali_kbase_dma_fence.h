@@ -126,7 +126,7 @@ int kbase_dma_fence_init(struct kbase_context *kctx);
 #else /* CONFIG_MALI_DMA_FENCE */
 /* Dummy functions for when dma-buf fence isn't enabled. */
 
-static inline int kbase_dma_fence_init(struct kbase_context *kctx)
+static int kbase_dma_fence_init(struct kbase_context *kctx)
 {
 	return 0;
 }

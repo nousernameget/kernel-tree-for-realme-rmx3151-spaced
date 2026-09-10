@@ -70,7 +70,7 @@ struct ccu_common {
 	struct clk_hw	hw;
 };
 
-static inline struct ccu_common *hw_to_ccu_common(struct clk_hw *hw)
+static struct ccu_common *hw_to_ccu_common(struct clk_hw *hw)
 {
 	return container_of(hw, struct ccu_common, hw);
 }

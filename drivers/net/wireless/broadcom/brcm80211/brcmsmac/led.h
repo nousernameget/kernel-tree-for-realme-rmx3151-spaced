@@ -27,7 +27,7 @@ void brcms_led_unregister(struct brcms_info *wl);
 int brcms_led_register(struct brcms_info *wl);
 #else
 static inline void brcms_led_unregister(struct brcms_info *wl) {};
-static inline int brcms_led_register(struct brcms_info *wl)
+static int brcms_led_register(struct brcms_info *wl)
 {
 	return -ENOTSUPP;
 };

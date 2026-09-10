@@ -32,12 +32,12 @@ bool qtnf_sta_list_del(struct qtnf_sta_list *list, const u8 *mac);
 
 void qtnf_sta_list_free(struct qtnf_sta_list *list);
 
-static inline size_t qtnf_sta_list_size(const struct qtnf_sta_list *list)
+static size_t qtnf_sta_list_size(const struct qtnf_sta_list *list)
 {
 	return atomic_read(&list->size);
 }
 
-static inline bool qtnf_sta_list_empty(const struct qtnf_sta_list *list)
+static bool qtnf_sta_list_empty(const struct qtnf_sta_list *list)
 {
 	return list_empty(&list->head);
 }

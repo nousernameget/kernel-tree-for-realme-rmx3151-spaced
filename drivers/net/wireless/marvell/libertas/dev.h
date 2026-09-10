@@ -200,7 +200,7 @@ struct lbs_private {
 extern struct cmd_confirm_sleep confirm_sleep;
 
 /* Check if there is an interface active. */
-static inline int lbs_iface_active(struct lbs_private *priv)
+static int lbs_iface_active(struct lbs_private *priv)
 {
 	int r;
 

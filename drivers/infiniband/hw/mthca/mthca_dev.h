@@ -584,12 +584,12 @@ int mthca_process_mad(struct ib_device *ibdev,
 int mthca_create_agents(struct mthca_dev *dev);
 void mthca_free_agents(struct mthca_dev *dev);
 
-static inline struct mthca_dev *to_mdev(struct ib_device *ibdev)
+static struct mthca_dev *to_mdev(struct ib_device *ibdev)
 {
 	return container_of(ibdev, struct mthca_dev, ib_dev);
 }
 
-static inline int mthca_is_memfree(struct mthca_dev *dev)
+static int mthca_is_memfree(struct mthca_dev *dev)
 {
 	return dev->mthca_flags & MTHCA_FLAG_MEMFREE;
 }

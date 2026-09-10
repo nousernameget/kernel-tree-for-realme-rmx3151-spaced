@@ -80,17 +80,17 @@ struct tipc_msg_buf *tipc_chan_get_txbuf_timeout(struct tipc_chan *chan,
 
 void tipc_chan_put_txbuf(struct tipc_chan *chan, struct tipc_msg_buf *mb);
 
-static inline size_t mb_avail_space(struct tipc_msg_buf *mb)
+static size_t mb_avail_space(struct tipc_msg_buf *mb)
 {
 	return mb->buf_sz - mb->wpos;
 }
 
-static inline size_t mb_avail_data(struct tipc_msg_buf *mb)
+static size_t mb_avail_data(struct tipc_msg_buf *mb)
 {
 	return mb->wpos - mb->rpos;
 }
 
-static inline void *mb_put_data(struct tipc_msg_buf *mb, size_t len)
+static void *mb_put_data(struct tipc_msg_buf *mb, size_t len)
 {
 	void *pos = (u8 *) mb->buf_va + mb->wpos;
 
@@ -99,7 +99,7 @@ static inline void *mb_put_data(struct tipc_msg_buf *mb, size_t len)
 	return pos;
 }
 
-static inline void *mb_get_data(struct tipc_msg_buf *mb, size_t len)
+static void *mb_get_data(struct tipc_msg_buf *mb, size_t len)
 {
 	void *pos = (u8 *) mb->buf_va + mb->rpos;
 

@@ -188,7 +188,7 @@ void power_control_term(struct kbase_device *kbdev);
 void kbase_device_debugfs_term(struct kbase_device *kbdev);
 int kbase_device_debugfs_init(struct kbase_device *kbdev);
 #else /* CONFIG_DEBUG_FS */
-static inline int kbase_device_debugfs_init(struct kbase_device *kbdev)
+static int kbase_device_debugfs_init(struct kbase_device *kbdev)
 {
 	return 0;
 }
@@ -343,7 +343,7 @@ void kbase_jit_retry_pending_alloc(struct kbase_context *kctx);
  * @buffer:	Pointer to the memory location allocated for the object
  *		of the type struct @kbase_debug_copy_buffer.
  */
-static inline void kbase_free_user_buffer(
+static void kbase_free_user_buffer(
 		struct kbase_debug_copy_buffer *buffer)
 {
 	struct page **pages = buffer->extres_pages;
@@ -400,7 +400,7 @@ void kbasep_as_do_poke(struct work_struct *work);
  * @return false if a suspend is not in progress
  * @return !=false otherwise
  */
-static inline bool kbase_pm_is_suspending(struct kbase_device *kbdev)
+static bool kbase_pm_is_suspending(struct kbase_device *kbdev)
 {
 	return kbdev->pm.suspending;
 }
@@ -417,7 +417,7 @@ static inline bool kbase_pm_is_suspending(struct kbase_device *kbdev)
  * Return: false if gpu is lost
  * Return: != false otherwise
  */
-static inline bool kbase_pm_is_gpu_lost(struct kbase_device *kbdev)
+static bool kbase_pm_is_gpu_lost(struct kbase_device *kbdev)
 {
 	return kbdev->pm.gpu_lost;
 }
@@ -432,7 +432,7 @@ static inline bool kbase_pm_is_gpu_lost(struct kbase_device *kbdev)
  *
  * Return: true if the GPU is active, false otherwise
  */
-static inline bool kbase_pm_is_active(struct kbase_device *kbdev)
+static bool kbase_pm_is_active(struct kbase_device *kbdev)
 {
 	return kbdev->pm.active_count > 0;
 }
@@ -459,7 +459,7 @@ void kbase_pm_metrics_stop(struct kbase_device *kbdev);
  * Return the atom's ID, as was originally supplied by userspace in
  * base_jd_atom::atom_number
  */
-static inline int kbase_jd_atom_id(struct kbase_context *kctx, struct kbase_jd_atom *katom)
+static int kbase_jd_atom_id(struct kbase_context *kctx, struct kbase_jd_atom *katom)
 {
 	int result;
 
@@ -479,7 +479,7 @@ static inline int kbase_jd_atom_id(struct kbase_context *kctx, struct kbase_jd_a
  *
  * Return: Pointer to struct kbase_jd_atom associated with the supplied ID
  */
-static inline struct kbase_jd_atom *kbase_jd_atom_from_id(
+static struct kbase_jd_atom *kbase_jd_atom_from_id(
 		struct kbase_context *kctx, int id)
 {
 	return &kctx->jctx.atoms[id];

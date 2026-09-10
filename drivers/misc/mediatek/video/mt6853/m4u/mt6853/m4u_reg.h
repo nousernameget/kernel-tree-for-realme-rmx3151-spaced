@@ -371,17 +371,17 @@
 #include <sync_write.h>
 
 
-static inline unsigned int COM_ReadReg32(unsigned long addr)
+static unsigned int COM_ReadReg32(unsigned long addr)
 {
 	return ioread32((void *)addr);
 }
 
-static inline void COM_WriteReg32(unsigned long addr, unsigned int Val)
+static void COM_WriteReg32(unsigned long addr, unsigned int Val)
 {
 	mt_reg_sync_writel(Val, (void *)addr);
 }
 
-static inline unsigned int M4U_ReadReg32(
+static unsigned int M4U_ReadReg32(
 		unsigned long M4uBase, unsigned int Offset)
 {
 	unsigned int val;
@@ -391,13 +391,13 @@ static inline unsigned int M4U_ReadReg32(
 	return val;
 }
 
-static inline void M4U_WriteReg32(unsigned long M4uBase,
+static void M4U_WriteReg32(unsigned long M4uBase,
 	unsigned int Offset, unsigned int Val)
 {
 	COM_WriteReg32((M4uBase + Offset), Val);
 }
 
-static inline unsigned int m4uHw_set_field(unsigned long M4UBase,
+static unsigned int m4uHw_set_field(unsigned long M4UBase,
 		unsigned int Reg, unsigned int bit_width, unsigned int shift,
 		unsigned int value) {
 	unsigned int mask = ((1 << bit_width) - 1) << shift;
@@ -409,7 +409,7 @@ static inline unsigned int m4uHw_set_field(unsigned long M4UBase,
 	return (old & mask) >> shift;
 }
 
-static inline void m4uHw_set_field_by_mask(
+static void m4uHw_set_field_by_mask(
 	unsigned long M4UBase, unsigned int reg,
 					   unsigned long mask, unsigned int val)
 {
@@ -420,7 +420,7 @@ static inline void m4uHw_set_field_by_mask(
 	M4U_WriteReg32(M4UBase, reg, regval);
 }
 
-static inline unsigned int m4uHw_get_field_by_mask(
+static unsigned int m4uHw_get_field_by_mask(
 		unsigned long M4UBase, unsigned int reg,
 						   unsigned int mask)
 {

@@ -372,7 +372,7 @@ struct iwl_mac_ctx_cmd {
 	};
 } __packed; /* MAC_CONTEXT_CMD_API_S_VER_1 */
 
-static inline u32 iwl_mvm_reciprocal(u32 v)
+static u32 iwl_mvm_reciprocal(u32 v)
 {
 	if (!v)
 		return 0;

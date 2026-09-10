@@ -51,7 +51,7 @@ struct mt352_config
 extern struct dvb_frontend* mt352_attach(const struct mt352_config* config,
 					 struct i2c_adapter* i2c);
 #else
-static inline struct dvb_frontend* mt352_attach(const struct mt352_config* config,
+static struct dvb_frontend* mt352_attach(const struct mt352_config* config,
 					 struct i2c_adapter* i2c)
 {
 	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);

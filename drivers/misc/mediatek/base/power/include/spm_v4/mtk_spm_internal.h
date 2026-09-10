@@ -1150,7 +1150,7 @@ do {							\
 	__asm__ __volatile__("wfi" : : : "memory");	\
 } while (0)
 
-static inline void set_pwrctrl_pcm_flags(struct pwr_ctrl *pwrctrl,
+static void set_pwrctrl_pcm_flags(struct pwr_ctrl *pwrctrl,
 					 u32 flags)
 {
 	if (pwrctrl->pcm_flags_cust == 0)
@@ -1159,7 +1159,7 @@ static inline void set_pwrctrl_pcm_flags(struct pwr_ctrl *pwrctrl,
 		pwrctrl->pcm_flags = pwrctrl->pcm_flags_cust;
 }
 
-static inline void set_pwrctrl_pcm_flags1(struct pwr_ctrl *pwrctrl,
+static void set_pwrctrl_pcm_flags1(struct pwr_ctrl *pwrctrl,
 					  u32 flags)
 {
 	if (pwrctrl->pcm_flags1_cust == 0)

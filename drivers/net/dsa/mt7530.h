@@ -393,7 +393,7 @@ struct mt7530_dummy_poll {
 	u32 reg;
 };
 
-static inline void INIT_MT7530_DUMMY_POLL(struct mt7530_dummy_poll *p,
+static void INIT_MT7530_DUMMY_POLL(struct mt7530_dummy_poll *p,
 					  struct mt7530_priv *priv, u32 reg)
 {
 	p->priv = priv;

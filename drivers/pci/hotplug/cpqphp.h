@@ -455,9 +455,9 @@ extern u8 cpqhp_nic_irq;
 extern u8 cpqhp_disk_irq;
 
 
-/* inline functions */
+/* functions */
 
-static inline const char *slot_name(struct slot *slot)
+static const char *slot_name(struct slot *slot)
 {
 	return hotplug_slot_name(slot->hotplug_slot);
 }
@@ -467,7 +467,7 @@ static inline const char *slot_name(struct slot *slot)
  *
  * Puts node back in the resource list pointed to by head
  */
-static inline void return_resource(struct pci_resource **head,
+static void return_resource(struct pci_resource **head,
 				   struct pci_resource *node)
 {
 	if (!node || !head)
@@ -476,7 +476,7 @@ static inline void return_resource(struct pci_resource **head,
 	*head = node;
 }
 
-static inline void set_SOGO(struct controller *ctrl)
+static void set_SOGO(struct controller *ctrl)
 {
 	u16 misc;
 
@@ -486,7 +486,7 @@ static inline void set_SOGO(struct controller *ctrl)
 }
 
 
-static inline void amber_LED_on(struct controller *ctrl, u8 slot)
+static void amber_LED_on(struct controller *ctrl, u8 slot)
 {
 	u32 led_control;
 
@@ -496,7 +496,7 @@ static inline void amber_LED_on(struct controller *ctrl, u8 slot)
 }
 
 
-static inline void amber_LED_off(struct controller *ctrl, u8 slot)
+static void amber_LED_off(struct controller *ctrl, u8 slot)
 {
 	u32 led_control;
 
@@ -506,7 +506,7 @@ static inline void amber_LED_off(struct controller *ctrl, u8 slot)
 }
 
 
-static inline int read_amber_LED(struct controller *ctrl, u8 slot)
+static int read_amber_LED(struct controller *ctrl, u8 slot)
 {
 	u32 led_control;
 
@@ -517,7 +517,7 @@ static inline int read_amber_LED(struct controller *ctrl, u8 slot)
 }
 
 
-static inline void green_LED_on(struct controller *ctrl, u8 slot)
+static void green_LED_on(struct controller *ctrl, u8 slot)
 {
 	u32 led_control;
 
@@ -526,7 +526,7 @@ static inline void green_LED_on(struct controller *ctrl, u8 slot)
 	writel(led_control, ctrl->hpc_reg + LED_CONTROL);
 }
 
-static inline void green_LED_off(struct controller *ctrl, u8 slot)
+static void green_LED_off(struct controller *ctrl, u8 slot)
 {
 	u32 led_control;
 
@@ -536,7 +536,7 @@ static inline void green_LED_off(struct controller *ctrl, u8 slot)
 }
 
 
-static inline void green_LED_blink(struct controller *ctrl, u8 slot)
+static void green_LED_blink(struct controller *ctrl, u8 slot)
 {
 	u32 led_control;
 
@@ -547,7 +547,7 @@ static inline void green_LED_blink(struct controller *ctrl, u8 slot)
 }
 
 
-static inline void slot_disable(struct controller *ctrl, u8 slot)
+static void slot_disable(struct controller *ctrl, u8 slot)
 {
 	u8 slot_enable;
 
@@ -557,7 +557,7 @@ static inline void slot_disable(struct controller *ctrl, u8 slot)
 }
 
 
-static inline void slot_enable(struct controller *ctrl, u8 slot)
+static void slot_enable(struct controller *ctrl, u8 slot)
 {
 	u8 slot_enable;
 
@@ -567,7 +567,7 @@ static inline void slot_enable(struct controller *ctrl, u8 slot)
 }
 
 
-static inline u8 is_slot_enabled(struct controller *ctrl, u8 slot)
+static u8 is_slot_enabled(struct controller *ctrl, u8 slot)
 {
 	u8 slot_enable;
 
@@ -577,7 +577,7 @@ static inline u8 is_slot_enabled(struct controller *ctrl, u8 slot)
 }
 
 
-static inline u8 read_slot_enable(struct controller *ctrl)
+static u8 read_slot_enable(struct controller *ctrl)
 {
 	return readb(ctrl->hpc_reg + SLOT_ENABLE);
 }
@@ -590,7 +590,7 @@ static inline u8 read_slot_enable(struct controller *ctrl)
  *
  * Returns controller speed.
  */
-static inline u8 get_controller_speed(struct controller *ctrl)
+static u8 get_controller_speed(struct controller *ctrl)
 {
 	u8 curr_freq;
 	u16 misc;
@@ -622,7 +622,7 @@ static inline u8 get_controller_speed(struct controller *ctrl)
  *
  * Returns adapter speed.
  */
-static inline u8 get_adapter_speed(struct controller *ctrl, u8 hp_slot)
+static u8 get_adapter_speed(struct controller *ctrl, u8 hp_slot)
 {
 	u32 temp_dword = readl(ctrl->hpc_reg + NON_INT_INPUT);
 	dbg("slot: %d, PCIXCAP: %8x\n", hp_slot, temp_dword);
@@ -639,7 +639,7 @@ static inline u8 get_adapter_speed(struct controller *ctrl, u8 hp_slot)
 	return PCI_SPEED_33MHz;
 }
 
-static inline void enable_slot_power(struct controller *ctrl, u8 slot)
+static void enable_slot_power(struct controller *ctrl, u8 slot)
 {
 	u8 slot_power;
 
@@ -648,7 +648,7 @@ static inline void enable_slot_power(struct controller *ctrl, u8 slot)
 	writeb(slot_power, ctrl->hpc_reg + SLOT_POWER);
 }
 
-static inline void disable_slot_power(struct controller *ctrl, u8 slot)
+static void disable_slot_power(struct controller *ctrl, u8 slot)
 {
 	u8 slot_power;
 
@@ -658,7 +658,7 @@ static inline void disable_slot_power(struct controller *ctrl, u8 slot)
 }
 
 
-static inline int cpq_get_attention_status(struct controller *ctrl, struct slot *slot)
+static int cpq_get_attention_status(struct controller *ctrl, struct slot *slot)
 {
 	u8 hp_slot;
 
@@ -668,7 +668,7 @@ static inline int cpq_get_attention_status(struct controller *ctrl, struct slot 
 }
 
 
-static inline int get_slot_enabled(struct controller *ctrl, struct slot *slot)
+static int get_slot_enabled(struct controller *ctrl, struct slot *slot)
 {
 	u8 hp_slot;
 
@@ -678,7 +678,7 @@ static inline int get_slot_enabled(struct controller *ctrl, struct slot *slot)
 }
 
 
-static inline int cpq_get_latch_status(struct controller *ctrl,
+static int cpq_get_latch_status(struct controller *ctrl,
 				       struct slot *slot)
 {
 	u32 status;
@@ -694,7 +694,7 @@ static inline int cpq_get_latch_status(struct controller *ctrl,
 }
 
 
-static inline int get_presence_status(struct controller *ctrl,
+static int get_presence_status(struct controller *ctrl,
 				      struct slot *slot)
 {
 	int presence_save = 0;
@@ -710,7 +710,7 @@ static inline int get_presence_status(struct controller *ctrl,
 	return presence_save;
 }
 
-static inline int wait_for_ctrl_irq(struct controller *ctrl)
+static int wait_for_ctrl_irq(struct controller *ctrl)
 {
 	DECLARE_WAITQUEUE(wait, current);
 	int retval = 0;
@@ -728,7 +728,7 @@ static inline int wait_for_ctrl_irq(struct controller *ctrl)
 }
 
 #include <asm/pci_x86.h>
-static inline int cpqhp_routing_table_length(void)
+static int cpqhp_routing_table_length(void)
 {
 	BUG_ON(cpqhp_routing_table == NULL);
 	return ((cpqhp_routing_table->size - sizeof(struct irq_routing_table)) /

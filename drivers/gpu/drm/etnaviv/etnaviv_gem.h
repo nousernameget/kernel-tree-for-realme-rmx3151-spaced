@@ -83,7 +83,7 @@ struct etnaviv_gem_ops {
 	int (*mmap)(struct etnaviv_gem_object *, struct vm_area_struct *);
 };
 
-static inline bool is_active(struct etnaviv_gem_object *etnaviv_obj)
+static bool is_active(struct etnaviv_gem_object *etnaviv_obj)
 {
 	return atomic_read(&etnaviv_obj->gpu_active) != 0;
 }

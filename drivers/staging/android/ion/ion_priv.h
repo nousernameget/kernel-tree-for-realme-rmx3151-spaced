@@ -557,7 +557,7 @@ int ion_share_dma_buf_fd_nolock(struct ion_client *client,
 				struct ion_handle *handle);
 
 #ifdef CONFIG_OPLUS_ION_BOOSTPOOL
-inline is_allocator_svc(struct task_struct *tsk);
+is_allocator_svc(struct task_struct *tsk);
 #endif /* CONFIG_OPLUS_ION_BOOSTPOOL */
 struct ion_handle *pass_to_user(struct ion_handle *handle);
 void user_ion_free_nolock(struct ion_client *client, struct ion_handle *handle);

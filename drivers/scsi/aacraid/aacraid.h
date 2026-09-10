@@ -2612,13 +2612,13 @@ struct aac_aifcmd {
  *	accounting for the fact capacity could be a 64 bit value
  *
  */
-static inline unsigned int cap_to_cyls(sector_t capacity, unsigned divisor)
+static unsigned int cap_to_cyls(sector_t capacity, unsigned divisor)
 {
 	sector_div(capacity, divisor);
 	return capacity;
 }
 
-static inline int aac_adapter_check_health(struct aac_dev *dev)
+static int aac_adapter_check_health(struct aac_dev *dev)
 {
 	if (unlikely(pci_channel_offline(dev->pdev)))
 		return -1;
@@ -2691,7 +2691,7 @@ int _aac_rx_init(struct aac_dev *dev);
 int aac_rx_select_comm(struct aac_dev *dev, int comm);
 int aac_rx_deliver_producer(struct fib * fib);
 
-static inline int aac_is_src(struct aac_dev *dev)
+static int aac_is_src(struct aac_dev *dev)
 {
 	u16 device = dev->pdev->device;
 
@@ -2702,7 +2702,7 @@ static inline int aac_is_src(struct aac_dev *dev)
 	return 0;
 }
 
-static inline int aac_supports_2T(struct aac_dev *dev)
+static int aac_supports_2T(struct aac_dev *dev)
 {
 	return (dev->adapter_info.options & AAC_OPT_NEW_COMM_64);
 }

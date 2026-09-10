@@ -183,7 +183,7 @@ typedef struct {
 	int reset_task_pending;
 } islpci_private;
 
-static inline islpci_state_t
+static islpci_state_t
 islpci_get_state(islpci_private *priv)
 {
 	/* lock */
@@ -200,7 +200,7 @@ irqreturn_t islpci_interrupt(int, void *);
 int prism54_post_setup(islpci_private *, int);
 int islpci_reset(islpci_private *, int);
 
-static inline void
+static void
 islpci_trigger(islpci_private *priv)
 {
 	isl38xx_trigger_device(islpci_get_state(priv) == PRV_STATE_SLEEP,

@@ -37,23 +37,23 @@
 
 /* NOTE:  these offsets are all in bytes */
 
-static inline u16 musb_readw(const void __iomem *addr, unsigned offset)
+static u16 musb_readw(const void __iomem *addr, unsigned offset)
 {
 	return __raw_readw(addr + offset);
 }
 
-static inline u32 musb_readl(const void __iomem *addr, unsigned offset)
+static u32 musb_readl(const void __iomem *addr, unsigned offset)
 {
 	return __raw_readl(addr + offset);
 }
 
 
-static inline void musb_writew(void __iomem *addr, unsigned offset, u16 data)
+static void musb_writew(void __iomem *addr, unsigned offset, u16 data)
 {
 	__raw_writew(data, addr + offset);
 }
 
-static inline void musb_writel(void __iomem *addr, unsigned offset, u32 data)
+static void musb_writel(void __iomem *addr, unsigned offset, u32 data)
 {
 	__raw_writel(data, addr + offset);
 }
@@ -64,7 +64,7 @@ static inline void musb_writel(void __iomem *addr, unsigned offset, u32 data)
 /*
  * TUSB6010 doesn't allow 8-bit access; 16-bit access is the minimum.
  */
-static inline u8 musb_readb(const void __iomem *addr, unsigned offset)
+static u8 musb_readb(const void __iomem *addr, unsigned offset)
 {
 	u16 tmp;
 	u8 val;
@@ -78,7 +78,7 @@ static inline u8 musb_readb(const void __iomem *addr, unsigned offset)
 	return val;
 }
 
-static inline void musb_writeb(void __iomem *addr, unsigned offset, u8 data)
+static void musb_writeb(void __iomem *addr, unsigned offset, u8 data)
 {
 	u16 tmp;
 
@@ -93,12 +93,12 @@ static inline void musb_writeb(void __iomem *addr, unsigned offset, u8 data)
 
 #else
 
-static inline u8 musb_readb(const void __iomem *addr, unsigned offset)
+static u8 musb_readb(const void __iomem *addr, unsigned offset)
 {
 	return __raw_readb(addr + offset);
 }
 
-static inline void musb_writeb(void __iomem *addr, unsigned offset, u8 data)
+static void musb_writeb(void __iomem *addr, unsigned offset, u8 data)
 {
 	__raw_writeb(data, addr + offset);
 }
@@ -107,32 +107,32 @@ static inline void musb_writeb(void __iomem *addr, unsigned offset, u8 data)
 
 #else
 
-static inline u8 musb_readb(const void __iomem *addr, unsigned offset)
+static u8 musb_readb(const void __iomem *addr, unsigned offset)
 {
 	return (u8) (bfin_read16(addr + offset));
 }
 
-static inline u16 musb_readw(const void __iomem *addr, unsigned offset)
+static u16 musb_readw(const void __iomem *addr, unsigned offset)
 {
 	return bfin_read16(addr + offset);
 }
 
-static inline u32 musb_readl(const void __iomem *addr, unsigned offset)
+static u32 musb_readl(const void __iomem *addr, unsigned offset)
 {
 	return (u32) (bfin_read16(addr + offset));
 }
 
-static inline void musb_writeb(void __iomem *addr, unsigned offset, u8 data)
+static void musb_writeb(void __iomem *addr, unsigned offset, u8 data)
 {
 	bfin_write16(addr + offset, (u16) data);
 }
 
-static inline void musb_writew(void __iomem *addr, unsigned offset, u16 data)
+static void musb_writew(void __iomem *addr, unsigned offset, u16 data)
 {
 	bfin_write16(addr + offset, data);
 }
 
-static inline void musb_writel(void __iomem *addr, unsigned offset, u32 data)
+static void musb_writel(void __iomem *addr, unsigned offset, u32 data)
 {
 	bfin_write16(addr + offset, (u16) data);
 }

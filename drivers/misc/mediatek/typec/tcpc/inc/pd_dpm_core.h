@@ -208,12 +208,12 @@ int pd_dpm_notify_pe_hardreset(struct pd_port *pd_port);
 
 /* TCPCI - VBUS Control */
 
-static inline int pd_dpm_check_vbus_valid(struct pd_port *pd_port)
+static int pd_dpm_check_vbus_valid(struct pd_port *pd_port)
 {
 	return tcpci_check_vbus_valid(pd_port->tcpc_dev);
 }
 
-static inline int pd_dpm_sink_vbus(struct pd_port *pd_port, bool en)
+static int pd_dpm_sink_vbus(struct pd_port *pd_port, bool en)
 {
 	int mv = en ? TCPC_VBUS_SINK_5V : TCPC_VBUS_SINK_0V;
 
@@ -221,7 +221,7 @@ static inline int pd_dpm_sink_vbus(struct pd_port *pd_port, bool en)
 				TCP_VBUS_CTRL_REQUEST, mv, -1);
 }
 
-static inline int pd_dpm_source_vbus(struct pd_port *pd_port, bool en)
+static int pd_dpm_source_vbus(struct pd_port *pd_port, bool en)
 {
 	int mv = en ? TCPC_VBUS_SOURCE_5V : TCPC_VBUS_SOURCE_0V;
 
@@ -374,23 +374,23 @@ extern uint8_t pd_dpm_get_ready_reaction(struct pd_port *pd_port);
 #define DPM_REACTION_CAP_DISCOVER_CABLE		(1<<30)
 #define DPM_REACTION_CAP_ALWAYS				(1<<31)
 
-static inline void dpm_reaction_clear(struct pd_port *pd_port, uint32_t mask)
+static void dpm_reaction_clear(struct pd_port *pd_port, uint32_t mask)
 {
 	pd_port->pe_data.dpm_ready_reactions &= ~mask;
 }
 
-static inline void dpm_reaction_set(struct pd_port *pd_port, uint32_t mask)
+static void dpm_reaction_set(struct pd_port *pd_port, uint32_t mask)
 {
 	pd_port->pe_data.dpm_ready_reactions |= mask;
 }
 
-static inline void dpm_reaction_set_ready_once(struct pd_port *pd_port)
+static void dpm_reaction_set_ready_once(struct pd_port *pd_port)
 {
 	if (pd_check_pe_state_ready(pd_port))
 		dpm_reaction_set(pd_port, DPM_REACTION_CAP_READY_ONCE);
 }
 
-static inline void dpm_reaction_set_clear(
+static void dpm_reaction_set_clear(
 	struct pd_port *pd_port, uint32_t set, uint32_t clear)
 {
 	uint32_t val = pd_port->pe_data.dpm_ready_reactions | set;
@@ -398,7 +398,7 @@ static inline void dpm_reaction_set_clear(
 	pd_port->pe_data.dpm_ready_reactions = val & (~clear);
 }
 
-static inline uint32_t dpm_reaction_check(
+static uint32_t dpm_reaction_check(
 		struct pd_port *pd_port, uint32_t mask)
 {
 	return pd_port->pe_data.dpm_ready_reactions & mask;

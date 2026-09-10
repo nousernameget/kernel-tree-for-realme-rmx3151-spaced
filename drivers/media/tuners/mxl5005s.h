@@ -121,7 +121,7 @@ extern struct dvb_frontend *mxl5005s_attach(struct dvb_frontend *fe,
 					    struct i2c_adapter *i2c,
 					    struct mxl5005s_config *config);
 #else
-static inline struct dvb_frontend *mxl5005s_attach(struct dvb_frontend *fe,
+static struct dvb_frontend *mxl5005s_attach(struct dvb_frontend *fe,
 					    struct i2c_adapter *i2c,
 					    struct mxl5005s_config *config)
 {

@@ -103,7 +103,7 @@ struct isci_phy {
 	} frame_rcvd;
 };
 
-static inline struct isci_phy *to_iphy(struct asd_sas_phy *sas_phy)
+static struct isci_phy *to_iphy(struct asd_sas_phy *sas_phy)
 {
 	struct isci_phy *iphy = container_of(sas_phy, typeof(*iphy), sas_phy);
 

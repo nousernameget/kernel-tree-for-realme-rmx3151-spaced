@@ -87,7 +87,7 @@ struct sfw_test_instance;
 /* all reply/bulk RDMAs go to this portal */
 #define SRPC_RDMA_PORTAL		52
 
-static inline enum srpc_msg_type
+static enum srpc_msg_type
 srpc_service2request(int service)
 {
 	switch (service) {
@@ -122,7 +122,7 @@ srpc_service2request(int service)
 	}
 }
 
-static inline enum srpc_msg_type
+static enum srpc_msg_type
 srpc_service2reply(int service)
 {
 	return srpc_service2request(service) + 1;
@@ -458,13 +458,13 @@ void srpc_set_counters(const struct srpc_counters *cnt);
 extern struct cfs_wi_sched *lst_sched_serial;
 extern struct cfs_wi_sched **lst_sched_test;
 
-static inline int
+static int
 srpc_serv_is_framework(struct srpc_service *svc)
 {
 	return svc->sv_id < SRPC_FRAMEWORK_SERVICE_MAX_ID;
 }
 
-static inline int
+static int
 swi_wi_action(struct cfs_workitem *wi)
 {
 	struct swi_workitem *swi;
@@ -474,7 +474,7 @@ swi_wi_action(struct cfs_workitem *wi)
 	return swi->swi_action(swi);
 }
 
-static inline void
+static void
 swi_init_workitem(struct swi_workitem *swi, void *data,
 		  swi_action_t action, struct cfs_wi_sched *sched)
 {
@@ -484,19 +484,19 @@ swi_init_workitem(struct swi_workitem *swi, void *data,
 	cfs_wi_init(&swi->swi_workitem, data, swi_wi_action);
 }
 
-static inline void
+static void
 swi_schedule_workitem(struct swi_workitem *wi)
 {
 	cfs_wi_schedule(wi->swi_sched, &wi->swi_workitem);
 }
 
-static inline void
+static void
 swi_exit_workitem(struct swi_workitem *swi)
 {
 	cfs_wi_exit(swi->swi_sched, &swi->swi_workitem);
 }
 
-static inline int
+static int
 swi_deschedule_workitem(struct swi_workitem *swi)
 {
 	return cfs_wi_deschedule(swi->swi_sched, &swi->swi_workitem);
@@ -507,7 +507,7 @@ int srpc_startup(void);
 void sfw_shutdown(void);
 void srpc_shutdown(void);
 
-static inline void
+static void
 srpc_destroy_client_rpc(struct srpc_client_rpc *rpc)
 {
 	LASSERT(rpc);
@@ -520,7 +520,7 @@ srpc_destroy_client_rpc(struct srpc_client_rpc *rpc)
 		(*rpc->crpc_fini)(rpc);
 }
 
-static inline void
+static void
 srpc_init_client_rpc(struct srpc_client_rpc *rpc, struct lnet_process_id peer,
 		     int service, int nbulkiov, int bulklen,
 		     void (*rpc_done)(struct srpc_client_rpc *),
@@ -558,7 +558,7 @@ srpc_init_client_rpc(struct srpc_client_rpc *rpc, struct lnet_process_id peer,
 	rpc->crpc_reqstmsg.msg_type = srpc_service2request(service);
 }
 
-static inline const char *
+static const char *
 swi_state2str(int state)
 {
 #define STATE2STR(x) case x: return #x
@@ -597,7 +597,7 @@ do {									\
 	}								\
 } while (0)
 
-static inline void
+static void
 srpc_wait_service_shutdown(struct srpc_service *sv)
 {
 	int i = 2;

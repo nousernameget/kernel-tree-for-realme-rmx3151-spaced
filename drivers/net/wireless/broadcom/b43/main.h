@@ -58,14 +58,14 @@ enum b43_verbosity {
 #endif
 };
 
-static inline int b43_is_cck_rate(int rate)
+static int b43_is_cck_rate(int rate)
 {
 	return (rate == B43_CCK_RATE_1MB ||
 		rate == B43_CCK_RATE_2MB ||
 		rate == B43_CCK_RATE_5MB || rate == B43_CCK_RATE_11MB);
 }
 
-static inline int b43_is_ofdm_rate(int rate)
+static int b43_is_ofdm_rate(int rate)
 {
 	return !b43_is_cck_rate(rate);
 }

@@ -37,7 +37,7 @@
 #if IS_ENABLED(CONFIG_QED_RDMA)
 void qed_roce_dpm_dcbx(struct qed_hwfn *p_hwfn, struct qed_ptt *p_ptt);
 #else
-static inline void qed_roce_dpm_dcbx(struct qed_hwfn *p_hwfn,
+static void qed_roce_dpm_dcbx(struct qed_hwfn *p_hwfn,
 				     struct qed_ptt *p_ptt) {}
 #endif
 

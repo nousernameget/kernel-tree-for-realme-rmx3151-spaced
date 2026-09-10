@@ -127,7 +127,7 @@ struct hdpvr_device {
 	u8			fw_ver;
 };
 
-static inline struct hdpvr_device *to_hdpvr_dev(struct v4l2_device *v4l2_dev)
+static struct hdpvr_device *to_hdpvr_dev(struct v4l2_device *v4l2_dev)
 {
 	return container_of(v4l2_dev, struct hdpvr_device, v4l2_dev);
 }

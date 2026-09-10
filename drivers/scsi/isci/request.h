@@ -147,7 +147,7 @@ struct isci_request {
 	};
 };
 
-static inline struct isci_request *to_ireq(struct isci_stp_request *stp_req)
+static struct isci_request *to_ireq(struct isci_stp_request *stp_req)
 {
 	struct isci_request *ireq;
 
@@ -270,7 +270,7 @@ extern enum sci_status
 sci_io_request_tc_completion(struct isci_request *ireq, u32 code);
 
 /* XXX open code in caller */
-static inline dma_addr_t
+static dma_addr_t
 sci_io_request_get_dma_addr(struct isci_request *ireq, void *virt_addr)
 {
 
@@ -300,7 +300,7 @@ sci_task_request_construct(struct isci_host *ihost,
 enum sci_status sci_task_request_construct_ssp(struct isci_request *ireq);
 void sci_smp_request_copy_response(struct isci_request *ireq);
 
-static inline int isci_task_is_ncq_recovery(struct sas_task *task)
+static int isci_task_is_ncq_recovery(struct sas_task *task)
 {
 	return (sas_protocol_ata(task->task_proto) &&
 		task->ata_task.fis.command == ATA_CMD_READ_LOG_EXT &&

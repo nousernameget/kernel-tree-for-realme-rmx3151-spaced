@@ -25,7 +25,7 @@
 
 #include "amd_pcie.h"
 
-static inline bool is_pcie_gen3_supported(uint32_t pcie_link_speed_cap)
+static bool is_pcie_gen3_supported(uint32_t pcie_link_speed_cap)
 {
 	if (pcie_link_speed_cap & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)
 		return true;
@@ -33,7 +33,7 @@ static inline bool is_pcie_gen3_supported(uint32_t pcie_link_speed_cap)
 	return false;
 }
 
-static inline bool is_pcie_gen2_supported(uint32_t pcie_link_speed_cap)
+static bool is_pcie_gen2_supported(uint32_t pcie_link_speed_cap)
 {
 	if (pcie_link_speed_cap & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN2)
 		return true;
@@ -42,7 +42,7 @@ static inline bool is_pcie_gen2_supported(uint32_t pcie_link_speed_cap)
 }
 
 /* Get the new PCIE speed given the ASIC PCIE Cap and the NewState's requested PCIE speed*/
-static inline uint16_t get_pcie_gen_support(uint32_t pcie_link_speed_cap,
+static uint16_t get_pcie_gen_support(uint32_t pcie_link_speed_cap,
 					    uint16_t ns_pcie_gen)
 {
 	uint32_t asic_pcie_link_speed_cap = (pcie_link_speed_cap &
@@ -73,7 +73,7 @@ static inline uint16_t get_pcie_gen_support(uint32_t pcie_link_speed_cap,
 	return PP_PCIEGen1;
 }
 
-static inline uint16_t get_pcie_lane_support(uint32_t pcie_lane_width_cap,
+static uint16_t get_pcie_lane_support(uint32_t pcie_lane_width_cap,
 					     uint16_t ns_pcie_lanes)
 {
 	int i, j;

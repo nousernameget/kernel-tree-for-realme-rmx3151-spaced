@@ -667,7 +667,7 @@ void ks_wlan_hw_wakeup_request(struct ks_wlan_private *priv);
 int ks_wlan_hw_power_save(struct ks_wlan_private *priv);
 
 static
-inline int hif_align_size(int size)
+int hif_align_size(int size)
 {
 #ifdef	KS_ATOM
 	if (size < 1024)

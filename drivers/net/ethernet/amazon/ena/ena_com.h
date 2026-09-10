@@ -944,17 +944,17 @@ void ena_com_get_intr_moderation_entry(struct ena_com_dev *ena_dev,
 				       enum ena_intr_moder_level level,
 				       struct ena_intr_moder_entry *entry);
 
-static inline bool ena_com_get_adaptive_moderation_enabled(struct ena_com_dev *ena_dev)
+static bool ena_com_get_adaptive_moderation_enabled(struct ena_com_dev *ena_dev)
 {
 	return ena_dev->adaptive_coalescing;
 }
 
-static inline void ena_com_enable_adaptive_moderation(struct ena_com_dev *ena_dev)
+static void ena_com_enable_adaptive_moderation(struct ena_com_dev *ena_dev)
 {
 	ena_dev->adaptive_coalescing = true;
 }
 
-static inline void ena_com_disable_adaptive_moderation(struct ena_com_dev *ena_dev)
+static void ena_com_disable_adaptive_moderation(struct ena_com_dev *ena_dev)
 {
 	ena_dev->adaptive_coalescing = false;
 }
@@ -967,7 +967,7 @@ static inline void ena_com_disable_adaptive_moderation(struct ena_com_dev *ena_d
  * @moder_tbl_idx: Current table level as input update new level as return
  * value.
  */
-static inline void ena_com_calculate_interrupt_delay(struct ena_com_dev *ena_dev,
+static void ena_com_calculate_interrupt_delay(struct ena_com_dev *ena_dev,
 						     unsigned int pkts,
 						     unsigned int bytes,
 						     unsigned int *smoothed_interval,
@@ -1036,7 +1036,7 @@ static inline void ena_com_calculate_interrupt_delay(struct ena_com_dev *ena_dev
  *
  * Prepare interrupt update register with the supplied parameters.
  */
-static inline void ena_com_update_intr_reg(struct ena_eth_io_intr_reg *intr_reg,
+static void ena_com_update_intr_reg(struct ena_eth_io_intr_reg *intr_reg,
 					   u32 rx_delay_interval,
 					   u32 tx_delay_interval,
 					   bool unmask)

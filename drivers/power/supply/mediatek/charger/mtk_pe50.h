@@ -35,22 +35,22 @@ extern bool pe50_is_ready(void);
 extern int pe50_stop(void);
 extern int pe50_run(void);
 #else
-static inline int pe50_init(void)
+static int pe50_init(void)
 {
 	return -ENOTSUPP;
 }
 
-static inline bool pe50_is_ready(void)
+static bool pe50_is_ready(void)
 {
 	return -ENOTSUPP;
 }
 
-static inline  int pe50_stop(void)
+static int pe50_stop(void)
 {
 	return -ENOTSUPP;
 }
 
-static inline  int pe50_run(void)
+static int pe50_run(void)
 {
 	return -ENOTSUPP;
 }

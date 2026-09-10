@@ -136,29 +136,29 @@ extern signed int g_I_SENSE_offset;
  * PMIC extern functions
  */
 #if (!defined(CONFIG_MTK_PMIC_COMMON) && !defined(CONFIG_MACH_MT8167))
-static inline unsigned int pmic_read_interface(unsigned int RegNum,
+static unsigned int pmic_read_interface(unsigned int RegNum,
 	unsigned int *val, unsigned int MASK, unsigned int SHIFT)
 {
 	return 0;
 }
-static inline unsigned int pmic_config_interface(unsigned int RegNum,
+static unsigned int pmic_config_interface(unsigned int RegNum,
 	unsigned int *val, unsigned int MASK, unsigned int SHIFT)
 {
 	return 0;
 }
-static inline unsigned short pmic_set_register_value(
+static unsigned short pmic_set_register_value(
 	PMU_FLAGS_LIST_ENUM flagname, unsigned int val)
 {
 	return 0;
 }
-static inline unsigned short pmic_get_register_value(
+static unsigned short pmic_get_register_value(
 	PMU_FLAGS_LIST_ENUM flagname)
 {
 	return 0;
 }
-static inline void upmu_set_reg_value(
+static void upmu_set_reg_value(
 	unsigned int reg, unsigned int reg_val) {}
-static inline unsigned int upmu_get_reg_value(unsigned int reg)
+static unsigned int upmu_get_reg_value(unsigned int reg)
 {
 	return 0;
 }

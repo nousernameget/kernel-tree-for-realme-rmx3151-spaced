@@ -393,7 +393,7 @@ struct pcie_service_card {
 	unsigned long work_flags;
 };
 
-static inline int
+static int
 mwifiex_pcie_txbd_empty(struct pcie_service_card *card, u32 rdptr)
 {
 	const struct mwifiex_pcie_card_reg *reg = card->pcie.reg;
@@ -419,7 +419,7 @@ mwifiex_pcie_txbd_empty(struct pcie_service_card *card, u32 rdptr)
 	return 0;
 }
 
-static inline int
+static int
 mwifiex_pcie_txbd_not_full(struct pcie_service_card *card)
 {
 	const struct mwifiex_pcie_card_reg *reg = card->pcie.reg;

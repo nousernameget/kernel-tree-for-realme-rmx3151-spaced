@@ -1048,65 +1048,65 @@ int qed_vf_pf_tunnel_param_update(struct qed_hwfn *p_hwfn,
 
 u32 qed_vf_hw_bar_size(struct qed_hwfn *p_hwfn, enum BAR_ID bar_id);
 #else
-static inline void qed_vf_get_link_params(struct qed_hwfn *p_hwfn,
+static void qed_vf_get_link_params(struct qed_hwfn *p_hwfn,
 					  struct qed_mcp_link_params *params)
 {
 }
 
-static inline void qed_vf_get_link_state(struct qed_hwfn *p_hwfn,
+static void qed_vf_get_link_state(struct qed_hwfn *p_hwfn,
 					 struct qed_mcp_link_state *link)
 {
 }
 
-static inline void
+static void
 qed_vf_get_link_caps(struct qed_hwfn *p_hwfn,
 		     struct qed_mcp_link_capabilities *p_link_caps)
 {
 }
 
-static inline void qed_vf_get_num_rxqs(struct qed_hwfn *p_hwfn, u8 *num_rxqs)
+static void qed_vf_get_num_rxqs(struct qed_hwfn *p_hwfn, u8 *num_rxqs)
 {
 }
 
-static inline void qed_vf_get_num_txqs(struct qed_hwfn *p_hwfn, u8 *num_txqs)
+static void qed_vf_get_num_txqs(struct qed_hwfn *p_hwfn, u8 *num_txqs)
 {
 }
 
-static inline void qed_vf_get_num_cids(struct qed_hwfn *p_hwfn, u8 *num_cids)
+static void qed_vf_get_num_cids(struct qed_hwfn *p_hwfn, u8 *num_cids)
 {
 }
 
-static inline void qed_vf_get_port_mac(struct qed_hwfn *p_hwfn, u8 *port_mac)
+static void qed_vf_get_port_mac(struct qed_hwfn *p_hwfn, u8 *port_mac)
 {
 }
 
-static inline void qed_vf_get_num_vlan_filters(struct qed_hwfn *p_hwfn,
+static void qed_vf_get_num_vlan_filters(struct qed_hwfn *p_hwfn,
 					       u8 *num_vlan_filters)
 {
 }
 
-static inline void qed_vf_get_num_mac_filters(struct qed_hwfn *p_hwfn,
+static void qed_vf_get_num_mac_filters(struct qed_hwfn *p_hwfn,
 					      u8 *num_mac_filters)
 {
 }
 
-static inline bool qed_vf_check_mac(struct qed_hwfn *p_hwfn, u8 *mac)
+static bool qed_vf_check_mac(struct qed_hwfn *p_hwfn, u8 *mac)
 {
 	return false;
 }
 
-static inline void qed_vf_get_fw_version(struct qed_hwfn *p_hwfn,
+static void qed_vf_get_fw_version(struct qed_hwfn *p_hwfn,
 					 u16 *fw_major, u16 *fw_minor,
 					 u16 *fw_rev, u16 *fw_eng)
 {
 }
 
-static inline int qed_vf_hw_prepare(struct qed_hwfn *p_hwfn)
+static int qed_vf_hw_prepare(struct qed_hwfn *p_hwfn)
 {
 	return -EINVAL;
 }
 
-static inline int qed_vf_pf_rxq_start(struct qed_hwfn *p_hwfn,
+static int qed_vf_pf_rxq_start(struct qed_hwfn *p_hwfn,
 				      struct qed_queue_cid *p_cid,
 				      u16 bd_max_bytes,
 				      dma_addr_t bd_chain_phys_adr,
@@ -1116,7 +1116,7 @@ static inline int qed_vf_pf_rxq_start(struct qed_hwfn *p_hwfn,
 	return -EINVAL;
 }
 
-static inline int qed_vf_pf_txq_start(struct qed_hwfn *p_hwfn,
+static int qed_vf_pf_txq_start(struct qed_hwfn *p_hwfn,
 				      struct qed_queue_cid *p_cid,
 				      dma_addr_t pbl_addr,
 				      u16 pbl_size, void __iomem **pp_doorbell)
@@ -1124,47 +1124,47 @@ static inline int qed_vf_pf_txq_start(struct qed_hwfn *p_hwfn,
 	return -EINVAL;
 }
 
-static inline int qed_vf_pf_rxq_stop(struct qed_hwfn *p_hwfn,
+static int qed_vf_pf_rxq_stop(struct qed_hwfn *p_hwfn,
 				     struct qed_queue_cid *p_cid,
 				     bool cqe_completion)
 {
 	return -EINVAL;
 }
 
-static inline int qed_vf_pf_txq_stop(struct qed_hwfn *p_hwfn,
+static int qed_vf_pf_txq_stop(struct qed_hwfn *p_hwfn,
 				     struct qed_queue_cid *p_cid)
 {
 	return -EINVAL;
 }
 
-static inline int
+static int
 qed_vf_pf_vport_update(struct qed_hwfn *p_hwfn,
 		       struct qed_sp_vport_update_params *p_params)
 {
 	return -EINVAL;
 }
 
-static inline int qed_vf_pf_reset(struct qed_hwfn *p_hwfn)
+static int qed_vf_pf_reset(struct qed_hwfn *p_hwfn)
 {
 	return -EINVAL;
 }
 
-static inline int qed_vf_pf_release(struct qed_hwfn *p_hwfn)
+static int qed_vf_pf_release(struct qed_hwfn *p_hwfn)
 {
 	return -EINVAL;
 }
 
-static inline u16 qed_vf_get_igu_sb_id(struct qed_hwfn *p_hwfn, u16 sb_id)
+static u16 qed_vf_get_igu_sb_id(struct qed_hwfn *p_hwfn, u16 sb_id)
 {
 	return 0;
 }
 
-static inline void qed_vf_set_sb_info(struct qed_hwfn *p_hwfn, u16 sb_id,
+static void qed_vf_set_sb_info(struct qed_hwfn *p_hwfn, u16 sb_id,
 				      struct qed_sb_info *p_sb)
 {
 }
 
-static inline int qed_vf_pf_vport_start(struct qed_hwfn *p_hwfn,
+static int qed_vf_pf_vport_start(struct qed_hwfn *p_hwfn,
 					u8 vport_id,
 					u16 mtu,
 					u8 inner_vlan_removal,
@@ -1175,28 +1175,28 @@ static inline int qed_vf_pf_vport_start(struct qed_hwfn *p_hwfn,
 	return -EINVAL;
 }
 
-static inline int qed_vf_pf_vport_stop(struct qed_hwfn *p_hwfn)
+static int qed_vf_pf_vport_stop(struct qed_hwfn *p_hwfn)
 {
 	return -EINVAL;
 }
 
-static inline int qed_vf_pf_filter_ucast(struct qed_hwfn *p_hwfn,
+static int qed_vf_pf_filter_ucast(struct qed_hwfn *p_hwfn,
 					 struct qed_filter_ucast *p_param)
 {
 	return -EINVAL;
 }
 
-static inline void qed_vf_pf_filter_mcast(struct qed_hwfn *p_hwfn,
+static void qed_vf_pf_filter_mcast(struct qed_hwfn *p_hwfn,
 					  struct qed_filter_mcast *p_filter_cmd)
 {
 }
 
-static inline int qed_vf_pf_int_cleanup(struct qed_hwfn *p_hwfn)
+static int qed_vf_pf_int_cleanup(struct qed_hwfn *p_hwfn)
 {
 	return -EINVAL;
 }
 
-static inline void __qed_vf_get_link_params(struct qed_hwfn *p_hwfn,
+static void __qed_vf_get_link_params(struct qed_hwfn *p_hwfn,
 					    struct qed_mcp_link_params
 					    *p_params,
 					    struct qed_bulletin_content
@@ -1204,36 +1204,36 @@ static inline void __qed_vf_get_link_params(struct qed_hwfn *p_hwfn,
 {
 }
 
-static inline void __qed_vf_get_link_state(struct qed_hwfn *p_hwfn,
+static void __qed_vf_get_link_state(struct qed_hwfn *p_hwfn,
 					   struct qed_mcp_link_state *p_link,
 					   struct qed_bulletin_content
 					   *p_bulletin)
 {
 }
 
-static inline void
+static void
 __qed_vf_get_link_caps(struct qed_hwfn *p_hwfn,
 		       struct qed_mcp_link_capabilities *p_link_caps,
 		       struct qed_bulletin_content *p_bulletin)
 {
 }
 
-static inline void qed_iov_vf_task(struct work_struct *work)
+static void qed_iov_vf_task(struct work_struct *work)
 {
 }
 
-static inline void
+static void
 qed_vf_set_vf_start_tunn_update_param(struct qed_tunnel_info *p_tun)
 {
 }
 
-static inline int qed_vf_pf_tunnel_param_update(struct qed_hwfn *p_hwfn,
+static int qed_vf_pf_tunnel_param_update(struct qed_hwfn *p_hwfn,
 						struct qed_tunnel_info *p_tunn)
 {
 	return -EINVAL;
 }
 
-static inline u32
+static u32
 qed_vf_hw_bar_size(struct qed_hwfn  *p_hwfn,
 		   enum BAR_ID bar_id)
 {

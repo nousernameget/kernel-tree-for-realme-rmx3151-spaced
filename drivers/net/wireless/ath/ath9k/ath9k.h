@@ -430,7 +430,7 @@ struct ath_offchannel {
 	int duration;
 };
 
-static inline struct ath_atx_tid *
+static struct ath_atx_tid *
 ath_node_to_tid(struct ath_node *an, u8 tidno)
 {
 	struct ieee80211_sta *sta = an->sta;
@@ -459,7 +459,7 @@ void ath_chanctx_set_channel(struct ath_softc *sc, struct ath_chanctx *ctx,
 
 #ifdef CONFIG_ATH9K_CHANNEL_CONTEXT
 
-static inline struct ath_chanctx *
+static struct ath_chanctx *
 ath_chanctx_get(struct ieee80211_chanctx_conf *ctx)
 {
 	struct ath_chanctx **ptr = (void *) ctx->drv_priv;
@@ -500,80 +500,80 @@ struct ath_chanctx* ath_is_go_chanctx_present(struct ath_softc *sc);
 
 #else
 
-static inline bool ath9k_is_chanctx_enabled(void)
+static bool ath9k_is_chanctx_enabled(void)
 {
 	return false;
 }
-static inline void ath9k_fill_chanctx_ops(void)
+static void ath9k_fill_chanctx_ops(void)
 {
 }
-static inline void ath9k_init_channel_context(struct ath_softc *sc)
+static void ath9k_init_channel_context(struct ath_softc *sc)
 {
 }
-static inline void ath9k_offchannel_init(struct ath_softc *sc)
+static void ath9k_offchannel_init(struct ath_softc *sc)
 {
 }
-static inline void ath9k_deinit_channel_context(struct ath_softc *sc)
+static void ath9k_deinit_channel_context(struct ath_softc *sc)
 {
 }
-static inline void ath_chanctx_beacon_recv_ev(struct ath_softc *sc,
+static void ath_chanctx_beacon_recv_ev(struct ath_softc *sc,
 					      enum ath_chanctx_event ev)
 {
 }
-static inline void ath_chanctx_beacon_sent_ev(struct ath_softc *sc,
+static void ath_chanctx_beacon_sent_ev(struct ath_softc *sc,
 					      enum ath_chanctx_event ev)
 {
 }
-static inline void ath_chanctx_event(struct ath_softc *sc,
+static void ath_chanctx_event(struct ath_softc *sc,
 				     struct ieee80211_vif *vif,
 				     enum ath_chanctx_event ev)
 {
 }
-static inline int ath9k_init_p2p(struct ath_softc *sc)
+static int ath9k_init_p2p(struct ath_softc *sc)
 {
 	return 0;
 }
-static inline void ath9k_deinit_p2p(struct ath_softc *sc)
+static void ath9k_deinit_p2p(struct ath_softc *sc)
 {
 }
-static inline void ath9k_p2p_remove_vif(struct ath_softc *sc,
+static void ath9k_p2p_remove_vif(struct ath_softc *sc,
 					struct ieee80211_vif *vif)
 {
 }
-static inline void ath9k_p2p_beacon_sync(struct ath_softc *sc)
+static void ath9k_p2p_beacon_sync(struct ath_softc *sc)
 {
 }
-static inline void ath9k_p2p_bss_info_changed(struct ath_softc *sc,
+static void ath9k_p2p_bss_info_changed(struct ath_softc *sc,
 					      struct ieee80211_vif *vif)
 {
 }
-static inline void ath9k_beacon_add_noa(struct ath_softc *sc, struct ath_vif *avp,
+static void ath9k_beacon_add_noa(struct ath_softc *sc, struct ath_vif *avp,
 					struct sk_buff *skb)
 {
 }
-static inline void ath9k_p2p_ps_timer(struct ath_softc *sc)
+static void ath9k_p2p_ps_timer(struct ath_softc *sc)
 {
 }
-static inline void ath9k_chanctx_wake_queues(struct ath_softc *sc,
+static void ath9k_chanctx_wake_queues(struct ath_softc *sc,
 					     struct ath_chanctx *ctx)
 {
 }
-static inline void ath9k_chanctx_stop_queues(struct ath_softc *sc,
+static void ath9k_chanctx_stop_queues(struct ath_softc *sc,
 					     struct ath_chanctx *ctx)
 {
 }
-static inline void ath_chanctx_check_active(struct ath_softc *sc,
+static void ath_chanctx_check_active(struct ath_softc *sc,
 					    struct ath_chanctx *ctx)
 {
 }
 
 #endif /* CONFIG_ATH9K_CHANNEL_CONTEXT */
 
-static inline void ath_txq_lock(struct ath_softc *sc, struct ath_txq *txq)
+static void ath_txq_lock(struct ath_softc *sc, struct ath_txq *txq)
 {
 	spin_lock_bh(&txq->axq_lock);
 }
-static inline void ath_txq_unlock(struct ath_softc *sc, struct ath_txq *txq)
+static void ath_txq_unlock(struct ath_softc *sc, struct ath_txq *txq)
 {
 	spin_unlock_bh(&txq->axq_lock);
 }
@@ -806,32 +806,32 @@ u16 ath9k_btcoex_aggr_limit(struct ath_softc *sc, u32 max_4ms_framelen);
 void ath9k_btcoex_stop_gen_timer(struct ath_softc *sc);
 int ath9k_dump_btcoex(struct ath_softc *sc, u8 *buf, u32 size);
 #else
-static inline int ath9k_init_btcoex(struct ath_softc *sc)
+static int ath9k_init_btcoex(struct ath_softc *sc)
 {
 	return 0;
 }
-static inline void ath9k_deinit_btcoex(struct ath_softc *sc)
+static void ath9k_deinit_btcoex(struct ath_softc *sc)
 {
 }
-static inline void ath9k_start_btcoex(struct ath_softc *sc)
+static void ath9k_start_btcoex(struct ath_softc *sc)
 {
 }
-static inline void ath9k_stop_btcoex(struct ath_softc *sc)
+static void ath9k_stop_btcoex(struct ath_softc *sc)
 {
 }
-static inline void ath9k_btcoex_handle_interrupt(struct ath_softc *sc,
+static void ath9k_btcoex_handle_interrupt(struct ath_softc *sc,
 						 u32 status)
 {
 }
-static inline u16 ath9k_btcoex_aggr_limit(struct ath_softc *sc,
+static u16 ath9k_btcoex_aggr_limit(struct ath_softc *sc,
 					  u32 max_4ms_framelen)
 {
 	return 0;
 }
-static inline void ath9k_btcoex_stop_gen_timer(struct ath_softc *sc)
+static void ath9k_btcoex_stop_gen_timer(struct ath_softc *sc)
 {
 }
-static inline int ath9k_dump_btcoex(struct ath_softc *sc, u8 *buf, u32 size)
+static int ath9k_dump_btcoex(struct ath_softc *sc, u8 *buf, u32 size)
 {
 	return 0;
 }
@@ -851,11 +851,11 @@ static inline int ath9k_dump_btcoex(struct ath_softc *sc, u8 *buf, u32 size)
 void ath_init_leds(struct ath_softc *sc);
 void ath_deinit_leds(struct ath_softc *sc);
 #else
-static inline void ath_init_leds(struct ath_softc *sc)
+static void ath_init_leds(struct ath_softc *sc)
 {
 }
 
-static inline void ath_deinit_leds(struct ath_softc *sc)
+static void ath_deinit_leds(struct ath_softc *sc)
 {
 }
 #endif
@@ -872,22 +872,22 @@ int ath9k_suspend(struct ieee80211_hw *hw,
 int ath9k_resume(struct ieee80211_hw *hw);
 void ath9k_set_wakeup(struct ieee80211_hw *hw, bool enabled);
 #else
-static inline void ath9k_init_wow(struct ieee80211_hw *hw)
+static void ath9k_init_wow(struct ieee80211_hw *hw)
 {
 }
-static inline void ath9k_deinit_wow(struct ieee80211_hw *hw)
+static void ath9k_deinit_wow(struct ieee80211_hw *hw)
 {
 }
-static inline int ath9k_suspend(struct ieee80211_hw *hw,
+static int ath9k_suspend(struct ieee80211_hw *hw,
 				struct cfg80211_wowlan *wowlan)
 {
 	return 0;
 }
-static inline int ath9k_resume(struct ieee80211_hw *hw)
+static int ath9k_resume(struct ieee80211_hw *hw)
 {
 	return 0;
 }
-static inline void ath9k_set_wakeup(struct ieee80211_hw *hw, bool enabled)
+static void ath9k_set_wakeup(struct ieee80211_hw *hw, bool enabled)
 {
 }
 #endif /* CONFIG_ATH9K_WOW */
@@ -1099,10 +1099,10 @@ void ath9k_tx99_init_debug(struct ath_softc *sc);
 int ath9k_tx99_send(struct ath_softc *sc, struct sk_buff *skb,
 		    struct ath_tx_control *txctl);
 #else
-static inline void ath9k_tx99_init_debug(struct ath_softc *sc)
+static void ath9k_tx99_init_debug(struct ath_softc *sc)
 {
 }
-static inline int ath9k_tx99_send(struct ath_softc *sc,
+static int ath9k_tx99_send(struct ath_softc *sc,
 				  struct sk_buff *skb,
 				  struct ath_tx_control *txctl)
 {
@@ -1117,16 +1117,16 @@ static inline int ath9k_tx99_send(struct ath_softc *sc,
 void ath9k_rng_start(struct ath_softc *sc);
 void ath9k_rng_stop(struct ath_softc *sc);
 #else
-static inline void ath9k_rng_start(struct ath_softc *sc)
+static void ath9k_rng_start(struct ath_softc *sc)
 {
 }
 
-static inline void ath9k_rng_stop(struct ath_softc *sc)
+static void ath9k_rng_stop(struct ath_softc *sc)
 {
 }
 #endif
 
-static inline void ath_read_cachesize(struct ath_common *common, int *csz)
+static void ath_read_cachesize(struct ath_common *common, int *csz)
 {
 	common->bus_ops->read_cachesize(common, csz);
 }

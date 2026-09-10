@@ -11,7 +11,7 @@
  */
 
 /*
- * Arch-dependent inline functions and defines.
+ * Arch-dependent functions and defines.
  */
 
 #if defined(CONFIG_MACH_JAZZ)

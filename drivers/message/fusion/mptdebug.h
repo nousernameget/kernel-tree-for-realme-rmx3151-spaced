@@ -145,7 +145,7 @@
  * Verbose logging
  */
 #if defined(MPT_DEBUG_VERBOSE) && defined(CONFIG_FUSION_LOGGING)
-static inline void
+static void
 DBG_DUMP_FW_DOWNLOAD(MPT_ADAPTER *ioc, u32  *mfp, int numfrags)
 {
 	int i;
@@ -158,7 +158,7 @@ DBG_DUMP_FW_DOWNLOAD(MPT_ADAPTER *ioc, u32  *mfp, int numfrags)
 	printk("\n");
 }
 
-static inline void
+static void
 DBG_DUMP_PUT_MSG_FRAME(MPT_ADAPTER *ioc, u32 *mfp)
 {
 	int	 ii, n;
@@ -178,7 +178,7 @@ DBG_DUMP_PUT_MSG_FRAME(MPT_ADAPTER *ioc, u32 *mfp)
 	printk("\n");
 }
 
-static inline void
+static void
 DBG_DUMP_FW_REQUEST_FRAME(MPT_ADAPTER *ioc, u32 *mfp)
 {
 	int  i, n;
@@ -192,7 +192,7 @@ DBG_DUMP_FW_REQUEST_FRAME(MPT_ADAPTER *ioc, u32 *mfp)
 	printk("\n");
 }
 
-static inline void
+static void
 DBG_DUMP_REQUEST_FRAME(MPT_ADAPTER *ioc, u32 *mfp)
 {
 	int  i, n;
@@ -208,7 +208,7 @@ DBG_DUMP_REQUEST_FRAME(MPT_ADAPTER *ioc, u32 *mfp)
 	printk("\n");
 }
 
-static inline void
+static void
 DBG_DUMP_REPLY_FRAME(MPT_ADAPTER *ioc, u32 *mfp)
 {
 	int  i, n;
@@ -222,7 +222,7 @@ DBG_DUMP_REPLY_FRAME(MPT_ADAPTER *ioc, u32 *mfp)
 	printk("\n");
 }
 
-static inline void
+static void
 DBG_DUMP_REQUEST_FRAME_HDR(MPT_ADAPTER *ioc, u32 *mfp)
 {
 	int  i, n;
@@ -236,7 +236,7 @@ DBG_DUMP_REQUEST_FRAME_HDR(MPT_ADAPTER *ioc, u32 *mfp)
 	printk("\n");
 }
 
-static inline void
+static void
 DBG_DUMP_TM_REQUEST_FRAME(MPT_ADAPTER *ioc, u32 *mfp)
 {
 	int  i, n;
@@ -253,7 +253,7 @@ DBG_DUMP_TM_REQUEST_FRAME(MPT_ADAPTER *ioc, u32 *mfp)
 	printk("\n");
 }
 
-static inline void
+static void
 DBG_DUMP_TM_REPLY_FRAME(MPT_ADAPTER *ioc, u32 *mfp)
 {
 	int  i, n;

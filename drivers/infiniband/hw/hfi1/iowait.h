@@ -138,7 +138,7 @@ struct iowait {
  *
  */
 
-static inline void iowait_init(
+static void iowait_init(
 	struct iowait *wait,
 	u32 tx_limit,
 	void (*func)(struct work_struct *work),
@@ -172,7 +172,7 @@ static inline void iowait_init(
  * @wq: workqueue for schedule
  * @cpu: cpu
  */
-static inline void iowait_schedule(
+static void iowait_schedule(
 	struct iowait *wait,
 	struct workqueue_struct *wq,
 	int cpu)
@@ -188,7 +188,7 @@ static inline void iowait_schedule(
  * This will delay until the iowait sdmas have
  * completed.
  */
-static inline void iowait_sdma_drain(struct iowait *wait)
+static void iowait_sdma_drain(struct iowait *wait)
 {
 	wait_event(wait->wait_dma, !atomic_read(&wait->sdma_busy));
 }
@@ -199,7 +199,7 @@ static inline void iowait_sdma_drain(struct iowait *wait)
  * @wait: iowait structure
  *
  */
-static inline int iowait_sdma_pending(struct iowait *wait)
+static int iowait_sdma_pending(struct iowait *wait)
 {
 	return atomic_read(&wait->sdma_busy);
 }
@@ -208,7 +208,7 @@ static inline int iowait_sdma_pending(struct iowait *wait)
  * iowait_sdma_inc - note sdma io pending
  * @wait: iowait structure
  */
-static inline void iowait_sdma_inc(struct iowait *wait)
+static void iowait_sdma_inc(struct iowait *wait)
 {
 	atomic_inc(&wait->sdma_busy);
 }
@@ -217,7 +217,7 @@ static inline void iowait_sdma_inc(struct iowait *wait)
  * iowait_sdma_add - add count to pending
  * @wait: iowait structure
  */
-static inline void iowait_sdma_add(struct iowait *wait, int count)
+static void iowait_sdma_add(struct iowait *wait, int count)
 {
 	atomic_add(count, &wait->sdma_busy);
 }
@@ -226,7 +226,7 @@ static inline void iowait_sdma_add(struct iowait *wait, int count)
  * iowait_sdma_dec - note sdma complete
  * @wait: iowait structure
  */
-static inline int iowait_sdma_dec(struct iowait *wait)
+static int iowait_sdma_dec(struct iowait *wait)
 {
 	return atomic_dec_and_test(&wait->sdma_busy);
 }
@@ -239,7 +239,7 @@ static inline int iowait_sdma_dec(struct iowait *wait)
  * This will delay until the iowait pios have
  * completed.
  */
-static inline void iowait_pio_drain(struct iowait *wait)
+static void iowait_pio_drain(struct iowait *wait)
 {
 	wait_event_timeout(wait->wait_pio,
 			   !atomic_read(&wait->pio_busy),
@@ -252,7 +252,7 @@ static inline void iowait_pio_drain(struct iowait *wait)
  * @wait: iowait structure
  *
  */
-static inline int iowait_pio_pending(struct iowait *wait)
+static int iowait_pio_pending(struct iowait *wait)
 {
 	return atomic_read(&wait->pio_busy);
 }
@@ -261,7 +261,7 @@ static inline int iowait_pio_pending(struct iowait *wait)
  * iowait_pio_inc - note pio pending
  * @wait: iowait structure
  */
-static inline void iowait_pio_inc(struct iowait *wait)
+static void iowait_pio_inc(struct iowait *wait)
 {
 	atomic_inc(&wait->pio_busy);
 }
@@ -270,7 +270,7 @@ static inline void iowait_pio_inc(struct iowait *wait)
  * iowait_sdma_dec - note pio complete
  * @wait: iowait structure
  */
-static inline int iowait_pio_dec(struct iowait *wait)
+static int iowait_pio_dec(struct iowait *wait)
 {
 	return atomic_dec_and_test(&wait->pio_busy);
 }
@@ -282,7 +282,7 @@ static inline int iowait_pio_dec(struct iowait *wait)
  *
  * This will trigger any waiters.
  */
-static inline void iowait_drain_wakeup(struct iowait *wait)
+static void iowait_drain_wakeup(struct iowait *wait)
 {
 	wake_up(&wait->wait_dma);
 	wake_up(&wait->wait_pio);
@@ -295,7 +295,7 @@ static inline void iowait_drain_wakeup(struct iowait *wait)
  *
  * @wait wait struture
  */
-static inline struct sdma_txreq *iowait_get_txhead(struct iowait *wait)
+static struct sdma_txreq *iowait_get_txhead(struct iowait *wait)
 {
 	struct sdma_txreq *tx = NULL;
 
@@ -319,7 +319,7 @@ static inline struct sdma_txreq *iowait_get_txhead(struct iowait *wait)
  * wait queue after a resource (eg, sdma decriptor or pio
  * buffer) is run out.
  */
-static inline void iowait_queue(bool pkts_sent, struct iowait *w,
+static void iowait_queue(bool pkts_sent, struct iowait *w,
 				struct list_head *wait_head)
 {
 	/*
@@ -343,7 +343,7 @@ static inline void iowait_queue(bool pkts_sent, struct iowait *w,
  * This function is called to clear the starve count. If no
  * packets have been sent, the starve count will not be cleared.
  */
-static inline void iowait_starve_clear(bool pkts_sent, struct iowait *w)
+static void iowait_starve_clear(bool pkts_sent, struct iowait *w)
 {
 	if (pkts_sent)
 		w->starved_cnt = 0;
@@ -362,7 +362,7 @@ static inline void iowait_starve_clear(bool pkts_sent, struct iowait *w)
  * count and the index will be updated if the iowait's start
  * count is larger.
  */
-static inline void iowait_starve_find_max(struct iowait *w, u8 *max,
+static void iowait_starve_find_max(struct iowait *w, u8 *max,
 					  uint idx, uint *max_idx)
 {
 	if (w->starved_cnt > *max) {

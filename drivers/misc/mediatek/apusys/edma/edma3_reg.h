@@ -144,27 +144,27 @@
 
 
 
-static inline unsigned int edma_read_reg32(void __iomem *edma_base,
+static unsigned int edma_read_reg32(void __iomem *edma_base,
 					  unsigned int offset)
 {
 	return readl(edma_base + offset);
 }
 
-static inline void edma_write_reg32(void __iomem *edma_base,
+static void edma_write_reg32(void __iomem *edma_base,
 					unsigned int offset,
 					unsigned int val)
 {
 	writel(val, edma_base + offset);
 }
 
-static inline void edma_set_reg32(void __iomem *edma_base, unsigned int offset,
+static void edma_set_reg32(void __iomem *edma_base, unsigned int offset,
 			  unsigned int bits)
 {
 	edma_write_reg32(edma_base, offset,
 			(edma_read_reg32(edma_base, offset) | bits));
 }
 
-static inline void edma_clear_reg32(void __iomem *edma_base,
+static void edma_clear_reg32(void __iomem *edma_base,
 					unsigned int offset,
 					unsigned int bits)
 {

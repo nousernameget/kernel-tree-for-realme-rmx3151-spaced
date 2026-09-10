@@ -84,7 +84,7 @@
 #define iwe_stream_add_point_rsl(info, start, stop, iwe, p)	\
 	iwe_stream_add_point(info, start, stop, iwe, p)
 
-static inline void *netdev_priv_rsl(struct net_device *dev)
+static void *netdev_priv_rsl(struct net_device *dev)
 {
 	return netdev_priv(dev);
 }
@@ -989,12 +989,12 @@ static const char * const eap_types[] = {
 	[EAPOL_ENCAP_ASF_ALERT]	= "EAPOL-Encap-ASF-Alert"
 };
 
-static inline const char *eap_get_type(int type)
+static const char *eap_get_type(int type)
 {
 	return ((u32)type >= ARRAY_SIZE(eap_types)) ? "Unknown" :
 		 eap_types[type];
 }
-static inline u8 Frame_QoSTID(u8 *buf)
+static u8 Frame_QoSTID(u8 *buf)
 {
 	struct rtllib_hdr_3addr *hdr;
 	u16 fc;
@@ -1840,12 +1840,12 @@ struct rtllib_device {
 #define IEEE_SOFTMAC_BEACONS (1<<6)
 
 
-static inline void *rtllib_priv(struct net_device *dev)
+static void *rtllib_priv(struct net_device *dev)
 {
 	return ((struct rtllib_device *)netdev_priv(dev))->priv;
 }
 
-static inline int rtllib_is_empty_essid(const char *essid, int essid_len)
+static int rtllib_is_empty_essid(const char *essid, int essid_len)
 {
 	/* Single white space is for Linksys APs */
 	if (essid_len == 1 && essid[0] == ' ')
@@ -1861,7 +1861,7 @@ static inline int rtllib_is_empty_essid(const char *essid, int essid_len)
 	return 1;
 }
 
-static inline int rtllib_get_hdrlen(u16 fc)
+static int rtllib_get_hdrlen(u16 fc)
 {
 	int hdrlen = RTLLIB_3ADDR_LEN;
 
@@ -1888,7 +1888,7 @@ static inline int rtllib_get_hdrlen(u16 fc)
 	return hdrlen;
 }
 
-static inline u8 *rtllib_get_payload(struct rtllib_hdr *hdr)
+static u8 *rtllib_get_payload(struct rtllib_hdr *hdr)
 {
 	switch (rtllib_get_hdrlen(le16_to_cpu(hdr->frame_ctl))) {
 	case RTLLIB_1ADDR_LEN:
@@ -1903,7 +1903,7 @@ static inline u8 *rtllib_get_payload(struct rtllib_hdr *hdr)
 	return NULL;
 }
 
-static inline int rtllib_is_ofdm_rate(u8 rate)
+static int rtllib_is_ofdm_rate(u8 rate)
 {
 	switch (rate & ~RTLLIB_BASIC_RATE_MASK) {
 	case RTLLIB_OFDM_RATE_6MB:
@@ -1919,7 +1919,7 @@ static inline int rtllib_is_ofdm_rate(u8 rate)
 	return 0;
 }
 
-static inline int rtllib_is_cck_rate(u8 rate)
+static int rtllib_is_cck_rate(u8 rate)
 {
 	switch (rate & ~RTLLIB_BASIC_RATE_MASK) {
 	case RTLLIB_CCK_RATE_1MB:
@@ -2127,7 +2127,7 @@ void RemoveAllTS(struct rtllib_device *ieee);
 
 extern const long rtllib_wlan_frequencies[];
 
-static inline const char *escape_essid(const char *essid, u8 essid_len)
+static const char *escape_essid(const char *essid, u8 essid_len)
 {
 	static char escaped[IW_ESSID_MAX_SIZE * 2 + 1];
 

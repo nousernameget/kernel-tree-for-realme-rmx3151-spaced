@@ -143,7 +143,7 @@ prefix    data bits                                    max val  Nº data bits
  * returns number of bits consumed.
  *
  * BUG() for bad input, as that would mean a buggy code table. */
-static inline int vli_decode_bits(u64 *out, const u64 in)
+static int vli_decode_bits(u64 *out, const u64 in)
 {
 	u64 adj = 1;
 
@@ -165,7 +165,7 @@ static inline int vli_decode_bits(u64 *out, const u64 in)
 
 /* return number of code bits needed,
  * or negative error number */
-static inline int __vli_encode_bits(u64 *out, const u64 in)
+static int __vli_encode_bits(u64 *out, const u64 in)
 {
 	u64 max = 0;
 	u64 adj = 1;
@@ -208,7 +208,7 @@ struct bitstream_cursor {
 };
 
 /* initialize cursor to point to first bit of stream */
-static inline void bitstream_cursor_reset(struct bitstream_cursor *cur, void *s)
+static void bitstream_cursor_reset(struct bitstream_cursor *cur, void *s)
 {
 	cur->b = s;
 	cur->bit = 0;
@@ -216,7 +216,7 @@ static inline void bitstream_cursor_reset(struct bitstream_cursor *cur, void *s)
 
 /* advance cursor by that many bits; maximum expected input value: 64,
  * but depending on VLI implementation, it may be more. */
-static inline void bitstream_cursor_advance(struct bitstream_cursor *cur, unsigned int bits)
+static void bitstream_cursor_advance(struct bitstream_cursor *cur, unsigned int bits)
 {
 	bits += cur->bit;
 	cur->b = cur->b + (bits >> 3);
@@ -235,7 +235,7 @@ struct bitstream {
 	unsigned int pad_bits;
 };
 
-static inline void bitstream_init(struct bitstream *bs, void *s, size_t len, unsigned int pad_bits)
+static void bitstream_init(struct bitstream *bs, void *s, size_t len, unsigned int pad_bits)
 {
 	bs->buf = s;
 	bs->buf_len = len;
@@ -243,7 +243,7 @@ static inline void bitstream_init(struct bitstream *bs, void *s, size_t len, uns
 	bitstream_cursor_reset(&bs->cur, bs->buf);
 }
 
-static inline void bitstream_rewind(struct bitstream *bs)
+static void bitstream_rewind(struct bitstream *bs)
 {
 	bitstream_cursor_reset(&bs->cur, bs->buf);
 	memset(bs->buf, 0, bs->buf_len);
@@ -257,7 +257,7 @@ static inline void bitstream_rewind(struct bitstream *bs)
  * If there is not enough room left in bitstream,
  * leaves bitstream unchanged and returns -ENOBUFS.
  */
-static inline int bitstream_put_bits(struct bitstream *bs, u64 val, const unsigned int bits)
+static int bitstream_put_bits(struct bitstream *bs, u64 val, const unsigned int bits)
 {
 	unsigned char *b = bs->cur.b;
 	unsigned int tmp;
@@ -290,7 +290,7 @@ static inline int bitstream_put_bits(struct bitstream *bs, u64 val, const unsign
  *
  * Returns number of actually fetched bits.
  */
-static inline int bitstream_get_bits(struct bitstream *bs, u64 *out, int bits)
+static int bitstream_get_bits(struct bitstream *bs, u64 *out, int bits)
 {
 	u64 val;
 	unsigned int n;
@@ -337,7 +337,7 @@ static inline int bitstream_get_bits(struct bitstream *bs, u64 *out, int bits)
  * -EINVAL input zero (invalid)
  * -EOVERFLOW input too large for this vli code (invalid)
  */
-static inline int vli_encode_bits(struct bitstream *bs, u64 in)
+static int vli_encode_bits(struct bitstream *bs, u64 in)
 {
 	u64 code = code;
 	int bits = __vli_encode_bits(&code, in);

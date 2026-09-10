@@ -70,12 +70,12 @@
 #define _hrt_master_port_uload_16_volatile(a)    _hrt_master_port_uload_16(a)
 #define _hrt_master_port_uload_32_volatile(a)    _hrt_master_port_uload_32(a)
 
-static inline void hrt_sleep(void)
+static void hrt_sleep(void)
 {
 	udelay(1);
 }
 
-static inline uint32_t _hrt_mem_store(uint32_t to, const void *from, size_t n)
+static uint32_t _hrt_mem_store(uint32_t to, const void *from, size_t n)
 {
 	unsigned i;
 	uint32_t _to = to;
@@ -85,7 +85,7 @@ static inline uint32_t _hrt_mem_store(uint32_t to, const void *from, size_t n)
 	return _to;
 }
 
-static inline void *_hrt_mem_load(uint32_t from, void *to, size_t n)
+static void *_hrt_mem_load(uint32_t from, void *to, size_t n)
 {
 	unsigned i;
 	char *_to = (char *)to;
@@ -95,7 +95,7 @@ static inline void *_hrt_mem_load(uint32_t from, void *to, size_t n)
 	return _to;
 }
 
-static inline uint32_t _hrt_mem_set(uint32_t to, int c, size_t n)
+static uint32_t _hrt_mem_set(uint32_t to, int c, size_t n)
 {
 	unsigned i;
 	uint32_t _to = to;

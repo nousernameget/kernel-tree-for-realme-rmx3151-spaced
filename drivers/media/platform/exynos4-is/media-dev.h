@@ -163,23 +163,23 @@ struct fimc_sensor_info *source_to_sensor_info(struct fimc_source_info *si)
 	return container_of(si, struct fimc_sensor_info, pdata);
 }
 
-static inline struct fimc_md *entity_to_fimc_mdev(struct media_entity *me)
+static struct fimc_md *entity_to_fimc_mdev(struct media_entity *me)
 {
 	return me->graph_obj.mdev == NULL ? NULL :
 		container_of(me->graph_obj.mdev, struct fimc_md, media_dev);
 }
 
-static inline struct fimc_md *notifier_to_fimc_md(struct v4l2_async_notifier *n)
+static struct fimc_md *notifier_to_fimc_md(struct v4l2_async_notifier *n)
 {
 	return container_of(n, struct fimc_md, subdev_notifier);
 }
 
-static inline void fimc_md_graph_lock(struct exynos_video_entity *ve)
+static void fimc_md_graph_lock(struct exynos_video_entity *ve)
 {
 	mutex_lock(&ve->vdev.entity.graph_obj.mdev->graph_mutex);
 }
 
-static inline void fimc_md_graph_unlock(struct exynos_video_entity *ve)
+static void fimc_md_graph_unlock(struct exynos_video_entity *ve)
 {
 	mutex_unlock(&ve->vdev.entity.graph_obj.mdev->graph_mutex);
 }
@@ -187,7 +187,7 @@ static inline void fimc_md_graph_unlock(struct exynos_video_entity *ve)
 int fimc_md_set_camclk(struct v4l2_subdev *sd, bool on);
 
 #ifdef CONFIG_OF
-static inline bool fimc_md_is_isp_available(struct device_node *node)
+static bool fimc_md_is_isp_available(struct device_node *node)
 {
 	node = of_get_child_by_name(node, FIMC_IS_OF_NODE_NAME);
 	return node ? of_device_is_available(node) : false;
@@ -196,7 +196,7 @@ static inline bool fimc_md_is_isp_available(struct device_node *node)
 #define fimc_md_is_isp_available(node) (false)
 #endif /* CONFIG_OF */
 
-static inline struct v4l2_subdev *__fimc_md_get_subdev(
+static struct v4l2_subdev *__fimc_md_get_subdev(
 				struct exynos_media_pipeline *ep,
 				unsigned int index)
 {

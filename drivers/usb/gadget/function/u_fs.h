@@ -58,12 +58,12 @@ struct ffs_dev {
 
 extern struct mutex ffs_lock;
 
-static inline void ffs_dev_lock(void)
+static void ffs_dev_lock(void)
 {
 	mutex_lock(&ffs_lock);
 }
 
-static inline void ffs_dev_unlock(void)
+static void ffs_dev_unlock(void)
 {
 	mutex_unlock(&ffs_lock);
 }
@@ -300,7 +300,7 @@ struct f_fs_opts {
 	bool				no_configfs;
 };
 
-static inline struct f_fs_opts *to_f_fs_opts(struct usb_function_instance *fi)
+static struct f_fs_opts *to_f_fs_opts(struct usb_function_instance *fi)
 {
 	return container_of(fi, struct f_fs_opts, func_inst);
 }

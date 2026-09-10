@@ -39,7 +39,7 @@ void pcie_clear_root_pme_status(struct pci_dev *dev);
 #ifdef CONFIG_HOTPLUG_PCI_PCIE
 extern bool pciehp_msi_disabled;
 
-static inline bool pciehp_no_msi(void)
+static bool pciehp_no_msi(void)
 {
 	return pciehp_msi_disabled;
 }
@@ -51,12 +51,12 @@ static inline bool pciehp_no_msi(void) { return false; }
 #ifdef CONFIG_PCIE_PME
 extern bool pcie_pme_msi_disabled;
 
-static inline void pcie_pme_disable_msi(void)
+static void pcie_pme_disable_msi(void)
 {
 	pcie_pme_msi_disabled = true;
 }
 
-static inline bool pcie_pme_no_msi(void)
+static bool pcie_pme_no_msi(void)
 {
 	return pcie_pme_msi_disabled;
 }
@@ -71,7 +71,7 @@ static inline void pcie_pme_interrupt_enable(struct pci_dev *dev, bool en) {}
 #ifdef CONFIG_ACPI
 void pcie_port_acpi_setup(struct pci_dev *port, int *mask);
 
-static inline void pcie_port_platform_notify(struct pci_dev *port, int *mask)
+static void pcie_port_platform_notify(struct pci_dev *port, int *mask)
 {
 	pcie_port_acpi_setup(port, mask);
 }

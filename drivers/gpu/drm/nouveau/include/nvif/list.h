@@ -124,13 +124,13 @@ struct list_head {
 #define LIST_HEAD(name) \
 	struct list_head name = LIST_HEAD_INIT(name)
 
-static inline void
+static void
 INIT_LIST_HEAD(struct list_head *list)
 {
     list->next = list->prev = list;
 }
 
-static inline void
+static void
 __list_add(struct list_head *entry,
                 struct list_head *prev, struct list_head *next)
 {
@@ -155,7 +155,7 @@ __list_add(struct list_head *entry,
  * @param entry The new element to prepend to the list.
  * @param head The existing list.
  */
-static inline void
+static void
 list_add(struct list_head *entry, struct list_head *head)
 {
     __list_add(entry, head, head->next);
@@ -176,13 +176,13 @@ list_add(struct list_head *entry, struct list_head *head)
  * @param entry The new element to prepend to the list.
  * @param head The existing list.
  */
-static inline void
+static void
 list_add_tail(struct list_head *entry, struct list_head *head)
 {
     __list_add(entry, head->prev, head);
 }
 
-static inline void
+static void
 __list_del(struct list_head *prev, struct list_head *next)
 {
     next->prev = prev;
@@ -203,20 +203,20 @@ __list_del(struct list_head *prev, struct list_head *next)
  *
  * @param entry The element to remove.
  */
-static inline void
+static void
 list_del(struct list_head *entry)
 {
     __list_del(entry->prev, entry->next);
 }
 
-static inline void
+static void
 list_del_init(struct list_head *entry)
 {
     __list_del(entry->prev, entry->next);
     INIT_LIST_HEAD(entry);
 }
 
-static inline void list_move_tail(struct list_head *list,
+static void list_move_tail(struct list_head *list,
 				  struct list_head *head)
 {
 	__list_del(list->prev, list->next);
@@ -231,7 +231,7 @@ static inline void list_move_tail(struct list_head *list,
  *
  * @return True if the list contains one or more elements or False otherwise.
  */
-static inline bool
+static bool
 list_empty(struct list_head *head)
 {
     return head->next == head;

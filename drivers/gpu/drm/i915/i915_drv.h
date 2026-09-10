@@ -115,14 +115,14 @@ typedef struct {
 	fp; \
 })
 
-static inline bool is_fixed16_zero(uint_fixed_16_16_t val)
+static bool is_fixed16_zero(uint_fixed_16_16_t val)
 {
 	if (val.val == 0)
 		return true;
 	return false;
 }
 
-static inline uint_fixed_16_16_t u32_to_fixed16(uint32_t val)
+static uint_fixed_16_16_t u32_to_fixed16(uint32_t val)
 {
 	uint_fixed_16_16_t fp;
 
@@ -132,17 +132,17 @@ static inline uint_fixed_16_16_t u32_to_fixed16(uint32_t val)
 	return fp;
 }
 
-static inline uint32_t fixed16_to_u32_round_up(uint_fixed_16_16_t fp)
+static uint32_t fixed16_to_u32_round_up(uint_fixed_16_16_t fp)
 {
 	return DIV_ROUND_UP(fp.val, 1 << 16);
 }
 
-static inline uint32_t fixed16_to_u32(uint_fixed_16_16_t fp)
+static uint32_t fixed16_to_u32(uint_fixed_16_16_t fp)
 {
 	return fp.val >> 16;
 }
 
-static inline uint_fixed_16_16_t min_fixed16(uint_fixed_16_16_t min1,
+static uint_fixed_16_16_t min_fixed16(uint_fixed_16_16_t min1,
 						 uint_fixed_16_16_t min2)
 {
 	uint_fixed_16_16_t min;
@@ -151,7 +151,7 @@ static inline uint_fixed_16_16_t min_fixed16(uint_fixed_16_16_t min1,
 	return min;
 }
 
-static inline uint_fixed_16_16_t max_fixed16(uint_fixed_16_16_t max1,
+static uint_fixed_16_16_t max_fixed16(uint_fixed_16_16_t max1,
 						 uint_fixed_16_16_t max2)
 {
 	uint_fixed_16_16_t max;
@@ -160,7 +160,7 @@ static inline uint_fixed_16_16_t max_fixed16(uint_fixed_16_16_t max1,
 	return max;
 }
 
-static inline uint_fixed_16_16_t clamp_u64_to_fixed16(uint64_t val)
+static uint_fixed_16_16_t clamp_u64_to_fixed16(uint64_t val)
 {
 	uint_fixed_16_16_t fp;
 	WARN_ON(val >> 32);
@@ -168,13 +168,13 @@ static inline uint_fixed_16_16_t clamp_u64_to_fixed16(uint64_t val)
 	return fp;
 }
 
-static inline uint32_t div_round_up_fixed16(uint_fixed_16_16_t val,
+static uint32_t div_round_up_fixed16(uint_fixed_16_16_t val,
 					    uint_fixed_16_16_t d)
 {
 	return DIV_ROUND_UP(val.val, d.val);
 }
 
-static inline uint32_t mul_round_up_u32_fixed16(uint32_t val,
+static uint32_t mul_round_up_u32_fixed16(uint32_t val,
 						uint_fixed_16_16_t mul)
 {
 	uint64_t intermediate_val;
@@ -185,7 +185,7 @@ static inline uint32_t mul_round_up_u32_fixed16(uint32_t val,
 	return clamp_t(uint32_t, intermediate_val, 0, ~0);
 }
 
-static inline uint_fixed_16_16_t mul_fixed16(uint_fixed_16_16_t val,
+static uint_fixed_16_16_t mul_fixed16(uint_fixed_16_16_t val,
 					     uint_fixed_16_16_t mul)
 {
 	uint64_t intermediate_val;
@@ -195,7 +195,7 @@ static inline uint_fixed_16_16_t mul_fixed16(uint_fixed_16_16_t val,
 	return clamp_u64_to_fixed16(intermediate_val);
 }
 
-static inline uint_fixed_16_16_t div_fixed16(uint32_t val, uint32_t d)
+static uint_fixed_16_16_t div_fixed16(uint32_t val, uint32_t d)
 {
 	uint64_t interm_val;
 
@@ -204,7 +204,7 @@ static inline uint_fixed_16_16_t div_fixed16(uint32_t val, uint32_t d)
 	return clamp_u64_to_fixed16(interm_val);
 }
 
-static inline uint32_t div_round_up_u32_fixed16(uint32_t val,
+static uint32_t div_round_up_u32_fixed16(uint32_t val,
 						uint_fixed_16_16_t d)
 {
 	uint64_t interm_val;
@@ -215,7 +215,7 @@ static inline uint32_t div_round_up_u32_fixed16(uint32_t val,
 	return clamp_t(uint32_t, interm_val, 0, ~0);
 }
 
-static inline uint_fixed_16_16_t mul_u32_fixed16(uint32_t val,
+static uint_fixed_16_16_t mul_u32_fixed16(uint32_t val,
 						     uint_fixed_16_16_t mul)
 {
 	uint64_t intermediate_val;
@@ -224,7 +224,7 @@ static inline uint_fixed_16_16_t mul_u32_fixed16(uint32_t val,
 	return clamp_u64_to_fixed16(intermediate_val);
 }
 
-static inline uint_fixed_16_16_t add_fixed16(uint_fixed_16_16_t add1,
+static uint_fixed_16_16_t add_fixed16(uint_fixed_16_16_t add1,
 					     uint_fixed_16_16_t add2)
 {
 	uint64_t interm_sum;
@@ -233,7 +233,7 @@ static inline uint_fixed_16_16_t add_fixed16(uint_fixed_16_16_t add1,
 	return clamp_u64_to_fixed16(interm_sum);
 }
 
-static inline uint_fixed_16_16_t add_fixed16_u32(uint_fixed_16_16_t add1,
+static uint_fixed_16_16_t add_fixed16_u32(uint_fixed_16_16_t add1,
 						 uint32_t add2)
 {
 	uint64_t interm_sum;
@@ -243,17 +243,17 @@ static inline uint_fixed_16_16_t add_fixed16_u32(uint_fixed_16_16_t add1,
 	return clamp_u64_to_fixed16(interm_sum);
 }
 
-static inline const char *yesno(bool v)
+static const char *yesno(bool v)
 {
 	return v ? "yes" : "no";
 }
 
-static inline const char *onoff(bool v)
+static const char *onoff(bool v)
 {
 	return v ? "on" : "off";
 }
 
-static inline const char *enableddisabled(bool v)
+static const char *enableddisabled(bool v)
 {
 	return v ? "enabled" : "disabled";
 }
@@ -278,7 +278,7 @@ enum transcoder {
 	I915_MAX_TRANSCODERS
 };
 
-static inline const char *transcoder_name(enum transcoder transcoder)
+static const char *transcoder_name(enum transcoder transcoder)
 {
 	switch (transcoder) {
 	case TRANSCODER_A:
@@ -298,7 +298,7 @@ static inline const char *transcoder_name(enum transcoder transcoder)
 	}
 }
 
-static inline bool transcoder_is_dsi(enum transcoder transcoder)
+static bool transcoder_is_dsi(enum transcoder transcoder)
 {
 	return transcoder == TRANSCODER_DSI_A || transcoder == TRANSCODER_DSI_C;
 }
@@ -795,7 +795,7 @@ struct sseu_dev_info {
 	u8 has_eu_pg:1;
 };
 
-static inline unsigned int sseu_subslice_total(const struct sseu_dev_info *sseu)
+static unsigned int sseu_subslice_total(const struct sseu_dev_info *sseu)
 {
 	return hweight8(sseu->slice_mask) * hweight8(sseu->subslice_mask);
 }
@@ -1779,12 +1779,12 @@ struct skl_ddb_entry {
 	uint16_t start, end;	/* in number of blocks, 'end' is exclusive */
 };
 
-static inline uint16_t skl_ddb_entry_size(const struct skl_ddb_entry *entry)
+static uint16_t skl_ddb_entry_size(const struct skl_ddb_entry *entry)
 {
 	return entry->end - entry->start;
 }
 
-static inline bool skl_ddb_entry_equal(const struct skl_ddb_entry *e1,
+static bool skl_ddb_entry_equal(const struct skl_ddb_entry *e1,
 				       const struct skl_ddb_entry *e2)
 {
 	if (e1->start == e2->start && e1->end == e2->end)
@@ -2659,22 +2659,22 @@ struct drm_i915_private {
 	 */
 };
 
-static inline struct drm_i915_private *to_i915(const struct drm_device *dev)
+static struct drm_i915_private *to_i915(const struct drm_device *dev)
 {
 	return container_of(dev, struct drm_i915_private, drm);
 }
 
-static inline struct drm_i915_private *kdev_to_i915(struct device *kdev)
+static struct drm_i915_private *kdev_to_i915(struct device *kdev)
 {
 	return to_i915(dev_get_drvdata(kdev));
 }
 
-static inline struct drm_i915_private *guc_to_i915(struct intel_guc *guc)
+static struct drm_i915_private *guc_to_i915(struct intel_guc *guc)
 {
 	return container_of(guc, struct drm_i915_private, guc);
 }
 
-static inline struct drm_i915_private *huc_to_i915(struct intel_huc *huc)
+static struct drm_i915_private *huc_to_i915(struct intel_huc *huc)
 {
 	return container_of(huc, struct drm_i915_private, huc);
 }
@@ -2747,7 +2747,7 @@ static __always_inline struct sgt_iter {
 	return s;
 }
 
-static inline struct scatterlist *____sg_next(struct scatterlist *sg)
+static struct scatterlist *____sg_next(struct scatterlist *sg)
 {
 	++sg;
 	if (unlikely(sg_is_chain(sg)))
@@ -2764,7 +2764,7 @@ static inline struct scatterlist *____sg_next(struct scatterlist *sg)
  *   element in the array (@sg@+1). If that's a chain pointer, follow it;
  *   otherwise just return the pointer to the current element.
  **/
-static inline struct scatterlist *__sg_next(struct scatterlist *sg)
+static struct scatterlist *__sg_next(struct scatterlist *sg)
 {
 #ifdef CONFIG_DEBUG_SG
 	BUG_ON(sg->sg_magic != SG_MAGIC);
@@ -2797,7 +2797,7 @@ static inline struct scatterlist *__sg_next(struct scatterlist *sg)
 	     (((__iter).curr += PAGE_SIZE) < (__iter).max) ||		\
 	     ((__iter) = __sgt_iter(__sg_next((__iter).sgp), false), 0))
 
-static inline const struct intel_device_info *
+static const struct intel_device_info *
 intel_info(const struct drm_i915_private *dev_priv)
 {
 	return &dev_priv->info;
@@ -3135,7 +3135,7 @@ intel_info(const struct drm_i915_private *dev_priv)
 
 #include "i915_trace.h"
 
-static inline bool intel_vtd_active(void)
+static bool intel_vtd_active(void)
 {
 #ifdef CONFIG_INTEL_IOMMU
 	if (intel_iommu_gfx_mapped)
@@ -3144,12 +3144,12 @@ static inline bool intel_vtd_active(void)
 	return false;
 }
 
-static inline bool intel_scanout_needs_vtd_wa(struct drm_i915_private *dev_priv)
+static bool intel_scanout_needs_vtd_wa(struct drm_i915_private *dev_priv)
 {
 	return INTEL_GEN(dev_priv) >= 6 && intel_vtd_active();
 }
 
-static inline bool
+static bool
 intel_ggtt_update_needs_vtd_wa(struct drm_i915_private *dev_priv)
 {
 	return IS_BROXTON(dev_priv) && intel_vtd_active();
@@ -3212,7 +3212,7 @@ bool intel_hpd_disable(struct drm_i915_private *dev_priv, enum hpd_pin pin);
 void intel_hpd_enable(struct drm_i915_private *dev_priv, enum hpd_pin pin);
 
 /* i915_irq.c */
-static inline void i915_queue_hangcheck(struct drm_i915_private *dev_priv)
+static void i915_queue_hangcheck(struct drm_i915_private *dev_priv)
 {
 	unsigned long delay;
 
@@ -3239,12 +3239,12 @@ extern void intel_irq_fini(struct drm_i915_private *dev_priv);
 int intel_irq_install(struct drm_i915_private *dev_priv);
 void intel_irq_uninstall(struct drm_i915_private *dev_priv);
 
-static inline bool intel_gvt_active(struct drm_i915_private *dev_priv)
+static bool intel_gvt_active(struct drm_i915_private *dev_priv)
 {
 	return dev_priv->gvt;
 }
 
-static inline bool intel_vgpu_active(struct drm_i915_private *dev_priv)
+static bool intel_vgpu_active(struct drm_i915_private *dev_priv)
 {
 	return dev_priv->vgpu.active;
 }
@@ -3265,12 +3265,12 @@ void i915_hotplug_interrupt_update(struct drm_i915_private *dev_priv,
 void ilk_update_display_irq(struct drm_i915_private *dev_priv,
 			    uint32_t interrupt_mask,
 			    uint32_t enabled_irq_mask);
-static inline void
+static void
 ilk_enable_display_irq(struct drm_i915_private *dev_priv, uint32_t bits)
 {
 	ilk_update_display_irq(dev_priv, bits, bits);
 }
-static inline void
+static void
 ilk_disable_display_irq(struct drm_i915_private *dev_priv, uint32_t bits)
 {
 	ilk_update_display_irq(dev_priv, bits, 0);
@@ -3279,12 +3279,12 @@ void bdw_update_pipe_irq(struct drm_i915_private *dev_priv,
 			 enum pipe pipe,
 			 uint32_t interrupt_mask,
 			 uint32_t enabled_irq_mask);
-static inline void bdw_enable_pipe_irq(struct drm_i915_private *dev_priv,
+static void bdw_enable_pipe_irq(struct drm_i915_private *dev_priv,
 				       enum pipe pipe, uint32_t bits)
 {
 	bdw_update_pipe_irq(dev_priv, pipe, bits, bits);
 }
-static inline void bdw_disable_pipe_irq(struct drm_i915_private *dev_priv,
+static void bdw_disable_pipe_irq(struct drm_i915_private *dev_priv,
 					enum pipe pipe, uint32_t bits)
 {
 	bdw_update_pipe_irq(dev_priv, pipe, bits, 0);
@@ -3292,12 +3292,12 @@ static inline void bdw_disable_pipe_irq(struct drm_i915_private *dev_priv,
 void ibx_display_interrupt_update(struct drm_i915_private *dev_priv,
 				  uint32_t interrupt_mask,
 				  uint32_t enabled_irq_mask);
-static inline void
+static void
 ibx_enable_display_interrupt(struct drm_i915_private *dev_priv, uint32_t bits)
 {
 	ibx_display_interrupt_update(dev_priv, bits, bits);
 }
-static inline void
+static void
 ibx_disable_display_interrupt(struct drm_i915_private *dev_priv, uint32_t bits)
 {
 	ibx_display_interrupt_update(dev_priv, bits, 0);
@@ -3363,7 +3363,7 @@ i915_gem_object_create_from_data(struct drm_i915_private *dev_priv,
 void i915_gem_close_object(struct drm_gem_object *gem, struct drm_file *file);
 void i915_gem_free_object(struct drm_gem_object *obj);
 
-static inline void i915_gem_drain_freed_objects(struct drm_i915_private *i915)
+static void i915_gem_drain_freed_objects(struct drm_i915_private *i915)
 {
 	/* A single pass should suffice to release all the freed objects (along
 	 * most call paths) , but be a little more paranoid in that freeing
@@ -3376,7 +3376,7 @@ static inline void i915_gem_drain_freed_objects(struct drm_i915_private *i915)
 	} while (flush_work(&i915->mm.free_work));
 }
 
-static inline void i915_gem_drain_workqueue(struct drm_i915_private *i915)
+static void i915_gem_drain_workqueue(struct drm_i915_private *i915)
 {
 	/*
 	 * Similar to objects above (see i915_gem_drain_freed-objects), in
@@ -3416,7 +3416,7 @@ void i915_gem_release_mmap(struct drm_i915_gem_object *obj);
 
 void i915_gem_runtime_suspend(struct drm_i915_private *dev_priv);
 
-static inline int __sg_page_count(const struct scatterlist *sg)
+static int __sg_page_count(const struct scatterlist *sg)
 {
 	return sg->length >> PAGE_SHIFT;
 }
@@ -3441,7 +3441,7 @@ void __i915_gem_object_set_pages(struct drm_i915_gem_object *obj,
 				 struct sg_table *pages);
 int __i915_gem_object_get_pages(struct drm_i915_gem_object *obj);
 
-static inline int __must_check
+static int __must_check
 i915_gem_object_pin_pages(struct drm_i915_gem_object *obj)
 {
 	might_lock(&obj->mm.lock);
@@ -3452,7 +3452,7 @@ i915_gem_object_pin_pages(struct drm_i915_gem_object *obj)
 	return __i915_gem_object_get_pages(obj);
 }
 
-static inline void
+static void
 __i915_gem_object_pin_pages(struct drm_i915_gem_object *obj)
 {
 	GEM_BUG_ON(!obj->mm.pages);
@@ -3460,13 +3460,13 @@ __i915_gem_object_pin_pages(struct drm_i915_gem_object *obj)
 	atomic_inc(&obj->mm.pages_pin_count);
 }
 
-static inline bool
+static bool
 i915_gem_object_has_pinned_pages(struct drm_i915_gem_object *obj)
 {
 	return atomic_read(&obj->mm.pages_pin_count);
 }
 
-static inline void
+static void
 __i915_gem_object_unpin_pages(struct drm_i915_gem_object *obj)
 {
 	GEM_BUG_ON(!i915_gem_object_has_pinned_pages(obj));
@@ -3475,7 +3475,7 @@ __i915_gem_object_unpin_pages(struct drm_i915_gem_object *obj)
 	atomic_dec(&obj->mm.pages_pin_count);
 }
 
-static inline void
+static void
 i915_gem_object_unpin_pages(struct drm_i915_gem_object *obj)
 {
 	__i915_gem_object_unpin_pages(obj);
@@ -3526,7 +3526,7 @@ void *__must_check i915_gem_object_pin_map(struct drm_i915_gem_object *obj,
  * upon the mapping. Once the pin count reaches zero, that mapping may be
  * removed.
  */
-static inline void i915_gem_object_unpin_map(struct drm_i915_gem_object *obj)
+static void i915_gem_object_unpin_map(struct drm_i915_gem_object *obj)
 {
 	i915_gem_object_unpin_pages(obj);
 }
@@ -3539,7 +3539,7 @@ int i915_gem_obj_prepare_shmem_write(struct drm_i915_gem_object *obj,
 #define CLFLUSH_AFTER	BIT(1)
 #define CLFLUSH_FLAGS	(CLFLUSH_BEFORE | CLFLUSH_AFTER)
 
-static inline void
+static void
 i915_gem_obj_finish_shmem_access(struct drm_i915_gem_object *obj)
 {
 	i915_gem_object_unpin_pages(obj);
@@ -3567,32 +3567,32 @@ i915_gem_find_active_request(struct intel_engine_cs *engine);
 
 void i915_gem_retire_requests(struct drm_i915_private *dev_priv);
 
-static inline bool i915_reset_backoff(struct i915_gpu_error *error)
+static bool i915_reset_backoff(struct i915_gpu_error *error)
 {
 	return unlikely(test_bit(I915_RESET_BACKOFF, &error->flags));
 }
 
-static inline bool i915_reset_handoff(struct i915_gpu_error *error)
+static bool i915_reset_handoff(struct i915_gpu_error *error)
 {
 	return unlikely(test_bit(I915_RESET_HANDOFF, &error->flags));
 }
 
-static inline bool i915_terminally_wedged(struct i915_gpu_error *error)
+static bool i915_terminally_wedged(struct i915_gpu_error *error)
 {
 	return unlikely(test_bit(I915_WEDGED, &error->flags));
 }
 
-static inline bool i915_reset_backoff_or_wedged(struct i915_gpu_error *error)
+static bool i915_reset_backoff_or_wedged(struct i915_gpu_error *error)
 {
 	return i915_reset_backoff(error) | i915_terminally_wedged(error);
 }
 
-static inline u32 i915_reset_count(struct i915_gpu_error *error)
+static u32 i915_reset_count(struct i915_gpu_error *error)
 {
 	return READ_ONCE(error->reset_count);
 }
 
-static inline u32 i915_reset_engine_count(struct i915_gpu_error *error,
+static u32 i915_reset_engine_count(struct i915_gpu_error *error,
 					  struct intel_engine_cs *engine)
 {
 	return READ_ONCE(error->reset_engine_count[engine->id]);
@@ -3653,7 +3653,7 @@ struct drm_gem_object *i915_gem_prime_import(struct drm_device *dev,
 struct dma_buf *i915_gem_prime_export(struct drm_device *dev,
 				struct drm_gem_object *gem_obj, int flags);
 
-static inline struct i915_hw_ppgtt *
+static struct i915_hw_ppgtt *
 i915_vm_to_ppgtt(struct i915_address_space *vm)
 {
 	return container_of(vm, struct i915_hw_ppgtt, base);
@@ -3672,13 +3672,13 @@ void i915_gem_object_do_bit_17_swizzle(struct drm_i915_gem_object *obj,
 void i915_gem_object_save_bit_17_swizzle(struct drm_i915_gem_object *obj,
 					 struct sg_table *pages);
 
-static inline struct i915_gem_context *
+static struct i915_gem_context *
 __i915_gem_context_lookup_rcu(struct drm_i915_file_private *file_priv, u32 id)
 {
 	return idr_find(&file_priv->context_idr, id);
 }
 
-static inline struct i915_gem_context *
+static struct i915_gem_context *
 i915_gem_context_lookup(struct drm_i915_file_private *file_priv, u32 id)
 {
 	struct i915_gem_context *ctx;
@@ -3692,7 +3692,7 @@ i915_gem_context_lookup(struct drm_i915_file_private *file_priv, u32 id)
 	return ctx;
 }
 
-static inline struct intel_timeline *
+static struct intel_timeline *
 i915_gem_context_lookup_timeline(struct i915_gem_context *ctx,
 				 struct intel_engine_cs *engine)
 {
@@ -3724,7 +3724,7 @@ int __must_check i915_gem_evict_for_node(struct i915_address_space *vm,
 int i915_gem_evict_vm(struct i915_address_space *vm);
 
 /* belongs in i915_gem_gtt.h */
-static inline void i915_gem_chipset_flush(struct drm_i915_private *dev_priv)
+static void i915_gem_chipset_flush(struct drm_i915_private *dev_priv)
 {
 	wmb();
 	if (INTEL_GEN(dev_priv) < 6)
@@ -3772,7 +3772,7 @@ void i915_gem_shrinker_cleanup(struct drm_i915_private *dev_priv);
 
 
 /* i915_gem_tiling.c */
-static inline bool i915_gem_object_needs_bit17_swizzle(struct drm_i915_gem_object *obj)
+static bool i915_gem_object_needs_bit17_swizzle(struct drm_i915_gem_object *obj)
 {
 	struct drm_i915_private *dev_priv = to_i915(obj->base.dev);
 
@@ -3792,7 +3792,7 @@ int i915_debugfs_connector_add(struct drm_connector *connector);
 void intel_display_crc_init(struct drm_i915_private *dev_priv);
 #else
 static inline int i915_debugfs_register(struct drm_i915_private *dev_priv) {return 0;}
-static inline int i915_debugfs_connector_add(struct drm_connector *connector)
+static int i915_debugfs_connector_add(struct drm_connector *connector)
 { return 0; }
 static inline void intel_display_crc_init(struct drm_i915_private *dev_priv) {}
 #endif
@@ -3807,7 +3807,7 @@ int i915_error_state_to_str(struct drm_i915_error_state_buf *estr,
 int i915_error_state_buf_init(struct drm_i915_error_state_buf *eb,
 			      struct drm_i915_private *i915,
 			      size_t count, loff_t pos);
-static inline void i915_error_state_buf_release(
+static void i915_error_state_buf_release(
 	struct drm_i915_error_state_buf *eb)
 {
 	kfree(eb->buf);
@@ -3818,7 +3818,7 @@ void i915_capture_error_state(struct drm_i915_private *dev_priv,
 			      u32 engine_mask,
 			      const char *error_msg);
 
-static inline struct i915_gpu_state *
+static struct i915_gpu_state *
 i915_gpu_state_get(struct i915_gpu_state *gpu)
 {
 	kref_get(&gpu->ref);
@@ -3826,7 +3826,7 @@ i915_gpu_state_get(struct i915_gpu_state *gpu)
 }
 
 void __i915_gpu_state_free(struct kref *kref);
-static inline void i915_gpu_state_put(struct i915_gpu_state *gpu)
+static void i915_gpu_state_put(struct i915_gpu_state *gpu)
 {
 	if (gpu)
 		kref_put(&gpu->ref, __i915_gpu_state_free);
@@ -3837,19 +3837,19 @@ void i915_reset_error_state(struct drm_i915_private *i915);
 
 #else
 
-static inline void i915_capture_error_state(struct drm_i915_private *dev_priv,
+static void i915_capture_error_state(struct drm_i915_private *dev_priv,
 					    u32 engine_mask,
 					    const char *error_msg)
 {
 }
 
-static inline struct i915_gpu_state *
+static struct i915_gpu_state *
 i915_first_error_state(struct drm_i915_private *i915)
 {
 	return NULL;
 }
 
-static inline void i915_reset_error_state(struct drm_i915_private *i915)
+static void i915_reset_error_state(struct drm_i915_private *i915)
 {
 }
 
@@ -3902,7 +3902,7 @@ extern struct i2c_adapter *
 intel_gmbus_get_adapter(struct drm_i915_private *dev_priv, unsigned int pin);
 extern void intel_gmbus_set_speed(struct i2c_adapter *adapter, int speed);
 extern void intel_gmbus_force_bit(struct i2c_adapter *adapter, bool force_bit);
-static inline bool intel_gmbus_is_forced_bit(struct i2c_adapter *adapter)
+static bool intel_gmbus_is_forced_bit(struct i2c_adapter *adapter)
 {
 	return container_of(adapter, struct intel_gmbus, adapter)->force_bit;
 }
@@ -3938,20 +3938,20 @@ extern int intel_opregion_get_panel_type(struct drm_i915_private *dev_priv);
 static inline int intel_opregion_setup(struct drm_i915_private *dev) { return 0; }
 static inline void intel_opregion_register(struct drm_i915_private *dev_priv) { }
 static inline void intel_opregion_unregister(struct drm_i915_private *dev_priv) { }
-static inline void intel_opregion_asle_intr(struct drm_i915_private *dev_priv)
+static void intel_opregion_asle_intr(struct drm_i915_private *dev_priv)
 {
 }
-static inline int
+static int
 intel_opregion_notify_encoder(struct intel_encoder *intel_encoder, bool enable)
 {
 	return 0;
 }
-static inline int
+static int
 intel_opregion_notify_adapter(struct drm_i915_private *dev, pci_power_t state)
 {
 	return 0;
 }
-static inline int intel_opregion_get_panel_type(struct drm_i915_private *dev)
+static int intel_opregion_get_panel_type(struct drm_i915_private *dev)
 {
 	return -ENODEV;
 }
@@ -3967,7 +3967,7 @@ static inline void intel_unregister_dsm_handler(void) { return; }
 #endif /* CONFIG_ACPI */
 
 /* intel_device_info.c */
-static inline struct intel_device_info *
+static struct intel_device_info *
 mkwrite_device_info(struct drm_i915_private *dev_priv)
 {
 	return (struct intel_device_info *)&dev_priv->info;
@@ -4122,14 +4122,14 @@ u64 intel_rc6_residency_us(struct drm_i915_private *dev_priv,
 #define POSTING_READ16(reg)	(void)I915_READ16_NOTRACE(reg)
 
 #define __raw_read(x, s) \
-static inline uint##x##_t __raw_i915_read##x(const struct drm_i915_private *dev_priv, \
+static uint##x##_t __raw_i915_read##x(const struct drm_i915_private *dev_priv, \
 					     i915_reg_t reg) \
 { \
 	return read##s(dev_priv->regs + i915_mmio_reg_offset(reg)); \
 }
 
 #define __raw_write(x, s) \
-static inline void __raw_i915_write##x(const struct drm_i915_private *dev_priv, \
+static void __raw_i915_write##x(const struct drm_i915_private *dev_priv, \
 				       i915_reg_t reg, uint##x##_t val) \
 { \
 	write##s(val, dev_priv->regs + i915_mmio_reg_offset(reg)); \
@@ -4183,7 +4183,7 @@ __raw_write(64, q)
 #define INTEL_BROADCAST_RGB_FULL 1
 #define INTEL_BROADCAST_RGB_LIMITED 2
 
-static inline i915_reg_t i915_vgacntrl_reg(struct drm_i915_private *dev_priv)
+static i915_reg_t i915_vgacntrl_reg(struct drm_i915_private *dev_priv)
 {
 	if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
 		return VLV_VGACNTRL;
@@ -4193,14 +4193,14 @@ static inline i915_reg_t i915_vgacntrl_reg(struct drm_i915_private *dev_priv)
 		return VGACNTRL;
 }
 
-static inline unsigned long msecs_to_jiffies_timeout(const unsigned int m)
+static unsigned long msecs_to_jiffies_timeout(const unsigned int m)
 {
 	unsigned long j = msecs_to_jiffies(m);
 
 	return min_t(unsigned long, MAX_JIFFY_OFFSET, j + 1);
 }
 
-static inline unsigned long nsecs_to_jiffies_timeout(const u64 n)
+static unsigned long nsecs_to_jiffies_timeout(const u64 n)
 {
 	/* nsecs_to_jiffies64() does not guard against overflow */
 	if (NSEC_PER_SEC % HZ &&
@@ -4210,7 +4210,7 @@ static inline unsigned long nsecs_to_jiffies_timeout(const u64 n)
         return min_t(u64, MAX_JIFFY_OFFSET, nsecs_to_jiffies64(n) + 1);
 }
 
-static inline unsigned long
+static unsigned long
 timespec_to_jiffies_timeout(const struct timespec *value)
 {
 	unsigned long j = timespec_to_jiffies(value);
@@ -4224,7 +4224,7 @@ timespec_to_jiffies_timeout(const struct timespec *value)
  * when event A happened, then just before event B you call this function and
  * pass the timestamp as the first argument, and X as the second argument.
  */
-static inline void
+static void
 wait_remaining_ms_from_jiffies(unsigned long timestamp_jiffies, int to_wait_ms)
 {
 	unsigned long target_jiffies, tmp_jiffies, remaining_jiffies;
@@ -4245,7 +4245,7 @@ wait_remaining_ms_from_jiffies(unsigned long timestamp_jiffies, int to_wait_ms)
 	}
 }
 
-static inline bool
+static bool
 __i915_request_irq_complete(const struct drm_i915_gem_request *req)
 {
 	struct intel_engine_cs *engine = req->engine;
@@ -4353,7 +4353,7 @@ int remap_io_mapping(struct vm_area_struct *vma,
 		     unsigned long addr, unsigned long pfn, unsigned long size,
 		     struct io_mapping *iomap);
 
-static inline bool
+static bool
 intel_engine_can_store_dword(struct intel_engine_cs *engine)
 {
 	return __intel_engine_can_store_dword(INTEL_GEN(engine->i915),

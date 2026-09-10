@@ -113,7 +113,7 @@ extern const struct xen_pcibk_backend xen_pcibk_vpci_backend;
 extern const struct xen_pcibk_backend xen_pcibk_passthrough_backend;
 extern const struct xen_pcibk_backend *xen_pcibk_backend;
 
-static inline int xen_pcibk_add_pci_dev(struct xen_pcibk_device *pdev,
+static int xen_pcibk_add_pci_dev(struct xen_pcibk_device *pdev,
 					struct pci_dev *dev,
 					int devid,
 					publish_pci_dev_cb publish_cb)
@@ -123,14 +123,14 @@ static inline int xen_pcibk_add_pci_dev(struct xen_pcibk_device *pdev,
 	return -1;
 }
 
-static inline void xen_pcibk_release_pci_dev(struct xen_pcibk_device *pdev,
+static void xen_pcibk_release_pci_dev(struct xen_pcibk_device *pdev,
 					     struct pci_dev *dev, bool lock)
 {
 	if (xen_pcibk_backend && xen_pcibk_backend->release)
 		return xen_pcibk_backend->release(pdev, dev, lock);
 }
 
-static inline struct pci_dev *
+static struct pci_dev *
 xen_pcibk_get_pci_dev(struct xen_pcibk_device *pdev, unsigned int domain,
 		      unsigned int bus, unsigned int devfn)
 {
@@ -145,7 +145,7 @@ xen_pcibk_get_pci_dev(struct xen_pcibk_device *pdev, unsigned int domain,
 * device, coopearte with xen_pcibk to finish aer recovery job if device driver
 * has the capability
 */
-static inline int xen_pcibk_get_pcifront_dev(struct pci_dev *pcidev,
+static int xen_pcibk_get_pcifront_dev(struct pci_dev *pcidev,
 					     struct xen_pcibk_device *pdev,
 					     unsigned int *domain,
 					     unsigned int *bus,
@@ -157,14 +157,14 @@ static inline int xen_pcibk_get_pcifront_dev(struct pci_dev *pcidev,
 	return -1;
 }
 
-static inline int xen_pcibk_init_devices(struct xen_pcibk_device *pdev)
+static int xen_pcibk_init_devices(struct xen_pcibk_device *pdev)
 {
 	if (xen_pcibk_backend && xen_pcibk_backend->init)
 		return xen_pcibk_backend->init(pdev);
 	return -1;
 }
 
-static inline int xen_pcibk_publish_pci_roots(struct xen_pcibk_device *pdev,
+static int xen_pcibk_publish_pci_roots(struct xen_pcibk_device *pdev,
 					      publish_pci_root_cb cb)
 {
 	if (xen_pcibk_backend && xen_pcibk_backend->publish)
@@ -172,7 +172,7 @@ static inline int xen_pcibk_publish_pci_roots(struct xen_pcibk_device *pdev,
 	return -1;
 }
 
-static inline void xen_pcibk_release_devices(struct xen_pcibk_device *pdev)
+static void xen_pcibk_release_devices(struct xen_pcibk_device *pdev)
 {
 	if (xen_pcibk_backend && xen_pcibk_backend->free)
 		return xen_pcibk_backend->free(pdev);

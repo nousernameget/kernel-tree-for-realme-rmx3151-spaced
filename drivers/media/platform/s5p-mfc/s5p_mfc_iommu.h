@@ -13,14 +13,14 @@
 
 #if defined(CONFIG_EXYNOS_IOMMU)
 
-static inline bool exynos_is_iommu_available(struct device *dev)
+static bool exynos_is_iommu_available(struct device *dev)
 {
 	return dev->archdata.iommu != NULL;
 }
 
 #else
 
-static inline bool exynos_is_iommu_available(struct device *dev)
+static bool exynos_is_iommu_available(struct device *dev)
 {
 	return false;
 }

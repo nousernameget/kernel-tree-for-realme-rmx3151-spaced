@@ -84,13 +84,13 @@ void iio_simple_dummy_events_unregister(struct iio_dev *indio_dev);
 
 #else /* Stubs for when events are disabled at compile time */
 
-static inline int
+static int
 iio_simple_dummy_events_register(struct iio_dev *indio_dev)
 {
 	return 0;
 }
 
-static inline void
+static void
 iio_simple_dummy_events_unregister(struct iio_dev *indio_dev)
 {}
 
@@ -116,7 +116,7 @@ enum iio_simple_dummy_scan_elements {
 int iio_simple_dummy_configure_buffer(struct iio_dev *indio_dev);
 void iio_simple_dummy_unconfigure_buffer(struct iio_dev *indio_dev);
 #else
-static inline int iio_simple_dummy_configure_buffer(struct iio_dev *indio_dev)
+static int iio_simple_dummy_configure_buffer(struct iio_dev *indio_dev)
 {
 	return 0;
 }

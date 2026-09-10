@@ -89,7 +89,7 @@ int nvkm_ior_new_(const struct nvkm_ior_func *func, struct nvkm_disp *,
 void nvkm_ior_del(struct nvkm_ior **);
 struct nvkm_ior *nvkm_ior_find(struct nvkm_disp *, enum nvkm_ior_type, int id);
 
-static inline u32
+static u32
 nv50_ior_base(struct nvkm_ior *ior)
 {
 	return ior->id * 0x800;
@@ -100,7 +100,7 @@ int nv50_dac_sense(struct nvkm_ior *, u32);
 
 void nv50_pior_depth(struct nvkm_ior *, struct nvkm_ior_state *, u32 ctrl);
 
-static inline u32
+static u32
 nv50_sor_link(struct nvkm_ior *ior)
 {
 	return nv50_ior_base(ior) + ((ior->asy.link == 2) * 0x80);

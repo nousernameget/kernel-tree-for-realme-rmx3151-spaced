@@ -268,12 +268,12 @@ struct musb_hw_ep {
 	struct musb_ep		ep_out;			/* RX */
 };
 
-static inline struct musb_request *next_in_request(struct musb_hw_ep *hw_ep)
+static struct musb_request *next_in_request(struct musb_hw_ep *hw_ep)
 {
 	return next_request(&hw_ep->ep_in);
 }
 
-static inline struct musb_request *next_out_request(struct musb_hw_ep *hw_ep)
+static struct musb_request *next_out_request(struct musb_hw_ep *hw_ep)
 {
 	return next_request(&hw_ep->ep_out);
 }
@@ -462,12 +462,12 @@ struct musb {
 /* This must be included after struct musb is defined */
 #include "musb_regs.h"
 
-static inline struct musb *gadget_to_musb(struct usb_gadget *g)
+static struct musb *gadget_to_musb(struct usb_gadget *g)
 {
 	return container_of(g, struct musb, g);
 }
 
-static inline char *musb_ep_xfertype_string(u8 type)
+static char *musb_ep_xfertype_string(u8 type)
 {
 	char *s;
 
@@ -492,7 +492,7 @@ static inline char *musb_ep_xfertype_string(u8 type)
 }
 
 #ifdef CONFIG_BLACKFIN
-static inline int musb_read_fifosize(struct musb *musb,
+static int musb_read_fifosize(struct musb *musb,
 		struct musb_hw_ep *hw_ep, u8 epnum)
 {
 	musb->nr_endpoints++;
@@ -510,7 +510,7 @@ static inline int musb_read_fifosize(struct musb *musb,
 	return 0;
 }
 
-static inline void musb_configure_ep0(struct musb *musb)
+static void musb_configure_ep0(struct musb *musb)
 {
 	musb->endpoints[0].max_packet_sz_tx = MUSB_EP0_FIFOSIZE;
 	musb->endpoints[0].max_packet_sz_rx = MUSB_EP0_FIFOSIZE;
@@ -519,7 +519,7 @@ static inline void musb_configure_ep0(struct musb *musb)
 
 #else
 
-static inline int musb_read_fifosize(struct musb *musb,
+static int musb_read_fifosize(struct musb *musb,
 		struct musb_hw_ep *hw_ep, u8 epnum)
 {
 	void __iomem *mbase = musb->mregs;
@@ -549,7 +549,7 @@ static inline int musb_read_fifosize(struct musb *musb,
 	return 0;
 }
 
-static inline void musb_configure_ep0(struct musb *musb)
+static void musb_configure_ep0(struct musb *musb)
 {
 	musb->endpoints[0].max_packet_sz_tx = MUSB_EP0_FIFOSIZE;
 	musb->endpoints[0].max_packet_sz_rx = MUSB_EP0_FIFOSIZE;
@@ -578,25 +578,25 @@ int musb_queue_resume_work(struct musb *musb,
 			   int (*callback)(struct musb *musb, void *data),
 			   void *data);
 
-static inline void musb_platform_set_vbus(struct musb *musb, int is_on)
+static void musb_platform_set_vbus(struct musb *musb, int is_on)
 {
 	if (musb->ops->set_vbus)
 		musb->ops->set_vbus(musb, is_on);
 }
 
-static inline void musb_platform_enable(struct musb *musb)
+static void musb_platform_enable(struct musb *musb)
 {
 	if (musb->ops->enable)
 		musb->ops->enable(musb);
 }
 
-static inline void musb_platform_disable(struct musb *musb)
+static void musb_platform_disable(struct musb *musb)
 {
 	if (musb->ops->disable)
 		musb->ops->disable(musb);
 }
 
-static inline int musb_platform_set_mode(struct musb *musb, u8 mode)
+static int musb_platform_set_mode(struct musb *musb, u8 mode)
 {
 	if (!musb->ops->set_mode)
 		return 0;
@@ -604,14 +604,14 @@ static inline int musb_platform_set_mode(struct musb *musb, u8 mode)
 	return musb->ops->set_mode(musb, mode);
 }
 
-static inline void musb_platform_try_idle(struct musb *musb,
+static void musb_platform_try_idle(struct musb *musb,
 		unsigned long timeout)
 {
 	if (musb->ops->try_idle)
 		musb->ops->try_idle(musb, timeout);
 }
 
-static inline int  musb_platform_recover(struct musb *musb)
+static int  musb_platform_recover(struct musb *musb)
 {
 	if (!musb->ops->recover)
 		return 0;
@@ -619,7 +619,7 @@ static inline int  musb_platform_recover(struct musb *musb)
 	return musb->ops->recover(musb);
 }
 
-static inline int musb_platform_get_vbus_status(struct musb *musb)
+static int musb_platform_get_vbus_status(struct musb *musb)
 {
 	if (!musb->ops->vbus_status)
 		return -EINVAL;
@@ -627,7 +627,7 @@ static inline int musb_platform_get_vbus_status(struct musb *musb)
 	return musb->ops->vbus_status(musb);
 }
 
-static inline int musb_platform_init(struct musb *musb)
+static int musb_platform_init(struct musb *musb)
 {
 	if (!musb->ops->init)
 		return -EINVAL;
@@ -635,7 +635,7 @@ static inline int musb_platform_init(struct musb *musb)
 	return musb->ops->init(musb);
 }
 
-static inline int musb_platform_exit(struct musb *musb)
+static int musb_platform_exit(struct musb *musb)
 {
 	if (!musb->ops->exit)
 		return -EINVAL;
@@ -643,19 +643,19 @@ static inline int musb_platform_exit(struct musb *musb)
 	return musb->ops->exit(musb);
 }
 
-static inline void musb_platform_pre_root_reset_end(struct musb *musb)
+static void musb_platform_pre_root_reset_end(struct musb *musb)
 {
 	if (musb->ops->pre_root_reset_end)
 		musb->ops->pre_root_reset_end(musb);
 }
 
-static inline void musb_platform_post_root_reset_end(struct musb *musb)
+static void musb_platform_post_root_reset_end(struct musb *musb)
 {
 	if (musb->ops->post_root_reset_end)
 		musb->ops->post_root_reset_end(musb);
 }
 
-static inline void musb_platform_clear_ep_rxintr(struct musb *musb, int epnum)
+static void musb_platform_clear_ep_rxintr(struct musb *musb, int epnum)
 {
 	if (musb->ops->clear_ep_rxintr)
 		musb->ops->clear_ep_rxintr(musb, epnum);

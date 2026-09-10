@@ -35,7 +35,7 @@ struct l64781_config
 extern struct dvb_frontend* l64781_attach(const struct l64781_config* config,
 					  struct i2c_adapter* i2c);
 #else
-static inline struct dvb_frontend* l64781_attach(const struct l64781_config* config,
+static struct dvb_frontend* l64781_attach(const struct l64781_config* config,
 					  struct i2c_adapter* i2c)
 {
 	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);

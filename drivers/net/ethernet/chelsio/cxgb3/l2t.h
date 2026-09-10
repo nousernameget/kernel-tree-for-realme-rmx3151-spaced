@@ -91,7 +91,7 @@ struct l2t_skb_cb {
 
 #define L2T_SKB_CB(skb) ((struct l2t_skb_cb *)(skb)->cb)
 
-static inline void set_arp_failure_handler(struct sk_buff *skb,
+static void set_arp_failure_handler(struct sk_buff *skb,
 					   arp_failure_handler_func hnd)
 {
 	L2T_SKB_CB(skb)->arp_failure_handler = hnd;
@@ -118,7 +118,7 @@ struct l2t_data *t3_init_l2t(unsigned int l2t_capacity);
 
 int cxgb3_ofld_send(struct t3cdev *dev, struct sk_buff *skb);
 
-static inline int l2t_send(struct t3cdev *dev, struct sk_buff *skb,
+static int l2t_send(struct t3cdev *dev, struct sk_buff *skb,
 			   struct l2t_entry *e)
 {
 	if (likely(e->state == L2T_STATE_VALID))
@@ -126,7 +126,7 @@ static inline int l2t_send(struct t3cdev *dev, struct sk_buff *skb,
 	return t3_l2t_send_slow(dev, skb, e);
 }
 
-static inline void l2t_release(struct t3cdev *t, struct l2t_entry *e)
+static void l2t_release(struct t3cdev *t, struct l2t_entry *e)
 {
 	struct l2t_data *d;
 
@@ -139,7 +139,7 @@ static inline void l2t_release(struct t3cdev *t, struct l2t_entry *e)
 	rcu_read_unlock();
 }
 
-static inline void l2t_hold(struct l2t_data *d, struct l2t_entry *e)
+static void l2t_hold(struct l2t_data *d, struct l2t_entry *e)
 {
 	if (d && atomic_add_return(1, &e->refcnt) == 1)	/* 0 -> 1 transition */
 		atomic_dec(&d->nfree);

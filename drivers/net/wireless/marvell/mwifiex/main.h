@@ -1244,7 +1244,7 @@ int mwifiex_stop_bg_scan(struct mwifiex_private *priv);
 /*
  * This function checks if the queuing is RA based or not.
  */
-static inline u8
+static u8
 mwifiex_queuing_ra_based(struct mwifiex_private *priv)
 {
 	/*
@@ -1262,7 +1262,7 @@ mwifiex_queuing_ra_based(struct mwifiex_private *priv)
 /*
  * This function copies rates.
  */
-static inline u32
+static u32
 mwifiex_copy_rates(u8 *dest, u32 pos, u8 *src, int len)
 {
 	int i;
@@ -1280,7 +1280,7 @@ mwifiex_copy_rates(u8 *dest, u32 pos, u8 *src, int len)
  * This function returns the correct private structure pointer based
  * upon the BSS type and BSS number.
  */
-static inline struct mwifiex_private *
+static struct mwifiex_private *
 mwifiex_get_priv_by_id(struct mwifiex_adapter *adapter,
 		       u8 bss_num, u8 bss_type)
 {
@@ -1300,7 +1300,7 @@ mwifiex_get_priv_by_id(struct mwifiex_adapter *adapter,
  * This function returns the first available private structure pointer
  * based upon the BSS role.
  */
-static inline struct mwifiex_private *
+static struct mwifiex_private *
 mwifiex_get_priv(struct mwifiex_adapter *adapter,
 		 enum mwifiex_bss_role bss_role)
 {
@@ -1321,7 +1321,7 @@ mwifiex_get_priv(struct mwifiex_adapter *adapter,
  * This function checks available bss_num when adding new interface or
  * changing interface type.
  */
-static inline u8
+static u8
 mwifiex_get_unused_bss_num(struct mwifiex_adapter *adapter, u8 bss_type)
 {
 	u8 i, j;
@@ -1345,7 +1345,7 @@ mwifiex_get_unused_bss_num(struct mwifiex_adapter *adapter, u8 bss_type)
 /*
  * This function returns the first available unused private structure pointer.
  */
-static inline struct mwifiex_private *
+static struct mwifiex_private *
 mwifiex_get_unused_priv_by_bss_type(struct mwifiex_adapter *adapter,
 				    u8 bss_type)
 {
@@ -1365,7 +1365,7 @@ mwifiex_get_unused_priv_by_bss_type(struct mwifiex_adapter *adapter,
 /*
  * This function returns the driver private structure of a network device.
  */
-static inline struct mwifiex_private *
+static struct mwifiex_private *
 mwifiex_netdev_get_priv(struct net_device *dev)
 {
 	return (struct mwifiex_private *) (*(unsigned long *) netdev_priv(dev));
@@ -1374,7 +1374,7 @@ mwifiex_netdev_get_priv(struct net_device *dev)
 /*
  * This function checks if a skb holds a management frame.
  */
-static inline bool mwifiex_is_skb_mgmt_frame(struct sk_buff *skb)
+static bool mwifiex_is_skb_mgmt_frame(struct sk_buff *skb)
 {
 	return (get_unaligned_le32(skb->data) == PKT_TYPE_MGMT);
 }
@@ -1382,7 +1382,7 @@ static inline bool mwifiex_is_skb_mgmt_frame(struct sk_buff *skb)
 /* This function retrieves channel closed for operation by Channel
  * Switch Announcement.
  */
-static inline u8
+static u8
 mwifiex_11h_get_csa_closed_channel(struct mwifiex_private *priv)
 {
 	if (!priv->csa_chan)
@@ -1397,7 +1397,7 @@ mwifiex_11h_get_csa_closed_channel(struct mwifiex_private *priv)
 	return priv->csa_chan;
 }
 
-static inline u8 mwifiex_is_any_intf_active(struct mwifiex_private *priv)
+static u8 mwifiex_is_any_intf_active(struct mwifiex_private *priv)
 {
 	struct mwifiex_private *priv_num;
 	int i;
@@ -1416,7 +1416,7 @@ static inline u8 mwifiex_is_any_intf_active(struct mwifiex_private *priv)
 	return 0;
 }
 
-static inline u8 mwifiex_is_tdls_link_setup(u8 status)
+static u8 mwifiex_is_tdls_link_setup(u8 status)
 {
 	switch (status) {
 	case TDLS_SETUP_COMPLETE:
@@ -1432,7 +1432,7 @@ static inline u8 mwifiex_is_tdls_link_setup(u8 status)
 }
 
 /* Disable platform specific wakeup interrupt */
-static inline void mwifiex_disable_wake(struct mwifiex_adapter *adapter)
+static void mwifiex_disable_wake(struct mwifiex_adapter *adapter)
 {
 	if (adapter->irq_wakeup >= 0) {
 		disable_irq_wake(adapter->irq_wakeup);
@@ -1447,7 +1447,7 @@ static inline void mwifiex_disable_wake(struct mwifiex_adapter *adapter)
 }
 
 /* Enable platform specific wakeup interrupt */
-static inline void mwifiex_enable_wake(struct mwifiex_adapter *adapter)
+static void mwifiex_enable_wake(struct mwifiex_adapter *adapter)
 {
 	/* Enable platform specific wakeup interrupt */
 	if (adapter->irq_wakeup >= 0) {

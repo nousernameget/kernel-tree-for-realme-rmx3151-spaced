@@ -73,7 +73,7 @@ struct ccu_mux {
 	SUNXI_CCU_MUX_TABLE_WITH_GATE(_struct, _name, _parents, NULL,	\
 				      _reg, _shift, _width, 0, _flags)
 
-static inline struct ccu_mux *hw_to_ccu_mux(struct clk_hw *hw)
+static struct ccu_mux *hw_to_ccu_mux(struct clk_hw *hw)
 {
 	struct ccu_common *common = hw_to_ccu_common(hw);
 

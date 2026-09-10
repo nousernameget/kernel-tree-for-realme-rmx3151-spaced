@@ -60,22 +60,22 @@ enum interval_iter {
 	INTERVAL_ITER_STOP = 2
 };
 
-static inline int interval_is_intree(struct interval_node *node)
+static int interval_is_intree(struct interval_node *node)
 {
 	return node->in_intree == 1;
 }
 
-static inline __u64 interval_low(struct interval_node *node)
+static __u64 interval_low(struct interval_node *node)
 {
 	return node->in_extent.start;
 }
 
-static inline __u64 interval_high(struct interval_node *node)
+static __u64 interval_high(struct interval_node *node)
 {
 	return node->in_extent.end;
 }
 
-static inline int interval_set(struct interval_node *node,
+static int interval_set(struct interval_node *node,
 			       __u64 start, __u64 end)
 {
 	if (start > end)

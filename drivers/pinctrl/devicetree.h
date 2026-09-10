@@ -34,28 +34,28 @@ int pinctrl_parse_index_with_args(const struct device_node *np,
 
 #else
 
-static inline bool pinctrl_dt_has_hogs(struct pinctrl_dev *pctldev)
+static bool pinctrl_dt_has_hogs(struct pinctrl_dev *pctldev)
 {
 	return false;
 }
 
-static inline int pinctrl_dt_to_map(struct pinctrl *p,
+static int pinctrl_dt_to_map(struct pinctrl *p,
 				    struct pinctrl_dev *pctldev)
 {
 	return 0;
 }
 
-static inline void pinctrl_dt_free_maps(struct pinctrl *p)
+static void pinctrl_dt_free_maps(struct pinctrl *p)
 {
 }
 
-static inline int pinctrl_count_index_with_args(const struct device_node *np,
+static int pinctrl_count_index_with_args(const struct device_node *np,
 						const char *list_name)
 {
 	return -ENODEV;
 }
 
-static inline int
+static int
 pinctrl_parse_index_with_args(const struct device_node *np,
 			      const char *list_name, int index,
 			      struct of_phandle_args *out_args)

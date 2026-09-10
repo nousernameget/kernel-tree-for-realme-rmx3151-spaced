@@ -521,12 +521,12 @@ struct m66592 {
 	disable_pipe_irq(m66592, pipenum, M66592_NRDYENB)
 
 /*-------------------------------------------------------------------------*/
-static inline u16 m66592_read(struct m66592 *m66592, unsigned long offset)
+static u16 m66592_read(struct m66592 *m66592, unsigned long offset)
 {
 	return ioread16(m66592->reg + offset);
 }
 
-static inline void m66592_read_fifo(struct m66592 *m66592,
+static void m66592_read_fifo(struct m66592 *m66592,
 		unsigned long offset,
 		void *buf, unsigned long len)
 {
@@ -541,13 +541,13 @@ static inline void m66592_read_fifo(struct m66592 *m66592,
 	}
 }
 
-static inline void m66592_write(struct m66592 *m66592, u16 val,
+static void m66592_write(struct m66592 *m66592, u16 val,
 				unsigned long offset)
 {
 	iowrite16(val, m66592->reg + offset);
 }
 
-static inline void m66592_mdfy(struct m66592 *m66592, u16 val, u16 pat,
+static void m66592_mdfy(struct m66592 *m66592, u16 val, u16 pat,
 		unsigned long offset)
 {
 	u16 tmp;
@@ -562,7 +562,7 @@ static inline void m66592_mdfy(struct m66592 *m66592, u16 val, u16 pat,
 #define m66592_bset(m66592, val, offset)	\
 			m66592_mdfy(m66592, val, 0, offset)
 
-static inline void m66592_write_fifo(struct m66592 *m66592,
+static void m66592_write_fifo(struct m66592 *m66592,
 		struct m66592_ep *ep,
 		void *buf, unsigned long len)
 {

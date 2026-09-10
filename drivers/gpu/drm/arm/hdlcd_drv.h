@@ -23,13 +23,13 @@ struct hdlcd_drm_private {
 
 #define crtc_to_hdlcd_priv(x)	container_of(x, struct hdlcd_drm_private, crtc)
 
-static inline void hdlcd_write(struct hdlcd_drm_private *hdlcd,
+static void hdlcd_write(struct hdlcd_drm_private *hdlcd,
 			       unsigned int reg, u32 value)
 {
 	writel(value, hdlcd->mmio + reg);
 }
 
-static inline u32 hdlcd_read(struct hdlcd_drm_private *hdlcd, unsigned int reg)
+static u32 hdlcd_read(struct hdlcd_drm_private *hdlcd, unsigned int reg)
 {
 	return readl(hdlcd->mmio + reg);
 }

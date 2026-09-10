@@ -87,7 +87,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define dma_fence_wait fence_wait
 #define to_dma_fence_array to_fence_array
 
-static inline signed long
+static signed long
 dma_fence_wait_timeout(struct dma_fence *fence, bool intr, signed long timeout)
 {
 	signed long lret;

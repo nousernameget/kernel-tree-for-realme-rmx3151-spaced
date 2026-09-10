@@ -25,7 +25,7 @@ struct nvkm_mm {
 	int heap_nodes;
 };
 
-static inline bool
+static bool
 nvkm_mm_initialised(struct nvkm_mm *mm)
 {
 	return mm->heap_nodes;
@@ -40,7 +40,7 @@ int  nvkm_mm_tail(struct nvkm_mm *, u8 heap, u8 type, u32 size_max,
 void nvkm_mm_free(struct nvkm_mm *, struct nvkm_mm_node **);
 void nvkm_mm_dump(struct nvkm_mm *, const char *);
 
-static inline bool
+static bool
 nvkm_mm_contiguous(struct nvkm_mm_node *node)
 {
 	return !node->next;

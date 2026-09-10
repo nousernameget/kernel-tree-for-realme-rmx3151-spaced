@@ -67,7 +67,7 @@ extern int  __qcom_scm_pas_mss_reset(struct device *dev, bool reset);
 #define QCOM_SCM_ERROR		-1
 #define QCOM_SCM_INTERRUPTED	1
 
-static inline int qcom_scm_remap_error(int err)
+static int qcom_scm_remap_error(int err)
 {
 	switch (err) {
 	case QCOM_SCM_ERROR:

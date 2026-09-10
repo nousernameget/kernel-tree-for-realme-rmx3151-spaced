@@ -156,7 +156,7 @@ void mdla_debugfs_init(void);
 void mdla_debugfs_exit(void);
 #else
 #define mdla_debug(mask, ...)
-static inline void mdla_dump_reg(int core_id)
+static void mdla_dump_reg(int core_id)
 {
 }
 static inline
@@ -167,10 +167,10 @@ static inline
 void mdla_dump_buf(int mask, void *kva, int group, u32 size)
 {
 }
-static inline void mdla_debugfs_init(void)
+static void mdla_debugfs_init(void)
 {
 }
-static inline void mdla_debugfs_exit(void)
+static void mdla_debugfs_exit(void)
 {
 }
 #endif

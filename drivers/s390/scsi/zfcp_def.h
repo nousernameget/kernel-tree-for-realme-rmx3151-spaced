@@ -262,7 +262,7 @@ struct zfcp_scsi_dev {
  * sdev_to_zfcp - Access zfcp LUN data for SCSI device
  * @sdev: scsi_device where to get the zfcp_scsi_dev pointer
  */
-static inline struct zfcp_scsi_dev *sdev_to_zfcp(struct scsi_device *sdev)
+static struct zfcp_scsi_dev *sdev_to_zfcp(struct scsi_device *sdev)
 {
 	return scsi_transport_device_data(sdev);
 }
@@ -271,7 +271,7 @@ static inline struct zfcp_scsi_dev *sdev_to_zfcp(struct scsi_device *sdev)
  * zfcp_scsi_dev_lun - Return SCSI device LUN as 64 bit FCP LUN
  * @sdev: SCSI device where to get the LUN from
  */
-static inline u64 zfcp_scsi_dev_lun(struct scsi_device *sdev)
+static u64 zfcp_scsi_dev_lun(struct scsi_device *sdev)
 {
 	u64 fcp_lun;
 

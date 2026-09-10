@@ -147,7 +147,7 @@ struct vc4_dev {
 	struct semaphore async_modeset;
 };
 
-static inline struct vc4_dev *
+static struct vc4_dev *
 to_vc4_dev(struct drm_device *dev)
 {
 	return (struct vc4_dev *)dev->dev_private;
@@ -194,7 +194,7 @@ struct vc4_bo {
 	int label;
 };
 
-static inline struct vc4_bo *
+static struct vc4_bo *
 to_vc4_bo(struct drm_gem_object *bo)
 {
 	return (struct vc4_bo *)bo;
@@ -207,7 +207,7 @@ struct vc4_fence {
 	uint64_t seqno;
 };
 
-static inline struct vc4_fence *
+static struct vc4_fence *
 to_vc4_fence(struct dma_fence *fence)
 {
 	return (struct vc4_fence *)fence;
@@ -246,7 +246,7 @@ struct vc4_plane {
 	struct drm_plane base;
 };
 
-static inline struct vc4_plane *
+static struct vc4_plane *
 to_vc4_plane(struct drm_plane *plane)
 {
 	return (struct vc4_plane *)plane;
@@ -268,7 +268,7 @@ struct vc4_encoder {
 	u32 clock_select;
 };
 
-static inline struct vc4_encoder *
+static struct vc4_encoder *
 to_vc4_encoder(struct drm_encoder *encoder)
 {
 	return container_of(encoder, struct vc4_encoder, base);
@@ -387,21 +387,21 @@ struct vc4_exec_info {
 	uint32_t uniforms_size;
 };
 
-static inline struct vc4_exec_info *
+static struct vc4_exec_info *
 vc4_first_bin_job(struct vc4_dev *vc4)
 {
 	return list_first_entry_or_null(&vc4->bin_job_list,
 					struct vc4_exec_info, head);
 }
 
-static inline struct vc4_exec_info *
+static struct vc4_exec_info *
 vc4_first_render_job(struct vc4_dev *vc4)
 {
 	return list_first_entry_or_null(&vc4->render_job_list,
 					struct vc4_exec_info, head);
 }
 
-static inline struct vc4_exec_info *
+static struct vc4_exec_info *
 vc4_last_render_job(struct vc4_dev *vc4)
 {
 	if (list_empty(&vc4->render_job_list))

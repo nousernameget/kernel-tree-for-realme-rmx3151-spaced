@@ -45,7 +45,7 @@
 #define NIC_CFG_IG_VLAN_STRIP_EN_MASK_FIELD	1UL
 #define NIC_CFG_IG_VLAN_STRIP_EN_SHIFT		24
 
-static inline void vnic_set_nic_cfg(u32 *nic_cfg,
+static void vnic_set_nic_cfg(u32 *nic_cfg,
 	u8 rss_default_cpu, u8 rss_hash_type,
 	u8 rss_hash_bits, u8 rss_base_cpu,
 	u8 rss_enable, u8 tso_ipid_split_en,

@@ -28,7 +28,7 @@ int sdio_reset(struct mmc_host *host);
 unsigned int mmc_align_data_size(struct mmc_card *card, unsigned int sz);
 void sdio_irq_work(struct work_struct *work);
 
-static inline bool sdio_is_io_busy(u32 opcode, u32 arg)
+static bool sdio_is_io_busy(u32 opcode, u32 arg)
 {
 	u32 addr;
 

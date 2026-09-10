@@ -497,7 +497,7 @@ typedef struct {
 } rraddr;
 
 
-static inline void set_rraddr(rraddr *ra, dma_addr_t addr)
+static void set_rraddr(rraddr *ra, dma_addr_t addr)
 {
 	unsigned long baddr = addr;
 #if (BITS_PER_LONG == 64)
@@ -510,7 +510,7 @@ static inline void set_rraddr(rraddr *ra, dma_addr_t addr)
 }
 
 
-static inline void set_rxaddr(struct rr_regs __iomem *regs, volatile dma_addr_t addr)
+static void set_rxaddr(struct rr_regs __iomem *regs, volatile dma_addr_t addr)
 {
 	unsigned long baddr = addr;
 #if (BITS_PER_LONG == 64) && defined(__LITTLE_ENDIAN)
@@ -527,7 +527,7 @@ static inline void set_rxaddr(struct rr_regs __iomem *regs, volatile dma_addr_t 
 }
 
 
-static inline void set_infoaddr(struct rr_regs __iomem *regs, volatile dma_addr_t addr)
+static void set_infoaddr(struct rr_regs __iomem *regs, volatile dma_addr_t addr)
 {
 	unsigned long baddr = addr;
 #if (BITS_PER_LONG == 64) && defined(__LITTLE_ENDIAN)
@@ -842,6 +842,6 @@ static unsigned int rr_read_eeprom(struct rr_private *rrpriv,
 				   unsigned long length);
 static u32 rr_read_eeprom_word(struct rr_private *rrpriv, size_t offset);
 static int rr_load_firmware(struct net_device *dev);
-static inline void rr_raz_tx(struct rr_private *, struct net_device *);
-static inline void rr_raz_rx(struct rr_private *, struct net_device *);
+static void rr_raz_tx(struct rr_private *, struct net_device *);
+static void rr_raz_rx(struct rr_private *, struct net_device *);
 #endif /* _RRUNNER_H_ */

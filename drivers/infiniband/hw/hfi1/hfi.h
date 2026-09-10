@@ -397,66 +397,66 @@ struct hfi1_packet {
 #define OPA_16B_L4_IB_GLOBAL	0x0A
 #define OPA_16B_L4_ETHR		OPA_VNIC_L4_ETHR
 
-static inline u8 hfi1_16B_get_l4(struct hfi1_16b_header *hdr)
+static u8 hfi1_16B_get_l4(struct hfi1_16b_header *hdr)
 {
 	return (u8)(hdr->lrh[2] & OPA_16B_L4_MASK);
 }
 
-static inline u8 hfi1_16B_get_sc(struct hfi1_16b_header *hdr)
+static u8 hfi1_16B_get_sc(struct hfi1_16b_header *hdr)
 {
 	return (u8)((hdr->lrh[1] & OPA_16B_SC_MASK) >> OPA_16B_SC_SHIFT);
 }
 
-static inline u32 hfi1_16B_get_dlid(struct hfi1_16b_header *hdr)
+static u32 hfi1_16B_get_dlid(struct hfi1_16b_header *hdr)
 {
 	return (u32)((hdr->lrh[1] & OPA_16B_LID_MASK) |
 		     (((hdr->lrh[2] & OPA_16B_DLID_MASK) >>
 		     OPA_16B_DLID_HIGH_SHIFT) << OPA_16B_DLID_SHIFT));
 }
 
-static inline u32 hfi1_16B_get_slid(struct hfi1_16b_header *hdr)
+static u32 hfi1_16B_get_slid(struct hfi1_16b_header *hdr)
 {
 	return (u32)((hdr->lrh[0] & OPA_16B_LID_MASK) |
 		     (((hdr->lrh[2] & OPA_16B_SLID_MASK) >>
 		     OPA_16B_SLID_HIGH_SHIFT) << OPA_16B_SLID_SHIFT));
 }
 
-static inline u8 hfi1_16B_get_becn(struct hfi1_16b_header *hdr)
+static u8 hfi1_16B_get_becn(struct hfi1_16b_header *hdr)
 {
 	return (u8)((hdr->lrh[0] & OPA_16B_BECN_MASK) >> OPA_16B_BECN_SHIFT);
 }
 
-static inline u8 hfi1_16B_get_fecn(struct hfi1_16b_header *hdr)
+static u8 hfi1_16B_get_fecn(struct hfi1_16b_header *hdr)
 {
 	return (u8)((hdr->lrh[1] & OPA_16B_FECN_MASK) >> OPA_16B_FECN_SHIFT);
 }
 
-static inline u8 hfi1_16B_get_l2(struct hfi1_16b_header *hdr)
+static u8 hfi1_16B_get_l2(struct hfi1_16b_header *hdr)
 {
 	return (u8)((hdr->lrh[1] & OPA_16B_L2_MASK) >> OPA_16B_L2_SHIFT);
 }
 
-static inline u16 hfi1_16B_get_pkey(struct hfi1_16b_header *hdr)
+static u16 hfi1_16B_get_pkey(struct hfi1_16b_header *hdr)
 {
 	return (u16)((hdr->lrh[2] & OPA_16B_PKEY_MASK) >> OPA_16B_PKEY_SHIFT);
 }
 
-static inline u8 hfi1_16B_get_rc(struct hfi1_16b_header *hdr)
+static u8 hfi1_16B_get_rc(struct hfi1_16b_header *hdr)
 {
 	return (u8)((hdr->lrh[1] & OPA_16B_RC_MASK) >> OPA_16B_RC_SHIFT);
 }
 
-static inline u8 hfi1_16B_get_age(struct hfi1_16b_header *hdr)
+static u8 hfi1_16B_get_age(struct hfi1_16b_header *hdr)
 {
 	return (u8)((hdr->lrh[3] & OPA_16B_AGE_MASK) >> OPA_16B_AGE_SHIFT);
 }
 
-static inline u16 hfi1_16B_get_len(struct hfi1_16b_header *hdr)
+static u16 hfi1_16B_get_len(struct hfi1_16b_header *hdr)
 {
 	return (u16)((hdr->lrh[0] & OPA_16B_LEN_MASK) >> OPA_16B_LEN_SHIFT);
 }
 
-static inline u16 hfi1_16B_get_entropy(struct hfi1_16b_header *hdr)
+static u16 hfi1_16B_get_entropy(struct hfi1_16b_header *hdr)
 {
 	return (u16)(hdr->lrh[3] & OPA_16B_ENTROPY_MASK);
 }
@@ -467,7 +467,7 @@ static inline u16 hfi1_16B_get_entropy(struct hfi1_16b_header *hdr)
  * BTH
  */
 #define OPA_16B_BTH_PAD_MASK	7
-static inline u8 hfi1_16B_bth_get_pad(struct ib_other_headers *ohdr)
+static u8 hfi1_16B_bth_get_pad(struct ib_other_headers *ohdr)
 {
 	return (u8)((be32_to_cpu(ohdr->bth[0]) >> IB_BTH_PAD_SHIFT) &
 		   OPA_16B_BTH_PAD_MASK);
@@ -601,13 +601,13 @@ struct rvt_sge_state;
 #define HFI1_GUIDS_PER_PORT  5
 #define HFI1_PORT_GUID_INDEX 0
 
-static inline void incr_cntr64(u64 *cntr)
+static void incr_cntr64(u64 *cntr)
 {
 	if (*cntr < (u64)-1LL)
 		(*cntr)++;
 }
 
-static inline void incr_cntr32(u32 *cntr)
+static void incr_cntr32(u32 *cntr)
 {
 	if (*cntr < (u32)-1LL)
 		(*cntr)++;
@@ -1332,7 +1332,7 @@ struct hfi1_devdata {
 	struct hfi1_vnic_data vnic;
 };
 
-static inline bool hfi1_vnic_is_rsm_full(struct hfi1_devdata *dd, int spare)
+static bool hfi1_vnic_is_rsm_full(struct hfi1_devdata *dd, int spare)
 {
 	return (dd->vnic.rmt_start + spare) > NUM_MAP_ENTRIES;
 }
@@ -1428,7 +1428,7 @@ void hfi1_make_ud_req_16B(struct rvt_qp *qp,
 #define RCV_PKT_DONE    0x2 /* stop, no more packets detected */
 
 /* calculate the current RHF address */
-static inline __le32 *get_rhf_addr(struct hfi1_ctxtdata *rcd)
+static __le32 *get_rhf_addr(struct hfi1_ctxtdata *rcd)
 {
 	return (__le32 *)rcd->rcvhdrq + rcd->head + rcd->dd->rhf_offset;
 }
@@ -1438,7 +1438,7 @@ int hfi1_reset_device(int);
 void receive_interrupt_work(struct work_struct *work);
 
 /* extract service channel from header and rhf */
-static inline int hfi1_9B_get_sc5(struct ib_header *hdr, u64 rhf)
+static int hfi1_9B_get_sc5(struct ib_header *hdr, u64 rhf)
 {
 	return ib_get_sc(hdr) | ((!!(rhf_dc_info(rhf))) << 4);
 }
@@ -1453,7 +1453,7 @@ static inline int hfi1_9B_get_sc5(struct ib_header *hdr, u64 rhf)
  *  32 - 63    - kernel protocols using KDETH packets
  *  64 - 65535 - all other users using KDETH packets
  */
-static inline u16 generate_jkey(kuid_t uid)
+static u16 generate_jkey(kuid_t uid)
 {
 	u16 jkey = from_kuid(current_user_ns(), uid) & HFI1_JKEY_MASK;
 
@@ -1470,7 +1470,7 @@ static inline u16 generate_jkey(kuid_t uid)
  *
  * returns the active egress rate in units of [10^6 bits/sec]
  */
-static inline u32 active_egress_rate(struct hfi1_pportdata *ppd)
+static u32 active_egress_rate(struct hfi1_pportdata *ppd)
 {
 	u16 link_speed = ppd->link_speed_active;
 	u16 link_width = ppd->link_width_active;
@@ -1507,7 +1507,7 @@ static inline u32 active_egress_rate(struct hfi1_pportdata *ppd)
  * rate is (approximately) 805 MHz, the units of the returned value
  * are (1/805 MHz).
  */
-static inline u32 egress_cycles(u32 len, u32 rate)
+static u32 egress_cycles(u32 len, u32 rate)
 {
 	u32 cycles;
 
@@ -1549,7 +1549,7 @@ int egress_pkey_check(struct hfi1_pportdata *ppd, u32 slid, u16 pkey,
 		      u8 sc5, int8_t s_pkey_index);
 
 #define PACKET_EGRESS_TIMEOUT 350
-static inline void pause_for_credit_return(struct hfi1_devdata *dd)
+static void pause_for_credit_return(struct hfi1_devdata *dd)
 {
 	/* Pause at least 1us, to ensure chip returns all credits */
 	u32 usec = cclock_to_ns(dd, PACKET_EGRESS_TIMEOUT) / 1000;
@@ -1562,7 +1562,7 @@ static inline void pause_for_credit_return(struct hfi1_devdata *dd)
  * @dd - devdata
  * @sc5 - 5 bit sc
  */
-static inline u8 sc_to_vlt(struct hfi1_devdata *dd, u8 sc5)
+static u8 sc_to_vlt(struct hfi1_devdata *dd, u8 sc5)
 {
 	unsigned seq;
 	u8 rval;
@@ -1587,7 +1587,7 @@ static inline u8 sc_to_vlt(struct hfi1_devdata *dd, u8 sc5)
  * otherwise. Use the matching criteria for ingress partition keys
  * specified in the OPAv1 spec., section 9.10.14.
  */
-static inline int ingress_pkey_matches_entry(u16 pkey, u16 ent)
+static int ingress_pkey_matches_entry(u16 pkey, u16 ent)
 {
 	u16 mkey = pkey & PKEY_LOW_15_MASK;
 	u16 ment = ent & PKEY_LOW_15_MASK;
@@ -1647,7 +1647,7 @@ static void ingress_pkey_table_fail(struct hfi1_pportdata *ppd, u16 pkey,
  * of performance reasons. On datapath pkey check is expected to be done
  * by HW and rcv_pkey_check function should be called instead.
  */
-static inline int ingress_pkey_check(struct hfi1_pportdata *ppd, u16 pkey,
+static int ingress_pkey_check(struct hfi1_pportdata *ppd, u16 pkey,
 				     u8 sc5, u8 idx, u32 slid, bool force)
 {
 	if (!(force) && !(ppd->part_enforce & HFI1_PART_ENFORCE_IN))
@@ -1680,7 +1680,7 @@ bad:
  * should be called on the data path instead of ingress_pkey_check
  * as on data path, pkey check is done by HW (except for QP0).
  */
-static inline int rcv_pkey_check(struct hfi1_pportdata *ppd, u16 pkey,
+static int rcv_pkey_check(struct hfi1_pportdata *ppd, u16 pkey,
 				 u8 sc5, u16 slid)
 {
 	if (!(ppd->part_enforce & HFI1_PART_ENFORCE_IN))
@@ -1709,14 +1709,14 @@ bad:
 u32 lrh_max_header_bytes(struct hfi1_devdata *dd);
 int mtu_to_enum(u32 mtu, int default_if_bad);
 u16 enum_to_mtu(int mtu);
-static inline int valid_ib_mtu(unsigned int mtu)
+static int valid_ib_mtu(unsigned int mtu)
 {
 	return mtu == 256 || mtu == 512 ||
 		mtu == 1024 || mtu == 2048 ||
 		mtu == 4096;
 }
 
-static inline int valid_opa_max_mtu(unsigned int mtu)
+static int valid_opa_max_mtu(unsigned int mtu)
 {
 	return mtu >= 2048 &&
 		(valid_ib_mtu(mtu) || mtu == 8192 || mtu == 10240);
@@ -1739,32 +1739,32 @@ void assign_remote_cm_au_table(struct hfi1_devdata *dd, u8 vcu);
 
 int set_buffer_control(struct hfi1_pportdata *ppd, struct buffer_control *bc);
 
-static inline struct hfi1_devdata *dd_from_ppd(struct hfi1_pportdata *ppd)
+static struct hfi1_devdata *dd_from_ppd(struct hfi1_pportdata *ppd)
 {
 	return ppd->dd;
 }
 
-static inline struct hfi1_devdata *dd_from_dev(struct hfi1_ibdev *dev)
+static struct hfi1_devdata *dd_from_dev(struct hfi1_ibdev *dev)
 {
 	return container_of(dev, struct hfi1_devdata, verbs_dev);
 }
 
-static inline struct hfi1_devdata *dd_from_ibdev(struct ib_device *ibdev)
+static struct hfi1_devdata *dd_from_ibdev(struct ib_device *ibdev)
 {
 	return dd_from_dev(to_idev(ibdev));
 }
 
-static inline struct hfi1_pportdata *ppd_from_ibp(struct hfi1_ibport *ibp)
+static struct hfi1_pportdata *ppd_from_ibp(struct hfi1_ibport *ibp)
 {
 	return container_of(ibp, struct hfi1_pportdata, ibport_data);
 }
 
-static inline struct hfi1_ibdev *dev_from_rdi(struct rvt_dev_info *rdi)
+static struct hfi1_ibdev *dev_from_rdi(struct rvt_dev_info *rdi)
 {
 	return container_of(rdi, struct hfi1_ibdev, rdi);
 }
 
-static inline struct hfi1_ibport *to_iport(struct ib_device *ibdev, u8 port)
+static struct hfi1_ibport *to_iport(struct ib_device *ibdev, u8 port)
 {
 	struct hfi1_devdata *dd = dd_from_ibdev(ibdev);
 	unsigned pidx = port - 1; /* IB number port from 1, hdw from 0 */
@@ -1773,14 +1773,14 @@ static inline struct hfi1_ibport *to_iport(struct ib_device *ibdev, u8 port)
 	return &dd->pport[pidx].ibport_data;
 }
 
-static inline struct hfi1_ibport *rcd_to_iport(struct hfi1_ctxtdata *rcd)
+static struct hfi1_ibport *rcd_to_iport(struct hfi1_ctxtdata *rcd)
 {
 	return &rcd->ppd->ibport_data;
 }
 
 void hfi1_process_ecn_slowpath(struct rvt_qp *qp, struct hfi1_packet *pkt,
 			       bool do_cnp);
-static inline bool process_ecn(struct rvt_qp *qp, struct hfi1_packet *pkt,
+static bool process_ecn(struct rvt_qp *qp, struct hfi1_packet *pkt,
 			       bool do_cnp)
 {
 	struct ib_other_headers *ohdr = pkt->ohdr;
@@ -1807,7 +1807,7 @@ static inline bool process_ecn(struct rvt_qp *qp, struct hfi1_packet *pkt,
 /*
  * Return the indexed PKEY from the port PKEY table.
  */
-static inline u16 hfi1_get_pkey(struct hfi1_ibport *ibp, unsigned index)
+static u16 hfi1_get_pkey(struct hfi1_ibport *ibp, unsigned index)
 {
 	struct hfi1_pportdata *ppd = ppd_from_ibp(ibp);
 	u16 ret;
@@ -1823,7 +1823,7 @@ static inline u16 hfi1_get_pkey(struct hfi1_ibport *ibp, unsigned index)
 /*
  * Return the indexed GUID from the port GUIDs table.
  */
-static inline __be64 get_sguid(struct hfi1_ibport *ibp, unsigned int index)
+static __be64 get_sguid(struct hfi1_ibport *ibp, unsigned int index)
 {
 	struct hfi1_pportdata *ppd = ppd_from_ibp(ibp);
 
@@ -1834,7 +1834,7 @@ static inline __be64 get_sguid(struct hfi1_ibport *ibp, unsigned int index)
 /*
  * Called by readers of cc_state only, must call under rcu_read_lock().
  */
-static inline struct cc_state *get_cc_state(struct hfi1_pportdata *ppd)
+static struct cc_state *get_cc_state(struct hfi1_pportdata *ppd)
 {
 	return rcu_dereference(ppd->cc_state);
 }
@@ -1931,12 +1931,12 @@ int hfi1_acquire_user_pages(struct mm_struct *mm, unsigned long vaddr,
 void hfi1_release_user_pages(struct mm_struct *mm, struct page **p,
 			     size_t npages, bool dirty);
 
-static inline void clear_rcvhdrtail(const struct hfi1_ctxtdata *rcd)
+static void clear_rcvhdrtail(const struct hfi1_ctxtdata *rcd)
 {
 	*((u64 *)rcd->rcvhdrtail_kvaddr) = 0ULL;
 }
 
-static inline u32 get_rcvhdrtail(const struct hfi1_ctxtdata *rcd)
+static u32 get_rcvhdrtail(const struct hfi1_ctxtdata *rcd)
 {
 	/*
 	 * volatile because it's a DMA target from the chip, routine is
@@ -1985,7 +1985,7 @@ struct pci_dev *get_pci_dev(struct rvt_dev_info *rdi);
  * Flush write combining store buffers (if present) and perform a write
  * barrier.
  */
-static inline void flush_wc(void)
+static void flush_wc(void)
 {
 	asm volatile("sfence" : : : "memory");
 }
@@ -2038,7 +2038,7 @@ extern struct mutex hfi1_mutex;
 #define HFI1_PKT_KERNEL_SC_INTEGRITY					    \
 	(SEND_CTXT_CHECK_ENABLE_DISALLOW_KDETH_PACKETS_SMASK)
 
-static inline u64 hfi1_pkt_default_send_ctxt_mask(struct hfi1_devdata *dd,
+static u64 hfi1_pkt_default_send_ctxt_mask(struct hfi1_devdata *dd,
 						  u16 ctxt_type)
 {
 	u64 base_sc_integrity;
@@ -2077,7 +2077,7 @@ static inline u64 hfi1_pkt_default_send_ctxt_mask(struct hfi1_devdata *dd,
 	return base_sc_integrity;
 }
 
-static inline u64 hfi1_pkt_base_sdma_integrity(struct hfi1_devdata *dd)
+static u64 hfi1_pkt_base_sdma_integrity(struct hfi1_devdata *dd)
 {
 	u64 base_sdma_integrity;
 
@@ -2181,7 +2181,7 @@ void hfi1_format_hwerrors(u64 hwerrs,
 #define OPCODE_CHECK_VAL_DISABLED 0x0
 #define OPCODE_CHECK_MASK_DISABLED 0x0
 
-static inline void hfi1_reset_cpu_counters(struct hfi1_devdata *dd)
+static void hfi1_reset_cpu_counters(struct hfi1_devdata *dd)
 {
 	struct hfi1_pportdata *ppd;
 	int i;
@@ -2200,7 +2200,7 @@ static inline void hfi1_reset_cpu_counters(struct hfi1_devdata *dd)
 }
 
 /* Control LED state */
-static inline void setextled(struct hfi1_devdata *dd, u32 on)
+static void setextled(struct hfi1_devdata *dd, u32 on)
 {
 	if (on)
 		write_csr(dd, DCC_CFG_LED_CNTRL, 0x1F);
@@ -2209,19 +2209,19 @@ static inline void setextled(struct hfi1_devdata *dd, u32 on)
 }
 
 /* return the i2c resource given the target */
-static inline u32 i2c_target(u32 target)
+static u32 i2c_target(u32 target)
 {
 	return target ? CR_I2C2 : CR_I2C1;
 }
 
 /* return the i2c chain chip resource that this HFI uses for QSFP */
-static inline u32 qsfp_resource(struct hfi1_devdata *dd)
+static u32 qsfp_resource(struct hfi1_devdata *dd)
 {
 	return i2c_target(dd->hfi1_id);
 }
 
 /* Is this device integrated or discrete? */
-static inline bool is_integrated(struct hfi1_devdata *dd)
+static bool is_integrated(struct hfi1_devdata *dd)
 {
 	return dd->pcidev->device == PCI_DEVICE_ID_INTEL1;
 }
@@ -2231,7 +2231,7 @@ int hfi1_tempsense_rd(struct hfi1_devdata *dd, struct hfi1_temp *temp);
 #define DD_DEV_ENTRY(dd)       __string(dev, dev_name(&(dd)->pcidev->dev))
 #define DD_DEV_ASSIGN(dd)      __assign_str(dev, dev_name(&(dd)->pcidev->dev))
 
-static inline void hfi1_update_ah_attr(struct ib_device *ibdev,
+static void hfi1_update_ah_attr(struct ib_device *ibdev,
 				       struct rdma_ah_attr *attr)
 {
 	struct hfi1_pportdata *ppd;
@@ -2264,7 +2264,7 @@ static inline void hfi1_update_ah_attr(struct ib_device *ibdev,
  * in the GRH of the address handle as DGID if extended
  * addresses are in use.
  */
-static inline bool hfi1_check_mcast(u32 lid)
+static bool hfi1_check_mcast(u32 lid)
 {
 	return ((lid >= opa_get_mcast_base(OPA_MCAST_NR)) &&
 		(lid != be32_to_cpu(OPA_LID_PERMISSIVE)));
@@ -2274,7 +2274,7 @@ static inline bool hfi1_check_mcast(u32 lid)
 	__opa_get_lid(lid, OPA_PORT_PACKET_FORMAT_##format)
 
 /* Convert a lid to a specific lid space */
-static inline u32 __opa_get_lid(u32 lid, u8 format)
+static u32 __opa_get_lid(u32 lid, u8 format)
 {
 	bool is_mcast = hfi1_check_mcast(lid);
 
@@ -2303,14 +2303,14 @@ static inline u32 __opa_get_lid(u32 lid, u8 format)
 }
 
 /* Return true if the given lid is the OPA 16B multicast range */
-static inline bool hfi1_is_16B_mcast(u32 lid)
+static bool hfi1_is_16B_mcast(u32 lid)
 {
 	return ((lid >=
 		opa_get_lid(opa_get_mcast_base(OPA_MCAST_NR), 16B)) &&
 		(lid != opa_get_lid(be32_to_cpu(OPA_LID_PERMISSIVE), 16B)));
 }
 
-static inline void hfi1_make_opa_lid(struct rdma_ah_attr *attr)
+static void hfi1_make_opa_lid(struct rdma_ah_attr *attr)
 {
 	const struct ib_global_route *grh = rdma_ah_read_grh(attr);
 	u32 dlid = rdma_ah_get_dlid(attr);
@@ -2336,7 +2336,7 @@ static inline void hfi1_make_opa_lid(struct rdma_ah_attr *attr)
 	rdma_ah_set_dlid(attr, dlid);
 }
 
-static inline u8 hfi1_get_packet_type(u32 lid)
+static u8 hfi1_get_packet_type(u32 lid)
 {
 	/* 9B if lid > 0xF0000000 */
 	if (lid >= opa_get_mcast_base(OPA_MCAST_NR))
@@ -2349,7 +2349,7 @@ static inline u8 hfi1_get_packet_type(u32 lid)
 	return HFI1_PKT_TYPE_9B;
 }
 
-static inline bool hfi1_get_hdr_type(u32 lid, struct rdma_ah_attr *attr)
+static bool hfi1_get_hdr_type(u32 lid, struct rdma_ah_attr *attr)
 {
 	/*
 	 * If there was an incoming 16B packet with permissive
@@ -2372,7 +2372,7 @@ static inline bool hfi1_get_hdr_type(u32 lid, struct rdma_ah_attr *attr)
 	return hfi1_get_packet_type(lid);
 }
 
-static inline void hfi1_make_ext_grh(struct hfi1_packet *packet,
+static void hfi1_make_ext_grh(struct hfi1_packet *packet,
 				     struct ib_grh *grh, u32 slid,
 				     u32 dlid)
 {
@@ -2402,13 +2402,13 @@ static inline void hfi1_make_ext_grh(struct hfi1_packet *packet,
 		cpu_to_be64(ppd->guids[HFI1_PORT_GUID_INDEX]);
 }
 
-static inline int hfi1_get_16b_padding(u32 hdr_size, u32 payload)
+static int hfi1_get_16b_padding(u32 hdr_size, u32 payload)
 {
 	return -(hdr_size + payload + (SIZE_OF_CRC << 2) +
 		     SIZE_OF_LT) & 0x7;
 }
 
-static inline void hfi1_make_ib_hdr(struct ib_header *hdr,
+static void hfi1_make_ib_hdr(struct ib_header *hdr,
 				    u16 lrh0, u16 len,
 				    u16 dlid, u16 slid)
 {
@@ -2418,7 +2418,7 @@ static inline void hfi1_make_ib_hdr(struct ib_header *hdr,
 	hdr->lrh[3] = cpu_to_be16(slid);
 }
 
-static inline void hfi1_make_16b_hdr(struct hfi1_16b_header *hdr,
+static void hfi1_make_16b_hdr(struct hfi1_16b_header *hdr,
 				     u32 slid, u32 dlid,
 				     u16 len, u16 pkey,
 				     u8 becn, u8 fecn, u8 l4,

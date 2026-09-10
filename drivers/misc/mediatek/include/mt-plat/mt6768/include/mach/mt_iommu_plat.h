@@ -23,7 +23,7 @@
 #define F_BIT_VAL(val, bit)	((!!(val))<<(bit))
 #define F_MSK_SHIFT(regval, msb, lsb) (((regval)&F_MSK(msb, lsb))>>lsb)
 
-inline void iommu_set_field_by_mask(void __iomem *M4UBase,
+void iommu_set_field_by_mask(void __iomem *M4UBase,
 					   unsigned int reg,
 					   unsigned long mask,
 					   unsigned int val)

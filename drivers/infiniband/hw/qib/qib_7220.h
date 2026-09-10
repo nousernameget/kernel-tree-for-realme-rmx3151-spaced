@@ -117,7 +117,7 @@ void qib_sd7220_clr_ibpar(struct qib_devdata *);
  */
 #define IB_7220_SERDES 2
 
-static inline u32 qib_read_kreg32(const struct qib_devdata *dd,
+static u32 qib_read_kreg32(const struct qib_devdata *dd,
 				  const u16 regno)
 {
 	if (!dd->kregbase || !(dd->flags & QIB_PRESENT))
@@ -125,7 +125,7 @@ static inline u32 qib_read_kreg32(const struct qib_devdata *dd,
 	return readl((u32 __iomem *)&dd->kregbase[regno]);
 }
 
-static inline u64 qib_read_kreg64(const struct qib_devdata *dd,
+static u64 qib_read_kreg64(const struct qib_devdata *dd,
 				  const u16 regno)
 {
 	if (!dd->kregbase || !(dd->flags & QIB_PRESENT))
@@ -134,7 +134,7 @@ static inline u64 qib_read_kreg64(const struct qib_devdata *dd,
 	return readq(&dd->kregbase[regno]);
 }
 
-static inline void qib_write_kreg(const struct qib_devdata *dd,
+static void qib_write_kreg(const struct qib_devdata *dd,
 				  const u16 regno, u64 value)
 {
 	if (dd->kregbase)

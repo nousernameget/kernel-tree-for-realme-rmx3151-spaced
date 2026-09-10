@@ -1018,7 +1018,7 @@ do {									  \
 	}								     \
 } while (0)
 
-static inline struct page *cl_page_vmpage(struct cl_page *page)
+static struct page *cl_page_vmpage(struct cl_page *page)
 {
 	LASSERT(page->cp_vmpage);
 	return page->cp_vmpage;
@@ -1030,7 +1030,7 @@ static inline struct page *cl_page_vmpage(struct cl_page *page)
  * Client cache holds a refcount, this refcount will be dropped when
  * the page is taken out of cache, see vvp_page_delete().
  */
-static inline bool __page_in_use(const struct cl_page *page, int refc)
+static bool __page_in_use(const struct cl_page *page, int refc)
 {
 	return (atomic_read(&page->cp_ref) > refc + 1);
 }
@@ -1463,7 +1463,7 @@ struct cl_read_ahead {
 	void *cra_cbdata;
 };
 
-static inline void cl_read_ahead_release(const struct lu_env *env,
+static void cl_read_ahead_release(const struct lu_env *env,
 					 struct cl_read_ahead *ra)
 {
 	if (ra->cra_release)
@@ -1927,56 +1927,56 @@ int cl_site_stats_print(const struct cl_site *site, struct seq_file *m);
  */
 /** @{ */
 
-static inline struct cl_site *lu2cl_site(const struct lu_site *site)
+static struct cl_site *lu2cl_site(const struct lu_site *site)
 {
 	return container_of(site, struct cl_site, cs_lu);
 }
 
-static inline int lu_device_is_cl(const struct lu_device *d)
+static int lu_device_is_cl(const struct lu_device *d)
 {
 	return d->ld_type->ldt_tags & LU_DEVICE_CL;
 }
 
-static inline struct cl_device *lu2cl_dev(const struct lu_device *d)
+static struct cl_device *lu2cl_dev(const struct lu_device *d)
 {
 	LASSERT(!d || IS_ERR(d) || lu_device_is_cl(d));
 	return container_of0(d, struct cl_device, cd_lu_dev);
 }
 
-static inline struct lu_device *cl2lu_dev(struct cl_device *d)
+static struct lu_device *cl2lu_dev(struct cl_device *d)
 {
 	return &d->cd_lu_dev;
 }
 
-static inline struct cl_object *lu2cl(const struct lu_object *o)
+static struct cl_object *lu2cl(const struct lu_object *o)
 {
 	LASSERT(!o || IS_ERR(o) || lu_device_is_cl(o->lo_dev));
 	return container_of0(o, struct cl_object, co_lu);
 }
 
-static inline const struct cl_object_conf *
+static const struct cl_object_conf *
 lu2cl_conf(const struct lu_object_conf *conf)
 {
 	return container_of0(conf, struct cl_object_conf, coc_lu);
 }
 
-static inline struct cl_object *cl_object_next(const struct cl_object *obj)
+static struct cl_object *cl_object_next(const struct cl_object *obj)
 {
 	return obj ? lu2cl(lu_object_next(&obj->co_lu)) : NULL;
 }
 
-static inline struct cl_device *cl_object_device(const struct cl_object *o)
+static struct cl_device *cl_object_device(const struct cl_object *o)
 {
 	LASSERT(!o || IS_ERR(o) || lu_device_is_cl(o->co_lu.lo_dev));
 	return container_of0(o->co_lu.lo_dev, struct cl_device, cd_lu_dev);
 }
 
-static inline struct cl_object_header *luh2coh(const struct lu_object_header *h)
+static struct cl_object_header *luh2coh(const struct lu_object_header *h)
 {
 	return container_of0(h, struct cl_object_header, coh_lu);
 }
 
-static inline struct cl_site *cl_object_site(const struct cl_object *obj)
+static struct cl_site *cl_object_site(const struct cl_object *obj)
 {
 	return lu2cl_site(obj->co_lu.lo_dev->ld_site);
 }
@@ -1987,12 +1987,12 @@ struct cl_object_header *cl_object_header(const struct cl_object *obj)
 	return luh2coh(obj->co_lu.lo_header);
 }
 
-static inline int cl_device_init(struct cl_device *d, struct lu_device_type *t)
+static int cl_device_init(struct cl_device *d, struct lu_device_type *t)
 {
 	return lu_device_init(&d->cd_lu_dev, t);
 }
 
-static inline void cl_device_fini(struct cl_device *d)
+static void cl_device_fini(struct cl_device *d)
 {
 	lu_device_fini(&d->cd_lu_dev);
 }
@@ -2042,19 +2042,19 @@ loff_t cl_object_maxbytes(struct cl_object *obj);
 /**
  * Returns true, iff \a o0 and \a o1 are slices of the same object.
  */
-static inline int cl_object_same(struct cl_object *o0, struct cl_object *o1)
+static int cl_object_same(struct cl_object *o0, struct cl_object *o1)
 {
 	return cl_object_header(o0) == cl_object_header(o1);
 }
 
-static inline void cl_object_page_init(struct cl_object *clob, int size)
+static void cl_object_page_init(struct cl_object *clob, int size)
 {
 	clob->co_slice_off = cl_object_header(clob)->coh_page_bufsize;
 	cl_object_header(clob)->coh_page_bufsize += cfs_size_round(size);
 	WARN_ON(cl_object_header(clob)->coh_page_bufsize > 512);
 }
 
-static inline void *cl_object_page_slice(struct cl_object *clob,
+static void *cl_object_page_slice(struct cl_object *clob,
 					 struct cl_page *page)
 {
 	return (void *)((char *)page + clob->co_slice_off);
@@ -2063,7 +2063,7 @@ static inline void *cl_object_page_slice(struct cl_object *clob,
 /**
  * Return refcount of cl_object.
  */
-static inline int cl_object_refc(struct cl_object *clob)
+static int cl_object_refc(struct cl_object *clob)
 {
 	struct lu_object_header *header = clob->co_lu.lo_header;
 
@@ -2282,17 +2282,17 @@ int cl_io_is_going(const struct lu_env *env);
 /**
  * True, iff \a io is an O_APPEND write(2).
  */
-static inline int cl_io_is_append(const struct cl_io *io)
+static int cl_io_is_append(const struct cl_io *io)
 {
 	return io->ci_type == CIT_WRITE && io->u.ci_wr.wr_append;
 }
 
-static inline int cl_io_is_sync_write(const struct cl_io *io)
+static int cl_io_is_sync_write(const struct cl_io *io)
 {
 	return io->ci_type == CIT_WRITE && io->u.ci_wr.wr_sync;
 }
 
-static inline int cl_io_is_mkwrite(const struct cl_io *io)
+static int cl_io_is_mkwrite(const struct cl_io *io)
 {
 	return io->ci_type == CIT_FAULT && io->u.ci_fault.ft_mkwrite;
 }
@@ -2300,7 +2300,7 @@ static inline int cl_io_is_mkwrite(const struct cl_io *io)
 /**
  * True, iff \a io is a truncate(2).
  */
-static inline int cl_io_is_trunc(const struct cl_io *io)
+static int cl_io_is_trunc(const struct cl_io *io)
 {
 	return io->ci_type == CIT_SETATTR &&
 		(io->u.ci_setattr.sa_valid & ATTR_SIZE);
@@ -2326,13 +2326,13 @@ do {									\
 /**
  * Last page in the page list.
  */
-static inline struct cl_page *cl_page_list_last(struct cl_page_list *plist)
+static struct cl_page *cl_page_list_last(struct cl_page_list *plist)
 {
 	LASSERT(plist->pl_nr > 0);
 	return list_entry(plist->pl_pages.prev, struct cl_page, cp_batch);
 }
 
-static inline struct cl_page *cl_page_list_first(struct cl_page_list *plist)
+static struct cl_page *cl_page_list_first(struct cl_page_list *plist)
 {
 	LASSERT(plist->pl_nr > 0);
 	return list_entry(plist->pl_pages.next, struct cl_page, cp_batch);

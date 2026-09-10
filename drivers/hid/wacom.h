@@ -184,7 +184,7 @@ struct wacom {
 	bool resources;
 };
 
-static inline void wacom_schedule_work(struct wacom_wac *wacom_wac,
+static void wacom_schedule_work(struct wacom_wac *wacom_wac,
 				       enum wacom_worker which)
 {
 	struct wacom *wacom = container_of(wacom_wac, struct wacom, wacom_wac);
@@ -210,7 +210,7 @@ static inline void wacom_schedule_work(struct wacom_wac *wacom_wac,
  * the normally-helpful work of 'hid_snto32' for fields that use signed
  * ranges for questionable reasons.
  */
-static inline __u32 wacom_s32tou(s32 value, __u8 n)
+static __u32 wacom_s32tou(s32 value, __u8 n)
 {
 	switch (n) {
 	case 8:  return ((__u8)value);

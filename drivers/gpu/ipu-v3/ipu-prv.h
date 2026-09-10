@@ -208,12 +208,12 @@ struct ipu_soc {
 	struct ipu_prg		*prg_priv;
 };
 
-static inline u32 ipu_idmac_read(struct ipu_soc *ipu, unsigned offset)
+static u32 ipu_idmac_read(struct ipu_soc *ipu, unsigned offset)
 {
 	return readl(ipu->idmac_reg + offset);
 }
 
-static inline void ipu_idmac_write(struct ipu_soc *ipu, u32 value,
+static void ipu_idmac_write(struct ipu_soc *ipu, u32 value,
 				   unsigned offset)
 {
 	writel(value, ipu->idmac_reg + offset);

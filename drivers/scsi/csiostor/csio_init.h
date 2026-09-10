@@ -79,14 +79,14 @@ void csio_lnodes_exit(struct csio_hw *, bool);
 void csio_add_debugfs_mem(struct csio_hw *, const char *,
 		unsigned int, unsigned int);
 
-static inline struct Scsi_Host *
+static struct Scsi_Host *
 csio_ln_to_shost(struct csio_lnode *ln)
 {
 	return container_of((void *)ln, struct Scsi_Host, hostdata[0]);
 }
 
 /* SCSI -- locking version of get/put ioreqs  */
-static inline struct csio_ioreq *
+static struct csio_ioreq *
 csio_get_scsi_ioreq_lock(struct csio_hw *hw, struct csio_scsim *scsim)
 {
 	struct csio_ioreq *ioreq;
@@ -99,7 +99,7 @@ csio_get_scsi_ioreq_lock(struct csio_hw *hw, struct csio_scsim *scsim)
 	return ioreq;
 }
 
-static inline void
+static void
 csio_put_scsi_ioreq_lock(struct csio_hw *hw, struct csio_scsim *scsim,
 			 struct csio_ioreq *ioreq)
 {
@@ -111,7 +111,7 @@ csio_put_scsi_ioreq_lock(struct csio_hw *hw, struct csio_scsim *scsim,
 }
 
 /* Called in interrupt context */
-static inline void
+static void
 csio_put_scsi_ioreq_list_lock(struct csio_hw *hw, struct csio_scsim *scsim,
 			      struct list_head *reqlist, int n)
 {
@@ -123,7 +123,7 @@ csio_put_scsi_ioreq_list_lock(struct csio_hw *hw, struct csio_scsim *scsim,
 }
 
 /* Called in interrupt context */
-static inline void
+static void
 csio_put_scsi_ddp_list_lock(struct csio_hw *hw, struct csio_scsim *scsim,
 			      struct list_head *reqlist, int n)
 {

@@ -43,7 +43,7 @@ struct ec_disable_detector_state {
 #define FALSE 0
 #define TRUE (!FALSE)
 
-static inline void
+static void
 echo_can_disable_detector_init(struct ec_disable_detector_state *det)
 {
 	/* Elliptic notch */
@@ -65,7 +65,7 @@ echo_can_disable_detector_init(struct ec_disable_detector_state *det)
 }
 /*- End of function --------------------------------------------------------*/
 
-static inline int
+static int
 echo_can_disable_detector_update(struct ec_disable_detector_state *det,
 				 int16_t amp)
 {

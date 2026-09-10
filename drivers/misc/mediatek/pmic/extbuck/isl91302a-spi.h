@@ -66,19 +66,19 @@ struct isl91302a_chip {
 #define FLT_RECORDBUCK2_FLT_BUCK2_UV_M      (0x10)
 
 #ifdef CONFIG_MTK_TINYSYS_SSPM_SUPPORT
-static inline int isl91302a_read_byte(void *client, uint32_t addr,
+static int isl91302a_read_byte(void *client, uint32_t addr,
 				      uint32_t *val)
 {
 	pr_notice("%s not support in sspm\n", __func__);
 	return -EINVAL;
 }
-static inline int isl91302a_write_byte(void *client, uint32_t addr,
+static int isl91302a_write_byte(void *client, uint32_t addr,
 				       uint32_t value)
 {
 	pr_notice("%s not support in sspm\n", __func__);
 	return -EINVAL;
 }
-static inline int isl91302a_assign_bit(void *client, uint32_t reg,
+static int isl91302a_assign_bit(void *client, uint32_t reg,
 					uint32_t mask, uint32_t data)
 {
 	pr_notice("%s not support in sspm\n", __func__);

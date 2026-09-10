@@ -448,7 +448,7 @@ struct mc5 {
 	struct mc5_stats stats;
 };
 
-static inline unsigned int t3_mc5_size(const struct mc5 *p)
+static unsigned int t3_mc5_size(const struct mc5 *p)
 {
 	return p->tcam_size;
 }
@@ -462,7 +462,7 @@ struct mc7 {
 	struct mc7_stats stats;	/* MC7 statistics */
 };
 
-static inline unsigned int t3_mc7_size(const struct mc7 *p)
+static unsigned int t3_mc7_size(const struct mc7 *p)
 {
 	return p->size;
 }
@@ -558,7 +558,7 @@ struct cphy {
 };
 
 /* Convenience MDIO read/write wrappers */
-static inline int t3_mdio_read(struct cphy *phy, int mmd, int reg,
+static int t3_mdio_read(struct cphy *phy, int mmd, int reg,
 			       unsigned int *valp)
 {
 	int rc = phy->mdio.mdio_read(phy->mdio.dev, phy->mdio.prtad, mmd, reg);
@@ -566,7 +566,7 @@ static inline int t3_mdio_read(struct cphy *phy, int mmd, int reg,
 	return (rc >= 0) ? 0 : rc;
 }
 
-static inline int t3_mdio_write(struct cphy *phy, int mmd, int reg,
+static int t3_mdio_write(struct cphy *phy, int mmd, int reg,
 				unsigned int val)
 {
 	return phy->mdio.mdio_write(phy->mdio.dev, phy->mdio.prtad, mmd,
@@ -574,7 +574,7 @@ static inline int t3_mdio_write(struct cphy *phy, int mmd, int reg,
 }
 
 /* Convenience initializer */
-static inline void cphy_init(struct cphy *phy, struct adapter *adapter,
+static void cphy_init(struct cphy *phy, struct adapter *adapter,
 			     int phy_addr, const struct cphy_ops *phy_ops,
 			     const struct mdio_ops *mdio_ops,
 			      unsigned int caps, const char *desc)
@@ -614,27 +614,27 @@ struct addr_val_pair {
 
 #define adapter_info(adap) ((adap)->params.info)
 
-static inline int uses_xaui(const struct adapter *adap)
+static int uses_xaui(const struct adapter *adap)
 {
 	return adapter_info(adap)->caps & SUPPORTED_AUI;
 }
 
-static inline int is_10G(const struct adapter *adap)
+static int is_10G(const struct adapter *adap)
 {
 	return adapter_info(adap)->caps & SUPPORTED_10000baseT_Full;
 }
 
-static inline int is_offload(const struct adapter *adap)
+static int is_offload(const struct adapter *adap)
 {
 	return adap->params.offload;
 }
 
-static inline unsigned int core_ticks_per_usec(const struct adapter *adap)
+static unsigned int core_ticks_per_usec(const struct adapter *adap)
 {
 	return adap->params.vpd.cclk / 1000;
 }
 
-static inline unsigned int is_pcie(const struct adapter *adap)
+static unsigned int is_pcie(const struct adapter *adap)
 {
 	return adap->params.pci.variant == PCI_VARIANT_PCIE;
 }
@@ -645,7 +645,7 @@ void t3_write_regs(struct adapter *adapter, const struct addr_val_pair *p,
 		   int n, unsigned int offset);
 int t3_wait_op_done_val(struct adapter *adapter, int reg, u32 mask,
 			int polarity, int attempts, int delay, u32 *valp);
-static inline int t3_wait_op_done(struct adapter *adapter, int reg, u32 mask,
+static int t3_wait_op_done(struct adapter *adapter, int reg, u32 mask,
 				  int polarity, int attempts, int delay)
 {
 	return t3_wait_op_done_val(adapter, reg, mask, polarity, attempts,

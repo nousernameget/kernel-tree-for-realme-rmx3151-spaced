@@ -41,28 +41,28 @@
 #define iow8(reg, val) 		outb((unsigned long)(val, regs + reg))
 #define ior8(reg) 		inb((unsigned long)(regs + reg))
 
-static inline u32 mvs_cr32(struct mvs_info *mvi, u32 addr)
+static u32 mvs_cr32(struct mvs_info *mvi, u32 addr)
 {
 	void __iomem *regs = mvi->regs;
 	mw32(MVS_CMD_ADDR, addr);
 	return mr32(MVS_CMD_DATA);
 }
 
-static inline void mvs_cw32(struct mvs_info *mvi, u32 addr, u32 val)
+static void mvs_cw32(struct mvs_info *mvi, u32 addr, u32 val)
 {
 	void __iomem *regs = mvi->regs;
 	mw32(MVS_CMD_ADDR, addr);
 	mw32(MVS_CMD_DATA, val);
 }
 
-static inline u32 mvs_read_phy_ctl(struct mvs_info *mvi, u32 port)
+static u32 mvs_read_phy_ctl(struct mvs_info *mvi, u32 port)
 {
 	void __iomem *regs = mvi->regs;
 	return (port < 4) ? mr32(MVS_P0_SER_CTLSTAT + port * 4) :
 		mr32(MVS_P4_SER_CTLSTAT + (port - 4) * 4);
 }
 
-static inline void mvs_write_phy_ctl(struct mvs_info *mvi, u32 port, u32 val)
+static void mvs_write_phy_ctl(struct mvs_info *mvi, u32 port, u32 val)
 {
 	void __iomem *regs = mvi->regs;
 	if (port < 4)
@@ -71,7 +71,7 @@ static inline void mvs_write_phy_ctl(struct mvs_info *mvi, u32 port, u32 val)
 		mw32(MVS_P4_SER_CTLSTAT + (port - 4) * 4, val);
 }
 
-static inline u32 mvs_read_port(struct mvs_info *mvi, u32 off,
+static u32 mvs_read_port(struct mvs_info *mvi, u32 off,
 				u32 off2, u32 port)
 {
 	void __iomem *regs = mvi->regs + off;
@@ -80,7 +80,7 @@ static inline u32 mvs_read_port(struct mvs_info *mvi, u32 off,
 		readl(regs2 + (port - 4) * 8);
 }
 
-static inline void mvs_write_port(struct mvs_info *mvi, u32 off, u32 off2,
+static void mvs_write_port(struct mvs_info *mvi, u32 off, u32 off2,
 				u32 port, u32 val)
 {
 	void __iomem *regs = mvi->regs + off;
@@ -91,20 +91,20 @@ static inline void mvs_write_port(struct mvs_info *mvi, u32 off, u32 off2,
 		writel(val, regs2 + (port - 4) * 8);
 }
 
-static inline u32 mvs_read_port_cfg_data(struct mvs_info *mvi, u32 port)
+static u32 mvs_read_port_cfg_data(struct mvs_info *mvi, u32 port)
 {
 	return mvs_read_port(mvi, MVS_P0_CFG_DATA,
 			MVS_P4_CFG_DATA, port);
 }
 
-static inline void mvs_write_port_cfg_data(struct mvs_info *mvi,
+static void mvs_write_port_cfg_data(struct mvs_info *mvi,
 						u32 port, u32 val)
 {
 	mvs_write_port(mvi, MVS_P0_CFG_DATA,
 			MVS_P4_CFG_DATA, port, val);
 }
 
-static inline void mvs_write_port_cfg_addr(struct mvs_info *mvi,
+static void mvs_write_port_cfg_addr(struct mvs_info *mvi,
 						u32 port, u32 addr)
 {
 	mvs_write_port(mvi, MVS_P0_CFG_ADDR,
@@ -112,20 +112,20 @@ static inline void mvs_write_port_cfg_addr(struct mvs_info *mvi,
 	mdelay(10);
 }
 
-static inline u32 mvs_read_port_vsr_data(struct mvs_info *mvi, u32 port)
+static u32 mvs_read_port_vsr_data(struct mvs_info *mvi, u32 port)
 {
 	return mvs_read_port(mvi, MVS_P0_VSR_DATA,
 			MVS_P4_VSR_DATA, port);
 }
 
-static inline void mvs_write_port_vsr_data(struct mvs_info *mvi,
+static void mvs_write_port_vsr_data(struct mvs_info *mvi,
 						u32 port, u32 val)
 {
 	mvs_write_port(mvi, MVS_P0_VSR_DATA,
 			MVS_P4_VSR_DATA, port, val);
 }
 
-static inline void mvs_write_port_vsr_addr(struct mvs_info *mvi,
+static void mvs_write_port_vsr_addr(struct mvs_info *mvi,
 						u32 port, u32 addr)
 {
 	mvs_write_port(mvi, MVS_P0_VSR_ADDR,
@@ -133,34 +133,34 @@ static inline void mvs_write_port_vsr_addr(struct mvs_info *mvi,
 	mdelay(10);
 }
 
-static inline u32 mvs_read_port_irq_stat(struct mvs_info *mvi, u32 port)
+static u32 mvs_read_port_irq_stat(struct mvs_info *mvi, u32 port)
 {
 	return mvs_read_port(mvi, MVS_P0_INT_STAT,
 			MVS_P4_INT_STAT, port);
 }
 
-static inline void mvs_write_port_irq_stat(struct mvs_info *mvi,
+static void mvs_write_port_irq_stat(struct mvs_info *mvi,
 						u32 port, u32 val)
 {
 	mvs_write_port(mvi, MVS_P0_INT_STAT,
 			MVS_P4_INT_STAT, port, val);
 }
 
-static inline u32 mvs_read_port_irq_mask(struct mvs_info *mvi, u32 port)
+static u32 mvs_read_port_irq_mask(struct mvs_info *mvi, u32 port)
 {
 	return mvs_read_port(mvi, MVS_P0_INT_MASK,
 			MVS_P4_INT_MASK, port);
 
 }
 
-static inline void mvs_write_port_irq_mask(struct mvs_info *mvi,
+static void mvs_write_port_irq_mask(struct mvs_info *mvi,
 						u32 port, u32 val)
 {
 	mvs_write_port(mvi, MVS_P0_INT_MASK,
 			MVS_P4_INT_MASK, port, val);
 }
 
-static inline void mvs_phy_hacks(struct mvs_info *mvi)
+static void mvs_phy_hacks(struct mvs_info *mvi)
 {
 	u32 tmp;
 
@@ -184,7 +184,7 @@ static inline void mvs_phy_hacks(struct mvs_info *mvi)
 	mvs_cw32(mvi, CMD_APP_ERR_CONFIG, 0xffefbf7d);
 }
 
-static inline void mvs_int_sata(struct mvs_info *mvi)
+static void mvs_int_sata(struct mvs_info *mvi)
 {
 	u32 tmp;
 	void __iomem *regs = mvi->regs;
@@ -194,7 +194,7 @@ static inline void mvs_int_sata(struct mvs_info *mvi)
 	MVS_CHIP_DISP->clear_active_cmds(mvi);
 }
 
-static inline void mvs_int_full(struct mvs_info *mvi)
+static void mvs_int_full(struct mvs_info *mvi)
 {
 	void __iomem *regs = mvi->regs;
 	u32 tmp, stat;
@@ -218,29 +218,29 @@ static inline void mvs_int_full(struct mvs_info *mvi)
 	mw32(MVS_INT_STAT, stat);
 }
 
-static inline void mvs_start_delivery(struct mvs_info *mvi, u32 tx)
+static void mvs_start_delivery(struct mvs_info *mvi, u32 tx)
 {
 	void __iomem *regs = mvi->regs;
 	mw32(MVS_TX_PROD_IDX, tx);
 }
 
-static inline u32 mvs_rx_update(struct mvs_info *mvi)
+static u32 mvs_rx_update(struct mvs_info *mvi)
 {
 	void __iomem *regs = mvi->regs;
 	return mr32(MVS_RX_CONS_IDX);
 }
 
-static inline u32 mvs_get_prd_size(void)
+static u32 mvs_get_prd_size(void)
 {
 	return sizeof(struct mvs_prd);
 }
 
-static inline u32 mvs_get_prd_count(void)
+static u32 mvs_get_prd_count(void)
 {
 	return MAX_SG_ENTRY;
 }
 
-static inline void mvs_show_pcie_usage(struct mvs_info *mvi)
+static void mvs_show_pcie_usage(struct mvs_info *mvi)
 {
 	u16 link_stat, link_spd;
 	const char *spd[] = {
@@ -261,7 +261,7 @@ static inline void mvs_show_pcie_usage(struct mvs_info *mvi)
 	       spd[link_spd]);
 }
 
-static inline u32 mvs_hw_max_link_rate(void)
+static u32 mvs_hw_max_link_rate(void)
 {
 	return MAX_LINK_RATE;
 }

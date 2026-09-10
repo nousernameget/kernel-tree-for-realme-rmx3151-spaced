@@ -57,7 +57,7 @@ struct lxfb_par {
 #endif
 };
 
-static inline unsigned int lx_get_pitch(unsigned int xres, int bpp)
+static unsigned int lx_get_pitch(unsigned int xres, int bpp)
 {
 	return (((xres * (bpp >> 3)) + 7) & ~7);
 }
@@ -382,42 +382,42 @@ enum fp_registers {
 
 /* register access functions */
 
-static inline uint32_t read_gp(struct lxfb_par *par, int reg)
+static uint32_t read_gp(struct lxfb_par *par, int reg)
 {
 	return readl(par->gp_regs + 4*reg);
 }
 
-static inline void write_gp(struct lxfb_par *par, int reg, uint32_t val)
+static void write_gp(struct lxfb_par *par, int reg, uint32_t val)
 {
 	writel(val, par->gp_regs + 4*reg);
 }
 
-static inline uint32_t read_dc(struct lxfb_par *par, int reg)
+static uint32_t read_dc(struct lxfb_par *par, int reg)
 {
 	return readl(par->dc_regs + 4*reg);
 }
 
-static inline void write_dc(struct lxfb_par *par, int reg, uint32_t val)
+static void write_dc(struct lxfb_par *par, int reg, uint32_t val)
 {
 	writel(val, par->dc_regs + 4*reg);
 }
 
-static inline uint32_t read_vp(struct lxfb_par *par, int reg)
+static uint32_t read_vp(struct lxfb_par *par, int reg)
 {
 	return readl(par->vp_regs + 8*reg);
 }
 
-static inline void write_vp(struct lxfb_par *par, int reg, uint32_t val)
+static void write_vp(struct lxfb_par *par, int reg, uint32_t val)
 {
 	writel(val, par->vp_regs + 8*reg);
 }
 
-static inline uint32_t read_fp(struct lxfb_par *par, int reg)
+static uint32_t read_fp(struct lxfb_par *par, int reg)
 {
 	return readl(par->vp_regs + 8*reg + VP_FP_START);
 }
 
-static inline void write_fp(struct lxfb_par *par, int reg, uint32_t val)
+static void write_fp(struct lxfb_par *par, int reg, uint32_t val)
 {
 	writel(val, par->vp_regs + 8*reg + VP_FP_START);
 }

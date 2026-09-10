@@ -128,12 +128,12 @@ void vop_unregister_driver(struct vop_driver *drv);
 	module_driver(__vop_driver, vop_register_driver, \
 			vop_unregister_driver)
 
-static inline struct vop_device *dev_to_vop(struct device *dev)
+static struct vop_device *dev_to_vop(struct device *dev)
 {
 	return container_of(dev, struct vop_device, dev);
 }
 
-static inline struct vop_driver *drv_to_vop(struct device_driver *drv)
+static struct vop_driver *drv_to_vop(struct device_driver *drv)
 {
 	return container_of(drv, struct vop_driver, driver);
 }

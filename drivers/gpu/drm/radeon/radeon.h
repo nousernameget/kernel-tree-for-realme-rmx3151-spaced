@@ -399,7 +399,7 @@ void radeon_fence_unref(struct radeon_fence **fence);
 unsigned radeon_fence_count_emitted(struct radeon_device *rdev, int ring);
 bool radeon_fence_need_sync(struct radeon_fence *fence, int ring);
 void radeon_fence_note_sync(struct radeon_fence *fence, int ring);
-static inline struct radeon_fence *radeon_fence_later(struct radeon_fence *a,
+static struct radeon_fence *radeon_fence_later(struct radeon_fence *a,
 						      struct radeon_fence *b)
 {
 	if (!a) {
@@ -419,7 +419,7 @@ static inline struct radeon_fence *radeon_fence_later(struct radeon_fence *a,
 	}
 }
 
-static inline bool radeon_fence_is_earlier(struct radeon_fence *a,
+static bool radeon_fence_is_earlier(struct radeon_fence *a,
 					   struct radeon_fence *b)
 {
 	if (!a) {
@@ -1094,7 +1094,7 @@ struct radeon_cs_parser {
 	struct ww_acquire_ctx	ticket;
 };
 
-static inline u32 radeon_get_ib_value(struct radeon_cs_parser *p, int idx)
+static u32 radeon_get_ib_value(struct radeon_cs_parser *p, int idx)
 {
 	struct radeon_cs_chunk *ibc = p->chunk_ib;
 
@@ -1788,7 +1788,7 @@ void radeon_test_syncing(struct radeon_device *rdev);
 int radeon_mn_register(struct radeon_bo *bo, unsigned long addr);
 void radeon_mn_unregister(struct radeon_bo *bo);
 #else
-static inline int radeon_mn_register(struct radeon_bo *bo, unsigned long addr)
+static int radeon_mn_register(struct radeon_bo *bo, unsigned long addr)
 {
 	return -ENODEV;
 }
@@ -2475,7 +2475,7 @@ int radeon_gpu_wait_for_idle(struct radeon_device *rdev);
 
 uint32_t r100_mm_rreg_slow(struct radeon_device *rdev, uint32_t reg);
 void r100_mm_wreg_slow(struct radeon_device *rdev, uint32_t reg, uint32_t v);
-static inline uint32_t r100_mm_rreg(struct radeon_device *rdev, uint32_t reg,
+static uint32_t r100_mm_rreg(struct radeon_device *rdev, uint32_t reg,
 				    bool always_indirect)
 {
 	/* The mmio size is 64kb at minimum. Allows the if to be optimized out. */
@@ -2484,7 +2484,7 @@ static inline uint32_t r100_mm_rreg(struct radeon_device *rdev, uint32_t reg,
 	else
 		return r100_mm_rreg_slow(rdev, reg);
 }
-static inline void r100_mm_wreg(struct radeon_device *rdev, uint32_t reg, uint32_t v,
+static void r100_mm_wreg(struct radeon_device *rdev, uint32_t reg, uint32_t v,
 				bool always_indirect)
 {
 	if ((reg < rdev->rmmio_size || reg < RADEON_MIN_MMIO_SIZE) && !always_indirect)
@@ -2504,7 +2504,7 @@ void cik_mm_wdoorbell(struct radeon_device *rdev, u32 index, u32 v);
  */
 extern const struct dma_fence_ops radeon_fence_ops;
 
-static inline struct radeon_fence *to_radeon_fence(struct dma_fence *f)
+static struct radeon_fence *to_radeon_fence(struct dma_fence *f)
 {
 	struct radeon_fence *__f = container_of(f, struct radeon_fence, base);
 
@@ -2694,7 +2694,7 @@ void radeon_atombios_fini(struct radeon_device *rdev);
  *
  * Write a value to the requested ring buffer (all asics).
  */
-static inline void radeon_ring_write(struct radeon_ring *ring, uint32_t v)
+static void radeon_ring_write(struct radeon_ring *ring, uint32_t v)
 {
 	if (ring->count_dw <= 0)
 		DRM_ERROR("radeon: writing more dwords to the ring than expected!\n");

@@ -720,7 +720,7 @@ cnmStaTheTypeGet(P_ADAPTER_T prAdapter,
  * It will check automatically while at compile time.
  * We'll need this for porting driver to different RTOS.
  */
-static inline VOID cnmMemDataTypeCheck(VOID)
+static VOID cnmMemDataTypeCheck(VOID)
 {
 #if 0
 	DATA_STRUCT_INSPECTING_ASSERT(OFFSET_OF(MSDU_INFO_T, rLinkEntry) == 0);

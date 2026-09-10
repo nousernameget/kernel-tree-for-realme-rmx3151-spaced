@@ -255,13 +255,13 @@ struct hdmi_core_data {
 	void __iomem *base;
 };
 
-static inline void hdmi_write_reg(void __iomem *base_addr, const u32 idx,
+static void hdmi_write_reg(void __iomem *base_addr, const u32 idx,
 		u32 val)
 {
 	__raw_writel(val, base_addr + idx);
 }
 
-static inline u32 hdmi_read_reg(void __iomem *base_addr, const u32 idx)
+static u32 hdmi_read_reg(void __iomem *base_addr, const u32 idx)
 {
 	return __raw_readl(base_addr + idx);
 }
@@ -272,7 +272,7 @@ static inline u32 hdmi_read_reg(void __iomem *base_addr, const u32 idx)
 #define REG_GET(base, idx, start, end) \
 	FLD_GET(hdmi_read_reg(base, idx), start, end)
 
-static inline int hdmi_wait_for_bit_change(void __iomem *base_addr,
+static int hdmi_wait_for_bit_change(void __iomem *base_addr,
 		const u32 idx, int b2, int b1, u32 val)
 {
 	u32 t = 0, v;
@@ -332,7 +332,7 @@ void hdmi_wp_audio_config_format(struct hdmi_wp_data *wp,
 		struct hdmi_audio_format *aud_fmt);
 void hdmi_wp_audio_config_dma(struct hdmi_wp_data *wp,
 		struct hdmi_audio_dma *aud_dma);
-static inline bool hdmi_mode_has_audio(struct hdmi_config *cfg)
+static bool hdmi_mode_has_audio(struct hdmi_config *cfg)
 {
 	return cfg->hdmi_dvi_mode == HDMI_HDMI ? true : false;
 }

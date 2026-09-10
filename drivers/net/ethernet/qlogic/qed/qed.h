@@ -96,7 +96,7 @@ enum qed_mcp_protocol_type;
 		(name)	|= (((value) << (field ## _SHIFT)) & (field ## _MASK));\
 	} while (0)
 
-static inline u32 qed_db_addr(u32 cid, u32 DEMS)
+static u32 qed_db_addr(u32 cid, u32 DEMS)
 {
 	u32 db_addr = FIELD_VALUE(DB_LEGACY_ADDR_DEMS, DEMS) |
 		      (cid * QED_PF_DEMS_SIZE);
@@ -104,7 +104,7 @@ static inline u32 qed_db_addr(u32 cid, u32 DEMS)
 	return db_addr;
 }
 
-static inline u32 qed_db_addr_vf(u32 cid, u32 DEMS)
+static u32 qed_db_addr_vf(u32 cid, u32 DEMS)
 {
 	u32 db_addr = FIELD_VALUE(DB_LEGACY_ADDR_DEMS, DEMS) |
 		      FIELD_VALUE(DB_LEGACY_ADDR_ICID, cid);
@@ -759,9 +759,9 @@ struct qed_dev {
  *
  * @param concrete_fid
  *
- * @return inline u8
+ * @return u8
  */
-static inline u8 qed_concrete_to_sw_fid(struct qed_dev *cdev,
+static u8 qed_concrete_to_sw_fid(struct qed_dev *cdev,
 					u32 concrete_fid)
 {
 	u8 vfid = GET_FIELD(concrete_fid, PXP_CONCRETE_FID_VFID);

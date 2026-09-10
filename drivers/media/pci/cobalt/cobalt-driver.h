@@ -298,37 +298,37 @@ struct cobalt {
 	struct mtd_info *mtd;
 };
 
-static inline struct cobalt *to_cobalt(struct v4l2_device *v4l2_dev)
+static struct cobalt *to_cobalt(struct v4l2_device *v4l2_dev)
 {
 	return container_of(v4l2_dev, struct cobalt, v4l2_dev);
 }
 
-static inline void cobalt_write_bar0(struct cobalt *cobalt, u32 reg, u32 val)
+static void cobalt_write_bar0(struct cobalt *cobalt, u32 reg, u32 val)
 {
 	iowrite32(val, cobalt->bar0 + reg);
 }
 
-static inline u32 cobalt_read_bar0(struct cobalt *cobalt, u32 reg)
+static u32 cobalt_read_bar0(struct cobalt *cobalt, u32 reg)
 {
 	return ioread32(cobalt->bar0 + reg);
 }
 
-static inline void cobalt_write_bar1(struct cobalt *cobalt, u32 reg, u32 val)
+static void cobalt_write_bar1(struct cobalt *cobalt, u32 reg, u32 val)
 {
 	iowrite32(val, cobalt->bar1 + reg);
 }
 
-static inline u32 cobalt_read_bar1(struct cobalt *cobalt, u32 reg)
+static u32 cobalt_read_bar1(struct cobalt *cobalt, u32 reg)
 {
 	return ioread32(cobalt->bar1 + reg);
 }
 
-static inline u32 cobalt_g_sysctrl(struct cobalt *cobalt)
+static u32 cobalt_g_sysctrl(struct cobalt *cobalt)
 {
 	return cobalt_read_bar1(cobalt, COBALT_SYS_CTRL_BASE);
 }
 
-static inline void cobalt_s_bit_sysctrl(struct cobalt *cobalt,
+static void cobalt_s_bit_sysctrl(struct cobalt *cobalt,
 					int bit, int val)
 {
 	u32 ctrl = cobalt_read_bar1(cobalt, COBALT_SYS_CTRL_BASE);
@@ -337,7 +337,7 @@ static inline void cobalt_s_bit_sysctrl(struct cobalt *cobalt,
 			(ctrl & ~(1UL << bit)) | (val << bit));
 }
 
-static inline u32 cobalt_g_sysstat(struct cobalt *cobalt)
+static u32 cobalt_g_sysstat(struct cobalt *cobalt)
 {
 	return cobalt_read_bar1(cobalt, COBALT_SYS_STAT_BASE);
 }
@@ -346,13 +346,13 @@ static inline u32 cobalt_g_sysstat(struct cobalt *cobalt)
 #define LOWER_DATA (bar1 + COBALT_BUS_BAR1_BASE + 4)
 #define UPPER_DATA (bar1 + COBALT_BUS_BAR1_BASE + 6)
 
-static inline u32 cobalt_bus_read32(void __iomem *bar1, u32 bus_adrs)
+static u32 cobalt_bus_read32(void __iomem *bar1, u32 bus_adrs)
 {
 	iowrite32(bus_adrs, ADRS_REG);
 	return ioread32(LOWER_DATA);
 }
 
-static inline void cobalt_bus_write16(void __iomem *bar1,
+static void cobalt_bus_write16(void __iomem *bar1,
 				      u32 bus_adrs, u16 data)
 {
 	iowrite32(bus_adrs, ADRS_REG);
@@ -362,7 +362,7 @@ static inline void cobalt_bus_write16(void __iomem *bar1,
 		iowrite16(data, LOWER_DATA);
 }
 
-static inline void cobalt_bus_write32(void __iomem *bar1,
+static void cobalt_bus_write32(void __iomem *bar1,
 				      u32 bus_adrs, u16 data)
 {
 	iowrite32(bus_adrs, ADRS_REG);

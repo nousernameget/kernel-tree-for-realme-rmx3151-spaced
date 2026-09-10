@@ -66,7 +66,7 @@ struct ccu_mp {
 				   _muxshift, _muxwidth,		\
 				   0, _flags)
 
-static inline struct ccu_mp *hw_to_ccu_mp(struct clk_hw *hw)
+static struct ccu_mp *hw_to_ccu_mp(struct clk_hw *hw)
 {
 	struct ccu_common *common = hw_to_ccu_common(hw);
 

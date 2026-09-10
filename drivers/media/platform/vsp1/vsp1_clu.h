@@ -38,7 +38,7 @@ struct vsp1_clu {
 	struct vsp1_dl_body *clu;
 };
 
-static inline struct vsp1_clu *to_clu(struct v4l2_subdev *subdev)
+static struct vsp1_clu *to_clu(struct v4l2_subdev *subdev)
 {
 	return container_of(subdev, struct vsp1_clu, entity.subdev);
 }

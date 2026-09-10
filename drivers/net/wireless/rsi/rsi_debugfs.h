@@ -21,12 +21,12 @@
 #include <linux/debugfs.h>
 
 #ifndef CONFIG_RSI_DEBUGFS
-static inline int rsi_init_dbgfs(struct rsi_hw *adapter)
+static int rsi_init_dbgfs(struct rsi_hw *adapter)
 {
 	return 0;
 }
 
-static inline void rsi_remove_dbgfs(struct rsi_hw *adapter)
+static void rsi_remove_dbgfs(struct rsi_hw *adapter)
 {
 	return;
 }

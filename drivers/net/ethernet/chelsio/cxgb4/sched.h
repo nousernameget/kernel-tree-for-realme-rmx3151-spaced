@@ -79,14 +79,14 @@ struct sched_table {      /* per port scheduling table */
 	struct sched_class tab[0];
 };
 
-static inline bool can_sched(struct net_device *dev)
+static bool can_sched(struct net_device *dev)
 {
 	struct port_info *pi = netdev2pinfo(dev);
 
 	return !pi->sched_tbl ? false : true;
 }
 
-static inline bool valid_class_id(struct net_device *dev, u8 class_id)
+static bool valid_class_id(struct net_device *dev, u8 class_id)
 {
 	struct port_info *pi = netdev2pinfo(dev);
 

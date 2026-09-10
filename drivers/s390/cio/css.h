@@ -131,7 +131,7 @@ struct channel_subsystem {
 extern struct channel_subsystem *channel_subsystems[];
 
 /* Dummy helper which needs to change once we support more than one css. */
-static inline struct channel_subsystem *css_by_id(u8 cssid)
+static struct channel_subsystem *css_by_id(u8 cssid)
 {
 	return channel_subsystems[0];
 }

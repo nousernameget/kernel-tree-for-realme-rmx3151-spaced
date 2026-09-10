@@ -36,28 +36,28 @@ struct sdhci_pltfm_host {
  * These accessors are designed for big endian hosts doing I/O to
  * little endian controllers incorporating a 32-bit hardware byte swapper.
  */
-static inline u32 sdhci_be32bs_readl(struct sdhci_host *host, int reg)
+static u32 sdhci_be32bs_readl(struct sdhci_host *host, int reg)
 {
 	return in_be32(host->ioaddr + reg);
 }
 
-static inline u16 sdhci_be32bs_readw(struct sdhci_host *host, int reg)
+static u16 sdhci_be32bs_readw(struct sdhci_host *host, int reg)
 {
 	return in_be16(host->ioaddr + (reg ^ 0x2));
 }
 
-static inline u8 sdhci_be32bs_readb(struct sdhci_host *host, int reg)
+static u8 sdhci_be32bs_readb(struct sdhci_host *host, int reg)
 {
 	return in_8(host->ioaddr + (reg ^ 0x3));
 }
 
-static inline void sdhci_be32bs_writel(struct sdhci_host *host,
+static void sdhci_be32bs_writel(struct sdhci_host *host,
 				       u32 val, int reg)
 {
 	out_be32(host->ioaddr + reg, val);
 }
 
-static inline void sdhci_be32bs_writew(struct sdhci_host *host,
+static void sdhci_be32bs_writew(struct sdhci_host *host,
 				       u16 val, int reg)
 {
 	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
@@ -81,7 +81,7 @@ static inline void sdhci_be32bs_writew(struct sdhci_host *host,
 	clrsetbits_be32(host->ioaddr + base, 0xffff << shift, val << shift);
 }
 
-static inline void sdhci_be32bs_writeb(struct sdhci_host *host, u8 val, int reg)
+static void sdhci_be32bs_writeb(struct sdhci_host *host, u8 val, int reg)
 {
 	int base = reg & ~0x3;
 	int shift = (reg & 0x3) * 8;
@@ -104,7 +104,7 @@ extern int sdhci_pltfm_unregister(struct platform_device *pdev);
 
 extern unsigned int sdhci_pltfm_clk_get_max_clock(struct sdhci_host *host);
 
-static inline void *sdhci_pltfm_priv(struct sdhci_pltfm_host *host)
+static void *sdhci_pltfm_priv(struct sdhci_pltfm_host *host)
 {
 	return host->private;
 }

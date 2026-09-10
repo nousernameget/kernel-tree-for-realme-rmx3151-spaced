@@ -29,7 +29,7 @@
 /* Specific functions used for Ring mode */
 
 /* Enhanced descriptors */
-static inline void ehn_desc_rx_set_on_ring(struct dma_desc *p, int end,
+static void ehn_desc_rx_set_on_ring(struct dma_desc *p, int end,
 					   int bfsize)
 {
 	if (bfsize == BUF_SIZE_16KiB)
@@ -41,7 +41,7 @@ static inline void ehn_desc_rx_set_on_ring(struct dma_desc *p, int end,
 		p->des1 |= cpu_to_le32(ERDES1_END_RING);
 }
 
-static inline void enh_desc_end_tx_desc_on_ring(struct dma_desc *p, int end)
+static void enh_desc_end_tx_desc_on_ring(struct dma_desc *p, int end)
 {
 	if (end)
 		p->des0 |= cpu_to_le32(ETDES0_END_RING);
@@ -49,7 +49,7 @@ static inline void enh_desc_end_tx_desc_on_ring(struct dma_desc *p, int end)
 		p->des0 &= cpu_to_le32(~ETDES0_END_RING);
 }
 
-static inline void enh_set_tx_desc_len_on_ring(struct dma_desc *p, int len)
+static void enh_set_tx_desc_len_on_ring(struct dma_desc *p, int len)
 {
 	if (unlikely(len > BUF_SIZE_4KiB)) {
 		p->des1 |= cpu_to_le32((((len - BUF_SIZE_4KiB)
@@ -61,7 +61,7 @@ static inline void enh_set_tx_desc_len_on_ring(struct dma_desc *p, int len)
 }
 
 /* Normal descriptors */
-static inline void ndesc_rx_set_on_ring(struct dma_desc *p, int end, int bfsize)
+static void ndesc_rx_set_on_ring(struct dma_desc *p, int end, int bfsize)
 {
 	if (bfsize >= BUF_SIZE_2KiB) {
 		int bfsize2;
@@ -75,7 +75,7 @@ static inline void ndesc_rx_set_on_ring(struct dma_desc *p, int end, int bfsize)
 		p->des1 |= cpu_to_le32(RDES1_END_RING);
 }
 
-static inline void ndesc_end_tx_desc_on_ring(struct dma_desc *p, int end)
+static void ndesc_end_tx_desc_on_ring(struct dma_desc *p, int end)
 {
 	if (end)
 		p->des1 |= cpu_to_le32(TDES1_END_RING);
@@ -83,7 +83,7 @@ static inline void ndesc_end_tx_desc_on_ring(struct dma_desc *p, int end)
 		p->des1 &= cpu_to_le32(~TDES1_END_RING);
 }
 
-static inline void norm_set_tx_desc_len_on_ring(struct dma_desc *p, int len)
+static void norm_set_tx_desc_len_on_ring(struct dma_desc *p, int len)
 {
 	if (unlikely(len > BUF_SIZE_2KiB)) {
 		unsigned int buffer1 = (BUF_SIZE_2KiB - 1)
@@ -98,33 +98,33 @@ static inline void norm_set_tx_desc_len_on_ring(struct dma_desc *p, int len)
 /* Specific functions used for Chain mode */
 
 /* Enhanced descriptors */
-static inline void ehn_desc_rx_set_on_chain(struct dma_desc *p)
+static void ehn_desc_rx_set_on_chain(struct dma_desc *p)
 {
 	p->des1 |= cpu_to_le32(ERDES1_SECOND_ADDRESS_CHAINED);
 }
 
-static inline void enh_desc_end_tx_desc_on_chain(struct dma_desc *p)
+static void enh_desc_end_tx_desc_on_chain(struct dma_desc *p)
 {
 	p->des0 |= cpu_to_le32(ETDES0_SECOND_ADDRESS_CHAINED);
 }
 
-static inline void enh_set_tx_desc_len_on_chain(struct dma_desc *p, int len)
+static void enh_set_tx_desc_len_on_chain(struct dma_desc *p, int len)
 {
 	p->des1 |= cpu_to_le32(len & ETDES1_BUFFER1_SIZE_MASK);
 }
 
 /* Normal descriptors */
-static inline void ndesc_rx_set_on_chain(struct dma_desc *p, int end)
+static void ndesc_rx_set_on_chain(struct dma_desc *p, int end)
 {
 	p->des1 |= cpu_to_le32(RDES1_SECOND_ADDRESS_CHAINED);
 }
 
-static inline void ndesc_tx_set_on_chain(struct dma_desc *p)
+static void ndesc_tx_set_on_chain(struct dma_desc *p)
 {
 	p->des1 |= cpu_to_le32(TDES1_SECOND_ADDRESS_CHAINED);
 }
 
-static inline void norm_set_tx_desc_len_on_chain(struct dma_desc *p, int len)
+static void norm_set_tx_desc_len_on_chain(struct dma_desc *p, int len)
 {
 	p->des1 |= cpu_to_le32(len & TDES1_BUFFER1_SIZE_MASK);
 }

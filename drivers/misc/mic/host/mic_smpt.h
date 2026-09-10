@@ -87,7 +87,7 @@ dma_addr_t mic_to_dma_addr(struct mic_device *mdev, dma_addr_t mic_addr);
  *
  * returns Whether there was an error during mic_map..(..) APIs.
  */
-static inline bool mic_map_error(dma_addr_t mic_addr)
+static bool mic_map_error(dma_addr_t mic_addr)
 {
 	return !mic_addr;
 }

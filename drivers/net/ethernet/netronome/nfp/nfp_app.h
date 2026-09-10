@@ -148,59 +148,59 @@ struct nfp_app {
 
 bool nfp_ctrl_tx(struct nfp_net *nn, struct sk_buff *skb);
 
-static inline int nfp_app_init(struct nfp_app *app)
+static int nfp_app_init(struct nfp_app *app)
 {
 	if (!app->type->init)
 		return 0;
 	return app->type->init(app);
 }
 
-static inline void nfp_app_clean(struct nfp_app *app)
+static void nfp_app_clean(struct nfp_app *app)
 {
 	if (app->type->clean)
 		app->type->clean(app);
 }
 
-static inline int nfp_app_vnic_alloc(struct nfp_app *app, struct nfp_net *nn,
+static int nfp_app_vnic_alloc(struct nfp_app *app, struct nfp_net *nn,
 				     unsigned int id)
 {
 	return app->type->vnic_alloc(app, nn, id);
 }
 
-static inline void nfp_app_vnic_free(struct nfp_app *app, struct nfp_net *nn)
+static void nfp_app_vnic_free(struct nfp_app *app, struct nfp_net *nn)
 {
 	if (app->type->vnic_free)
 		app->type->vnic_free(app, nn);
 }
 
-static inline int nfp_app_vnic_init(struct nfp_app *app, struct nfp_net *nn)
+static int nfp_app_vnic_init(struct nfp_app *app, struct nfp_net *nn)
 {
 	if (!app->type->vnic_init)
 		return 0;
 	return app->type->vnic_init(app, nn);
 }
 
-static inline void nfp_app_vnic_clean(struct nfp_app *app, struct nfp_net *nn)
+static void nfp_app_vnic_clean(struct nfp_app *app, struct nfp_net *nn)
 {
 	if (app->type->vnic_clean)
 		app->type->vnic_clean(app, nn);
 }
 
-static inline int nfp_app_repr_open(struct nfp_app *app, struct nfp_repr *repr)
+static int nfp_app_repr_open(struct nfp_app *app, struct nfp_repr *repr)
 {
 	if (!app->type->repr_open)
 		return -EINVAL;
 	return app->type->repr_open(app, repr);
 }
 
-static inline int nfp_app_repr_stop(struct nfp_app *app, struct nfp_repr *repr)
+static int nfp_app_repr_stop(struct nfp_app *app, struct nfp_repr *repr)
 {
 	if (!app->type->repr_stop)
 		return -EINVAL;
 	return app->type->repr_stop(app, repr);
 }
 
-static inline int nfp_app_start(struct nfp_app *app, struct nfp_net *ctrl)
+static int nfp_app_start(struct nfp_app *app, struct nfp_net *ctrl)
 {
 	app->ctrl = ctrl;
 	if (!app->type->start)
@@ -208,31 +208,31 @@ static inline int nfp_app_start(struct nfp_app *app, struct nfp_net *ctrl)
 	return app->type->start(app);
 }
 
-static inline void nfp_app_stop(struct nfp_app *app)
+static void nfp_app_stop(struct nfp_app *app)
 {
 	if (!app->type->stop)
 		return;
 	app->type->stop(app);
 }
 
-static inline const char *nfp_app_name(struct nfp_app *app)
+static const char *nfp_app_name(struct nfp_app *app)
 {
 	if (!app)
 		return "";
 	return app->type->name;
 }
 
-static inline bool nfp_app_needs_ctrl_vnic(struct nfp_app *app)
+static bool nfp_app_needs_ctrl_vnic(struct nfp_app *app)
 {
 	return app && app->type->ctrl_msg_rx;
 }
 
-static inline bool nfp_app_ctrl_has_meta(struct nfp_app *app)
+static bool nfp_app_ctrl_has_meta(struct nfp_app *app)
 {
 	return app->type->ctrl_has_meta;
 }
 
-static inline const char *nfp_app_extra_cap(struct nfp_app *app,
+static const char *nfp_app_extra_cap(struct nfp_app *app,
 					    struct nfp_net *nn)
 {
 	if (!app || !app->type->extra_cap)
@@ -240,19 +240,19 @@ static inline const char *nfp_app_extra_cap(struct nfp_app *app,
 	return app->type->extra_cap(app, nn);
 }
 
-static inline bool nfp_app_has_tc(struct nfp_app *app)
+static bool nfp_app_has_tc(struct nfp_app *app)
 {
 	return app && app->type->setup_tc;
 }
 
-static inline bool nfp_app_tc_busy(struct nfp_app *app, struct nfp_net *nn)
+static bool nfp_app_tc_busy(struct nfp_app *app, struct nfp_net *nn)
 {
 	if (!app || !app->type->tc_busy)
 		return false;
 	return app->type->tc_busy(app, nn);
 }
 
-static inline int nfp_app_setup_tc(struct nfp_app *app,
+static int nfp_app_setup_tc(struct nfp_app *app,
 				   struct net_device *netdev,
 				   enum tc_setup_type type, void *type_data)
 {
@@ -261,7 +261,7 @@ static inline int nfp_app_setup_tc(struct nfp_app *app,
 	return app->type->setup_tc(app, netdev, type, type_data);
 }
 
-static inline int nfp_app_xdp_offload(struct nfp_app *app, struct nfp_net *nn,
+static int nfp_app_xdp_offload(struct nfp_app *app, struct nfp_net *nn,
 				      struct bpf_prog *prog)
 {
 	if (!app || !app->type->xdp_offload)
@@ -269,17 +269,17 @@ static inline int nfp_app_xdp_offload(struct nfp_app *app, struct nfp_net *nn,
 	return app->type->xdp_offload(app, nn, prog);
 }
 
-static inline bool nfp_app_ctrl_tx(struct nfp_app *app, struct sk_buff *skb)
+static bool nfp_app_ctrl_tx(struct nfp_app *app, struct sk_buff *skb)
 {
 	return nfp_ctrl_tx(app->ctrl, skb);
 }
 
-static inline void nfp_app_ctrl_rx(struct nfp_app *app, struct sk_buff *skb)
+static void nfp_app_ctrl_rx(struct nfp_app *app, struct sk_buff *skb)
 {
 	app->type->ctrl_msg_rx(app, skb);
 }
 
-static inline int nfp_app_eswitch_mode_get(struct nfp_app *app, u16 *mode)
+static int nfp_app_eswitch_mode_get(struct nfp_app *app, u16 *mode)
 {
 	if (!app->type->eswitch_mode_get)
 		return -EOPNOTSUPP;
@@ -289,20 +289,20 @@ static inline int nfp_app_eswitch_mode_get(struct nfp_app *app, u16 *mode)
 	return 0;
 }
 
-static inline int nfp_app_sriov_enable(struct nfp_app *app, int num_vfs)
+static int nfp_app_sriov_enable(struct nfp_app *app, int num_vfs)
 {
 	if (!app || !app->type->sriov_enable)
 		return -EOPNOTSUPP;
 	return app->type->sriov_enable(app, num_vfs);
 }
 
-static inline void nfp_app_sriov_disable(struct nfp_app *app)
+static void nfp_app_sriov_disable(struct nfp_app *app)
 {
 	if (app && app->type->sriov_disable)
 		app->type->sriov_disable(app);
 }
 
-static inline struct net_device *nfp_app_repr_get(struct nfp_app *app, u32 id)
+static struct net_device *nfp_app_repr_get(struct nfp_app *app, u32 id)
 {
 	if (unlikely(!app || !app->type->repr_get))
 		return NULL;

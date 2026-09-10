@@ -308,12 +308,12 @@ struct venus_inst {
 #define ctrl_to_inst(ctrl)	\
 	container_of((ctrl)->handler, struct venus_inst, ctrl_handler)
 
-static inline struct venus_inst *to_inst(struct file *filp)
+static struct venus_inst *to_inst(struct file *filp)
 {
 	return container_of(filp->private_data, struct venus_inst, fh);
 }
 
-static inline void *to_hfi_priv(struct venus_core *core)
+static void *to_hfi_priv(struct venus_core *core)
 {
 	return core->priv;
 }

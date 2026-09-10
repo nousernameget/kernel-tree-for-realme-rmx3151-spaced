@@ -177,7 +177,7 @@ enum {
 	EFX_FILTER_RX_DMAQ_ID_DROP = 0xfff
 };
 
-static inline void efx_filter_init_rx(struct efx_filter_spec *spec,
+static void efx_filter_init_rx(struct efx_filter_spec *spec,
 				      enum efx_filter_priority priority,
 				      enum efx_filter_flags flags,
 				      unsigned rxq_id)
@@ -189,7 +189,7 @@ static inline void efx_filter_init_rx(struct efx_filter_spec *spec,
 	spec->dmaq_id = rxq_id;
 }
 
-static inline void efx_filter_init_tx(struct efx_filter_spec *spec,
+static void efx_filter_init_tx(struct efx_filter_spec *spec,
 				      unsigned txq_id)
 {
 	memset(spec, 0, sizeof(*spec));
@@ -205,7 +205,7 @@ static inline void efx_filter_init_tx(struct efx_filter_spec *spec,
  * @host: Local host address (network byte order)
  * @port: Local port (network byte order)
  */
-static inline int
+static int
 efx_filter_set_ipv4_local(struct efx_filter_spec *spec, u8 proto,
 			  __be32 host, __be16 port)
 {
@@ -228,7 +228,7 @@ efx_filter_set_ipv4_local(struct efx_filter_spec *spec, u8 proto,
  * @rhost: Remote host address (network byte order)
  * @rport: Remote port (network byte order)
  */
-static inline int
+static int
 efx_filter_set_ipv4_full(struct efx_filter_spec *spec, u8 proto,
 			 __be32 lhost, __be16 lport,
 			 __be32 rhost, __be16 rport)
@@ -256,7 +256,7 @@ enum {
  * @vid: Outer VLAN ID to match, or %EFX_FILTER_VID_UNSPEC
  * @addr: Local Ethernet MAC address, or %NULL
  */
-static inline int efx_filter_set_eth_local(struct efx_filter_spec *spec,
+static int efx_filter_set_eth_local(struct efx_filter_spec *spec,
 					   u16 vid, const u8 *addr)
 {
 	if (vid == EFX_FILTER_VID_UNSPEC && addr == NULL)
@@ -277,7 +277,7 @@ static inline int efx_filter_set_eth_local(struct efx_filter_spec *spec,
  * efx_filter_set_uc_def - specify matching otherwise-unmatched unicast
  * @spec: Specification to initialise
  */
-static inline int efx_filter_set_uc_def(struct efx_filter_spec *spec)
+static int efx_filter_set_uc_def(struct efx_filter_spec *spec)
 {
 	spec->match_flags |= EFX_FILTER_MATCH_LOC_MAC_IG;
 	return 0;
@@ -287,21 +287,21 @@ static inline int efx_filter_set_uc_def(struct efx_filter_spec *spec)
  * efx_filter_set_mc_def - specify matching otherwise-unmatched multicast
  * @spec: Specification to initialise
  */
-static inline int efx_filter_set_mc_def(struct efx_filter_spec *spec)
+static int efx_filter_set_mc_def(struct efx_filter_spec *spec)
 {
 	spec->match_flags |= EFX_FILTER_MATCH_LOC_MAC_IG;
 	spec->loc_mac[0] = 1;
 	return 0;
 }
 
-static inline void efx_filter_set_encap_type(struct efx_filter_spec *spec,
+static void efx_filter_set_encap_type(struct efx_filter_spec *spec,
 					     enum efx_encap_type encap_type)
 {
 	spec->match_flags |= EFX_FILTER_MATCH_ENCAP_TYPE;
 	spec->encap_type = encap_type;
 }
 
-static inline enum efx_encap_type efx_filter_get_encap_type(
+static enum efx_encap_type efx_filter_get_encap_type(
 		const struct efx_filter_spec *spec)
 {
 	if (spec->match_flags & EFX_FILTER_MATCH_ENCAP_TYPE)

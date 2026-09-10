@@ -25,7 +25,7 @@ struct sun8i_layer {
 	int			id;
 };
 
-static inline struct sun8i_layer *
+static struct sun8i_layer *
 plane_to_sun8i_layer(struct drm_plane *plane)
 {
 	return container_of(plane, struct sun8i_layer, plane);

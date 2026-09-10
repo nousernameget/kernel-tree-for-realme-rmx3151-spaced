@@ -387,7 +387,7 @@ struct ivtv_open_id {
 	struct ivtv *itv;
 };
 
-static inline struct ivtv_open_id *fh2id(struct v4l2_fh *fh)
+static struct ivtv_open_id *fh2id(struct v4l2_fh *fh)
 {
 	return container_of(fh, struct ivtv_open_id, fh);
 }
@@ -757,7 +757,7 @@ struct ivtv {
 	void (*ivtvfb_restore)(struct ivtv *itv); /* Used for a warm start */
 };
 
-static inline struct ivtv *to_ivtv(struct v4l2_device *v4l2_dev)
+static struct ivtv *to_ivtv(struct v4l2_device *v4l2_dev)
 {
 	return container_of(v4l2_dev, struct ivtv, v4l2_dev);
 }
@@ -794,7 +794,7 @@ void ivtv_read_eeprom(struct ivtv *itv, struct tveeprom *tv);
 int ivtv_init_on_first_open(struct ivtv *itv);
 
 /* Test if the current VBI mode is raw (1) or sliced (0) */
-static inline int ivtv_raw_vbi(const struct ivtv *itv)
+static int ivtv_raw_vbi(const struct ivtv *itv)
 {
 	return itv->vbi.in.type == V4L2_BUF_TYPE_VBI_CAPTURE;
 }

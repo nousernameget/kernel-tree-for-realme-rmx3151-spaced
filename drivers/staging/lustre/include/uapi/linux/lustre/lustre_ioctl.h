@@ -92,7 +92,7 @@ struct obd_ioctl_data {
 	__u32		ioc_plen2;
 	char __user    *ioc_pbuf2;
 
-	/* inline buffers for various arguments */
+	/* buffers for various arguments */
 	__u32		ioc_inllen1;
 	char	       *ioc_inlbuf1;
 	__u32		ioc_inllen2;
@@ -110,7 +110,7 @@ struct obd_ioctl_hdr {
 	__u32		ioc_version;
 };
 
-static inline __u32 obd_ioctl_packlen(struct obd_ioctl_data *data)
+static __u32 obd_ioctl_packlen(struct obd_ioctl_data *data)
 {
 	__u32 len = __ALIGN_KERNEL(sizeof(*data), 8);
 

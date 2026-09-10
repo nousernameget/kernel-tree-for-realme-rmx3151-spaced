@@ -83,7 +83,7 @@ int ksz_switch_detect(struct ksz_device *dev);
 int ksz_switch_register(struct ksz_device *dev);
 void ksz_switch_remove(struct ksz_device *dev);
 
-static inline int ksz_read8(struct ksz_device *dev, u32 reg, u8 *val)
+static int ksz_read8(struct ksz_device *dev, u32 reg, u8 *val)
 {
 	int ret;
 
@@ -94,7 +94,7 @@ static inline int ksz_read8(struct ksz_device *dev, u32 reg, u8 *val)
 	return ret;
 }
 
-static inline int ksz_read16(struct ksz_device *dev, u32 reg, u16 *val)
+static int ksz_read16(struct ksz_device *dev, u32 reg, u16 *val)
 {
 	int ret;
 
@@ -105,7 +105,7 @@ static inline int ksz_read16(struct ksz_device *dev, u32 reg, u16 *val)
 	return ret;
 }
 
-static inline int ksz_read24(struct ksz_device *dev, u32 reg, u32 *val)
+static int ksz_read24(struct ksz_device *dev, u32 reg, u32 *val)
 {
 	int ret;
 
@@ -116,7 +116,7 @@ static inline int ksz_read24(struct ksz_device *dev, u32 reg, u32 *val)
 	return ret;
 }
 
-static inline int ksz_read32(struct ksz_device *dev, u32 reg, u32 *val)
+static int ksz_read32(struct ksz_device *dev, u32 reg, u32 *val)
 {
 	int ret;
 
@@ -127,7 +127,7 @@ static inline int ksz_read32(struct ksz_device *dev, u32 reg, u32 *val)
 	return ret;
 }
 
-static inline int ksz_write8(struct ksz_device *dev, u32 reg, u8 value)
+static int ksz_write8(struct ksz_device *dev, u32 reg, u8 value)
 {
 	int ret;
 
@@ -138,7 +138,7 @@ static inline int ksz_write8(struct ksz_device *dev, u32 reg, u8 value)
 	return ret;
 }
 
-static inline int ksz_write16(struct ksz_device *dev, u32 reg, u16 value)
+static int ksz_write16(struct ksz_device *dev, u32 reg, u16 value)
 {
 	int ret;
 
@@ -149,7 +149,7 @@ static inline int ksz_write16(struct ksz_device *dev, u32 reg, u16 value)
 	return ret;
 }
 
-static inline int ksz_write24(struct ksz_device *dev, u32 reg, u32 value)
+static int ksz_write24(struct ksz_device *dev, u32 reg, u32 value)
 {
 	int ret;
 
@@ -160,7 +160,7 @@ static inline int ksz_write24(struct ksz_device *dev, u32 reg, u32 value)
 	return ret;
 }
 
-static inline int ksz_write32(struct ksz_device *dev, u32 reg, u32 value)
+static int ksz_write32(struct ksz_device *dev, u32 reg, u32 value)
 {
 	int ret;
 
@@ -171,37 +171,37 @@ static inline int ksz_write32(struct ksz_device *dev, u32 reg, u32 value)
 	return ret;
 }
 
-static inline void ksz_pread8(struct ksz_device *dev, int port, int offset,
+static void ksz_pread8(struct ksz_device *dev, int port, int offset,
 			      u8 *data)
 {
 	ksz_read8(dev, PORT_CTRL_ADDR(port, offset), data);
 }
 
-static inline void ksz_pread16(struct ksz_device *dev, int port, int offset,
+static void ksz_pread16(struct ksz_device *dev, int port, int offset,
 			       u16 *data)
 {
 	ksz_read16(dev, PORT_CTRL_ADDR(port, offset), data);
 }
 
-static inline void ksz_pread32(struct ksz_device *dev, int port, int offset,
+static void ksz_pread32(struct ksz_device *dev, int port, int offset,
 			       u32 *data)
 {
 	ksz_read32(dev, PORT_CTRL_ADDR(port, offset), data);
 }
 
-static inline void ksz_pwrite8(struct ksz_device *dev, int port, int offset,
+static void ksz_pwrite8(struct ksz_device *dev, int port, int offset,
 			       u8 data)
 {
 	ksz_write8(dev, PORT_CTRL_ADDR(port, offset), data);
 }
 
-static inline void ksz_pwrite16(struct ksz_device *dev, int port, int offset,
+static void ksz_pwrite16(struct ksz_device *dev, int port, int offset,
 				u16 data)
 {
 	ksz_write16(dev, PORT_CTRL_ADDR(port, offset), data);
 }
 
-static inline void ksz_pwrite32(struct ksz_device *dev, int port, int offset,
+static void ksz_pwrite32(struct ksz_device *dev, int port, int offset,
 				u32 data)
 {
 	ksz_write32(dev, PORT_CTRL_ADDR(port, offset), data);

@@ -617,14 +617,14 @@ struct mv_cesa_ahash_req {
 extern struct mv_cesa_dev *cesa_dev;
 
 
-static inline void
+static void
 mv_cesa_engine_enqueue_complete_request(struct mv_cesa_engine *engine,
 					struct crypto_async_request *req)
 {
 	list_add_tail(&req->list, &engine->complete_queue);
 }
 
-static inline struct crypto_async_request *
+static struct crypto_async_request *
 mv_cesa_engine_dequeue_complete_request(struct mv_cesa_engine *engine)
 {
 	struct crypto_async_request *req;
@@ -639,30 +639,30 @@ mv_cesa_engine_dequeue_complete_request(struct mv_cesa_engine *engine)
 }
 
 
-static inline enum mv_cesa_req_type
+static enum mv_cesa_req_type
 mv_cesa_req_get_type(struct mv_cesa_req *req)
 {
 	return req->chain.first ? CESA_DMA_REQ : CESA_STD_REQ;
 }
 
-static inline void mv_cesa_update_op_cfg(struct mv_cesa_op_ctx *op,
+static void mv_cesa_update_op_cfg(struct mv_cesa_op_ctx *op,
 					 u32 cfg, u32 mask)
 {
 	op->desc.config &= cpu_to_le32(~mask);
 	op->desc.config |= cpu_to_le32(cfg);
 }
 
-static inline u32 mv_cesa_get_op_cfg(const struct mv_cesa_op_ctx *op)
+static u32 mv_cesa_get_op_cfg(const struct mv_cesa_op_ctx *op)
 {
 	return le32_to_cpu(op->desc.config);
 }
 
-static inline void mv_cesa_set_op_cfg(struct mv_cesa_op_ctx *op, u32 cfg)
+static void mv_cesa_set_op_cfg(struct mv_cesa_op_ctx *op, u32 cfg)
 {
 	op->desc.config = cpu_to_le32(cfg);
 }
 
-static inline void mv_cesa_adjust_op(struct mv_cesa_engine *engine,
+static void mv_cesa_adjust_op(struct mv_cesa_engine *engine,
 				     struct mv_cesa_op_ctx *op)
 {
 	u32 offset = engine->sram_dma & CESA_SA_SRAM_MSK;
@@ -677,26 +677,26 @@ static inline void mv_cesa_adjust_op(struct mv_cesa_engine *engine,
 	op->desc.mac_iv = CESA_SA_DESC_MAC_IV(offset);
 }
 
-static inline void mv_cesa_set_crypt_op_len(struct mv_cesa_op_ctx *op, int len)
+static void mv_cesa_set_crypt_op_len(struct mv_cesa_op_ctx *op, int len)
 {
 	op->desc.enc_len = cpu_to_le32(len);
 }
 
-static inline void mv_cesa_set_mac_op_total_len(struct mv_cesa_op_ctx *op,
+static void mv_cesa_set_mac_op_total_len(struct mv_cesa_op_ctx *op,
 						int len)
 {
 	op->desc.mac_src_p &= ~CESA_SA_DESC_MAC_TOTAL_LEN_MSK;
 	op->desc.mac_src_p |= CESA_SA_DESC_MAC_TOTAL_LEN(len);
 }
 
-static inline void mv_cesa_set_mac_op_frag_len(struct mv_cesa_op_ctx *op,
+static void mv_cesa_set_mac_op_frag_len(struct mv_cesa_op_ctx *op,
 					       int len)
 {
 	op->desc.mac_digest &= ~CESA_SA_DESC_MAC_FRAG_LEN_MSK;
 	op->desc.mac_digest |= CESA_SA_DESC_MAC_FRAG_LEN(len);
 }
 
-static inline void mv_cesa_set_int_mask(struct mv_cesa_engine *engine,
+static void mv_cesa_set_int_mask(struct mv_cesa_engine *engine,
 					u32 int_mask)
 {
 	if (int_mask == engine->int_mask)
@@ -706,12 +706,12 @@ static inline void mv_cesa_set_int_mask(struct mv_cesa_engine *engine,
 	engine->int_mask = int_mask;
 }
 
-static inline u32 mv_cesa_get_int_mask(struct mv_cesa_engine *engine)
+static u32 mv_cesa_get_int_mask(struct mv_cesa_engine *engine)
 {
 	return engine->int_mask;
 }
 
-static inline bool mv_cesa_mac_op_is_first_frag(const struct mv_cesa_op_ctx *op)
+static bool mv_cesa_mac_op_is_first_frag(const struct mv_cesa_op_ctx *op)
 {
 	return (mv_cesa_get_op_cfg(op) & CESA_SA_DESC_CFG_FRAG_MSK) ==
 		CESA_SA_DESC_CFG_FIRST_FRAG;
@@ -724,7 +724,7 @@ struct crypto_async_request *
 mv_cesa_dequeue_req_locked(struct mv_cesa_engine *engine,
 			   struct crypto_async_request **backlog);
 
-static inline struct mv_cesa_engine *mv_cesa_select_engine(int weight)
+static struct mv_cesa_engine *mv_cesa_select_engine(int weight)
 {
 	int i;
 	u32 min_load = U32_MAX;
@@ -748,7 +748,7 @@ static inline struct mv_cesa_engine *mv_cesa_select_engine(int weight)
  * Helper function that indicates whether a crypto request needs to be
  * cleaned up or not after being enqueued using mv_cesa_queue_req().
  */
-static inline int mv_cesa_req_needs_cleanup(struct crypto_async_request *req,
+static int mv_cesa_req_needs_cleanup(struct crypto_async_request *req,
 					    int ret)
 {
 	/*
@@ -773,7 +773,7 @@ static inline int mv_cesa_req_needs_cleanup(struct crypto_async_request *req,
 
 /* TDMA functions */
 
-static inline void mv_cesa_req_dma_iter_init(struct mv_cesa_dma_iter *iter,
+static void mv_cesa_req_dma_iter_init(struct mv_cesa_dma_iter *iter,
 					     unsigned int len)
 {
 	iter->len = len;
@@ -781,7 +781,7 @@ static inline void mv_cesa_req_dma_iter_init(struct mv_cesa_dma_iter *iter,
 	iter->offset = 0;
 }
 
-static inline void mv_cesa_sg_dma_iter_init(struct mv_cesa_sg_dma_iter *iter,
+static void mv_cesa_sg_dma_iter_init(struct mv_cesa_sg_dma_iter *iter,
 					    struct scatterlist *sg,
 					    enum dma_data_direction dir)
 {
@@ -791,7 +791,7 @@ static inline void mv_cesa_sg_dma_iter_init(struct mv_cesa_sg_dma_iter *iter,
 	iter->dir = dir;
 }
 
-static inline unsigned int
+static unsigned int
 mv_cesa_req_dma_iter_transfer_len(struct mv_cesa_dma_iter *iter,
 				  struct mv_cesa_sg_dma_iter *sgiter)
 {
@@ -803,7 +803,7 @@ bool mv_cesa_req_dma_iter_next_transfer(struct mv_cesa_dma_iter *chain,
 					struct mv_cesa_sg_dma_iter *sgiter,
 					unsigned int len);
 
-static inline bool mv_cesa_req_dma_iter_next_op(struct mv_cesa_dma_iter *iter)
+static bool mv_cesa_req_dma_iter_next_op(struct mv_cesa_dma_iter *iter)
 {
 	iter->offset += iter->op_len;
 	iter->op_len = min(iter->len - iter->offset,
@@ -814,7 +814,7 @@ static inline bool mv_cesa_req_dma_iter_next_op(struct mv_cesa_dma_iter *iter)
 
 void mv_cesa_dma_step(struct mv_cesa_req *dreq);
 
-static inline int mv_cesa_dma_process(struct mv_cesa_req *dreq,
+static int mv_cesa_dma_process(struct mv_cesa_req *dreq,
 				      u32 status)
 {
 	if (!(status & CESA_SA_INT_ACC0_IDMA_DONE))
@@ -834,7 +834,7 @@ void mv_cesa_tdma_chain(struct mv_cesa_engine *engine,
 int mv_cesa_tdma_process(struct mv_cesa_engine *engine, u32 status);
 
 
-static inline void
+static void
 mv_cesa_tdma_desc_iter_init(struct mv_cesa_tdma_chain *chain)
 {
 	memset(chain, 0, sizeof(*chain));

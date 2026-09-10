@@ -66,7 +66,7 @@ struct ccp_crypto_akcipher_alg {
 	struct akcipher_alg alg;
 };
 
-static inline struct ccp_crypto_ablkcipher_alg *
+static struct ccp_crypto_ablkcipher_alg *
 	ccp_crypto_ablkcipher_alg(struct crypto_tfm *tfm)
 {
 	struct crypto_alg *alg = tfm->__crt_alg;
@@ -74,7 +74,7 @@ static inline struct ccp_crypto_ablkcipher_alg *
 	return container_of(alg, struct ccp_crypto_ablkcipher_alg, alg);
 }
 
-static inline struct ccp_crypto_ahash_alg *
+static struct ccp_crypto_ahash_alg *
 	ccp_crypto_ahash_alg(struct crypto_tfm *tfm)
 {
 	struct crypto_alg *alg = tfm->__crt_alg;

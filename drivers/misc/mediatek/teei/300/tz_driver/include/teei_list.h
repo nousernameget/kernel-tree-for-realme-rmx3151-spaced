@@ -63,7 +63,7 @@ struct list {
  * @param next
  * @param new
  */
-static inline void __list_add(struct list *prev,
+static void __list_add(struct list *prev,
 			struct list *next, struct list *new)
 {
 	new->prev = prev;
@@ -79,7 +79,7 @@ static inline void __list_add(struct list *prev,
  * @param new: New node that needs to be added to list.
  * @note Please note that new node is added after the head.
  */
-static inline void list_add(struct list *head, struct list *new)
+static void list_add(struct list *head, struct list *new)
 {
 	__list_add(head, head->next, new);
 }
@@ -90,7 +90,7 @@ static inline void list_add(struct list *head, struct list *new)
  * @param new: The new node to be added before tail.
  * @note: Please note that new node is added before tail node.
  */
-static inline void list_add_tail(struct list *tnode, struct list *new)
+static void list_add_tail(struct list *tnode, struct list *new)
 {
 	__list_add(tnode->prev, tnode, new);
 }
@@ -102,7 +102,7 @@ static inline void list_add_tail(struct list *tnode, struct list *new)
  * @param prev
  * @param next
  */
-static inline void __list_del(struct list *node,
+static void __list_del(struct list *node,
 			struct list *prev, struct list *next)
 {
 	prev->next = node->next;
@@ -118,7 +118,7 @@ static inline void __list_del(struct list *node,
  *
  * @param node
  */
-static inline void list_del(struct list *node)
+static void list_del(struct list *node)
 {
 	__list_del(node, node->prev, node->next);
 }
@@ -130,7 +130,7 @@ static inline void list_del(struct list *node)
  *
  * @return
  */
-static inline struct list *list_pop_tail(struct list *head)
+static struct list *list_pop_tail(struct list *head)
 {
 	struct list *dnode = head->prev;
 
@@ -145,7 +145,7 @@ static inline struct list *list_pop_tail(struct list *head)
  *
  * @return
  */
-static inline struct list *list_pop(struct list *head)
+static struct list *list_pop(struct list *head)
 {
 	struct list *dnode = head->next;
 
@@ -160,7 +160,7 @@ static inline struct list *list_pop(struct list *head)
  *
  * @return
  */
-static inline int list_empty(struct list *head)
+static int list_empty(struct list *head)
 {
 	if (head->next == head)
 		return 1;

@@ -106,11 +106,11 @@ int omap_drm_irq_install(struct drm_device *dev);
 struct drm_fb_helper *omap_fbdev_init(struct drm_device *dev);
 void omap_fbdev_free(struct drm_device *dev);
 #else
-static inline struct drm_fb_helper *omap_fbdev_init(struct drm_device *dev)
+static struct drm_fb_helper *omap_fbdev_init(struct drm_device *dev)
 {
 	return NULL;
 }
-static inline void omap_fbdev_free(struct drm_device *dev)
+static void omap_fbdev_free(struct drm_device *dev)
 {
 }
 #endif

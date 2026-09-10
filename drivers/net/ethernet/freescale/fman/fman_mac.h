@@ -209,7 +209,7 @@ struct eth_hash_t {
 	struct list_head *lsts;
 };
 
-static inline struct eth_hash_entry
+static struct eth_hash_entry
 *dequeue_addr_from_hash_entry(struct list_head *addr_lst)
 {
 	struct eth_hash_entry *hash_entry = NULL;
@@ -221,7 +221,7 @@ static inline struct eth_hash_entry
 	return hash_entry;
 }
 
-static inline void free_hash_table(struct eth_hash_t *hash)
+static void free_hash_table(struct eth_hash_t *hash)
 {
 	struct eth_hash_entry *hash_entry;
 	int i = 0;
@@ -246,7 +246,7 @@ static inline void free_hash_table(struct eth_hash_t *hash)
 	}
 }
 
-static inline struct eth_hash_t *alloc_hash_table(u16 size)
+static struct eth_hash_t *alloc_hash_table(u16 size)
 {
 	u32 i;
 	struct eth_hash_t *hash;

@@ -701,7 +701,7 @@ struct ace_private
 
 #define TX_RESERVED	MAX_SKB_FRAGS
 
-static inline int tx_space (struct ace_private *ap, u32 csm, u32 prd)
+static int tx_space (struct ace_private *ap, u32 csm, u32 prd)
 {
 	return (csm - prd - 1) & (ACE_TX_RING_ENTRIES(ap) - 1);
 }
@@ -709,7 +709,7 @@ static inline int tx_space (struct ace_private *ap, u32 csm, u32 prd)
 #define tx_free(ap) 		tx_space((ap)->tx_ret_csm, (ap)->tx_prd, ap)
 #define tx_ring_full(ap, csm, prd)	(tx_space(ap, csm, prd) <= TX_RESERVED)
 
-static inline void set_aceaddr(aceaddr *aa, dma_addr_t addr)
+static void set_aceaddr(aceaddr *aa, dma_addr_t addr)
 {
 	u64 baddr = (u64) addr;
 	aa->addrlo = baddr & 0xffffffff;
@@ -718,7 +718,7 @@ static inline void set_aceaddr(aceaddr *aa, dma_addr_t addr)
 }
 
 
-static inline void ace_set_txprd(struct ace_regs __iomem *regs,
+static void ace_set_txprd(struct ace_regs __iomem *regs,
 				 struct ace_private *ap, u32 value)
 {
 #ifdef INDEX_DEBUG
@@ -737,7 +737,7 @@ static inline void ace_set_txprd(struct ace_regs __iomem *regs,
 }
 
 
-static inline void ace_mask_irq(struct net_device *dev)
+static void ace_mask_irq(struct net_device *dev)
 {
 	struct ace_private *ap = netdev_priv(dev);
 	struct ace_regs __iomem *regs = ap->regs;
@@ -751,7 +751,7 @@ static inline void ace_mask_irq(struct net_device *dev)
 }
 
 
-static inline void ace_unmask_irq(struct net_device *dev)
+static void ace_unmask_irq(struct net_device *dev)
 {
 	struct ace_private *ap = netdev_priv(dev);
 	struct ace_regs __iomem *regs = ap->regs;

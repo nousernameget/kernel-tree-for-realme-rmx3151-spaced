@@ -41,14 +41,14 @@ int kbd_ioctl(struct kbd_data *, unsigned int, unsigned long);
 /*
  * Helper Functions.
  */
-static inline void
+static void
 kbd_put_queue(struct tty_port *port, int ch)
 {
 	tty_insert_flip_char(port, ch, 0);
 	tty_schedule_flip(port);
 }
 
-static inline void
+static void
 kbd_puts_queue(struct tty_port *port, char *cp)
 {
 	while (*cp)

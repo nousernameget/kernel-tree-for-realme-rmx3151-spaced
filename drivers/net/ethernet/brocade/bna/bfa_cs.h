@@ -57,7 +57,7 @@ typedef void (*bfa_fsm_t)(void *fsm, int event);
 #define bfa_fsm_cmp_state(_fsm, _state)					\
 	((_fsm)->fsm == (bfa_fsm_t)(_state))
 
-static inline int
+static int
 bfa_sm_to_state(const struct bfa_sm_table *smt, bfa_sm_t sm)
 {
 	int	i = 0;
@@ -77,13 +77,13 @@ struct bfa_wc {
 	int		wc_count;
 };
 
-static inline void
+static void
 bfa_wc_up(struct bfa_wc *wc)
 {
 	wc->wc_count++;
 }
 
-static inline void
+static void
 bfa_wc_down(struct bfa_wc *wc)
 {
 	wc->wc_count--;
@@ -92,7 +92,7 @@ bfa_wc_down(struct bfa_wc *wc)
 }
 
 /* Initialize a waiting counter. */
-static inline void
+static void
 bfa_wc_init(struct bfa_wc *wc, bfa_wc_resume_t wc_resume, void *wc_cbarg)
 {
 	wc->wc_resume = wc_resume;
@@ -102,7 +102,7 @@ bfa_wc_init(struct bfa_wc *wc, bfa_wc_resume_t wc_resume, void *wc_cbarg)
 }
 
 /* Wait for counter to reach zero */
-static inline void
+static void
 bfa_wc_wait(struct bfa_wc *wc)
 {
 	bfa_wc_down(wc);

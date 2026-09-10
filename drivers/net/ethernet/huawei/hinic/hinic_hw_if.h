@@ -231,12 +231,12 @@ struct hinic_hwif {
 	struct hinic_func_attr  attr;
 };
 
-static inline u32 hinic_hwif_read_reg(struct hinic_hwif *hwif, u32 reg)
+static u32 hinic_hwif_read_reg(struct hinic_hwif *hwif, u32 reg)
 {
 	return be32_to_cpu(readl(hwif->cfg_regs_bar + reg));
 }
 
-static inline void hinic_hwif_write_reg(struct hinic_hwif *hwif, u32 reg,
+static void hinic_hwif_write_reg(struct hinic_hwif *hwif, u32 reg,
 					u32 val)
 {
 	writel(cpu_to_be32(val), hwif->cfg_regs_bar + reg);

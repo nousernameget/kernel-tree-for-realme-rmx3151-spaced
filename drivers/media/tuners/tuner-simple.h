@@ -26,7 +26,7 @@ extern struct dvb_frontend *simple_tuner_attach(struct dvb_frontend *fe,
 						u8 i2c_addr,
 						unsigned int type);
 #else
-static inline struct dvb_frontend *simple_tuner_attach(struct dvb_frontend *fe,
+static struct dvb_frontend *simple_tuner_attach(struct dvb_frontend *fe,
 						       struct i2c_adapter *i2c_adap,
 						       u8 i2c_addr,
 						       unsigned int type)

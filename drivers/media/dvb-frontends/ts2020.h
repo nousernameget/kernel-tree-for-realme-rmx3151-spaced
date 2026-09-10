@@ -73,7 +73,7 @@ extern struct dvb_frontend *ts2020_attach(
 	const struct ts2020_config *config,
 	struct i2c_adapter *i2c);
 #else
-static inline struct dvb_frontend *ts2020_attach(
+static struct dvb_frontend *ts2020_attach(
 	struct dvb_frontend *fe,
 	const struct ts2020_config *config,
 	struct i2c_adapter *i2c)

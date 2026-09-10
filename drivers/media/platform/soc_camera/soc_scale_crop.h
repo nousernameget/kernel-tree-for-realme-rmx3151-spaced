@@ -22,7 +22,7 @@ struct v4l2_pix_format;
 struct v4l2_rect;
 struct v4l2_subdev;
 
-static inline unsigned int soc_camera_shift_scale(unsigned int size,
+static unsigned int soc_camera_shift_scale(unsigned int size,
 				unsigned int shift, unsigned int scale)
 {
 	return DIV_ROUND_CLOSEST(size << shift, scale);

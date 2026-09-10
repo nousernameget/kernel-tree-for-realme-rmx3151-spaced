@@ -219,7 +219,7 @@ void *qbman_swp_mc_result(struct qbman_swp *p);
  *
  * DQRR entries may contain non-dequeue results, ie. notifications
  */
-static inline int qbman_result_is_DQ(const struct dpaa2_dq *dq)
+static int qbman_result_is_DQ(const struct dpaa2_dq *dq)
 {
 	return ((dq->dq.verb & QBMAN_RESULT_MASK) == QBMAN_RESULT_DQ);
 }
@@ -229,55 +229,55 @@ static inline int qbman_result_is_DQ(const struct dpaa2_dq *dq)
  * @dq: the dequeue result to be checked
  *
  */
-static inline int qbman_result_is_SCN(const struct dpaa2_dq *dq)
+static int qbman_result_is_SCN(const struct dpaa2_dq *dq)
 {
 	return !qbman_result_is_DQ(dq);
 }
 
 /* FQ Data Availability */
-static inline int qbman_result_is_FQDAN(const struct dpaa2_dq *dq)
+static int qbman_result_is_FQDAN(const struct dpaa2_dq *dq)
 {
 	return ((dq->dq.verb & QBMAN_RESULT_MASK) == QBMAN_RESULT_FQDAN);
 }
 
 /* Channel Data Availability */
-static inline int qbman_result_is_CDAN(const struct dpaa2_dq *dq)
+static int qbman_result_is_CDAN(const struct dpaa2_dq *dq)
 {
 	return ((dq->dq.verb & QBMAN_RESULT_MASK) == QBMAN_RESULT_CDAN);
 }
 
 /* Congestion State Change */
-static inline int qbman_result_is_CSCN(const struct dpaa2_dq *dq)
+static int qbman_result_is_CSCN(const struct dpaa2_dq *dq)
 {
 	return ((dq->dq.verb & QBMAN_RESULT_MASK) == QBMAN_RESULT_CSCN_WQ);
 }
 
 /* Buffer Pool State Change */
-static inline int qbman_result_is_BPSCN(const struct dpaa2_dq *dq)
+static int qbman_result_is_BPSCN(const struct dpaa2_dq *dq)
 {
 	return ((dq->dq.verb & QBMAN_RESULT_MASK) == QBMAN_RESULT_BPSCN);
 }
 
 /* Congestion Group Count Update */
-static inline int qbman_result_is_CGCU(const struct dpaa2_dq *dq)
+static int qbman_result_is_CGCU(const struct dpaa2_dq *dq)
 {
 	return ((dq->dq.verb & QBMAN_RESULT_MASK) == QBMAN_RESULT_CGCU);
 }
 
 /* Retirement */
-static inline int qbman_result_is_FQRN(const struct dpaa2_dq *dq)
+static int qbman_result_is_FQRN(const struct dpaa2_dq *dq)
 {
 	return ((dq->dq.verb & QBMAN_RESULT_MASK) == QBMAN_RESULT_FQRN);
 }
 
 /* Retirement Immediate */
-static inline int qbman_result_is_FQRNI(const struct dpaa2_dq *dq)
+static int qbman_result_is_FQRNI(const struct dpaa2_dq *dq)
 {
 	return ((dq->dq.verb & QBMAN_RESULT_MASK) == QBMAN_RESULT_FQRNI);
 }
 
  /* Park */
-static inline int qbman_result_is_FQPN(const struct dpaa2_dq *dq)
+static int qbman_result_is_FQPN(const struct dpaa2_dq *dq)
 {
 	return ((dq->dq.verb & QBMAN_RESULT_MASK) == QBMAN_RESULT_FQPN);
 }
@@ -285,7 +285,7 @@ static inline int qbman_result_is_FQPN(const struct dpaa2_dq *dq)
 /**
  * qbman_result_SCN_state() - Get the state field in State-change notification
  */
-static inline u8 qbman_result_SCN_state(const struct dpaa2_dq *scn)
+static u8 qbman_result_SCN_state(const struct dpaa2_dq *scn)
 {
 	return scn->scn.state;
 }
@@ -295,7 +295,7 @@ static inline u8 qbman_result_SCN_state(const struct dpaa2_dq *scn)
 /**
  * qbman_result_SCN_rid() - Get the resource id in State-change notification
  */
-static inline u32 qbman_result_SCN_rid(const struct dpaa2_dq *scn)
+static u32 qbman_result_SCN_rid(const struct dpaa2_dq *scn)
 {
 	return le32_to_cpu(scn->scn.rid_tok) & SCN_RID_MASK;
 }
@@ -303,7 +303,7 @@ static inline u32 qbman_result_SCN_rid(const struct dpaa2_dq *scn)
 /**
  * qbman_result_SCN_ctx() - Get the context data in State-change notification
  */
-static inline u64 qbman_result_SCN_ctx(const struct dpaa2_dq *scn)
+static u64 qbman_result_SCN_ctx(const struct dpaa2_dq *scn)
 {
 	return le64_to_cpu(scn->scn.ctx);
 }
@@ -318,7 +318,7 @@ static inline u64 qbman_result_SCN_ctx(const struct dpaa2_dq *scn)
  *
  * Return 0 for success, or negative error code for failure.
  */
-static inline int qbman_swp_fq_schedule(struct qbman_swp *s, u32 fqid)
+static int qbman_swp_fq_schedule(struct qbman_swp *s, u32 fqid)
 {
 	return qbman_swp_alt_fq_state(s, fqid, QBMAN_FQ_SCHEDULE);
 }
@@ -336,7 +336,7 @@ static inline int qbman_swp_fq_schedule(struct qbman_swp *s, u32 fqid)
  *
  * Return 0 for success, or negative error code for failure.
  */
-static inline int qbman_swp_fq_force(struct qbman_swp *s, u32 fqid)
+static int qbman_swp_fq_force(struct qbman_swp *s, u32 fqid)
 {
 	return qbman_swp_alt_fq_state(s, fqid, QBMAN_FQ_FORCE);
 }
@@ -350,7 +350,7 @@ static inline int qbman_swp_fq_force(struct qbman_swp *s, u32 fqid)
  *
  * Return 0 for success, or negative error code for failure.
  */
-static inline int qbman_swp_fq_xon(struct qbman_swp *s, u32 fqid)
+static int qbman_swp_fq_xon(struct qbman_swp *s, u32 fqid)
 {
 	return qbman_swp_alt_fq_state(s, fqid, QBMAN_FQ_XON);
 }
@@ -370,7 +370,7 @@ static inline int qbman_swp_fq_xon(struct qbman_swp *s, u32 fqid)
  *
  * Return 0 for success, or negative error code for failure.
  */
-static inline int qbman_swp_fq_xoff(struct qbman_swp *s, u32 fqid)
+static int qbman_swp_fq_xoff(struct qbman_swp *s, u32 fqid)
 {
 	return qbman_swp_alt_fq_state(s, fqid, QBMAN_FQ_XOFF);
 }
@@ -396,7 +396,7 @@ static inline int qbman_swp_fq_xoff(struct qbman_swp *s, u32 fqid)
  *
  * Return 0 for success, or negative error code for failure.
  */
-static inline int qbman_swp_CDAN_set_context(struct qbman_swp *s, u16 channelid,
+static int qbman_swp_CDAN_set_context(struct qbman_swp *s, u16 channelid,
 					     u64 ctx)
 {
 	return qbman_swp_CDAN_set(s, channelid,
@@ -411,7 +411,7 @@ static inline int qbman_swp_CDAN_set_context(struct qbman_swp *s, u16 channelid,
  *
  * Return 0 for success, or negative error code for failure.
  */
-static inline int qbman_swp_CDAN_enable(struct qbman_swp *s, u16 channelid)
+static int qbman_swp_CDAN_enable(struct qbman_swp *s, u16 channelid)
 {
 	return qbman_swp_CDAN_set(s, channelid,
 				  CODE_CDAN_WE_EN,
@@ -425,7 +425,7 @@ static inline int qbman_swp_CDAN_enable(struct qbman_swp *s, u16 channelid)
  *
  * Return 0 for success, or negative error code for failure.
  */
-static inline int qbman_swp_CDAN_disable(struct qbman_swp *s, u16 channelid)
+static int qbman_swp_CDAN_disable(struct qbman_swp *s, u16 channelid)
 {
 	return qbman_swp_CDAN_set(s, channelid,
 				  CODE_CDAN_WE_EN,
@@ -440,7 +440,7 @@ static inline int qbman_swp_CDAN_disable(struct qbman_swp *s, u16 channelid)
  *
  * Return 0 for success, or negative error code for failure.
  */
-static inline int qbman_swp_CDAN_set_context_enable(struct qbman_swp *s,
+static int qbman_swp_CDAN_set_context_enable(struct qbman_swp *s,
 						    u16 channelid,
 						    u64 ctx)
 {
@@ -450,7 +450,7 @@ static inline int qbman_swp_CDAN_set_context_enable(struct qbman_swp *s,
 }
 
 /* Wraps up submit + poll-for-result */
-static inline void *qbman_swp_mc_complete(struct qbman_swp *swp, void *cmd,
+static void *qbman_swp_mc_complete(struct qbman_swp *swp, void *cmd,
 					  u8 cmd_verb)
 {
 	int loopvar = 1000;

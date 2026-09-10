@@ -133,26 +133,26 @@ struct fcpio_tag {
 	} u;
 };
 
-static inline void
+static void
 fcpio_tag_id_enc(struct fcpio_tag *tag, u32 id)
 {
 	tag->u.req_id = id;
 }
 
-static inline void
+static void
 fcpio_tag_id_dec(struct fcpio_tag *tag, u32 *id)
 {
 	*id = tag->u.req_id;
 }
 
-static inline void
+static void
 fcpio_tag_exid_enc(struct fcpio_tag *tag, u16 ox_id, u16 rx_id)
 {
 	tag->u.ex_id.rx_id = rx_id;
 	tag->u.ex_id.ox_id = ox_id;
 }
 
-static inline void
+static void
 fcpio_tag_exid_dec(struct fcpio_tag *tag, u16 *ox_id, u16 *rx_id)
 {
 	*rx_id = tag->u.ex_id.rx_id;
@@ -170,7 +170,7 @@ struct fcpio_header {
 	struct fcpio_tag    tag;      /* header tag */
 };
 
-static inline void
+static void
 fcpio_header_enc(struct fcpio_header *hdr,
 		 u8 type, u8 status,
 		 struct fcpio_tag tag)
@@ -181,7 +181,7 @@ fcpio_header_enc(struct fcpio_header *hdr,
 	hdr->tag = tag;
 }
 
-static inline void
+static void
 fcpio_header_dec(struct fcpio_header *hdr,
 		 u8 *type, u8 *status,
 		 struct fcpio_tag *tag)
@@ -729,7 +729,7 @@ struct fcpio_fw_req {
  * Access routines to encode and decode the color bit, which is the most
  * significant bit of the MSB of the structure
  */
-static inline void fcpio_color_enc(struct fcpio_fw_req *fw_req, u8 color)
+static void fcpio_color_enc(struct fcpio_fw_req *fw_req, u8 color)
 {
 	u8 *c = ((u8 *) fw_req) + sizeof(struct fcpio_fw_req) - 1;
 
@@ -739,7 +739,7 @@ static inline void fcpio_color_enc(struct fcpio_fw_req *fw_req, u8 color)
 		*c &= ~0x80;
 }
 
-static inline void fcpio_color_dec(struct fcpio_fw_req *fw_req, u8 *color)
+static void fcpio_color_dec(struct fcpio_fw_req *fw_req, u8 *color)
 {
 	u8 *c = ((u8 *) fw_req) + sizeof(struct fcpio_fw_req) - 1;
 

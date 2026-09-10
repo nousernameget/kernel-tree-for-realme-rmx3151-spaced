@@ -157,7 +157,7 @@ struct eth_dev *gether_setup_name(struct usb_gadget *g,
  *
  * Returns a eth_dev pointer on success, or an ERR_PTR on failure
  */
-static inline struct eth_dev *gether_setup(struct usb_gadget *g,
+static struct eth_dev *gether_setup(struct usb_gadget *g,
 		const char *dev_addr, const char *host_addr,
 		u8 ethaddr[ETH_ALEN], unsigned qmult)
 {
@@ -188,7 +188,7 @@ int gether_register_netdev(struct net_device *net);
  *
  * Returns negative errno, or zero on success
  */
-static inline struct net_device *gether_setup_default(void)
+static struct net_device *gether_setup_default(void)
 {
 	return gether_setup_name_default("usb");
 }
@@ -305,7 +305,7 @@ void gether_disconnect(struct gether *);
 void gether_update_dl_max_xfer_size(struct gether *link, uint32_t s);
 
 /* Some controllers can't support CDC Ethernet (ECM) ... */
-static inline bool can_support_ecm(struct usb_gadget *gadget)
+static bool can_support_ecm(struct usb_gadget *gadget)
 {
 	if (!gadget_is_altset_supported(gadget))
 		return false;

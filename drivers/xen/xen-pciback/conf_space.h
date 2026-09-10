@@ -76,13 +76,13 @@ int xen_pcibk_config_add_field_offset(struct pci_dev *dev,
 				    const struct config_field *field,
 				    unsigned int offset);
 
-static inline int xen_pcibk_config_add_field(struct pci_dev *dev,
+static int xen_pcibk_config_add_field(struct pci_dev *dev,
 					   const struct config_field *field)
 {
 	return xen_pcibk_config_add_field_offset(dev, field, 0);
 }
 
-static inline int xen_pcibk_config_add_fields(struct pci_dev *dev,
+static int xen_pcibk_config_add_fields(struct pci_dev *dev,
 					    const struct config_field *field)
 {
 	int i, err = 0;
@@ -94,7 +94,7 @@ static inline int xen_pcibk_config_add_fields(struct pci_dev *dev,
 	return err;
 }
 
-static inline int xen_pcibk_config_add_fields_offset(struct pci_dev *dev,
+static int xen_pcibk_config_add_fields_offset(struct pci_dev *dev,
 					const struct config_field *field,
 					unsigned int offset)
 {

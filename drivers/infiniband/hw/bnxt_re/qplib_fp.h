@@ -50,12 +50,12 @@ struct bnxt_qplib_sge {
 #define SQE_CNT_PER_PG		(PAGE_SIZE / BNXT_QPLIB_MAX_SQE_ENTRY_SIZE)
 #define SQE_MAX_IDX_PER_PG	(SQE_CNT_PER_PG - 1)
 
-static inline u32 get_sqe_pg(u32 val)
+static u32 get_sqe_pg(u32 val)
 {
 	return ((val & ~SQE_MAX_IDX_PER_PG) / SQE_CNT_PER_PG);
 }
 
-static inline u32 get_sqe_idx(u32 val)
+static u32 get_sqe_idx(u32 val)
 {
 	return (val & SQE_MAX_IDX_PER_PG);
 }
@@ -65,12 +65,12 @@ static inline u32 get_sqe_idx(u32 val)
 #define PSNE_CNT_PER_PG		(PAGE_SIZE / BNXT_QPLIB_MAX_PSNE_ENTRY_SIZE)
 #define PSNE_MAX_IDX_PER_PG	(PSNE_CNT_PER_PG - 1)
 
-static inline u32 get_psne_pg(u32 val)
+static u32 get_psne_pg(u32 val)
 {
 	return ((val & ~PSNE_MAX_IDX_PER_PG) / PSNE_CNT_PER_PG);
 }
 
-static inline u32 get_psne_idx(u32 val)
+static u32 get_psne_idx(u32 val)
 {
 	return (val & PSNE_MAX_IDX_PER_PG);
 }
@@ -114,7 +114,7 @@ struct bnxt_qplib_swqe {
 #define BNXT_QPLIB_SWQE_FLAGS_INLINE			BIT(4)
 	struct bnxt_qplib_sge		sg_list[BNXT_QPLIB_QP_MAX_SGL];
 	int				num_sge;
-	/* Max inline data is 96 bytes */
+	/* Max data is 96 bytes */
 	u32				inline_len;
 #define BNXT_QPLIB_SWQE_MAX_INLINE_LENGTH		96
 	u8		inline_data[BNXT_QPLIB_SWQE_MAX_INLINE_LENGTH];
@@ -313,7 +313,7 @@ struct bnxt_qplib_qp {
 	(!!((hdr)->cqe_type_toggle & CQ_BASE_TOGGLE) ==		\
 	   !((raw_cons) & (cp_bit)))
 
-static inline bool bnxt_qplib_queue_full(struct bnxt_qplib_q *qplib_q)
+static bool bnxt_qplib_queue_full(struct bnxt_qplib_q *qplib_q)
 {
 	return HWQ_CMP((qplib_q->hwq.prod + qplib_q->q_full_delta),
 		       &qplib_q->hwq) == HWQ_CMP(qplib_q->hwq.cons,

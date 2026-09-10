@@ -440,47 +440,47 @@ struct ohci_hcd {
 };
 
 #ifdef CONFIG_USB_PCI
-static inline int quirk_nec(struct ohci_hcd *ohci)
+static int quirk_nec(struct ohci_hcd *ohci)
 {
 	return ohci->flags & OHCI_QUIRK_NEC;
 }
-static inline int quirk_zfmicro(struct ohci_hcd *ohci)
+static int quirk_zfmicro(struct ohci_hcd *ohci)
 {
 	return ohci->flags & OHCI_QUIRK_ZFMICRO;
 }
-static inline int quirk_amdiso(struct ohci_hcd *ohci)
+static int quirk_amdiso(struct ohci_hcd *ohci)
 {
 	return ohci->flags & OHCI_QUIRK_AMD_PLL;
 }
-static inline int quirk_amdprefetch(struct ohci_hcd *ohci)
+static int quirk_amdprefetch(struct ohci_hcd *ohci)
 {
 	return ohci->flags & OHCI_QUIRK_AMD_PREFETCH;
 }
 #else
-static inline int quirk_nec(struct ohci_hcd *ohci)
+static int quirk_nec(struct ohci_hcd *ohci)
 {
 	return 0;
 }
-static inline int quirk_zfmicro(struct ohci_hcd *ohci)
+static int quirk_zfmicro(struct ohci_hcd *ohci)
 {
 	return 0;
 }
-static inline int quirk_amdiso(struct ohci_hcd *ohci)
+static int quirk_amdiso(struct ohci_hcd *ohci)
 {
 	return 0;
 }
-static inline int quirk_amdprefetch(struct ohci_hcd *ohci)
+static int quirk_amdprefetch(struct ohci_hcd *ohci)
 {
 	return 0;
 }
 #endif
 
 /* convert between an hcd pointer and the corresponding ohci_hcd */
-static inline struct ohci_hcd *hcd_to_ohci (struct usb_hcd *hcd)
+static struct ohci_hcd *hcd_to_ohci (struct usb_hcd *hcd)
 {
 	return (struct ohci_hcd *) (hcd->hcd_priv);
 }
-static inline struct usb_hcd *ohci_to_hcd (const struct ohci_hcd *ohci)
+static struct usb_hcd *ohci_to_hcd (const struct ohci_hcd *ohci)
 {
 	return container_of ((void *) ohci, struct usb_hcd, hcd_priv);
 }
@@ -558,7 +558,7 @@ static inline struct usb_hcd *ohci_to_hcd (const struct ohci_hcd *ohci)
  * Other arches can be added if/when they're needed.
  *
  */
-static inline unsigned int _ohci_readl (const struct ohci_hcd *ohci,
+static unsigned int _ohci_readl (const struct ohci_hcd *ohci,
 					__hc32 __iomem * regs)
 {
 #ifdef CONFIG_USB_OHCI_BIG_ENDIAN_MMIO
@@ -570,7 +570,7 @@ static inline unsigned int _ohci_readl (const struct ohci_hcd *ohci,
 #endif
 }
 
-static inline void _ohci_writel (const struct ohci_hcd *ohci,
+static void _ohci_writel (const struct ohci_hcd *ohci,
 				 const unsigned int val, __hc32 __iomem *regs)
 {
 #ifdef CONFIG_USB_OHCI_BIG_ENDIAN_MMIO
@@ -589,28 +589,28 @@ static inline void _ohci_writel (const struct ohci_hcd *ohci,
 /*-------------------------------------------------------------------------*/
 
 /* cpu to ohci */
-static inline __hc16 cpu_to_hc16 (const struct ohci_hcd *ohci, const u16 x)
+static __hc16 cpu_to_hc16 (const struct ohci_hcd *ohci, const u16 x)
 {
 	return big_endian_desc(ohci) ?
 		(__force __hc16)cpu_to_be16(x) :
 		(__force __hc16)cpu_to_le16(x);
 }
 
-static inline __hc16 cpu_to_hc16p (const struct ohci_hcd *ohci, const u16 *x)
+static __hc16 cpu_to_hc16p (const struct ohci_hcd *ohci, const u16 *x)
 {
 	return big_endian_desc(ohci) ?
 		cpu_to_be16p(x) :
 		cpu_to_le16p(x);
 }
 
-static inline __hc32 cpu_to_hc32 (const struct ohci_hcd *ohci, const u32 x)
+static __hc32 cpu_to_hc32 (const struct ohci_hcd *ohci, const u32 x)
 {
 	return big_endian_desc(ohci) ?
 		(__force __hc32)cpu_to_be32(x) :
 		(__force __hc32)cpu_to_le32(x);
 }
 
-static inline __hc32 cpu_to_hc32p (const struct ohci_hcd *ohci, const u32 *x)
+static __hc32 cpu_to_hc32p (const struct ohci_hcd *ohci, const u32 *x)
 {
 	return big_endian_desc(ohci) ?
 		cpu_to_be32p(x) :
@@ -618,28 +618,28 @@ static inline __hc32 cpu_to_hc32p (const struct ohci_hcd *ohci, const u32 *x)
 }
 
 /* ohci to cpu */
-static inline u16 hc16_to_cpu (const struct ohci_hcd *ohci, const __hc16 x)
+static u16 hc16_to_cpu (const struct ohci_hcd *ohci, const __hc16 x)
 {
 	return big_endian_desc(ohci) ?
 		be16_to_cpu((__force __be16)x) :
 		le16_to_cpu((__force __le16)x);
 }
 
-static inline u16 hc16_to_cpup (const struct ohci_hcd *ohci, const __hc16 *x)
+static u16 hc16_to_cpup (const struct ohci_hcd *ohci, const __hc16 *x)
 {
 	return big_endian_desc(ohci) ?
 		be16_to_cpup((__force __be16 *)x) :
 		le16_to_cpup((__force __le16 *)x);
 }
 
-static inline u32 hc32_to_cpu (const struct ohci_hcd *ohci, const __hc32 x)
+static u32 hc32_to_cpu (const struct ohci_hcd *ohci, const __hc32 x)
 {
 	return big_endian_desc(ohci) ?
 		be32_to_cpu((__force __be32)x) :
 		le32_to_cpu((__force __le32)x);
 }
 
-static inline u32 hc32_to_cpup (const struct ohci_hcd *ohci, const __hc32 *x)
+static u32 hc32_to_cpup (const struct ohci_hcd *ohci, const __hc32 *x)
 {
 	return big_endian_desc(ohci) ?
 		be32_to_cpup((__force __be32 *)x) :
@@ -658,7 +658,7 @@ static inline u32 hc32_to_cpup (const struct ohci_hcd *ohci, const __hc32 *x)
  * reordered on BE.
  */
 
-static inline u16 ohci_frame_no(const struct ohci_hcd *ohci)
+static u16 ohci_frame_no(const struct ohci_hcd *ohci)
 {
 	u32 tmp;
 	if (big_endian_desc(ohci)) {
@@ -671,14 +671,14 @@ static inline u16 ohci_frame_no(const struct ohci_hcd *ohci)
 	return (u16)tmp;
 }
 
-static inline __hc16 *ohci_hwPSWp(const struct ohci_hcd *ohci,
+static __hc16 *ohci_hwPSWp(const struct ohci_hcd *ohci,
                                  const struct td *td, int index)
 {
 	return (__hc16 *)(big_endian_desc(ohci) ?
 			&td->hwPSW[index ^ 1] : &td->hwPSW[index]);
 }
 
-static inline u16 ohci_hwPSW(const struct ohci_hcd *ohci,
+static u16 ohci_hwPSW(const struct ohci_hcd *ohci,
                                const struct td *td, int index)
 {
 	return hc16_to_cpup(ohci, ohci_hwPSWp(ohci, td, index));
@@ -691,7 +691,7 @@ static inline u16 ohci_hwPSW(const struct ohci_hcd *ohci,
 #define	FIT			(1 << 31)
 #define LSTHRESH		0x628		/* lowspeed bit threshold */
 
-static inline void periodic_reinit (struct ohci_hcd *ohci)
+static void periodic_reinit (struct ohci_hcd *ohci)
 {
 	u32	fi = ohci->fminterval & 0x03fff;
 	u32	fit = ohci_readl(ohci, &ohci->regs->fminterval) & FIT;
@@ -715,13 +715,13 @@ static inline void periodic_reinit (struct ohci_hcd *ohci)
 			temp = ohci_readl (hc, &hc->regs->roothub.register); \
 	temp; })
 
-static inline u32 roothub_a (struct ohci_hcd *hc)
+static u32 roothub_a (struct ohci_hcd *hc)
 	{ return read_roothub (hc, a, 0xfc0fe000); }
-static inline u32 roothub_b (struct ohci_hcd *hc)
+static u32 roothub_b (struct ohci_hcd *hc)
 	{ return ohci_readl (hc, &hc->regs->roothub.b); }
-static inline u32 roothub_status (struct ohci_hcd *hc)
+static u32 roothub_status (struct ohci_hcd *hc)
 	{ return ohci_readl (hc, &hc->regs->roothub.status); }
-static inline u32 roothub_portstatus (struct ohci_hcd *hc, int i)
+static u32 roothub_portstatus (struct ohci_hcd *hc, int i)
 	{ return read_roothub (hc, portstatus [i], 0xffe0fce0); }
 
 /* Declarations of things exported for use by ohci platform drivers */

@@ -985,14 +985,14 @@ extern void cx231xx_417_unregister(struct cx231xx *dev);
 int cx231xx_ir_init(struct cx231xx *dev);
 void cx231xx_ir_exit(struct cx231xx *dev);
 #else
-static inline int cx231xx_ir_init(struct cx231xx *dev)
+static int cx231xx_ir_init(struct cx231xx *dev)
 {
 	return 0;
 }
 static inline void cx231xx_ir_exit(struct cx231xx *dev) {}
 #endif
 
-static inline unsigned int norm_maxw(struct cx231xx *dev)
+static unsigned int norm_maxw(struct cx231xx *dev)
 {
 	if (dev->board.max_range_640_480)
 		return 640;
@@ -1000,7 +1000,7 @@ static inline unsigned int norm_maxw(struct cx231xx *dev)
 		return 720;
 }
 
-static inline unsigned int norm_maxh(struct cx231xx *dev)
+static unsigned int norm_maxh(struct cx231xx *dev)
 {
 	if (dev->board.max_range_640_480)
 		return 480;

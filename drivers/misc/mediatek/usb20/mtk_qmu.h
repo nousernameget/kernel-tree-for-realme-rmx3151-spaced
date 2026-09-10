@@ -130,7 +130,7 @@ extern int mtk_qmu_dbg_level;	/* refer to musb_core.c */
 extern int mtk_qmu_max_gpd_num;
 extern int isoc_ep_end_idx;
 extern int isoc_ep_gpd_count;
-static inline int mtk_dbg_level(unsigned int level)
+static int mtk_dbg_level(unsigned int level)
 {
 	return mtk_qmu_dbg_level >= level;
 }

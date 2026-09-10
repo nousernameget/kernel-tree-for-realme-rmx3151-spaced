@@ -264,20 +264,20 @@ struct PHM_PerformanceLevel {
 typedef struct PHM_PerformanceLevel PHM_PerformanceLevel;
 
 /* Function for setting a platform cap */
-static inline void phm_cap_set(uint32_t *caps,
+static void phm_cap_set(uint32_t *caps,
 			enum phm_platform_caps c)
 {
 	caps[c / PHM_MAX_NUM_CAPS_BITS_PER_FIELD] |= (1UL <<
 			     (c & (PHM_MAX_NUM_CAPS_BITS_PER_FIELD - 1)));
 }
 
-static inline void phm_cap_unset(uint32_t *caps,
+static void phm_cap_unset(uint32_t *caps,
 			enum phm_platform_caps c)
 {
 	caps[c / PHM_MAX_NUM_CAPS_BITS_PER_FIELD] &= ~(1UL << (c & (PHM_MAX_NUM_CAPS_BITS_PER_FIELD - 1)));
 }
 
-static inline bool phm_cap_enabled(const uint32_t *caps, enum phm_platform_caps c)
+static bool phm_cap_enabled(const uint32_t *caps, enum phm_platform_caps c)
 {
 	return (0 != (caps[c / PHM_MAX_NUM_CAPS_BITS_PER_FIELD] &
 		  (1UL << (c & (PHM_MAX_NUM_CAPS_BITS_PER_FIELD - 1)))));

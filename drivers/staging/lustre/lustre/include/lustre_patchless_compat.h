@@ -41,7 +41,7 @@
 
 #define ll_delete_from_page_cache(page) delete_from_page_cache(page)
 
-static inline void
+static void
 truncate_complete_page(struct address_space *mapping, struct page *page)
 {
 	if (page->mapping != mapping)

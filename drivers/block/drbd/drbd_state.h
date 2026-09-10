@@ -154,7 +154,7 @@ extern bool conn_all_vols_unconf(struct drbd_connection *connection);
  * quite verbose in case the state change is not possible, and all those
  * state changes are globally serialized.
  */
-static inline int drbd_request_state(struct drbd_device *device,
+static int drbd_request_state(struct drbd_device *device,
 				     union drbd_state mask,
 				     union drbd_state val)
 {

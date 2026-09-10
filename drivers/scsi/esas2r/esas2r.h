@@ -1147,7 +1147,7 @@ void esas2r_queue_fw_event(struct esas2r_adapter *a,
 /* Inline functions */
 
 /* Allocate a chip scatter/gather list entry */
-static inline struct esas2r_mem_desc *esas2r_alloc_sgl(struct esas2r_adapter *a)
+static struct esas2r_mem_desc *esas2r_alloc_sgl(struct esas2r_adapter *a)
 {
 	unsigned long flags;
 	struct list_head *sgl;
@@ -1165,7 +1165,7 @@ static inline struct esas2r_mem_desc *esas2r_alloc_sgl(struct esas2r_adapter *a)
 }
 
 /* Initialize a scatter/gather context */
-static inline void esas2r_sgc_init(struct esas2r_sg_context *sgc,
+static void esas2r_sgc_init(struct esas2r_sg_context *sgc,
 				   struct esas2r_adapter *a,
 				   struct esas2r_request *rq,
 				   struct atto_vda_sge *first)
@@ -1198,7 +1198,7 @@ static inline void esas2r_sgc_init(struct esas2r_sg_context *sgc,
 	sgc->sge.a64.chain = NULL;
 }
 
-static inline void esas2r_rq_init_request(struct esas2r_request *rq,
+static void esas2r_rq_init_request(struct esas2r_request *rq,
 					  struct esas2r_adapter *a)
 {
 	union atto_vda_req *vrq = rq->vrq;
@@ -1261,7 +1261,7 @@ static inline void esas2r_rq_init_request(struct esas2r_request *rq,
 			      sizeof(union atto_vda_req));
 }
 
-static inline void esas2r_rq_free_sg_lists(struct esas2r_request *rq,
+static void esas2r_rq_free_sg_lists(struct esas2r_request *rq,
 					   struct esas2r_adapter *a)
 {
 	unsigned long flags;
@@ -1274,7 +1274,7 @@ static inline void esas2r_rq_free_sg_lists(struct esas2r_request *rq,
 	spin_unlock_irqrestore(&a->sg_list_lock, flags);
 }
 
-static inline void esas2r_rq_destroy_request(struct esas2r_request *rq,
+static void esas2r_rq_destroy_request(struct esas2r_request *rq,
 					     struct esas2r_adapter *a)
 
 {
@@ -1283,7 +1283,7 @@ static inline void esas2r_rq_destroy_request(struct esas2r_request *rq,
 	rq->data_buf = NULL;
 }
 
-static inline bool esas2r_is_tasklet_pending(struct esas2r_adapter *a)
+static bool esas2r_is_tasklet_pending(struct esas2r_adapter *a)
 {
 
 	return test_bit(AF_BUSRST_NEEDED, &a->flags) ||
@@ -1300,7 +1300,7 @@ static inline bool esas2r_is_tasklet_pending(struct esas2r_adapter *a)
  * struct esas2r_sg_context prior to the initial call by calling
  * esas2r_sgc_init()
  */
-static inline bool esas2r_build_sg_list(struct esas2r_adapter *a,
+static bool esas2r_build_sg_list(struct esas2r_adapter *a,
 					struct esas2r_request *rq,
 					struct esas2r_sg_context *sgc)
 {
@@ -1310,14 +1310,14 @@ static inline bool esas2r_build_sg_list(struct esas2r_adapter *a,
 	return (*a->build_sgl)(a, sgc);
 }
 
-static inline void esas2r_disable_chip_interrupts(struct esas2r_adapter *a)
+static void esas2r_disable_chip_interrupts(struct esas2r_adapter *a)
 {
 	if (atomic_inc_return(&a->dis_ints_cnt) == 1)
 		esas2r_write_register_dword(a, MU_INT_MASK_OUT,
 					    ESAS2R_INT_DIS_MASK);
 }
 
-static inline void esas2r_enable_chip_interrupts(struct esas2r_adapter *a)
+static void esas2r_enable_chip_interrupts(struct esas2r_adapter *a)
 {
 	if (atomic_dec_return(&a->dis_ints_cnt) == 0)
 		esas2r_write_register_dword(a, MU_INT_MASK_OUT,
@@ -1327,14 +1327,14 @@ static inline void esas2r_enable_chip_interrupts(struct esas2r_adapter *a)
 /* Schedule a TASKLET to perform non-interrupt tasks that may require delays
  * or long completion times.
  */
-static inline void esas2r_schedule_tasklet(struct esas2r_adapter *a)
+static void esas2r_schedule_tasklet(struct esas2r_adapter *a)
 {
 	/* make sure we don't schedule twice */
 	if (!test_and_set_bit(AF_TASKLET_SCHEDULED, &a->flags))
 		tasklet_hi_schedule(&a->tasklet);
 }
 
-static inline void esas2r_enable_heartbeat(struct esas2r_adapter *a)
+static void esas2r_enable_heartbeat(struct esas2r_adapter *a)
 {
 	if (!test_bit(AF_DEGRADED_MODE, &a->flags) &&
 	    !test_bit(AF_CHPRST_PENDING, &a->flags) &&
@@ -1344,7 +1344,7 @@ static inline void esas2r_enable_heartbeat(struct esas2r_adapter *a)
 		clear_bit(AF_HEARTBEAT_ENB, &a->flags);
 }
 
-static inline void esas2r_disable_heartbeat(struct esas2r_adapter *a)
+static void esas2r_disable_heartbeat(struct esas2r_adapter *a)
 {
 	clear_bit(AF_HEARTBEAT_ENB, &a->flags);
 	clear_bit(AF_HEARTBEAT, &a->flags);
@@ -1353,7 +1353,7 @@ static inline void esas2r_disable_heartbeat(struct esas2r_adapter *a)
 /* Set the initial state for resetting the adapter on the next pass through
  * esas2r_do_deferred.
  */
-static inline void esas2r_local_reset_adapter(struct esas2r_adapter *a)
+static void esas2r_local_reset_adapter(struct esas2r_adapter *a)
 {
 	esas2r_disable_heartbeat(a);
 
@@ -1363,7 +1363,7 @@ static inline void esas2r_local_reset_adapter(struct esas2r_adapter *a)
 }
 
 /* See if an interrupt is pending on the adapter. */
-static inline bool esas2r_adapter_interrupt_pending(struct esas2r_adapter *a)
+static bool esas2r_adapter_interrupt_pending(struct esas2r_adapter *a)
 {
 	u32 intstat;
 
@@ -1383,14 +1383,14 @@ static inline bool esas2r_adapter_interrupt_pending(struct esas2r_adapter *a)
 	return true;
 }
 
-static inline u16 esas2r_targ_get_id(struct esas2r_target *t,
+static u16 esas2r_targ_get_id(struct esas2r_target *t,
 				     struct esas2r_adapter *a)
 {
 	return (u16)(uintptr_t)(t - a->targetdb);
 }
 
 /*  Build and start an asynchronous event request */
-static inline void esas2r_start_ae_request(struct esas2r_adapter *a,
+static void esas2r_start_ae_request(struct esas2r_adapter *a,
 					   struct esas2r_request *rq)
 {
 	unsigned long flags;
@@ -1402,7 +1402,7 @@ static inline void esas2r_start_ae_request(struct esas2r_adapter *a,
 	spin_unlock_irqrestore(&a->queue_lock, flags);
 }
 
-static inline void esas2r_comp_list_drain(struct esas2r_adapter *a,
+static void esas2r_comp_list_drain(struct esas2r_adapter *a,
 					  struct list_head *comp_list)
 {
 	struct esas2r_request *rq;

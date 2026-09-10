@@ -40,7 +40,7 @@ struct mt312_config {
 struct dvb_frontend *mt312_attach(const struct mt312_config *config,
 					struct i2c_adapter *i2c);
 #else
-static inline struct dvb_frontend *mt312_attach(
+static struct dvb_frontend *mt312_attach(
 	const struct mt312_config *config, struct i2c_adapter *i2c)
 {
 	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);

@@ -97,7 +97,7 @@ void kbase_destroy_context(struct kbase_context *kctx);
  *
  * Return: true if @flag is set on @kctx, false if not.
  */
-static inline bool kbase_ctx_flag(struct kbase_context *kctx,
+static bool kbase_ctx_flag(struct kbase_context *kctx,
 				      enum kbase_context_flags flag)
 {
 	return atomic_read(&kctx->flags) & flag;
@@ -114,7 +114,7 @@ static inline bool kbase_ctx_flag(struct kbase_context *kctx,
  * Some flags have locking requirements, check the documentation for the
  * respective flags.
  */
-static inline void kbase_ctx_flag_clear(struct kbase_context *kctx,
+static void kbase_ctx_flag_clear(struct kbase_context *kctx,
 					enum kbase_context_flags flag)
 {
 #if KERNEL_VERSION(4, 3, 0) > LINUX_VERSION_CODE
@@ -149,7 +149,7 @@ static inline void kbase_ctx_flag_clear(struct kbase_context *kctx,
  * Some flags have locking requirements, check the documentation for the
  * respective flags.
  */
-static inline void kbase_ctx_flag_set(struct kbase_context *kctx,
+static void kbase_ctx_flag_set(struct kbase_context *kctx,
 				      enum kbase_context_flags flag)
 {
 	atomic_or(flag, &kctx->flags);

@@ -59,17 +59,17 @@ struct mdp4_platform_config {
 	uint32_t max_clk;
 };
 
-static inline void mdp4_write(struct mdp4_kms *mdp4_kms, u32 reg, u32 data)
+static void mdp4_write(struct mdp4_kms *mdp4_kms, u32 reg, u32 data)
 {
 	msm_writel(data, mdp4_kms->mmio + reg);
 }
 
-static inline u32 mdp4_read(struct mdp4_kms *mdp4_kms, u32 reg)
+static u32 mdp4_read(struct mdp4_kms *mdp4_kms, u32 reg)
 {
 	return msm_readl(mdp4_kms->mmio + reg);
 }
 
-static inline uint32_t pipe2flush(enum mdp4_pipe pipe)
+static uint32_t pipe2flush(enum mdp4_pipe pipe)
 {
 	switch (pipe) {
 	case VG1:      return MDP4_OVERLAY_FLUSH_VG1;
@@ -80,7 +80,7 @@ static inline uint32_t pipe2flush(enum mdp4_pipe pipe)
 	}
 }
 
-static inline uint32_t ovlp2flush(int ovlp)
+static uint32_t ovlp2flush(int ovlp)
 {
 	switch (ovlp) {
 	case 0:        return MDP4_OVERLAY_FLUSH_OVLP0;
@@ -89,7 +89,7 @@ static inline uint32_t ovlp2flush(int ovlp)
 	}
 }
 
-static inline uint32_t dma2irq(enum mdp4_dma dma)
+static uint32_t dma2irq(enum mdp4_dma dma)
 {
 	switch (dma) {
 	case DMA_P:    return MDP4_IRQ_DMA_P_DONE;
@@ -99,7 +99,7 @@ static inline uint32_t dma2irq(enum mdp4_dma dma)
 	}
 }
 
-static inline uint32_t dma2err(enum mdp4_dma dma)
+static uint32_t dma2err(enum mdp4_dma dma)
 {
 	switch (dma) {
 	case DMA_P:    return MDP4_IRQ_PRIMARY_INTF_UDERRUN;
@@ -109,7 +109,7 @@ static inline uint32_t dma2err(enum mdp4_dma dma)
 	}
 }
 
-static inline uint32_t mixercfg(uint32_t mixer_cfg, int mixer,
+static uint32_t mixercfg(uint32_t mixer_cfg, int mixer,
 		enum mdp4_pipe pipe, enum mdp_mixer_stage_id stage)
 {
 	switch (pipe) {
@@ -175,7 +175,7 @@ irqreturn_t mdp4_irq(struct msm_kms *kms);
 int mdp4_enable_vblank(struct msm_kms *kms, struct drm_crtc *crtc);
 void mdp4_disable_vblank(struct msm_kms *kms, struct drm_crtc *crtc);
 
-static inline uint32_t mdp4_pipe_caps(enum mdp4_pipe pipe)
+static uint32_t mdp4_pipe_caps(enum mdp4_pipe pipe)
 {
 	switch (pipe) {
 	case VG1:
@@ -218,7 +218,7 @@ struct drm_connector *mdp4_lvds_connector_init(struct drm_device *dev,
 #ifdef CONFIG_DRM_MSM_DSI
 struct drm_encoder *mdp4_dsi_encoder_init(struct drm_device *dev);
 #else
-static inline struct drm_encoder *mdp4_dsi_encoder_init(struct drm_device *dev)
+static struct drm_encoder *mdp4_dsi_encoder_init(struct drm_device *dev)
 {
 	return ERR_PTR(-ENODEV);
 }
@@ -227,14 +227,14 @@ static inline struct drm_encoder *mdp4_dsi_encoder_init(struct drm_device *dev)
 #ifdef CONFIG_COMMON_CLK
 struct clk *mpd4_lvds_pll_init(struct drm_device *dev);
 #else
-static inline struct clk *mpd4_lvds_pll_init(struct drm_device *dev)
+static struct clk *mpd4_lvds_pll_init(struct drm_device *dev)
 {
 	return ERR_PTR(-ENODEV);
 }
 #endif
 
 #ifdef DOWNSTREAM_CONFIG_MSM_BUS_SCALING
-static inline int match_dev_name(struct device *dev, void *data)
+static int match_dev_name(struct device *dev, void *data)
 {
 	return !strcmp(dev_name(dev), data);
 }
@@ -242,7 +242,7 @@ static inline int match_dev_name(struct device *dev, void *data)
  * "dtv", etc.. this is a bit of a hack, but we need a way for encoders
  * to find their pdata to make the bus-scaling stuff work.
  */
-static inline void *mdp4_find_pdata(const char *devname)
+static void *mdp4_find_pdata(const char *devname)
 {
 	struct device *dev;
 	dev = bus_find_device(&platform_bus_type, NULL,

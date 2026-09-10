@@ -21,14 +21,14 @@
 
 /* cx18_buffer utility functions */
 
-static inline void cx18_buf_sync_for_cpu(struct cx18_stream *s,
+static void cx18_buf_sync_for_cpu(struct cx18_stream *s,
 	struct cx18_buffer *buf)
 {
 	pci_dma_sync_single_for_cpu(s->cx->pci_dev, buf->dma_handle,
 				s->buf_size, s->dma);
 }
 
-static inline void cx18_buf_sync_for_device(struct cx18_stream *s,
+static void cx18_buf_sync_for_device(struct cx18_stream *s,
 	struct cx18_buffer *buf)
 {
 	pci_dma_sync_single_for_device(s->cx->pci_dev, buf->dma_handle,
@@ -37,7 +37,7 @@ static inline void cx18_buf_sync_for_device(struct cx18_stream *s,
 
 void _cx18_mdl_sync_for_device(struct cx18_stream *s, struct cx18_mdl *mdl);
 
-static inline void cx18_mdl_sync_for_device(struct cx18_stream *s,
+static void cx18_mdl_sync_for_device(struct cx18_stream *s,
 					    struct cx18_mdl *mdl)
 {
 	if (list_is_singular(&mdl->buf_list))
@@ -51,7 +51,7 @@ static inline void cx18_mdl_sync_for_device(struct cx18_stream *s,
 void cx18_buf_swap(struct cx18_buffer *buf);
 void _cx18_mdl_swap(struct cx18_mdl *mdl);
 
-static inline void cx18_mdl_swap(struct cx18_mdl *mdl)
+static void cx18_mdl_swap(struct cx18_mdl *mdl)
 {
 	if (list_is_singular(&mdl->buf_list))
 		cx18_buf_swap(list_first_entry(&mdl->buf_list,

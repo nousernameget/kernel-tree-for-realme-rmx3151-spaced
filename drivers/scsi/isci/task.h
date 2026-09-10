@@ -96,7 +96,7 @@ struct isci_tmf {
 	int status;
 };
 
-static inline void isci_print_tmf(struct isci_host *ihost, struct isci_tmf *tmf)
+static void isci_print_tmf(struct isci_host *ihost, struct isci_tmf *tmf)
 {
 	if (SAS_PROTOCOL_SATA == tmf->proto)
 		dev_dbg(&ihost->pdev->dev,

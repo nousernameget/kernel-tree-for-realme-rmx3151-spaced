@@ -67,7 +67,7 @@ char *pseudo_larb_clk_name[] = {
 
 unsigned int pseudo_acp_port_array[] = {M4U_PORT_APU};
 
-static inline int  m4u_port_id_of_mdp(
+static int  m4u_port_id_of_mdp(
 		unsigned int larb, unsigned int port)
 {
 	if (larb == 1 &&

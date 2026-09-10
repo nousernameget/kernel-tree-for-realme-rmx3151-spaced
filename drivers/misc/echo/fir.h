@@ -88,7 +88,7 @@ struct fir_float_state_t {
 	float *history;
 };
 
-static inline const int16_t *fir16_create(struct fir16_state_t *fir,
+static const int16_t *fir16_create(struct fir16_state_t *fir,
 					      const int16_t *coeffs, int taps)
 {
 	fir->taps = taps;
@@ -102,7 +102,7 @@ static inline const int16_t *fir16_create(struct fir16_state_t *fir,
 	return fir->history;
 }
 
-static inline void fir16_flush(struct fir16_state_t *fir)
+static void fir16_flush(struct fir16_state_t *fir)
 {
 #if defined(__bfin__)
 	memset(fir->history, 0, 2 * fir->taps * sizeof(int16_t));
@@ -111,13 +111,13 @@ static inline void fir16_flush(struct fir16_state_t *fir)
 #endif
 }
 
-static inline void fir16_free(struct fir16_state_t *fir)
+static void fir16_free(struct fir16_state_t *fir)
 {
 	kfree(fir->history);
 }
 
 #ifdef __bfin__
-static inline int32_t dot_asm(short *x, short *y, int len)
+static int32_t dot_asm(short *x, short *y, int len)
 {
 	int dot;
 
@@ -143,7 +143,7 @@ static inline int32_t dot_asm(short *x, short *y, int len)
 }
 #endif
 
-static inline int16_t fir16(struct fir16_state_t *fir, int16_t sample)
+static int16_t fir16(struct fir16_state_t *fir, int16_t sample)
 {
 	int32_t y;
 #if defined(__bfin__)
@@ -172,7 +172,7 @@ static inline int16_t fir16(struct fir16_state_t *fir, int16_t sample)
 	return (int16_t) (y >> 15);
 }
 
-static inline const int16_t *fir32_create(struct fir32_state_t *fir,
+static const int16_t *fir32_create(struct fir32_state_t *fir,
 					      const int32_t *coeffs, int taps)
 {
 	fir->taps = taps;
@@ -182,17 +182,17 @@ static inline const int16_t *fir32_create(struct fir32_state_t *fir,
 	return fir->history;
 }
 
-static inline void fir32_flush(struct fir32_state_t *fir)
+static void fir32_flush(struct fir32_state_t *fir)
 {
 	memset(fir->history, 0, fir->taps * sizeof(int16_t));
 }
 
-static inline void fir32_free(struct fir32_state_t *fir)
+static void fir32_free(struct fir32_state_t *fir)
 {
 	kfree(fir->history);
 }
 
-static inline int16_t fir32(struct fir32_state_t *fir, int16_t sample)
+static int16_t fir32(struct fir32_state_t *fir, int16_t sample)
 {
 	int i;
 	int32_t y;

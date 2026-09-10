@@ -281,12 +281,12 @@ struct solo_dev {
 	struct list_head	vidq_active;
 };
 
-static inline u32 solo_reg_read(struct solo_dev *solo_dev, int reg)
+static u32 solo_reg_read(struct solo_dev *solo_dev, int reg)
 {
 	return readl(solo_dev->reg_base + reg);
 }
 
-static inline void solo_reg_write(struct solo_dev *solo_dev, int reg,
+static void solo_reg_write(struct solo_dev *solo_dev, int reg,
 				  u32 data)
 {
 	u16 val;
@@ -295,13 +295,13 @@ static inline void solo_reg_write(struct solo_dev *solo_dev, int reg,
 	pci_read_config_word(solo_dev->pdev, PCI_STATUS, &val);
 }
 
-static inline void solo_irq_on(struct solo_dev *dev, u32 mask)
+static void solo_irq_on(struct solo_dev *dev, u32 mask)
 {
 	dev->irq_mask |= mask;
 	solo_reg_write(dev, SOLO_IRQ_MASK, dev->irq_mask);
 }
 
-static inline void solo_irq_off(struct solo_dev *dev, u32 mask)
+static void solo_irq_off(struct solo_dev *dev, u32 mask)
 {
 	dev->irq_mask &= ~mask;
 	solo_reg_write(dev, SOLO_IRQ_MASK, dev->irq_mask);

@@ -100,7 +100,7 @@ void PVRGpuTraceDisableFirmwareActivityCallback(void);
 
 #else /* define(LINUX) */
 
-static inline void PVRGpuTraceEnqueueEvent(
+static void PVRGpuTraceEnqueueEvent(
 		PVRSRV_DEVICE_NODE *psDevNode,
 		IMG_UINT32 ui32FirmwareCtx,
 		IMG_UINT32 ui32ExternalJobRef,
@@ -119,25 +119,25 @@ static inline PVRSRV_ERROR PVRGpuTraceSupportInit(void) {
 
 static inline void PVRGpuTraceSupportDeInit(void) {}
 
-static inline void PVRGpuTraceInitAppHintCallbacks(
+static void PVRGpuTraceInitAppHintCallbacks(
 		const PVRSRV_DEVICE_NODE *psDeviceNode)
 {
 	PVR_UNREFERENCED_PARAMETER(psDeviceNode);
 }
 
-static inline PVRSRV_ERROR PVRGpuTraceInitDevice(
+static PVRSRV_ERROR PVRGpuTraceInitDevice(
 		PVRSRV_DEVICE_NODE *psDeviceNode)
 {
 	PVR_UNREFERENCED_PARAMETER(psDeviceNode);
 	return PVRSRV_OK;
 }
 
-static inline void PVRGpuTraceDeInitDevice(PVRSRV_DEVICE_NODE *psDeviceNode)
+static void PVRGpuTraceDeInitDevice(PVRSRV_DEVICE_NODE *psDeviceNode)
 {
 	PVR_UNREFERENCED_PARAMETER(psDeviceNode);
 }
 
-static inline PVRSRV_ERROR PVRGpuTraceSetEnabled(
+static PVRSRV_ERROR PVRGpuTraceSetEnabled(
 		PVRSRV_DEVICE_NODE *psDeviceNode,
 		IMG_BOOL bNewValue)
 {
@@ -146,12 +146,12 @@ static inline PVRSRV_ERROR PVRGpuTraceSetEnabled(
 	return PVRSRV_OK;
 }
 
-static inline IMG_BOOL PVRGpuTraceIsEnabled(void)
+static IMG_BOOL PVRGpuTraceIsEnabled(void)
 {
 	return IMG_FALSE;
 }
 
-static inline void PVRGpuTraceInitIfEnabled(PVRSRV_DEVICE_NODE *psDeviceNode)
+static void PVRGpuTraceInitIfEnabled(PVRSRV_DEVICE_NODE *psDeviceNode)
 {
 	PVR_UNREFERENCED_PARAMETER(psDeviceNode);
 }

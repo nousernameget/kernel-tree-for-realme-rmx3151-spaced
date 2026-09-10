@@ -29,7 +29,7 @@ struct dm_bio_details {
 #endif
 };
 
-static inline void dm_bio_record(struct dm_bio_details *bd, struct bio *bio)
+static void dm_bio_record(struct dm_bio_details *bd, struct bio *bio)
 {
 	bd->bi_disk = bio->bi_disk;
 	bd->bi_partno = bio->bi_partno;
@@ -42,7 +42,7 @@ static inline void dm_bio_record(struct dm_bio_details *bd, struct bio *bio)
 #endif
 }
 
-static inline void dm_bio_restore(struct dm_bio_details *bd, struct bio *bio)
+static void dm_bio_restore(struct dm_bio_details *bd, struct bio *bio)
 {
 	bio->bi_disk = bd->bi_disk;
 	bio->bi_partno = bd->bi_partno;

@@ -315,7 +315,7 @@ struct lcm_fps_ctx_t {
 	unsigned long long array[LCM_FPS_ARRAY_SIZE];
 };
 
-static inline char *lcm_power_state_to_string(enum lcm_power_state ps)
+static char *lcm_power_state_to_string(enum lcm_power_state ps)
 {
 	switch (ps) {
 	case LCM_OFF:
@@ -331,7 +331,7 @@ static inline char *lcm_power_state_to_string(enum lcm_power_state ps)
 	return "LCM_POWER_STATE_UNKNOWN";
 }
 
-static inline char *power_mode_str(enum mtkfb_power_mode pm)
+static char *power_mode_str(enum mtkfb_power_mode pm)
 {
 	switch (pm) {
 	case FB_SUSPEND:

@@ -37,7 +37,7 @@ struct nxt6000_config
 extern struct dvb_frontend* nxt6000_attach(const struct nxt6000_config* config,
 					   struct i2c_adapter* i2c);
 #else
-static inline struct dvb_frontend* nxt6000_attach(const struct nxt6000_config* config,
+static struct dvb_frontend* nxt6000_attach(const struct nxt6000_config* config,
 					   struct i2c_adapter* i2c)
 {
 	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);

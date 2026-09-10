@@ -56,7 +56,7 @@ struct meson_drm {
 	} venc;
 };
 
-static inline int meson_vpu_is_compatible(struct meson_drm *priv,
+static int meson_vpu_is_compatible(struct meson_drm *priv,
 					  const char *compat)
 {
 	return of_device_is_compatible(priv->dev->of_node, compat);

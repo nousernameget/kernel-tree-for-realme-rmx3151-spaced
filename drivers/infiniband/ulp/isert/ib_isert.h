@@ -90,7 +90,7 @@ struct iser_rx_desc {
 	char		pad[ISER_RX_PAD_SIZE];
 } __packed;
 
-static inline struct iser_rx_desc *cqe_to_rx_desc(struct ib_cqe *cqe)
+static struct iser_rx_desc *cqe_to_rx_desc(struct ib_cqe *cqe)
 {
 	return container_of(cqe, struct iser_rx_desc, rx_cqe);
 }
@@ -106,7 +106,7 @@ struct iser_tx_desc {
 	struct ib_send_wr send_wr;
 } __packed;
 
-static inline struct iser_tx_desc *cqe_to_tx_desc(struct ib_cqe *cqe)
+static struct iser_tx_desc *cqe_to_tx_desc(struct ib_cqe *cqe)
 {
 	return container_of(cqe, struct iser_tx_desc, tx_cqe);
 }
@@ -129,7 +129,7 @@ struct isert_cmd {
 	bool			ctx_init_done;
 };
 
-static inline struct isert_cmd *tx_desc_to_cmd(struct iser_tx_desc *desc)
+static struct isert_cmd *tx_desc_to_cmd(struct iser_tx_desc *desc)
 {
 	return container_of(desc, struct isert_cmd, tx_desc);
 }

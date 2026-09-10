@@ -189,7 +189,7 @@ struct octeon_recv_info {
  *                       structure.
  *  @return - pointer to a newly allocated recv_info structure.
  */
-static inline struct octeon_recv_info *octeon_alloc_recv_info(int extra_bytes)
+static struct octeon_recv_info *octeon_alloc_recv_info(int extra_bytes)
 {
 	struct octeon_recv_info *recv_info;
 	u8 *buf;
@@ -212,7 +212,7 @@ static inline struct octeon_recv_info *octeon_alloc_recv_info(int extra_bytes)
 /** Free a recv_info structure.
  *  @param recv_info - Pointer to receive_info to be freed
  */
-static inline void octeon_free_recv_info(struct octeon_recv_info *recv_info)
+static void octeon_free_recv_info(struct octeon_recv_info *recv_info)
 {
 	kfree(recv_info);
 }

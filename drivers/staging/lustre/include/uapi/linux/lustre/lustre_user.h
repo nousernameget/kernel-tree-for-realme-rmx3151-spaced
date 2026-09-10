@@ -149,7 +149,7 @@ struct lu_fid {
 	__u32 f_ver;
 };
 
-static inline bool fid_is_zero(const struct lu_fid *fid)
+static bool fid_is_zero(const struct lu_fid *fid)
 {
 	return !fid->f_seq && !fid->f_oid;
 }
@@ -394,7 +394,7 @@ struct lov_user_md_v3 {	   /* LOV EA user data (host-endian) */
 	struct lov_user_ost_data_v1 lmm_objects[0]; /* per-stripe data */
 } __packed;
 
-static inline __u32 lov_user_md_size(__u16 stripes, __u32 lmm_magic)
+static __u32 lov_user_md_size(__u16 stripes, __u32 lmm_magic)
 {
 	if (lmm_magic == LOV_USER_MAGIC_V1)
 		return sizeof(struct lov_user_md_v1) +
@@ -453,7 +453,7 @@ struct lmv_user_md_v1 {
 	struct	lmv_user_mds_data  lum_objects[0];
 } __packed;
 
-static inline int lmv_user_md_size(int stripes, int lmm_magic)
+static int lmv_user_md_size(int stripes, int lmm_magic)
 {
 	return sizeof(struct lmv_user_md) +
 		      stripes * sizeof(struct lmv_user_mds_data);
@@ -476,25 +476,25 @@ struct obd_uuid {
 	char uuid[UUID_MAX];
 };
 
-static inline bool obd_uuid_equals(const struct obd_uuid *u1,
+static bool obd_uuid_equals(const struct obd_uuid *u1,
 				   const struct obd_uuid *u2)
 {
 	return strcmp((char *)u1->uuid, (char *)u2->uuid) == 0;
 }
 
-static inline int obd_uuid_empty(struct obd_uuid *uuid)
+static int obd_uuid_empty(struct obd_uuid *uuid)
 {
 	return uuid->uuid[0] == '\0';
 }
 
-static inline void obd_str2uuid(struct obd_uuid *uuid, const char *tmp)
+static void obd_str2uuid(struct obd_uuid *uuid, const char *tmp)
 {
 	strncpy((char *)uuid->uuid, tmp, sizeof(*uuid));
 	uuid->uuid[sizeof(*uuid) - 1] = '\0';
 }
 
 /* For printf's only, make sure uuid is terminated */
-static inline char *obd_uuid2str(const struct obd_uuid *uuid)
+static char *obd_uuid2str(const struct obd_uuid *uuid)
 {
 	if (!uuid)
 		return NULL;
@@ -516,7 +516,7 @@ static inline char *obd_uuid2str(const struct obd_uuid *uuid)
  * e.g. (myfs-OST0007_UUID -> myfs)
  * see also deuuidify.
  */
-static inline void obd_uuid2fsname(char *buf, char *uuid, int buflen)
+static void obd_uuid2fsname(char *buf, char *uuid, int buflen)
 {
 	char *p;
 
@@ -683,7 +683,7 @@ enum changelog_rec_type {
 	CL_LAST
 };
 
-static inline const char *changelog_type2str(int type)
+static const char *changelog_type2str(int type)
 {
 	static const char *changelog_str[] = {
 		"MARK",  "CREAT", "MKDIR", "HLINK", "SLINK", "MKNOD", "UNLNK",
@@ -760,32 +760,32 @@ enum hsm_event {
 	HE_SPARE2       = 7,
 };
 
-static inline enum hsm_event hsm_get_cl_event(__u16 flags)
+static enum hsm_event hsm_get_cl_event(__u16 flags)
 {
 	return CLF_GET_BITS(flags, CLF_HSM_EVENT_H, CLF_HSM_EVENT_L);
 }
 
-static inline void hsm_set_cl_event(int *flags, enum hsm_event he)
+static void hsm_set_cl_event(int *flags, enum hsm_event he)
 {
 	*flags |= (he << CLF_HSM_EVENT_L);
 }
 
-static inline __u16 hsm_get_cl_flags(int flags)
+static __u16 hsm_get_cl_flags(int flags)
 {
 	return CLF_GET_BITS(flags, CLF_HSM_FLAG_H, CLF_HSM_FLAG_L);
 }
 
-static inline void hsm_set_cl_flags(int *flags, int bits)
+static void hsm_set_cl_flags(int *flags, int bits)
 {
 	*flags |= (bits << CLF_HSM_FLAG_L);
 }
 
-static inline int hsm_get_cl_error(int flags)
+static int hsm_get_cl_error(int flags)
 {
 	return CLF_GET_BITS(flags, CLF_HSM_ERR_H, CLF_HSM_ERR_L);
 }
 
-static inline void hsm_set_cl_error(int *flags, int error)
+static void hsm_set_cl_error(int *flags, int error)
 {
 	*flags |= (error << CLF_HSM_ERR_L);
 }
@@ -841,7 +841,7 @@ struct changelog_ext_jobid {
 	char	cr_jobid[LUSTRE_JOBID_SIZE];	/**< zero-terminated string. */
 };
 
-static inline size_t changelog_rec_offset(enum changelog_rec_flags crf)
+static size_t changelog_rec_offset(enum changelog_rec_flags crf)
 {
 	size_t size = sizeof(struct changelog_rec);
 
@@ -854,12 +854,12 @@ static inline size_t changelog_rec_offset(enum changelog_rec_flags crf)
 	return size;
 }
 
-static inline size_t changelog_rec_size(struct changelog_rec *rec)
+static size_t changelog_rec_size(struct changelog_rec *rec)
 {
 	return changelog_rec_offset(rec->cr_flags);
 }
 
-static inline size_t changelog_rec_varsize(struct changelog_rec *rec)
+static size_t changelog_rec_varsize(struct changelog_rec *rec)
 {
 	return changelog_rec_size(rec) - sizeof(*rec) + rec->cr_namelen;
 }
@@ -885,18 +885,18 @@ struct changelog_ext_jobid *changelog_rec_jobid(struct changelog_rec *rec)
 }
 
 /* The name follows the rename and jobid extensions, if present */
-static inline char *changelog_rec_name(struct changelog_rec *rec)
+static char *changelog_rec_name(struct changelog_rec *rec)
 {
 	return (char *)rec + changelog_rec_offset(rec->cr_flags &
 						  CLF_SUPPORTED);
 }
 
-static inline size_t changelog_rec_snamelen(struct changelog_rec *rec)
+static size_t changelog_rec_snamelen(struct changelog_rec *rec)
 {
 	return rec->cr_namelen - strlen(changelog_rec_name(rec)) - 1;
 }
 
-static inline char *changelog_rec_sname(struct changelog_rec *rec)
+static char *changelog_rec_sname(struct changelog_rec *rec)
 {
 	char *cr_name = changelog_rec_name(rec);
 
@@ -922,7 +922,7 @@ static inline char *changelog_rec_sname(struct changelog_rec *rec)
  * @param[in,out]  rec		The record to remap.
  * @param[in]	   crf_wanted	Flags describing the desired extensions.
  */
-static inline void changelog_remap_rec(struct changelog_rec *rec,
+static void changelog_remap_rec(struct changelog_rec *rec,
 				       enum changelog_rec_flags crf_wanted)
 {
 	char *jid_mov, *rnm_mov;
@@ -1029,7 +1029,7 @@ enum hsm_progress_states {
 
 #define HPS_NONE	0
 
-static inline char *hsm_progress_state2name(enum hsm_progress_states s)
+static char *hsm_progress_state2name(enum hsm_progress_states s)
 {
 	switch  (s) {
 	case HPS_WAITING:	return "waiting";
@@ -1091,7 +1091,7 @@ enum hsm_user_action {
 	HUA_CANCEL  = 14  /* cancel a request */
 };
 
-static inline char *hsm_user_action2name(enum hsm_user_action  a)
+static char *hsm_user_action2name(enum hsm_user_action  a)
 {
 	switch  (a) {
 	case HUA_NONE:    return "NOOP";
@@ -1137,7 +1137,7 @@ struct hsm_user_request {
 } __packed;
 
 /** Return pointer to data field in a hsm user request */
-static inline void *hur_data(struct hsm_user_request *hur)
+static void *hur_data(struct hsm_user_request *hur)
 {
 	return &hur->hur_user_item[hur->hur_request.hr_itemcount];
 }
@@ -1148,7 +1148,7 @@ static inline void *hur_data(struct hsm_user_request *hur)
  *
  * return -1 on bounds check error.
  */
-static inline ssize_t hur_len(struct hsm_user_request *hur)
+static ssize_t hur_len(struct hsm_user_request *hur)
 {
 	__u64	size;
 
@@ -1178,7 +1178,7 @@ enum hsm_copytool_action {
 	HSMA_CANCEL  = 23
 };
 
-static inline char *hsm_copytool_action2name(enum hsm_copytool_action  a)
+static char *hsm_copytool_action2name(enum hsm_copytool_action  a)
 {
 	switch  (a) {
 	case HSMA_NONE:    return "NOOP";
@@ -1210,7 +1210,7 @@ struct hsm_action_item {
  * \param len [IN] max buffer len
  * \retval buffer
  */
-static inline char *hai_dump_data_field(struct hsm_action_item *hai,
+static char *hai_dump_data_field(struct hsm_action_item *hai,
 					char *buffer, size_t len)
 {
 	int i, data_len;
@@ -1246,7 +1246,7 @@ struct hsm_action_list {
 } __packed;
 
 #ifndef HAVE_CFS_SIZE_ROUND
-static inline int cfs_size_round(int val)
+static int cfs_size_round(int val)
 {
 	return (val + 7) & (~0x7);
 }
@@ -1255,7 +1255,7 @@ static inline int cfs_size_round(int val)
 #endif
 
 /* Return pointer to first hai in action list */
-static inline struct hsm_action_item *hai_first(struct hsm_action_list *hal)
+static struct hsm_action_item *hai_first(struct hsm_action_list *hal)
 {
 	return (struct hsm_action_item *)(hal->hal_fsname +
 					  cfs_size_round(strlen(hal-> \
@@ -1264,14 +1264,14 @@ static inline struct hsm_action_item *hai_first(struct hsm_action_list *hal)
 }
 
 /* Return pointer to next hai */
-static inline struct hsm_action_item *hai_next(struct hsm_action_item *hai)
+static struct hsm_action_item *hai_next(struct hsm_action_item *hai)
 {
 	return (struct hsm_action_item *)((char *)hai +
 					  cfs_size_round(hai->hai_len));
 }
 
 /* Return size of an hsm_action_list */
-static inline int hal_size(struct hsm_action_list *hal)
+static int hal_size(struct hsm_action_list *hal)
 {
 	int i, sz;
 	struct hsm_action_item *hai;

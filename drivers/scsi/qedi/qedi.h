@@ -374,7 +374,7 @@ struct qedi_percpu_s {
 	spinlock_t p_work_lock;		/* Per cpu worker lock */
 };
 
-static inline void *qedi_get_task_mem(struct qed_iscsi_tid *info, u32 tid)
+static void *qedi_get_task_mem(struct qed_iscsi_tid *info, u32 tid)
 {
 	return (info->blocks[tid / info->num_tids_per_block] +
 		(tid % info->num_tids_per_block) * info->size);

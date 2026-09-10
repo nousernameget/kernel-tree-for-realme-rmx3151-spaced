@@ -182,14 +182,14 @@ void cleanup_slots(struct controller *ctrl);
 void shpchp_queue_pushbutton_work(struct work_struct *work);
 int shpc_init(struct controller *ctrl, struct pci_dev *pdev);
 
-static inline const char *slot_name(struct slot *slot)
+static const char *slot_name(struct slot *slot)
 {
 	return hotplug_slot_name(slot->hotplug_slot);
 }
 
 #ifdef CONFIG_ACPI
 #include <linux/pci-acpi.h>
-static inline int get_hp_hw_control_from_firmware(struct pci_dev *dev)
+static int get_hp_hw_control_from_firmware(struct pci_dev *dev)
 {
 	u32 flags = OSC_PCI_SHPC_NATIVE_HP_CONTROL;
 	return acpi_get_hp_hw_control_from_firmware(dev, flags);
@@ -231,12 +231,12 @@ enum ctrl_offsets {
 	SLOT1		 = offsetof(struct ctrl_reg, slot1),
 };
 
-static inline struct slot *get_slot(struct hotplug_slot *hotplug_slot)
+static struct slot *get_slot(struct hotplug_slot *hotplug_slot)
 {
 	return hotplug_slot->private;
 }
 
-static inline struct slot *shpchp_find_slot(struct controller *ctrl, u8 device)
+static struct slot *shpchp_find_slot(struct controller *ctrl, u8 device)
 {
 	struct slot *slot;
 
@@ -249,7 +249,7 @@ static inline struct slot *shpchp_find_slot(struct controller *ctrl, u8 device)
 	return NULL;
 }
 
-static inline void amd_pogo_errata_save_misc_reg(struct slot *p_slot)
+static void amd_pogo_errata_save_misc_reg(struct slot *p_slot)
 {
 	u32 pcix_misc2_temp;
 
@@ -267,7 +267,7 @@ static inline void amd_pogo_errata_save_misc_reg(struct slot *p_slot)
 	pci_write_config_dword(p_slot->ctrl->pci_dev, PCIX_MISCII_OFFSET, pcix_misc2_temp);
 }
 
-static inline void amd_pogo_errata_restore_misc_reg(struct slot *p_slot)
+static void amd_pogo_errata_restore_misc_reg(struct slot *p_slot)
 {
 	u32 pcix_misc2_temp;
 	u32 pcix_bridge_errors_reg;

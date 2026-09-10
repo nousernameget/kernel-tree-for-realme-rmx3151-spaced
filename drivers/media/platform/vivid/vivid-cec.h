@@ -25,7 +25,7 @@ void vivid_cec_bus_free_work(struct vivid_dev *dev);
 
 #else
 
-static inline void vivid_cec_bus_free_work(struct vivid_dev *dev)
+static void vivid_cec_bus_free_work(struct vivid_dev *dev)
 {
 }
 

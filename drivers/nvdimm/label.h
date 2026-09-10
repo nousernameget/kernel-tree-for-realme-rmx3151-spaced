@@ -127,7 +127,7 @@ struct nd_label_id {
  * If the 'best' index is invalid, so is the 'next' index.  Otherwise,
  * the next index is MOD(index+1, 2)
  */
-static inline int nd_label_next_nsindex(int index)
+static int nd_label_next_nsindex(int index)
 {
 	if (index < 0)
 		return -1;

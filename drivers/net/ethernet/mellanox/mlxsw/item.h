@@ -54,7 +54,7 @@ struct mlxsw_item {
 	const char	*name;
 };
 
-static inline unsigned int
+static unsigned int
 __mlxsw_item_offset(const struct mlxsw_item *item, unsigned short index,
 		    size_t typesize)
 {
@@ -72,7 +72,7 @@ __mlxsw_item_offset(const struct mlxsw_item *item, unsigned short index,
 		typesize);
 }
 
-static inline u8 __mlxsw_item_get8(const char *buf,
+static u8 __mlxsw_item_get8(const char *buf,
 				   const struct mlxsw_item *item,
 				   unsigned short index)
 {
@@ -88,7 +88,7 @@ static inline u8 __mlxsw_item_get8(const char *buf,
 	return tmp;
 }
 
-static inline void __mlxsw_item_set8(char *buf, const struct mlxsw_item *item,
+static void __mlxsw_item_set8(char *buf, const struct mlxsw_item *item,
 				     unsigned short index, u8 val)
 {
 	unsigned int offset = __mlxsw_item_offset(item, index,
@@ -106,7 +106,7 @@ static inline void __mlxsw_item_set8(char *buf, const struct mlxsw_item *item,
 	b[offset] = tmp;
 }
 
-static inline u16 __mlxsw_item_get16(const char *buf,
+static u16 __mlxsw_item_get16(const char *buf,
 				     const struct mlxsw_item *item,
 				     unsigned short index)
 {
@@ -122,7 +122,7 @@ static inline u16 __mlxsw_item_get16(const char *buf,
 	return tmp;
 }
 
-static inline void __mlxsw_item_set16(char *buf, const struct mlxsw_item *item,
+static void __mlxsw_item_set16(char *buf, const struct mlxsw_item *item,
 				      unsigned short index, u16 val)
 {
 	unsigned int offset = __mlxsw_item_offset(item, index,
@@ -140,7 +140,7 @@ static inline void __mlxsw_item_set16(char *buf, const struct mlxsw_item *item,
 	b[offset] = cpu_to_be16(tmp);
 }
 
-static inline u32 __mlxsw_item_get32(const char *buf,
+static u32 __mlxsw_item_get32(const char *buf,
 				     const struct mlxsw_item *item,
 				     unsigned short index)
 {
@@ -156,7 +156,7 @@ static inline u32 __mlxsw_item_get32(const char *buf,
 	return tmp;
 }
 
-static inline void __mlxsw_item_set32(char *buf, const struct mlxsw_item *item,
+static void __mlxsw_item_set32(char *buf, const struct mlxsw_item *item,
 				      unsigned short index, u32 val)
 {
 	unsigned int offset = __mlxsw_item_offset(item, index,
@@ -174,7 +174,7 @@ static inline void __mlxsw_item_set32(char *buf, const struct mlxsw_item *item,
 	b[offset] = cpu_to_be32(tmp);
 }
 
-static inline u64 __mlxsw_item_get64(const char *buf,
+static u64 __mlxsw_item_get64(const char *buf,
 				     const struct mlxsw_item *item,
 				     unsigned short index)
 {
@@ -190,7 +190,7 @@ static inline u64 __mlxsw_item_get64(const char *buf,
 	return tmp;
 }
 
-static inline void __mlxsw_item_set64(char *buf, const struct mlxsw_item *item,
+static void __mlxsw_item_set64(char *buf, const struct mlxsw_item *item,
 				      unsigned short index, u64 val)
 {
 	unsigned int offset = __mlxsw_item_offset(item, index, sizeof(u64));
@@ -207,7 +207,7 @@ static inline void __mlxsw_item_set64(char *buf, const struct mlxsw_item *item,
 	b[offset] = cpu_to_be64(tmp);
 }
 
-static inline void __mlxsw_item_memcpy_from(const char *buf, char *dst,
+static void __mlxsw_item_memcpy_from(const char *buf, char *dst,
 					    const struct mlxsw_item *item,
 					    unsigned short index)
 {
@@ -216,7 +216,7 @@ static inline void __mlxsw_item_memcpy_from(const char *buf, char *dst,
 	memcpy(dst, &buf[offset], item->size.bytes);
 }
 
-static inline void __mlxsw_item_memcpy_to(char *buf, const char *src,
+static void __mlxsw_item_memcpy_to(char *buf, const char *src,
 					  const struct mlxsw_item *item,
 					  unsigned short index)
 {
@@ -225,7 +225,7 @@ static inline void __mlxsw_item_memcpy_to(char *buf, const char *src,
 	memcpy(&buf[offset], src, item->size.bytes);
 }
 
-static inline char *__mlxsw_item_data(char *buf, const struct mlxsw_item *item,
+static char *__mlxsw_item_data(char *buf, const struct mlxsw_item *item,
 				      unsigned short index)
 {
 	unsigned int offset = __mlxsw_item_offset(item, index, sizeof(char));
@@ -233,7 +233,7 @@ static inline char *__mlxsw_item_data(char *buf, const struct mlxsw_item *item,
 	return &buf[offset];
 }
 
-static inline u16
+static u16
 __mlxsw_item_bit_array_offset(const struct mlxsw_item *item,
 			      u16 index, u8 *shift)
 {
@@ -258,7 +258,7 @@ __mlxsw_item_bit_array_offset(const struct mlxsw_item *item,
 	return item->offset + offset;
 }
 
-static inline u8 __mlxsw_item_bit_array_get(const char *buf,
+static u8 __mlxsw_item_bit_array_get(const char *buf,
 					    const struct mlxsw_item *item,
 					    u16 index)
 {
@@ -271,7 +271,7 @@ static inline u8 __mlxsw_item_bit_array_get(const char *buf,
 	return tmp;
 }
 
-static inline void __mlxsw_item_bit_array_set(char *buf,
+static void __mlxsw_item_bit_array_set(char *buf,
 					      const struct mlxsw_item *item,
 					      u16 index, u8 val)
 {
@@ -302,11 +302,11 @@ static struct mlxsw_item __ITEM_NAME(_type, _cname, _iname) = {			\
 	.size = {.bits = _sizebits,},						\
 	.name = #_type "_" #_cname "_" #_iname,					\
 };										\
-static inline u8 mlxsw_##_type##_##_cname##_##_iname##_get(const char *buf)	\
+static u8 mlxsw_##_type##_##_cname##_##_iname##_get(const char *buf)	\
 {										\
 	return __mlxsw_item_get8(buf, &__ITEM_NAME(_type, _cname, _iname), 0);	\
 }										\
-static inline void mlxsw_##_type##_##_cname##_##_iname##_set(char *buf, u8 val)\
+static void mlxsw_##_type##_##_cname##_##_iname##_set(char *buf, u8 val)\
 {										\
 	__mlxsw_item_set8(buf, &__ITEM_NAME(_type, _cname, _iname), 0, val);	\
 }
@@ -322,13 +322,13 @@ static struct mlxsw_item __ITEM_NAME(_type, _cname, _iname) = {			\
 	.size = {.bits = _sizebits,},						\
 	.name = #_type "_" #_cname "_" #_iname,					\
 };										\
-static inline u8								\
+static u8								\
 mlxsw_##_type##_##_cname##_##_iname##_get(const char *buf, unsigned short index)\
 {										\
 	return __mlxsw_item_get8(buf, &__ITEM_NAME(_type, _cname, _iname),	\
 				 index);					\
 }										\
-static inline void								\
+static void								\
 mlxsw_##_type##_##_cname##_##_iname##_set(char *buf, unsigned short index,	\
 					  u8 val)				\
 {										\
@@ -343,11 +343,11 @@ static struct mlxsw_item __ITEM_NAME(_type, _cname, _iname) = {			\
 	.size = {.bits = _sizebits,},						\
 	.name = #_type "_" #_cname "_" #_iname,					\
 };										\
-static inline u16 mlxsw_##_type##_##_cname##_##_iname##_get(const char *buf)	\
+static u16 mlxsw_##_type##_##_cname##_##_iname##_get(const char *buf)	\
 {										\
 	return __mlxsw_item_get16(buf, &__ITEM_NAME(_type, _cname, _iname), 0);	\
 }										\
-static inline void mlxsw_##_type##_##_cname##_##_iname##_set(char *buf, u16 val)\
+static void mlxsw_##_type##_##_cname##_##_iname##_set(char *buf, u16 val)\
 {										\
 	__mlxsw_item_set16(buf, &__ITEM_NAME(_type, _cname, _iname), 0, val);	\
 }
@@ -363,13 +363,13 @@ static struct mlxsw_item __ITEM_NAME(_type, _cname, _iname) = {			\
 	.size = {.bits = _sizebits,},						\
 	.name = #_type "_" #_cname "_" #_iname,					\
 };										\
-static inline u16								\
+static u16								\
 mlxsw_##_type##_##_cname##_##_iname##_get(const char *buf, unsigned short index)\
 {										\
 	return __mlxsw_item_get16(buf, &__ITEM_NAME(_type, _cname, _iname),	\
 				  index);					\
 }										\
-static inline void								\
+static void								\
 mlxsw_##_type##_##_cname##_##_iname##_set(char *buf, unsigned short index,	\
 					  u16 val)				\
 {										\
@@ -384,11 +384,11 @@ static struct mlxsw_item __ITEM_NAME(_type, _cname, _iname) = {			\
 	.size = {.bits = _sizebits,},						\
 	.name = #_type "_" #_cname "_" #_iname,					\
 };										\
-static inline u32 mlxsw_##_type##_##_cname##_##_iname##_get(const char *buf)	\
+static u32 mlxsw_##_type##_##_cname##_##_iname##_get(const char *buf)	\
 {										\
 	return __mlxsw_item_get32(buf, &__ITEM_NAME(_type, _cname, _iname), 0);	\
 }										\
-static inline void mlxsw_##_type##_##_cname##_##_iname##_set(char *buf, u32 val)\
+static void mlxsw_##_type##_##_cname##_##_iname##_set(char *buf, u32 val)\
 {										\
 	__mlxsw_item_set32(buf, &__ITEM_NAME(_type, _cname, _iname), 0, val);	\
 }
@@ -404,13 +404,13 @@ static struct mlxsw_item __ITEM_NAME(_type, _cname, _iname) = {			\
 	.size = {.bits = _sizebits,},						\
 	.name = #_type "_" #_cname "_" #_iname,					\
 };										\
-static inline u32								\
+static u32								\
 mlxsw_##_type##_##_cname##_##_iname##_get(const char *buf, unsigned short index)\
 {										\
 	return __mlxsw_item_get32(buf, &__ITEM_NAME(_type, _cname, _iname),	\
 				  index);					\
 }										\
-static inline void								\
+static void								\
 mlxsw_##_type##_##_cname##_##_iname##_set(char *buf, unsigned short index,	\
 					  u32 val)				\
 {										\
@@ -425,11 +425,11 @@ static struct mlxsw_item __ITEM_NAME(_type, _cname, _iname) = {			\
 	.size = {.bits = _sizebits,},						\
 	.name = #_type "_" #_cname "_" #_iname,					\
 };										\
-static inline u64 mlxsw_##_type##_##_cname##_##_iname##_get(const char *buf)	\
+static u64 mlxsw_##_type##_##_cname##_##_iname##_get(const char *buf)	\
 {										\
 	return __mlxsw_item_get64(buf, &__ITEM_NAME(_type, _cname, _iname), 0);	\
 }										\
-static inline void mlxsw_##_type##_##_cname##_##_iname##_set(char *buf, u64 val)\
+static void mlxsw_##_type##_##_cname##_##_iname##_set(char *buf, u64 val)\
 {										\
 	__mlxsw_item_set64(buf, &__ITEM_NAME(_type, _cname, _iname), 0,	val);	\
 }
@@ -445,13 +445,13 @@ static struct mlxsw_item __ITEM_NAME(_type, _cname, _iname) = {			\
 	.size = {.bits = _sizebits,},						\
 	.name = #_type "_" #_cname "_" #_iname,					\
 };										\
-static inline u64								\
+static u64								\
 mlxsw_##_type##_##_cname##_##_iname##_get(const char *buf, unsigned short index)\
 {										\
 	return __mlxsw_item_get64(buf, &__ITEM_NAME(_type, _cname, _iname),	\
 				  index);					\
 }										\
-static inline void								\
+static void								\
 mlxsw_##_type##_##_cname##_##_iname##_set(char *buf, unsigned short index,	\
 					  u64 val)				\
 {										\
@@ -465,19 +465,19 @@ static struct mlxsw_item __ITEM_NAME(_type, _cname, _iname) = {			\
 	.size = {.bytes = _sizebytes,},						\
 	.name = #_type "_" #_cname "_" #_iname,					\
 };										\
-static inline void								\
+static void								\
 mlxsw_##_type##_##_cname##_##_iname##_memcpy_from(const char *buf, char *dst)	\
 {										\
 	__mlxsw_item_memcpy_from(buf, dst,					\
 				 &__ITEM_NAME(_type, _cname, _iname), 0);	\
 }										\
-static inline void								\
+static void								\
 mlxsw_##_type##_##_cname##_##_iname##_memcpy_to(char *buf, const char *src)	\
 {										\
 	__mlxsw_item_memcpy_to(buf, src,					\
 			       &__ITEM_NAME(_type, _cname, _iname), 0);		\
 }										\
-static inline char *								\
+static char *								\
 mlxsw_##_type##_##_cname##_##_iname##_data(char *buf)				\
 {										\
 	return __mlxsw_item_data(buf, &__ITEM_NAME(_type, _cname, _iname), 0);	\
@@ -492,7 +492,7 @@ static struct mlxsw_item __ITEM_NAME(_type, _cname, _iname) = {			\
 	.size = {.bytes = _sizebytes,},						\
 	.name = #_type "_" #_cname "_" #_iname,					\
 };										\
-static inline void								\
+static void								\
 mlxsw_##_type##_##_cname##_##_iname##_memcpy_from(const char *buf,		\
 						  unsigned short index,		\
 						  char *dst)			\
@@ -500,7 +500,7 @@ mlxsw_##_type##_##_cname##_##_iname##_memcpy_from(const char *buf,		\
 	__mlxsw_item_memcpy_from(buf, dst,					\
 				 &__ITEM_NAME(_type, _cname, _iname), index);	\
 }										\
-static inline void								\
+static void								\
 mlxsw_##_type##_##_cname##_##_iname##_memcpy_to(char *buf,			\
 						unsigned short index,		\
 						const char *src)		\
@@ -508,7 +508,7 @@ mlxsw_##_type##_##_cname##_##_iname##_memcpy_to(char *buf,			\
 	__mlxsw_item_memcpy_to(buf, src,					\
 			       &__ITEM_NAME(_type, _cname, _iname), index);	\
 }										\
-static inline char *								\
+static char *								\
 mlxsw_##_type##_##_cname##_##_iname##_data(char *buf, unsigned short index)	\
 {										\
 	return __mlxsw_item_data(buf,						\
@@ -523,14 +523,14 @@ static struct mlxsw_item __ITEM_NAME(_type, _cname, _iname) = {			\
 	.size = {.bytes = _sizebytes,},						\
 	.name = #_type "_" #_cname "_" #_iname,					\
 };										\
-static inline u8								\
+static u8								\
 mlxsw_##_type##_##_cname##_##_iname##_get(const char *buf, u16 index)		\
 {										\
 	return __mlxsw_item_bit_array_get(buf,					\
 					  &__ITEM_NAME(_type, _cname, _iname),	\
 					  index);				\
 }										\
-static inline void								\
+static void								\
 mlxsw_##_type##_##_cname##_##_iname##_set(char *buf, u16 index, u8 val)		\
 {										\
 	return __mlxsw_item_bit_array_set(buf,					\

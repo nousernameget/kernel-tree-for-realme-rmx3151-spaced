@@ -65,7 +65,7 @@ struct seq_tab {
 	char data[0];             /* the table data */
 };
 
-static inline unsigned int hex2val(char c)
+static unsigned int hex2val(char c)
 {
 	return isdigit(c) ? c - '0' : tolower(c) - 'a' + 10;
 }

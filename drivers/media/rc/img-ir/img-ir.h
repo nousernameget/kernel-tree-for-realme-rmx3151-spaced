@@ -158,13 +158,13 @@ struct img_ir_priv {
 
 /* Hardware access */
 
-static inline void img_ir_write(struct img_ir_priv *priv,
+static void img_ir_write(struct img_ir_priv *priv,
 				unsigned int reg_offs, unsigned int data)
 {
 	iowrite32(data, priv->reg_base + reg_offs);
 }
 
-static inline unsigned int img_ir_read(struct img_ir_priv *priv,
+static unsigned int img_ir_read(struct img_ir_priv *priv,
 				       unsigned int reg_offs)
 {
 	return ioread32(priv->reg_base + reg_offs);

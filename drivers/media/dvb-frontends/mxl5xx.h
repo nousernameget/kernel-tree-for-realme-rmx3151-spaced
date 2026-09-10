@@ -28,7 +28,7 @@ extern struct dvb_frontend *mxl5xx_attach(struct i2c_adapter *i2c,
 
 #else
 
-static inline struct dvb_frontend *mxl5xx_attach(struct i2c_adapter *i2c,
+static struct dvb_frontend *mxl5xx_attach(struct i2c_adapter *i2c,
 	struct mxl5xx_cfg *cfg, u32 demod, u32 tuner,
 	int (**fn_set_input)(struct dvb_frontend *, int))
 {

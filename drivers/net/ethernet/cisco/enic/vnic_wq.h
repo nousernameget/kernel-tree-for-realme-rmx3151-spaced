@@ -100,24 +100,24 @@ struct devcmd2_controller {
 	u32 posted;
 };
 
-static inline unsigned int vnic_wq_desc_avail(struct vnic_wq *wq)
+static unsigned int vnic_wq_desc_avail(struct vnic_wq *wq)
 {
 	/* how many does SW own? */
 	return wq->ring.desc_avail;
 }
 
-static inline unsigned int vnic_wq_desc_used(struct vnic_wq *wq)
+static unsigned int vnic_wq_desc_used(struct vnic_wq *wq)
 {
 	/* how many does HW own? */
 	return wq->ring.desc_count - wq->ring.desc_avail - 1;
 }
 
-static inline void *vnic_wq_next_desc(struct vnic_wq *wq)
+static void *vnic_wq_next_desc(struct vnic_wq *wq)
 {
 	return wq->to_use->desc;
 }
 
-static inline void vnic_wq_doorbell(struct vnic_wq *wq)
+static void vnic_wq_doorbell(struct vnic_wq *wq)
 {
 	/* Adding write memory barrier prevents compiler and/or CPU
 	 * reordering, thus avoiding descriptor posting before
@@ -128,7 +128,7 @@ static inline void vnic_wq_doorbell(struct vnic_wq *wq)
 	iowrite32(wq->to_use->index, &wq->ctrl->posted_index);
 }
 
-static inline void vnic_wq_post(struct vnic_wq *wq,
+static void vnic_wq_post(struct vnic_wq *wq,
 	void *os_buf, dma_addr_t dma_addr,
 	unsigned int len, int sop, int eop,
 	uint8_t desc_skip_cnt, uint8_t cq_entry,
@@ -151,7 +151,7 @@ static inline void vnic_wq_post(struct vnic_wq *wq,
 	wq->ring.desc_avail -= desc_skip_cnt;
 }
 
-static inline void vnic_wq_service(struct vnic_wq *wq,
+static void vnic_wq_service(struct vnic_wq *wq,
 	struct cq_desc *cq_desc, u16 completed_index,
 	void (*buf_service)(struct vnic_wq *wq,
 	struct cq_desc *cq_desc, struct vnic_wq_buf *buf, void *opaque),

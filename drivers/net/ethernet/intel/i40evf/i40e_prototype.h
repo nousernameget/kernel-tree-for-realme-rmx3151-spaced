@@ -78,7 +78,7 @@ i40e_status i40e_set_mac_type(struct i40e_hw *hw);
 
 extern struct i40e_rx_ptype_decoded i40evf_ptype_lookup[];
 
-static inline struct i40e_rx_ptype_decoded decode_rx_desc_ptype(u8 ptype)
+static struct i40e_rx_ptype_decoded decode_rx_desc_ptype(u8 ptype)
 {
 	return i40evf_ptype_lookup[ptype];
 }

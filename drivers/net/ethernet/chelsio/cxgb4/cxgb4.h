@@ -407,7 +407,7 @@ struct mbox_cmd_log {
 /* Given a pointer to a Firmware Mailbox Command Log and a log entry index,
  * return a pointer to the specified entry.
  */
-static inline struct mbox_cmd *mbox_cmd_log_entry(struct mbox_cmd_log *log,
+static struct mbox_cmd *mbox_cmd_log_entry(struct mbox_cmd_log *log,
 						  unsigned int entry_idx)
 {
 	return &((struct mbox_cmd *)&(log)[1])[entry_idx];
@@ -1104,50 +1104,50 @@ struct filter_entry {
 	struct ch_filter_specification fs;
 };
 
-static inline int is_offload(const struct adapter *adap)
+static int is_offload(const struct adapter *adap)
 {
 	return adap->params.offload;
 }
 
-static inline int is_pci_uld(const struct adapter *adap)
+static int is_pci_uld(const struct adapter *adap)
 {
 	return adap->params.crypto;
 }
 
-static inline int is_uld(const struct adapter *adap)
+static int is_uld(const struct adapter *adap)
 {
 	return (adap->params.offload || adap->params.crypto);
 }
 
-static inline u32 t4_read_reg(struct adapter *adap, u32 reg_addr)
+static u32 t4_read_reg(struct adapter *adap, u32 reg_addr)
 {
 	return readl(adap->regs + reg_addr);
 }
 
-static inline void t4_write_reg(struct adapter *adap, u32 reg_addr, u32 val)
+static void t4_write_reg(struct adapter *adap, u32 reg_addr, u32 val)
 {
 	writel(val, adap->regs + reg_addr);
 }
 
 #ifndef readq
-static inline u64 readq(const volatile void __iomem *addr)
+static u64 readq(const volatile void __iomem *addr)
 {
 	return readl(addr) + ((u64)readl(addr + 4) << 32);
 }
 
-static inline void writeq(u64 val, volatile void __iomem *addr)
+static void writeq(u64 val, volatile void __iomem *addr)
 {
 	writel(val, addr);
 	writel(val >> 32, addr + 4);
 }
 #endif
 
-static inline u64 t4_read_reg64(struct adapter *adap, u32 reg_addr)
+static u64 t4_read_reg64(struct adapter *adap, u32 reg_addr)
 {
 	return readq(adap->regs + reg_addr);
 }
 
-static inline void t4_write_reg64(struct adapter *adap, u32 reg_addr, u64 val)
+static void t4_write_reg64(struct adapter *adap, u32 reg_addr, u64 val)
 {
 	writeq(val, adap->regs + reg_addr);
 }
@@ -1161,7 +1161,7 @@ static inline void t4_write_reg64(struct adapter *adap, u32 reg_addr, u64 val)
  * Store the Ethernet address of the given port in SW.  Called by the common
  * code when it retrieves a port's Ethernet address from EEPROM.
  */
-static inline void t4_set_hw_addr(struct adapter *adapter, int port_idx,
+static void t4_set_hw_addr(struct adapter *adapter, int port_idx,
 				  u8 hw_addr[])
 {
 	ether_addr_copy(adapter->port[port_idx]->dev_addr, hw_addr);
@@ -1174,7 +1174,7 @@ static inline void t4_set_hw_addr(struct adapter *adapter, int port_idx,
  *
  * Return the struct port_info associated with a net_device
  */
-static inline struct port_info *netdev2pinfo(const struct net_device *dev)
+static struct port_info *netdev2pinfo(const struct net_device *dev)
 {
 	return netdev_priv(dev);
 }
@@ -1186,7 +1186,7 @@ static inline struct port_info *netdev2pinfo(const struct net_device *dev)
  *
  * Return the port_info structure for the port of the given index.
  */
-static inline struct port_info *adap2pinfo(struct adapter *adap, int idx)
+static struct port_info *adap2pinfo(struct adapter *adap, int idx)
 {
 	return netdev_priv(adap->port[idx]);
 }
@@ -1197,7 +1197,7 @@ static inline struct port_info *adap2pinfo(struct adapter *adap, int idx)
  *
  * Return the struct adapter associated with a net_device
  */
-static inline struct adapter *netdev2adap(const struct net_device *dev)
+static struct adapter *netdev2adap(const struct net_device *dev)
 {
 	return netdev2pinfo(dev)->adapter;
 }
@@ -1207,14 +1207,14 @@ static inline struct adapter *netdev2adap(const struct net_device *dev)
  * - bits 10..15: chip revision
  * - bits 16..23: register dump version
  */
-static inline unsigned int mk_adap_vers(struct adapter *ap)
+static unsigned int mk_adap_vers(struct adapter *ap)
 {
 	return CHELSIO_CHIP_VERSION(ap->params.chip) |
 		(CHELSIO_CHIP_RELEASE(ap->params.chip) << 10) | (1 << 16);
 }
 
 /* Return a queue's interrupt hold-off time in us.  0 means no timer. */
-static inline unsigned int qtimer_val(const struct adapter *adap,
+static unsigned int qtimer_val(const struct adapter *adap,
 				      const struct sge_rspq *q)
 {
 	unsigned int idx = q->intr_params >> 1;
@@ -1263,12 +1263,12 @@ extern int dbfifo_int_thresh;
 #define for_each_port(adapter, iter) \
 	for (iter = 0; iter < (adapter)->params.nports; ++iter)
 
-static inline int is_bypass(struct adapter *adap)
+static int is_bypass(struct adapter *adap)
 {
 	return adap->params.bypass;
 }
 
-static inline int is_bypass_device(int device)
+static int is_bypass_device(int device)
 {
 	/* this should be set based upon device capabilities */
 	switch (device) {
@@ -1280,7 +1280,7 @@ static inline int is_bypass_device(int device)
 	}
 }
 
-static inline int is_10gbt_device(int device)
+static int is_10gbt_device(int device)
 {
 	/* this should be set based upon device capabilities */
 	switch (device) {
@@ -1293,18 +1293,18 @@ static inline int is_10gbt_device(int device)
 	}
 }
 
-static inline unsigned int core_ticks_per_usec(const struct adapter *adap)
+static unsigned int core_ticks_per_usec(const struct adapter *adap)
 {
 	return adap->params.vpd.cclk / 1000;
 }
 
-static inline unsigned int us_to_core_ticks(const struct adapter *adap,
+static unsigned int us_to_core_ticks(const struct adapter *adap,
 					    unsigned int us)
 {
 	return (us * adap->params.vpd.cclk) / 1000;
 }
 
-static inline unsigned int core_ticks_to_us(const struct adapter *adapter,
+static unsigned int core_ticks_to_us(const struct adapter *adapter,
 					    unsigned int ticks)
 {
 	/* add Core Clock / 2 to round ticks to nearest uS */
@@ -1320,7 +1320,7 @@ int t4_wr_mbox_meat_timeout(struct adapter *adap, int mbox, const void *cmd,
 int t4_wr_mbox_meat(struct adapter *adap, int mbox, const void *cmd, int size,
 		    void *rpl, bool sleep_ok);
 
-static inline int t4_wr_mbox_timeout(struct adapter *adap, int mbox,
+static int t4_wr_mbox_timeout(struct adapter *adap, int mbox,
 				     const void *cmd, int size, void *rpl,
 				     int timeout)
 {
@@ -1328,13 +1328,13 @@ static inline int t4_wr_mbox_timeout(struct adapter *adap, int mbox,
 				       timeout);
 }
 
-static inline int t4_wr_mbox(struct adapter *adap, int mbox, const void *cmd,
+static int t4_wr_mbox(struct adapter *adap, int mbox, const void *cmd,
 			     int size, void *rpl)
 {
 	return t4_wr_mbox_meat(adap, mbox, cmd, size, rpl, true);
 }
 
-static inline int t4_wr_mbox_ns(struct adapter *adap, int mbox, const void *cmd,
+static int t4_wr_mbox_ns(struct adapter *adap, int mbox, const void *cmd,
 				int size, void *rpl)
 {
 	return t4_wr_mbox_meat(adap, mbox, cmd, size, rpl, false);
@@ -1347,7 +1347,7 @@ static inline int t4_wr_mbox_ns(struct adapter *adap, int mbox, const void *cmd,
  *	Hashes a MAC address according to the hash function used by HW inexact
  *	(hash) address matching.
  */
-static inline int hash_mac_addr(const u8 *addr)
+static int hash_mac_addr(const u8 *addr)
 {
 	u32 a = ((u32)addr[0] << 16) | ((u32)addr[1] << 8) | addr[2];
 	u32 b = ((u32)addr[3] << 16) | ((u32)addr[4] << 8) | addr[5];
@@ -1360,7 +1360,7 @@ static inline int hash_mac_addr(const u8 *addr)
 
 int cxgb4_set_rspq_intr_params(struct sge_rspq *q, unsigned int us,
 			       unsigned int cnt);
-static inline void init_rspq(struct adapter *adap, struct sge_rspq *q,
+static void init_rspq(struct adapter *adap, struct sge_rspq *q,
 			     unsigned int us, unsigned int cnt,
 			     unsigned int size, unsigned int iqe_size)
 {
@@ -1397,7 +1397,7 @@ void t4_setup_memwin(struct adapter *adap, u32 memwin_base, u32 window);
 #define T4_MEMORY_READ	1
 int t4_memory_rw(struct adapter *adap, int win, int mtype, u32 addr, u32 len,
 		 void *buf, int dir);
-static inline int t4_memory_write(struct adapter *adap, int mtype, u32 addr,
+static int t4_memory_write(struct adapter *adap, int mtype, u32 addr,
 				  u32 len, __be32 *buf)
 {
 	return t4_memory_rw(adap, 0, mtype, addr, len, buf, 0);

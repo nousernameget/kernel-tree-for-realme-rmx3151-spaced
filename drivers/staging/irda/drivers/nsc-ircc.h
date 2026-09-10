@@ -273,7 +273,7 @@ struct nsc_ircc_cb {
 	struct platform_device *pldev;
 };
 
-static inline void switch_bank(int iobase, int bank)
+static void switch_bank(int iobase, int bank)
 {
 		outb(bank, iobase+BSR);
 }

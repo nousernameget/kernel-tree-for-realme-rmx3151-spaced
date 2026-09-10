@@ -194,55 +194,55 @@ extern void ipp_sched_cmd(struct work_struct *work);
 extern void ipp_sched_event(struct work_struct *work);
 
 #else
-static inline int exynos_drm_ippdrv_register(struct exynos_drm_ippdrv *ippdrv)
+static int exynos_drm_ippdrv_register(struct exynos_drm_ippdrv *ippdrv)
 {
 	return -ENODEV;
 }
 
-static inline int exynos_drm_ippdrv_unregister(struct exynos_drm_ippdrv *ippdrv)
+static int exynos_drm_ippdrv_unregister(struct exynos_drm_ippdrv *ippdrv)
 {
 	return -ENODEV;
 }
 
-static inline int exynos_drm_ipp_get_property(struct drm_device *drm_dev,
+static int exynos_drm_ipp_get_property(struct drm_device *drm_dev,
 						void *data,
 						struct drm_file *file_priv)
 {
 	return -ENOTTY;
 }
 
-static inline int exynos_drm_ipp_set_property(struct drm_device *drm_dev,
+static int exynos_drm_ipp_set_property(struct drm_device *drm_dev,
 						void *data,
 						struct drm_file *file_priv)
 {
 	return -ENOTTY;
 }
 
-static inline int exynos_drm_ipp_queue_buf(struct drm_device *drm_dev,
+static int exynos_drm_ipp_queue_buf(struct drm_device *drm_dev,
 						void *data,
 						struct drm_file *file)
 {
 	return -ENOTTY;
 }
 
-static inline int exynos_drm_ipp_cmd_ctrl(struct drm_device *drm_dev,
+static int exynos_drm_ipp_cmd_ctrl(struct drm_device *drm_dev,
 						void *data,
 						struct drm_file *file)
 {
 	return -ENOTTY;
 }
 
-static inline int exynos_drm_ippnb_register(struct notifier_block *nb)
+static int exynos_drm_ippnb_register(struct notifier_block *nb)
 {
 	return -ENODEV;
 }
 
-static inline int exynos_drm_ippnb_unregister(struct notifier_block *nb)
+static int exynos_drm_ippnb_unregister(struct notifier_block *nb)
 {
 	return -ENODEV;
 }
 
-static inline int exynos_drm_ippnb_send_event(unsigned long val, void *v)
+static int exynos_drm_ippnb_send_event(unsigned long val, void *v)
 {
 	return -ENOTTY;
 }

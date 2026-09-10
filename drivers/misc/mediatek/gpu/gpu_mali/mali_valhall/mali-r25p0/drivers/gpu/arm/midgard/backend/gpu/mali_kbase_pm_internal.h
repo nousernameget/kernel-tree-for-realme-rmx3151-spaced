@@ -690,7 +690,7 @@ bool kbase_pm_is_l2_desired(struct kbase_device *kbdev);
  *
  * This function locks correct mutexes independent of GPU architecture.
  */
-static inline void kbase_pm_lock(struct kbase_device *kbdev)
+static void kbase_pm_lock(struct kbase_device *kbdev)
 {
 	mutex_lock(&kbdev->js_data.runpool_mutex);
 	mutex_lock(&kbdev->pm.lock);
@@ -701,7 +701,7 @@ static inline void kbase_pm_lock(struct kbase_device *kbdev)
  *
  * @kbdev: Device pointer
  */
-static inline void kbase_pm_unlock(struct kbase_device *kbdev)
+static void kbase_pm_unlock(struct kbase_device *kbdev)
 {
 	mutex_unlock(&kbdev->pm.lock);
 	mutex_unlock(&kbdev->js_data.runpool_mutex);

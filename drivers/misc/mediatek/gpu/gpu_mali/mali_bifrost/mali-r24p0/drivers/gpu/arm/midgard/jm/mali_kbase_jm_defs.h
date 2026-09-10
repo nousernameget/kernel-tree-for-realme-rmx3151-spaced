@@ -174,7 +174,7 @@ struct kbase_jd_atom_dependency {
  *
  * Return: readonly reference to dependee atom.
  */
-static inline const struct kbase_jd_atom *
+static const struct kbase_jd_atom *
 kbase_jd_katom_dep_atom(const struct kbase_jd_atom_dependency *dep)
 {
 	LOCAL_ASSERT(dep != NULL);
@@ -189,7 +189,7 @@ kbase_jd_katom_dep_atom(const struct kbase_jd_atom_dependency *dep)
  *
  * Return: the type of dependency there is on the dependee atom.
  */
-static inline u8 kbase_jd_katom_dep_type(
+static u8 kbase_jd_katom_dep_type(
 		const struct kbase_jd_atom_dependency *dep)
 {
 	LOCAL_ASSERT(dep != NULL);
@@ -204,7 +204,7 @@ static inline u8 kbase_jd_katom_dep_type(
  * @a:            pointer to the dependee atom.
  * @type:         type of dependency there is on the dependee atom.
  */
-static inline void kbase_jd_katom_dep_set(
+static void kbase_jd_katom_dep_set(
 		const struct kbase_jd_atom_dependency *const_dep,
 		struct kbase_jd_atom *a, u8 type)
 {
@@ -223,7 +223,7 @@ static inline void kbase_jd_katom_dep_set(
  *
  * @const_dep:    pointer to the dependency info structure to be setup.
  */
-static inline void kbase_jd_katom_dep_clear(
+static void kbase_jd_katom_dep_clear(
 		const struct kbase_jd_atom_dependency *const_dep)
 {
 	struct kbase_jd_atom_dependency *dep;
@@ -629,7 +629,7 @@ struct kbase_jd_atom {
 
 };
 
-static inline bool kbase_jd_katom_is_protected(
+static bool kbase_jd_katom_is_protected(
 		const struct kbase_jd_atom *katom)
 {
 	return (bool)(katom->atom_flags & KBASE_KATOM_FLAG_PROTECTED);

@@ -202,7 +202,7 @@ struct mpc_group {
 #ifdef DEBUGDATA
 void ctcmpc_dumpit(char *buf, int len);
 #else
-static inline void ctcmpc_dumpit(char *buf, int len)
+static void ctcmpc_dumpit(char *buf, int len)
 {
 }
 #endif
@@ -216,11 +216,11 @@ static inline void ctcmpc_dumpit(char *buf, int len)
  */
 void ctcmpc_dump_skb(struct sk_buff *skb, int offset);
 #else
-static inline void ctcmpc_dump_skb(struct sk_buff *skb, int offset)
+static void ctcmpc_dump_skb(struct sk_buff *skb, int offset)
 {}
 #endif
 
-static inline void ctcmpc_dump32(char *buf, int len)
+static void ctcmpc_dump32(char *buf, int len)
 {
 	if (len < 32)
 		ctcmpc_dumpit(buf, len);

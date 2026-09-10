@@ -26,7 +26,7 @@ enum {
 	EFX_REV_HUNT_A0 = 4,
 };
 
-static inline int efx_nic_rev(struct efx_nic *efx)
+static int efx_nic_rev(struct efx_nic *efx)
 {
 	return efx->type->revision;
 }
@@ -34,7 +34,7 @@ static inline int efx_nic_rev(struct efx_nic *efx)
 u32 efx_farch_fpga_ver(struct efx_nic *efx);
 
 /* Read the current event from the event queue */
-static inline efx_qword_t *efx_event(struct efx_channel *channel,
+static efx_qword_t *efx_event(struct efx_channel *channel,
 				     unsigned int index)
 {
 	return ((efx_qword_t *) (channel->eventq.buf.addr)) +
@@ -51,7 +51,7 @@ static inline efx_qword_t *efx_event(struct efx_channel *channel,
  * Note that using a single 64-bit comparison is incorrect; even
  * though the CPU read will be atomic, the DMA write may not be.
  */
-static inline int efx_event_present(efx_qword_t *event)
+static int efx_event_present(efx_qword_t *event)
 {
 	return !(EFX_DWORD_IS_ALL_ONES(event->dword[0]) |
 		  EFX_DWORD_IS_ALL_ONES(event->dword[1]));
@@ -60,7 +60,7 @@ static inline int efx_event_present(efx_qword_t *event)
 /* Returns a pointer to the specified transmit descriptor in the TX
  * descriptor queue belonging to the specified channel.
  */
-static inline efx_qword_t *
+static efx_qword_t *
 efx_tx_desc(struct efx_tx_queue *tx_queue, unsigned int index)
 {
 	return ((efx_qword_t *) (tx_queue->txd.buf.addr)) + index;
@@ -78,7 +78,7 @@ static struct efx_tx_queue *efx_tx_queue_partner(struct efx_tx_queue *tx_queue)
 /* Report whether this TX queue would be empty for the given write_count.
  * May return false negative.
  */
-static inline bool __efx_nic_tx_is_empty(struct efx_tx_queue *tx_queue,
+static bool __efx_nic_tx_is_empty(struct efx_tx_queue *tx_queue,
 					 unsigned int write_count)
 {
 	unsigned int empty_read_count = ACCESS_ONCE(tx_queue->empty_read_count);
@@ -94,7 +94,7 @@ static inline bool __efx_nic_tx_is_empty(struct efx_tx_queue *tx_queue,
  * doorbell push).  May return false negative.  EF10 only, which is OK
  * because only EF10 supports PIO.
  */
-static inline bool efx_nic_tx_is_empty(struct efx_tx_queue *tx_queue)
+static bool efx_nic_tx_is_empty(struct efx_tx_queue *tx_queue)
 {
 	EFX_WARN_ON_ONCE_PARANOID(!tx_queue->efx->type->option_descriptors);
 	return __efx_nic_tx_is_empty(tx_queue, tx_queue->packet_write_count);
@@ -106,7 +106,7 @@ static inline bool efx_nic_tx_is_empty(struct efx_tx_queue *tx_queue)
  * are empty.  This also ensures that only one packet at a time can be
  * using the PIO buffer.
  */
-static inline bool efx_nic_may_tx_pio(struct efx_tx_queue *tx_queue)
+static bool efx_nic_may_tx_pio(struct efx_tx_queue *tx_queue)
 {
 	struct efx_tx_queue *partner = efx_tx_queue_partner(tx_queue);
 
@@ -122,7 +122,7 @@ static inline bool efx_nic_may_tx_pio(struct efx_tx_queue *tx_queue)
  * We use the write_count used for the last doorbell push, to get the
  * NIC's view of the tx queue.
  */
-static inline bool efx_nic_may_push_tx_desc(struct efx_tx_queue *tx_queue,
+static bool efx_nic_may_push_tx_desc(struct efx_tx_queue *tx_queue,
 					    unsigned int write_count)
 {
 	bool was_empty = __efx_nic_tx_is_empty(tx_queue, write_count);
@@ -132,7 +132,7 @@ static inline bool efx_nic_may_push_tx_desc(struct efx_tx_queue *tx_queue,
 }
 
 /* Returns a pointer to the specified descriptor in the RX descriptor queue */
-static inline efx_qword_t *
+static efx_qword_t *
 efx_rx_desc(struct efx_rx_queue *rx_queue, unsigned int index)
 {
 	return ((efx_qword_t *) (rx_queue->rxd.buf.addr)) + index;
@@ -439,7 +439,7 @@ size_t efx_ptp_update_stats(struct efx_nic *efx, u64 *stats);
 void efx_time_sync_event(struct efx_channel *channel, efx_qword_t *ev);
 void __efx_rx_skb_attach_timestamp(struct efx_channel *channel,
 				   struct sk_buff *skb);
-static inline void efx_rx_skb_attach_timestamp(struct efx_channel *channel,
+static void efx_rx_skb_attach_timestamp(struct efx_channel *channel,
 					       struct sk_buff *skb)
 {
 	if (channel->sync_events_state == SYNC_EVENTS_VALID)
@@ -464,68 +464,68 @@ extern const struct efx_nic_type efx_hunt_a0_vf_nic_type;
 int falcon_probe_board(struct efx_nic *efx, u16 revision_info);
 
 /* TX data path */
-static inline int efx_nic_probe_tx(struct efx_tx_queue *tx_queue)
+static int efx_nic_probe_tx(struct efx_tx_queue *tx_queue)
 {
 	return tx_queue->efx->type->tx_probe(tx_queue);
 }
-static inline void efx_nic_init_tx(struct efx_tx_queue *tx_queue)
+static void efx_nic_init_tx(struct efx_tx_queue *tx_queue)
 {
 	tx_queue->efx->type->tx_init(tx_queue);
 }
-static inline void efx_nic_remove_tx(struct efx_tx_queue *tx_queue)
+static void efx_nic_remove_tx(struct efx_tx_queue *tx_queue)
 {
 	tx_queue->efx->type->tx_remove(tx_queue);
 }
-static inline void efx_nic_push_buffers(struct efx_tx_queue *tx_queue)
+static void efx_nic_push_buffers(struct efx_tx_queue *tx_queue)
 {
 	tx_queue->efx->type->tx_write(tx_queue);
 }
 
 /* RX data path */
-static inline int efx_nic_probe_rx(struct efx_rx_queue *rx_queue)
+static int efx_nic_probe_rx(struct efx_rx_queue *rx_queue)
 {
 	return rx_queue->efx->type->rx_probe(rx_queue);
 }
-static inline void efx_nic_init_rx(struct efx_rx_queue *rx_queue)
+static void efx_nic_init_rx(struct efx_rx_queue *rx_queue)
 {
 	rx_queue->efx->type->rx_init(rx_queue);
 }
-static inline void efx_nic_remove_rx(struct efx_rx_queue *rx_queue)
+static void efx_nic_remove_rx(struct efx_rx_queue *rx_queue)
 {
 	rx_queue->efx->type->rx_remove(rx_queue);
 }
-static inline void efx_nic_notify_rx_desc(struct efx_rx_queue *rx_queue)
+static void efx_nic_notify_rx_desc(struct efx_rx_queue *rx_queue)
 {
 	rx_queue->efx->type->rx_write(rx_queue);
 }
-static inline void efx_nic_generate_fill_event(struct efx_rx_queue *rx_queue)
+static void efx_nic_generate_fill_event(struct efx_rx_queue *rx_queue)
 {
 	rx_queue->efx->type->rx_defer_refill(rx_queue);
 }
 
 /* Event data path */
-static inline int efx_nic_probe_eventq(struct efx_channel *channel)
+static int efx_nic_probe_eventq(struct efx_channel *channel)
 {
 	return channel->efx->type->ev_probe(channel);
 }
-static inline int efx_nic_init_eventq(struct efx_channel *channel)
+static int efx_nic_init_eventq(struct efx_channel *channel)
 {
 	return channel->efx->type->ev_init(channel);
 }
-static inline void efx_nic_fini_eventq(struct efx_channel *channel)
+static void efx_nic_fini_eventq(struct efx_channel *channel)
 {
 	channel->efx->type->ev_fini(channel);
 }
-static inline void efx_nic_remove_eventq(struct efx_channel *channel)
+static void efx_nic_remove_eventq(struct efx_channel *channel)
 {
 	channel->efx->type->ev_remove(channel);
 }
-static inline int
+static int
 efx_nic_process_eventq(struct efx_channel *channel, int quota)
 {
 	return channel->efx->type->ev_process(channel, quota);
 }
-static inline void efx_nic_eventq_read_ack(struct efx_channel *channel)
+static void efx_nic_eventq_read_ack(struct efx_channel *channel)
 {
 	channel->efx->type->ev_read_ack(channel);
 }
@@ -596,7 +596,7 @@ bool efx_nic_event_present(struct efx_channel *channel);
  * true value, we can achieve this by only storing the computed value
  * when it increases.
  */
-static inline void efx_update_diff_stat(u64 *stat, u64 diff)
+static void efx_update_diff_stat(u64 *stat, u64 diff)
 {
 	if ((s64)(diff - *stat) > 0)
 		*stat = diff;
@@ -615,11 +615,11 @@ irqreturn_t efx_farch_msi_interrupt(int irq, void *dev_id);
 irqreturn_t efx_farch_legacy_interrupt(int irq, void *dev_id);
 irqreturn_t efx_farch_fatal_interrupt(struct efx_nic *efx);
 
-static inline int efx_nic_event_test_irq_cpu(struct efx_channel *channel)
+static int efx_nic_event_test_irq_cpu(struct efx_channel *channel)
 {
 	return ACCESS_ONCE(channel->event_test_cpu);
 }
-static inline int efx_nic_irq_test_irq_cpu(struct efx_nic *efx)
+static int efx_nic_irq_test_irq_cpu(struct efx_nic *efx)
 {
 	return ACCESS_ONCE(efx->last_irq_cpu);
 }

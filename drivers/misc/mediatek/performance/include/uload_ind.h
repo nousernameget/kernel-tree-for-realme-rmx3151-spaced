@@ -19,7 +19,7 @@ extern int init_uload_ind(struct proc_dir_entry *parent);
 
 #else
 
-static inline int init_uload_ind(struct proc_dir_entry *parent)
+static int init_uload_ind(struct proc_dir_entry *parent)
 { return -EINVAL; }
 
 #endif

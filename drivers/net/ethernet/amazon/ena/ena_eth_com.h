@@ -88,13 +88,13 @@ int ena_com_add_single_rx_desc(struct ena_com_io_sq *io_sq,
 
 int ena_com_tx_comp_req_id_get(struct ena_com_io_cq *io_cq, u16 *req_id);
 
-static inline void ena_com_unmask_intr(struct ena_com_io_cq *io_cq,
+static void ena_com_unmask_intr(struct ena_com_io_cq *io_cq,
 				       struct ena_eth_io_intr_reg *intr_reg)
 {
 	writel(intr_reg->intr_control, io_cq->unmask_reg);
 }
 
-static inline int ena_com_sq_empty_space(struct ena_com_io_sq *io_sq)
+static int ena_com_sq_empty_space(struct ena_com_io_sq *io_sq)
 {
 	u16 tail, next_to_comp, cnt;
 
@@ -105,7 +105,7 @@ static inline int ena_com_sq_empty_space(struct ena_com_io_sq *io_sq)
 	return io_sq->q_depth - 1 - cnt;
 }
 
-static inline int ena_com_write_sq_doorbell(struct ena_com_io_sq *io_sq)
+static int ena_com_write_sq_doorbell(struct ena_com_io_sq *io_sq)
 {
 	u16 tail;
 
@@ -119,7 +119,7 @@ static inline int ena_com_write_sq_doorbell(struct ena_com_io_sq *io_sq)
 	return 0;
 }
 
-static inline int ena_com_update_dev_comp_head(struct ena_com_io_cq *io_cq)
+static int ena_com_update_dev_comp_head(struct ena_com_io_cq *io_cq)
 {
 	u16 unreported_comp, head;
 	bool need_update;
@@ -138,7 +138,7 @@ static inline int ena_com_update_dev_comp_head(struct ena_com_io_cq *io_cq)
 	return 0;
 }
 
-static inline void ena_com_update_numa_node(struct ena_com_io_cq *io_cq,
+static void ena_com_update_numa_node(struct ena_com_io_cq *io_cq,
 					    u8 numa_node)
 {
 	struct ena_eth_io_numa_node_cfg_reg numa_cfg;
@@ -152,7 +152,7 @@ static inline void ena_com_update_numa_node(struct ena_com_io_cq *io_cq,
 	writel(numa_cfg.numa_cfg, io_cq->numa_node_cfg_reg);
 }
 
-static inline void ena_com_comp_ack(struct ena_com_io_sq *io_sq, u16 elem)
+static void ena_com_comp_ack(struct ena_com_io_sq *io_sq, u16 elem)
 {
 	io_sq->next_to_comp += elem;
 }

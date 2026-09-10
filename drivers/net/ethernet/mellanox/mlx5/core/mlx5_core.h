@@ -167,7 +167,7 @@ int mlx5_firmware_flash(struct mlx5_core_dev *dev, const struct firmware *fw);
 void mlx5e_init(void);
 void mlx5e_cleanup(void);
 
-static inline int mlx5_lag_is_lacp_owner(struct mlx5_core_dev *dev)
+static int mlx5_lag_is_lacp_owner(struct mlx5_core_dev *dev)
 {
 	/* LACP owner conditions:
 	 * 1) Function is physical.

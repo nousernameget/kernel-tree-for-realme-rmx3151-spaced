@@ -18,14 +18,14 @@ struct clkgen_field {
 	unsigned int shift;
 };
 
-static inline unsigned long clkgen_read(void __iomem	*base,
+static unsigned long clkgen_read(void __iomem	*base,
 					  struct clkgen_field *field)
 {
 	return (readl(base + field->offset) >> field->shift) & field->mask;
 }
 
 
-static inline void clkgen_write(void __iomem *base, struct clkgen_field *field,
+static void clkgen_write(void __iomem *base, struct clkgen_field *field,
 				  unsigned long val)
 {
 	writel((readl(base + field->offset) &

@@ -19,12 +19,12 @@
 int rockchip_drm_fbdev_init(struct drm_device *dev);
 void rockchip_drm_fbdev_fini(struct drm_device *dev);
 #else
-static inline int rockchip_drm_fbdev_init(struct drm_device *dev)
+static int rockchip_drm_fbdev_init(struct drm_device *dev)
 {
 	return 0;
 }
 
-static inline void rockchip_drm_fbdev_fini(struct drm_device *dev)
+static void rockchip_drm_fbdev_fini(struct drm_device *dev)
 {
 }
 #endif

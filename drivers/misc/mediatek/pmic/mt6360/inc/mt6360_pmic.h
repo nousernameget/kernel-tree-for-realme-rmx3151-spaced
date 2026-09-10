@@ -137,7 +137,7 @@ struct mt6360_val_prop {
 	size_t offset;
 };
 
-static inline void mt6360_dt_parser_helper(struct device_node *np, void *data,
+static void mt6360_dt_parser_helper(struct device_node *np, void *data,
 					   const struct mt6360_val_prop *props,
 					   int prop_cnt)
 {

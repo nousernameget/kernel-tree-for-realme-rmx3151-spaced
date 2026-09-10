@@ -35,7 +35,7 @@ void dm_stats_account_io(struct dm_stats *stats, unsigned long bi_rw,
 			 unsigned long duration_jiffies,
 			 struct dm_stats_aux *aux);
 
-static inline bool dm_stats_used(struct dm_stats *st)
+static bool dm_stats_used(struct dm_stats *st)
 {
 	return !list_empty(&st->list);
 }

@@ -75,19 +75,19 @@ struct b43_leds {
 	/* empty */
 };
 
-static inline void b43_leds_register(struct b43_wldev *dev)
+static void b43_leds_register(struct b43_wldev *dev)
 {
 }
-static inline void b43_leds_unregister(struct b43_wl *wl)
+static void b43_leds_unregister(struct b43_wl *wl)
 {
 }
-static inline void b43_leds_init(struct b43_wldev *dev)
+static void b43_leds_init(struct b43_wldev *dev)
 {
 }
-static inline void b43_leds_exit(struct b43_wldev *dev)
+static void b43_leds_exit(struct b43_wldev *dev)
 {
 }
-static inline void b43_leds_stop(struct b43_wldev *dev)
+static void b43_leds_stop(struct b43_wldev *dev)
 {
 }
 #endif /* CONFIG_B43_LEDS */

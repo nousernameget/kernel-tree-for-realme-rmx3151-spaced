@@ -949,7 +949,7 @@ struct rtsx_chip {
 	u32 sd_ctl;
 };
 
-static inline struct device *rtsx_dev(const struct rtsx_chip *chip)
+static struct device *rtsx_dev(const struct rtsx_chip *chip)
 {
 	return &chip->rtsx->pci->dev;
 }

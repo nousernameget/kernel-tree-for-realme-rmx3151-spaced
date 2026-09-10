@@ -133,7 +133,7 @@ enum i40e_dyn_idx_t {
 #define I40E_2K_TOO_SMALL_WITH_PADDING \
 ((NET_SKB_PAD + I40E_RXBUFFER_1536) > SKB_WITH_OVERHEAD(I40E_RXBUFFER_2048))
 
-static inline int i40e_compute_pad(int rx_buf_len)
+static int i40e_compute_pad(int rx_buf_len)
 {
 	int page_size, pad_size;
 
@@ -143,7 +143,7 @@ static inline int i40e_compute_pad(int rx_buf_len)
 	return pad_size;
 }
 
-static inline int i40e_skb_pad(void)
+static int i40e_skb_pad(void)
 {
 	int rx_buf_len;
 
@@ -181,7 +181,7 @@ static inline int i40e_skb_pad(void)
  * The status_error_len doesn't need to be shifted because it begins
  * at offset zero.
  */
-static inline bool i40e_test_staterr(union i40e_rx_desc *rx_desc,
+static bool i40e_test_staterr(union i40e_rx_desc *rx_desc,
 				     const u64 stat_err_bits)
 {
 	return !!(rx_desc->wb.qword1.status_error_len &
@@ -252,7 +252,7 @@ static inline bool i40e_test_staterr(union i40e_rx_desc *rx_desc,
  * operations into:
  *     return ((size * 85) >> 20) + 1;
  */
-static inline unsigned int i40e_txd_use_count(unsigned int size)
+static unsigned int i40e_txd_use_count(unsigned int size)
 {
 	return ((size * 85) >> 20) + 1;
 }
@@ -406,17 +406,17 @@ struct i40e_ring {
 					 */
 } ____cacheline_internodealigned_in_smp;
 
-static inline bool ring_uses_build_skb(struct i40e_ring *ring)
+static bool ring_uses_build_skb(struct i40e_ring *ring)
 {
 	return !!(ring->flags & I40E_RXR_FLAGS_BUILD_SKB_ENABLED);
 }
 
-static inline void set_ring_build_skb_enabled(struct i40e_ring *ring)
+static void set_ring_build_skb_enabled(struct i40e_ring *ring)
 {
 	ring->flags |= I40E_RXR_FLAGS_BUILD_SKB_ENABLED;
 }
 
-static inline void clear_ring_build_skb_enabled(struct i40e_ring *ring)
+static void clear_ring_build_skb_enabled(struct i40e_ring *ring)
 {
 	ring->flags &= ~I40E_RXR_FLAGS_BUILD_SKB_ENABLED;
 }
@@ -442,7 +442,7 @@ struct i40e_ring_container {
 #define i40e_for_each_ring(pos, head) \
 	for (pos = (head).ring; pos != NULL; pos = pos->next)
 
-static inline unsigned int i40e_rx_pg_order(struct i40e_ring *ring)
+static unsigned int i40e_rx_pg_order(struct i40e_ring *ring)
 {
 #if (PAGE_SIZE < 8192)
 	if (ring->rx_buf_len > (PAGE_SIZE / 2))
@@ -476,7 +476,7 @@ bool __i40evf_chk_linearize(struct sk_buff *skb);
  * there is not enough descriptors available in this ring since we need at least
  * one descriptor.
  **/
-static inline int i40e_xmit_descriptor_count(struct sk_buff *skb)
+static int i40e_xmit_descriptor_count(struct sk_buff *skb)
 {
 	const struct skb_frag_struct *frag = &skb_shinfo(skb)->frags[0];
 	unsigned int nr_frags = skb_shinfo(skb)->nr_frags;
@@ -501,7 +501,7 @@ static inline int i40e_xmit_descriptor_count(struct sk_buff *skb)
  *
  * Returns 0 if stop is not needed
  **/
-static inline int i40e_maybe_stop_tx(struct i40e_ring *tx_ring, int size)
+static int i40e_maybe_stop_tx(struct i40e_ring *tx_ring, int size)
 {
 	if (likely(I40E_DESC_UNUSED(tx_ring) >= size))
 		return 0;
@@ -517,7 +517,7 @@ static inline int i40e_maybe_stop_tx(struct i40e_ring *tx_ring, int size)
  * a packet on the wire and so we need to figure out the cases where we
  * need to linearize the skb.
  **/
-static inline bool i40e_chk_linearize(struct sk_buff *skb, int count)
+static bool i40e_chk_linearize(struct sk_buff *skb, int count)
 {
 	/* Both TSO and single send will work if count is less than 8 */
 	if (likely(count < I40E_MAX_BUFFER_TXD))
@@ -532,7 +532,7 @@ static inline bool i40e_chk_linearize(struct sk_buff *skb, int count)
 /**
  * @ring: Tx ring to find the netdev equivalent of
  **/
-static inline struct netdev_queue *txring_txq(const struct i40e_ring *ring)
+static struct netdev_queue *txring_txq(const struct i40e_ring *ring)
 {
 	return netdev_get_tx_queue(ring->netdev, ring->queue_index);
 }

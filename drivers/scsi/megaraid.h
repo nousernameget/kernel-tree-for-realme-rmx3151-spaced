@@ -974,7 +974,7 @@ static int mega_build_sglist (adapter_t *adapter, scb_t *scb,
 static int __mega_busywait_mbox (adapter_t *);
 static void mega_rundoneq (adapter_t *);
 static void mega_cmd_done(adapter_t *, u8 [], int, int);
-static inline void mega_free_sgl (adapter_t *adapter);
+static void mega_free_sgl (adapter_t *adapter);
 static void mega_8_to_40ld (mraid_inquiry *inquiry,
 		mega_inquiry3 *enquiry3, mega_product_info *);
 

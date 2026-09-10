@@ -80,11 +80,11 @@ extern void rtc_lp_exception(void);
 #endif
 
 #else
-static inline void hal_rtc_set_spare_register(enum rtc_spare_enum cmd, u16 val)
+static void hal_rtc_set_spare_register(enum rtc_spare_enum cmd, u16 val)
 {
 }
 
-static inline u16 hal_rtc_get_spare_register(enum rtc_spare_enum cmd)
+static u16 hal_rtc_get_spare_register(enum rtc_spare_enum cmd)
 {
 	return 0;
 }

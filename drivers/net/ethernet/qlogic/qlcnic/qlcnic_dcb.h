@@ -14,7 +14,7 @@
 #ifdef CONFIG_QLCNIC_DCB
 int qlcnic_register_dcb(struct qlcnic_adapter *);
 #else
-static inline int qlcnic_register_dcb(struct qlcnic_adapter *adapter)
+static int qlcnic_register_dcb(struct qlcnic_adapter *adapter)
 { return 0; }
 #endif
 
@@ -42,12 +42,12 @@ struct qlcnic_dcb {
 	unsigned long			state;
 };
 
-static inline void qlcnic_clear_dcb_ops(struct qlcnic_dcb *dcb)
+static void qlcnic_clear_dcb_ops(struct qlcnic_dcb *dcb)
 {
 	kfree(dcb);
 }
 
-static inline int qlcnic_dcb_get_hw_capability(struct qlcnic_dcb *dcb)
+static int qlcnic_dcb_get_hw_capability(struct qlcnic_dcb *dcb)
 {
 	if (dcb && dcb->ops->get_hw_capability)
 		return dcb->ops->get_hw_capability(dcb);
@@ -55,13 +55,13 @@ static inline int qlcnic_dcb_get_hw_capability(struct qlcnic_dcb *dcb)
 	return 0;
 }
 
-static inline void qlcnic_dcb_free(struct qlcnic_dcb *dcb)
+static void qlcnic_dcb_free(struct qlcnic_dcb *dcb)
 {
 	if (dcb && dcb->ops->free)
 		dcb->ops->free(dcb);
 }
 
-static inline int qlcnic_dcb_attach(struct qlcnic_dcb *dcb)
+static int qlcnic_dcb_attach(struct qlcnic_dcb *dcb)
 {
 	if (dcb && dcb->ops->attach)
 		return dcb->ops->attach(dcb);
@@ -69,7 +69,7 @@ static inline int qlcnic_dcb_attach(struct qlcnic_dcb *dcb)
 	return 0;
 }
 
-static inline int
+static int
 qlcnic_dcb_query_hw_capability(struct qlcnic_dcb *dcb, char *buf)
 {
 	if (dcb && dcb->ops->query_hw_capability)
@@ -78,13 +78,13 @@ qlcnic_dcb_query_hw_capability(struct qlcnic_dcb *dcb, char *buf)
 	return 0;
 }
 
-static inline void qlcnic_dcb_get_info(struct qlcnic_dcb *dcb)
+static void qlcnic_dcb_get_info(struct qlcnic_dcb *dcb)
 {
 	if (dcb && dcb->ops->get_info)
 		dcb->ops->get_info(dcb);
 }
 
-static inline int
+static int
 qlcnic_dcb_query_cee_param(struct qlcnic_dcb *dcb, char *buf, u8 type)
 {
 	if (dcb && dcb->ops->query_cee_param)
@@ -93,7 +93,7 @@ qlcnic_dcb_query_cee_param(struct qlcnic_dcb *dcb, char *buf, u8 type)
 	return 0;
 }
 
-static inline int qlcnic_dcb_get_cee_cfg(struct qlcnic_dcb *dcb)
+static int qlcnic_dcb_get_cee_cfg(struct qlcnic_dcb *dcb)
 {
 	if (dcb && dcb->ops->get_cee_cfg)
 		return dcb->ops->get_cee_cfg(dcb);
@@ -101,19 +101,19 @@ static inline int qlcnic_dcb_get_cee_cfg(struct qlcnic_dcb *dcb)
 	return 0;
 }
 
-static inline void qlcnic_dcb_aen_handler(struct qlcnic_dcb *dcb, void *msg)
+static void qlcnic_dcb_aen_handler(struct qlcnic_dcb *dcb, void *msg)
 {
 	if (dcb && dcb->ops->aen_handler)
 		dcb->ops->aen_handler(dcb, msg);
 }
 
-static inline void qlcnic_dcb_init_dcbnl_ops(struct qlcnic_dcb *dcb)
+static void qlcnic_dcb_init_dcbnl_ops(struct qlcnic_dcb *dcb)
 {
 	if (dcb && dcb->ops->init_dcbnl_ops)
 		dcb->ops->init_dcbnl_ops(dcb);
 }
 
-static inline void qlcnic_dcb_enable(struct qlcnic_dcb *dcb)
+static void qlcnic_dcb_enable(struct qlcnic_dcb *dcb)
 {
 	if (dcb && qlcnic_dcb_attach(dcb))
 		qlcnic_clear_dcb_ops(dcb);

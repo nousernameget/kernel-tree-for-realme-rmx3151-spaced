@@ -90,7 +90,7 @@ char *pseudo_larb_clk_name[] = {
 	"m4u_smi_larb20"
 };
 
-static inline int  m4u_port_id_of_mdp(
+static int  m4u_port_id_of_mdp(
 		unsigned int larb, unsigned int port)
 {
 	if (larb == 2 && port <= 4)

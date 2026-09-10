@@ -260,7 +260,7 @@ void camif_hw_set_output_addr(struct camif_vp *vp, struct camif_addr *paddr,
 			      int index);
 void camif_hw_dump_regs(struct camif_dev *camif, const char *label);
 
-static inline u32 camif_hw_get_status(struct camif_vp *vp)
+static u32 camif_hw_get_status(struct camif_vp *vp)
 {
 	return readl(vp->camif->io_base + S3C_CAMIF_REG_CISTATUS(vp->id,
 								vp->offset));

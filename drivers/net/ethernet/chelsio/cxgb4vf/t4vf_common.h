@@ -149,7 +149,7 @@ struct link_config {
 /* Return true if the Link Configuration supports "High Speeds" (those greater
  * than 1Gb/s).
  */
-static inline bool is_x_10g_port(const struct link_config *lc)
+static bool is_x_10g_port(const struct link_config *lc)
 {
 	fw_port_cap32_t speeds, high_speeds;
 
@@ -290,7 +290,7 @@ struct mbox_cmd_log {
 /* Given a pointer to a Firmware Mailbox Command Log and a log entry index,
  * return a pointer to the specified entry.
  */
-static inline struct mbox_cmd *mbox_cmd_log_entry(struct mbox_cmd_log *log,
+static struct mbox_cmd *mbox_cmd_log_entry(struct mbox_cmd_log *log,
 						  unsigned int entry_idx)
 {
 	return &((struct mbox_cmd *)&(log)[1])[entry_idx];
@@ -305,18 +305,18 @@ static inline struct mbox_cmd *mbox_cmd_log_entry(struct mbox_cmd_log *log,
 #define for_each_port(adapter, iter) \
 	for (iter = 0; iter < (adapter)->params.nports; iter++)
 
-static inline unsigned int core_ticks_per_usec(const struct adapter *adapter)
+static unsigned int core_ticks_per_usec(const struct adapter *adapter)
 {
 	return adapter->params.vpd.cclk / 1000;
 }
 
-static inline unsigned int us_to_core_ticks(const struct adapter *adapter,
+static unsigned int us_to_core_ticks(const struct adapter *adapter,
 					    unsigned int us)
 {
 	return (us * adapter->params.vpd.cclk) / 1000;
 }
 
-static inline unsigned int core_ticks_to_us(const struct adapter *adapter,
+static unsigned int core_ticks_to_us(const struct adapter *adapter,
 					    unsigned int ticks)
 {
 	return (ticks * 1000) / adapter->params.vpd.cclk;
@@ -324,13 +324,13 @@ static inline unsigned int core_ticks_to_us(const struct adapter *adapter,
 
 int t4vf_wr_mbox_core(struct adapter *, const void *, int, void *, bool);
 
-static inline int t4vf_wr_mbox(struct adapter *adapter, const void *cmd,
+static int t4vf_wr_mbox(struct adapter *adapter, const void *cmd,
 			       int size, void *rpl)
 {
 	return t4vf_wr_mbox_core(adapter, cmd, size, rpl, true);
 }
 
-static inline int t4vf_wr_mbox_ns(struct adapter *adapter, const void *cmd,
+static int t4vf_wr_mbox_ns(struct adapter *adapter, const void *cmd,
 				  int size, void *rpl)
 {
 	return t4vf_wr_mbox_core(adapter, cmd, size, rpl, false);
@@ -338,7 +338,7 @@ static inline int t4vf_wr_mbox_ns(struct adapter *adapter, const void *cmd,
 
 #define CHELSIO_PCI_ID_VER(dev_id)  ((dev_id) >> 12)
 
-static inline int is_t4(enum chip_type chip)
+static int is_t4(enum chip_type chip)
 {
 	return CHELSIO_CHIP_VERSION(chip) == CHELSIO_T4;
 }
@@ -350,7 +350,7 @@ static inline int is_t4(enum chip_type chip)
  *	Hashes a MAC address according to the hash function used by hardware
  *	inexact (hash) address matching.
  */
-static inline int hash_mac_addr(const u8 *addr)
+static int hash_mac_addr(const u8 *addr)
 {
 	u32 a = ((u32)addr[0] << 16) | ((u32)addr[1] << 8) | addr[2];
 	u32 b = ((u32)addr[3] << 16) | ((u32)addr[4] << 8) | addr[5];

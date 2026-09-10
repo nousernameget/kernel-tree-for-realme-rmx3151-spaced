@@ -413,13 +413,13 @@ struct qedf_cmd_mgr {
  * void *ptr;
  * ptr = qedf_get_task_mem(&qedf->tasks, 128);
  */
-static inline void *qedf_get_task_mem(struct qed_fcoe_tid *info, u32 tid)
+static void *qedf_get_task_mem(struct qed_fcoe_tid *info, u32 tid)
 {
 	return (void *)(info->blocks[tid / info->num_tids_per_block] +
 			(tid % info->num_tids_per_block) * info->size);
 }
 
-static inline void qedf_stop_all_io(struct qedf_ctx *qedf)
+static void qedf_stop_all_io(struct qedf_ctx *qedf)
 {
 	set_bit(QEDF_DBG_STOP_IO, &qedf->flags);
 }

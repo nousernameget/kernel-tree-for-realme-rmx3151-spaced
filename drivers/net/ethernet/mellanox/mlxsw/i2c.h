@@ -44,13 +44,13 @@ void mlxsw_i2c_driver_unregister(struct i2c_driver *i2c_driver);
 
 #else
 
-static inline int
+static int
 mlxsw_i2c_driver_register(struct i2c_driver *i2c_driver)
 {
 	return -ENODEV;
 }
 
-static inline void
+static void
 mlxsw_i2c_driver_unregister(struct i2c_driver *i2c_driver)
 {
 }

@@ -150,7 +150,7 @@ void binder_alloc_print_pages(struct seq_file *m,
  *
  * Return:	the bytes remaining in the address-space for async transactions
  */
-static inline size_t
+static size_t
 binder_alloc_get_free_async_space(struct binder_alloc *alloc)
 {
 	size_t free_async_space;

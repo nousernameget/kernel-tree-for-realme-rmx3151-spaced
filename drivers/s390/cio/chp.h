@@ -30,7 +30,7 @@ struct chp_link {
 	u16 fla;
 };
 
-static inline int chp_test_bit(u8 *bitmap, int num)
+static int chp_test_bit(u8 *bitmap, int num)
 {
 	int byte = num >> 3;
 	int mask = 128 >> (num & 7);
@@ -53,7 +53,7 @@ struct channel_path {
 };
 
 /* Return channel_path struct for given chpid. */
-static inline struct channel_path *chpid_to_chp(struct chp_id chpid)
+static struct channel_path *chpid_to_chp(struct chp_id chpid)
 {
 	return css_by_id(chpid.cssid)->chps[chpid.id];
 }

@@ -82,21 +82,21 @@ struct xadc_ops {
 	unsigned int flags;
 };
 
-static inline int _xadc_read_adc_reg(struct xadc *xadc, unsigned int reg,
+static int _xadc_read_adc_reg(struct xadc *xadc, unsigned int reg,
 	uint16_t *val)
 {
 	lockdep_assert_held(&xadc->mutex);
 	return xadc->ops->read(xadc, reg, val);
 }
 
-static inline int _xadc_write_adc_reg(struct xadc *xadc, unsigned int reg,
+static int _xadc_write_adc_reg(struct xadc *xadc, unsigned int reg,
 	uint16_t val)
 {
 	lockdep_assert_held(&xadc->mutex);
 	return xadc->ops->write(xadc, reg, val);
 }
 
-static inline int xadc_read_adc_reg(struct xadc *xadc, unsigned int reg,
+static int xadc_read_adc_reg(struct xadc *xadc, unsigned int reg,
 	uint16_t *val)
 {
 	int ret;
@@ -107,7 +107,7 @@ static inline int xadc_read_adc_reg(struct xadc *xadc, unsigned int reg,
 	return ret;
 }
 
-static inline int xadc_write_adc_reg(struct xadc *xadc, unsigned int reg,
+static int xadc_write_adc_reg(struct xadc *xadc, unsigned int reg,
 	uint16_t val)
 {
 	int ret;

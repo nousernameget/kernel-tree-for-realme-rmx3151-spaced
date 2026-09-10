@@ -34,15 +34,15 @@ void intel_gvt_clean_device(struct drm_i915_private *dev_priv);
 int intel_gvt_init_host(void);
 void intel_gvt_sanitize_options(struct drm_i915_private *dev_priv);
 #else
-static inline int intel_gvt_init(struct drm_i915_private *dev_priv)
+static int intel_gvt_init(struct drm_i915_private *dev_priv)
 {
 	return 0;
 }
-static inline void intel_gvt_cleanup(struct drm_i915_private *dev_priv)
+static void intel_gvt_cleanup(struct drm_i915_private *dev_priv)
 {
 }
 
-static inline void intel_gvt_sanitize_options(struct drm_i915_private *dev_priv)
+static void intel_gvt_sanitize_options(struct drm_i915_private *dev_priv)
 {
 }
 #endif

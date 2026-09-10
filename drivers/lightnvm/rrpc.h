@@ -162,7 +162,7 @@ struct rrpc_rev_addr {
 	u64 addr;
 };
 
-static inline struct ppa_addr rrpc_linear_to_generic_addr(struct nvm_geo *geo,
+static struct ppa_addr rrpc_linear_to_generic_addr(struct nvm_geo *geo,
 							  struct ppa_addr r)
 {
 	struct ppa_addr l;
@@ -181,12 +181,12 @@ static inline struct ppa_addr rrpc_linear_to_generic_addr(struct nvm_geo *geo,
 	return l;
 }
 
-static inline struct ppa_addr rrpc_recov_addr(struct nvm_tgt_dev *dev, u64 pba)
+static struct ppa_addr rrpc_recov_addr(struct nvm_tgt_dev *dev, u64 pba)
 {
 	return linear_to_generic_addr(&dev->geo, pba);
 }
 
-static inline u64 rrpc_blk_to_ppa(struct rrpc *rrpc, struct rrpc_block *rblk)
+static u64 rrpc_blk_to_ppa(struct rrpc *rrpc, struct rrpc_block *rblk)
 {
 	struct nvm_tgt_dev *dev = rrpc->dev;
 	struct nvm_geo *geo = &dev->geo;
@@ -195,22 +195,22 @@ static inline u64 rrpc_blk_to_ppa(struct rrpc *rrpc, struct rrpc_block *rblk)
 	return (rlun->id * geo->sec_per_lun) + (rblk->id * geo->sec_per_blk);
 }
 
-static inline sector_t rrpc_get_laddr(struct bio *bio)
+static sector_t rrpc_get_laddr(struct bio *bio)
 {
 	return bio->bi_iter.bi_sector / NR_PHY_IN_LOG;
 }
 
-static inline unsigned int rrpc_get_pages(struct bio *bio)
+static unsigned int rrpc_get_pages(struct bio *bio)
 {
 	return  bio->bi_iter.bi_size / RRPC_EXPOSED_PAGE_SIZE;
 }
 
-static inline sector_t rrpc_get_sector(sector_t laddr)
+static sector_t rrpc_get_sector(sector_t laddr)
 {
 	return laddr * NR_PHY_IN_LOG;
 }
 
-static inline int request_intersects(struct rrpc_inflight_rq *r,
+static int request_intersects(struct rrpc_inflight_rq *r,
 				sector_t laddr_start, sector_t laddr_end)
 {
 	return (laddr_end >= r->l_start) && (laddr_start <= r->l_end);
@@ -241,7 +241,7 @@ static int __rrpc_lock_laddr(struct rrpc *rrpc, sector_t laddr,
 	return 0;
 }
 
-static inline int rrpc_lock_laddr(struct rrpc *rrpc, sector_t laddr,
+static int rrpc_lock_laddr(struct rrpc *rrpc, sector_t laddr,
 				 unsigned int pages,
 				 struct rrpc_inflight_rq *r)
 {
@@ -250,14 +250,14 @@ static inline int rrpc_lock_laddr(struct rrpc *rrpc, sector_t laddr,
 	return __rrpc_lock_laddr(rrpc, laddr, pages, r);
 }
 
-static inline struct rrpc_inflight_rq *rrpc_get_inflight_rq(struct nvm_rq *rqd)
+static struct rrpc_inflight_rq *rrpc_get_inflight_rq(struct nvm_rq *rqd)
 {
 	struct rrpc_rq *rrqd = nvm_rq_to_pdu(rqd);
 
 	return &rrqd->inflight_rq;
 }
 
-static inline int rrpc_lock_rq(struct rrpc *rrpc, struct bio *bio,
+static int rrpc_lock_rq(struct rrpc *rrpc, struct bio *bio,
 							struct nvm_rq *rqd)
 {
 	sector_t laddr = rrpc_get_laddr(bio);
@@ -267,7 +267,7 @@ static inline int rrpc_lock_rq(struct rrpc *rrpc, struct bio *bio,
 	return rrpc_lock_laddr(rrpc, laddr, pages, r);
 }
 
-static inline void rrpc_unlock_laddr(struct rrpc *rrpc,
+static void rrpc_unlock_laddr(struct rrpc *rrpc,
 						struct rrpc_inflight_rq *r)
 {
 	unsigned long flags;
@@ -277,7 +277,7 @@ static inline void rrpc_unlock_laddr(struct rrpc *rrpc,
 	spin_unlock_irqrestore(&rrpc->inflights.lock, flags);
 }
 
-static inline void rrpc_unlock_rq(struct rrpc *rrpc, struct nvm_rq *rqd)
+static void rrpc_unlock_rq(struct rrpc *rrpc, struct nvm_rq *rqd)
 {
 	struct rrpc_inflight_rq *r = rrpc_get_inflight_rq(rqd);
 	uint8_t pages = rqd->nr_ppas;

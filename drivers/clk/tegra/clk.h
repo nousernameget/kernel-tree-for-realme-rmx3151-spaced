@@ -789,7 +789,7 @@ void tegra_super_clk_gen5_init(void __iomem *clk_base,
 struct clk *tegra_clk_register_emc(void __iomem *base, struct device_node *np,
 				   spinlock_t *lock);
 #else
-static inline struct clk *tegra_clk_register_emc(void __iomem *base,
+static struct clk *tegra_clk_register_emc(void __iomem *base,
 						 struct device_node *np,
 						 spinlock_t *lock)
 {

@@ -436,19 +436,19 @@ void sdma_wait(struct hfi1_devdata *dd);
  * Return:
  * 1 - empty, 0 - non-empty
  */
-static inline int sdma_empty(struct sdma_engine *sde)
+static int sdma_empty(struct sdma_engine *sde)
 {
 	return sde->descq_tail == sde->descq_head;
 }
 
-static inline u16 sdma_descq_freecnt(struct sdma_engine *sde)
+static u16 sdma_descq_freecnt(struct sdma_engine *sde)
 {
 	return sde->descq_cnt -
 		(sde->descq_tail -
 		 ACCESS_ONCE(sde->descq_head)) - 1;
 }
 
-static inline u16 sdma_descq_inprocess(struct sdma_engine *sde)
+static u16 sdma_descq_inprocess(struct sdma_engine *sde)
 {
 	return sde->descq_cnt - sdma_descq_freecnt(sde);
 }
@@ -457,7 +457,7 @@ static inline u16 sdma_descq_inprocess(struct sdma_engine *sde)
  * Either head_lock or tail lock required to see
  * a steady state.
  */
-static inline int __sdma_running(struct sdma_engine *engine)
+static int __sdma_running(struct sdma_engine *engine)
 {
 	return engine->state.current_state == sdma_state_s99_running;
 }
@@ -473,7 +473,7 @@ static inline int __sdma_running(struct sdma_engine *engine)
  * 1 - ok to submit, 0 - not ok to submit
  *
  */
-static inline int sdma_running(struct sdma_engine *engine)
+static int sdma_running(struct sdma_engine *engine)
 {
 	unsigned long flags;
 	int ret;
@@ -543,7 +543,7 @@ void _sdma_txreq_ahgadd(
  * and RDMA_WRITE_MIDDLE.
  *
  */
-static inline int sdma_txinit_ahg(
+static int sdma_txinit_ahg(
 	struct sdma_txreq *tx,
 	u16 flags,
 	u16 tlen,
@@ -611,7 +611,7 @@ static inline int sdma_txinit_ahg(
  * SDMA_TXREQ_S_ABORTED, or SDMA_TXREQ_S_SHUTDOWN.
  *
  */
-static inline int sdma_txinit(
+static int sdma_txinit(
 	struct sdma_txreq *tx,
 	u16 flags,
 	u16 tlen,
@@ -621,25 +621,25 @@ static inline int sdma_txinit(
 }
 
 /* helpers - don't use */
-static inline int sdma_mapping_type(struct sdma_desc *d)
+static int sdma_mapping_type(struct sdma_desc *d)
 {
 	return (d->qw[1] & SDMA_DESC1_GENERATION_SMASK)
 		>> SDMA_DESC1_GENERATION_SHIFT;
 }
 
-static inline size_t sdma_mapping_len(struct sdma_desc *d)
+static size_t sdma_mapping_len(struct sdma_desc *d)
 {
 	return (d->qw[0] & SDMA_DESC0_BYTE_COUNT_SMASK)
 		>> SDMA_DESC0_BYTE_COUNT_SHIFT;
 }
 
-static inline dma_addr_t sdma_mapping_addr(struct sdma_desc *d)
+static dma_addr_t sdma_mapping_addr(struct sdma_desc *d)
 {
 	return (d->qw[0] & SDMA_DESC0_PHY_ADDR_SMASK)
 		>> SDMA_DESC0_PHY_ADDR_SHIFT;
 }
 
-static inline void make_tx_sdma_desc(
+static void make_tx_sdma_desc(
 	struct sdma_txreq *tx,
 	int type,
 	dma_addr_t addr,
@@ -669,14 +669,14 @@ int ext_coal_sdma_tx_descs(struct hfi1_devdata *dd, struct sdma_txreq *tx,
 int _pad_sdma_tx_descs(struct hfi1_devdata *, struct sdma_txreq *);
 void __sdma_txclean(struct hfi1_devdata *, struct sdma_txreq *);
 
-static inline void sdma_txclean(struct hfi1_devdata *dd, struct sdma_txreq *tx)
+static void sdma_txclean(struct hfi1_devdata *dd, struct sdma_txreq *tx)
 {
 	if (tx->num_desc)
 		__sdma_txclean(dd, tx);
 }
 
 /* helpers used by public routines */
-static inline void _sdma_close_tx(struct hfi1_devdata *dd,
+static void _sdma_close_tx(struct hfi1_devdata *dd,
 				  struct sdma_txreq *tx)
 {
 	tx->descp[tx->num_desc].qw[0] |=
@@ -689,7 +689,7 @@ static inline void _sdma_close_tx(struct hfi1_devdata *dd,
 			 SDMA_DESC1_INT_REQ_FLAG);
 }
 
-static inline int _sdma_txadd_daddr(
+static int _sdma_txadd_daddr(
 	struct hfi1_devdata *dd,
 	int type,
 	struct sdma_txreq *tx,
@@ -734,7 +734,7 @@ static inline int _sdma_txadd_daddr(
  * 0 - success, -ENOSPC - mapping fail, -ENOMEM - couldn't
  * extend/coalesce descriptor array
  */
-static inline int sdma_txadd_page(
+static int sdma_txadd_page(
 	struct hfi1_devdata *dd,
 	struct sdma_txreq *tx,
 	struct page *page,
@@ -783,7 +783,7 @@ static inline int sdma_txadd_page(
  * 0 - success, -ENOMEM - couldn't extend descriptor array
  */
 
-static inline int sdma_txadd_daddr(
+static int sdma_txadd_daddr(
 	struct hfi1_devdata *dd,
 	struct sdma_txreq *tx,
 	dma_addr_t addr,
@@ -817,7 +817,7 @@ static inline int sdma_txadd_daddr(
  * 0 - success, -ENOSPC - mapping fail, -ENOMEM - couldn't extend/coalesce
  * descriptor array
  */
-static inline int sdma_txadd_kvaddr(
+static int sdma_txadd_kvaddr(
 	struct hfi1_devdata *dd,
 	struct sdma_txreq *tx,
 	void *kvaddr,
@@ -871,7 +871,7 @@ void sdma_ahg_free(struct sdma_engine *sde, int ahg_index);
  *
  * Build and return a 32 bit descriptor.
  */
-static inline u32 sdma_build_ahg_descriptor(
+static u32 sdma_build_ahg_descriptor(
 	u16 data,
 	u8 dwindex,
 	u8 startbit,
@@ -902,7 +902,7 @@ static inline u32 sdma_build_ahg_descriptor(
  * re-submission is detected by checking whether the descriptor
  * queue has enough descriptor for the txreq.
  */
-static inline unsigned sdma_progress(struct sdma_engine *sde, unsigned seq,
+static unsigned sdma_progress(struct sdma_engine *sde, unsigned seq,
 				     struct sdma_txreq *tx)
 {
 	if (read_seqretry(&sde->head_lock, seq)) {
@@ -923,7 +923,7 @@ static inline unsigned sdma_progress(struct sdma_engine *sde, unsigned seq,
  * structure embedded in the QP or PQ.
  *
  */
-static inline void sdma_iowait_schedule(
+static void sdma_iowait_schedule(
 	struct sdma_engine *sde,
 	struct iowait *wait)
 {
@@ -1050,7 +1050,7 @@ void _sdma_engine_progress_schedule(struct sdma_engine *sde);
  * This is the fast path.
  *
  */
-static inline void sdma_engine_progress_schedule(
+static void sdma_engine_progress_schedule(
 	struct sdma_engine *sde)
 {
 	if (!sde || sdma_descq_inprocess(sde) < (sde->descq_cnt / 8))
@@ -1081,7 +1081,7 @@ void sdma_seqfile_dump_cpu_list(struct seq_file *s, struct hfi1_devdata *dd,
 #ifdef CONFIG_SDMA_VERBOSITY
 void sdma_dumpstate(struct sdma_engine *);
 #endif
-static inline char *slashstrip(char *s)
+static char *slashstrip(char *s)
 {
 	char *r = s;
 

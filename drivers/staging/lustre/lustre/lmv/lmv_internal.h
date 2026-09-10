@@ -57,12 +57,12 @@ int lmv_revalidate_slaves(struct obd_export *exp,
 			  ldlm_blocking_callback cb_blocking,
 			  int extra_lock_flags);
 
-static inline struct obd_device *lmv2obd_dev(struct lmv_obd *lmv)
+static struct obd_device *lmv2obd_dev(struct lmv_obd *lmv)
 {
 	return container_of0(lmv, struct obd_device, u.lmv);
 }
 
-static inline struct lmv_tgt_desc *
+static struct lmv_tgt_desc *
 lmv_get_target(struct lmv_obd *lmv, u32 mdt_idx, int *index)
 {
 	int i;
@@ -81,7 +81,7 @@ lmv_get_target(struct lmv_obd *lmv, u32 mdt_idx, int *index)
 	return ERR_PTR(-ENODEV);
 }
 
-static inline int
+static int
 lmv_find_target_index(struct lmv_obd *lmv, const struct lu_fid *fid)
 {
 	struct lmv_tgt_desc *ltd;
@@ -103,7 +103,7 @@ lmv_find_target_index(struct lmv_obd *lmv, const struct lu_fid *fid)
 	return index;
 }
 
-static inline struct lmv_tgt_desc *
+static struct lmv_tgt_desc *
 lmv_find_target(struct lmv_obd *lmv, const struct lu_fid *fid)
 {
 	int index;
@@ -115,7 +115,7 @@ lmv_find_target(struct lmv_obd *lmv, const struct lu_fid *fid)
 	return lmv->tgts[index];
 }
 
-static inline int lmv_stripe_md_size(int stripe_count)
+static int lmv_stripe_md_size(int stripe_count)
 {
 	struct lmv_stripe_md *lsm;
 
@@ -126,7 +126,7 @@ int lmv_name_to_stripe_index(enum lmv_hash_type hashtype,
 			     unsigned int max_mdt_index,
 			     const char *name, int namelen);
 
-static inline const struct lmv_oinfo *
+static const struct lmv_oinfo *
 lsm_name_to_stripe_info(const struct lmv_stripe_md *lsm, const char *name,
 			int namelen)
 {
@@ -146,7 +146,7 @@ lsm_name_to_stripe_info(const struct lmv_stripe_md *lsm, const char *name,
 	return &lsm->lsm_md_oinfo[stripe_index];
 }
 
-static inline bool lmv_need_try_all_stripes(const struct lmv_stripe_md *lsm)
+static bool lmv_need_try_all_stripes(const struct lmv_stripe_md *lsm)
 {
 	return !lmv_is_known_hash_type(lsm->lsm_md_hash_type) ||
 	       lsm->lsm_md_hash_type & LMV_HASH_FLAG_MIGRATION;

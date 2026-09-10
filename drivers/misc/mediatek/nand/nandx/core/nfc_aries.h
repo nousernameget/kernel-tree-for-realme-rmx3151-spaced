@@ -254,78 +254,78 @@ struct nfc_info {
 };
 /* structure define - */
 
-/* inline function define + */
-static inline struct nfc_info *handler_to_info(struct nfc_handler *handler)
+/* function define + */
+static struct nfc_info *handler_to_info(struct nfc_handler *handler)
 {
 	return container_of(handler, struct nfc_info, handler);
 }
 
-static inline struct nfc_handler *info_to_handler(struct nfc_info *info)
+static struct nfc_handler *info_to_handler(struct nfc_info *info)
 {
 	return &info->handler;
 }
 
-static inline void nfi_writel(struct nfc_info *info, u32 value, u32 offset)
+static void nfi_writel(struct nfc_info *info, u32 value, u32 offset)
 {
 	nwritel(value, info->res->nfi_regs + offset);
 }
 
-static inline void nfi_writew(struct nfc_info *info, u16 value, u32 offset)
+static void nfi_writew(struct nfc_info *info, u16 value, u32 offset)
 {
 	nwritew(value, info->res->nfi_regs + offset);
 }
 
-static inline void nfi_writeb(struct nfc_info *info, u8 value, u32 offset)
+static void nfi_writeb(struct nfc_info *info, u8 value, u32 offset)
 {
 	nwriteb(value, info->res->nfi_regs + offset);
 }
 
-static inline u32 nfi_readl(struct nfc_info *info, u32 offset)
+static u32 nfi_readl(struct nfc_info *info, u32 offset)
 {
 	return nreadl(info->res->nfi_regs + offset);
 }
 
-static inline u16 nfi_readw(struct nfc_info *info, u32 offset)
+static u16 nfi_readw(struct nfc_info *info, u32 offset)
 {
 	return nreadw(info->res->nfi_regs + offset);
 }
 
-static inline u8 nfi_readb(struct nfc_info *info, u32 offset)
+static u8 nfi_readb(struct nfc_info *info, u32 offset)
 {
 	return nreadb(info->res->nfi_regs + offset);
 }
 
-static inline void ecc_writel(struct nfc_info *info, u32 value, u32 offset)
+static void ecc_writel(struct nfc_info *info, u32 value, u32 offset)
 {
 	nwritel(value, info->res->ecc_regs + offset);
 }
 
-static inline void ecc_writew(struct nfc_info *info, u16 value, u32 offset)
+static void ecc_writew(struct nfc_info *info, u16 value, u32 offset)
 {
 	nwritew(value, info->res->ecc_regs + offset);
 }
 
-static inline void ecc_writeb(struct nfc_info *info, u8 value, u32 offset)
+static void ecc_writeb(struct nfc_info *info, u8 value, u32 offset)
 {
 	nwriteb(value, info->res->ecc_regs + offset);
 }
 
-static inline u32 ecc_readl(struct nfc_info *info, u32 offset)
+static u32 ecc_readl(struct nfc_info *info, u32 offset)
 {
 	return nreadl(info->res->ecc_regs + offset);
 }
 
-static inline u16 ecc_readw(struct nfc_info *info, u32 offset)
+static u16 ecc_readw(struct nfc_info *info, u32 offset)
 {
 	return nreadw(info->res->ecc_regs + offset);
 }
 
-static inline u8 ecc_readb(struct nfc_info *info, u32 offset)
+static u8 ecc_readb(struct nfc_info *info, u32 offset)
 {
 	return nreadb(info->res->ecc_regs + offset);
 }
 
-static inline u32 ecc_encpar_reg(struct nfc_info *info, u32 index)
+static u32 ecc_encpar_reg(struct nfc_info *info, u32 index)
 {
 	u32 reg = 0;
 
@@ -339,7 +339,7 @@ static inline u32 ecc_encpar_reg(struct nfc_info *info, u32 index)
 	return reg;
 }
 
-static inline u32 ecc_decel_reg(struct nfc_info *info, u32 index)
+static u32 ecc_decel_reg(struct nfc_info *info, u32 index)
 {
 	u32 reg = 0;
 
@@ -353,7 +353,7 @@ static inline u32 ecc_decel_reg(struct nfc_info *info, u32 index)
 	return reg;
 }
 
-/* inline function define - */
+/* function define - */
 
 /* randomizer define + */
 enum RANDOMIZER_OPERATION {

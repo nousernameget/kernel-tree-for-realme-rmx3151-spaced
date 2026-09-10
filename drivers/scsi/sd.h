@@ -122,7 +122,7 @@ struct scsi_disk {
 };
 #define to_scsi_disk(obj) container_of(obj,struct scsi_disk,dev)
 
-static inline struct scsi_disk *scsi_disk(struct gendisk *disk)
+static struct scsi_disk *scsi_disk(struct gendisk *disk)
 {
 	return container_of(disk->private_data, struct scsi_disk, driver);
 }
@@ -139,7 +139,7 @@ static inline struct scsi_disk *scsi_disk(struct gendisk *disk)
 			sd_printk(prefix, sdsk, fmt, ##a);		\
 	} while (0)
 
-static inline int scsi_medium_access_command(struct scsi_cmnd *scmd)
+static int scsi_medium_access_command(struct scsi_cmnd *scmd)
 {
 	switch (scmd->cmnd[0]) {
 	case READ_6:
@@ -171,22 +171,22 @@ static inline int scsi_medium_access_command(struct scsi_cmnd *scmd)
 	return 0;
 }
 
-static inline sector_t logical_to_sectors(struct scsi_device *sdev, sector_t blocks)
+static sector_t logical_to_sectors(struct scsi_device *sdev, sector_t blocks)
 {
 	return blocks << (ilog2(sdev->sector_size) - 9);
 }
 
-static inline unsigned int logical_to_bytes(struct scsi_device *sdev, sector_t blocks)
+static unsigned int logical_to_bytes(struct scsi_device *sdev, sector_t blocks)
 {
 	return blocks * sdev->sector_size;
 }
 
-static inline sector_t bytes_to_logical(struct scsi_device *sdev, unsigned int bytes)
+static sector_t bytes_to_logical(struct scsi_device *sdev, unsigned int bytes)
 {
 	return bytes >> ilog2(sdev->sector_size);
 }
 
-static inline sector_t sectors_to_logical(struct scsi_device *sdev, sector_t sector)
+static sector_t sectors_to_logical(struct scsi_device *sdev, sector_t sector)
 {
 	return sector >> (ilog2(sdev->sector_size) - 9);
 }
@@ -195,7 +195,7 @@ static inline sector_t sectors_to_logical(struct scsi_device *sdev, sector_t sec
  * Look up the DIX operation based on whether the command is read or
  * write and whether dix and dif are enabled.
  */
-static inline unsigned int sd_prot_op(bool write, bool dix, bool dif)
+static unsigned int sd_prot_op(bool write, bool dix, bool dif)
 {
 	/* Lookup table: bit 2 (write), bit 1 (dix), bit 0 (dif) */
 	const unsigned int ops[] = {	/* wrt dix dif */
@@ -216,7 +216,7 @@ static inline unsigned int sd_prot_op(bool write, bool dix, bool dif)
  * Returns a mask of the protection flags that are valid for a given DIX
  * operation.
  */
-static inline unsigned int sd_prot_flag_mask(unsigned int prot_op)
+static unsigned int sd_prot_flag_mask(unsigned int prot_op)
 {
 	const unsigned int flag_mask[] = {
 		[SCSI_PROT_NORMAL]		= 0,
@@ -261,20 +261,20 @@ extern void sd_dif_complete(struct scsi_cmnd *, unsigned int);
 
 #else /* CONFIG_BLK_DEV_INTEGRITY */
 
-static inline void sd_dif_config_host(struct scsi_disk *disk)
+static void sd_dif_config_host(struct scsi_disk *disk)
 {
 }
-static inline int sd_dif_prepare(struct scsi_cmnd *scmd)
+static int sd_dif_prepare(struct scsi_cmnd *scmd)
 {
 	return 0;
 }
-static inline void sd_dif_complete(struct scsi_cmnd *cmd, unsigned int a)
+static void sd_dif_complete(struct scsi_cmnd *cmd, unsigned int a)
 {
 }
 
 #endif /* CONFIG_BLK_DEV_INTEGRITY */
 
-static inline int sd_is_zoned(struct scsi_disk *sdkp)
+static int sd_is_zoned(struct scsi_disk *sdkp)
 {
 	return sdkp->zoned == 1 || sdkp->device->type == TYPE_ZBC;
 }
@@ -293,7 +293,7 @@ extern void sd_zbc_complete(struct scsi_cmnd *cmd, unsigned int good_bytes,
 
 #else /* CONFIG_BLK_DEV_ZONED */
 
-static inline int sd_zbc_read_zones(struct scsi_disk *sdkp,
+static int sd_zbc_read_zones(struct scsi_disk *sdkp,
 				    unsigned char *buf)
 {
 	return 0;
@@ -303,7 +303,7 @@ static inline void sd_zbc_remove(struct scsi_disk *sdkp) {}
 
 static inline void sd_zbc_print_zones(struct scsi_disk *sdkp) {}
 
-static inline int sd_zbc_write_lock_zone(struct scsi_cmnd *cmd)
+static int sd_zbc_write_lock_zone(struct scsi_cmnd *cmd)
 {
 	/* Let the drive fail requests */
 	return BLKPREP_OK;
@@ -311,17 +311,17 @@ static inline int sd_zbc_write_lock_zone(struct scsi_cmnd *cmd)
 
 static inline void sd_zbc_write_unlock_zone(struct scsi_cmnd *cmd) {}
 
-static inline int sd_zbc_setup_report_cmnd(struct scsi_cmnd *cmd)
+static int sd_zbc_setup_report_cmnd(struct scsi_cmnd *cmd)
 {
 	return BLKPREP_INVALID;
 }
 
-static inline int sd_zbc_setup_reset_cmnd(struct scsi_cmnd *cmd)
+static int sd_zbc_setup_reset_cmnd(struct scsi_cmnd *cmd)
 {
 	return BLKPREP_INVALID;
 }
 
-static inline void sd_zbc_complete(struct scsi_cmnd *cmd,
+static void sd_zbc_complete(struct scsi_cmnd *cmd,
 				   unsigned int good_bytes,
 				   struct scsi_sense_hdr *sshdr) {}
 

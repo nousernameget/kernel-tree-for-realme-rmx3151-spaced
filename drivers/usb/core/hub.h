@@ -126,7 +126,7 @@ extern int hub_port_debounce(struct usb_hub *hub, int port1,
 extern int usb_clear_port_feature(struct usb_device *hdev,
 		int port1, int feature);
 
-static inline bool hub_is_port_power_switchable(struct usb_hub *hub)
+static bool hub_is_port_power_switchable(struct usb_hub *hub)
 {
 	__le16 hcs;
 
@@ -136,19 +136,19 @@ static inline bool hub_is_port_power_switchable(struct usb_hub *hub)
 	return (le16_to_cpu(hcs) & HUB_CHAR_LPSM) < HUB_CHAR_NO_LPSM;
 }
 
-static inline int hub_is_superspeed(struct usb_device *hdev)
+static int hub_is_superspeed(struct usb_device *hdev)
 {
 	return hdev->descriptor.bDeviceProtocol == USB_HUB_PR_SS;
 }
 
-static inline int hub_is_superspeedplus(struct usb_device *hdev)
+static int hub_is_superspeedplus(struct usb_device *hdev)
 {
 	return (hdev->descriptor.bDeviceProtocol == USB_HUB_PR_SS &&
 		le16_to_cpu(hdev->descriptor.bcdUSB) >= 0x0310 &&
 		hdev->bos->ssp_cap);
 }
 
-static inline unsigned hub_power_on_good_delay(struct usb_hub *hub)
+static unsigned hub_power_on_good_delay(struct usb_hub *hub)
 {
 	unsigned delay = hub->descriptor->bPwrOn2PwrGood * 2;
 
@@ -156,13 +156,13 @@ static inline unsigned hub_power_on_good_delay(struct usb_hub *hub)
 	return max(delay, 100U);
 }
 
-static inline int hub_port_debounce_be_connected(struct usb_hub *hub,
+static int hub_port_debounce_be_connected(struct usb_hub *hub,
 		int port1)
 {
 	return hub_port_debounce(hub, port1, true);
 }
 
-static inline int hub_port_debounce_be_stable(struct usb_hub *hub,
+static int hub_port_debounce_be_stable(struct usb_hub *hub,
 		int port1)
 {
 	return hub_port_debounce(hub, port1, false);

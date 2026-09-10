@@ -202,7 +202,7 @@ struct sunxi_pinctrl {
  * The following functions calculate from the pin number the register
  * and the bit offset that we should access.
  */
-static inline u32 sunxi_mux_reg(u16 pin)
+static u32 sunxi_mux_reg(u16 pin)
 {
 	u8 bank = pin / PINS_PER_BANK;
 	u32 offset = bank * BANK_MEM_SIZE;
@@ -211,13 +211,13 @@ static inline u32 sunxi_mux_reg(u16 pin)
 	return round_down(offset, 4);
 }
 
-static inline u32 sunxi_mux_offset(u16 pin)
+static u32 sunxi_mux_offset(u16 pin)
 {
 	u32 pin_num = pin % MUX_PINS_PER_REG;
 	return pin_num * MUX_PINS_BITS;
 }
 
-static inline u32 sunxi_data_reg(u16 pin)
+static u32 sunxi_data_reg(u16 pin)
 {
 	u8 bank = pin / PINS_PER_BANK;
 	u32 offset = bank * BANK_MEM_SIZE;
@@ -226,13 +226,13 @@ static inline u32 sunxi_data_reg(u16 pin)
 	return round_down(offset, 4);
 }
 
-static inline u32 sunxi_data_offset(u16 pin)
+static u32 sunxi_data_offset(u16 pin)
 {
 	u32 pin_num = pin % DATA_PINS_PER_REG;
 	return pin_num * DATA_PINS_BITS;
 }
 
-static inline u32 sunxi_dlevel_reg(u16 pin)
+static u32 sunxi_dlevel_reg(u16 pin)
 {
 	u8 bank = pin / PINS_PER_BANK;
 	u32 offset = bank * BANK_MEM_SIZE;
@@ -241,13 +241,13 @@ static inline u32 sunxi_dlevel_reg(u16 pin)
 	return round_down(offset, 4);
 }
 
-static inline u32 sunxi_dlevel_offset(u16 pin)
+static u32 sunxi_dlevel_offset(u16 pin)
 {
 	u32 pin_num = pin % DLEVEL_PINS_PER_REG;
 	return pin_num * DLEVEL_PINS_BITS;
 }
 
-static inline u32 sunxi_pull_reg(u16 pin)
+static u32 sunxi_pull_reg(u16 pin)
 {
 	u8 bank = pin / PINS_PER_BANK;
 	u32 offset = bank * BANK_MEM_SIZE;
@@ -256,13 +256,13 @@ static inline u32 sunxi_pull_reg(u16 pin)
 	return round_down(offset, 4);
 }
 
-static inline u32 sunxi_pull_offset(u16 pin)
+static u32 sunxi_pull_offset(u16 pin)
 {
 	u32 pin_num = pin % PULL_PINS_PER_REG;
 	return pin_num * PULL_PINS_BITS;
 }
 
-static inline u32 sunxi_irq_cfg_reg(u16 irq, unsigned bank_base)
+static u32 sunxi_irq_cfg_reg(u16 irq, unsigned bank_base)
 {
 	u8 bank = irq / IRQ_PER_BANK;
 	u8 reg = (irq % IRQ_PER_BANK) / IRQ_CFG_IRQ_PER_REG * 0x04;
@@ -270,48 +270,48 @@ static inline u32 sunxi_irq_cfg_reg(u16 irq, unsigned bank_base)
 	return IRQ_CFG_REG + (bank_base + bank) * IRQ_MEM_SIZE + reg;
 }
 
-static inline u32 sunxi_irq_cfg_offset(u16 irq)
+static u32 sunxi_irq_cfg_offset(u16 irq)
 {
 	u32 irq_num = irq % IRQ_CFG_IRQ_PER_REG;
 	return irq_num * IRQ_CFG_IRQ_BITS;
 }
 
-static inline u32 sunxi_irq_ctrl_reg_from_bank(u8 bank, unsigned bank_base)
+static u32 sunxi_irq_ctrl_reg_from_bank(u8 bank, unsigned bank_base)
 {
 	return IRQ_CTRL_REG + (bank_base + bank) * IRQ_MEM_SIZE;
 }
 
-static inline u32 sunxi_irq_ctrl_reg(u16 irq, unsigned bank_base)
+static u32 sunxi_irq_ctrl_reg(u16 irq, unsigned bank_base)
 {
 	u8 bank = irq / IRQ_PER_BANK;
 
 	return sunxi_irq_ctrl_reg_from_bank(bank, bank_base);
 }
 
-static inline u32 sunxi_irq_ctrl_offset(u16 irq)
+static u32 sunxi_irq_ctrl_offset(u16 irq)
 {
 	u32 irq_num = irq % IRQ_CTRL_IRQ_PER_REG;
 	return irq_num * IRQ_CTRL_IRQ_BITS;
 }
 
-static inline u32 sunxi_irq_debounce_reg_from_bank(u8 bank, unsigned bank_base)
+static u32 sunxi_irq_debounce_reg_from_bank(u8 bank, unsigned bank_base)
 {
 	return IRQ_DEBOUNCE_REG + (bank_base + bank) * IRQ_MEM_SIZE;
 }
 
-static inline u32 sunxi_irq_status_reg_from_bank(u8 bank, unsigned bank_base)
+static u32 sunxi_irq_status_reg_from_bank(u8 bank, unsigned bank_base)
 {
 	return IRQ_STATUS_REG + (bank_base + bank) * IRQ_MEM_SIZE;
 }
 
-static inline u32 sunxi_irq_status_reg(u16 irq, unsigned bank_base)
+static u32 sunxi_irq_status_reg(u16 irq, unsigned bank_base)
 {
 	u8 bank = irq / IRQ_PER_BANK;
 
 	return sunxi_irq_status_reg_from_bank(bank, bank_base);
 }
 
-static inline u32 sunxi_irq_status_offset(u16 irq)
+static u32 sunxi_irq_status_offset(u16 irq)
 {
 	u32 irq_num = irq % IRQ_STATUS_IRQ_PER_REG;
 	return irq_num * IRQ_STATUS_IRQ_BITS;

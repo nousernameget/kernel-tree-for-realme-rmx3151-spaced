@@ -23,12 +23,12 @@ struct xen_be_map;
 int xen_be_init(void);
 void xen_be_exit(void);
 #else
-static inline int xen_be_init(void)
+static int xen_be_init(void)
 {
 	return 0;
 }
 
-static inline void xen_be_exit(void)
+static void xen_be_exit(void)
 {
 }
 #endif

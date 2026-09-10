@@ -102,78 +102,78 @@ void ath10k_debug_get_et_stats(struct ieee80211_hw *hw,
 			       struct ieee80211_vif *vif,
 			       struct ethtool_stats *stats, u64 *data);
 
-static inline u64 ath10k_debug_get_fw_dbglog_mask(struct ath10k *ar)
+static u64 ath10k_debug_get_fw_dbglog_mask(struct ath10k *ar)
 {
 	return ar->debug.fw_dbglog_mask;
 }
 
-static inline u32 ath10k_debug_get_fw_dbglog_level(struct ath10k *ar)
+static u32 ath10k_debug_get_fw_dbglog_level(struct ath10k *ar)
 {
 	return ar->debug.fw_dbglog_level;
 }
 
 #else
 
-static inline int ath10k_debug_start(struct ath10k *ar)
+static int ath10k_debug_start(struct ath10k *ar)
 {
 	return 0;
 }
 
-static inline void ath10k_debug_stop(struct ath10k *ar)
+static void ath10k_debug_stop(struct ath10k *ar)
 {
 }
 
-static inline int ath10k_debug_create(struct ath10k *ar)
-{
-	return 0;
-}
-
-static inline void ath10k_debug_destroy(struct ath10k *ar)
-{
-}
-
-static inline int ath10k_debug_register(struct ath10k *ar)
+static int ath10k_debug_create(struct ath10k *ar)
 {
 	return 0;
 }
 
-static inline void ath10k_debug_unregister(struct ath10k *ar)
+static void ath10k_debug_destroy(struct ath10k *ar)
 {
 }
 
-static inline void ath10k_debug_fw_stats_process(struct ath10k *ar,
+static int ath10k_debug_register(struct ath10k *ar)
+{
+	return 0;
+}
+
+static void ath10k_debug_unregister(struct ath10k *ar)
+{
+}
+
+static void ath10k_debug_fw_stats_process(struct ath10k *ar,
 						 struct sk_buff *skb)
 {
 }
 
-static inline void ath10k_debug_tpc_stats_process(struct ath10k *ar,
+static void ath10k_debug_tpc_stats_process(struct ath10k *ar,
 						  struct ath10k_tpc_stats *tpc_stats)
 {
 	kfree(tpc_stats);
 }
 
-static inline void ath10k_debug_dbglog_add(struct ath10k *ar, u8 *buffer,
+static void ath10k_debug_dbglog_add(struct ath10k *ar, u8 *buffer,
 					   int len)
 {
 }
 
-static inline struct ath10k_fw_crash_data *
+static struct ath10k_fw_crash_data *
 ath10k_debug_get_new_fw_crash_data(struct ath10k *ar)
 {
 	return NULL;
 }
 
-static inline u64 ath10k_debug_get_fw_dbglog_mask(struct ath10k *ar)
+static u64 ath10k_debug_get_fw_dbglog_mask(struct ath10k *ar)
 {
 	return 0;
 }
 
-static inline u32 ath10k_debug_get_fw_dbglog_level(struct ath10k *ar)
+static u32 ath10k_debug_get_fw_dbglog_level(struct ath10k *ar)
 {
 	return 0;
 }
 
-static inline int ath10k_debug_fw_devcoredump(struct ath10k *ar)
+static int ath10k_debug_fw_devcoredump(struct ath10k *ar)
 {
 	return 0;
 }
@@ -211,14 +211,14 @@ void ath10k_dbg_dump(struct ath10k *ar,
 		     const void *buf, size_t len);
 #else /* CONFIG_ATH10K_DEBUG */
 
-static inline int ath10k_dbg(struct ath10k *ar,
+static int ath10k_dbg(struct ath10k *ar,
 			     enum ath10k_debug_mask dbg_mask,
 			     const char *fmt, ...)
 {
 	return 0;
 }
 
-static inline void ath10k_dbg_dump(struct ath10k *ar,
+static void ath10k_dbg_dump(struct ath10k *ar,
 				   enum ath10k_debug_mask mask,
 				   const char *msg, const char *prefix,
 				   const void *buf, size_t len)

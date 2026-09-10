@@ -34,7 +34,7 @@ struct rcar_du_vsp {
 	unsigned int num_planes;
 };
 
-static inline struct rcar_du_vsp_plane *to_rcar_vsp_plane(struct drm_plane *p)
+static struct rcar_du_vsp_plane *to_rcar_vsp_plane(struct drm_plane *p)
 {
 	return container_of(p, struct rcar_du_vsp_plane, plane);
 }
@@ -57,7 +57,7 @@ struct rcar_du_vsp_plane_state {
 	unsigned int zpos;
 };
 
-static inline struct rcar_du_vsp_plane_state *
+static struct rcar_du_vsp_plane_state *
 to_rcar_vsp_plane_state(struct drm_plane_state *state)
 {
 	return container_of(state, struct rcar_du_vsp_plane_state, state);
@@ -71,7 +71,7 @@ void rcar_du_vsp_disable(struct rcar_du_crtc *crtc);
 void rcar_du_vsp_atomic_begin(struct rcar_du_crtc *crtc);
 void rcar_du_vsp_atomic_flush(struct rcar_du_crtc *crtc);
 #else
-static inline int rcar_du_vsp_init(struct rcar_du_vsp *vsp,
+static int rcar_du_vsp_init(struct rcar_du_vsp *vsp,
 				   struct device_node *np,
 				   unsigned int crtcs)
 {

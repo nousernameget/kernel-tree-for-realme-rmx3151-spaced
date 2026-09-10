@@ -230,7 +230,7 @@ struct carl9170fw_last_desc {
 		.cur_ver = _cur_ver,					\
 	}
 
-static inline void carl9170fw_fill_desc(struct carl9170fw_desc_head *head,
+static void carl9170fw_fill_desc(struct carl9170fw_desc_head *head,
 					 u8 magic[CARL9170FW_MAGIC_SIZE],
 					 __le16 length, u8 min_ver, u8 cur_ver)
 {
@@ -254,12 +254,12 @@ static inline void carl9170fw_fill_desc(struct carl9170fw_desc_head *head,
 #define CHECK_HDR_VERSION(head, _min_ver)				\
 	(((head)->cur_ver < _min_ver) || ((head)->min_ver > _min_ver))	\
 
-static inline bool carl9170fw_supports(__le32 list, u8 feature)
+static bool carl9170fw_supports(__le32 list, u8 feature)
 {
 	return le32_to_cpu(list) & BIT(feature);
 }
 
-static inline bool carl9170fw_desc_cmp(const struct carl9170fw_desc_head *head,
+static bool carl9170fw_desc_cmp(const struct carl9170fw_desc_head *head,
 				       const u8 descid[CARL9170FW_MAGIC_SIZE],
 				       u16 min_len, u8 compatible_revision)
 {
@@ -275,7 +275,7 @@ static inline bool carl9170fw_desc_cmp(const struct carl9170fw_desc_head *head,
 #define CARL9170FW_MIN_SIZE	32
 #define CARL9170FW_MAX_SIZE	16384
 
-static inline bool carl9170fw_size_check(unsigned int len)
+static bool carl9170fw_size_check(unsigned int len)
 {
 	return (len <= CARL9170FW_MAX_SIZE && len >= CARL9170FW_MIN_SIZE);
 }

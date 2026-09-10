@@ -43,7 +43,7 @@ struct mtk_clk_gate {
 	struct regmap	*pwr_regmap;
 };
 
-static inline struct mtk_clk_gate *to_mtk_clk_gate(struct clk_hw *hw)
+static struct mtk_clk_gate *to_mtk_clk_gate(struct clk_hw *hw)
 {
 	return container_of(hw, struct mtk_clk_gate, hw);
 }

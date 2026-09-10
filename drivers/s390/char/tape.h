@@ -239,7 +239,7 @@ extern int tape_do_io_interruptible(struct tape_device *, struct tape_request *)
 extern int tape_cancel_io(struct tape_device *, struct tape_request *);
 void tape_hotplug_event(struct tape_device *, int major, int action);
 
-static inline int
+static int
 tape_do_io_free(struct tape_device *device, struct tape_request *request)
 {
 	int rc;
@@ -249,7 +249,7 @@ tape_do_io_free(struct tape_device *device, struct tape_request *request)
 	return rc;
 }
 
-static inline void
+static void
 tape_do_io_async_free(struct tape_device *device, struct tape_request *request)
 {
 	request->callback = (void *) tape_free_request;
@@ -302,7 +302,7 @@ extern void tape_med_state_set(struct tape_device *, enum tape_medium_state);
 extern debug_info_t *TAPE_DBF_AREA;
 
 /* functions for building ccws */
-static inline struct ccw1 *
+static struct ccw1 *
 tape_ccw_cc(struct ccw1 *ccw, __u8 cmd_code, __u16 memsize, void *cda)
 {
 	ccw->cmd_code = cmd_code;
@@ -312,7 +312,7 @@ tape_ccw_cc(struct ccw1 *ccw, __u8 cmd_code, __u16 memsize, void *cda)
 	return ccw + 1;
 }
 
-static inline struct ccw1 *
+static struct ccw1 *
 tape_ccw_end(struct ccw1 *ccw, __u8 cmd_code, __u16 memsize, void *cda)
 {
 	ccw->cmd_code = cmd_code;
@@ -322,7 +322,7 @@ tape_ccw_end(struct ccw1 *ccw, __u8 cmd_code, __u16 memsize, void *cda)
 	return ccw + 1;
 }
 
-static inline struct ccw1 *
+static struct ccw1 *
 tape_ccw_cmd(struct ccw1 *ccw, __u8 cmd_code)
 {
 	ccw->cmd_code = cmd_code;
@@ -332,7 +332,7 @@ tape_ccw_cmd(struct ccw1 *ccw, __u8 cmd_code)
 	return ccw + 1;
 }
 
-static inline struct ccw1 *
+static struct ccw1 *
 tape_ccw_repeat(struct ccw1 *ccw, __u8 cmd_code, int count)
 {
 	while (count-- > 0) {
@@ -345,7 +345,7 @@ tape_ccw_repeat(struct ccw1 *ccw, __u8 cmd_code, int count)
 	return ccw;
 }
 
-static inline struct ccw1 *
+static struct ccw1 *
 tape_ccw_cc_idal(struct ccw1 *ccw, __u8 cmd_code, struct idal_buffer *idal)
 {
 	ccw->cmd_code = cmd_code;
@@ -354,7 +354,7 @@ tape_ccw_cc_idal(struct ccw1 *ccw, __u8 cmd_code, struct idal_buffer *idal)
 	return ccw++;
 }
 
-static inline struct ccw1 *
+static struct ccw1 *
 tape_ccw_end_idal(struct ccw1 *ccw, __u8 cmd_code, struct idal_buffer *idal)
 {
 	ccw->cmd_code = cmd_code;

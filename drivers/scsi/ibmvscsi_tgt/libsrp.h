@@ -119,7 +119,7 @@ int srp_transfer_data(struct ibmvscsis_cmd *, struct srp_cmd *,
 u64 srp_data_length(struct srp_cmd *cmd, enum dma_data_direction dir);
 int srp_get_desc_table(struct srp_cmd *srp_cmd, enum dma_data_direction *dir,
 		       u64 *data_len);
-static inline int srp_cmd_direction(struct srp_cmd *cmd)
+static int srp_cmd_direction(struct srp_cmd *cmd)
 {
 	return (cmd->buf_fmt >> 4) ? DMA_TO_DEVICE : DMA_FROM_DEVICE;
 }

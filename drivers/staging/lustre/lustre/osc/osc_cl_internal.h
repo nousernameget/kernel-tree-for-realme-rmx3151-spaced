@@ -167,22 +167,22 @@ struct osc_object {
 	wait_queue_head_t	oo_io_waitq;
 };
 
-static inline void osc_object_lock(struct osc_object *obj)
+static void osc_object_lock(struct osc_object *obj)
 {
 	spin_lock(&obj->oo_lock);
 }
 
-static inline int osc_object_trylock(struct osc_object *obj)
+static int osc_object_trylock(struct osc_object *obj)
 {
 	return spin_trylock(&obj->oo_lock);
 }
 
-static inline void osc_object_unlock(struct osc_object *obj)
+static void osc_object_unlock(struct osc_object *obj)
 {
 	spin_unlock(&obj->oo_lock);
 }
 
-static inline int osc_object_is_locked(struct osc_object *obj)
+static int osc_object_is_locked(struct osc_object *obj)
 {
 #if defined(CONFIG_SMP) || defined(CONFIG_DEBUG_SPINLOCK)
 	return spin_is_locked(&obj->oo_lock);
@@ -428,7 +428,7 @@ int  osc_lock_is_lockless(const struct osc_lock *olck);
  *
  */
 
-static inline struct osc_thread_info *osc_env_info(const struct lu_env *env)
+static struct osc_thread_info *osc_env_info(const struct lu_env *env)
 {
 	struct osc_thread_info *info;
 
@@ -437,7 +437,7 @@ static inline struct osc_thread_info *osc_env_info(const struct lu_env *env)
 	return info;
 }
 
-static inline struct osc_session *osc_env_session(const struct lu_env *env)
+static struct osc_session *osc_env_session(const struct lu_env *env)
 {
 	struct osc_session *ses;
 
@@ -446,44 +446,44 @@ static inline struct osc_session *osc_env_session(const struct lu_env *env)
 	return ses;
 }
 
-static inline struct osc_io *osc_env_io(const struct lu_env *env)
+static struct osc_io *osc_env_io(const struct lu_env *env)
 {
 	return &osc_env_session(env)->os_io;
 }
 
-static inline int osc_is_object(const struct lu_object *obj)
+static int osc_is_object(const struct lu_object *obj)
 {
 	return obj->lo_dev->ld_type == &osc_device_type;
 }
 
-static inline struct osc_device *lu2osc_dev(const struct lu_device *d)
+static struct osc_device *lu2osc_dev(const struct lu_device *d)
 {
 	LINVRNT(d->ld_type == &osc_device_type);
 	return container_of0(d, struct osc_device, od_cl.cd_lu_dev);
 }
 
-static inline struct obd_export *osc_export(const struct osc_object *obj)
+static struct obd_export *osc_export(const struct osc_object *obj)
 {
 	return lu2osc_dev(obj->oo_cl.co_lu.lo_dev)->od_exp;
 }
 
-static inline struct client_obd *osc_cli(const struct osc_object *obj)
+static struct client_obd *osc_cli(const struct osc_object *obj)
 {
 	return &osc_export(obj)->exp_obd->u.cli;
 }
 
-static inline struct osc_object *cl2osc(const struct cl_object *obj)
+static struct osc_object *cl2osc(const struct cl_object *obj)
 {
 	LINVRNT(osc_is_object(&obj->co_lu));
 	return container_of0(obj, struct osc_object, oo_cl);
 }
 
-static inline struct cl_object *osc2cl(const struct osc_object *obj)
+static struct cl_object *osc2cl(const struct osc_object *obj)
 {
 	return (struct cl_object *)&obj->oo_cl;
 }
 
-static inline enum ldlm_mode osc_cl_lock2ldlm(enum cl_lock_mode mode)
+static enum ldlm_mode osc_cl_lock2ldlm(enum cl_lock_mode mode)
 {
 	LASSERT(mode == CLM_READ || mode == CLM_WRITE || mode == CLM_GROUP);
 	if (mode == CLM_READ)
@@ -494,7 +494,7 @@ static inline enum ldlm_mode osc_cl_lock2ldlm(enum cl_lock_mode mode)
 		return LCK_GROUP;
 }
 
-static inline enum cl_lock_mode osc_ldlm2cl_lock(enum ldlm_mode mode)
+static enum cl_lock_mode osc_ldlm2cl_lock(enum ldlm_mode mode)
 {
 	LASSERT(mode == LCK_PR || mode == LCK_PW || mode == LCK_GROUP);
 	if (mode == LCK_PR)
@@ -505,33 +505,33 @@ static inline enum cl_lock_mode osc_ldlm2cl_lock(enum ldlm_mode mode)
 		return CLM_GROUP;
 }
 
-static inline struct osc_page *cl2osc_page(const struct cl_page_slice *slice)
+static struct osc_page *cl2osc_page(const struct cl_page_slice *slice)
 {
 	LINVRNT(osc_is_object(&slice->cpl_obj->co_lu));
 	return container_of0(slice, struct osc_page, ops_cl);
 }
 
-static inline struct osc_page *oap2osc(struct osc_async_page *oap)
+static struct osc_page *oap2osc(struct osc_async_page *oap)
 {
 	return container_of0(oap, struct osc_page, ops_oap);
 }
 
-static inline pgoff_t osc_index(struct osc_page *opg)
+static pgoff_t osc_index(struct osc_page *opg)
 {
 	return opg->ops_cl.cpl_index;
 }
 
-static inline struct cl_page *oap2cl_page(struct osc_async_page *oap)
+static struct cl_page *oap2cl_page(struct osc_async_page *oap)
 {
 	return oap2osc(oap)->ops_cl.cpl_page;
 }
 
-static inline struct osc_page *oap2osc_page(struct osc_async_page *oap)
+static struct osc_page *oap2osc_page(struct osc_async_page *oap)
 {
 	return (struct osc_page *)container_of(oap, struct osc_page, ops_oap);
 }
 
-static inline struct osc_page *
+static struct osc_page *
 osc_cl_page_osc(struct cl_page *page, struct osc_object *osc)
 {
 	const struct cl_page_slice *slice;
@@ -541,18 +541,18 @@ osc_cl_page_osc(struct cl_page *page, struct osc_object *osc)
 	return cl2osc_page(slice);
 }
 
-static inline struct osc_lock *cl2osc_lock(const struct cl_lock_slice *slice)
+static struct osc_lock *cl2osc_lock(const struct cl_lock_slice *slice)
 {
 	LINVRNT(osc_is_object(&slice->cls_obj->co_lu));
 	return container_of0(slice, struct osc_lock, ols_cl);
 }
 
-static inline struct osc_lock *osc_lock_at(const struct cl_lock *lock)
+static struct osc_lock *osc_lock_at(const struct cl_lock *lock)
 {
 	return cl2osc_lock(cl_lock_at(lock, &osc_device_type));
 }
 
-static inline int osc_io_srvlock(struct osc_io *oio)
+static int osc_io_srvlock(struct osc_io *oio)
 {
 	return (oio->oi_lockless && !oio->oi_cl.cis_io->ci_no_srvlock);
 }

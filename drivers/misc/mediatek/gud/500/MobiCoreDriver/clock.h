@@ -31,21 +31,21 @@ void mc_clock_disable(void);
 
 #else /* MC_CRYPTO_CLOCK_MANAGEMENT */
 
-static inline int mc_clock_init(void)
+static int mc_clock_init(void)
 {
 	return 0;
 }
 
-static inline void mc_clock_exit(void)
+static void mc_clock_exit(void)
 {
 }
 
-static inline int mc_clock_enable(void)
+static int mc_clock_enable(void)
 {
 	return 0;
 }
 
-static inline void mc_clock_disable(void)
+static void mc_clock_disable(void)
 {
 }
 

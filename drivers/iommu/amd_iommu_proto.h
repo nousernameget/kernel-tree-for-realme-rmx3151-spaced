@@ -60,7 +60,7 @@ extern struct iommu_domain *amd_iommu_get_v2_domain(struct pci_dev *pdev);
 #ifdef CONFIG_IRQ_REMAP
 extern int amd_iommu_create_irq_domain(struct amd_iommu *iommu);
 #else
-static inline int amd_iommu_create_irq_domain(struct amd_iommu *iommu)
+static int amd_iommu_create_irq_domain(struct amd_iommu *iommu)
 {
 	return 0;
 }
@@ -73,13 +73,13 @@ static inline int amd_iommu_create_irq_domain(struct amd_iommu *iommu)
 extern int amd_iommu_complete_ppr(struct pci_dev *pdev, int pasid,
 				  int status, int tag);
 
-static inline bool is_rd890_iommu(struct pci_dev *pdev)
+static bool is_rd890_iommu(struct pci_dev *pdev)
 {
 	return (pdev->vendor == PCI_VENDOR_ID_ATI) &&
 	       (pdev->device == PCI_DEVICE_ID_RD890_IOMMU);
 }
 
-static inline bool iommu_feature(struct amd_iommu *iommu, u64 f)
+static bool iommu_feature(struct amd_iommu *iommu, u64 f)
 {
 	if (!(iommu->cap & (1 << IOMMU_CAP_EFR)))
 		return false;
@@ -87,12 +87,12 @@ static inline bool iommu_feature(struct amd_iommu *iommu, u64 f)
 	return !!(iommu->features & f);
 }
 
-static inline u64 iommu_virt_to_phys(void *vaddr)
+static u64 iommu_virt_to_phys(void *vaddr)
 {
 	return (u64)__sme_set(virt_to_phys(vaddr));
 }
 
-static inline void *iommu_phys_to_virt(unsigned long paddr)
+static void *iommu_phys_to_virt(unsigned long paddr)
 {
 	return phys_to_virt(__sme_clr(paddr));
 }

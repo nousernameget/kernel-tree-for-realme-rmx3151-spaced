@@ -47,7 +47,7 @@ struct mlx5e_vxlan_work {
 	u16			port;
 };
 
-static inline bool mlx5e_vxlan_allowed(struct mlx5_core_dev *mdev)
+static bool mlx5e_vxlan_allowed(struct mlx5_core_dev *mdev)
 {
 	return (MLX5_CAP_ETH(mdev, tunnel_stateless_vxlan) &&
 		mlx5_core_is_pf(mdev));

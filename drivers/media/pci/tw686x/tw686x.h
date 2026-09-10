@@ -145,23 +145,23 @@ struct tw686x_dev {
 	u32 pending_dma_cmd; /* must be protected by lock */
 };
 
-static inline uint32_t reg_read(struct tw686x_dev *dev, unsigned int reg)
+static uint32_t reg_read(struct tw686x_dev *dev, unsigned int reg)
 {
 	return readl(dev->mmio + reg);
 }
 
-static inline void reg_write(struct tw686x_dev *dev, unsigned int reg,
+static void reg_write(struct tw686x_dev *dev, unsigned int reg,
 			     uint32_t value)
 {
 	writel(value, dev->mmio + reg);
 }
 
-static inline unsigned int max_channels(struct tw686x_dev *dev)
+static unsigned int max_channels(struct tw686x_dev *dev)
 {
 	return dev->type & TYPE_MAX_CHANNELS; /* 4 or 8 channels */
 }
 
-static inline unsigned is_second_gen(struct tw686x_dev *dev)
+static unsigned is_second_gen(struct tw686x_dev *dev)
 {
 	/* each channel has its own DMA SG table */
 	return dev->type & TYPE_SECOND_GEN;

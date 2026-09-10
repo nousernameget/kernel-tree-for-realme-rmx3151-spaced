@@ -209,7 +209,7 @@ struct lprocfs_stats {
 #define OPC_RANGE(seg) (seg ## _LAST_OPC - seg ## _FIRST_OPC)
 
 /* Pack all opcodes down into a single monotonically increasing index */
-static inline int opcode_offset(__u32 opc)
+static int opcode_offset(__u32 opc)
 {
 	if (opc < OST_LAST_OPC) {
 		 /* OST opcode */
@@ -348,7 +348,7 @@ struct dhms {
 	int d, h, m, s;
 };
 
-static inline void s2dhms(struct dhms *ts, time64_t secs64)
+static void s2dhms(struct dhms *ts, time64_t secs64)
 {
 	unsigned int secs;
 
@@ -384,7 +384,7 @@ void lprocfs_stats_unlock(struct lprocfs_stats *stats,
 			  enum lprocfs_stats_lock_ops opc,
 			  unsigned long *flags);
 
-static inline unsigned int
+static unsigned int
 lprocfs_stats_counter_size(struct lprocfs_stats *stats)
 {
 	unsigned int percpusize;
@@ -401,7 +401,7 @@ lprocfs_stats_counter_size(struct lprocfs_stats *stats)
 	return percpusize;
 }
 
-static inline struct lprocfs_counter *
+static struct lprocfs_counter *
 lprocfs_stats_counter_get(struct lprocfs_stats *stats, unsigned int cpuid,
 			  int index)
 {

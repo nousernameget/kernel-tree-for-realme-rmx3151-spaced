@@ -648,7 +648,7 @@ struct ath6kl_vif {
 	struct list_head mc_filter;
 };
 
-static inline struct ath6kl_vif *ath6kl_vif_from_wdev(struct wireless_dev *wdev)
+static struct ath6kl_vif *ath6kl_vif_from_wdev(struct wireless_dev *wdev)
 {
 	return container_of(wdev, struct ath6kl_vif, wdev);
 }
@@ -873,12 +873,12 @@ struct ath6kl {
 #endif /* CONFIG_ATH6KL_DEBUG */
 };
 
-static inline struct ath6kl *ath6kl_priv(struct net_device *dev)
+static struct ath6kl *ath6kl_priv(struct net_device *dev)
 {
 	return ((struct ath6kl_vif *) netdev_priv(dev))->ar;
 }
 
-static inline u32 ath6kl_get_hi_item_addr(struct ath6kl *ar,
+static u32 ath6kl_get_hi_item_addr(struct ath6kl *ar,
 					  u32 item_offset)
 {
 	u32 addr = 0;

@@ -9,7 +9,7 @@
 #include <linux/mmc/host.h>
 
 #ifdef CONFIG_MTK_EMMC_HW_CQ
-static inline bool mmc_req_is_special(struct request *req)
+static bool mmc_req_is_special(struct request *req)
 {
 	return req &&
 		(req_op(req) == REQ_OP_FLUSH ||
@@ -18,14 +18,14 @@ static inline bool mmc_req_is_special(struct request *req)
 }
 #endif
 
-static inline struct mmc_queue_req *req_to_mmc_queue_req(struct request *rq)
+static struct mmc_queue_req *req_to_mmc_queue_req(struct request *rq)
 {
 	return blk_mq_rq_to_pdu(rq);
 }
 
 struct mmc_queue_req;
 
-static inline struct request *mmc_queue_req_to_req(struct mmc_queue_req *mqr)
+static struct request *mmc_queue_req_to_req(struct mmc_queue_req *mqr)
 {
 	return blk_mq_rq_from_pdu(mqr);
 }

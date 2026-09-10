@@ -40,27 +40,27 @@ struct timer_of {
 	void *private_data;
 };
 
-static inline struct timer_of *to_timer_of(struct clock_event_device *clkevt)
+static struct timer_of *to_timer_of(struct clock_event_device *clkevt)
 {
 	return container_of(clkevt, struct timer_of, clkevt);
 }
 
-static inline void __iomem *timer_of_base(struct timer_of *to)
+static void __iomem *timer_of_base(struct timer_of *to)
 {
 	return to->of_base.base;
 }
 
-static inline int timer_of_irq(struct timer_of *to)
+static int timer_of_irq(struct timer_of *to)
 {
 	return to->of_irq.irq;
 }
 
-static inline unsigned long timer_of_rate(struct timer_of *to)
+static unsigned long timer_of_rate(struct timer_of *to)
 {
 	return to->of_clk.rate;
 }
 
-static inline unsigned long timer_of_period(struct timer_of *to)
+static unsigned long timer_of_period(struct timer_of *to)
 {
 	return to->of_clk.period;
 }

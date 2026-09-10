@@ -162,7 +162,7 @@ int fdtv_register_rc(struct firedtv *fdtv, struct device *dev);
 void fdtv_unregister_rc(struct firedtv *fdtv);
 void fdtv_handle_rc(struct firedtv *fdtv, unsigned int code);
 #else
-static inline int fdtv_register_rc(struct firedtv *fdtv,
+static int fdtv_register_rc(struct firedtv *fdtv,
 				   struct device *dev) { return 0; }
 static inline void fdtv_unregister_rc(struct firedtv *fdtv) {}
 static inline void fdtv_handle_rc(struct firedtv *fdtv, unsigned int code) {}

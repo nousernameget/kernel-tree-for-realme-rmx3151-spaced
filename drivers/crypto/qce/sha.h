@@ -65,7 +65,7 @@ struct qce_sha_reqctx {
 	struct scatterlist result_sg;
 };
 
-static inline struct qce_alg_template *to_ahash_tmpl(struct crypto_tfm *tfm)
+static struct qce_alg_template *to_ahash_tmpl(struct crypto_tfm *tfm)
 {
 	struct crypto_ahash *ahash = __crypto_ahash_cast(tfm);
 	struct ahash_alg *alg = container_of(crypto_hash_alg_common(ahash),

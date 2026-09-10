@@ -639,7 +639,7 @@ struct zeroflash_hcd {
     bool init_done;
 };
 
-static inline int secure_memcpy(unsigned char *dest, unsigned int dest_size,
+static int secure_memcpy(unsigned char *dest, unsigned int dest_size,
         const unsigned char *src, unsigned int src_size,
         unsigned int count)
 {
@@ -657,7 +657,7 @@ static inline int secure_memcpy(unsigned char *dest, unsigned int dest_size,
     return 0;
 }
 
-static inline int syna_tcm_realloc_mem(struct syna_tcm_hcd *tcm_hcd,
+static int syna_tcm_realloc_mem(struct syna_tcm_hcd *tcm_hcd,
         struct syna_tcm_buffer *buffer, unsigned int size)
 {
     int retval;
@@ -695,7 +695,7 @@ static inline int syna_tcm_realloc_mem(struct syna_tcm_hcd *tcm_hcd,
     return 0;
 }
 
-static inline int syna_tcm_alloc_mem(struct syna_tcm_hcd *tcm_hcd,
+static int syna_tcm_alloc_mem(struct syna_tcm_hcd *tcm_hcd,
         struct syna_tcm_buffer *buffer, unsigned int size)
 {
     if (size > buffer->buf_size) {
@@ -717,7 +717,7 @@ static inline int syna_tcm_alloc_mem(struct syna_tcm_hcd *tcm_hcd,
 }
 
 
-static inline unsigned int ceil_div(unsigned int dividend, unsigned divisor)
+static unsigned int ceil_div(unsigned int dividend, unsigned divisor)
 {
     return (dividend + divisor - 1) / divisor;
 }

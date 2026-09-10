@@ -42,7 +42,7 @@
 /* Required for kbase_mem_evictable_unmake */
 #include "mali_kbase_mem_linux.h"
 
-static inline void kbase_process_page_usage_inc(struct kbase_context *kctx,
+static void kbase_process_page_usage_inc(struct kbase_context *kctx,
 		int pages);
 
 /* Part of the workaround for uTLB invalid pages is to ensure we grow/shrink tmem by 4 pages at a time */
@@ -200,7 +200,7 @@ enum kbase_jit_report_flags {
 	KBASE_JIT_REPORT_ON_ALLOC_OR_FREE = (1u << 0)
 };
 
-static inline void kbase_mem_phy_alloc_gpu_mapped(struct kbase_mem_phy_alloc *alloc)
+static void kbase_mem_phy_alloc_gpu_mapped(struct kbase_mem_phy_alloc *alloc)
 {
 	KBASE_DEBUG_ASSERT(alloc);
 	/* we only track mappings of NATIVE buffers */
@@ -208,7 +208,7 @@ static inline void kbase_mem_phy_alloc_gpu_mapped(struct kbase_mem_phy_alloc *al
 		atomic_inc(&alloc->gpu_mappings);
 }
 
-static inline void kbase_mem_phy_alloc_gpu_unmapped(struct kbase_mem_phy_alloc *alloc)
+static void kbase_mem_phy_alloc_gpu_unmapped(struct kbase_mem_phy_alloc *alloc)
 {
 	KBASE_DEBUG_ASSERT(alloc);
 	/* we only track mappings of NATIVE buffers */
@@ -226,7 +226,7 @@ static inline void kbase_mem_phy_alloc_gpu_unmapped(struct kbase_mem_phy_alloc *
  *
  * Return: true if the memory type is imported, false otherwise
  */
-static inline bool kbase_mem_is_imported(enum kbase_memory_type type)
+static bool kbase_mem_is_imported(enum kbase_memory_type type)
 {
 	return (type == KBASE_MEM_TYPE_IMPORTED_UMM) ||
 		(type == KBASE_MEM_TYPE_IMPORTED_USER_BUF);
@@ -238,13 +238,13 @@ int kbase_mem_init(struct kbase_device *kbdev);
 void kbase_mem_halt(struct kbase_device *kbdev);
 void kbase_mem_term(struct kbase_device *kbdev);
 
-static inline struct kbase_mem_phy_alloc *kbase_mem_phy_alloc_get(struct kbase_mem_phy_alloc *alloc)
+static struct kbase_mem_phy_alloc *kbase_mem_phy_alloc_get(struct kbase_mem_phy_alloc *alloc)
 {
 	kref_get(&alloc->kref);
 	return alloc;
 }
 
-static inline struct kbase_mem_phy_alloc *kbase_mem_phy_alloc_put(struct kbase_mem_phy_alloc *alloc)
+static struct kbase_mem_phy_alloc *kbase_mem_phy_alloc_put(struct kbase_mem_phy_alloc *alloc)
 {
 	kref_put(&alloc->kref, kbase_mem_kref_free);
 	return NULL;
@@ -440,17 +440,17 @@ struct kbase_va_region {
  */
 #define KBASE_RESERVED_REG_JIT_ALLOC ((struct kbase_va_region *)-1)
 
-static inline bool kbase_is_region_free(struct kbase_va_region *reg)
+static bool kbase_is_region_free(struct kbase_va_region *reg)
 {
 	return (!reg || reg->flags & KBASE_REG_FREE);
 }
 
-static inline bool kbase_is_region_invalid(struct kbase_va_region *reg)
+static bool kbase_is_region_invalid(struct kbase_va_region *reg)
 {
 	return (!reg || reg->flags & KBASE_REG_VA_FREED);
 }
 
-static inline bool kbase_is_region_invalid_or_free(struct kbase_va_region *reg)
+static bool kbase_is_region_invalid_or_free(struct kbase_va_region *reg)
 {
 	/* Possibly not all functions that find regions would be using this
 	 * helper, so they need to be checked when maintaining this function.
@@ -459,7 +459,7 @@ static inline bool kbase_is_region_invalid_or_free(struct kbase_va_region *reg)
 }
 
 int kbase_remove_va_region(struct kbase_va_region *reg);
-static inline void kbase_region_refcnt_free(struct kbase_va_region *reg)
+static void kbase_region_refcnt_free(struct kbase_va_region *reg)
 {
 	/* If region was mapped then remove va region*/
 	if (reg->start_pfn)
@@ -470,7 +470,7 @@ static inline void kbase_region_refcnt_free(struct kbase_va_region *reg)
 	kfree(reg);
 }
 
-static inline struct kbase_va_region *kbase_va_region_alloc_get(
+static struct kbase_va_region *kbase_va_region_alloc_get(
 		struct kbase_context *kctx, struct kbase_va_region *region)
 {
 	lockdep_assert_held(&kctx->reg_lock);
@@ -485,7 +485,7 @@ static inline struct kbase_va_region *kbase_va_region_alloc_get(
 	return region;
 }
 
-static inline struct kbase_va_region *kbase_va_region_alloc_put(
+static struct kbase_va_region *kbase_va_region_alloc_put(
 		struct kbase_context *kctx, struct kbase_va_region *region)
 {
 	lockdep_assert_held(&kctx->reg_lock);
@@ -504,7 +504,7 @@ static inline struct kbase_va_region *kbase_va_region_alloc_put(
 }
 
 /* Common functions */
-static inline struct tagged_addr *kbase_get_cpu_phy_pages(
+static struct tagged_addr *kbase_get_cpu_phy_pages(
 		struct kbase_va_region *reg)
 {
 	KBASE_DEBUG_ASSERT(reg);
@@ -515,7 +515,7 @@ static inline struct tagged_addr *kbase_get_cpu_phy_pages(
 	return reg->cpu_alloc->pages;
 }
 
-static inline struct tagged_addr *kbase_get_gpu_phy_pages(
+static struct tagged_addr *kbase_get_gpu_phy_pages(
 		struct kbase_va_region *reg)
 {
 	KBASE_DEBUG_ASSERT(reg);
@@ -526,7 +526,7 @@ static inline struct tagged_addr *kbase_get_gpu_phy_pages(
 	return reg->gpu_alloc->pages;
 }
 
-static inline size_t kbase_reg_current_backed_size(struct kbase_va_region *reg)
+static size_t kbase_reg_current_backed_size(struct kbase_va_region *reg)
 {
 	KBASE_DEBUG_ASSERT(reg);
 	/* if no alloc object the backed size naturally is 0 */
@@ -542,7 +542,7 @@ static inline size_t kbase_reg_current_backed_size(struct kbase_va_region *reg)
 
 #define KBASE_MEM_PHY_ALLOC_LARGE_THRESHOLD ((size_t)(4*1024)) /* size above which vmalloc is used over kmalloc */
 
-static inline struct kbase_mem_phy_alloc *kbase_alloc_create(
+static struct kbase_mem_phy_alloc *kbase_alloc_create(
 		struct kbase_context *kctx, size_t nr_pages,
 		enum kbase_memory_type type, int group_id)
 {
@@ -600,7 +600,7 @@ static inline struct kbase_mem_phy_alloc *kbase_alloc_create(
 	return alloc;
 }
 
-static inline int kbase_reg_prepare_native(struct kbase_va_region *reg,
+static int kbase_reg_prepare_native(struct kbase_va_region *reg,
 		struct kbase_context *kctx, int group_id)
 {
 	KBASE_DEBUG_ASSERT(reg);
@@ -667,7 +667,7 @@ static inline int kbase_reg_prepare_native(struct kbase_va_region *reg,
  * @max_size: Maximum number of free pages that a pool created from
  *            @config can hold
  */
-static inline void kbase_mem_pool_config_set_max_size(
+static void kbase_mem_pool_config_set_max_size(
 	struct kbase_mem_pool_config *const config, size_t const max_size)
 {
 	WRITE_ONCE(config->max_size, max_size);
@@ -682,7 +682,7 @@ static inline void kbase_mem_pool_config_set_max_size(
  * Return: Maximum number of free pages that a pool created from @config
  *         can hold
  */
-static inline size_t kbase_mem_pool_config_get_max_size(
+static size_t kbase_mem_pool_config_get_max_size(
 	const struct kbase_mem_pool_config *const config)
 {
 	return READ_ONCE(config->max_size);
@@ -897,7 +897,7 @@ void kbase_mem_pool_free_pages_locked(struct kbase_mem_pool *pool,
  *
  * Return: Number of free pages in the pool
  */
-static inline size_t kbase_mem_pool_size(struct kbase_mem_pool *pool)
+static size_t kbase_mem_pool_size(struct kbase_mem_pool *pool)
 {
 	return READ_ONCE(pool->cur_size);
 }
@@ -908,7 +908,7 @@ static inline size_t kbase_mem_pool_size(struct kbase_mem_pool *pool)
  *
  * Return: Maximum number of free pages in the pool
  */
-static inline size_t kbase_mem_pool_max_size(struct kbase_mem_pool *pool)
+static size_t kbase_mem_pool_max_size(struct kbase_mem_pool *pool)
 {
 	return pool->max_size;
 }
@@ -1202,7 +1202,7 @@ void kbasep_os_process_page_usage_update(struct kbase_context *kctx, int pages);
  * @param[in] pages The desired delta to apply to the memory usage counters.
  */
 
-static inline void kbase_process_page_usage_inc(struct kbase_context *kctx, int pages)
+static void kbase_process_page_usage_inc(struct kbase_context *kctx, int pages)
 {
 	kbasep_os_process_page_usage_update(kctx, pages);
 }
@@ -1217,7 +1217,7 @@ static inline void kbase_process_page_usage_inc(struct kbase_context *kctx, int 
  * @param[in] pages The desired delta to apply to the memory usage counters.
  */
 
-static inline void kbase_process_page_usage_dec(struct kbase_context *kctx, int pages)
+static void kbase_process_page_usage_dec(struct kbase_context *kctx, int pages)
 {
 	kbasep_os_process_page_usage_update(kctx, 0 - pages);
 }
@@ -1370,7 +1370,7 @@ void kbase_free_phy_pages_helper_locked(struct kbase_mem_phy_alloc *alloc,
 		struct kbase_mem_pool *pool, struct tagged_addr *pages,
 		size_t nr_pages_to_free);
 
-static inline void kbase_set_dma_addr(struct page *p, dma_addr_t dma_addr)
+static void kbase_set_dma_addr(struct page *p, dma_addr_t dma_addr)
 {
 	SetPagePrivate(p);
 	if (sizeof(dma_addr_t) > sizeof(p->private)) {
@@ -1385,7 +1385,7 @@ static inline void kbase_set_dma_addr(struct page *p, dma_addr_t dma_addr)
 	}
 }
 
-static inline dma_addr_t kbase_dma_addr(struct page *p)
+static dma_addr_t kbase_dma_addr(struct page *p)
 {
 	if (sizeof(dma_addr_t) > sizeof(p->private))
 		return ((dma_addr_t)page_private(p)) << PAGE_SHIFT;
@@ -1393,7 +1393,7 @@ static inline dma_addr_t kbase_dma_addr(struct page *p)
 	return (dma_addr_t)page_private(p);
 }
 
-static inline void kbase_clear_dma_addr(struct page *p)
+static void kbase_clear_dma_addr(struct page *p)
 {
 	ClearPagePrivate(p);
 }
@@ -1603,7 +1603,7 @@ void kbase_jit_trim_necessary_pages(struct kbase_context *kctx,
  * Same as kbase_jit_request_phys_increase(), except that Caller is supposed
  * to take jit_evict_lock also on @kctx before calling this function.
  */
-static inline void
+static void
 kbase_jit_request_phys_increase_locked(struct kbase_context *kctx,
 				       size_t needed_pages)
 {
@@ -1642,7 +1642,7 @@ kbase_jit_request_phys_increase_locked(struct kbase_context *kctx,
  *
  * Caller is supposed to take reg_lock on @kctx before calling this function.
  */
-static inline void kbase_jit_request_phys_increase(struct kbase_context *kctx,
+static void kbase_jit_request_phys_increase(struct kbase_context *kctx,
 						   size_t needed_pages)
 {
 	lockdep_assert_held(&kctx->jctx.lock);
@@ -1676,7 +1676,7 @@ static inline void kbase_jit_request_phys_increase(struct kbase_context *kctx,
  *
  * Caller is supposed to take reg_lock on @kctx before calling this function.
  */
-static inline void kbase_jit_done_phys_increase(struct kbase_context *kctx,
+static void kbase_jit_done_phys_increase(struct kbase_context *kctx,
 						size_t needed_pages)
 {
 	lockdep_assert_held(&kctx->reg_lock);
@@ -1796,7 +1796,7 @@ void kbase_sticky_resource_term(struct kbase_context *kctx);
  * kbase_mem_pool_lock - Lock a memory pool
  * @pool: Memory pool to lock
  */
-static inline void kbase_mem_pool_lock(struct kbase_mem_pool *pool)
+static void kbase_mem_pool_lock(struct kbase_mem_pool *pool)
 {
 	spin_lock(&pool->pool_lock);
 }
@@ -1805,7 +1805,7 @@ static inline void kbase_mem_pool_lock(struct kbase_mem_pool *pool)
  * kbase_mem_pool_lock - Release a memory pool
  * @pool: Memory pool to lock
  */
-static inline void kbase_mem_pool_unlock(struct kbase_mem_pool *pool)
+static void kbase_mem_pool_unlock(struct kbase_mem_pool *pool)
 {
 	spin_unlock(&pool->pool_lock);
 }

@@ -24,7 +24,7 @@ struct zfcp_reqlist {
 	struct list_head buckets[ZFCP_REQ_LIST_BUCKETS];
 };
 
-static inline int zfcp_reqlist_hash(unsigned long req_id)
+static int zfcp_reqlist_hash(unsigned long req_id)
 {
 	return req_id % ZFCP_REQ_LIST_BUCKETS;
 }
@@ -35,7 +35,7 @@ static inline int zfcp_reqlist_hash(unsigned long req_id)
  * Returns pointer to allocated reqlist on success, or NULL on
  * allocation failure.
  */
-static inline struct zfcp_reqlist *zfcp_reqlist_alloc(void)
+static struct zfcp_reqlist *zfcp_reqlist_alloc(void)
 {
 	unsigned int i;
 	struct zfcp_reqlist *rl;
@@ -58,7 +58,7 @@ static inline struct zfcp_reqlist *zfcp_reqlist_alloc(void)
  *
  * Returns: 1 if list is empty, 0 if not
  */
-static inline int zfcp_reqlist_isempty(struct zfcp_reqlist *rl)
+static int zfcp_reqlist_isempty(struct zfcp_reqlist *rl)
 {
 	unsigned int i;
 
@@ -72,7 +72,7 @@ static inline int zfcp_reqlist_isempty(struct zfcp_reqlist *rl)
  * zfcp_reqlist_free - Free allocated memory for reqlist
  * @rl: The reqlist where to free memory
  */
-static inline void zfcp_reqlist_free(struct zfcp_reqlist *rl)
+static void zfcp_reqlist_free(struct zfcp_reqlist *rl)
 {
 	/* sanity check */
 	BUG_ON(!zfcp_reqlist_isempty(rl));
@@ -80,7 +80,7 @@ static inline void zfcp_reqlist_free(struct zfcp_reqlist *rl)
 	kfree(rl);
 }
 
-static inline struct zfcp_fsf_req *
+static struct zfcp_fsf_req *
 _zfcp_reqlist_find(struct zfcp_reqlist *rl, unsigned long req_id)
 {
 	struct zfcp_fsf_req *req;
@@ -101,7 +101,7 @@ _zfcp_reqlist_find(struct zfcp_reqlist *rl, unsigned long req_id)
  * Returns a pointer to the FSF request with the specified request id
  * or NULL if there is no known FSF request with this id.
  */
-static inline struct zfcp_fsf_req *
+static struct zfcp_fsf_req *
 zfcp_reqlist_find(struct zfcp_reqlist *rl, unsigned long req_id)
 {
 	unsigned long flags;
@@ -126,7 +126,7 @@ zfcp_reqlist_find(struct zfcp_reqlist *rl, unsigned long req_id)
  * Returns: Pointer to the FSF request if the request has been found,
  * NULL if it has not been found.
  */
-static inline struct zfcp_fsf_req *
+static struct zfcp_fsf_req *
 zfcp_reqlist_find_rm(struct zfcp_reqlist *rl, unsigned long req_id)
 {
 	unsigned long flags;
@@ -151,7 +151,7 @@ zfcp_reqlist_find_rm(struct zfcp_reqlist *rl, unsigned long req_id)
  * while old requests are looked up starting at the beginning of the
  * lists.
  */
-static inline void zfcp_reqlist_add(struct zfcp_reqlist *rl,
+static void zfcp_reqlist_add(struct zfcp_reqlist *rl,
 				    struct zfcp_fsf_req *req)
 {
 	unsigned int i;
@@ -169,7 +169,7 @@ static inline void zfcp_reqlist_add(struct zfcp_reqlist *rl,
  * @rl: The zfcp_reqlist where to remove all entries
  * @list: The list where to move all entries
  */
-static inline void zfcp_reqlist_move(struct zfcp_reqlist *rl,
+static void zfcp_reqlist_move(struct zfcp_reqlist *rl,
 				     struct list_head *list)
 {
 	unsigned int i;
@@ -194,7 +194,7 @@ static inline void zfcp_reqlist_move(struct zfcp_reqlist *rl,
  *
  * Holds @rl->lock over the entire request-iteration.
  */
-static inline void
+static void
 zfcp_reqlist_apply_for_all(struct zfcp_reqlist *rl,
 			   void (*f)(struct zfcp_fsf_req *, void *), void *data)
 {

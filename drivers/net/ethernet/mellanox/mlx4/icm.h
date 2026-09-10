@@ -83,7 +83,7 @@ int mlx4_init_icm_table(struct mlx4_dev *dev, struct mlx4_icm_table *table,
 void mlx4_cleanup_icm_table(struct mlx4_dev *dev, struct mlx4_icm_table *table);
 void *mlx4_table_find(struct mlx4_icm_table *table, u32 obj, dma_addr_t *dma_handle);
 
-static inline void mlx4_icm_first(struct mlx4_icm *icm,
+static void mlx4_icm_first(struct mlx4_icm *icm,
 				  struct mlx4_icm_iter *iter)
 {
 	iter->icm      = icm;
@@ -93,12 +93,12 @@ static inline void mlx4_icm_first(struct mlx4_icm *icm,
 	iter->page_idx = 0;
 }
 
-static inline int mlx4_icm_last(struct mlx4_icm_iter *iter)
+static int mlx4_icm_last(struct mlx4_icm_iter *iter)
 {
 	return !iter->chunk;
 }
 
-static inline void mlx4_icm_next(struct mlx4_icm_iter *iter)
+static void mlx4_icm_next(struct mlx4_icm_iter *iter)
 {
 	if (++iter->page_idx >= iter->chunk->nsg) {
 		if (iter->chunk->list.next == &iter->icm->chunk_list) {
@@ -112,12 +112,12 @@ static inline void mlx4_icm_next(struct mlx4_icm_iter *iter)
 	}
 }
 
-static inline dma_addr_t mlx4_icm_addr(struct mlx4_icm_iter *iter)
+static dma_addr_t mlx4_icm_addr(struct mlx4_icm_iter *iter)
 {
 	return sg_dma_address(&iter->chunk->mem[iter->page_idx]);
 }
 
-static inline unsigned long mlx4_icm_size(struct mlx4_icm_iter *iter)
+static unsigned long mlx4_icm_size(struct mlx4_icm_iter *iter)
 {
 	return sg_dma_len(&iter->chunk->mem[iter->page_idx]);
 }

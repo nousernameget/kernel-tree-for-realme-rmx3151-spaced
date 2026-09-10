@@ -1819,7 +1819,7 @@ VOID p2pFsmRunEventTdlsTimeout(IN P_ADAPTER_T prAdapter, IN ULONG ulParam);
  * It will check automatically while at compile time.
  * We'll need this for porting driver to different RTOS.
  */
-static inline VOID p2pDataTypeCheck(VOID)
+static VOID p2pDataTypeCheck(VOID)
 {
 	DATA_STRUCT_INSPECTING_ASSERT(sizeof(IE_P2P_T) == (2 + 4 + 1));	/* all UINT_8 */
 	DATA_STRUCT_INSPECTING_ASSERT(sizeof(P2P_ATTRIBUTE_T) == (3 + 1));

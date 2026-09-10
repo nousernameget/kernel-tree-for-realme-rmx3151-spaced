@@ -124,11 +124,11 @@ extern struct dentry *binderfs_create_file(struct dentry *dir, const char *name,
 					   void *data);
 extern void binderfs_remove_file(struct dentry *dentry);
 #else
-static inline bool is_binderfs_device(const struct inode *inode)
+static bool is_binderfs_device(const struct inode *inode)
 {
 	return false;
 }
-static inline struct dentry *binderfs_create_file(struct dentry *dir,
+static struct dentry *binderfs_create_file(struct dentry *dir,
 					   const char *name,
 					   const struct file_operations *fops,
 					   void *data)
@@ -141,7 +141,7 @@ static inline void binderfs_remove_file(struct dentry *dentry) {}
 #ifdef CONFIG_ANDROID_BINDERFS
 extern int __init init_binderfs(void);
 #else
-static inline int __init init_binderfs(void)
+static int __init init_binderfs(void)
 {
 	return 0;
 }

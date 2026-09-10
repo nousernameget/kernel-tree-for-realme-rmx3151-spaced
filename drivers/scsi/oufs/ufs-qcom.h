@@ -149,7 +149,7 @@ enum ufs_qcom_phy_init_type {
 #define DME_VS_CORE_CLK_CTRL_CORE_CLK_DIV_EN_BIT		BIT(8)
 #define DME_VS_CORE_CLK_CTRL_MAX_CORE_CLK_1US_CYCLES_MASK	0xFF
 
-static inline void
+static void
 ufs_qcom_get_controller_revision(struct ufs_hba *hba,
 				 u8 *major, u16 *minor, u16 *step)
 {
@@ -160,7 +160,7 @@ ufs_qcom_get_controller_revision(struct ufs_hba *hba,
 	*step = (ver & UFS_HW_VER_STEP_MASK) >> UFS_HW_VER_STEP_SHFT;
 };
 
-static inline void ufs_qcom_assert_reset(struct ufs_hba *hba)
+static void ufs_qcom_assert_reset(struct ufs_hba *hba)
 {
 	ufshcd_rmwl(hba, MASK_UFS_PHY_SOFT_RESET,
 			1 << OFFSET_UFS_PHY_SOFT_RESET, REG_UFS_CFG1);
@@ -172,7 +172,7 @@ static inline void ufs_qcom_assert_reset(struct ufs_hba *hba)
 	mb();
 }
 
-static inline void ufs_qcom_deassert_reset(struct ufs_hba *hba)
+static void ufs_qcom_deassert_reset(struct ufs_hba *hba)
 {
 	ufshcd_rmwl(hba, MASK_UFS_PHY_SOFT_RESET,
 			0 << OFFSET_UFS_PHY_SOFT_RESET, REG_UFS_CFG1);
@@ -243,7 +243,7 @@ struct ufs_qcom_host {
 	struct ufs_qcom_testbus testbus;
 };
 
-static inline u32
+static u32
 ufs_qcom_get_debug_reg_offset(struct ufs_qcom_host *host, u32 reg)
 {
 	if (host->hw_ver.major <= 0x02)
@@ -258,7 +258,7 @@ ufs_qcom_get_debug_reg_offset(struct ufs_qcom_host *host, u32 reg)
 
 int ufs_qcom_testbus_config(struct ufs_qcom_host *host);
 
-static inline bool ufs_qcom_cap_qunipro(struct ufs_qcom_host *host)
+static bool ufs_qcom_cap_qunipro(struct ufs_qcom_host *host)
 {
 	if (host->caps & UFS_QCOM_CAP_QUNIPRO)
 		return true;

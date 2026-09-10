@@ -131,24 +131,24 @@ struct mtk_iommu_data {
 	unsigned int m4uid;
 };
 
-static inline int compare_of(struct device *dev, void *data)
+static int compare_of(struct device *dev, void *data)
 {
 	return dev->of_node == data;
 }
 
-static inline void release_of(struct device *dev, void *data)
+static void release_of(struct device *dev, void *data)
 {
 	of_node_put(data);
 }
 
-static inline int mtk_iommu_bind(struct device *dev)
+static int mtk_iommu_bind(struct device *dev)
 {
 	struct mtk_iommu_data *data = dev_get_drvdata(dev);
 
 	return component_bind_all(dev, &data->smi_imu);
 }
 
-static inline void mtk_iommu_unbind(struct device *dev)
+static void mtk_iommu_unbind(struct device *dev)
 {
 	struct mtk_iommu_data *data = dev_get_drvdata(dev);
 

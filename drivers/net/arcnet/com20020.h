@@ -118,7 +118,7 @@ struct com20020_dev {
 #define SUB_BUSCTL	5	/* bus control options */
 #define SUB_DMACOUNT	6	/* DMA count options */
 
-static inline void com20020_set_subaddress(struct arcnet_local *lp,
+static void com20020_set_subaddress(struct arcnet_local *lp,
 					   int ioaddr, int val)
 {
 	if (val < 4) {

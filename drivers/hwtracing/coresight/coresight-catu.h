@@ -68,24 +68,24 @@ struct catu_drvdata {
 };
 
 #define CATU_REG32(name, offset)					\
-static inline u32							\
+static u32							\
 catu_read_##name(struct catu_drvdata *drvdata)				\
 {									\
 	return coresight_read_reg_pair(drvdata->base, offset, -1);	\
 }									\
-static inline void							\
+static void							\
 catu_write_##name(struct catu_drvdata *drvdata, u32 val)		\
 {									\
 	coresight_write_reg_pair(drvdata->base, val, offset, -1);	\
 }
 
 #define CATU_REG_PAIR(name, lo_off, hi_off)				\
-static inline u64							\
+static u64							\
 catu_read_##name(struct catu_drvdata *drvdata)				\
 {									\
 	return coresight_read_reg_pair(drvdata->base, lo_off, hi_off);	\
 }									\
-static inline void							\
+static void							\
 catu_write_##name(struct catu_drvdata *drvdata, u64 val)		\
 {									\
 	coresight_write_reg_pair(drvdata->base, val, lo_off, hi_off);	\
@@ -98,7 +98,7 @@ CATU_REG32(axictrl, CATU_AXICTRL);
 CATU_REG_PAIR(sladdr, CATU_SLADDRLO, CATU_SLADDRHI)
 CATU_REG_PAIR(inaddr, CATU_INADDRLO, CATU_INADDRHI)
 
-static inline bool coresight_is_catu_device(struct coresight_device *csdev)
+static bool coresight_is_catu_device(struct coresight_device *csdev)
 {
 	if (!IS_ENABLED(CONFIG_CORESIGHT_CATU))
 		return false;

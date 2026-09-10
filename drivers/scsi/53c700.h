@@ -105,43 +105,43 @@ struct NCR_700_Device_Parameters {
 #define NCR_700_DEV_BEGIN_SYNC_NEGOTIATION	(1<<17)
 #define NCR_700_DEV_PRINT_SYNC_NEGOTIATION (1<<19)
 
-static inline char *NCR_700_get_sense_cmnd(struct scsi_device *SDp)
+static char *NCR_700_get_sense_cmnd(struct scsi_device *SDp)
 {
 	struct NCR_700_Device_Parameters *hostdata = SDp->hostdata;
 
 	return hostdata->cmnd;
 }
 
-static inline void
+static void
 NCR_700_set_depth(struct scsi_device *SDp, __u8 depth)
 {
 	struct NCR_700_Device_Parameters *hostdata = SDp->hostdata;
 
 	hostdata->depth = depth;
 }
-static inline __u8
+static __u8
 NCR_700_get_depth(struct scsi_device *SDp)
 {
 	struct NCR_700_Device_Parameters *hostdata = SDp->hostdata;
 
 	return hostdata->depth;
 }
-static inline int
+static int
 NCR_700_is_flag_set(struct scsi_device *SDp, __u32 flag)
 {
 	return (spi_flags(SDp->sdev_target) & flag) == flag;
 }
-static inline int
+static int
 NCR_700_is_flag_clear(struct scsi_device *SDp, __u32 flag)
 {
 	return (spi_flags(SDp->sdev_target) & flag) == 0;
 }
-static inline void
+static void
 NCR_700_set_flag(struct scsi_device *SDp, __u32 flag)
 {
 	spi_flags(SDp->sdev_target) |= flag;
 }
-static inline void
+static void
 NCR_700_clear_flag(struct scsi_device *SDp, __u32 flag)
 {
 	spi_flags(SDp->sdev_target) &= ~flag;
@@ -153,13 +153,13 @@ enum NCR_700_tag_neg_state {
 	NCR_700_FINISHED_TAG_NEGOTIATION = 2,
 };
 
-static inline enum NCR_700_tag_neg_state
+static enum NCR_700_tag_neg_state
 NCR_700_get_tag_neg_state(struct scsi_device *SDp)
 {
 	return (enum NCR_700_tag_neg_state)((spi_flags(SDp->sdev_target)>>20) & 0x3);
 }
 
-static inline void
+static void
 NCR_700_set_tag_neg_state(struct scsi_device *SDp,
 			  enum NCR_700_tag_neg_state state)
 {
@@ -477,7 +477,7 @@ struct NCR_700_Host_Parameters {
 }
 
 
-static inline __u8
+static __u8
 NCR_700_readb(struct Scsi_Host *host, __u32 reg)
 {
 	const struct NCR_700_Host_Parameters *hostdata
@@ -486,7 +486,7 @@ NCR_700_readb(struct Scsi_Host *host, __u32 reg)
 	return ioread8(hostdata->base + (reg^bE));
 }
 
-static inline __u32
+static __u32
 NCR_700_readl(struct Scsi_Host *host, __u32 reg)
 {
 	const struct NCR_700_Host_Parameters *hostdata
@@ -501,7 +501,7 @@ NCR_700_readl(struct Scsi_Host *host, __u32 reg)
 	return value;
 }
 
-static inline void
+static void
 NCR_700_writeb(__u8 value, struct Scsi_Host *host, __u32 reg)
 {
 	const struct NCR_700_Host_Parameters *hostdata
@@ -510,7 +510,7 @@ NCR_700_writeb(__u8 value, struct Scsi_Host *host, __u32 reg)
 	iowrite8(value, hostdata->base + (reg^bE));
 }
 
-static inline void
+static void
 NCR_700_writel(__u32 value, struct Scsi_Host *host, __u32 reg)
 {
 	const struct NCR_700_Host_Parameters *hostdata

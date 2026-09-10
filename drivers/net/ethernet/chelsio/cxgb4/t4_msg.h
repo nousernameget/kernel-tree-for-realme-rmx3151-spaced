@@ -1617,7 +1617,7 @@ struct ulptx_sc_memrd {
 #define SCMD_TLS_COMPPDU_V(x) ((x) << SCMD_TLS_COMPPDU_S)
 #define SCMD_TLS_COMPPDU_G(x) (((x) >> SCMD_TLS_COMPPDU_S) & SCMD_TLS_COMPPDU_M)
 
-/* KeyCntxtInline - Key context inline after the scmd  OR PayloadOnly*/
+/* KeyCntxtInline - Key context after the scmd  OR PayloadOnly*/
 #define SCMD_KEY_CTX_INLINE_S   17
 #define SCMD_KEY_CTX_INLINE_M   0x1
 #define SCMD_KEY_CTX_INLINE_V(x)    ((x) << SCMD_KEY_CTX_INLINE_S)

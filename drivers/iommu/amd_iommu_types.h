@@ -595,7 +595,7 @@ struct amd_iommu {
 	volatile u64 __aligned(8) cmd_sem;
 };
 
-static inline struct amd_iommu *dev_to_amd_iommu(struct device *dev)
+static struct amd_iommu *dev_to_amd_iommu(struct device *dev)
 {
 	struct iommu_device *iommu = dev_to_iommu_device(dev);
 
@@ -754,7 +754,7 @@ extern int amd_iommu_max_glx_val;
  */
 extern void iommu_flush_all_caches(struct amd_iommu *iommu);
 
-static inline int get_ioapic_devid(int id)
+static int get_ioapic_devid(int id)
 {
 	struct devid_map *entry;
 
@@ -766,7 +766,7 @@ static inline int get_ioapic_devid(int id)
 	return -EINVAL;
 }
 
-static inline int get_hpet_devid(int id)
+static int get_hpet_devid(int id)
 {
 	struct devid_map *entry;
 

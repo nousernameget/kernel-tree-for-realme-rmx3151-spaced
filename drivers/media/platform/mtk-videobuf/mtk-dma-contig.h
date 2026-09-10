@@ -41,7 +41,7 @@ struct vb2_dc_buf {
 	struct dma_buf_attachment	*db_attach;
 };
 
-static inline dma_addr_t
+static dma_addr_t
 mtk_dma_contig_plane_dma_addr(struct vb2_buffer *vb, unsigned int plane_no)
 {
 	dma_addr_t *addr = vb2_plane_cookie(vb, plane_no);

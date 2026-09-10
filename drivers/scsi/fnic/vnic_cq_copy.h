@@ -20,7 +20,7 @@
 
 #include "fcpio.h"
 
-static inline unsigned int vnic_cq_copy_service(
+static unsigned int vnic_cq_copy_service(
 	struct vnic_cq *cq,
 	int (*q_service)(struct vnic_dev *vdev,
 			 unsigned int index,

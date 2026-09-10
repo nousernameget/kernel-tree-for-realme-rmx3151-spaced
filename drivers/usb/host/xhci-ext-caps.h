@@ -103,7 +103,7 @@
  * and this provides a way to find them all.
  */
 
-static inline int xhci_find_next_ext_cap(void __iomem *base, u32 start, int id)
+static int xhci_find_next_ext_cap(void __iomem *base, u32 start, int id)
 {
 	u32 val;
 	u32 next;

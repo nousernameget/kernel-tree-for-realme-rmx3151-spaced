@@ -48,7 +48,7 @@ u32 kbase_jm_kick(struct kbase_device *kbdev, u32 js_mask);
  *
  * Return: Mask of the job slots that can still be submitted to.
  */
-static inline u32 kbase_jm_kick_all(struct kbase_device *kbdev)
+static u32 kbase_jm_kick_all(struct kbase_device *kbdev)
 {
 	return kbase_jm_kick(kbdev, (1 << kbdev->gpu_props.num_job_slots) - 1);
 }

@@ -225,7 +225,7 @@ extern void show_pte(struct mm_struct *mm, unsigned long addr);
 #ifdef CONFIG_MTK_ION
 extern void ion_sec_heap_dump_info(void);
 #else
-static inline void ion_sec_heap_dump_info(void)
+static void ion_sec_heap_dump_info(void)
 {
 	pr_info("%s is not supported\n", __func__);
 }

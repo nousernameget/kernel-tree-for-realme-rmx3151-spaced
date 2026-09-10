@@ -137,48 +137,48 @@ struct be_queue_info {
 	bool created;
 };
 
-static inline u32 MODULO(u32 val, u32 limit)
+static u32 MODULO(u32 val, u32 limit)
 {
 	BUG_ON(limit & (limit - 1));
 	return val & (limit - 1);
 }
 
-static inline void index_adv(u32 *index, u32 val, u32 limit)
+static void index_adv(u32 *index, u32 val, u32 limit)
 {
 	*index = MODULO((*index + val), limit);
 }
 
-static inline void index_inc(u32 *index, u32 limit)
+static void index_inc(u32 *index, u32 limit)
 {
 	*index = MODULO((*index + 1), limit);
 }
 
-static inline void *queue_head_node(struct be_queue_info *q)
+static void *queue_head_node(struct be_queue_info *q)
 {
 	return q->dma_mem.va + q->head * q->entry_size;
 }
 
-static inline void *queue_tail_node(struct be_queue_info *q)
+static void *queue_tail_node(struct be_queue_info *q)
 {
 	return q->dma_mem.va + q->tail * q->entry_size;
 }
 
-static inline void *queue_index_node(struct be_queue_info *q, u16 index)
+static void *queue_index_node(struct be_queue_info *q, u16 index)
 {
 	return q->dma_mem.va + index * q->entry_size;
 }
 
-static inline void queue_head_inc(struct be_queue_info *q)
+static void queue_head_inc(struct be_queue_info *q)
 {
 	index_inc(&q->head, q->len);
 }
 
-static inline void index_dec(u32 *index, u32 limit)
+static void index_dec(u32 *index, u32 limit)
 {
 	*index = MODULO((*index - 1), limit);
 }
 
-static inline void queue_tail_inc(struct be_queue_info *q)
+static void queue_tail_inc(struct be_queue_info *q)
 {
 	index_inc(&q->tail, q->len);
 }
@@ -740,7 +740,7 @@ struct be_cmd_work {
 			(min_t(u16, be_max_nic_eqs(adapter), num_online_cpus()))
 
 /* Max irqs *needed* for RX queues */
-static inline u16 be_max_rx_irqs(struct be_adapter *adapter)
+static u16 be_max_rx_irqs(struct be_adapter *adapter)
 {
 	/* If no RSS, need atleast one irq for def-RXQ */
 	u16 num = max_t(u16, be_max_rss(adapter), 1);
@@ -749,19 +749,19 @@ static inline u16 be_max_rx_irqs(struct be_adapter *adapter)
 }
 
 /* Max irqs *needed* for TX queues */
-static inline u16 be_max_tx_irqs(struct be_adapter *adapter)
+static u16 be_max_tx_irqs(struct be_adapter *adapter)
 {
 	return min_t(u16, be_max_txqs(adapter), be_max_irqs(adapter));
 }
 
 /* Max irqs *needed* for combined queues */
-static inline u16 be_max_qp_irqs(struct be_adapter *adapter)
+static u16 be_max_qp_irqs(struct be_adapter *adapter)
 {
 	return min(be_max_tx_irqs(adapter), be_max_rx_irqs(adapter));
 }
 
 /* Max irqs *needed* for RX and TX queues together */
-static inline u16 be_max_any_irqs(struct be_adapter *adapter)
+static u16 be_max_any_irqs(struct be_adapter *adapter)
 {
 	return max(be_max_tx_irqs(adapter), be_max_rx_irqs(adapter));
 }
@@ -840,12 +840,12 @@ extern const struct ethtool_ops be_ethtool_ops;
 		(((size_t)&(((_struct *)0)->field))%32)
 
 /* Returns the bit mask of the field that is NOT shifted into location. */
-static inline u32 amap_mask(u32 bitsize)
+static u32 amap_mask(u32 bitsize)
 {
 	return (bitsize == 32 ? 0xFFFFFFFF : (1 << bitsize) - 1);
 }
 
-static inline void
+static void
 amap_set(void *ptr, u32 dw_offset, u32 mask, u32 offset, u32 value)
 {
 	u32 *dw = (u32 *) ptr + dw_offset;
@@ -860,7 +860,7 @@ amap_set(void *ptr, u32 dw_offset, u32 mask, u32 offset, u32 value)
 			AMAP_BIT_OFFSET(_struct, field),		\
 			val)
 
-static inline u32 amap_get(void *ptr, u32 dw_offset, u32 mask, u32 offset)
+static u32 amap_get(void *ptr, u32 dw_offset, u32 mask, u32 offset)
 {
 	u32 *dw = (u32 *) ptr;
 	return mask & (*(dw + dw_offset) >> offset);
@@ -886,7 +886,7 @@ static inline u32 amap_get(void *ptr, u32 dw_offset, u32 mask, u32 offset)
 
 #define be_dws_cpu_to_le(wrb, len)	swap_dws(wrb, len)
 #define be_dws_le_to_cpu(wrb, len)	swap_dws(wrb, len)
-static inline void swap_dws(void *wrb, int len)
+static void swap_dws(void *wrb, int len)
 {
 #ifdef __BIG_ENDIAN
 	u32 *dw = wrb;
@@ -901,7 +901,7 @@ static inline void swap_dws(void *wrb, int len)
 
 #define be_cmd_status(status)		(status > 0 ? -EIO : status)
 
-static inline u8 is_tcp_pkt(struct sk_buff *skb)
+static u8 is_tcp_pkt(struct sk_buff *skb)
 {
 	u8 val = 0;
 
@@ -913,7 +913,7 @@ static inline u8 is_tcp_pkt(struct sk_buff *skb)
 	return val;
 }
 
-static inline u8 is_udp_pkt(struct sk_buff *skb)
+static u8 is_udp_pkt(struct sk_buff *skb)
 {
 	u8 val = 0;
 
@@ -925,12 +925,12 @@ static inline u8 is_udp_pkt(struct sk_buff *skb)
 	return val;
 }
 
-static inline bool is_ipv4_pkt(struct sk_buff *skb)
+static bool is_ipv4_pkt(struct sk_buff *skb)
 {
 	return skb->protocol == htons(ETH_P_IP) && ip_hdr(skb)->version == 4;
 }
 
-static inline bool is_ipv6_ext_hdr(struct sk_buff *skb)
+static bool is_ipv6_ext_hdr(struct sk_buff *skb)
 {
 	if (ip_hdr(skb)->version == 6)
 		return ipv6_ext_hdr(ipv6_hdr(skb)->nexthdr);
@@ -948,12 +948,12 @@ static inline bool is_ipv6_ext_hdr(struct sk_buff *skb)
 #define BE_ERROR_ANY		(BE_ERROR_EEH | BE_ERROR_UE | BE_ERROR_FW)
 #define BE_CLEAR_ALL		0xFF
 
-static inline u8 be_check_error(struct be_adapter *adapter, u32 err_type)
+static u8 be_check_error(struct be_adapter *adapter, u32 err_type)
 {
 	return (adapter->err_flags & err_type);
 }
 
-static inline void be_set_error(struct be_adapter *adapter, int err_type)
+static void be_set_error(struct be_adapter *adapter, int err_type)
 {
 	struct net_device *netdev = adapter->netdev;
 
@@ -963,12 +963,12 @@ static inline void be_set_error(struct be_adapter *adapter, int err_type)
 	dev_info(&adapter->pdev->dev, "%s: Link down\n", netdev->name);
 }
 
-static inline void  be_clear_error(struct be_adapter *adapter, int err_type)
+static void  be_clear_error(struct be_adapter *adapter, int err_type)
 {
 	adapter->err_flags &= ~err_type;
 }
 
-static inline bool be_multi_rxq(const struct be_adapter *adapter)
+static bool be_multi_rxq(const struct be_adapter *adapter)
 {
 	return adapter->num_rx_qs > 1;
 }

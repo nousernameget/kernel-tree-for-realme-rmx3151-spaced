@@ -18,7 +18,7 @@
  * Returns:
  *	Pointer to the corresponding internal device database structure
  */
-static inline struct ddb_entry *
+static struct ddb_entry *
 qla4xxx_lookup_ddb_by_fw_index(struct scsi_qla_host *ha, uint32_t fw_ddb_index)
 {
 	struct ddb_entry *ddb_entry = NULL;
@@ -35,7 +35,7 @@ qla4xxx_lookup_ddb_by_fw_index(struct scsi_qla_host *ha, uint32_t fw_ddb_index)
 	return ddb_entry;
 }
 
-static inline void
+static void
 __qla4xxx_enable_intrs(struct scsi_qla_host *ha)
 {
 	if (is_qla4022(ha) | is_qla4032(ha)) {
@@ -49,7 +49,7 @@ __qla4xxx_enable_intrs(struct scsi_qla_host *ha)
 	set_bit(AF_INTERRUPTS_ON, &ha->flags);
 }
 
-static inline void
+static void
 __qla4xxx_disable_intrs(struct scsi_qla_host *ha)
 {
 	if (is_qla4022(ha) | is_qla4032(ha)) {
@@ -63,7 +63,7 @@ __qla4xxx_disable_intrs(struct scsi_qla_host *ha)
 	clear_bit(AF_INTERRUPTS_ON, &ha->flags);
 }
 
-static inline void
+static void
 qla4xxx_enable_intrs(struct scsi_qla_host *ha)
 {
 	unsigned long flags;
@@ -73,7 +73,7 @@ qla4xxx_enable_intrs(struct scsi_qla_host *ha)
 	spin_unlock_irqrestore(&ha->hardware_lock, flags);
 }
 
-static inline void
+static void
 qla4xxx_disable_intrs(struct scsi_qla_host *ha)
 {
 	unsigned long flags;
@@ -83,7 +83,7 @@ qla4xxx_disable_intrs(struct scsi_qla_host *ha)
 	spin_unlock_irqrestore(&ha->hardware_lock, flags);
 }
 
-static inline int qla4xxx_get_chap_type(struct ql4_chap_table *chap_entry)
+static int qla4xxx_get_chap_type(struct ql4_chap_table *chap_entry)
 {
 	int type;
 

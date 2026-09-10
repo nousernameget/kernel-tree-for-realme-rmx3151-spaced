@@ -111,7 +111,7 @@ struct md_ccif_ctrl {
 	struct ccci_hif_ops *ops;
 };
 
-static inline void ccif_set_busy_queue(struct md_ccif_ctrl *md_ctrl,
+static void ccif_set_busy_queue(struct md_ccif_ctrl *md_ctrl,
 	unsigned int qno)
 {
 	if (!md_ctrl->flow_ctrl)
@@ -120,7 +120,7 @@ static inline void ccif_set_busy_queue(struct md_ccif_ctrl *md_ctrl,
 	md_ctrl->flow_ctrl->ap_busy_queue |= (0x1 << qno);
 }
 
-static inline void ccif_clear_busy_queue(struct md_ccif_ctrl *md_ctrl,
+static void ccif_clear_busy_queue(struct md_ccif_ctrl *md_ctrl,
 	unsigned int qno)
 {
 	if (!md_ctrl->flow_ctrl)
@@ -129,7 +129,7 @@ static inline void ccif_clear_busy_queue(struct md_ccif_ctrl *md_ctrl,
 	md_ctrl->flow_ctrl->ap_busy_queue &= ~(0x1 << qno);
 }
 
-static inline void ccif_reset_busy_queue(struct md_ccif_ctrl *md_ctrl)
+static void ccif_reset_busy_queue(struct md_ccif_ctrl *md_ctrl)
 {
 #ifdef	FLOW_CTRL_ENABLE
 	if (!md_ctrl->flow_ctrl)
@@ -144,7 +144,7 @@ static inline void ccif_reset_busy_queue(struct md_ccif_ctrl *md_ctrl)
 #endif
 }
 
-static inline int ccif_is_md_queue_busy(struct md_ccif_ctrl *md_ctrl,
+static int ccif_is_md_queue_busy(struct md_ccif_ctrl *md_ctrl,
 	unsigned int qno)
 {
 	/*caller should handle error*/
@@ -157,7 +157,7 @@ static inline int ccif_is_md_queue_busy(struct md_ccif_ctrl *md_ctrl,
 	return (md_ctrl->flow_ctrl->md_busy_queue & (0x1 << qno));
 }
 
-static inline int ccif_is_md_flow_ctrl_supported(struct md_ccif_ctrl *md_ctrl)
+static int ccif_is_md_flow_ctrl_supported(struct md_ccif_ctrl *md_ctrl)
 {
 	if (!md_ctrl->flow_ctrl)
 		return -1;
@@ -169,7 +169,7 @@ static inline int ccif_is_md_flow_ctrl_supported(struct md_ccif_ctrl *md_ctrl)
 		return 0;
 }
 
-static inline void ccif_wake_up_tx_queue(struct md_ccif_ctrl *md_ctrl,
+static void ccif_wake_up_tx_queue(struct md_ccif_ctrl *md_ctrl,
 	unsigned int qno)
 {
 	struct md_ccif_queue *queue = &md_ctrl->txq[qno];
@@ -181,7 +181,7 @@ static inline void ccif_wake_up_tx_queue(struct md_ccif_ctrl *md_ctrl,
 
 int ccci_ccif_hif_init(unsigned char hif_id, unsigned char md_id);
 
-static inline int ccci_ccif_hif_send_skb(unsigned char hif_id, int tx_qno,
+static int ccci_ccif_hif_send_skb(unsigned char hif_id, int tx_qno,
 	struct sk_buff *skb, int from_pool, int blocking)
 {
 	struct md_ccif_ctrl *md_ctrl =
@@ -193,7 +193,7 @@ static inline int ccci_ccif_hif_send_skb(unsigned char hif_id, int tx_qno,
 	else
 		return -1;
 }
-static inline int ccci_ccif_hif_write_room(unsigned char hif_id,
+static int ccci_ccif_hif_write_room(unsigned char hif_id,
 	unsigned char qno)
 {
 	struct md_ccif_ctrl *md_ctrl =
@@ -205,7 +205,7 @@ static inline int ccci_ccif_hif_write_room(unsigned char hif_id,
 		return -1;
 
 }
-static inline int ccci_ccif_hif_give_more(unsigned char hif_id, int rx_qno)
+static int ccci_ccif_hif_give_more(unsigned char hif_id, int rx_qno)
 {
 	struct md_ccif_ctrl *md_ctrl =
 		(struct md_ccif_ctrl *)ccci_hif_get_by_id(hif_id);
@@ -215,7 +215,7 @@ static inline int ccci_ccif_hif_give_more(unsigned char hif_id, int rx_qno)
 	else
 		return -1;
 }
-static inline int ccci_ccif_hif_dump_status(unsigned int hif_id,
+static int ccci_ccif_hif_dump_status(unsigned int hif_id,
 	enum MODEM_DUMP_FLAG dump_flag, int length)
 {
 	struct md_ccif_ctrl *md_ctrl =
@@ -229,7 +229,7 @@ static inline int ccci_ccif_hif_dump_status(unsigned int hif_id,
 
 }
 
-static inline int ccci_ccif_hif_set_wakeup_src(unsigned char hif_id, int value)
+static int ccci_ccif_hif_set_wakeup_src(unsigned char hif_id, int value)
 {
 	struct md_ccif_ctrl *md_ctrl =
 		(struct md_ccif_ctrl *)ccci_hif_get_by_id(hif_id);

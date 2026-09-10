@@ -30,7 +30,7 @@
  */
 
 /* Non byteswapping memory mapped IO */
-static inline u32 cx18_raw_readl(struct cx18 *cx, const void __iomem *addr)
+static u32 cx18_raw_readl(struct cx18 *cx, const void __iomem *addr)
 {
 	return __raw_readl(addr);
 }
@@ -41,7 +41,7 @@ void cx18_raw_writel_noretry(struct cx18 *cx, u32 val, void __iomem *addr)
 	__raw_writel(val, addr);
 }
 
-static inline void cx18_raw_writel(struct cx18 *cx, u32 val, void __iomem *addr)
+static void cx18_raw_writel(struct cx18 *cx, u32 val, void __iomem *addr)
 {
 	int i;
 	for (i = 0; i < CX18_MAX_MMIO_WR_RETRIES; i++) {
@@ -52,7 +52,7 @@ static inline void cx18_raw_writel(struct cx18 *cx, u32 val, void __iomem *addr)
 }
 
 /* Normal memory mapped IO */
-static inline u32 cx18_readl(struct cx18 *cx, const void __iomem *addr)
+static u32 cx18_readl(struct cx18 *cx, const void __iomem *addr)
 {
 	return readl(addr);
 }
@@ -63,7 +63,7 @@ void cx18_writel_noretry(struct cx18 *cx, u32 val, void __iomem *addr)
 	writel(val, addr);
 }
 
-static inline void cx18_writel(struct cx18 *cx, u32 val, void __iomem *addr)
+static void cx18_writel(struct cx18 *cx, u32 val, void __iomem *addr)
 {
 	int i;
 	for (i = 0; i < CX18_MAX_MMIO_WR_RETRIES; i++) {
@@ -90,7 +90,7 @@ void cx18_writel_expect(struct cx18 *cx, u32 val, void __iomem *addr,
 	}
 }
 
-static inline u16 cx18_readw(struct cx18 *cx, const void __iomem *addr)
+static u16 cx18_readw(struct cx18 *cx, const void __iomem *addr)
 {
 	return readw(addr);
 }
@@ -101,7 +101,7 @@ void cx18_writew_noretry(struct cx18 *cx, u16 val, void __iomem *addr)
 	writew(val, addr);
 }
 
-static inline void cx18_writew(struct cx18 *cx, u16 val, void __iomem *addr)
+static void cx18_writew(struct cx18 *cx, u16 val, void __iomem *addr)
 {
 	int i;
 	for (i = 0; i < CX18_MAX_MMIO_WR_RETRIES; i++) {
@@ -111,7 +111,7 @@ static inline void cx18_writew(struct cx18 *cx, u16 val, void __iomem *addr)
 	}
 }
 
-static inline u8 cx18_readb(struct cx18 *cx, const void __iomem *addr)
+static u8 cx18_readb(struct cx18 *cx, const void __iomem *addr)
 {
 	return readb(addr);
 }
@@ -122,7 +122,7 @@ void cx18_writeb_noretry(struct cx18 *cx, u8 val, void __iomem *addr)
 	writeb(val, addr);
 }
 
-static inline void cx18_writeb(struct cx18 *cx, u8 val, void __iomem *addr)
+static void cx18_writeb(struct cx18 *cx, u8 val, void __iomem *addr)
 {
 	int i;
 	for (i = 0; i < CX18_MAX_MMIO_WR_RETRIES; i++) {
@@ -143,35 +143,35 @@ void cx18_memset_io(struct cx18 *cx, void __iomem *addr, int val, size_t count);
 
 
 /* Access "register" region of CX23418 memory mapped I/O */
-static inline void cx18_write_reg_noretry(struct cx18 *cx, u32 val, u32 reg)
+static void cx18_write_reg_noretry(struct cx18 *cx, u32 val, u32 reg)
 {
 	cx18_writel_noretry(cx, val, cx->reg_mem + reg);
 }
 
-static inline void cx18_write_reg(struct cx18 *cx, u32 val, u32 reg)
+static void cx18_write_reg(struct cx18 *cx, u32 val, u32 reg)
 {
 	cx18_writel(cx, val, cx->reg_mem + reg);
 }
 
-static inline void cx18_write_reg_expect(struct cx18 *cx, u32 val, u32 reg,
+static void cx18_write_reg_expect(struct cx18 *cx, u32 val, u32 reg,
 					 u32 eval, u32 mask)
 {
 	cx18_writel_expect(cx, val, cx->reg_mem + reg, eval, mask);
 }
 
-static inline u32 cx18_read_reg(struct cx18 *cx, u32 reg)
+static u32 cx18_read_reg(struct cx18 *cx, u32 reg)
 {
 	return cx18_readl(cx, cx->reg_mem + reg);
 }
 
 
 /* Access "encoder memory" region of CX23418 memory mapped I/O */
-static inline void cx18_write_enc(struct cx18 *cx, u32 val, u32 addr)
+static void cx18_write_enc(struct cx18 *cx, u32 val, u32 addr)
 {
 	cx18_writel(cx, val, cx->enc_mem + addr);
 }
 
-static inline u32 cx18_read_enc(struct cx18 *cx, u32 addr)
+static u32 cx18_read_enc(struct cx18 *cx, u32 addr)
 {
 	return cx18_readl(cx, cx->enc_mem + addr);
 }

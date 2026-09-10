@@ -128,7 +128,7 @@ struct imu_pgd_t {
 
 extern int gM4U_4G_DRAM_Mode;
 
-static inline struct imu_pte_t *imu_pte_map(struct imu_pgd_t *pgd)
+static struct imu_pte_t *imu_pte_map(struct imu_pgd_t *pgd)
 {
 	unsigned int pte_pa = imu_pgd_val(*pgd);
 
@@ -150,12 +150,12 @@ static inline struct imu_pte_t *imu_pte_map(struct imu_pgd_t *pgd)
 	}
 }
 
-static inline int imu_pte_unmap(struct imu_pte_t *pte)
+static int imu_pte_unmap(struct imu_pte_t *pte)
 {
 	return 0;
 }
 
-static inline unsigned int imu_pgd_entry_pa(struct imu_pgd_t pgd)
+static unsigned int imu_pgd_entry_pa(struct imu_pgd_t pgd)
 {
 	if (F_PGD_TYPE_IS_PAGE(pgd))
 		return imu_pgd_val(pgd) & F_PGD_PA_PAGETABLE_MSK;
@@ -167,19 +167,19 @@ static inline unsigned int imu_pgd_entry_pa(struct imu_pgd_t pgd)
 		return 0;
 }
 
-static inline struct imu_pgd_t *imu_supersection_start(
+static struct imu_pgd_t *imu_supersection_start(
 		struct imu_pgd_t *pgd)
 {
 	return (struct imu_pgd_t *) (
 			round_down((unsigned long)pgd, (16 * 4)));
 }
-static inline struct imu_pte_t *imu_largepage_start(
+static struct imu_pte_t *imu_largepage_start(
 		struct imu_pte_t *pte)
 {
 	return (struct imu_pte_t *) (round_down((unsigned long)pte, (16 * 4)));
 }
 
-static inline unsigned long long m4u_calc_next_mva(
+static unsigned long long m4u_calc_next_mva(
 		unsigned long long addr, unsigned long long end,
 		unsigned int size)
 {

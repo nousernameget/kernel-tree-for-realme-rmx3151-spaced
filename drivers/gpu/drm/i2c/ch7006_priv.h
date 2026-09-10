@@ -155,12 +155,12 @@ void ch7006_state_save(struct i2c_client *client,
 		((x & __mask(src, bitfield)) >> (0 ? bitfield) << (src))
 #define unbitf(bitfield, x) __unbitf(bitfield, x)
 
-static inline int interpolate(int y0, int y1, int y2, int x)
+static int interpolate(int y0, int y1, int y2, int x)
 {
 	return y1 + (x < 50 ? y1 - y0 : y2 - y1) * (x - 50) / 50;
 }
 
-static inline int32_t round_fixed(fixed x)
+static int32_t round_fixed(fixed x)
 {
 	return (x + fixed1/2) >> 32;
 }

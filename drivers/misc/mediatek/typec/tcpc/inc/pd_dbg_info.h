@@ -23,7 +23,7 @@ extern int pd_dbg_info(const char *fmt, ...);
 extern void pd_dbg_info_lock(void);
 extern void pd_dbg_info_unlock(void);
 #else
-static inline int pd_dbg_info(const char *fmt, ...)
+static int pd_dbg_info(const char *fmt, ...)
 {
 	return 0;
 }

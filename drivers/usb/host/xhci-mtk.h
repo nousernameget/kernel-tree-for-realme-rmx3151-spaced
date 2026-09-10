@@ -136,7 +136,7 @@ struct xhci_hcd_mtk {
 	int last_speed;
 };
 
-static inline struct xhci_hcd_mtk *hcd_to_mtk(struct usb_hcd *hcd)
+static struct xhci_hcd_mtk *hcd_to_mtk(struct usb_hcd *hcd)
 {
 	return dev_get_drvdata(hcd->self.controller);
 }
@@ -155,18 +155,18 @@ void xhci_mtk_set_port_mode(struct usb_hcd *hcd, __le32 __iomem **port_array,
 				int port_id);
 
 #else
-static inline int xhci_mtk_add_ep_quirk(struct usb_hcd *hcd,
+static int xhci_mtk_add_ep_quirk(struct usb_hcd *hcd,
 	struct usb_device *udev, struct usb_host_endpoint *ep)
 {
 	return 0;
 }
 
-static inline void xhci_mtk_drop_ep_quirk(struct usb_hcd *hcd,
+static void xhci_mtk_drop_ep_quirk(struct usb_hcd *hcd,
 	struct usb_device *udev, struct usb_host_endpoint *ep)
 {
 }
 
-static inline void xhci_mtk_set_port_mode(struct usb_hcd *hcd,
+static void xhci_mtk_set_port_mode(struct usb_hcd *hcd,
 	__le32 __iomem **port_array, int port_id)
 {
 }

@@ -198,7 +198,7 @@ void abx500_pinctrl_ab8500_init(struct abx500_pinctrl_soc_data **soc);
 
 #else
 
-static inline void
+static void
 abx500_pinctrl_ab8500_init(struct abx500_pinctrl_soc_data **soc)
 {
 }
@@ -211,7 +211,7 @@ void abx500_pinctrl_ab8540_init(struct abx500_pinctrl_soc_data **soc);
 
 #else
 
-static inline void
+static void
 abx500_pinctrl_ab8540_init(struct abx500_pinctrl_soc_data **soc)
 {
 }
@@ -224,7 +224,7 @@ void abx500_pinctrl_ab9540_init(struct abx500_pinctrl_soc_data **soc);
 
 #else
 
-static inline void
+static void
 abx500_pinctrl_ab9540_init(struct abx500_pinctrl_soc_data **soc)
 {
 }
@@ -237,7 +237,7 @@ void abx500_pinctrl_ab8505_init(struct abx500_pinctrl_soc_data **soc);
 
 #else
 
-static inline void
+static void
 abx500_pinctrl_ab8505_init(struct abx500_pinctrl_soc_data **soc)
 {
 }

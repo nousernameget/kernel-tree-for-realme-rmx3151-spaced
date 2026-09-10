@@ -974,19 +974,19 @@ struct b43_wl {
 	u8 pio_tailspace[4] __attribute__((__aligned__(8)));
 };
 
-static inline struct b43_wl *hw_to_b43_wl(struct ieee80211_hw *hw)
+static struct b43_wl *hw_to_b43_wl(struct ieee80211_hw *hw)
 {
 	return hw->priv;
 }
 
-static inline struct b43_wldev *dev_to_b43_wldev(struct device *dev)
+static struct b43_wldev *dev_to_b43_wldev(struct device *dev)
 {
 	struct ssb_device *ssb_dev = dev_to_ssb_dev(dev);
 	return ssb_get_drvdata(ssb_dev);
 }
 
 /* Is the device operating in a specified mode (NL80211_IFTYPE_XXX). */
-static inline int b43_is_mode(struct b43_wl *wl, int type)
+static int b43_is_mode(struct b43_wl *wl, int type)
 {
 	return (wl->operating && wl->if_type == type);
 }
@@ -995,46 +995,46 @@ static inline int b43_is_mode(struct b43_wl *wl, int type)
  * b43_current_band - Returns the currently used band.
  * Returns one of NL80211_BAND_2GHZ and NL80211_BAND_5GHZ.
  */
-static inline enum nl80211_band b43_current_band(struct b43_wl *wl)
+static enum nl80211_band b43_current_band(struct b43_wl *wl)
 {
 	return wl->hw->conf.chandef.chan->band;
 }
 
-static inline int b43_bus_may_powerdown(struct b43_wldev *wldev)
+static int b43_bus_may_powerdown(struct b43_wldev *wldev)
 {
 	return wldev->dev->bus_may_powerdown(wldev->dev);
 }
-static inline int b43_bus_powerup(struct b43_wldev *wldev, bool dynamic_pctl)
+static int b43_bus_powerup(struct b43_wldev *wldev, bool dynamic_pctl)
 {
 	return wldev->dev->bus_powerup(wldev->dev, dynamic_pctl);
 }
-static inline int b43_device_is_enabled(struct b43_wldev *wldev)
+static int b43_device_is_enabled(struct b43_wldev *wldev)
 {
 	return wldev->dev->device_is_enabled(wldev->dev);
 }
-static inline void b43_device_enable(struct b43_wldev *wldev,
+static void b43_device_enable(struct b43_wldev *wldev,
 				     u32 core_specific_flags)
 {
 	wldev->dev->device_enable(wldev->dev, core_specific_flags);
 }
-static inline void b43_device_disable(struct b43_wldev *wldev,
+static void b43_device_disable(struct b43_wldev *wldev,
 				      u32 core_specific_flags)
 {
 	wldev->dev->device_disable(wldev->dev, core_specific_flags);
 }
 
-static inline u16 b43_read16(struct b43_wldev *dev, u16 offset)
+static u16 b43_read16(struct b43_wldev *dev, u16 offset)
 {
 	return dev->dev->read16(dev->dev, offset);
 }
 
-static inline void b43_write16(struct b43_wldev *dev, u16 offset, u16 value)
+static void b43_write16(struct b43_wldev *dev, u16 offset, u16 value)
 {
 	dev->dev->write16(dev->dev, offset, value);
 }
 
 /* To optimize this check for flush_writes on BCM47XX_BCMA only. */
-static inline void b43_write16f(struct b43_wldev *dev, u16 offset, u16 value)
+static void b43_write16f(struct b43_wldev *dev, u16 offset, u16 value)
 {
 	b43_write16(dev, offset, value);
 #if defined(CONFIG_BCM47XX_BCMA)
@@ -1043,41 +1043,41 @@ static inline void b43_write16f(struct b43_wldev *dev, u16 offset, u16 value)
 #endif
 }
 
-static inline void b43_maskset16(struct b43_wldev *dev, u16 offset, u16 mask,
+static void b43_maskset16(struct b43_wldev *dev, u16 offset, u16 mask,
 				 u16 set)
 {
 	b43_write16(dev, offset, (b43_read16(dev, offset) & mask) | set);
 }
 
-static inline u32 b43_read32(struct b43_wldev *dev, u16 offset)
+static u32 b43_read32(struct b43_wldev *dev, u16 offset)
 {
 	return dev->dev->read32(dev->dev, offset);
 }
 
-static inline void b43_write32(struct b43_wldev *dev, u16 offset, u32 value)
+static void b43_write32(struct b43_wldev *dev, u16 offset, u32 value)
 {
 	dev->dev->write32(dev->dev, offset, value);
 }
 
-static inline void b43_maskset32(struct b43_wldev *dev, u16 offset, u32 mask,
+static void b43_maskset32(struct b43_wldev *dev, u16 offset, u32 mask,
 				 u32 set)
 {
 	b43_write32(dev, offset, (b43_read32(dev, offset) & mask) | set);
 }
 
-static inline void b43_block_read(struct b43_wldev *dev, void *buffer,
+static void b43_block_read(struct b43_wldev *dev, void *buffer,
 				 size_t count, u16 offset, u8 reg_width)
 {
 	dev->dev->block_read(dev->dev, buffer, count, offset, reg_width);
 }
 
-static inline void b43_block_write(struct b43_wldev *dev, const void *buffer,
+static void b43_block_write(struct b43_wldev *dev, const void *buffer,
 				   size_t count, u16 offset, u8 reg_width)
 {
 	dev->dev->block_write(dev->dev, buffer, count, offset, reg_width);
 }
 
-static inline bool b43_using_pio_transfers(struct b43_wldev *dev)
+static bool b43_using_pio_transfers(struct b43_wldev *dev)
 {
 	return dev->__using_pio_transfers;
 }

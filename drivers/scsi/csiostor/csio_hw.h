@@ -517,14 +517,14 @@ struct csio_hw {
 void csio_set_reg_field(struct csio_hw *, uint32_t, uint32_t, uint32_t);
 
 /* Core clocks <==> uSecs */
-static inline uint32_t
+static uint32_t
 csio_core_ticks_to_us(struct csio_hw *hw, uint32_t ticks)
 {
 	/* add Core Clock / 2 to round ticks to nearest uS */
 	return (ticks * 1000 + hw->vpd.cclk/2) / hw->vpd.cclk;
 }
 
-static inline uint32_t
+static uint32_t
 csio_us_to_core_ticks(struct csio_hw *hw, uint32_t us)
 {
 	return (us * hw->vpd.cclk) / 1000;

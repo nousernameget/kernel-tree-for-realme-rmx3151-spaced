@@ -47,7 +47,7 @@ struct iwch_pd {
 	struct iwch_dev *rhp;
 };
 
-static inline struct iwch_pd *to_iwch_pd(struct ib_pd *ibpd)
+static struct iwch_pd *to_iwch_pd(struct ib_pd *ibpd)
 {
 	return container_of(ibpd, struct iwch_pd, ibpd);
 }
@@ -83,7 +83,7 @@ struct iwch_mr {
 
 typedef struct iwch_mw iwch_mw_handle;
 
-static inline struct iwch_mr *to_iwch_mr(struct ib_mr *ibmr)
+static struct iwch_mr *to_iwch_mr(struct ib_mr *ibmr)
 {
 	return container_of(ibmr, struct iwch_mr, ibmr);
 }
@@ -95,7 +95,7 @@ struct iwch_mw {
 	struct tpt_attributes attr;
 };
 
-static inline struct iwch_mw *to_iwch_mw(struct ib_mw *ibmw)
+static struct iwch_mw *to_iwch_mw(struct ib_mw *ibmw)
 {
 	return container_of(ibmw, struct iwch_mw, ibmw);
 }
@@ -111,7 +111,7 @@ struct iwch_cq {
 	u32 __user *user_rptr_addr;
 };
 
-static inline struct iwch_cq *to_iwch_cq(struct ib_cq *ibcq)
+static struct iwch_cq *to_iwch_cq(struct ib_cq *ibcq)
 {
 	return container_of(ibcq, struct iwch_cq, ibcq);
 }
@@ -171,12 +171,12 @@ struct iwch_qp {
 	struct timer_list timer;
 };
 
-static inline int qp_quiesced(struct iwch_qp *qhp)
+static int qp_quiesced(struct iwch_qp *qhp)
 {
 	return qhp->flags & QP_QUIESCED;
 }
 
-static inline struct iwch_qp *to_iwch_qp(struct ib_qp *ibqp)
+static struct iwch_qp *to_iwch_qp(struct ib_qp *ibqp)
 {
 	return container_of(ibqp, struct iwch_qp, ibqp);
 }
@@ -192,7 +192,7 @@ struct iwch_ucontext {
 	struct list_head mmaps;
 };
 
-static inline struct iwch_ucontext *to_iwch_ucontext(struct ib_ucontext *c)
+static struct iwch_ucontext *to_iwch_ucontext(struct ib_ucontext *c)
 {
 	return container_of(c, struct iwch_ucontext, ibucontext);
 }
@@ -204,7 +204,7 @@ struct iwch_mm_entry {
 	unsigned len;
 };
 
-static inline struct iwch_mm_entry *remove_mmap(struct iwch_ucontext *ucontext,
+static struct iwch_mm_entry *remove_mmap(struct iwch_ucontext *ucontext,
 						u32 key, unsigned len)
 {
 	struct list_head *pos, *nxt;
@@ -227,7 +227,7 @@ static inline struct iwch_mm_entry *remove_mmap(struct iwch_ucontext *ucontext,
 	return NULL;
 }
 
-static inline void insert_mmap(struct iwch_ucontext *ucontext,
+static void insert_mmap(struct iwch_ucontext *ucontext,
 			       struct iwch_mm_entry *mm)
 {
 	spin_lock(&ucontext->mmap_lock);
@@ -273,7 +273,7 @@ enum iwch_qp_state {
 	IWCH_QP_STATE_TOT
 };
 
-static inline int iwch_convert_state(enum ib_qp_state ib_state)
+static int iwch_convert_state(enum ib_qp_state ib_state)
 {
 	switch (ib_state) {
 	case IB_QPS_RESET:
@@ -292,7 +292,7 @@ static inline int iwch_convert_state(enum ib_qp_state ib_state)
 	}
 }
 
-static inline u32 iwch_ib_to_tpt_access(int acc)
+static u32 iwch_ib_to_tpt_access(int acc)
 {
 	return (acc & IB_ACCESS_REMOTE_WRITE ? TPT_REMOTE_WRITE : 0) |
 	       (acc & IB_ACCESS_REMOTE_READ ? TPT_REMOTE_READ : 0) |
@@ -301,7 +301,7 @@ static inline u32 iwch_ib_to_tpt_access(int acc)
 	       TPT_LOCAL_READ;
 }
 
-static inline u32 iwch_ib_to_tpt_bind_access(int acc)
+static u32 iwch_ib_to_tpt_bind_access(int acc)
 {
 	return (acc & IB_ACCESS_REMOTE_WRITE ? TPT_REMOTE_WRITE : 0) |
 	       (acc & IB_ACCESS_REMOTE_READ ? TPT_REMOTE_READ : 0);

@@ -300,13 +300,13 @@ struct atmel_hlcdc_plane {
 	struct atmel_hlcdc_plane_properties *properties;
 };
 
-static inline struct atmel_hlcdc_plane *
+static struct atmel_hlcdc_plane *
 drm_plane_to_atmel_hlcdc_plane(struct drm_plane *p)
 {
 	return container_of(p, struct atmel_hlcdc_plane, base);
 }
 
-static inline struct atmel_hlcdc_plane *
+static struct atmel_hlcdc_plane *
 atmel_hlcdc_layer_to_plane(struct atmel_hlcdc_layer *layer)
 {
 	return container_of(layer, struct atmel_hlcdc_plane, layer);
@@ -390,13 +390,13 @@ struct atmel_hlcdc_dc {
 extern struct atmel_hlcdc_formats atmel_hlcdc_plane_rgb_formats;
 extern struct atmel_hlcdc_formats atmel_hlcdc_plane_rgb_and_yuv_formats;
 
-static inline void atmel_hlcdc_layer_write_reg(struct atmel_hlcdc_layer *layer,
+static void atmel_hlcdc_layer_write_reg(struct atmel_hlcdc_layer *layer,
 					       unsigned int reg, u32 val)
 {
 	regmap_write(layer->regmap, layer->desc->regs_offset + reg, val);
 }
 
-static inline u32 atmel_hlcdc_layer_read_reg(struct atmel_hlcdc_layer *layer,
+static u32 atmel_hlcdc_layer_read_reg(struct atmel_hlcdc_layer *layer,
 					     unsigned int reg)
 {
 	u32 val;
@@ -406,7 +406,7 @@ static inline u32 atmel_hlcdc_layer_read_reg(struct atmel_hlcdc_layer *layer,
 	return val;
 }
 
-static inline void atmel_hlcdc_layer_write_cfg(struct atmel_hlcdc_layer *layer,
+static void atmel_hlcdc_layer_write_cfg(struct atmel_hlcdc_layer *layer,
 					       unsigned int cfgid, u32 val)
 {
 	atmel_hlcdc_layer_write_reg(layer,
@@ -414,7 +414,7 @@ static inline void atmel_hlcdc_layer_write_cfg(struct atmel_hlcdc_layer *layer,
 				    (cfgid * sizeof(u32)), val);
 }
 
-static inline u32 atmel_hlcdc_layer_read_cfg(struct atmel_hlcdc_layer *layer,
+static u32 atmel_hlcdc_layer_read_cfg(struct atmel_hlcdc_layer *layer,
 					     unsigned int cfgid)
 {
 	return atmel_hlcdc_layer_read_reg(layer,
@@ -422,7 +422,7 @@ static inline u32 atmel_hlcdc_layer_read_cfg(struct atmel_hlcdc_layer *layer,
 					  (cfgid * sizeof(u32)));
 }
 
-static inline void atmel_hlcdc_layer_write_clut(struct atmel_hlcdc_layer *layer,
+static void atmel_hlcdc_layer_write_clut(struct atmel_hlcdc_layer *layer,
 						unsigned int c, u32 val)
 {
 	regmap_write(layer->regmap,
@@ -430,7 +430,7 @@ static inline void atmel_hlcdc_layer_write_clut(struct atmel_hlcdc_layer *layer,
 		     val);
 }
 
-static inline void atmel_hlcdc_layer_init(struct atmel_hlcdc_layer *layer,
+static void atmel_hlcdc_layer_init(struct atmel_hlcdc_layer *layer,
 				const struct atmel_hlcdc_layer_desc *desc,
 				struct regmap *regmap)
 {

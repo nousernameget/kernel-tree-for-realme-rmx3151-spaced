@@ -159,7 +159,7 @@ void kbase_sync_fence_out_remove(struct kbase_jd_atom *katom);
  * kbase_sync_fence_close_fd() - Close a file descriptor representing a fence
  * @fd: File descriptor to close
  */
-static inline void kbase_sync_fence_close_fd(int fd)
+static void kbase_sync_fence_close_fd(int fd)
 {
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 17, 0)
 	ksys_close(fd);

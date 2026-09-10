@@ -187,11 +187,11 @@ struct fotg210_hcd {			/* one per controller */
 };
 
 /* convert between an HCD pointer and the corresponding FOTG210_HCD */
-static inline struct fotg210_hcd *hcd_to_fotg210(struct usb_hcd *hcd)
+static struct fotg210_hcd *hcd_to_fotg210(struct usb_hcd *hcd)
 {
 	return (struct fotg210_hcd *)(hcd->hcd_priv);
 }
-static inline struct usb_hcd *fotg210_to_hcd(struct fotg210_hcd *fotg210)
+static struct usb_hcd *fotg210_to_hcd(struct fotg210_hcd *fotg210)
 {
 	return container_of((void *) fotg210, struct usb_hcd, hcd_priv);
 }
@@ -602,11 +602,11 @@ struct fotg210_fstn {
 /*
  * Some EHCI controllers have a Transaction Translator built into the
  * root hub. This is a non-standard feature.  Each controller will need
- * to add code to the following inline functions, and call them as
+ * to add code to the following functions, and call them as
  * needed (mostly in root hub code).
  */
 
-static inline unsigned int
+static unsigned int
 fotg210_get_speed(struct fotg210_hcd *fotg210, unsigned int portsc)
 {
 	return (readl(&fotg210->regs->otgcsr)
@@ -614,7 +614,7 @@ fotg210_get_speed(struct fotg210_hcd *fotg210, unsigned int portsc)
 }
 
 /* Returns the speed of a device attached to a port on the root hub. */
-static inline unsigned int
+static unsigned int
 fotg210_port_speed(struct fotg210_hcd *fotg210, unsigned int portsc)
 {
 	switch (fotg210_get_speed(fotg210, portsc)) {
@@ -646,31 +646,31 @@ fotg210_port_speed(struct fotg210_hcd *fotg210, unsigned int portsc)
 #define fotg210_big_endian_mmio(e)	0
 #define fotg210_big_endian_capbase(e)	0
 
-static inline unsigned int fotg210_readl(const struct fotg210_hcd *fotg210,
+static unsigned int fotg210_readl(const struct fotg210_hcd *fotg210,
 		__u32 __iomem *regs)
 {
 	return readl(regs);
 }
 
-static inline void fotg210_writel(const struct fotg210_hcd *fotg210,
+static void fotg210_writel(const struct fotg210_hcd *fotg210,
 		const unsigned int val, __u32 __iomem *regs)
 {
 	writel(val, regs);
 }
 
 /* cpu to fotg210 */
-static inline __hc32 cpu_to_hc32(const struct fotg210_hcd *fotg210, const u32 x)
+static __hc32 cpu_to_hc32(const struct fotg210_hcd *fotg210, const u32 x)
 {
 	return cpu_to_le32(x);
 }
 
 /* fotg210 to cpu */
-static inline u32 hc32_to_cpu(const struct fotg210_hcd *fotg210, const __hc32 x)
+static u32 hc32_to_cpu(const struct fotg210_hcd *fotg210, const __hc32 x)
 {
 	return le32_to_cpu(x);
 }
 
-static inline u32 hc32_to_cpup(const struct fotg210_hcd *fotg210,
+static u32 hc32_to_cpup(const struct fotg210_hcd *fotg210,
 			       const __hc32 *x)
 {
 	return le32_to_cpup(x);
@@ -678,7 +678,7 @@ static inline u32 hc32_to_cpup(const struct fotg210_hcd *fotg210,
 
 /*-------------------------------------------------------------------------*/
 
-static inline unsigned fotg210_read_frame_index(struct fotg210_hcd *fotg210)
+static unsigned fotg210_read_frame_index(struct fotg210_hcd *fotg210)
 {
 	return fotg210_readl(fotg210, &fotg210->regs->frame_index);
 }

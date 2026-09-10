@@ -59,13 +59,13 @@ struct via_clock {
 };
 
 
-static inline u32 get_pll_internal_frequency(u32 ref_freq,
+static u32 get_pll_internal_frequency(u32 ref_freq,
 	struct via_pll_config pll)
 {
 	return ref_freq / pll.divisor * pll.multiplier;
 }
 
-static inline u32 get_pll_output_frequency(u32 ref_freq,
+static u32 get_pll_output_frequency(u32 ref_freq,
 	struct via_pll_config pll)
 {
 	return get_pll_internal_frequency(ref_freq, pll) >> pll.rshift;

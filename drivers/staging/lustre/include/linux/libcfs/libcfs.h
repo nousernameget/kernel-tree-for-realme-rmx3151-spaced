@@ -103,7 +103,7 @@ int libcfs_ioctl_data_adjust(struct libcfs_ioctl_data *data);
 int libcfs_ioctl(unsigned long cmd, void __user *arg);
 
 /* container_of depends on "likely" which is defined in libcfs_private.h */
-static inline void *__container_of(void *ptr, unsigned long shift)
+static void *__container_of(void *ptr, unsigned long shift)
 {
 	if (IS_ERR_OR_NULL(ptr))
 		return ptr;

@@ -312,7 +312,7 @@ struct fnic {
 	____cacheline_aligned struct vnic_intr intr[FNIC_MSIX_INTR_MAX];
 };
 
-static inline struct fnic *fnic_from_ctlr(struct fcoe_ctlr *fip)
+static struct fnic *fnic_from_ctlr(struct fcoe_ctlr *fip)
 {
 	return container_of(fip, struct fnic, ctlr);
 }
@@ -369,7 +369,7 @@ void fnic_fcoe_reset_vlans(struct fnic *fnic);
 void fnic_fcoe_evlist_free(struct fnic *fnic);
 extern void fnic_handle_fip_timer(struct fnic *fnic);
 
-static inline int
+static int
 fnic_chk_state_flags_locked(struct fnic *fnic, unsigned long st_flags)
 {
 	return ((fnic->state_flags & st_flags) == st_flags);

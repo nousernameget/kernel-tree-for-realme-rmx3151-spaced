@@ -22,7 +22,7 @@ struct tee_shm;
 struct tee_shm_io;
 struct tee;
 
-static inline int shm_test_nonsecure(uint32_t flags)
+static int shm_test_nonsecure(uint32_t flags)
 {
 	return flags & TEEC_MEM_NONSECURE;
 }

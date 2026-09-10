@@ -34,13 +34,13 @@ struct ls_ucode_img;
 #define LSF_FLAG_DMACTL_REQ_CTX		4
 #define LSF_FLAG_FORCE_PRIV_LOAD	8
 
-static inline u32
+static u32
 hsf_load_header_app_off(const struct hsf_load_header *hdr, u32 app)
 {
 	return hdr->apps[app];
 }
 
-static inline u32
+static u32
 hsf_load_header_app_size(const struct hsf_load_header *hdr, u32 app)
 {
 	return hdr->apps[hdr->num_apps + app];

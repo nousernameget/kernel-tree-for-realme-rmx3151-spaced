@@ -44,20 +44,20 @@
 #define NV10_PFB_REFCTRL					0x00100210
 #	define NV10_PFB_REFCTRL_VALID_1				(1 << 31)
 
-static inline struct io_mapping *
+static struct io_mapping *
 fbmem_init(struct nvkm_device *dev)
 {
 	return io_mapping_create_wc(dev->func->resource_addr(dev, 1),
 				    dev->func->resource_size(dev, 1));
 }
 
-static inline void
+static void
 fbmem_fini(struct io_mapping *fb)
 {
 	io_mapping_free(fb);
 }
 
-static inline u32
+static u32
 fbmem_peek(struct io_mapping *fb, u32 off)
 {
 	u8 __iomem *p = io_mapping_map_atomic_wc(fb, off & PAGE_MASK);
@@ -66,7 +66,7 @@ fbmem_peek(struct io_mapping *fb, u32 off)
 	return val;
 }
 
-static inline void
+static void
 fbmem_poke(struct io_mapping *fb, u32 off, u32 val)
 {
 	u8 __iomem *p = io_mapping_map_atomic_wc(fb, off & PAGE_MASK);
@@ -75,7 +75,7 @@ fbmem_poke(struct io_mapping *fb, u32 off, u32 val)
 	io_mapping_unmap_atomic(p);
 }
 
-static inline bool
+static bool
 fbmem_readback(struct io_mapping *fb, u32 off, u32 val)
 {
 	fbmem_poke(fb, off, val);

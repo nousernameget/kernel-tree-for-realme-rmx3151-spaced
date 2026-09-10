@@ -110,19 +110,19 @@ enum dsi_lane_swap {
 #define REG_DSI_6G_HW_VERSION					0x00000000
 #define DSI_6G_HW_VERSION_MAJOR__MASK				0xf0000000
 #define DSI_6G_HW_VERSION_MAJOR__SHIFT				28
-static inline uint32_t DSI_6G_HW_VERSION_MAJOR(uint32_t val)
+static uint32_t DSI_6G_HW_VERSION_MAJOR(uint32_t val)
 {
 	return ((val) << DSI_6G_HW_VERSION_MAJOR__SHIFT) & DSI_6G_HW_VERSION_MAJOR__MASK;
 }
 #define DSI_6G_HW_VERSION_MINOR__MASK				0x0fff0000
 #define DSI_6G_HW_VERSION_MINOR__SHIFT				16
-static inline uint32_t DSI_6G_HW_VERSION_MINOR(uint32_t val)
+static uint32_t DSI_6G_HW_VERSION_MINOR(uint32_t val)
 {
 	return ((val) << DSI_6G_HW_VERSION_MINOR__SHIFT) & DSI_6G_HW_VERSION_MINOR__MASK;
 }
 #define DSI_6G_HW_VERSION_STEP__MASK				0x0000ffff
 #define DSI_6G_HW_VERSION_STEP__SHIFT				0
-static inline uint32_t DSI_6G_HW_VERSION_STEP(uint32_t val)
+static uint32_t DSI_6G_HW_VERSION_STEP(uint32_t val)
 {
 	return ((val) << DSI_6G_HW_VERSION_STEP__SHIFT) & DSI_6G_HW_VERSION_STEP__MASK;
 }
@@ -153,19 +153,19 @@ static inline uint32_t DSI_6G_HW_VERSION_STEP(uint32_t val)
 #define REG_DSI_VID_CFG0					0x0000000c
 #define DSI_VID_CFG0_VIRT_CHANNEL__MASK				0x00000003
 #define DSI_VID_CFG0_VIRT_CHANNEL__SHIFT			0
-static inline uint32_t DSI_VID_CFG0_VIRT_CHANNEL(uint32_t val)
+static uint32_t DSI_VID_CFG0_VIRT_CHANNEL(uint32_t val)
 {
 	return ((val) << DSI_VID_CFG0_VIRT_CHANNEL__SHIFT) & DSI_VID_CFG0_VIRT_CHANNEL__MASK;
 }
 #define DSI_VID_CFG0_DST_FORMAT__MASK				0x00000030
 #define DSI_VID_CFG0_DST_FORMAT__SHIFT				4
-static inline uint32_t DSI_VID_CFG0_DST_FORMAT(enum dsi_vid_dst_format val)
+static uint32_t DSI_VID_CFG0_DST_FORMAT(enum dsi_vid_dst_format val)
 {
 	return ((val) << DSI_VID_CFG0_DST_FORMAT__SHIFT) & DSI_VID_CFG0_DST_FORMAT__MASK;
 }
 #define DSI_VID_CFG0_TRAFFIC_MODE__MASK				0x00000300
 #define DSI_VID_CFG0_TRAFFIC_MODE__SHIFT			8
-static inline uint32_t DSI_VID_CFG0_TRAFFIC_MODE(enum dsi_traffic_mode val)
+static uint32_t DSI_VID_CFG0_TRAFFIC_MODE(enum dsi_traffic_mode val)
 {
 	return ((val) << DSI_VID_CFG0_TRAFFIC_MODE__SHIFT) & DSI_VID_CFG0_TRAFFIC_MODE__MASK;
 }
@@ -182,7 +182,7 @@ static inline uint32_t DSI_VID_CFG0_TRAFFIC_MODE(enum dsi_traffic_mode val)
 #define DSI_VID_CFG1_B_SEL					0x00000100
 #define DSI_VID_CFG1_RGB_SWAP__MASK				0x00007000
 #define DSI_VID_CFG1_RGB_SWAP__SHIFT				12
-static inline uint32_t DSI_VID_CFG1_RGB_SWAP(enum dsi_rgb_swap val)
+static uint32_t DSI_VID_CFG1_RGB_SWAP(enum dsi_rgb_swap val)
 {
 	return ((val) << DSI_VID_CFG1_RGB_SWAP__SHIFT) & DSI_VID_CFG1_RGB_SWAP__MASK;
 }
@@ -190,13 +190,13 @@ static inline uint32_t DSI_VID_CFG1_RGB_SWAP(enum dsi_rgb_swap val)
 #define REG_DSI_ACTIVE_H					0x00000020
 #define DSI_ACTIVE_H_START__MASK				0x00000fff
 #define DSI_ACTIVE_H_START__SHIFT				0
-static inline uint32_t DSI_ACTIVE_H_START(uint32_t val)
+static uint32_t DSI_ACTIVE_H_START(uint32_t val)
 {
 	return ((val) << DSI_ACTIVE_H_START__SHIFT) & DSI_ACTIVE_H_START__MASK;
 }
 #define DSI_ACTIVE_H_END__MASK					0x0fff0000
 #define DSI_ACTIVE_H_END__SHIFT					16
-static inline uint32_t DSI_ACTIVE_H_END(uint32_t val)
+static uint32_t DSI_ACTIVE_H_END(uint32_t val)
 {
 	return ((val) << DSI_ACTIVE_H_END__SHIFT) & DSI_ACTIVE_H_END__MASK;
 }
@@ -204,13 +204,13 @@ static inline uint32_t DSI_ACTIVE_H_END(uint32_t val)
 #define REG_DSI_ACTIVE_V					0x00000024
 #define DSI_ACTIVE_V_START__MASK				0x00000fff
 #define DSI_ACTIVE_V_START__SHIFT				0
-static inline uint32_t DSI_ACTIVE_V_START(uint32_t val)
+static uint32_t DSI_ACTIVE_V_START(uint32_t val)
 {
 	return ((val) << DSI_ACTIVE_V_START__SHIFT) & DSI_ACTIVE_V_START__MASK;
 }
 #define DSI_ACTIVE_V_END__MASK					0x0fff0000
 #define DSI_ACTIVE_V_END__SHIFT					16
-static inline uint32_t DSI_ACTIVE_V_END(uint32_t val)
+static uint32_t DSI_ACTIVE_V_END(uint32_t val)
 {
 	return ((val) << DSI_ACTIVE_V_END__SHIFT) & DSI_ACTIVE_V_END__MASK;
 }
@@ -218,13 +218,13 @@ static inline uint32_t DSI_ACTIVE_V_END(uint32_t val)
 #define REG_DSI_TOTAL						0x00000028
 #define DSI_TOTAL_H_TOTAL__MASK					0x00000fff
 #define DSI_TOTAL_H_TOTAL__SHIFT				0
-static inline uint32_t DSI_TOTAL_H_TOTAL(uint32_t val)
+static uint32_t DSI_TOTAL_H_TOTAL(uint32_t val)
 {
 	return ((val) << DSI_TOTAL_H_TOTAL__SHIFT) & DSI_TOTAL_H_TOTAL__MASK;
 }
 #define DSI_TOTAL_V_TOTAL__MASK					0x0fff0000
 #define DSI_TOTAL_V_TOTAL__SHIFT				16
-static inline uint32_t DSI_TOTAL_V_TOTAL(uint32_t val)
+static uint32_t DSI_TOTAL_V_TOTAL(uint32_t val)
 {
 	return ((val) << DSI_TOTAL_V_TOTAL__SHIFT) & DSI_TOTAL_V_TOTAL__MASK;
 }
@@ -232,13 +232,13 @@ static inline uint32_t DSI_TOTAL_V_TOTAL(uint32_t val)
 #define REG_DSI_ACTIVE_HSYNC					0x0000002c
 #define DSI_ACTIVE_HSYNC_START__MASK				0x00000fff
 #define DSI_ACTIVE_HSYNC_START__SHIFT				0
-static inline uint32_t DSI_ACTIVE_HSYNC_START(uint32_t val)
+static uint32_t DSI_ACTIVE_HSYNC_START(uint32_t val)
 {
 	return ((val) << DSI_ACTIVE_HSYNC_START__SHIFT) & DSI_ACTIVE_HSYNC_START__MASK;
 }
 #define DSI_ACTIVE_HSYNC_END__MASK				0x0fff0000
 #define DSI_ACTIVE_HSYNC_END__SHIFT				16
-static inline uint32_t DSI_ACTIVE_HSYNC_END(uint32_t val)
+static uint32_t DSI_ACTIVE_HSYNC_END(uint32_t val)
 {
 	return ((val) << DSI_ACTIVE_HSYNC_END__SHIFT) & DSI_ACTIVE_HSYNC_END__MASK;
 }
@@ -246,13 +246,13 @@ static inline uint32_t DSI_ACTIVE_HSYNC_END(uint32_t val)
 #define REG_DSI_ACTIVE_VSYNC_HPOS				0x00000030
 #define DSI_ACTIVE_VSYNC_HPOS_START__MASK			0x00000fff
 #define DSI_ACTIVE_VSYNC_HPOS_START__SHIFT			0
-static inline uint32_t DSI_ACTIVE_VSYNC_HPOS_START(uint32_t val)
+static uint32_t DSI_ACTIVE_VSYNC_HPOS_START(uint32_t val)
 {
 	return ((val) << DSI_ACTIVE_VSYNC_HPOS_START__SHIFT) & DSI_ACTIVE_VSYNC_HPOS_START__MASK;
 }
 #define DSI_ACTIVE_VSYNC_HPOS_END__MASK				0x0fff0000
 #define DSI_ACTIVE_VSYNC_HPOS_END__SHIFT			16
-static inline uint32_t DSI_ACTIVE_VSYNC_HPOS_END(uint32_t val)
+static uint32_t DSI_ACTIVE_VSYNC_HPOS_END(uint32_t val)
 {
 	return ((val) << DSI_ACTIVE_VSYNC_HPOS_END__SHIFT) & DSI_ACTIVE_VSYNC_HPOS_END__MASK;
 }
@@ -260,13 +260,13 @@ static inline uint32_t DSI_ACTIVE_VSYNC_HPOS_END(uint32_t val)
 #define REG_DSI_ACTIVE_VSYNC_VPOS				0x00000034
 #define DSI_ACTIVE_VSYNC_VPOS_START__MASK			0x00000fff
 #define DSI_ACTIVE_VSYNC_VPOS_START__SHIFT			0
-static inline uint32_t DSI_ACTIVE_VSYNC_VPOS_START(uint32_t val)
+static uint32_t DSI_ACTIVE_VSYNC_VPOS_START(uint32_t val)
 {
 	return ((val) << DSI_ACTIVE_VSYNC_VPOS_START__SHIFT) & DSI_ACTIVE_VSYNC_VPOS_START__MASK;
 }
 #define DSI_ACTIVE_VSYNC_VPOS_END__MASK				0x0fff0000
 #define DSI_ACTIVE_VSYNC_VPOS_END__SHIFT			16
-static inline uint32_t DSI_ACTIVE_VSYNC_VPOS_END(uint32_t val)
+static uint32_t DSI_ACTIVE_VSYNC_VPOS_END(uint32_t val)
 {
 	return ((val) << DSI_ACTIVE_VSYNC_VPOS_END__SHIFT) & DSI_ACTIVE_VSYNC_VPOS_END__MASK;
 }
@@ -279,7 +279,7 @@ static inline uint32_t DSI_ACTIVE_VSYNC_VPOS_END(uint32_t val)
 #define REG_DSI_CMD_CFG0					0x0000003c
 #define DSI_CMD_CFG0_DST_FORMAT__MASK				0x0000000f
 #define DSI_CMD_CFG0_DST_FORMAT__SHIFT				0
-static inline uint32_t DSI_CMD_CFG0_DST_FORMAT(enum dsi_cmd_dst_format val)
+static uint32_t DSI_CMD_CFG0_DST_FORMAT(enum dsi_cmd_dst_format val)
 {
 	return ((val) << DSI_CMD_CFG0_DST_FORMAT__SHIFT) & DSI_CMD_CFG0_DST_FORMAT__MASK;
 }
@@ -288,13 +288,13 @@ static inline uint32_t DSI_CMD_CFG0_DST_FORMAT(enum dsi_cmd_dst_format val)
 #define DSI_CMD_CFG0_B_SEL					0x00001000
 #define DSI_CMD_CFG0_INTERLEAVE_MAX__MASK			0x00f00000
 #define DSI_CMD_CFG0_INTERLEAVE_MAX__SHIFT			20
-static inline uint32_t DSI_CMD_CFG0_INTERLEAVE_MAX(uint32_t val)
+static uint32_t DSI_CMD_CFG0_INTERLEAVE_MAX(uint32_t val)
 {
 	return ((val) << DSI_CMD_CFG0_INTERLEAVE_MAX__SHIFT) & DSI_CMD_CFG0_INTERLEAVE_MAX__MASK;
 }
 #define DSI_CMD_CFG0_RGB_SWAP__MASK				0x00070000
 #define DSI_CMD_CFG0_RGB_SWAP__SHIFT				16
-static inline uint32_t DSI_CMD_CFG0_RGB_SWAP(enum dsi_rgb_swap val)
+static uint32_t DSI_CMD_CFG0_RGB_SWAP(enum dsi_rgb_swap val)
 {
 	return ((val) << DSI_CMD_CFG0_RGB_SWAP__SHIFT) & DSI_CMD_CFG0_RGB_SWAP__MASK;
 }
@@ -302,13 +302,13 @@ static inline uint32_t DSI_CMD_CFG0_RGB_SWAP(enum dsi_rgb_swap val)
 #define REG_DSI_CMD_CFG1					0x00000040
 #define DSI_CMD_CFG1_WR_MEM_START__MASK				0x000000ff
 #define DSI_CMD_CFG1_WR_MEM_START__SHIFT			0
-static inline uint32_t DSI_CMD_CFG1_WR_MEM_START(uint32_t val)
+static uint32_t DSI_CMD_CFG1_WR_MEM_START(uint32_t val)
 {
 	return ((val) << DSI_CMD_CFG1_WR_MEM_START__SHIFT) & DSI_CMD_CFG1_WR_MEM_START__MASK;
 }
 #define DSI_CMD_CFG1_WR_MEM_CONTINUE__MASK			0x0000ff00
 #define DSI_CMD_CFG1_WR_MEM_CONTINUE__SHIFT			8
-static inline uint32_t DSI_CMD_CFG1_WR_MEM_CONTINUE(uint32_t val)
+static uint32_t DSI_CMD_CFG1_WR_MEM_CONTINUE(uint32_t val)
 {
 	return ((val) << DSI_CMD_CFG1_WR_MEM_CONTINUE__SHIFT) & DSI_CMD_CFG1_WR_MEM_CONTINUE__MASK;
 }
@@ -321,19 +321,19 @@ static inline uint32_t DSI_CMD_CFG1_WR_MEM_CONTINUE(uint32_t val)
 #define REG_DSI_CMD_MDP_STREAM_CTRL				0x00000054
 #define DSI_CMD_MDP_STREAM_CTRL_DATA_TYPE__MASK			0x0000003f
 #define DSI_CMD_MDP_STREAM_CTRL_DATA_TYPE__SHIFT		0
-static inline uint32_t DSI_CMD_MDP_STREAM_CTRL_DATA_TYPE(uint32_t val)
+static uint32_t DSI_CMD_MDP_STREAM_CTRL_DATA_TYPE(uint32_t val)
 {
 	return ((val) << DSI_CMD_MDP_STREAM_CTRL_DATA_TYPE__SHIFT) & DSI_CMD_MDP_STREAM_CTRL_DATA_TYPE__MASK;
 }
 #define DSI_CMD_MDP_STREAM_CTRL_VIRTUAL_CHANNEL__MASK		0x00000300
 #define DSI_CMD_MDP_STREAM_CTRL_VIRTUAL_CHANNEL__SHIFT		8
-static inline uint32_t DSI_CMD_MDP_STREAM_CTRL_VIRTUAL_CHANNEL(uint32_t val)
+static uint32_t DSI_CMD_MDP_STREAM_CTRL_VIRTUAL_CHANNEL(uint32_t val)
 {
 	return ((val) << DSI_CMD_MDP_STREAM_CTRL_VIRTUAL_CHANNEL__SHIFT) & DSI_CMD_MDP_STREAM_CTRL_VIRTUAL_CHANNEL__MASK;
 }
 #define DSI_CMD_MDP_STREAM_CTRL_WORD_COUNT__MASK		0xffff0000
 #define DSI_CMD_MDP_STREAM_CTRL_WORD_COUNT__SHIFT		16
-static inline uint32_t DSI_CMD_MDP_STREAM_CTRL_WORD_COUNT(uint32_t val)
+static uint32_t DSI_CMD_MDP_STREAM_CTRL_WORD_COUNT(uint32_t val)
 {
 	return ((val) << DSI_CMD_MDP_STREAM_CTRL_WORD_COUNT__SHIFT) & DSI_CMD_MDP_STREAM_CTRL_WORD_COUNT__MASK;
 }
@@ -341,13 +341,13 @@ static inline uint32_t DSI_CMD_MDP_STREAM_CTRL_WORD_COUNT(uint32_t val)
 #define REG_DSI_CMD_MDP_STREAM_TOTAL				0x00000058
 #define DSI_CMD_MDP_STREAM_TOTAL_H_TOTAL__MASK			0x00000fff
 #define DSI_CMD_MDP_STREAM_TOTAL_H_TOTAL__SHIFT			0
-static inline uint32_t DSI_CMD_MDP_STREAM_TOTAL_H_TOTAL(uint32_t val)
+static uint32_t DSI_CMD_MDP_STREAM_TOTAL_H_TOTAL(uint32_t val)
 {
 	return ((val) << DSI_CMD_MDP_STREAM_TOTAL_H_TOTAL__SHIFT) & DSI_CMD_MDP_STREAM_TOTAL_H_TOTAL__MASK;
 }
 #define DSI_CMD_MDP_STREAM_TOTAL_V_TOTAL__MASK			0x0fff0000
 #define DSI_CMD_MDP_STREAM_TOTAL_V_TOTAL__SHIFT			16
-static inline uint32_t DSI_CMD_MDP_STREAM_TOTAL_V_TOTAL(uint32_t val)
+static uint32_t DSI_CMD_MDP_STREAM_TOTAL_V_TOTAL(uint32_t val)
 {
 	return ((val) << DSI_CMD_MDP_STREAM_TOTAL_V_TOTAL__SHIFT) & DSI_CMD_MDP_STREAM_TOTAL_V_TOTAL__MASK;
 }
@@ -361,19 +361,19 @@ static inline uint32_t REG_DSI_RDBK_DATA(uint32_t i0) { return 0x00000068 + 0x4*
 #define REG_DSI_TRIG_CTRL					0x00000080
 #define DSI_TRIG_CTRL_DMA_TRIGGER__MASK				0x00000007
 #define DSI_TRIG_CTRL_DMA_TRIGGER__SHIFT			0
-static inline uint32_t DSI_TRIG_CTRL_DMA_TRIGGER(enum dsi_cmd_trigger val)
+static uint32_t DSI_TRIG_CTRL_DMA_TRIGGER(enum dsi_cmd_trigger val)
 {
 	return ((val) << DSI_TRIG_CTRL_DMA_TRIGGER__SHIFT) & DSI_TRIG_CTRL_DMA_TRIGGER__MASK;
 }
 #define DSI_TRIG_CTRL_MDP_TRIGGER__MASK				0x00000070
 #define DSI_TRIG_CTRL_MDP_TRIGGER__SHIFT			4
-static inline uint32_t DSI_TRIG_CTRL_MDP_TRIGGER(enum dsi_cmd_trigger val)
+static uint32_t DSI_TRIG_CTRL_MDP_TRIGGER(enum dsi_cmd_trigger val)
 {
 	return ((val) << DSI_TRIG_CTRL_MDP_TRIGGER__SHIFT) & DSI_TRIG_CTRL_MDP_TRIGGER__MASK;
 }
 #define DSI_TRIG_CTRL_STREAM__MASK				0x00000300
 #define DSI_TRIG_CTRL_STREAM__SHIFT				8
-static inline uint32_t DSI_TRIG_CTRL_STREAM(uint32_t val)
+static uint32_t DSI_TRIG_CTRL_STREAM(uint32_t val)
 {
 	return ((val) << DSI_TRIG_CTRL_STREAM__SHIFT) & DSI_TRIG_CTRL_STREAM__MASK;
 }
@@ -394,13 +394,13 @@ static inline uint32_t DSI_TRIG_CTRL_STREAM(uint32_t val)
 #define REG_DSI_CLKOUT_TIMING_CTRL				0x000000c0
 #define DSI_CLKOUT_TIMING_CTRL_T_CLK_PRE__MASK			0x0000003f
 #define DSI_CLKOUT_TIMING_CTRL_T_CLK_PRE__SHIFT			0
-static inline uint32_t DSI_CLKOUT_TIMING_CTRL_T_CLK_PRE(uint32_t val)
+static uint32_t DSI_CLKOUT_TIMING_CTRL_T_CLK_PRE(uint32_t val)
 {
 	return ((val) << DSI_CLKOUT_TIMING_CTRL_T_CLK_PRE__SHIFT) & DSI_CLKOUT_TIMING_CTRL_T_CLK_PRE__MASK;
 }
 #define DSI_CLKOUT_TIMING_CTRL_T_CLK_POST__MASK			0x00003f00
 #define DSI_CLKOUT_TIMING_CTRL_T_CLK_POST__SHIFT		8
-static inline uint32_t DSI_CLKOUT_TIMING_CTRL_T_CLK_POST(uint32_t val)
+static uint32_t DSI_CLKOUT_TIMING_CTRL_T_CLK_POST(uint32_t val)
 {
 	return ((val) << DSI_CLKOUT_TIMING_CTRL_T_CLK_POST__SHIFT) & DSI_CLKOUT_TIMING_CTRL_T_CLK_POST__MASK;
 }
@@ -415,7 +415,7 @@ static inline uint32_t DSI_CLKOUT_TIMING_CTRL_T_CLK_POST(uint32_t val)
 #define REG_DSI_LANE_SWAP_CTRL					0x000000ac
 #define DSI_LANE_SWAP_CTRL_DLN_SWAP_SEL__MASK			0x00000007
 #define DSI_LANE_SWAP_CTRL_DLN_SWAP_SEL__SHIFT			0
-static inline uint32_t DSI_LANE_SWAP_CTRL_DLN_SWAP_SEL(enum dsi_lane_swap val)
+static uint32_t DSI_LANE_SWAP_CTRL_DLN_SWAP_SEL(enum dsi_lane_swap val)
 {
 	return ((val) << DSI_LANE_SWAP_CTRL_DLN_SWAP_SEL__SHIFT) & DSI_LANE_SWAP_CTRL_DLN_SWAP_SEL__MASK;
 }
@@ -447,7 +447,7 @@ static inline uint32_t DSI_LANE_SWAP_CTRL_DLN_SWAP_SEL(enum dsi_lane_swap val)
 #define REG_DSI_RDBK_DATA_CTRL					0x000001d0
 #define DSI_RDBK_DATA_CTRL_COUNT__MASK				0x00ff0000
 #define DSI_RDBK_DATA_CTRL_COUNT__SHIFT				16
-static inline uint32_t DSI_RDBK_DATA_CTRL_COUNT(uint32_t val)
+static uint32_t DSI_RDBK_DATA_CTRL_COUNT(uint32_t val)
 {
 	return ((val) << DSI_RDBK_DATA_CTRL_COUNT__SHIFT) & DSI_RDBK_DATA_CTRL_COUNT__MASK;
 }
@@ -456,7 +456,7 @@ static inline uint32_t DSI_RDBK_DATA_CTRL_COUNT(uint32_t val)
 #define REG_DSI_VERSION						0x000001f0
 #define DSI_VERSION_MAJOR__MASK					0xff000000
 #define DSI_VERSION_MAJOR__SHIFT				24
-static inline uint32_t DSI_VERSION_MAJOR(uint32_t val)
+static uint32_t DSI_VERSION_MAJOR(uint32_t val)
 {
 	return ((val) << DSI_VERSION_MAJOR__SHIFT) & DSI_VERSION_MAJOR__MASK;
 }
@@ -597,7 +597,7 @@ static inline uint32_t REG_DSI_28nm_8960_PHY_LN_TEST_STR_1(uint32_t i0) { return
 #define REG_DSI_28nm_8960_PHY_TIMING_CTRL_0			0x00000140
 #define DSI_28nm_8960_PHY_TIMING_CTRL_0_CLK_ZERO__MASK		0x000000ff
 #define DSI_28nm_8960_PHY_TIMING_CTRL_0_CLK_ZERO__SHIFT		0
-static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_0_CLK_ZERO(uint32_t val)
+static uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_0_CLK_ZERO(uint32_t val)
 {
 	return ((val) << DSI_28nm_8960_PHY_TIMING_CTRL_0_CLK_ZERO__SHIFT) & DSI_28nm_8960_PHY_TIMING_CTRL_0_CLK_ZERO__MASK;
 }
@@ -605,7 +605,7 @@ static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_0_CLK_ZERO(uint32_t val)
 #define REG_DSI_28nm_8960_PHY_TIMING_CTRL_1			0x00000144
 #define DSI_28nm_8960_PHY_TIMING_CTRL_1_CLK_TRAIL__MASK		0x000000ff
 #define DSI_28nm_8960_PHY_TIMING_CTRL_1_CLK_TRAIL__SHIFT	0
-static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_1_CLK_TRAIL(uint32_t val)
+static uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_1_CLK_TRAIL(uint32_t val)
 {
 	return ((val) << DSI_28nm_8960_PHY_TIMING_CTRL_1_CLK_TRAIL__SHIFT) & DSI_28nm_8960_PHY_TIMING_CTRL_1_CLK_TRAIL__MASK;
 }
@@ -613,7 +613,7 @@ static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_1_CLK_TRAIL(uint32_t val)
 #define REG_DSI_28nm_8960_PHY_TIMING_CTRL_2			0x00000148
 #define DSI_28nm_8960_PHY_TIMING_CTRL_2_CLK_PREPARE__MASK	0x000000ff
 #define DSI_28nm_8960_PHY_TIMING_CTRL_2_CLK_PREPARE__SHIFT	0
-static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_2_CLK_PREPARE(uint32_t val)
+static uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_2_CLK_PREPARE(uint32_t val)
 {
 	return ((val) << DSI_28nm_8960_PHY_TIMING_CTRL_2_CLK_PREPARE__SHIFT) & DSI_28nm_8960_PHY_TIMING_CTRL_2_CLK_PREPARE__MASK;
 }
@@ -623,7 +623,7 @@ static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_2_CLK_PREPARE(uint32_t val)
 #define REG_DSI_28nm_8960_PHY_TIMING_CTRL_4			0x00000150
 #define DSI_28nm_8960_PHY_TIMING_CTRL_4_HS_EXIT__MASK		0x000000ff
 #define DSI_28nm_8960_PHY_TIMING_CTRL_4_HS_EXIT__SHIFT		0
-static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_4_HS_EXIT(uint32_t val)
+static uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_4_HS_EXIT(uint32_t val)
 {
 	return ((val) << DSI_28nm_8960_PHY_TIMING_CTRL_4_HS_EXIT__SHIFT) & DSI_28nm_8960_PHY_TIMING_CTRL_4_HS_EXIT__MASK;
 }
@@ -631,7 +631,7 @@ static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_4_HS_EXIT(uint32_t val)
 #define REG_DSI_28nm_8960_PHY_TIMING_CTRL_5			0x00000154
 #define DSI_28nm_8960_PHY_TIMING_CTRL_5_HS_ZERO__MASK		0x000000ff
 #define DSI_28nm_8960_PHY_TIMING_CTRL_5_HS_ZERO__SHIFT		0
-static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_5_HS_ZERO(uint32_t val)
+static uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_5_HS_ZERO(uint32_t val)
 {
 	return ((val) << DSI_28nm_8960_PHY_TIMING_CTRL_5_HS_ZERO__SHIFT) & DSI_28nm_8960_PHY_TIMING_CTRL_5_HS_ZERO__MASK;
 }
@@ -639,7 +639,7 @@ static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_5_HS_ZERO(uint32_t val)
 #define REG_DSI_28nm_8960_PHY_TIMING_CTRL_6			0x00000158
 #define DSI_28nm_8960_PHY_TIMING_CTRL_6_HS_PREPARE__MASK	0x000000ff
 #define DSI_28nm_8960_PHY_TIMING_CTRL_6_HS_PREPARE__SHIFT	0
-static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_6_HS_PREPARE(uint32_t val)
+static uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_6_HS_PREPARE(uint32_t val)
 {
 	return ((val) << DSI_28nm_8960_PHY_TIMING_CTRL_6_HS_PREPARE__SHIFT) & DSI_28nm_8960_PHY_TIMING_CTRL_6_HS_PREPARE__MASK;
 }
@@ -647,7 +647,7 @@ static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_6_HS_PREPARE(uint32_t val)
 #define REG_DSI_28nm_8960_PHY_TIMING_CTRL_7			0x0000015c
 #define DSI_28nm_8960_PHY_TIMING_CTRL_7_HS_TRAIL__MASK		0x000000ff
 #define DSI_28nm_8960_PHY_TIMING_CTRL_7_HS_TRAIL__SHIFT		0
-static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_7_HS_TRAIL(uint32_t val)
+static uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_7_HS_TRAIL(uint32_t val)
 {
 	return ((val) << DSI_28nm_8960_PHY_TIMING_CTRL_7_HS_TRAIL__SHIFT) & DSI_28nm_8960_PHY_TIMING_CTRL_7_HS_TRAIL__MASK;
 }
@@ -655,7 +655,7 @@ static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_7_HS_TRAIL(uint32_t val)
 #define REG_DSI_28nm_8960_PHY_TIMING_CTRL_8			0x00000160
 #define DSI_28nm_8960_PHY_TIMING_CTRL_8_HS_RQST__MASK		0x000000ff
 #define DSI_28nm_8960_PHY_TIMING_CTRL_8_HS_RQST__SHIFT		0
-static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_8_HS_RQST(uint32_t val)
+static uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_8_HS_RQST(uint32_t val)
 {
 	return ((val) << DSI_28nm_8960_PHY_TIMING_CTRL_8_HS_RQST__SHIFT) & DSI_28nm_8960_PHY_TIMING_CTRL_8_HS_RQST__MASK;
 }
@@ -663,13 +663,13 @@ static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_8_HS_RQST(uint32_t val)
 #define REG_DSI_28nm_8960_PHY_TIMING_CTRL_9			0x00000164
 #define DSI_28nm_8960_PHY_TIMING_CTRL_9_TA_GO__MASK		0x00000007
 #define DSI_28nm_8960_PHY_TIMING_CTRL_9_TA_GO__SHIFT		0
-static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_9_TA_GO(uint32_t val)
+static uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_9_TA_GO(uint32_t val)
 {
 	return ((val) << DSI_28nm_8960_PHY_TIMING_CTRL_9_TA_GO__SHIFT) & DSI_28nm_8960_PHY_TIMING_CTRL_9_TA_GO__MASK;
 }
 #define DSI_28nm_8960_PHY_TIMING_CTRL_9_TA_SURE__MASK		0x00000070
 #define DSI_28nm_8960_PHY_TIMING_CTRL_9_TA_SURE__SHIFT		4
-static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_9_TA_SURE(uint32_t val)
+static uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_9_TA_SURE(uint32_t val)
 {
 	return ((val) << DSI_28nm_8960_PHY_TIMING_CTRL_9_TA_SURE__SHIFT) & DSI_28nm_8960_PHY_TIMING_CTRL_9_TA_SURE__MASK;
 }
@@ -677,7 +677,7 @@ static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_9_TA_SURE(uint32_t val)
 #define REG_DSI_28nm_8960_PHY_TIMING_CTRL_10			0x00000168
 #define DSI_28nm_8960_PHY_TIMING_CTRL_10_TA_GET__MASK		0x00000007
 #define DSI_28nm_8960_PHY_TIMING_CTRL_10_TA_GET__SHIFT		0
-static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_10_TA_GET(uint32_t val)
+static uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_10_TA_GET(uint32_t val)
 {
 	return ((val) << DSI_28nm_8960_PHY_TIMING_CTRL_10_TA_GET__SHIFT) & DSI_28nm_8960_PHY_TIMING_CTRL_10_TA_GET__MASK;
 }
@@ -685,7 +685,7 @@ static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_10_TA_GET(uint32_t val)
 #define REG_DSI_28nm_8960_PHY_TIMING_CTRL_11			0x0000016c
 #define DSI_28nm_8960_PHY_TIMING_CTRL_11_TRIG3_CMD__MASK	0x000000ff
 #define DSI_28nm_8960_PHY_TIMING_CTRL_11_TRIG3_CMD__SHIFT	0
-static inline uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_11_TRIG3_CMD(uint32_t val)
+static uint32_t DSI_28nm_8960_PHY_TIMING_CTRL_11_TRIG3_CMD(uint32_t val)
 {
 	return ((val) << DSI_28nm_8960_PHY_TIMING_CTRL_11_TRIG3_CMD__SHIFT) & DSI_28nm_8960_PHY_TIMING_CTRL_11_TRIG3_CMD__MASK;
 }
@@ -838,7 +838,7 @@ static inline uint32_t REG_DSI_28nm_PHY_LN_TEST_STR_1(uint32_t i0) { return 0x00
 #define REG_DSI_28nm_PHY_TIMING_CTRL_0				0x00000140
 #define DSI_28nm_PHY_TIMING_CTRL_0_CLK_ZERO__MASK		0x000000ff
 #define DSI_28nm_PHY_TIMING_CTRL_0_CLK_ZERO__SHIFT		0
-static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_0_CLK_ZERO(uint32_t val)
+static uint32_t DSI_28nm_PHY_TIMING_CTRL_0_CLK_ZERO(uint32_t val)
 {
 	return ((val) << DSI_28nm_PHY_TIMING_CTRL_0_CLK_ZERO__SHIFT) & DSI_28nm_PHY_TIMING_CTRL_0_CLK_ZERO__MASK;
 }
@@ -846,7 +846,7 @@ static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_0_CLK_ZERO(uint32_t val)
 #define REG_DSI_28nm_PHY_TIMING_CTRL_1				0x00000144
 #define DSI_28nm_PHY_TIMING_CTRL_1_CLK_TRAIL__MASK		0x000000ff
 #define DSI_28nm_PHY_TIMING_CTRL_1_CLK_TRAIL__SHIFT		0
-static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_1_CLK_TRAIL(uint32_t val)
+static uint32_t DSI_28nm_PHY_TIMING_CTRL_1_CLK_TRAIL(uint32_t val)
 {
 	return ((val) << DSI_28nm_PHY_TIMING_CTRL_1_CLK_TRAIL__SHIFT) & DSI_28nm_PHY_TIMING_CTRL_1_CLK_TRAIL__MASK;
 }
@@ -854,7 +854,7 @@ static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_1_CLK_TRAIL(uint32_t val)
 #define REG_DSI_28nm_PHY_TIMING_CTRL_2				0x00000148
 #define DSI_28nm_PHY_TIMING_CTRL_2_CLK_PREPARE__MASK		0x000000ff
 #define DSI_28nm_PHY_TIMING_CTRL_2_CLK_PREPARE__SHIFT		0
-static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_2_CLK_PREPARE(uint32_t val)
+static uint32_t DSI_28nm_PHY_TIMING_CTRL_2_CLK_PREPARE(uint32_t val)
 {
 	return ((val) << DSI_28nm_PHY_TIMING_CTRL_2_CLK_PREPARE__SHIFT) & DSI_28nm_PHY_TIMING_CTRL_2_CLK_PREPARE__MASK;
 }
@@ -865,7 +865,7 @@ static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_2_CLK_PREPARE(uint32_t val)
 #define REG_DSI_28nm_PHY_TIMING_CTRL_4				0x00000150
 #define DSI_28nm_PHY_TIMING_CTRL_4_HS_EXIT__MASK		0x000000ff
 #define DSI_28nm_PHY_TIMING_CTRL_4_HS_EXIT__SHIFT		0
-static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_4_HS_EXIT(uint32_t val)
+static uint32_t DSI_28nm_PHY_TIMING_CTRL_4_HS_EXIT(uint32_t val)
 {
 	return ((val) << DSI_28nm_PHY_TIMING_CTRL_4_HS_EXIT__SHIFT) & DSI_28nm_PHY_TIMING_CTRL_4_HS_EXIT__MASK;
 }
@@ -873,7 +873,7 @@ static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_4_HS_EXIT(uint32_t val)
 #define REG_DSI_28nm_PHY_TIMING_CTRL_5				0x00000154
 #define DSI_28nm_PHY_TIMING_CTRL_5_HS_ZERO__MASK		0x000000ff
 #define DSI_28nm_PHY_TIMING_CTRL_5_HS_ZERO__SHIFT		0
-static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_5_HS_ZERO(uint32_t val)
+static uint32_t DSI_28nm_PHY_TIMING_CTRL_5_HS_ZERO(uint32_t val)
 {
 	return ((val) << DSI_28nm_PHY_TIMING_CTRL_5_HS_ZERO__SHIFT) & DSI_28nm_PHY_TIMING_CTRL_5_HS_ZERO__MASK;
 }
@@ -881,7 +881,7 @@ static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_5_HS_ZERO(uint32_t val)
 #define REG_DSI_28nm_PHY_TIMING_CTRL_6				0x00000158
 #define DSI_28nm_PHY_TIMING_CTRL_6_HS_PREPARE__MASK		0x000000ff
 #define DSI_28nm_PHY_TIMING_CTRL_6_HS_PREPARE__SHIFT		0
-static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_6_HS_PREPARE(uint32_t val)
+static uint32_t DSI_28nm_PHY_TIMING_CTRL_6_HS_PREPARE(uint32_t val)
 {
 	return ((val) << DSI_28nm_PHY_TIMING_CTRL_6_HS_PREPARE__SHIFT) & DSI_28nm_PHY_TIMING_CTRL_6_HS_PREPARE__MASK;
 }
@@ -889,7 +889,7 @@ static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_6_HS_PREPARE(uint32_t val)
 #define REG_DSI_28nm_PHY_TIMING_CTRL_7				0x0000015c
 #define DSI_28nm_PHY_TIMING_CTRL_7_HS_TRAIL__MASK		0x000000ff
 #define DSI_28nm_PHY_TIMING_CTRL_7_HS_TRAIL__SHIFT		0
-static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_7_HS_TRAIL(uint32_t val)
+static uint32_t DSI_28nm_PHY_TIMING_CTRL_7_HS_TRAIL(uint32_t val)
 {
 	return ((val) << DSI_28nm_PHY_TIMING_CTRL_7_HS_TRAIL__SHIFT) & DSI_28nm_PHY_TIMING_CTRL_7_HS_TRAIL__MASK;
 }
@@ -897,7 +897,7 @@ static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_7_HS_TRAIL(uint32_t val)
 #define REG_DSI_28nm_PHY_TIMING_CTRL_8				0x00000160
 #define DSI_28nm_PHY_TIMING_CTRL_8_HS_RQST__MASK		0x000000ff
 #define DSI_28nm_PHY_TIMING_CTRL_8_HS_RQST__SHIFT		0
-static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_8_HS_RQST(uint32_t val)
+static uint32_t DSI_28nm_PHY_TIMING_CTRL_8_HS_RQST(uint32_t val)
 {
 	return ((val) << DSI_28nm_PHY_TIMING_CTRL_8_HS_RQST__SHIFT) & DSI_28nm_PHY_TIMING_CTRL_8_HS_RQST__MASK;
 }
@@ -905,13 +905,13 @@ static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_8_HS_RQST(uint32_t val)
 #define REG_DSI_28nm_PHY_TIMING_CTRL_9				0x00000164
 #define DSI_28nm_PHY_TIMING_CTRL_9_TA_GO__MASK			0x00000007
 #define DSI_28nm_PHY_TIMING_CTRL_9_TA_GO__SHIFT			0
-static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_9_TA_GO(uint32_t val)
+static uint32_t DSI_28nm_PHY_TIMING_CTRL_9_TA_GO(uint32_t val)
 {
 	return ((val) << DSI_28nm_PHY_TIMING_CTRL_9_TA_GO__SHIFT) & DSI_28nm_PHY_TIMING_CTRL_9_TA_GO__MASK;
 }
 #define DSI_28nm_PHY_TIMING_CTRL_9_TA_SURE__MASK		0x00000070
 #define DSI_28nm_PHY_TIMING_CTRL_9_TA_SURE__SHIFT		4
-static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_9_TA_SURE(uint32_t val)
+static uint32_t DSI_28nm_PHY_TIMING_CTRL_9_TA_SURE(uint32_t val)
 {
 	return ((val) << DSI_28nm_PHY_TIMING_CTRL_9_TA_SURE__SHIFT) & DSI_28nm_PHY_TIMING_CTRL_9_TA_SURE__MASK;
 }
@@ -919,7 +919,7 @@ static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_9_TA_SURE(uint32_t val)
 #define REG_DSI_28nm_PHY_TIMING_CTRL_10				0x00000168
 #define DSI_28nm_PHY_TIMING_CTRL_10_TA_GET__MASK		0x00000007
 #define DSI_28nm_PHY_TIMING_CTRL_10_TA_GET__SHIFT		0
-static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_10_TA_GET(uint32_t val)
+static uint32_t DSI_28nm_PHY_TIMING_CTRL_10_TA_GET(uint32_t val)
 {
 	return ((val) << DSI_28nm_PHY_TIMING_CTRL_10_TA_GET__SHIFT) & DSI_28nm_PHY_TIMING_CTRL_10_TA_GET__MASK;
 }
@@ -927,7 +927,7 @@ static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_10_TA_GET(uint32_t val)
 #define REG_DSI_28nm_PHY_TIMING_CTRL_11				0x0000016c
 #define DSI_28nm_PHY_TIMING_CTRL_11_TRIG3_CMD__MASK		0x000000ff
 #define DSI_28nm_PHY_TIMING_CTRL_11_TRIG3_CMD__SHIFT		0
-static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_11_TRIG3_CMD(uint32_t val)
+static uint32_t DSI_28nm_PHY_TIMING_CTRL_11_TRIG3_CMD(uint32_t val)
 {
 	return ((val) << DSI_28nm_PHY_TIMING_CTRL_11_TRIG3_CMD__SHIFT) & DSI_28nm_PHY_TIMING_CTRL_11_TRIG3_CMD__MASK;
 }
@@ -1014,7 +1014,7 @@ static inline uint32_t DSI_28nm_PHY_TIMING_CTRL_11_TRIG3_CMD(uint32_t val)
 #define REG_DSI_28nm_PHY_PLL_SDM_CFG0				0x00000038
 #define DSI_28nm_PHY_PLL_SDM_CFG0_BYP_DIV__MASK			0x0000003f
 #define DSI_28nm_PHY_PLL_SDM_CFG0_BYP_DIV__SHIFT		0
-static inline uint32_t DSI_28nm_PHY_PLL_SDM_CFG0_BYP_DIV(uint32_t val)
+static uint32_t DSI_28nm_PHY_PLL_SDM_CFG0_BYP_DIV(uint32_t val)
 {
 	return ((val) << DSI_28nm_PHY_PLL_SDM_CFG0_BYP_DIV__SHIFT) & DSI_28nm_PHY_PLL_SDM_CFG0_BYP_DIV__MASK;
 }
@@ -1023,13 +1023,13 @@ static inline uint32_t DSI_28nm_PHY_PLL_SDM_CFG0_BYP_DIV(uint32_t val)
 #define REG_DSI_28nm_PHY_PLL_SDM_CFG1				0x0000003c
 #define DSI_28nm_PHY_PLL_SDM_CFG1_DC_OFFSET__MASK		0x0000003f
 #define DSI_28nm_PHY_PLL_SDM_CFG1_DC_OFFSET__SHIFT		0
-static inline uint32_t DSI_28nm_PHY_PLL_SDM_CFG1_DC_OFFSET(uint32_t val)
+static uint32_t DSI_28nm_PHY_PLL_SDM_CFG1_DC_OFFSET(uint32_t val)
 {
 	return ((val) << DSI_28nm_PHY_PLL_SDM_CFG1_DC_OFFSET__SHIFT) & DSI_28nm_PHY_PLL_SDM_CFG1_DC_OFFSET__MASK;
 }
 #define DSI_28nm_PHY_PLL_SDM_CFG1_DITHER_EN__MASK		0x00000040
 #define DSI_28nm_PHY_PLL_SDM_CFG1_DITHER_EN__SHIFT		6
-static inline uint32_t DSI_28nm_PHY_PLL_SDM_CFG1_DITHER_EN(uint32_t val)
+static uint32_t DSI_28nm_PHY_PLL_SDM_CFG1_DITHER_EN(uint32_t val)
 {
 	return ((val) << DSI_28nm_PHY_PLL_SDM_CFG1_DITHER_EN__SHIFT) & DSI_28nm_PHY_PLL_SDM_CFG1_DITHER_EN__MASK;
 }
@@ -1037,7 +1037,7 @@ static inline uint32_t DSI_28nm_PHY_PLL_SDM_CFG1_DITHER_EN(uint32_t val)
 #define REG_DSI_28nm_PHY_PLL_SDM_CFG2				0x00000040
 #define DSI_28nm_PHY_PLL_SDM_CFG2_FREQ_SEED_7_0__MASK		0x000000ff
 #define DSI_28nm_PHY_PLL_SDM_CFG2_FREQ_SEED_7_0__SHIFT		0
-static inline uint32_t DSI_28nm_PHY_PLL_SDM_CFG2_FREQ_SEED_7_0(uint32_t val)
+static uint32_t DSI_28nm_PHY_PLL_SDM_CFG2_FREQ_SEED_7_0(uint32_t val)
 {
 	return ((val) << DSI_28nm_PHY_PLL_SDM_CFG2_FREQ_SEED_7_0__SHIFT) & DSI_28nm_PHY_PLL_SDM_CFG2_FREQ_SEED_7_0__MASK;
 }
@@ -1045,7 +1045,7 @@ static inline uint32_t DSI_28nm_PHY_PLL_SDM_CFG2_FREQ_SEED_7_0(uint32_t val)
 #define REG_DSI_28nm_PHY_PLL_SDM_CFG3				0x00000044
 #define DSI_28nm_PHY_PLL_SDM_CFG3_FREQ_SEED_15_8__MASK		0x000000ff
 #define DSI_28nm_PHY_PLL_SDM_CFG3_FREQ_SEED_15_8__SHIFT		0
-static inline uint32_t DSI_28nm_PHY_PLL_SDM_CFG3_FREQ_SEED_15_8(uint32_t val)
+static uint32_t DSI_28nm_PHY_PLL_SDM_CFG3_FREQ_SEED_15_8(uint32_t val)
 {
 	return ((val) << DSI_28nm_PHY_PLL_SDM_CFG3_FREQ_SEED_15_8__SHIFT) & DSI_28nm_PHY_PLL_SDM_CFG3_FREQ_SEED_15_8__MASK;
 }
@@ -1165,7 +1165,7 @@ static inline uint32_t REG_DSI_20nm_PHY_LN_TEST_STR_1(uint32_t i0) { return 0x00
 #define REG_DSI_20nm_PHY_TIMING_CTRL_0				0x00000140
 #define DSI_20nm_PHY_TIMING_CTRL_0_CLK_ZERO__MASK		0x000000ff
 #define DSI_20nm_PHY_TIMING_CTRL_0_CLK_ZERO__SHIFT		0
-static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_0_CLK_ZERO(uint32_t val)
+static uint32_t DSI_20nm_PHY_TIMING_CTRL_0_CLK_ZERO(uint32_t val)
 {
 	return ((val) << DSI_20nm_PHY_TIMING_CTRL_0_CLK_ZERO__SHIFT) & DSI_20nm_PHY_TIMING_CTRL_0_CLK_ZERO__MASK;
 }
@@ -1173,7 +1173,7 @@ static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_0_CLK_ZERO(uint32_t val)
 #define REG_DSI_20nm_PHY_TIMING_CTRL_1				0x00000144
 #define DSI_20nm_PHY_TIMING_CTRL_1_CLK_TRAIL__MASK		0x000000ff
 #define DSI_20nm_PHY_TIMING_CTRL_1_CLK_TRAIL__SHIFT		0
-static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_1_CLK_TRAIL(uint32_t val)
+static uint32_t DSI_20nm_PHY_TIMING_CTRL_1_CLK_TRAIL(uint32_t val)
 {
 	return ((val) << DSI_20nm_PHY_TIMING_CTRL_1_CLK_TRAIL__SHIFT) & DSI_20nm_PHY_TIMING_CTRL_1_CLK_TRAIL__MASK;
 }
@@ -1181,7 +1181,7 @@ static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_1_CLK_TRAIL(uint32_t val)
 #define REG_DSI_20nm_PHY_TIMING_CTRL_2				0x00000148
 #define DSI_20nm_PHY_TIMING_CTRL_2_CLK_PREPARE__MASK		0x000000ff
 #define DSI_20nm_PHY_TIMING_CTRL_2_CLK_PREPARE__SHIFT		0
-static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_2_CLK_PREPARE(uint32_t val)
+static uint32_t DSI_20nm_PHY_TIMING_CTRL_2_CLK_PREPARE(uint32_t val)
 {
 	return ((val) << DSI_20nm_PHY_TIMING_CTRL_2_CLK_PREPARE__SHIFT) & DSI_20nm_PHY_TIMING_CTRL_2_CLK_PREPARE__MASK;
 }
@@ -1192,7 +1192,7 @@ static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_2_CLK_PREPARE(uint32_t val)
 #define REG_DSI_20nm_PHY_TIMING_CTRL_4				0x00000150
 #define DSI_20nm_PHY_TIMING_CTRL_4_HS_EXIT__MASK		0x000000ff
 #define DSI_20nm_PHY_TIMING_CTRL_4_HS_EXIT__SHIFT		0
-static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_4_HS_EXIT(uint32_t val)
+static uint32_t DSI_20nm_PHY_TIMING_CTRL_4_HS_EXIT(uint32_t val)
 {
 	return ((val) << DSI_20nm_PHY_TIMING_CTRL_4_HS_EXIT__SHIFT) & DSI_20nm_PHY_TIMING_CTRL_4_HS_EXIT__MASK;
 }
@@ -1200,7 +1200,7 @@ static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_4_HS_EXIT(uint32_t val)
 #define REG_DSI_20nm_PHY_TIMING_CTRL_5				0x00000154
 #define DSI_20nm_PHY_TIMING_CTRL_5_HS_ZERO__MASK		0x000000ff
 #define DSI_20nm_PHY_TIMING_CTRL_5_HS_ZERO__SHIFT		0
-static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_5_HS_ZERO(uint32_t val)
+static uint32_t DSI_20nm_PHY_TIMING_CTRL_5_HS_ZERO(uint32_t val)
 {
 	return ((val) << DSI_20nm_PHY_TIMING_CTRL_5_HS_ZERO__SHIFT) & DSI_20nm_PHY_TIMING_CTRL_5_HS_ZERO__MASK;
 }
@@ -1208,7 +1208,7 @@ static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_5_HS_ZERO(uint32_t val)
 #define REG_DSI_20nm_PHY_TIMING_CTRL_6				0x00000158
 #define DSI_20nm_PHY_TIMING_CTRL_6_HS_PREPARE__MASK		0x000000ff
 #define DSI_20nm_PHY_TIMING_CTRL_6_HS_PREPARE__SHIFT		0
-static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_6_HS_PREPARE(uint32_t val)
+static uint32_t DSI_20nm_PHY_TIMING_CTRL_6_HS_PREPARE(uint32_t val)
 {
 	return ((val) << DSI_20nm_PHY_TIMING_CTRL_6_HS_PREPARE__SHIFT) & DSI_20nm_PHY_TIMING_CTRL_6_HS_PREPARE__MASK;
 }
@@ -1216,7 +1216,7 @@ static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_6_HS_PREPARE(uint32_t val)
 #define REG_DSI_20nm_PHY_TIMING_CTRL_7				0x0000015c
 #define DSI_20nm_PHY_TIMING_CTRL_7_HS_TRAIL__MASK		0x000000ff
 #define DSI_20nm_PHY_TIMING_CTRL_7_HS_TRAIL__SHIFT		0
-static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_7_HS_TRAIL(uint32_t val)
+static uint32_t DSI_20nm_PHY_TIMING_CTRL_7_HS_TRAIL(uint32_t val)
 {
 	return ((val) << DSI_20nm_PHY_TIMING_CTRL_7_HS_TRAIL__SHIFT) & DSI_20nm_PHY_TIMING_CTRL_7_HS_TRAIL__MASK;
 }
@@ -1224,7 +1224,7 @@ static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_7_HS_TRAIL(uint32_t val)
 #define REG_DSI_20nm_PHY_TIMING_CTRL_8				0x00000160
 #define DSI_20nm_PHY_TIMING_CTRL_8_HS_RQST__MASK		0x000000ff
 #define DSI_20nm_PHY_TIMING_CTRL_8_HS_RQST__SHIFT		0
-static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_8_HS_RQST(uint32_t val)
+static uint32_t DSI_20nm_PHY_TIMING_CTRL_8_HS_RQST(uint32_t val)
 {
 	return ((val) << DSI_20nm_PHY_TIMING_CTRL_8_HS_RQST__SHIFT) & DSI_20nm_PHY_TIMING_CTRL_8_HS_RQST__MASK;
 }
@@ -1232,13 +1232,13 @@ static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_8_HS_RQST(uint32_t val)
 #define REG_DSI_20nm_PHY_TIMING_CTRL_9				0x00000164
 #define DSI_20nm_PHY_TIMING_CTRL_9_TA_GO__MASK			0x00000007
 #define DSI_20nm_PHY_TIMING_CTRL_9_TA_GO__SHIFT			0
-static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_9_TA_GO(uint32_t val)
+static uint32_t DSI_20nm_PHY_TIMING_CTRL_9_TA_GO(uint32_t val)
 {
 	return ((val) << DSI_20nm_PHY_TIMING_CTRL_9_TA_GO__SHIFT) & DSI_20nm_PHY_TIMING_CTRL_9_TA_GO__MASK;
 }
 #define DSI_20nm_PHY_TIMING_CTRL_9_TA_SURE__MASK		0x00000070
 #define DSI_20nm_PHY_TIMING_CTRL_9_TA_SURE__SHIFT		4
-static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_9_TA_SURE(uint32_t val)
+static uint32_t DSI_20nm_PHY_TIMING_CTRL_9_TA_SURE(uint32_t val)
 {
 	return ((val) << DSI_20nm_PHY_TIMING_CTRL_9_TA_SURE__SHIFT) & DSI_20nm_PHY_TIMING_CTRL_9_TA_SURE__MASK;
 }
@@ -1246,7 +1246,7 @@ static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_9_TA_SURE(uint32_t val)
 #define REG_DSI_20nm_PHY_TIMING_CTRL_10				0x00000168
 #define DSI_20nm_PHY_TIMING_CTRL_10_TA_GET__MASK		0x00000007
 #define DSI_20nm_PHY_TIMING_CTRL_10_TA_GET__SHIFT		0
-static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_10_TA_GET(uint32_t val)
+static uint32_t DSI_20nm_PHY_TIMING_CTRL_10_TA_GET(uint32_t val)
 {
 	return ((val) << DSI_20nm_PHY_TIMING_CTRL_10_TA_GET__SHIFT) & DSI_20nm_PHY_TIMING_CTRL_10_TA_GET__MASK;
 }
@@ -1254,7 +1254,7 @@ static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_10_TA_GET(uint32_t val)
 #define REG_DSI_20nm_PHY_TIMING_CTRL_11				0x0000016c
 #define DSI_20nm_PHY_TIMING_CTRL_11_TRIG3_CMD__MASK		0x000000ff
 #define DSI_20nm_PHY_TIMING_CTRL_11_TRIG3_CMD__SHIFT		0
-static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_11_TRIG3_CMD(uint32_t val)
+static uint32_t DSI_20nm_PHY_TIMING_CTRL_11_TRIG3_CMD(uint32_t val)
 {
 	return ((val) << DSI_20nm_PHY_TIMING_CTRL_11_TRIG3_CMD__SHIFT) & DSI_20nm_PHY_TIMING_CTRL_11_TRIG3_CMD__MASK;
 }
@@ -1315,13 +1315,13 @@ static inline uint32_t DSI_20nm_PHY_TIMING_CTRL_11_TRIG3_CMD(uint32_t val)
 #define REG_DSI_14nm_PHY_CMN_CLK_CFG0				0x00000010
 #define DSI_14nm_PHY_CMN_CLK_CFG0_DIV_CTRL_3_0__MASK		0x000000f0
 #define DSI_14nm_PHY_CMN_CLK_CFG0_DIV_CTRL_3_0__SHIFT		4
-static inline uint32_t DSI_14nm_PHY_CMN_CLK_CFG0_DIV_CTRL_3_0(uint32_t val)
+static uint32_t DSI_14nm_PHY_CMN_CLK_CFG0_DIV_CTRL_3_0(uint32_t val)
 {
 	return ((val) << DSI_14nm_PHY_CMN_CLK_CFG0_DIV_CTRL_3_0__SHIFT) & DSI_14nm_PHY_CMN_CLK_CFG0_DIV_CTRL_3_0__MASK;
 }
 #define DSI_14nm_PHY_CMN_CLK_CFG0_DIV_CTRL_7_4__MASK		0x000000f0
 #define DSI_14nm_PHY_CMN_CLK_CFG0_DIV_CTRL_7_4__SHIFT		4
-static inline uint32_t DSI_14nm_PHY_CMN_CLK_CFG0_DIV_CTRL_7_4(uint32_t val)
+static uint32_t DSI_14nm_PHY_CMN_CLK_CFG0_DIV_CTRL_7_4(uint32_t val)
 {
 	return ((val) << DSI_14nm_PHY_CMN_CLK_CFG0_DIV_CTRL_7_4__SHIFT) & DSI_14nm_PHY_CMN_CLK_CFG0_DIV_CTRL_7_4__MASK;
 }
@@ -1360,7 +1360,7 @@ static inline uint32_t DSI_14nm_PHY_CMN_CLK_CFG0_DIV_CTRL_7_4(uint32_t val)
 #define REG_DSI_14nm_PHY_CMN_LDO_CNTRL				0x0000004c
 #define DSI_14nm_PHY_CMN_LDO_CNTRL_VREG_CTRL__MASK		0x0000003f
 #define DSI_14nm_PHY_CMN_LDO_CNTRL_VREG_CTRL__SHIFT		0
-static inline uint32_t DSI_14nm_PHY_CMN_LDO_CNTRL_VREG_CTRL(uint32_t val)
+static uint32_t DSI_14nm_PHY_CMN_LDO_CNTRL_VREG_CTRL(uint32_t val)
 {
 	return ((val) << DSI_14nm_PHY_CMN_LDO_CNTRL_VREG_CTRL__SHIFT) & DSI_14nm_PHY_CMN_LDO_CNTRL_VREG_CTRL__MASK;
 }
@@ -1370,7 +1370,7 @@ static inline uint32_t REG_DSI_14nm_PHY_LN(uint32_t i0) { return 0x00000000 + 0x
 static inline uint32_t REG_DSI_14nm_PHY_LN_CFG0(uint32_t i0) { return 0x00000000 + 0x80*i0; }
 #define DSI_14nm_PHY_LN_CFG0_PREPARE_DLY__MASK			0x000000c0
 #define DSI_14nm_PHY_LN_CFG0_PREPARE_DLY__SHIFT			6
-static inline uint32_t DSI_14nm_PHY_LN_CFG0_PREPARE_DLY(uint32_t val)
+static uint32_t DSI_14nm_PHY_LN_CFG0_PREPARE_DLY(uint32_t val)
 {
 	return ((val) << DSI_14nm_PHY_LN_CFG0_PREPARE_DLY__SHIFT) & DSI_14nm_PHY_LN_CFG0_PREPARE_DLY__MASK;
 }
@@ -1389,7 +1389,7 @@ static inline uint32_t REG_DSI_14nm_PHY_LN_TEST_STR(uint32_t i0) { return 0x0000
 static inline uint32_t REG_DSI_14nm_PHY_LN_TIMING_CTRL_4(uint32_t i0) { return 0x00000018 + 0x80*i0; }
 #define DSI_14nm_PHY_LN_TIMING_CTRL_4_HS_EXIT__MASK		0x000000ff
 #define DSI_14nm_PHY_LN_TIMING_CTRL_4_HS_EXIT__SHIFT		0
-static inline uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_4_HS_EXIT(uint32_t val)
+static uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_4_HS_EXIT(uint32_t val)
 {
 	return ((val) << DSI_14nm_PHY_LN_TIMING_CTRL_4_HS_EXIT__SHIFT) & DSI_14nm_PHY_LN_TIMING_CTRL_4_HS_EXIT__MASK;
 }
@@ -1397,7 +1397,7 @@ static inline uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_4_HS_EXIT(uint32_t val)
 static inline uint32_t REG_DSI_14nm_PHY_LN_TIMING_CTRL_5(uint32_t i0) { return 0x0000001c + 0x80*i0; }
 #define DSI_14nm_PHY_LN_TIMING_CTRL_5_HS_ZERO__MASK		0x000000ff
 #define DSI_14nm_PHY_LN_TIMING_CTRL_5_HS_ZERO__SHIFT		0
-static inline uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_5_HS_ZERO(uint32_t val)
+static uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_5_HS_ZERO(uint32_t val)
 {
 	return ((val) << DSI_14nm_PHY_LN_TIMING_CTRL_5_HS_ZERO__SHIFT) & DSI_14nm_PHY_LN_TIMING_CTRL_5_HS_ZERO__MASK;
 }
@@ -1405,7 +1405,7 @@ static inline uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_5_HS_ZERO(uint32_t val)
 static inline uint32_t REG_DSI_14nm_PHY_LN_TIMING_CTRL_6(uint32_t i0) { return 0x00000020 + 0x80*i0; }
 #define DSI_14nm_PHY_LN_TIMING_CTRL_6_HS_PREPARE__MASK		0x000000ff
 #define DSI_14nm_PHY_LN_TIMING_CTRL_6_HS_PREPARE__SHIFT		0
-static inline uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_6_HS_PREPARE(uint32_t val)
+static uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_6_HS_PREPARE(uint32_t val)
 {
 	return ((val) << DSI_14nm_PHY_LN_TIMING_CTRL_6_HS_PREPARE__SHIFT) & DSI_14nm_PHY_LN_TIMING_CTRL_6_HS_PREPARE__MASK;
 }
@@ -1413,7 +1413,7 @@ static inline uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_6_HS_PREPARE(uint32_t val)
 static inline uint32_t REG_DSI_14nm_PHY_LN_TIMING_CTRL_7(uint32_t i0) { return 0x00000024 + 0x80*i0; }
 #define DSI_14nm_PHY_LN_TIMING_CTRL_7_HS_TRAIL__MASK		0x000000ff
 #define DSI_14nm_PHY_LN_TIMING_CTRL_7_HS_TRAIL__SHIFT		0
-static inline uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_7_HS_TRAIL(uint32_t val)
+static uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_7_HS_TRAIL(uint32_t val)
 {
 	return ((val) << DSI_14nm_PHY_LN_TIMING_CTRL_7_HS_TRAIL__SHIFT) & DSI_14nm_PHY_LN_TIMING_CTRL_7_HS_TRAIL__MASK;
 }
@@ -1421,7 +1421,7 @@ static inline uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_7_HS_TRAIL(uint32_t val)
 static inline uint32_t REG_DSI_14nm_PHY_LN_TIMING_CTRL_8(uint32_t i0) { return 0x00000028 + 0x80*i0; }
 #define DSI_14nm_PHY_LN_TIMING_CTRL_8_HS_RQST__MASK		0x000000ff
 #define DSI_14nm_PHY_LN_TIMING_CTRL_8_HS_RQST__SHIFT		0
-static inline uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_8_HS_RQST(uint32_t val)
+static uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_8_HS_RQST(uint32_t val)
 {
 	return ((val) << DSI_14nm_PHY_LN_TIMING_CTRL_8_HS_RQST__SHIFT) & DSI_14nm_PHY_LN_TIMING_CTRL_8_HS_RQST__MASK;
 }
@@ -1429,13 +1429,13 @@ static inline uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_8_HS_RQST(uint32_t val)
 static inline uint32_t REG_DSI_14nm_PHY_LN_TIMING_CTRL_9(uint32_t i0) { return 0x0000002c + 0x80*i0; }
 #define DSI_14nm_PHY_LN_TIMING_CTRL_9_TA_GO__MASK		0x00000007
 #define DSI_14nm_PHY_LN_TIMING_CTRL_9_TA_GO__SHIFT		0
-static inline uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_9_TA_GO(uint32_t val)
+static uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_9_TA_GO(uint32_t val)
 {
 	return ((val) << DSI_14nm_PHY_LN_TIMING_CTRL_9_TA_GO__SHIFT) & DSI_14nm_PHY_LN_TIMING_CTRL_9_TA_GO__MASK;
 }
 #define DSI_14nm_PHY_LN_TIMING_CTRL_9_TA_SURE__MASK		0x00000070
 #define DSI_14nm_PHY_LN_TIMING_CTRL_9_TA_SURE__SHIFT		4
-static inline uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_9_TA_SURE(uint32_t val)
+static uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_9_TA_SURE(uint32_t val)
 {
 	return ((val) << DSI_14nm_PHY_LN_TIMING_CTRL_9_TA_SURE__SHIFT) & DSI_14nm_PHY_LN_TIMING_CTRL_9_TA_SURE__MASK;
 }
@@ -1443,7 +1443,7 @@ static inline uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_9_TA_SURE(uint32_t val)
 static inline uint32_t REG_DSI_14nm_PHY_LN_TIMING_CTRL_10(uint32_t i0) { return 0x00000030 + 0x80*i0; }
 #define DSI_14nm_PHY_LN_TIMING_CTRL_10_TA_GET__MASK		0x00000007
 #define DSI_14nm_PHY_LN_TIMING_CTRL_10_TA_GET__SHIFT		0
-static inline uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_10_TA_GET(uint32_t val)
+static uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_10_TA_GET(uint32_t val)
 {
 	return ((val) << DSI_14nm_PHY_LN_TIMING_CTRL_10_TA_GET__SHIFT) & DSI_14nm_PHY_LN_TIMING_CTRL_10_TA_GET__MASK;
 }
@@ -1451,7 +1451,7 @@ static inline uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_10_TA_GET(uint32_t val)
 static inline uint32_t REG_DSI_14nm_PHY_LN_TIMING_CTRL_11(uint32_t i0) { return 0x00000034 + 0x80*i0; }
 #define DSI_14nm_PHY_LN_TIMING_CTRL_11_TRIG3_CMD__MASK		0x000000ff
 #define DSI_14nm_PHY_LN_TIMING_CTRL_11_TRIG3_CMD__SHIFT		0
-static inline uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_11_TRIG3_CMD(uint32_t val)
+static uint32_t DSI_14nm_PHY_LN_TIMING_CTRL_11_TRIG3_CMD(uint32_t val)
 {
 	return ((val) << DSI_14nm_PHY_LN_TIMING_CTRL_11_TRIG3_CMD__SHIFT) & DSI_14nm_PHY_LN_TIMING_CTRL_11_TRIG3_CMD__MASK;
 }

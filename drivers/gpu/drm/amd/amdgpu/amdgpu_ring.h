@@ -204,7 +204,7 @@ void amdgpu_ring_fini(struct amdgpu_ring *ring);
 int amdgpu_ring_lru_get(struct amdgpu_device *adev, int type, int *blacklist,
 			int num_blacklist, struct amdgpu_ring **ring);
 void amdgpu_ring_lru_touch(struct amdgpu_device *adev, struct amdgpu_ring *ring);
-static inline void amdgpu_ring_clear_ring(struct amdgpu_ring *ring)
+static void amdgpu_ring_clear_ring(struct amdgpu_ring *ring)
 {
 	int i = 0;
 	while (i <= ring->buf_mask)
@@ -212,7 +212,7 @@ static inline void amdgpu_ring_clear_ring(struct amdgpu_ring *ring)
 
 }
 
-static inline void amdgpu_ring_write(struct amdgpu_ring *ring, uint32_t v)
+static void amdgpu_ring_write(struct amdgpu_ring *ring, uint32_t v)
 {
 	if (ring->count_dw <= 0)
 		DRM_ERROR("amdgpu: writing more dwords to the ring than expected!\n");
@@ -221,7 +221,7 @@ static inline void amdgpu_ring_write(struct amdgpu_ring *ring, uint32_t v)
 	ring->count_dw--;
 }
 
-static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
+static void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
 					      void *src, int count_dw)
 {
 	unsigned occupied, chunk1, chunk2;

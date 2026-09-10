@@ -228,7 +228,7 @@ enum sptlrpc_bulk_service {
 
 /** @} flavor */
 
-static inline void flvr_set_svc(__u32 *flvr, __u32 svc)
+static void flvr_set_svc(__u32 *flvr, __u32 svc)
 {
 	LASSERT(svc < SPTLRPC_SVC_MAX);
 	*flvr = MAKE_FLVR(SPTLRPC_FLVR_POLICY(*flvr),
@@ -238,7 +238,7 @@ static inline void flvr_set_svc(__u32 *flvr, __u32 svc)
 			  SPTLRPC_FLVR_BULK_SVC(*flvr));
 }
 
-static inline void flvr_set_bulk_svc(__u32 *flvr, __u32 svc)
+static void flvr_set_bulk_svc(__u32 *flvr, __u32 svc)
 {
 	LASSERT(svc < SPTLRPC_BULK_SVC_MAX);
 	*flvr = MAKE_FLVR(SPTLRPC_FLVR_POLICY(*flvr),
@@ -321,7 +321,7 @@ struct sptlrpc_rule_set {
 int sptlrpc_parse_flavor(const char *str, struct sptlrpc_flavor *flvr);
 bool sptlrpc_flavor_has_bulk(struct sptlrpc_flavor *flvr);
 
-static inline void sptlrpc_rule_set_init(struct sptlrpc_rule_set *set)
+static void sptlrpc_rule_set_init(struct sptlrpc_rule_set *set)
 {
 	memset(set, 0, sizeof(*set));
 }
@@ -794,12 +794,12 @@ struct ptlrpc_sec {
 	time64_t		      ps_gc_next;     /* in seconds */
 };
 
-static inline int sec_is_reverse(struct ptlrpc_sec *sec)
+static int sec_is_reverse(struct ptlrpc_sec *sec)
 {
 	return (sec->ps_flvr.sf_flags & PTLRPC_SEC_FL_REVERSE);
 }
 
-static inline int sec_is_rootonly(struct ptlrpc_sec *sec)
+static int sec_is_rootonly(struct ptlrpc_sec *sec)
 {
 	return (sec->ps_flvr.sf_flags & PTLRPC_SEC_FL_ROOTONLY);
 }
@@ -859,7 +859,7 @@ struct ptlrpc_bulk_sec_desc {
  * round size up to next power of 2, for slab allocation.
  * @size must be sane (can't overflow after round up)
  */
-static inline int size_roundup_power2(int size)
+static int size_roundup_power2(int size)
 {
 	size--;
 	size |= size >> 1;
@@ -1048,7 +1048,7 @@ int sptlrpc_get_bulk_checksum(struct ptlrpc_bulk_desc *desc, __u8 alg,
 int bulk_sec_desc_unpack(struct lustre_msg *msg, int offset, int swabbed);
 
 /* user descriptor helpers */
-static inline int sptlrpc_user_desc_size(int ngroups)
+static int sptlrpc_user_desc_size(int ngroups)
 {
 	return sizeof(struct ptlrpc_user_desc) + ngroups * sizeof(__u32);
 }

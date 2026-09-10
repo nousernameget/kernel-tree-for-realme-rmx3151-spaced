@@ -106,46 +106,46 @@ struct b43_pio_rxqueue {
 };
 
 
-static inline u16 b43_piotx_read16(struct b43_pio_txqueue *q, u16 offset)
+static u16 b43_piotx_read16(struct b43_pio_txqueue *q, u16 offset)
 {
 	return b43_read16(q->dev, q->mmio_base + offset);
 }
 
-static inline u32 b43_piotx_read32(struct b43_pio_txqueue *q, u16 offset)
+static u32 b43_piotx_read32(struct b43_pio_txqueue *q, u16 offset)
 {
 	return b43_read32(q->dev, q->mmio_base + offset);
 }
 
-static inline void b43_piotx_write16(struct b43_pio_txqueue *q,
+static void b43_piotx_write16(struct b43_pio_txqueue *q,
 				     u16 offset, u16 value)
 {
 	b43_write16(q->dev, q->mmio_base + offset, value);
 }
 
-static inline void b43_piotx_write32(struct b43_pio_txqueue *q,
+static void b43_piotx_write32(struct b43_pio_txqueue *q,
 				     u16 offset, u32 value)
 {
 	b43_write32(q->dev, q->mmio_base + offset, value);
 }
 
 
-static inline u16 b43_piorx_read16(struct b43_pio_rxqueue *q, u16 offset)
+static u16 b43_piorx_read16(struct b43_pio_rxqueue *q, u16 offset)
 {
 	return b43_read16(q->dev, q->mmio_base + offset);
 }
 
-static inline u32 b43_piorx_read32(struct b43_pio_rxqueue *q, u16 offset)
+static u32 b43_piorx_read32(struct b43_pio_rxqueue *q, u16 offset)
 {
 	return b43_read32(q->dev, q->mmio_base + offset);
 }
 
-static inline void b43_piorx_write16(struct b43_pio_rxqueue *q,
+static void b43_piorx_write16(struct b43_pio_rxqueue *q,
 				     u16 offset, u16 value)
 {
 	b43_write16(q->dev, q->mmio_base + offset, value);
 }
 
-static inline void b43_piorx_write32(struct b43_pio_rxqueue *q,
+static void b43_piorx_write32(struct b43_pio_rxqueue *q,
 				     u16 offset, u32 value)
 {
 	b43_write32(q->dev, q->mmio_base + offset, value);

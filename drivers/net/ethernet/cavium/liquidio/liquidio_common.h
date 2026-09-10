@@ -108,7 +108,7 @@ enum octeon_tag_type {
 
 #define SCR2_BIT_FW_LOADED	    63
 
-static inline u32 incr_index(u32 index, u32 count, u32 max)
+static u32 incr_index(u32 index, u32 count, u32 max)
 {
 	if ((index + count) >= max)
 		index = index + count - max;
@@ -161,7 +161,7 @@ struct octeon_sg_entry {
  * @param size size to add
  * @param pos position to add it.
  */
-static inline void add_sg_size(struct octeon_sg_entry *sg_entry,
+static void add_sg_size(struct octeon_sg_entry *sg_entry,
 			       u16 size,
 			       u32 pos)
 {
@@ -829,7 +829,7 @@ struct oct_link_stats {
 
 };
 
-static inline int opcode_slow_path(union octeon_rh *rh)
+static int opcode_slow_path(union octeon_rh *rh)
 {
 	u16 subcode1, subcode2;
 

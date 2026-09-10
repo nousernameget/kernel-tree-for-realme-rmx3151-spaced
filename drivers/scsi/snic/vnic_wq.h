@@ -82,24 +82,24 @@ struct vnic_wq {
 	unsigned int pkts_outstanding;
 };
 
-static inline unsigned int svnic_wq_desc_avail(struct vnic_wq *wq)
+static unsigned int svnic_wq_desc_avail(struct vnic_wq *wq)
 {
 	/* how many does SW own? */
 	return wq->ring.desc_avail;
 }
 
-static inline unsigned int svnic_wq_desc_used(struct vnic_wq *wq)
+static unsigned int svnic_wq_desc_used(struct vnic_wq *wq)
 {
 	/* how many does HW own? */
 	return wq->ring.desc_count - wq->ring.desc_avail - 1;
 }
 
-static inline void *svnic_wq_next_desc(struct vnic_wq *wq)
+static void *svnic_wq_next_desc(struct vnic_wq *wq)
 {
 	return wq->to_use->desc;
 }
 
-static inline void svnic_wq_post(struct vnic_wq *wq,
+static void svnic_wq_post(struct vnic_wq *wq,
 	void *os_buf, dma_addr_t dma_addr,
 	unsigned int len, int sop, int eop)
 {
@@ -125,7 +125,7 @@ static inline void svnic_wq_post(struct vnic_wq *wq,
 	wq->ring.desc_avail--;
 }
 
-static inline void svnic_wq_service(struct vnic_wq *wq,
+static void svnic_wq_service(struct vnic_wq *wq,
 	struct cq_desc *cq_desc, u16 completed_index,
 	void (*buf_service)(struct vnic_wq *wq,
 	struct cq_desc *cq_desc, struct vnic_wq_buf *buf, void *opaque),

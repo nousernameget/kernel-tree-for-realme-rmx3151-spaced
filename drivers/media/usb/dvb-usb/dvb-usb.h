@@ -76,17 +76,17 @@ struct dvb_usb_device_description {
 	struct usb_device_id *warm_ids[DVB_USB_ID_MAX_NUM];
 };
 
-static inline u8 rc5_custom(struct rc_map_table *key)
+static u8 rc5_custom(struct rc_map_table *key)
 {
 	return (key->scancode >> 8) & 0xff;
 }
 
-static inline u8 rc5_data(struct rc_map_table *key)
+static u8 rc5_data(struct rc_map_table *key)
 {
 	return key->scancode & 0xff;
 }
 
-static inline u16 rc5_scan(struct rc_map_table *key)
+static u16 rc5_scan(struct rc_map_table *key)
 {
 	return key->scancode & 0xffff;
 }

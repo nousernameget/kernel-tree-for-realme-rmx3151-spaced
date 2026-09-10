@@ -279,13 +279,13 @@ void __exit msm_dsi_unregister(void);
 int msm_dsi_modeset_init(struct msm_dsi *msm_dsi, struct drm_device *dev,
 			 struct drm_encoder *encoder);
 #else
-static inline void __init msm_dsi_register(void)
+static void __init msm_dsi_register(void)
 {
 }
-static inline void __exit msm_dsi_unregister(void)
+static void __exit msm_dsi_unregister(void)
 {
 }
-static inline int msm_dsi_modeset_init(struct msm_dsi *msm_dsi,
+static int msm_dsi_modeset_init(struct msm_dsi *msm_dsi,
 				       struct drm_device *dev,
 				       struct drm_encoder *encoder)
 {
@@ -322,7 +322,7 @@ u32 msm_readl(const void __iomem *addr);
 #define DBG(fmt, ...) DRM_DEBUG_DRIVER(fmt"\n", ##__VA_ARGS__)
 #define VERB(fmt, ...) if (0) DRM_DEBUG_DRIVER(fmt"\n", ##__VA_ARGS__)
 
-static inline int align_pitch(int width, int bpp)
+static int align_pitch(int width, int bpp)
 {
 	int bytespp = (bpp + 7) / 8;
 	/* adreno needs pitch aligned to 32 pixels: */
@@ -340,7 +340,7 @@ static inline int align_pitch(int width, int bpp)
 /* for conditionally setting boolean flag(s): */
 #define COND(bool, val) ((bool) ? (val) : 0)
 
-static inline unsigned long timeout_to_jiffies(const ktime_t *timeout)
+static unsigned long timeout_to_jiffies(const ktime_t *timeout)
 {
 	ktime_t now = ktime_get();
 	unsigned long remaining_jiffies;

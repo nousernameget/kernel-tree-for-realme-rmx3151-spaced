@@ -71,7 +71,7 @@ int llog_process_or_fork(const struct lu_env *env,
 int llog_cat_cleanup(const struct lu_env *env, struct llog_handle *cathandle,
 		     struct llog_handle *loghandle, int index);
 
-static inline struct llog_rec_hdr *llog_rec_hdr_next(struct llog_rec_hdr *rec)
+static struct llog_rec_hdr *llog_rec_hdr_next(struct llog_rec_hdr *rec)
 {
 	return (struct llog_rec_hdr *)((char *)rec + rec->lrh_len);
 }

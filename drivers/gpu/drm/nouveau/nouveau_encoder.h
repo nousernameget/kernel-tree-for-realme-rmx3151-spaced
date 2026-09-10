@@ -74,19 +74,19 @@ struct nouveau_encoder {
 struct nouveau_encoder *
 find_encoder(struct drm_connector *connector, int type);
 
-static inline struct nouveau_encoder *nouveau_encoder(struct drm_encoder *enc)
+static struct nouveau_encoder *nouveau_encoder(struct drm_encoder *enc)
 {
 	struct drm_encoder_slave *slave = to_encoder_slave(enc);
 
 	return container_of(slave, struct nouveau_encoder, base);
 }
 
-static inline struct drm_encoder *to_drm_encoder(struct nouveau_encoder *enc)
+static struct drm_encoder *to_drm_encoder(struct nouveau_encoder *enc)
 {
 	return &enc->base.base;
 }
 
-static inline const struct drm_encoder_slave_funcs *
+static const struct drm_encoder_slave_funcs *
 get_slave_funcs(struct drm_encoder *enc)
 {
 	return to_encoder_slave(enc)->slave_funcs;

@@ -211,7 +211,7 @@ struct vbox_bo {
 
 #define gem_to_vbox_bo(gobj) container_of((gobj), struct vbox_bo, gem)
 
-static inline struct vbox_bo *vbox_bo(struct ttm_buffer_object *bo)
+static struct vbox_bo *vbox_bo(struct ttm_buffer_object *bo)
 {
 	return container_of(bo, struct vbox_bo, bo);
 }
@@ -241,7 +241,7 @@ int vbox_gem_create(struct drm_device *dev,
 int vbox_bo_pin(struct vbox_bo *bo, u32 pl_flag, u64 *gpu_addr);
 int vbox_bo_unpin(struct vbox_bo *bo);
 
-static inline int vbox_bo_reserve(struct vbox_bo *bo, bool no_wait)
+static int vbox_bo_reserve(struct vbox_bo *bo, bool no_wait)
 {
 	int ret;
 
@@ -254,7 +254,7 @@ static inline int vbox_bo_reserve(struct vbox_bo *bo, bool no_wait)
 	return 0;
 }
 
-static inline void vbox_bo_unreserve(struct vbox_bo *bo)
+static void vbox_bo_unreserve(struct vbox_bo *bo)
 {
 	ttm_bo_unreserve(&bo->bo);
 }
@@ -287,7 +287,7 @@ void *hgsmi_buffer_alloc(struct gen_pool *guest_pool, size_t size,
 void hgsmi_buffer_free(struct gen_pool *guest_pool, void *buf);
 int hgsmi_buffer_submit(struct gen_pool *guest_pool, void *buf);
 
-static inline void vbox_write_ioport(u16 index, u16 data)
+static void vbox_write_ioport(u16 index, u16 data)
 {
 	outw(index, VBE_DISPI_IOPORT_INDEX);
 	outw(data, VBE_DISPI_IOPORT_DATA);

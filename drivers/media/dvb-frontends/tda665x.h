@@ -39,7 +39,7 @@ extern struct dvb_frontend *tda665x_attach(struct dvb_frontend *fe,
 
 #else
 
-static inline struct dvb_frontend *tda665x_attach(struct dvb_frontend *fe,
+static struct dvb_frontend *tda665x_attach(struct dvb_frontend *fe,
 						  const struct tda665x_config *config,
 						  struct i2c_adapter *i2c)
 {

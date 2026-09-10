@@ -145,7 +145,7 @@ struct netcp_packet {
 	void (*txtstamp)(void *ctx, struct sk_buff *skb);
 };
 
-static inline u32 *netcp_push_psdata(struct netcp_packet *p_info,
+static u32 *netcp_push_psdata(struct netcp_packet *p_info,
 				     unsigned int bytes)
 {
 	u32 *buf;
@@ -163,7 +163,7 @@ static inline u32 *netcp_push_psdata(struct netcp_packet *p_info,
 	return buf;
 }
 
-static inline int netcp_align_psdata(struct netcp_packet *p_info,
+static int netcp_align_psdata(struct netcp_packet *p_info,
 				     unsigned int byte_align)
 {
 	int padding;

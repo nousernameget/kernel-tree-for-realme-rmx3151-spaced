@@ -68,7 +68,7 @@ extern const struct file_operations cxlflash_cxl_fops;
 #define PRIMARY_HWQ			0
 
 
-static inline void check_sizes(void)
+static void check_sizes(void)
 {
 	BUILD_BUG_ON_NOT_POWER_OF_2(CXLFLASH_NUM_FC_PORTS_PER_BANK);
 	BUILD_BUG_ON_NOT_POWER_OF_2(CXLFLASH_MAX_CMDS);
@@ -173,12 +173,12 @@ struct afu_cmd {
 	 */
 } __aligned(cache_line_size());
 
-static inline struct afu_cmd *sc_to_afuc(struct scsi_cmnd *sc)
+static struct afu_cmd *sc_to_afuc(struct scsi_cmnd *sc)
 {
 	return PTR_ALIGN(scsi_cmd_priv(sc), __alignof__(struct afu_cmd));
 }
 
-static inline struct afu_cmd *sc_to_afuci(struct scsi_cmnd *sc)
+static struct afu_cmd *sc_to_afuci(struct scsi_cmnd *sc)
 {
 	struct afu_cmd *afuc = sc_to_afuc(sc);
 
@@ -186,7 +186,7 @@ static inline struct afu_cmd *sc_to_afuci(struct scsi_cmnd *sc)
 	return afuc;
 }
 
-static inline struct afu_cmd *sc_to_afucz(struct scsi_cmnd *sc)
+static struct afu_cmd *sc_to_afucz(struct scsi_cmnd *sc)
 {
 	struct afu_cmd *afuc = sc_to_afuc(sc);
 
@@ -251,46 +251,46 @@ struct afu {
 	struct cxlflash_cfg *parent; /* Pointer back to parent cxlflash_cfg */
 };
 
-static inline struct hwq *get_hwq(struct afu *afu, u32 index)
+static struct hwq *get_hwq(struct afu *afu, u32 index)
 {
 	WARN_ON(index >= CXLFLASH_MAX_HWQS);
 
 	return &afu->hwqs[index];
 }
 
-static inline bool afu_is_irqpoll_enabled(struct afu *afu)
+static bool afu_is_irqpoll_enabled(struct afu *afu)
 {
 	return !!afu->irqpoll_weight;
 }
 
-static inline bool afu_has_cap(struct afu *afu, u64 cap)
+static bool afu_has_cap(struct afu *afu, u64 cap)
 {
 	u64 afu_cap = afu->interface_version >> SISL_INTVER_CAP_SHIFT;
 
 	return afu_cap & cap;
 }
 
-static inline bool afu_is_afu_debug(struct afu *afu)
+static bool afu_is_afu_debug(struct afu *afu)
 {
 	return afu_has_cap(afu, SISL_INTVER_CAP_AFU_DEBUG);
 }
 
-static inline bool afu_is_lun_provision(struct afu *afu)
+static bool afu_is_lun_provision(struct afu *afu)
 {
 	return afu_has_cap(afu, SISL_INTVER_CAP_LUN_PROVISION);
 }
 
-static inline bool afu_is_sq_cmd_mode(struct afu *afu)
+static bool afu_is_sq_cmd_mode(struct afu *afu)
 {
 	return afu_has_cap(afu, SISL_INTVER_CAP_SQ_CMD_MODE);
 }
 
-static inline bool afu_is_ioarrin_cmd_mode(struct afu *afu)
+static bool afu_is_ioarrin_cmd_mode(struct afu *afu)
 {
 	return afu_has_cap(afu, SISL_INTVER_CAP_IOARRIN_CMD_MODE);
 }
 
-static inline u64 lun_to_lunid(u64 lun)
+static u64 lun_to_lunid(u64 lun)
 {
 	__be64 lun_id;
 
@@ -298,7 +298,7 @@ static inline u64 lun_to_lunid(u64 lun)
 	return be64_to_cpu(lun_id);
 }
 
-static inline struct fc_port_bank __iomem *get_fc_port_bank(
+static struct fc_port_bank __iomem *get_fc_port_bank(
 					    struct cxlflash_cfg *cfg, int i)
 {
 	struct afu *afu = cfg->afu;
@@ -306,14 +306,14 @@ static inline struct fc_port_bank __iomem *get_fc_port_bank(
 	return &afu->afu_map->global.bank[CHAN2PORTBANK(i)];
 }
 
-static inline __be64 __iomem *get_fc_port_regs(struct cxlflash_cfg *cfg, int i)
+static __be64 __iomem *get_fc_port_regs(struct cxlflash_cfg *cfg, int i)
 {
 	struct fc_port_bank __iomem *fcpb = get_fc_port_bank(cfg, i);
 
 	return &fcpb->fc_port_regs[CHAN2BANKPORT(i)][0];
 }
 
-static inline __be64 __iomem *get_fc_port_luns(struct cxlflash_cfg *cfg, int i)
+static __be64 __iomem *get_fc_port_luns(struct cxlflash_cfg *cfg, int i)
 {
 	struct fc_port_bank __iomem *fcpb = get_fc_port_bank(cfg, i);
 

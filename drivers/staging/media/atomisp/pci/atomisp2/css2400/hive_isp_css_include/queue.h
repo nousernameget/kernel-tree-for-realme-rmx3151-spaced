@@ -18,12 +18,12 @@
 /*
  * This file is included on every cell {SP,ISP,host} and is system agnostic
  *
- * System and cell specific interfaces and inline code are included
+ * System and cell specific interfaces and code are included
  * conditionally through Makefile path settings.
  *
  *  - system and cell agnostic interfaces, constants and identifiers
  *	- public:  cell specific interfaces
- *	- private: cell specific inline implementations
+ *	- private: cell specific implementations
  *	- global:  inter cell constants and identifiers
  *	- local:   cell specific constants and identifiers
  *

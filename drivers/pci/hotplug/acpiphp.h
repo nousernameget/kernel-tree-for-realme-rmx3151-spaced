@@ -53,7 +53,7 @@ struct slot {
 	unsigned int sun;	/* ACPI _SUN (Slot User Number) value */
 };
 
-static inline const char *slot_name(struct slot *slot)
+static const char *slot_name(struct slot *slot)
 {
 	return hotplug_slot_name(slot->hotplug_slot);
 }
@@ -122,22 +122,22 @@ struct acpiphp_context {
 	unsigned int refcount;
 };
 
-static inline struct acpiphp_context *to_acpiphp_context(struct acpi_hotplug_context *hp)
+static struct acpiphp_context *to_acpiphp_context(struct acpi_hotplug_context *hp)
 {
 	return container_of(hp, struct acpiphp_context, hp);
 }
 
-static inline struct acpiphp_context *func_to_context(struct acpiphp_func *func)
+static struct acpiphp_context *func_to_context(struct acpiphp_func *func)
 {
 	return container_of(func, struct acpiphp_context, func);
 }
 
-static inline struct acpi_device *func_to_acpi_device(struct acpiphp_func *func)
+static struct acpi_device *func_to_acpi_device(struct acpiphp_func *func)
 {
 	return func_to_context(func)->hp.self;
 }
 
-static inline acpi_handle func_to_handle(struct acpiphp_func *func)
+static acpi_handle func_to_handle(struct acpiphp_func *func)
 {
 	return func_to_acpi_device(func)->handle;
 }
@@ -147,7 +147,7 @@ struct acpiphp_root_context {
 	struct acpiphp_bridge *root_bridge;
 };
 
-static inline struct acpiphp_root_context *to_acpiphp_root_context(struct acpi_hotplug_context *hp)
+static struct acpiphp_root_context *to_acpiphp_root_context(struct acpi_hotplug_context *hp)
 {
 	return container_of(hp, struct acpiphp_root_context, hp);
 }

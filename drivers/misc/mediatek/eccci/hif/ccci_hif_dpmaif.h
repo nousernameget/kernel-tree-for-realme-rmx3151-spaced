@@ -412,7 +412,7 @@ struct hif_dpmaif_ctrl {
 
 };
 
-static inline int ccci_dpma_hif_send_skb(unsigned char hif_id, int tx_qno,
+static int ccci_dpma_hif_send_skb(unsigned char hif_id, int tx_qno,
 	struct sk_buff *skb, int from_pool, int blocking)
 {
 	struct hif_dpmaif_ctrl *hif_ctrl =
@@ -425,7 +425,7 @@ static inline int ccci_dpma_hif_send_skb(unsigned char hif_id, int tx_qno,
 		return -1;
 }
 
-static inline int ccci_dpma_hif_write_room(unsigned char hif_id,
+static int ccci_dpma_hif_write_room(unsigned char hif_id,
 	unsigned char qno)
 {
 	struct hif_dpmaif_ctrl *hif_ctrl =
@@ -437,7 +437,7 @@ static inline int ccci_dpma_hif_write_room(unsigned char hif_id,
 		return -1;
 
 }
-static inline int ccci_dpma_hif_give_more(unsigned char hif_id, int rx_qno)
+static int ccci_dpma_hif_give_more(unsigned char hif_id, int rx_qno)
 {
 	struct hif_dpmaif_ctrl *hif_ctrl =
 		(struct hif_dpmaif_ctrl *)ccci_hif_get_by_id(hif_id);
@@ -449,7 +449,7 @@ static inline int ccci_dpma_hif_give_more(unsigned char hif_id, int rx_qno)
 
 }
 
-static inline int ccci_dpmaif_hif_dump_status(unsigned char hif_id,
+static int ccci_dpmaif_hif_dump_status(unsigned char hif_id,
 	enum MODEM_DUMP_FLAG dump_flag, int length)
 {
 	struct hif_dpmaif_ctrl *hif_ctrl =
@@ -462,7 +462,7 @@ static inline int ccci_dpmaif_hif_dump_status(unsigned char hif_id,
 
 }
 
-static inline int ccci_dpmaif_hif_set_wakeup_src(unsigned char hif_id,
+static int ccci_dpmaif_hif_set_wakeup_src(unsigned char hif_id,
 	int value)
 {
 	struct hif_dpmaif_ctrl *hif_ctrl =

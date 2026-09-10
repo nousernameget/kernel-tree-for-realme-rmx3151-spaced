@@ -16,7 +16,7 @@
 
 #include <turbo_common.h>
 
-inline void futex_plist_add(struct futex_q *q, struct futex_hash_bucket *hb)
+void futex_plist_add(struct futex_q *q, struct futex_hash_bucket *hb)
 {
 	struct futex_q *this, *next;
 	struct plist_node *current_node = &q->list;

@@ -19,12 +19,12 @@
  * This file is included on every cell {SP,ISP,host} and on every system
  * that uses the input system device(s). It defines the API to DLI bridge
  *
- * System and cell specific interfaces and inline code are included
+ * System and cell specific interfaces and code are included
  * conditionally through Makefile path settings.
  *
  *  - .        system and cell agnostic interfaces, constants and identifiers
  *	- public:  system agnostic, cell specific interfaces
- *	- private: system dependent, cell specific interfaces & inline implementations
+ *	- private: system dependent, cell specific interfaces & implementations
  *	- global:  system specific constants and identifiers
  *	- local:   system and cell specific constants and identifiers
  */
@@ -41,7 +41,7 @@
 #else  /* __INLINE_GP_TIMER__ */
 #define STORAGE_CLASS_GP_TIMER_H STORAGE_CLASS_INLINE
 #define STORAGE_CLASS_GP_TIMER_C STORAGE_CLASS_INLINE
-#include "gp_timer_private.h"  /* inline functions*/
+#include "gp_timer_private.h"  /* functions*/
 #endif /* __INLINE_GP_TIMER__ */
 
 #endif /* __GP_TIMER_H_INCLUDED__ */

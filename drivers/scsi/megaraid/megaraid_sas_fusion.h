@@ -208,7 +208,7 @@ struct RAID_CONTEXT_G35 {
 #define MR_RAID_CTX_ROUTINGFLAGS_SETDIVERT_SHIFT	12
 #define MR_RAID_CTX_ROUTINGFLAGS_SETDIVERT_MASK	0xF000
 
-static inline void set_num_sge(struct RAID_CONTEXT_G35 *rctx_g35,
+static void set_num_sge(struct RAID_CONTEXT_G35 *rctx_g35,
 			       u16 sge_count)
 {
 	rctx_g35->u.bytes[0] = (u8)(sge_count & NUM_SGE_MASK_LOWER);
@@ -216,7 +216,7 @@ static inline void set_num_sge(struct RAID_CONTEXT_G35 *rctx_g35,
 							& NUM_SGE_MASK_UPPER);
 }
 
-static inline u16 get_num_sge(struct RAID_CONTEXT_G35 *rctx_g35)
+static u16 get_num_sge(struct RAID_CONTEXT_G35 *rctx_g35)
 {
 	u16 sge_count;
 
@@ -231,7 +231,7 @@ static inline u16 get_num_sge(struct RAID_CONTEXT_G35 *rctx_g35)
 #define CLEAR_STREAM_DETECTED(rctx_g35) \
 	(rctx_g35.u.bytes[1] &= ~(STREAM_DETECT_MASK))
 
-static inline bool is_stream_detected(struct RAID_CONTEXT_G35 *rctx_g35)
+static bool is_stream_detected(struct RAID_CONTEXT_G35 *rctx_g35)
 {
 	return ((rctx_g35->u.bytes[1] & STREAM_DETECT_MASK));
 }

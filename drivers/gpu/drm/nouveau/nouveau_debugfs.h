@@ -12,7 +12,7 @@ struct nouveau_debugfs {
 	struct nvif_object ctrl;
 };
 
-static inline struct nouveau_debugfs *
+static struct nouveau_debugfs *
 nouveau_debugfs(struct drm_device *dev)
 {
 	return nouveau_drm(dev)->debugfs;
@@ -22,19 +22,19 @@ extern int  nouveau_drm_debugfs_init(struct drm_minor *);
 extern int  nouveau_debugfs_init(struct nouveau_drm *);
 extern void nouveau_debugfs_fini(struct nouveau_drm *);
 #else
-static inline int
+static int
 nouveau_drm_debugfs_init(struct drm_minor *minor)
 {
        return 0;
 }
 
-static inline int
+static int
 nouveau_debugfs_init(struct nouveau_drm *drm)
 {
 	return 0;
 }
 
-static inline void
+static void
 nouveau_debugfs_fini(struct nouveau_drm *drm)
 {
 }

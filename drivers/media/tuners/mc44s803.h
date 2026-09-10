@@ -30,7 +30,7 @@ struct mc44s803_config {
 extern struct dvb_frontend *mc44s803_attach(struct dvb_frontend *fe,
 	 struct i2c_adapter *i2c, struct mc44s803_config *cfg);
 #else
-static inline struct dvb_frontend *mc44s803_attach(struct dvb_frontend *fe,
+static struct dvb_frontend *mc44s803_attach(struct dvb_frontend *fe,
 	 struct i2c_adapter *i2c, struct mc44s803_config *cfg)
 {
 	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);

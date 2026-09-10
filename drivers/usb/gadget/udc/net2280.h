@@ -25,14 +25,14 @@
  * caller must own the device lock.
  */
 
-static inline u32 get_idx_reg(struct net2280_regs __iomem *regs, u32 index)
+static u32 get_idx_reg(struct net2280_regs __iomem *regs, u32 index)
 {
 	writel(index, &regs->idxaddr);
 	/* NOTE:  synchs device/cpu memory views */
 	return readl(&regs->idxdata);
 }
 
-static inline void
+static void
 set_idx_reg(struct net2280_regs __iomem *regs, u32 index, u32 value)
 {
 	writel(index, &regs->idxaddr);
@@ -115,7 +115,7 @@ struct net2280_ep {
 						responded : 1;
 };
 
-static inline void allow_status(struct net2280_ep *ep)
+static void allow_status(struct net2280_ep *ep)
 {
 	/* ep0 only */
 	writel(BIT(CLEAR_CONTROL_STATUS_PHASE_HANDSHAKE) |
@@ -125,7 +125,7 @@ static inline void allow_status(struct net2280_ep *ep)
 	ep->stopped = 1;
 }
 
-static inline void allow_status_338x(struct net2280_ep *ep)
+static void allow_status_338x(struct net2280_ep *ep)
 {
 	/*
 	 * Control Status Phase Handshake was set by the chip when the setup
@@ -191,7 +191,7 @@ struct net2280 {
 	/* statistics...*/
 };
 
-static inline void set_halt(struct net2280_ep *ep)
+static void set_halt(struct net2280_ep *ep)
 {
 	/* ep0 and bulk/intr endpoints */
 	writel(BIT(CLEAR_CONTROL_STATUS_PHASE_HANDSHAKE) |
@@ -201,7 +201,7 @@ static inline void set_halt(struct net2280_ep *ep)
 		&ep->regs->ep_rsp);
 }
 
-static inline void clear_halt(struct net2280_ep *ep)
+static void clear_halt(struct net2280_ep *ep)
 {
 	/* ep0 and bulk/intr endpoints */
 	writel(BIT(CLEAR_ENDPOINT_HALT) |
@@ -253,7 +253,7 @@ static inline void clear_halt(struct net2280_ep *ep)
 
 #ifdef USE_RDK_LEDS
 
-static inline void net2280_led_init(struct net2280 *dev)
+static void net2280_led_init(struct net2280 *dev)
 {
 	/* LED3 (green) is on during USB activity. note erratum 0113. */
 	writel(BIT(GPIO3_LED_SELECT) |
@@ -289,7 +289,7 @@ void net2280_led_speed(struct net2280 *dev, enum usb_device_speed speed)
 }
 
 /* indicate power with LED 2 */
-static inline void net2280_led_active(struct net2280 *dev, int is_active)
+static void net2280_led_active(struct net2280 *dev, int is_active)
 {
 	u32	val = readl(&dev->regs->gpioctl);
 
@@ -301,7 +301,7 @@ static inline void net2280_led_active(struct net2280 *dev, int is_active)
 	writel(val, &dev->regs->gpioctl);
 }
 
-static inline void net2280_led_shutdown(struct net2280 *dev)
+static void net2280_led_shutdown(struct net2280 *dev)
 {
 	/* turn off all four GPIO*_DATA bits */
 	writel(readl(&dev->regs->gpioctl) & ~0x0f,
@@ -335,7 +335,7 @@ static inline void net2280_led_shutdown(struct net2280 *dev)
 
 /*-------------------------------------------------------------------------*/
 
-static inline void set_fifo_bytecount(struct net2280_ep *ep, unsigned count)
+static void set_fifo_bytecount(struct net2280_ep *ep, unsigned count)
 {
 	if (ep->dev->pdev->vendor == 0x17cc)
 		writeb(count, 2 + (u8 __iomem *) &ep->regs->ep_cfg);
@@ -346,7 +346,7 @@ static inline void set_fifo_bytecount(struct net2280_ep *ep, unsigned count)
 	}
 }
 
-static inline void start_out_naking(struct net2280_ep *ep)
+static void start_out_naking(struct net2280_ep *ep)
 {
 	/* NOTE:  hardware races lurk here, and PING protocol issues */
 	writel(BIT(SET_NAK_OUT_PACKETS), &ep->regs->ep_rsp);
@@ -354,7 +354,7 @@ static inline void start_out_naking(struct net2280_ep *ep)
 	readl(&ep->regs->ep_rsp);
 }
 
-static inline void stop_out_naking(struct net2280_ep *ep)
+static void stop_out_naking(struct net2280_ep *ep)
 {
 	u32	tmp;
 
@@ -364,7 +364,7 @@ static inline void stop_out_naking(struct net2280_ep *ep)
 }
 
 
-static inline void set_max_speed(struct net2280_ep *ep, u32 max)
+static void set_max_speed(struct net2280_ep *ep, u32 max)
 {
 	u32 reg;
 	static const u32 ep_enhanced[9] = { 0x10, 0x60, 0x30, 0x80,

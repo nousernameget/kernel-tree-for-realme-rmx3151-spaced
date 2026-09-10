@@ -258,7 +258,7 @@ struct go7007 {
 	unsigned short interrupt_data;
 };
 
-static inline struct go7007 *to_go7007(struct v4l2_device *v4l2_dev)
+static struct go7007 *to_go7007(struct v4l2_device *v4l2_dev)
 {
 	return container_of(v4l2_dev, struct go7007, v4l2_dev);
 }

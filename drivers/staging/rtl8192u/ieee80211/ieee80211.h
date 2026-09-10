@@ -1185,12 +1185,12 @@ static const char *eap_types[] = {
 	[EAPOL_ENCAP_ASF_ALERT]	= "EAPOL-Encap-ASF-Alert"
 };
 
-static inline const char *eap_get_type(int type)
+static const char *eap_get_type(int type)
 {
 	return ((u32)type >= ARRAY_SIZE(eap_types)) ? "Unknown" : eap_types[type];
 }
 //added by amy for reorder
-static inline u8 Frame_QoSTID(u8 *buf)
+static u8 Frame_QoSTID(u8 *buf)
 {
 	struct rtl_80211_hdr_3addr *hdr;
 	u16 fc;
@@ -2057,12 +2057,12 @@ struct ieee80211_device {
  */
 #define IEEE_SOFTMAC_BEACONS (1<<6)
 
-static inline void *ieee80211_priv(struct net_device *dev)
+static void *ieee80211_priv(struct net_device *dev)
 {
 	return ((struct ieee80211_device *)netdev_priv(dev))->priv;
 }
 
-static inline int ieee80211_is_empty_essid(const char *essid, int essid_len)
+static int ieee80211_is_empty_essid(const char *essid, int essid_len)
 {
 	/* Single white space is for Linksys APs */
 	if (essid_len == 1 && essid[0] == ' ')
@@ -2078,7 +2078,7 @@ static inline int ieee80211_is_empty_essid(const char *essid, int essid_len)
 	return 1;
 }
 
-static inline int ieee80211_is_valid_mode(struct ieee80211_device *ieee, int mode)
+static int ieee80211_is_valid_mode(struct ieee80211_device *ieee, int mode)
 {
 	/*
 	 * It is possible for both access points and our device to support
@@ -2104,7 +2104,7 @@ static inline int ieee80211_is_valid_mode(struct ieee80211_device *ieee, int mod
 	return 0;
 }
 
-static inline int ieee80211_get_hdrlen(u16 fc)
+static int ieee80211_get_hdrlen(u16 fc)
 {
 	int hdrlen = IEEE80211_3ADDR_LEN;
 
@@ -2131,7 +2131,7 @@ static inline int ieee80211_get_hdrlen(u16 fc)
 	return hdrlen;
 }
 
-static inline u8 *ieee80211_get_payload(struct rtl_80211_hdr *hdr)
+static u8 *ieee80211_get_payload(struct rtl_80211_hdr *hdr)
 {
 	switch (ieee80211_get_hdrlen(le16_to_cpu(hdr->frame_ctl))) {
 	case IEEE80211_1ADDR_LEN:
@@ -2146,7 +2146,7 @@ static inline u8 *ieee80211_get_payload(struct rtl_80211_hdr *hdr)
 	return NULL;
 }
 
-static inline int ieee80211_is_ofdm_rate(u8 rate)
+static int ieee80211_is_ofdm_rate(u8 rate)
 {
 	switch (rate & ~IEEE80211_BASIC_RATE_MASK) {
 	case IEEE80211_OFDM_RATE_6MB:
@@ -2162,7 +2162,7 @@ static inline int ieee80211_is_ofdm_rate(u8 rate)
 	return 0;
 }
 
-static inline int ieee80211_is_cck_rate(u8 rate)
+static int ieee80211_is_cck_rate(u8 rate)
 {
 	switch (rate & ~IEEE80211_BASIC_RATE_MASK) {
 	case IEEE80211_CCK_RATE_1MB:
@@ -2416,12 +2416,12 @@ void ieee80211_softmac_scan_syncro(struct ieee80211_device *ieee);
 
 extern const long ieee80211_wlan_frequencies[];
 
-static inline void ieee80211_increment_scans(struct ieee80211_device *ieee)
+static void ieee80211_increment_scans(struct ieee80211_device *ieee)
 {
 	ieee->scans++;
 }
 
-static inline int ieee80211_get_scans(struct ieee80211_device *ieee)
+static int ieee80211_get_scans(struct ieee80211_device *ieee)
 {
 	return ieee->scans;
 }

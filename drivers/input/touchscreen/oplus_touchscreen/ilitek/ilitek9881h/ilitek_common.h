@@ -278,7 +278,7 @@ typedef enum {
 /* Check battery's status in order to avoid some effects from charge. */
 /* #define BATTERY_CHECK */
 
-static inline void ipio_kfree(void **mem)
+static void ipio_kfree(void **mem)
 {
 	if(*mem != NULL) {
 		kfree(*mem);
@@ -286,7 +286,7 @@ static inline void ipio_kfree(void **mem)
 	}
 }
 
-static inline void ipio_vfree(void **mem)
+static void ipio_vfree(void **mem)
 {
 	if(*mem != NULL) {
 		vfree(*mem);

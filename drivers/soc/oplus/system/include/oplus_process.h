@@ -9,7 +9,7 @@
 #ifndef _OPLUS_PROCESS_H
 #define _OPLUS_PROCESS_H
 
-static inline bool is_zygote_process(struct task_struct *t)
+static bool is_zygote_process(struct task_struct *t)
 {
 	const struct cred *tcred = __task_cred(t);
 
@@ -54,7 +54,7 @@ static inline bool is_key_process(struct task_struct *t) {
 	return false;
 }
 
-static inline bool oplus_is_android_core_group(struct pid *pgrp)
+static bool oplus_is_android_core_group(struct pid *pgrp)
 {
 	struct task_struct *p;
 

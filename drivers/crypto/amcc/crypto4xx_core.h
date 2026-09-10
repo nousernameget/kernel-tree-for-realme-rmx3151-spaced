@@ -158,7 +158,7 @@ struct crypto4xx_alg {
 	struct crypto4xx_device *dev;
 };
 
-static inline struct crypto4xx_alg *crypto_alg_to_crypto4xx_alg(
+static struct crypto4xx_alg *crypto_alg_to_crypto4xx_alg(
 	struct crypto_alg *x)
 {
 	switch (x->cra_flags & CRYPTO_ALG_TYPE_MASK) {

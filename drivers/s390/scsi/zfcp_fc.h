@@ -2,7 +2,7 @@
 /*
  * zfcp device driver
  *
- * Fibre Channel related definitions and inline functions for the zfcp
+ * Fibre Channel related definitions and functions for the zfcp
  * device driver
  *
  * Copyright IBM Corp. 2009, 2017

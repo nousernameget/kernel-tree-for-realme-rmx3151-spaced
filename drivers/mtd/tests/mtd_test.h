@@ -2,7 +2,7 @@
 #include <linux/mtd/mtd.h>
 #include <linux/sched/signal.h>
 
-static inline int mtdtest_relax(void)
+static int mtdtest_relax(void)
 {
 	cond_resched();
 	if (signal_pending(current)) {

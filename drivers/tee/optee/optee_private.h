@@ -169,12 +169,12 @@ int optee_to_msg_param(struct optee_msg_param *msg_params, size_t num_params,
  * Small helpers
  */
 
-static inline void *reg_pair_to_ptr(u32 reg0, u32 reg1)
+static void *reg_pair_to_ptr(u32 reg0, u32 reg1)
 {
 	return (void *)(unsigned long)(((u64)reg0 << 32) | reg1);
 }
 
-static inline void reg_pair_from_64(u32 *reg0, u32 *reg1, u64 val)
+static void reg_pair_from_64(u32 *reg0, u32 *reg1, u64 val)
 {
 	*reg0 = val >> 32;
 	*reg1 = val;

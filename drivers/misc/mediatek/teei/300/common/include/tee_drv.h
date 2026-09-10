@@ -279,7 +279,7 @@ int isee_shm_get_id(struct tee_shm *shm);
  */
 struct tee_shm *isee_shm_get_from_id(struct tee_context *ctx, int id);
 
-static inline bool tee_param_is_memref(struct tee_param *param)
+static bool tee_param_is_memref(struct tee_param *param)
 {
 	switch (param->attr & TEE_IOCTL_PARAM_ATTR_TYPE_MASK) {
 	case TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INPUT:

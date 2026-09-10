@@ -347,7 +347,7 @@ static void sonic_tx_timeout(struct net_device *dev);
    as far as we can tell. */
 /* OpenBSD calls this "SWO".  I'd like to think that sonic_buf_put()
    is a much better name. */
-static inline void sonic_buf_put(u16 *base, int bitmode,
+static void sonic_buf_put(u16 *base, int bitmode,
 				 int offset, __u16 val)
 {
 	if (bitmode)
@@ -360,7 +360,7 @@ static inline void sonic_buf_put(u16 *base, int bitmode,
 		__raw_writew(val, base + (offset * 1) + 0);
 }
 
-static inline __u16 sonic_buf_get(u16 *base, int bitmode,
+static __u16 sonic_buf_get(u16 *base, int bitmode,
 				  int offset)
 {
 	if (bitmode)
@@ -374,7 +374,7 @@ static inline __u16 sonic_buf_get(u16 *base, int bitmode,
 }
 
 /* Inlines that you should actually use for reading/writing DMA buffers */
-static inline void sonic_cda_put(struct net_device* dev, int entry,
+static void sonic_cda_put(struct net_device* dev, int entry,
 				 int offset, __u16 val)
 {
 	struct sonic_local *lp = netdev_priv(dev);
@@ -382,7 +382,7 @@ static inline void sonic_cda_put(struct net_device* dev, int entry,
 		      (entry * SIZEOF_SONIC_CD) + offset, val);
 }
 
-static inline __u16 sonic_cda_get(struct net_device* dev, int entry,
+static __u16 sonic_cda_get(struct net_device* dev, int entry,
 				  int offset)
 {
 	struct sonic_local *lp = netdev_priv(dev);
@@ -390,19 +390,19 @@ static inline __u16 sonic_cda_get(struct net_device* dev, int entry,
 			     (entry * SIZEOF_SONIC_CD) + offset);
 }
 
-static inline void sonic_set_cam_enable(struct net_device* dev, __u16 val)
+static void sonic_set_cam_enable(struct net_device* dev, __u16 val)
 {
 	struct sonic_local *lp = netdev_priv(dev);
 	sonic_buf_put(lp->cda, lp->dma_bitmode, SONIC_CDA_CAM_ENABLE, val);
 }
 
-static inline __u16 sonic_get_cam_enable(struct net_device* dev)
+static __u16 sonic_get_cam_enable(struct net_device* dev)
 {
 	struct sonic_local *lp = netdev_priv(dev);
 	return sonic_buf_get(lp->cda, lp->dma_bitmode, SONIC_CDA_CAM_ENABLE);
 }
 
-static inline void sonic_tda_put(struct net_device* dev, int entry,
+static void sonic_tda_put(struct net_device* dev, int entry,
 				 int offset, __u16 val)
 {
 	struct sonic_local *lp = netdev_priv(dev);
@@ -410,7 +410,7 @@ static inline void sonic_tda_put(struct net_device* dev, int entry,
 		      (entry * SIZEOF_SONIC_TD) + offset, val);
 }
 
-static inline __u16 sonic_tda_get(struct net_device* dev, int entry,
+static __u16 sonic_tda_get(struct net_device* dev, int entry,
 				  int offset)
 {
 	struct sonic_local *lp = netdev_priv(dev);
@@ -418,7 +418,7 @@ static inline __u16 sonic_tda_get(struct net_device* dev, int entry,
 			     (entry * SIZEOF_SONIC_TD) + offset);
 }
 
-static inline void sonic_rda_put(struct net_device* dev, int entry,
+static void sonic_rda_put(struct net_device* dev, int entry,
 				 int offset, __u16 val)
 {
 	struct sonic_local *lp = netdev_priv(dev);
@@ -426,7 +426,7 @@ static inline void sonic_rda_put(struct net_device* dev, int entry,
 		      (entry * SIZEOF_SONIC_RD) + offset, val);
 }
 
-static inline __u16 sonic_rda_get(struct net_device* dev, int entry,
+static __u16 sonic_rda_get(struct net_device* dev, int entry,
 				  int offset)
 {
 	struct sonic_local *lp = netdev_priv(dev);
@@ -434,7 +434,7 @@ static inline __u16 sonic_rda_get(struct net_device* dev, int entry,
 			     (entry * SIZEOF_SONIC_RD) + offset);
 }
 
-static inline void sonic_rra_put(struct net_device* dev, int entry,
+static void sonic_rra_put(struct net_device* dev, int entry,
 				 int offset, __u16 val)
 {
 	struct sonic_local *lp = netdev_priv(dev);
@@ -442,7 +442,7 @@ static inline void sonic_rra_put(struct net_device* dev, int entry,
 		      (entry * SIZEOF_SONIC_RR) + offset, val);
 }
 
-static inline __u16 sonic_rra_get(struct net_device* dev, int entry,
+static __u16 sonic_rra_get(struct net_device* dev, int entry,
 				  int offset)
 {
 	struct sonic_local *lp = netdev_priv(dev);

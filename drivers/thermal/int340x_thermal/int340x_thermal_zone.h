@@ -48,19 +48,19 @@ struct int34x_thermal_zone *int340x_thermal_zone_add(struct acpi_device *,
 void int340x_thermal_zone_remove(struct int34x_thermal_zone *);
 int int340x_thermal_read_trips(struct int34x_thermal_zone *int34x_zone);
 
-static inline void int340x_thermal_zone_set_priv_data(
+static void int340x_thermal_zone_set_priv_data(
 			struct int34x_thermal_zone *tzone, void *priv_data)
 {
 	tzone->priv_data = priv_data;
 }
 
-static inline void *int340x_thermal_zone_get_priv_data(
+static void *int340x_thermal_zone_get_priv_data(
 			struct int34x_thermal_zone *tzone)
 {
 	return tzone->priv_data;
 }
 
-static inline void int340x_thermal_zone_device_update(
+static void int340x_thermal_zone_device_update(
 					struct int34x_thermal_zone *tzone,
 					enum thermal_notify_event event)
 {

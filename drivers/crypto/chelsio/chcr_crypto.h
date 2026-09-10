@@ -291,11 +291,11 @@ static int chcr_aead_op(struct aead_request *req_base,
 			  unsigned short op_type,
 			  int size,
 			  create_wr_t create_wr_fn);
-static inline int get_aead_subtype(struct crypto_aead *aead);
+static int get_aead_subtype(struct crypto_aead *aead);
 static int is_newsg(struct scatterlist *sgl, unsigned int *newents);
 static struct scatterlist *alloc_new_sg(struct scatterlist *sgl,
 					unsigned int nents);
-static inline void free_new_sg(struct scatterlist *sgl);
+static void free_new_sg(struct scatterlist *sgl);
 static int chcr_handle_cipher_resp(struct ablkcipher_request *req,
 				   unsigned char *input, int err);
 #endif /* __CHCR_CRYPTO_H__ */

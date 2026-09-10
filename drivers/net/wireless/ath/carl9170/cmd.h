@@ -54,13 +54,13 @@ int carl9170_collect_tally(struct ar9170 *ar);
 int carl9170_bcn_ctrl(struct ar9170 *ar, const unsigned int vif_id,
 		       const u32 mode, const u32 addr, const u32 len);
 
-static inline int carl9170_flush_cab(struct ar9170 *ar,
+static int carl9170_flush_cab(struct ar9170 *ar,
 				     const unsigned int vif_id)
 {
 	return carl9170_bcn_ctrl(ar, vif_id, CARL9170_BCN_CTRL_DRAIN, 0, 0);
 }
 
-static inline int carl9170_rx_filter(struct ar9170 *ar,
+static int carl9170_rx_filter(struct ar9170 *ar,
 				     const unsigned int _rx_filter)
 {
 	__le32 rx_filter = cpu_to_le32(_rx_filter);

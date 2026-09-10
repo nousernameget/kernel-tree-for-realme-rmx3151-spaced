@@ -207,14 +207,14 @@ void opp_debug_unregister(struct opp_device *opp_dev, struct opp_table *opp_tabl
 #else
 static inline void opp_debug_remove_one(struct dev_pm_opp *opp) {}
 
-static inline int opp_debug_create_one(struct dev_pm_opp *opp,
+static int opp_debug_create_one(struct dev_pm_opp *opp,
 				       struct opp_table *opp_table)
 { return 0; }
-static inline int opp_debug_register(struct opp_device *opp_dev,
+static int opp_debug_register(struct opp_device *opp_dev,
 				     struct opp_table *opp_table)
 { return 0; }
 
-static inline void opp_debug_unregister(struct opp_device *opp_dev,
+static void opp_debug_unregister(struct opp_device *opp_dev,
 					struct opp_table *opp_table)
 { }
 #endif		/* DEBUG_FS */

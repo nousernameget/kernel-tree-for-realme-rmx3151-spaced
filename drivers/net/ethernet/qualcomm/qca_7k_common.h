@@ -116,13 +116,13 @@ u16 qcafrm_create_header(u8 *buf, u16 len);
 
 u16 qcafrm_create_footer(u8 *buf);
 
-static inline void qcafrm_fsm_init_spi(struct qcafrm_handle *handle)
+static void qcafrm_fsm_init_spi(struct qcafrm_handle *handle)
 {
 	handle->init = QCAFRM_HW_LEN0;
 	handle->state = handle->init;
 }
 
-static inline void qcafrm_fsm_init_uart(struct qcafrm_handle *handle)
+static void qcafrm_fsm_init_uart(struct qcafrm_handle *handle)
 {
 	handle->init = QCAFRM_WAIT_AA1;
 	handle->state = handle->init;

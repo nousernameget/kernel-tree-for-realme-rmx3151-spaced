@@ -53,10 +53,10 @@ struct b43legacy_led {
 	/* empty */
 };
 
-static inline void b43legacy_leds_init(struct b43legacy_wldev *dev)
+static void b43legacy_leds_init(struct b43legacy_wldev *dev)
 {
 }
-static inline void b43legacy_leds_exit(struct b43legacy_wldev *dev)
+static void b43legacy_leds_exit(struct b43legacy_wldev *dev)
 {
 }
 #endif /* CONFIG_B43LEGACY_LEDS */

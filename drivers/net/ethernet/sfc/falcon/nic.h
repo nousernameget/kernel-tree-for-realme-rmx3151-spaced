@@ -22,7 +22,7 @@ enum {
 	EF4_REV_FALCON_B0 = 2,
 };
 
-static inline int ef4_nic_rev(struct ef4_nic *efx)
+static int ef4_nic_rev(struct ef4_nic *efx)
 {
 	return efx->type->revision;
 }
@@ -30,13 +30,13 @@ static inline int ef4_nic_rev(struct ef4_nic *efx)
 u32 ef4_farch_fpga_ver(struct ef4_nic *efx);
 
 /* NIC has two interlinked PCI functions for the same port. */
-static inline bool ef4_nic_is_dual_func(struct ef4_nic *efx)
+static bool ef4_nic_is_dual_func(struct ef4_nic *efx)
 {
 	return ef4_nic_rev(efx) < EF4_REV_FALCON_B0;
 }
 
 /* Read the current event from the event queue */
-static inline ef4_qword_t *ef4_event(struct ef4_channel *channel,
+static ef4_qword_t *ef4_event(struct ef4_channel *channel,
 				     unsigned int index)
 {
 	return ((ef4_qword_t *) (channel->eventq.buf.addr)) +
@@ -53,7 +53,7 @@ static inline ef4_qword_t *ef4_event(struct ef4_channel *channel,
  * Note that using a single 64-bit comparison is incorrect; even
  * though the CPU read will be atomic, the DMA write may not be.
  */
-static inline int ef4_event_present(ef4_qword_t *event)
+static int ef4_event_present(ef4_qword_t *event)
 {
 	return !(EF4_DWORD_IS_ALL_ONES(event->dword[0]) |
 		  EF4_DWORD_IS_ALL_ONES(event->dword[1]));
@@ -62,14 +62,14 @@ static inline int ef4_event_present(ef4_qword_t *event)
 /* Returns a pointer to the specified transmit descriptor in the TX
  * descriptor queue belonging to the specified channel.
  */
-static inline ef4_qword_t *
+static ef4_qword_t *
 ef4_tx_desc(struct ef4_tx_queue *tx_queue, unsigned int index)
 {
 	return ((ef4_qword_t *) (tx_queue->txd.buf.addr)) + index;
 }
 
 /* Get partner of a TX queue, seen as part of the same net core queue */
-static inline struct ef4_tx_queue *ef4_tx_queue_partner(struct ef4_tx_queue *tx_queue)
+static struct ef4_tx_queue *ef4_tx_queue_partner(struct ef4_tx_queue *tx_queue)
 {
 	if (tx_queue->queue & EF4_TXQ_TYPE_OFFLOAD)
 		return tx_queue - EF4_TXQ_TYPE_OFFLOAD;
@@ -80,7 +80,7 @@ static inline struct ef4_tx_queue *ef4_tx_queue_partner(struct ef4_tx_queue *tx_
 /* Report whether this TX queue would be empty for the given write_count.
  * May return false negative.
  */
-static inline bool __ef4_nic_tx_is_empty(struct ef4_tx_queue *tx_queue,
+static bool __ef4_nic_tx_is_empty(struct ef4_tx_queue *tx_queue,
 					 unsigned int write_count)
 {
 	unsigned int empty_read_count = ACCESS_ONCE(tx_queue->empty_read_count);
@@ -99,7 +99,7 @@ static inline bool __ef4_nic_tx_is_empty(struct ef4_tx_queue *tx_queue,
  * We use the write_count used for the last doorbell push, to get the
  * NIC's view of the tx queue.
  */
-static inline bool ef4_nic_may_push_tx_desc(struct ef4_tx_queue *tx_queue,
+static bool ef4_nic_may_push_tx_desc(struct ef4_tx_queue *tx_queue,
 					    unsigned int write_count)
 {
 	bool was_empty = __ef4_nic_tx_is_empty(tx_queue, write_count);
@@ -109,7 +109,7 @@ static inline bool ef4_nic_may_push_tx_desc(struct ef4_tx_queue *tx_queue,
 }
 
 /* Returns a pointer to the specified descriptor in the RX descriptor queue */
-static inline ef4_qword_t *
+static ef4_qword_t *
 ef4_rx_desc(struct ef4_rx_queue *rx_queue, unsigned int index)
 {
 	return ((ef4_qword_t *) (rx_queue->rxd.buf.addr)) + index;
@@ -208,7 +208,7 @@ struct falcon_spi_device {
 	unsigned int block_size;
 };
 
-static inline bool falcon_spi_present(const struct falcon_spi_device *spi)
+static bool falcon_spi_present(const struct falcon_spi_device *spi)
 {
 	return spi->size != 0;
 }
@@ -292,7 +292,7 @@ struct falcon_nic_data {
 	bool xmac_poll_required;
 };
 
-static inline struct falcon_board *falcon_board(struct ef4_nic *efx)
+static struct falcon_board *falcon_board(struct ef4_nic *efx)
 {
 	struct falcon_nic_data *data = efx->nic_data;
 	return &data->board;
@@ -313,68 +313,68 @@ extern const struct ef4_nic_type falcon_b0_nic_type;
 int falcon_probe_board(struct ef4_nic *efx, u16 revision_info);
 
 /* TX data path */
-static inline int ef4_nic_probe_tx(struct ef4_tx_queue *tx_queue)
+static int ef4_nic_probe_tx(struct ef4_tx_queue *tx_queue)
 {
 	return tx_queue->efx->type->tx_probe(tx_queue);
 }
-static inline void ef4_nic_init_tx(struct ef4_tx_queue *tx_queue)
+static void ef4_nic_init_tx(struct ef4_tx_queue *tx_queue)
 {
 	tx_queue->efx->type->tx_init(tx_queue);
 }
-static inline void ef4_nic_remove_tx(struct ef4_tx_queue *tx_queue)
+static void ef4_nic_remove_tx(struct ef4_tx_queue *tx_queue)
 {
 	tx_queue->efx->type->tx_remove(tx_queue);
 }
-static inline void ef4_nic_push_buffers(struct ef4_tx_queue *tx_queue)
+static void ef4_nic_push_buffers(struct ef4_tx_queue *tx_queue)
 {
 	tx_queue->efx->type->tx_write(tx_queue);
 }
 
 /* RX data path */
-static inline int ef4_nic_probe_rx(struct ef4_rx_queue *rx_queue)
+static int ef4_nic_probe_rx(struct ef4_rx_queue *rx_queue)
 {
 	return rx_queue->efx->type->rx_probe(rx_queue);
 }
-static inline void ef4_nic_init_rx(struct ef4_rx_queue *rx_queue)
+static void ef4_nic_init_rx(struct ef4_rx_queue *rx_queue)
 {
 	rx_queue->efx->type->rx_init(rx_queue);
 }
-static inline void ef4_nic_remove_rx(struct ef4_rx_queue *rx_queue)
+static void ef4_nic_remove_rx(struct ef4_rx_queue *rx_queue)
 {
 	rx_queue->efx->type->rx_remove(rx_queue);
 }
-static inline void ef4_nic_notify_rx_desc(struct ef4_rx_queue *rx_queue)
+static void ef4_nic_notify_rx_desc(struct ef4_rx_queue *rx_queue)
 {
 	rx_queue->efx->type->rx_write(rx_queue);
 }
-static inline void ef4_nic_generate_fill_event(struct ef4_rx_queue *rx_queue)
+static void ef4_nic_generate_fill_event(struct ef4_rx_queue *rx_queue)
 {
 	rx_queue->efx->type->rx_defer_refill(rx_queue);
 }
 
 /* Event data path */
-static inline int ef4_nic_probe_eventq(struct ef4_channel *channel)
+static int ef4_nic_probe_eventq(struct ef4_channel *channel)
 {
 	return channel->efx->type->ev_probe(channel);
 }
-static inline int ef4_nic_init_eventq(struct ef4_channel *channel)
+static int ef4_nic_init_eventq(struct ef4_channel *channel)
 {
 	return channel->efx->type->ev_init(channel);
 }
-static inline void ef4_nic_fini_eventq(struct ef4_channel *channel)
+static void ef4_nic_fini_eventq(struct ef4_channel *channel)
 {
 	channel->efx->type->ev_fini(channel);
 }
-static inline void ef4_nic_remove_eventq(struct ef4_channel *channel)
+static void ef4_nic_remove_eventq(struct ef4_channel *channel)
 {
 	channel->efx->type->ev_remove(channel);
 }
-static inline int
+static int
 ef4_nic_process_eventq(struct ef4_channel *channel, int quota)
 {
 	return channel->efx->type->ev_process(channel, quota);
 }
-static inline void ef4_nic_eventq_read_ack(struct ef4_channel *channel)
+static void ef4_nic_eventq_read_ack(struct ef4_channel *channel)
 {
 	channel->efx->type->ev_read_ack(channel);
 }
@@ -445,7 +445,7 @@ bool ef4_nic_event_present(struct ef4_channel *channel);
  * true value, we can achieve this by only storing the computed value
  * when it increases.
  */
-static inline void ef4_update_diff_stat(u64 *stat, u64 diff)
+static void ef4_update_diff_stat(u64 *stat, u64 diff)
 {
 	if ((s64)(diff - *stat) > 0)
 		*stat = diff;
@@ -462,11 +462,11 @@ irqreturn_t ef4_farch_msi_interrupt(int irq, void *dev_id);
 irqreturn_t ef4_farch_legacy_interrupt(int irq, void *dev_id);
 irqreturn_t ef4_farch_fatal_interrupt(struct ef4_nic *efx);
 
-static inline int ef4_nic_event_test_irq_cpu(struct ef4_channel *channel)
+static int ef4_nic_event_test_irq_cpu(struct ef4_channel *channel)
 {
 	return ACCESS_ONCE(channel->event_test_cpu);
 }
-static inline int ef4_nic_irq_test_irq_cpu(struct ef4_nic *efx)
+static int ef4_nic_irq_test_irq_cpu(struct ef4_nic *efx)
 {
 	return ACCESS_ONCE(efx->last_irq_cpu);
 }

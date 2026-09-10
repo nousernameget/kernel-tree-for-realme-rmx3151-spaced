@@ -186,7 +186,7 @@ union p80211_hdr {
 #define WLAN_FCS_LEN			4
 
 /* ftcl in HOST order */
-static inline u16 p80211_headerlen(u16 fctl)
+static u16 p80211_headerlen(u16 fctl)
 {
 	u16 hdrlen = 0;
 

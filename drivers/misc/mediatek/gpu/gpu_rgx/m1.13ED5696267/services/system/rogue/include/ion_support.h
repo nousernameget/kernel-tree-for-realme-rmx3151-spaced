@@ -46,14 +46,14 @@ PVRSRV_ERROR IonInit(void *pvPrivateData);
 
 void IonDeinit(void);
 #else /* (LINUX_VERSION_CODE < KERNEL_VERSION(4, 12, 0)) */
-static inline PVRSRV_ERROR IonInit(void *pvPrivateData)
+static PVRSRV_ERROR IonInit(void *pvPrivateData)
 {
 	(void) pvPrivateData;
 
 	return PVRSRV_OK;
 }
 
-static inline void IonDeinit(void)
+static void IonDeinit(void)
 {
 }
 #endif /* (LINUX_VERSION_CODE < KERNEL_VERSION(4, 12, 0)) */

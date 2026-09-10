@@ -156,13 +156,13 @@ struct hf_client {
 #define set_interrupt_timestamp(m, t) (atomic64_set(&m->timestamp, t))
 #define get_interrupt_timestamp(m) (atomic64_read(&m->timestamp))
 
-static inline void hf_device_set_private_data(struct hf_device *device,
+static void hf_device_set_private_data(struct hf_device *device,
 		void *data)
 {
 	device->private_data = data;
 }
 
-static inline void *hf_device_get_private_data(struct hf_device *device)
+static void *hf_device_get_private_data(struct hf_device *device)
 {
 	return device->private_data;
 }

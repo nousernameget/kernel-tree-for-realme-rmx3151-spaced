@@ -70,21 +70,21 @@ enum USB_RESULT {
 #define USB_ReadCsr32(_bOffset, _bEnd) os_readl(USB_END_OFFSET(_bEnd, _bOffset))
 #define USB_WriteCsr32(_bOffset, _bEnd, _bData) os_writel(USB_END_OFFSET(_bEnd, _bOffset), _bData)
 #else
-static inline void os_writeb(void __iomem *addr, unsigned char data)
+static void os_writeb(void __iomem *addr, unsigned char data)
 {
 	writeb(data, (void __iomem *)addr);
 	if (0)
 		pr_debug("%s writeb [%p] = 0x%08x\n", __func__, (void *)addr, data);
 }
 
-static inline void os_writew(void __iomem *addr, unsigned short data)
+static void os_writew(void __iomem *addr, unsigned short data)
 {
 	writew(data, (void __iomem *)addr);
 	if (0)
 		pr_debug("%s writew [%p] = 0x%08x\n", __func__, (void *)addr, data);
 }
 
-static inline void os_writel(void __iomem *addr, unsigned int data)
+static void os_writel(void __iomem *addr, unsigned int data)
 {
 	writel(data, (void __iomem *)addr);
 	if (0)
@@ -93,7 +93,7 @@ static inline void os_writel(void __iomem *addr, unsigned int data)
 
 #define os_readl(addr)  readl((void __iomem *)((unsigned long)addr))
 
-static inline void os_writelmsk(void __iomem *addr, unsigned int data, unsigned int msk)
+static void os_writelmsk(void __iomem *addr, unsigned int data, unsigned int msk)
 {
 	unsigned int tmp = readl((void __iomem *)addr);
 
@@ -101,7 +101,7 @@ static inline void os_writelmsk(void __iomem *addr, unsigned int data, unsigned 
 	writel(((tmp & ~(msk)) | ((data) & (msk))), (void __iomem *)addr);
 }
 
-static inline void os_setmsk(void __iomem *addr, unsigned int msk)
+static void os_setmsk(void __iomem *addr, unsigned int msk)
 {
 	unsigned int tmp = readl((void __iomem *)addr);
 
@@ -114,7 +114,7 @@ static inline void os_setmsk(void __iomem *addr, unsigned int msk)
 			 readl((void __iomem *)addr));
 }
 
-static inline void os_clrmsk(void __iomem *addr, unsigned int msk)
+static void os_clrmsk(void __iomem *addr, unsigned int msk)
 {
 	unsigned int tmp = readl((void __iomem *)addr);
 
@@ -128,7 +128,7 @@ static inline void os_clrmsk(void __iomem *addr, unsigned int msk)
 }
 
 /*msk the data first, then umsk with the umsk.*/
-static inline void os_writelmskumsk(void __iomem *addr, unsigned int data,
+static void os_writelmskumsk(void __iomem *addr, unsigned int data,
 				    unsigned int msk, unsigned int umsk)
 {
 	unsigned int tmp = readl((void __iomem *)addr);
@@ -137,7 +137,7 @@ static inline void os_writelmskumsk(void __iomem *addr, unsigned int data,
 	writel(((tmp & ~(msk)) | ((data) & (msk))) & (umsk), (void __iomem *)addr);
 }
 
-static inline int wait_for_value(void __iomem *addr, unsigned int msk,
+static int wait_for_value(void __iomem *addr, unsigned int msk,
 				 unsigned int value, unsigned int ms_intvl, unsigned int count)
 {
 	u32 i;
@@ -151,7 +151,7 @@ static inline int wait_for_value(void __iomem *addr, unsigned int msk,
 	return RET_FAIL;
 }
 
-static inline int wait_for_value_us(void __iomem *addr, unsigned int msk,
+static int wait_for_value_us(void __iomem *addr, unsigned int msk,
 				    unsigned int value, unsigned int us_intvl, unsigned int count)
 {
 	u32 i;

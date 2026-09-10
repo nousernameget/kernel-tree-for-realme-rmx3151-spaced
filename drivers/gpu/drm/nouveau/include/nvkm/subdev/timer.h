@@ -10,7 +10,7 @@ struct nvkm_alarm {
 	void (*func)(struct nvkm_alarm *);
 };
 
-static inline void
+static void
 nvkm_alarm_init(struct nvkm_alarm *alarm, void (*func)(struct nvkm_alarm *))
 {
 	INIT_LIST_HEAD(&alarm->head);

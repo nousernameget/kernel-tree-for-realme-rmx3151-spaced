@@ -59,25 +59,25 @@ extern const struct ssb_bus_ops ssb_pci_ops;
 
 #else /* CONFIG_SSB_PCIHOST */
 
-static inline int ssb_pci_switch_core(struct ssb_bus *bus,
+static int ssb_pci_switch_core(struct ssb_bus *bus,
 				      struct ssb_device *dev)
 {
 	return 0;
 }
-static inline int ssb_pci_switch_coreidx(struct ssb_bus *bus,
+static int ssb_pci_switch_coreidx(struct ssb_bus *bus,
 					 u8 coreidx)
 {
 	return 0;
 }
-static inline int ssb_pci_xtal(struct ssb_bus *bus, u32 what,
+static int ssb_pci_xtal(struct ssb_bus *bus, u32 what,
 			       int turn_on)
 {
 	return 0;
 }
-static inline void ssb_pci_exit(struct ssb_bus *bus)
+static void ssb_pci_exit(struct ssb_bus *bus)
 {
 }
-static inline int ssb_pci_init(struct ssb_bus *bus)
+static int ssb_pci_init(struct ssb_bus *bus)
 {
 	return 0;
 }
@@ -99,32 +99,32 @@ extern int ssb_host_pcmcia_init(void);
 extern void ssb_host_pcmcia_exit(void);
 extern const struct ssb_bus_ops ssb_pcmcia_ops;
 #else /* CONFIG_SSB_PCMCIAHOST */
-static inline int ssb_pcmcia_switch_coreidx(struct ssb_bus *bus,
+static int ssb_pcmcia_switch_coreidx(struct ssb_bus *bus,
 					    u8 coreidx)
 {
 	return 0;
 }
-static inline int ssb_pcmcia_switch_segment(struct ssb_bus *bus,
+static int ssb_pcmcia_switch_segment(struct ssb_bus *bus,
 					    u8 seg)
 {
 	return 0;
 }
-static inline int ssb_pcmcia_hardware_setup(struct ssb_bus *bus)
+static int ssb_pcmcia_hardware_setup(struct ssb_bus *bus)
 {
 	return 0;
 }
-static inline void ssb_pcmcia_exit(struct ssb_bus *bus)
+static void ssb_pcmcia_exit(struct ssb_bus *bus)
 {
 }
-static inline int ssb_pcmcia_init(struct ssb_bus *bus)
-{
-	return 0;
-}
-static inline int ssb_host_pcmcia_init(void)
+static int ssb_pcmcia_init(struct ssb_bus *bus)
 {
 	return 0;
 }
-static inline void ssb_host_pcmcia_exit(void)
+static int ssb_host_pcmcia_init(void)
+{
+	return 0;
+}
+static void ssb_host_pcmcia_exit(void)
 {
 }
 #endif /* CONFIG_SSB_PCMCIAHOST */
@@ -141,18 +141,18 @@ extern int ssb_sdio_init(struct ssb_bus *bus);
 
 extern const struct ssb_bus_ops ssb_sdio_ops;
 #else /* CONFIG_SSB_SDIOHOST */
-static inline u32 ssb_sdio_scan_read32(struct ssb_bus *bus, u16 offset)
+static u32 ssb_sdio_scan_read32(struct ssb_bus *bus, u16 offset)
 {
 	return 0;
 }
-static inline int ssb_sdio_scan_switch_coreidx(struct ssb_bus *bus, u8 coreidx)
+static int ssb_sdio_scan_switch_coreidx(struct ssb_bus *bus, u8 coreidx)
 {
 	return 0;
 }
-static inline void ssb_sdio_exit(struct ssb_bus *bus)
+static void ssb_sdio_exit(struct ssb_bus *bus)
 {
 }
-static inline int ssb_sdio_init(struct ssb_bus *bus)
+static int ssb_sdio_init(struct ssb_bus *bus)
 {
 	return 0;
 }
@@ -212,11 +212,11 @@ extern int ssb_devices_thaw(struct ssb_freeze_context *ctx);
 extern int __init b43_pci_ssb_bridge_init(void);
 extern void __exit b43_pci_ssb_bridge_exit(void);
 #else /* CONFIG_SSB_B43_PCI_BRIDGE */
-static inline int b43_pci_ssb_bridge_init(void)
+static int b43_pci_ssb_bridge_init(void)
 {
 	return 0;
 }
-static inline void b43_pci_ssb_bridge_exit(void)
+static void b43_pci_ssb_bridge_exit(void)
 {
 }
 #endif /* CONFIG_SSB_B43_PCI_BRIDGE */
@@ -234,7 +234,7 @@ extern u32 ssb_chipco_watchdog_timer_set_ms(struct bcm47xx_wdt *wdt, u32 ms);
 #ifdef CONFIG_SSB_SFLASH
 int ssb_sflash_init(struct ssb_chipcommon *cc);
 #else
-static inline int ssb_sflash_init(struct ssb_chipcommon *cc)
+static int ssb_sflash_init(struct ssb_chipcommon *cc)
 {
 	pr_err("Serial flash not supported\n");
 	return 0;
@@ -253,12 +253,12 @@ extern struct platform_device ssb_sflash_dev;
 extern u32 ssb_extif_watchdog_timer_set_wdt(struct bcm47xx_wdt *wdt, u32 ticks);
 extern u32 ssb_extif_watchdog_timer_set_ms(struct bcm47xx_wdt *wdt, u32 ms);
 #else
-static inline u32 ssb_extif_watchdog_timer_set_wdt(struct bcm47xx_wdt *wdt,
+static u32 ssb_extif_watchdog_timer_set_wdt(struct bcm47xx_wdt *wdt,
 						   u32 ticks)
 {
 	return 0;
 }
-static inline u32 ssb_extif_watchdog_timer_set_ms(struct bcm47xx_wdt *wdt,
+static u32 ssb_extif_watchdog_timer_set_ms(struct bcm47xx_wdt *wdt,
 						  u32 ms)
 {
 	return 0;
@@ -268,7 +268,7 @@ static inline u32 ssb_extif_watchdog_timer_set_ms(struct bcm47xx_wdt *wdt,
 #ifdef CONFIG_SSB_EMBEDDED
 extern int ssb_watchdog_register(struct ssb_bus *bus);
 #else /* CONFIG_SSB_EMBEDDED */
-static inline int ssb_watchdog_register(struct ssb_bus *bus)
+static int ssb_watchdog_register(struct ssb_bus *bus)
 {
 	return 0;
 }
@@ -277,7 +277,7 @@ static inline int ssb_watchdog_register(struct ssb_bus *bus)
 #ifdef CONFIG_SSB_DRIVER_EXTIF
 extern void ssb_extif_init(struct ssb_extif *extif);
 #else
-static inline void ssb_extif_init(struct ssb_extif *extif)
+static void ssb_extif_init(struct ssb_extif *extif)
 {
 }
 #endif
@@ -286,11 +286,11 @@ static inline void ssb_extif_init(struct ssb_extif *extif)
 extern int ssb_gpio_init(struct ssb_bus *bus);
 extern int ssb_gpio_unregister(struct ssb_bus *bus);
 #else /* CONFIG_SSB_DRIVER_GPIO */
-static inline int ssb_gpio_init(struct ssb_bus *bus)
+static int ssb_gpio_init(struct ssb_bus *bus)
 {
 	return -ENOTSUPP;
 }
-static inline int ssb_gpio_unregister(struct ssb_bus *bus)
+static int ssb_gpio_unregister(struct ssb_bus *bus)
 {
 	return 0;
 }

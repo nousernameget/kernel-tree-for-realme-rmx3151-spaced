@@ -17,7 +17,7 @@ struct nouveau_framebuffer {
 	struct nvif_object h_core;
 };
 
-static inline struct nouveau_framebuffer *
+static struct nouveau_framebuffer *
 nouveau_framebuffer(struct drm_framebuffer *fb)
 {
 	return container_of(fb, struct nouveau_framebuffer, base);
@@ -55,7 +55,7 @@ struct nouveau_display {
 	struct drm_atomic_state *suspend;
 };
 
-static inline struct nouveau_display *
+static struct nouveau_display *
 nouveau_display(struct drm_device *dev)
 {
 	return nouveau_drm(dev)->display;
@@ -93,21 +93,21 @@ extern void nouveau_backlight_exit(struct drm_device *);
 extern void nouveau_backlight_ctor(void);
 extern void nouveau_backlight_dtor(void);
 #else
-static inline int
+static int
 nouveau_backlight_init(struct drm_device *dev)
 {
 	return 0;
 }
 
-static inline void
+static void
 nouveau_backlight_exit(struct drm_device *dev) {
 }
 
-static inline void
+static void
 nouveau_backlight_ctor(void) {
 }
 
-static inline void
+static void
 nouveau_backlight_dtor(void) {
 }
 #endif

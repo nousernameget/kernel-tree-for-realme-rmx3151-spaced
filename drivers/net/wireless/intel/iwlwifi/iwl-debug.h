@@ -32,7 +32,7 @@
 #include "iwl-modparams.h"
 
 
-static inline bool iwl_have_debug_level(u32 level)
+static bool iwl_have_debug_level(u32 level)
 {
 #ifdef CONFIG_IWLWIFI_DEBUG
 	return iwlwifi_mod_params.debug_level & level;
@@ -80,7 +80,7 @@ void __iwl_dbg(struct device *dev,
 	       u32 level, bool limit, const char *function,
 	       const char *fmt, ...) __printf(5, 6);
 #else
-__printf(5, 6) static inline void
+__printf(5, 6) static void
 __iwl_dbg(struct device *dev,
 	  u32 level, bool limit, const char *function,
 	  const char *fmt, ...)

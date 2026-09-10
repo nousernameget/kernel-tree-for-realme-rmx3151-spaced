@@ -87,7 +87,7 @@ do { if ((lbtf_debug & (grp)) == (grp)) \
 #define lbtf_deb_macops(fmt, args...)      LBTF_DEB_LL(LBTF_DEB_MACOPS, " thread", fmt, ##args)
 
 #ifdef DEBUG
-static inline void lbtf_deb_hex(unsigned int grp, const char *prompt, u8 *buf, int len)
+static void lbtf_deb_hex(unsigned int grp, const char *prompt, u8 *buf, int len)
 {
 	char newprompt[32];
 

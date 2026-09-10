@@ -32,12 +32,12 @@
 
 #define QD_CONFIG(hwif)		((hwif)->config_data & 0x00ff)
 
-static inline u8 QD_TIMING(ide_drive_t *drive)
+static u8 QD_TIMING(ide_drive_t *drive)
 {
 	return (unsigned long)ide_get_drivedata(drive) & 0x00ff;
 }
 
-static inline u8 QD_TIMREG(ide_drive_t *drive)
+static u8 QD_TIMREG(ide_drive_t *drive)
 {
 	return ((unsigned long)ide_get_drivedata(drive) & 0xff00) >> 8;
 }

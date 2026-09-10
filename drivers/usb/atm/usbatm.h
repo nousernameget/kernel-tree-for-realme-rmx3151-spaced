@@ -181,7 +181,7 @@ struct usbatm_data {
 	struct urb *urbs[0];
 };
 
-static inline void *to_usbatm_driver_data(struct usb_interface *intf)
+static void *to_usbatm_driver_data(struct usb_interface *intf)
 {
 	struct usbatm_data *usbatm_instance;
 

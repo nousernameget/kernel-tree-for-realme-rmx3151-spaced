@@ -289,12 +289,12 @@ struct isp116x {
 	atomic_t atl_finishing;
 };
 
-static inline struct isp116x *hcd_to_isp116x(struct usb_hcd *hcd)
+static struct isp116x *hcd_to_isp116x(struct usb_hcd *hcd)
 {
 	return (struct isp116x *)(hcd->hcd_priv);
 }
 
-static inline struct usb_hcd *isp116x_to_hcd(struct isp116x *isp116x)
+static struct usb_hcd *isp116x_to_hcd(struct isp116x *isp116x)
 {
 	return container_of((void *)isp116x, struct usb_hcd, hcd_priv);
 }
@@ -355,25 +355,25 @@ struct isp116x_ep {
 #define isp116x_check_platform_delay(h)	0
 #endif
 
-static inline void isp116x_write_addr(struct isp116x *isp116x, unsigned reg)
+static void isp116x_write_addr(struct isp116x *isp116x, unsigned reg)
 {
 	writew(reg & 0xff, isp116x->addr_reg);
 	isp116x_delay(isp116x, 300);
 }
 
-static inline void isp116x_write_data16(struct isp116x *isp116x, u16 val)
+static void isp116x_write_data16(struct isp116x *isp116x, u16 val)
 {
 	writew(val, isp116x->data_reg);
 	isp116x_delay(isp116x, 150);
 }
 
-static inline void isp116x_raw_write_data16(struct isp116x *isp116x, u16 val)
+static void isp116x_raw_write_data16(struct isp116x *isp116x, u16 val)
 {
 	__raw_writew(val, isp116x->data_reg);
 	isp116x_delay(isp116x, 150);
 }
 
-static inline u16 isp116x_read_data16(struct isp116x *isp116x)
+static u16 isp116x_read_data16(struct isp116x *isp116x)
 {
 	u16 val;
 
@@ -382,7 +382,7 @@ static inline u16 isp116x_read_data16(struct isp116x *isp116x)
 	return val;
 }
 
-static inline u16 isp116x_raw_read_data16(struct isp116x *isp116x)
+static u16 isp116x_raw_read_data16(struct isp116x *isp116x)
 {
 	u16 val;
 
@@ -391,7 +391,7 @@ static inline u16 isp116x_raw_read_data16(struct isp116x *isp116x)
 	return val;
 }
 
-static inline void isp116x_write_data32(struct isp116x *isp116x, u32 val)
+static void isp116x_write_data32(struct isp116x *isp116x, u32 val)
 {
 	writew(val & 0xffff, isp116x->data_reg);
 	isp116x_delay(isp116x, 150);
@@ -399,7 +399,7 @@ static inline void isp116x_write_data32(struct isp116x *isp116x, u32 val)
 	isp116x_delay(isp116x, 150);
 }
 
-static inline u32 isp116x_read_data32(struct isp116x *isp116x)
+static u32 isp116x_read_data32(struct isp116x *isp116x)
 {
 	u32 val;
 
@@ -490,7 +490,7 @@ static void isp116x_write_reg32(struct isp116x *isp116x, unsigned reg,
 /*
    Dump registers for debugfs.
 */
-static inline void isp116x_show_regs_seq(struct isp116x *isp116x,
+static void isp116x_show_regs_seq(struct isp116x *isp116x,
 					  struct seq_file *s)
 {
 	isp116x_show_regs(isp116x, seq, s);
@@ -499,7 +499,7 @@ static inline void isp116x_show_regs_seq(struct isp116x *isp116x,
 /*
    Dump registers to syslog.
 */
-static inline void isp116x_show_regs_log(struct isp116x *isp116x)
+static void isp116x_show_regs_log(struct isp116x *isp116x)
 {
 	isp116x_show_regs(isp116x, log, NULL);
 }
@@ -551,7 +551,7 @@ static void urb_dbg(struct urb *urb, char *msg)
   Dump PTD info. The code documents the format
   perfectly, right :)
 */
-static inline void dump_ptd(struct ptd *ptd)
+static void dump_ptd(struct ptd *ptd)
 {
 	printk(KERN_WARNING "td: %x %d%c%d %d,%d,%d  %x %x%x%x\n",
 	       PTD_GET_CC(ptd), PTD_GET_FA(ptd),
@@ -561,7 +561,7 @@ static inline void dump_ptd(struct ptd *ptd)
 	       PTD_GET_SPD(ptd), PTD_GET_LAST(ptd));
 }
 
-static inline void dump_ptd_out_data(struct ptd *ptd, u8 * buf)
+static void dump_ptd_out_data(struct ptd *ptd, u8 * buf)
 {
 	int k;
 
@@ -573,7 +573,7 @@ static inline void dump_ptd_out_data(struct ptd *ptd, u8 * buf)
 	}
 }
 
-static inline void dump_ptd_in_data(struct ptd *ptd, u8 * buf)
+static void dump_ptd_in_data(struct ptd *ptd, u8 * buf)
 {
 	int k;
 

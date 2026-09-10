@@ -49,13 +49,13 @@ void mlxsw_pci_driver_unregister(struct pci_driver *pci_driver);
 
 #else
 
-static inline int
+static int
 mlxsw_pci_driver_register(struct pci_driver *pci_driver)
 {
 	return 0;
 }
 
-static inline void
+static void
 mlxsw_pci_driver_unregister(struct pci_driver *pci_driver)
 {
 }

@@ -1337,7 +1337,7 @@ void TeiFree(void);
  * as the returned PCI device can disappear at any moment in time.
  * Callers should be converted to use pci_get_device() instead.
  */
-static inline struct pci_dev *hisax_find_pci_device(unsigned int vendor,
+static struct pci_dev *hisax_find_pci_device(unsigned int vendor,
 						    unsigned int device,
 						    struct pci_dev *from)
 {

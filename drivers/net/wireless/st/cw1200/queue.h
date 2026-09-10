@@ -103,12 +103,12 @@ bool cw1200_queue_get_xmit_timestamp(struct cw1200_queue *queue,
 bool cw1200_queue_stats_is_empty(struct cw1200_queue_stats *stats,
 				 u32 link_id_map);
 
-static inline u8 cw1200_queue_get_queue_id(u32 packet_id)
+static u8 cw1200_queue_get_queue_id(u32 packet_id)
 {
 	return (packet_id >> 16) & 0xFF;
 }
 
-static inline u8 cw1200_queue_get_generation(u32 packet_id)
+static u8 cw1200_queue_get_generation(u32 packet_id)
 {
 	return (packet_id >>  8) & 0xFF;
 }

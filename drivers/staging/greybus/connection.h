@@ -74,7 +74,7 @@ struct gb_connection *gb_connection_create_offloaded(struct gb_bundle *bundle,
 				u16 cport_id, unsigned long flags);
 void gb_connection_destroy(struct gb_connection *connection);
 
-static inline bool gb_connection_is_static(struct gb_connection *connection)
+static bool gb_connection_is_static(struct gb_connection *connection)
 {
 	return !connection->intf;
 }
@@ -94,33 +94,33 @@ void greybus_data_rcvd(struct gb_host_device *hd, u16 cport_id,
 void gb_connection_latency_tag_enable(struct gb_connection *connection);
 void gb_connection_latency_tag_disable(struct gb_connection *connection);
 
-static inline bool gb_connection_e2efc_enabled(struct gb_connection *connection)
+static bool gb_connection_e2efc_enabled(struct gb_connection *connection)
 {
 	return !(connection->flags & GB_CONNECTION_FLAG_CSD);
 }
 
-static inline bool
+static bool
 gb_connection_flow_control_disabled(struct gb_connection *connection)
 {
 	return connection->flags & GB_CONNECTION_FLAG_NO_FLOWCTRL;
 }
 
-static inline bool gb_connection_is_offloaded(struct gb_connection *connection)
+static bool gb_connection_is_offloaded(struct gb_connection *connection)
 {
 	return connection->flags & GB_CONNECTION_FLAG_OFFLOADED;
 }
 
-static inline bool gb_connection_is_control(struct gb_connection *connection)
+static bool gb_connection_is_control(struct gb_connection *connection)
 {
 	return connection->flags & GB_CONNECTION_FLAG_CONTROL;
 }
 
-static inline void *gb_connection_get_data(struct gb_connection *connection)
+static void *gb_connection_get_data(struct gb_connection *connection)
 {
 	return connection->private;
 }
 
-static inline void gb_connection_set_data(struct gb_connection *connection,
+static void gb_connection_set_data(struct gb_connection *connection,
 					  void *data)
 {
 	connection->private = data;

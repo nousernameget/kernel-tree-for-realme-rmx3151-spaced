@@ -52,7 +52,7 @@ struct rt2x00_rate {
 
 extern const struct rt2x00_rate rt2x00_supported_rates[12];
 
-static inline const struct rt2x00_rate *rt2x00_get_rate(const u16 hw_value)
+static const struct rt2x00_rate *rt2x00_get_rate(const u16 hw_value)
 {
 	return &rt2x00_supported_rates[hw_value & 0xff];
 }
@@ -60,7 +60,7 @@ static inline const struct rt2x00_rate *rt2x00_get_rate(const u16 hw_value)
 #define RATE_MCS(__mode, __mcs) \
 	((((__mode) & 0x00ff) << 8) | ((__mcs) & 0x00ff))
 
-static inline int rt2x00_get_rate_mcs(const u16 mcs_value)
+static int rt2x00_get_rate_mcs(const u16 mcs_value)
 {
 	return (mcs_value & 0x00ff);
 }
@@ -287,11 +287,11 @@ void rt2x00link_register(struct rt2x00_dev *rt2x00dev);
 int rt2x00lib_load_firmware(struct rt2x00_dev *rt2x00dev);
 void rt2x00lib_free_firmware(struct rt2x00_dev *rt2x00dev);
 #else
-static inline int rt2x00lib_load_firmware(struct rt2x00_dev *rt2x00dev)
+static int rt2x00lib_load_firmware(struct rt2x00_dev *rt2x00dev)
 {
 	return 0;
 }
-static inline void rt2x00lib_free_firmware(struct rt2x00_dev *rt2x00dev)
+static void rt2x00lib_free_firmware(struct rt2x00_dev *rt2x00dev)
 {
 }
 #endif /* CONFIG_RT2X00_LIB_FIRMWARE */
@@ -305,15 +305,15 @@ void rt2x00debug_deregister(struct rt2x00_dev *rt2x00dev);
 void rt2x00debug_update_crypto(struct rt2x00_dev *rt2x00dev,
 			       struct rxdone_entry_desc *rxdesc);
 #else
-static inline void rt2x00debug_register(struct rt2x00_dev *rt2x00dev)
+static void rt2x00debug_register(struct rt2x00_dev *rt2x00dev)
 {
 }
 
-static inline void rt2x00debug_deregister(struct rt2x00_dev *rt2x00dev)
+static void rt2x00debug_deregister(struct rt2x00_dev *rt2x00dev)
 {
 }
 
-static inline void rt2x00debug_update_crypto(struct rt2x00_dev *rt2x00dev,
+static void rt2x00debug_update_crypto(struct rt2x00_dev *rt2x00dev,
 					     struct rxdone_entry_desc *rxdesc)
 {
 }
@@ -338,39 +338,39 @@ void rt2x00crypto_rx_insert_iv(struct sk_buff *skb,
 			       unsigned int header_length,
 			       struct rxdone_entry_desc *rxdesc);
 #else
-static inline enum cipher rt2x00crypto_key_to_cipher(struct ieee80211_key_conf *key)
+static enum cipher rt2x00crypto_key_to_cipher(struct ieee80211_key_conf *key)
 {
 	return CIPHER_NONE;
 }
 
-static inline void rt2x00crypto_create_tx_descriptor(struct rt2x00_dev *rt2x00dev,
+static void rt2x00crypto_create_tx_descriptor(struct rt2x00_dev *rt2x00dev,
 						     struct sk_buff *skb,
 						     struct txentry_desc *txdesc)
 {
 }
 
-static inline unsigned int rt2x00crypto_tx_overhead(struct rt2x00_dev *rt2x00dev,
+static unsigned int rt2x00crypto_tx_overhead(struct rt2x00_dev *rt2x00dev,
 						    struct sk_buff *skb)
 {
 	return 0;
 }
 
-static inline void rt2x00crypto_tx_copy_iv(struct sk_buff *skb,
+static void rt2x00crypto_tx_copy_iv(struct sk_buff *skb,
 					   struct txentry_desc *txdesc)
 {
 }
 
-static inline void rt2x00crypto_tx_remove_iv(struct sk_buff *skb,
+static void rt2x00crypto_tx_remove_iv(struct sk_buff *skb,
 					     struct txentry_desc *txdesc)
 {
 }
 
-static inline void rt2x00crypto_tx_insert_iv(struct sk_buff *skb,
+static void rt2x00crypto_tx_insert_iv(struct sk_buff *skb,
 					     unsigned int header_length)
 {
 }
 
-static inline void rt2x00crypto_rx_insert_iv(struct sk_buff *skb,
+static void rt2x00crypto_rx_insert_iv(struct sk_buff *skb,
 					     unsigned int header_length,
 					     struct rxdone_entry_desc *rxdesc)
 {
@@ -380,13 +380,13 @@ static inline void rt2x00crypto_rx_insert_iv(struct sk_buff *skb,
 /*
  * RFkill handlers.
  */
-static inline void rt2x00rfkill_register(struct rt2x00_dev *rt2x00dev)
+static void rt2x00rfkill_register(struct rt2x00_dev *rt2x00dev)
 {
 	if (test_bit(CAPABILITY_HW_BUTTON, &rt2x00dev->cap_flags))
 		wiphy_rfkill_start_polling(rt2x00dev->hw->wiphy);
 }
 
-static inline void rt2x00rfkill_unregister(struct rt2x00_dev *rt2x00dev)
+static void rt2x00rfkill_unregister(struct rt2x00_dev *rt2x00dev)
 {
 	if (test_bit(CAPABILITY_HW_BUTTON, &rt2x00dev->cap_flags))
 		wiphy_rfkill_stop_polling(rt2x00dev->hw->wiphy);
@@ -405,39 +405,39 @@ void rt2x00leds_unregister(struct rt2x00_dev *rt2x00dev);
 void rt2x00leds_suspend(struct rt2x00_dev *rt2x00dev);
 void rt2x00leds_resume(struct rt2x00_dev *rt2x00dev);
 #else
-static inline void rt2x00leds_led_quality(struct rt2x00_dev *rt2x00dev,
+static void rt2x00leds_led_quality(struct rt2x00_dev *rt2x00dev,
 					  int rssi)
 {
 }
 
-static inline void rt2x00led_led_activity(struct rt2x00_dev *rt2x00dev,
+static void rt2x00led_led_activity(struct rt2x00_dev *rt2x00dev,
 					  bool enabled)
 {
 }
 
-static inline void rt2x00leds_led_assoc(struct rt2x00_dev *rt2x00dev,
+static void rt2x00leds_led_assoc(struct rt2x00_dev *rt2x00dev,
 					bool enabled)
 {
 }
 
-static inline void rt2x00leds_led_radio(struct rt2x00_dev *rt2x00dev,
+static void rt2x00leds_led_radio(struct rt2x00_dev *rt2x00dev,
 					bool enabled)
 {
 }
 
-static inline void rt2x00leds_register(struct rt2x00_dev *rt2x00dev)
+static void rt2x00leds_register(struct rt2x00_dev *rt2x00dev)
 {
 }
 
-static inline void rt2x00leds_unregister(struct rt2x00_dev *rt2x00dev)
+static void rt2x00leds_unregister(struct rt2x00_dev *rt2x00dev)
 {
 }
 
-static inline void rt2x00leds_suspend(struct rt2x00_dev *rt2x00dev)
+static void rt2x00leds_suspend(struct rt2x00_dev *rt2x00dev)
 {
 }
 
-static inline void rt2x00leds_resume(struct rt2x00_dev *rt2x00dev)
+static void rt2x00leds_resume(struct rt2x00_dev *rt2x00dev)
 {
 }
 #endif /* CONFIG_RT2X00_LIB_LEDS */

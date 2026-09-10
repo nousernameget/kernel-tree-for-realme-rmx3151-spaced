@@ -216,7 +216,7 @@ extern int b1_irq_table[16];
 
 /* ---------------------------------------------------------------- */
 
-static inline unsigned char b1outp(unsigned int base,
+static unsigned char b1outp(unsigned int base,
 				   unsigned short offset,
 				   unsigned char value)
 {
@@ -225,12 +225,12 @@ static inline unsigned char b1outp(unsigned int base,
 }
 
 
-static inline int b1_rx_full(unsigned int base)
+static int b1_rx_full(unsigned int base)
 {
 	return inb(base + B1_INSTAT) & 0x1;
 }
 
-static inline unsigned char b1_get_byte(unsigned int base)
+static unsigned char b1_get_byte(unsigned int base)
 {
 	unsigned long stop = jiffies + 1 * HZ;	/* maximum wait time 1 sec */
 	while (!b1_rx_full(base) && time_before(jiffies, stop));
@@ -240,7 +240,7 @@ static inline unsigned char b1_get_byte(unsigned int base)
 	return 0;
 }
 
-static inline unsigned int b1_get_word(unsigned int base)
+static unsigned int b1_get_word(unsigned int base)
 {
 	unsigned int val = 0;
 	val |= b1_get_byte(base);
@@ -250,18 +250,18 @@ static inline unsigned int b1_get_word(unsigned int base)
 	return val;
 }
 
-static inline int b1_tx_empty(unsigned int base)
+static int b1_tx_empty(unsigned int base)
 {
 	return inb(base + B1_OUTSTAT) & 0x1;
 }
 
-static inline void b1_put_byte(unsigned int base, unsigned char val)
+static void b1_put_byte(unsigned int base, unsigned char val)
 {
 	while (!b1_tx_empty(base));
 	b1outp(base, B1_WRITE, val);
 }
 
-static inline int b1_save_put_byte(unsigned int base, unsigned char val)
+static int b1_save_put_byte(unsigned int base, unsigned char val)
 {
 	unsigned long stop = jiffies + 2 * HZ;
 	while (!b1_tx_empty(base) && time_before(jiffies, stop));
@@ -270,7 +270,7 @@ static inline int b1_save_put_byte(unsigned int base, unsigned char val)
 	return 0;
 }
 
-static inline void b1_put_word(unsigned int base, unsigned int val)
+static void b1_put_word(unsigned int base, unsigned int val)
 {
 	b1_put_byte(base, val & 0xff);
 	b1_put_byte(base, (val >> 8) & 0xff);
@@ -278,7 +278,7 @@ static inline void b1_put_word(unsigned int base, unsigned int val)
 	b1_put_byte(base, (val >> 24) & 0xff);
 }
 
-static inline unsigned int b1_get_slice(unsigned int base,
+static unsigned int b1_get_slice(unsigned int base,
 					unsigned char *dp)
 {
 	unsigned int len, i;
@@ -288,7 +288,7 @@ static inline unsigned int b1_get_slice(unsigned int base,
 	return len;
 }
 
-static inline void b1_put_slice(unsigned int base,
+static void b1_put_slice(unsigned int base,
 				unsigned char *dp, unsigned int len)
 {
 	unsigned i = len;
@@ -306,7 +306,7 @@ static void b1_wr_reg(unsigned int base,
 	b1_put_word(base, value);
 }
 
-static inline unsigned int b1_rd_reg(unsigned int base,
+static unsigned int b1_rd_reg(unsigned int base,
 				     unsigned int reg)
 {
 	b1_put_byte(base, READ_REGISTER);
@@ -315,7 +315,7 @@ static inline unsigned int b1_rd_reg(unsigned int base,
 
 }
 
-static inline void b1_reset(unsigned int base)
+static void b1_reset(unsigned int base)
 {
 	b1outp(base, B1_RESET, 0);
 	mdelay(55 * 2);	/* 2 TIC's */
@@ -327,21 +327,21 @@ static inline void b1_reset(unsigned int base)
 	mdelay(55 * 2);	/* 2 TIC's */
 }
 
-static inline unsigned char b1_disable_irq(unsigned int base)
+static unsigned char b1_disable_irq(unsigned int base)
 {
 	return b1outp(base, B1_INSTAT, 0x00);
 }
 
 /* ---------------------------------------------------------------- */
 
-static inline void b1_set_test_bit(unsigned int base,
+static void b1_set_test_bit(unsigned int base,
 				   enum avmcardtype cardtype,
 				   int onoff)
 {
 	b1_wr_reg(base, B1_STAT0(cardtype), onoff ? 0x21 : 0x20);
 }
 
-static inline int b1_get_test_bit(unsigned int base,
+static int b1_get_test_bit(unsigned int base,
 				  enum avmcardtype cardtype)
 {
 	return (b1_rd_reg(base, B1_STAT0(cardtype)) & 0x01) != 0;
@@ -383,30 +383,30 @@ static inline int b1_get_test_bit(unsigned int base,
 #define HEMA_VERSION_ID		0
 #define HEMA_PAL_ID		0
 
-static inline void t1outp(unsigned int base,
+static void t1outp(unsigned int base,
 			  unsigned short offset,
 			  unsigned char value)
 {
 	outb(value, base + offset);
 }
 
-static inline unsigned char t1inp(unsigned int base,
+static unsigned char t1inp(unsigned int base,
 				  unsigned short offset)
 {
 	return inb(base + offset);
 }
 
-static inline int t1_isfastlink(unsigned int base)
+static int t1_isfastlink(unsigned int base)
 {
 	return (inb(base + T1_IDENT) & ~0x82) == 1;
 }
 
-static inline unsigned char t1_fifostatus(unsigned int base)
+static unsigned char t1_fifostatus(unsigned int base)
 {
 	return inb(base + T1_FIFOSTAT);
 }
 
-static inline unsigned int t1_get_slice(unsigned int base,
+static unsigned int t1_get_slice(unsigned int base,
 					unsigned char *dp)
 {
 	unsigned int len, i;
@@ -459,7 +459,7 @@ static inline unsigned int t1_get_slice(unsigned int base,
 	return len;
 }
 
-static inline void t1_put_slice(unsigned int base,
+static void t1_put_slice(unsigned int base,
 				unsigned char *dp, unsigned int len)
 {
 	unsigned i = len;
@@ -492,12 +492,12 @@ static inline void t1_put_slice(unsigned int base,
 	}
 }
 
-static inline void t1_disable_irq(unsigned int base)
+static void t1_disable_irq(unsigned int base)
 {
 	t1outp(base, T1_IRQMASTER, 0x00);
 }
 
-static inline void t1_reset(unsigned int base)
+static void t1_reset(unsigned int base)
 {
 	/* reset T1 Controller */
 	b1_reset(base);
@@ -509,7 +509,7 @@ static inline void t1_reset(unsigned int base)
 	t1outp(base, T1_RESETBOARD, 0xf);
 }
 
-static inline void b1_setinterrupt(unsigned int base, unsigned irq,
+static void b1_setinterrupt(unsigned int base, unsigned irq,
 				   enum avmcardtype cardtype)
 {
 	switch (cardtype) {

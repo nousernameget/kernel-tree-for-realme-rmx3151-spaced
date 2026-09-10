@@ -111,7 +111,7 @@ struct kbase_context *kbasep_js_runpool_lookup_ctx(struct kbase_device *kbdev,
  * guaranteed to be non-zero and unmodified by this function or
  * return NULL on failure, indicating that no context was found in as_nr.
  */
-static inline struct kbase_context *kbasep_js_runpool_lookup_ctx_noretain(
+static struct kbase_context *kbasep_js_runpool_lookup_ctx_noretain(
 		struct kbase_device *kbdev, int as_nr)
 {
 	struct kbase_context *found_kctx;

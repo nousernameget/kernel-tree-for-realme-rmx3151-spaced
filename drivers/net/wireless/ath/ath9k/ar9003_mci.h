@@ -340,50 +340,50 @@ u16 ar9003_mci_get_max_txpower(struct ath_hw *ah, u8 ctlmode);
 
 #else
 
-static inline void ar9003_mci_stop_bt(struct ath_hw *ah, bool save_fullsleep)
+static void ar9003_mci_stop_bt(struct ath_hw *ah, bool save_fullsleep)
 {
 }
-static inline void ar9003_mci_init_cal_req(struct ath_hw *ah, bool *is_reusable)
+static void ar9003_mci_init_cal_req(struct ath_hw *ah, bool *is_reusable)
 {
 }
-static inline void ar9003_mci_init_cal_done(struct ath_hw *ah)
+static void ar9003_mci_init_cal_done(struct ath_hw *ah)
 {
 }
-static inline void ar9003_mci_set_full_sleep(struct ath_hw *ah)
+static void ar9003_mci_set_full_sleep(struct ath_hw *ah)
 {
 }
-static inline void ar9003_mci_2g5g_switch(struct ath_hw *ah, bool wait_done)
+static void ar9003_mci_2g5g_switch(struct ath_hw *ah, bool wait_done)
 {
 }
-static inline void ar9003_mci_check_bt(struct ath_hw *ah)
+static void ar9003_mci_check_bt(struct ath_hw *ah)
 {
 }
-static inline bool ar9003_mci_start_reset(struct ath_hw *ah, struct ath9k_channel *chan)
+static bool ar9003_mci_start_reset(struct ath_hw *ah, struct ath9k_channel *chan)
 {
 	return false;
 }
-static inline int ar9003_mci_end_reset(struct ath_hw *ah, struct ath9k_channel *chan,
+static int ar9003_mci_end_reset(struct ath_hw *ah, struct ath9k_channel *chan,
 				       struct ath9k_hw_cal_data *caldata)
 {
 	return 0;
 }
-static inline void ar9003_mci_reset(struct ath_hw *ah, bool en_int, bool is_2g,
+static void ar9003_mci_reset(struct ath_hw *ah, bool en_int, bool is_2g,
 				    bool is_full_sleep)
 {
 }
-static inline void ar9003_mci_get_isr(struct ath_hw *ah, enum ath9k_int *masked)
+static void ar9003_mci_get_isr(struct ath_hw *ah, enum ath9k_int *masked)
 {
 }
-static inline void ar9003_mci_bt_gain_ctrl(struct ath_hw *ah)
+static void ar9003_mci_bt_gain_ctrl(struct ath_hw *ah)
 {
 }
-static inline void ar9003_mci_set_power_awake(struct ath_hw *ah)
+static void ar9003_mci_set_power_awake(struct ath_hw *ah)
 {
 }
-static inline void ar9003_mci_check_gpm_offset(struct ath_hw *ah)
+static void ar9003_mci_check_gpm_offset(struct ath_hw *ah)
 {
 }
-static inline u16 ar9003_mci_get_max_txpower(struct ath_hw *ah, u8 ctlmode)
+static u16 ar9003_mci_get_max_txpower(struct ath_hw *ah, u8 ctlmode)
 {
 	return -1;
 }

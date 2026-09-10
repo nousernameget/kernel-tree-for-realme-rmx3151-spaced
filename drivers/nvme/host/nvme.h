@@ -103,7 +103,7 @@ enum {
 	NVME_REQ_CANCELLED		= (1 << 0),
 };
 
-static inline struct nvme_request *nvme_req(struct request *req)
+static struct nvme_request *nvme_req(struct request *req)
 {
 	return blk_mq_rq_to_pdu(req);
 }
@@ -244,7 +244,7 @@ struct nvme_ctrl_ops {
 	int (*get_address)(struct nvme_ctrl *ctrl, char *buf, int size);
 };
 
-static inline bool nvme_ctrl_ready(struct nvme_ctrl *ctrl)
+static bool nvme_ctrl_ready(struct nvme_ctrl *ctrl)
 {
 	u32 val = 0;
 
@@ -253,19 +253,19 @@ static inline bool nvme_ctrl_ready(struct nvme_ctrl *ctrl)
 	return val & NVME_CSTS_RDY;
 }
 
-static inline int nvme_reset_subsystem(struct nvme_ctrl *ctrl)
+static int nvme_reset_subsystem(struct nvme_ctrl *ctrl)
 {
 	if (!ctrl->subsystem)
 		return -ENOTTY;
 	return ctrl->ops->reg_write32(ctrl, NVME_REG_NSSR, 0x4E564D65);
 }
 
-static inline u64 nvme_block_nr(struct nvme_ns *ns, sector_t sector)
+static u64 nvme_block_nr(struct nvme_ns *ns, sector_t sector)
 {
 	return (sector >> (ns->lba_shift - 9));
 }
 
-static inline void nvme_cleanup_cmd(struct request *req)
+static void nvme_cleanup_cmd(struct request *req)
 {
 	if (req->rq_flags & RQF_SPECIAL_PAYLOAD) {
 		kfree(page_address(req->special_vec.bv_page) +
@@ -273,7 +273,7 @@ static inline void nvme_cleanup_cmd(struct request *req)
 	}
 }
 
-static inline void nvme_end_request(struct request *req, __le16 status,
+static void nvme_end_request(struct request *req, __le16 status,
 		union nvme_result result)
 {
 	struct nvme_request *rq = nvme_req(req);
@@ -339,26 +339,26 @@ int nvme_nvm_register_sysfs(struct nvme_ns *ns);
 void nvme_nvm_unregister_sysfs(struct nvme_ns *ns);
 int nvme_nvm_ioctl(struct nvme_ns *ns, unsigned int cmd, unsigned long arg);
 #else
-static inline int nvme_nvm_register(struct nvme_ns *ns, char *disk_name,
+static int nvme_nvm_register(struct nvme_ns *ns, char *disk_name,
 				    int node)
 {
 	return 0;
 }
 
 static inline void nvme_nvm_unregister(struct nvme_ns *ns) {};
-static inline int nvme_nvm_register_sysfs(struct nvme_ns *ns)
+static int nvme_nvm_register_sysfs(struct nvme_ns *ns)
 {
 	return 0;
 }
 static inline void nvme_nvm_unregister_sysfs(struct nvme_ns *ns) {};
-static inline int nvme_nvm_ioctl(struct nvme_ns *ns, unsigned int cmd,
+static int nvme_nvm_ioctl(struct nvme_ns *ns, unsigned int cmd,
 							unsigned long arg)
 {
 	return -ENOTTY;
 }
 #endif /* CONFIG_NVM */
 
-static inline struct nvme_ns *nvme_get_ns_from_dev(struct device *dev)
+static struct nvme_ns *nvme_get_ns_from_dev(struct device *dev)
 {
 	return dev_to_disk(dev)->private_data;
 }

@@ -349,7 +349,7 @@ struct vmbus_msginfo {
 
 extern struct vmbus_connection vmbus_connection;
 
-static inline void vmbus_send_interrupt(u32 relid)
+static void vmbus_send_interrupt(u32 relid)
 {
 	sync_set_bit(relid, vmbus_connection.send_int_page);
 }
@@ -408,7 +408,7 @@ void hv_fcopy_deinit(void);
 void hv_fcopy_onchannelcallback(void *context);
 void vmbus_initiate_unload(bool crash);
 
-static inline void hv_poll_channel(struct vmbus_channel *channel,
+static void hv_poll_channel(struct vmbus_channel *channel,
 				   void (*cb)(void *))
 {
 	if (!channel)

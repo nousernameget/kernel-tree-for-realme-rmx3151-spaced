@@ -61,7 +61,7 @@
 #define PUSH_WIDTH(_pushpull)		pushpull_width((_pushpull) >> 0)
 #define PULL_WIDTH(_pushpull)		pushpull_width((_pushpull) >> 4)
 
-static inline int pushpull_width(int pp)
+static int pushpull_width(int pp)
 {
 	pp &= 0xf;
 
@@ -70,7 +70,7 @@ static inline int pushpull_width(int pp)
 	return 2 << pp;
 }
 
-static inline int nfp_cppat_mu_locality_lsb(int mode, bool addr40)
+static int nfp_cppat_mu_locality_lsb(int mode, bool addr40)
 {
 	switch (mode) {
 	case 0 ... 3:

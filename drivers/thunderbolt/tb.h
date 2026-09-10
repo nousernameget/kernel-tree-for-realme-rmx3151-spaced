@@ -251,7 +251,7 @@ struct tb {
 	unsigned long privdata[0];
 };
 
-static inline void *tb_priv(struct tb *tb)
+static void *tb_priv(struct tb *tb)
 {
 	return (void *)tb->privdata;
 }
@@ -268,17 +268,17 @@ static inline void *tb_priv(struct tb *tb)
  *
  * Return: Returns the upstream port of the switch.
  */
-static inline struct tb_port *tb_upstream_port(struct tb_switch *sw)
+static struct tb_port *tb_upstream_port(struct tb_switch *sw)
 {
 	return &sw->ports[sw->config.upstream_port_number];
 }
 
-static inline u64 tb_route(struct tb_switch *sw)
+static u64 tb_route(struct tb_switch *sw)
 {
 	return ((u64) sw->config.route_hi) << 32 | sw->config.route_lo;
 }
 
-static inline struct tb_port *tb_port_at(u64 route, struct tb_switch *sw)
+static struct tb_port *tb_port_at(u64 route, struct tb_switch *sw)
 {
 	u8 port;
 
@@ -288,7 +288,7 @@ static inline struct tb_port *tb_port_at(u64 route, struct tb_switch *sw)
 	return &sw->ports[port];
 }
 
-static inline int tb_sw_read(struct tb_switch *sw, void *buffer,
+static int tb_sw_read(struct tb_switch *sw, void *buffer,
 			     enum tb_cfg_space space, u32 offset, u32 length)
 {
 	return tb_cfg_read(sw->tb->ctl,
@@ -300,7 +300,7 @@ static inline int tb_sw_read(struct tb_switch *sw, void *buffer,
 			   length);
 }
 
-static inline int tb_sw_write(struct tb_switch *sw, void *buffer,
+static int tb_sw_write(struct tb_switch *sw, void *buffer,
 			      enum tb_cfg_space space, u32 offset, u32 length)
 {
 	return tb_cfg_write(sw->tb->ctl,
@@ -312,7 +312,7 @@ static inline int tb_sw_write(struct tb_switch *sw, void *buffer,
 			    length);
 }
 
-static inline int tb_port_read(struct tb_port *port, void *buffer,
+static int tb_port_read(struct tb_port *port, void *buffer,
 			       enum tb_cfg_space space, u32 offset, u32 length)
 {
 	return tb_cfg_read(port->sw->tb->ctl,
@@ -324,7 +324,7 @@ static inline int tb_port_read(struct tb_port *port, void *buffer,
 			   length);
 }
 
-static inline int tb_port_write(struct tb_port *port, const void *buffer,
+static int tb_port_write(struct tb_port *port, const void *buffer,
 				enum tb_cfg_space space, u32 offset, u32 length)
 {
 	return tb_cfg_write(port->sw->tb->ctl,
@@ -389,7 +389,7 @@ int tb_domain_approve_switch_key(struct tb *tb, struct tb_switch *sw);
 int tb_domain_challenge_switch_key(struct tb *tb, struct tb_switch *sw);
 int tb_domain_disconnect_pcie_paths(struct tb *tb);
 
-static inline void tb_domain_put(struct tb *tb)
+static void tb_domain_put(struct tb *tb)
 {
 	put_device(&tb->dev);
 }
@@ -410,22 +410,22 @@ struct tb_switch *tb_switch_find_by_link_depth(struct tb *tb, u8 link,
 					       u8 depth);
 struct tb_switch *tb_switch_find_by_uuid(struct tb *tb, const uuid_t *uuid);
 
-static inline unsigned int tb_switch_phy_port_from_link(unsigned int link)
+static unsigned int tb_switch_phy_port_from_link(unsigned int link)
 {
 	return (link - 1) / TB_SWITCH_LINKS_PER_PHY_PORT;
 }
 
-static inline void tb_switch_put(struct tb_switch *sw)
+static void tb_switch_put(struct tb_switch *sw)
 {
 	put_device(&sw->dev);
 }
 
-static inline bool tb_is_switch(const struct device *dev)
+static bool tb_is_switch(const struct device *dev)
 {
 	return dev->type == &tb_switch_type;
 }
 
-static inline struct tb_switch *tb_to_switch(struct device *dev)
+static struct tb_switch *tb_to_switch(struct device *dev)
 {
 	if (tb_is_switch(dev))
 		return container_of(dev, struct tb_switch, dev);
@@ -449,12 +449,12 @@ int tb_drom_read(struct tb_switch *sw);
 int tb_drom_read_uid_only(struct tb_switch *sw, u64 *uid);
 
 
-static inline int tb_route_length(u64 route)
+static int tb_route_length(u64 route)
 {
 	return (fls64(route) + TB_ROUTE_SHIFT - 1) / TB_ROUTE_SHIFT;
 }
 
-static inline bool tb_is_upstream_port(struct tb_port *port)
+static bool tb_is_upstream_port(struct tb_port *port)
 {
 	return port == tb_upstream_port(port->sw);
 }
@@ -466,7 +466,7 @@ static inline bool tb_is_upstream_port(struct tb_port *port)
  *
  * Return: Returns a route to the switch behind @port.
  */
-static inline u64 tb_downstream_route(struct tb_port *port)
+static u64 tb_downstream_route(struct tb_port *port)
 {
 	return tb_route(port->sw)
 	       | ((u64) port->port << (port->sw->config.depth * 8));

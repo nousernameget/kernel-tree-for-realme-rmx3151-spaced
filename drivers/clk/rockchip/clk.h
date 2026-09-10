@@ -713,7 +713,7 @@ void rockchip_register_softrst(struct device_node *np,
 			       unsigned int num_regs,
 			       void __iomem *base, u8 flags);
 #else
-static inline void rockchip_register_softrst(struct device_node *np,
+static void rockchip_register_softrst(struct device_node *np,
 			       unsigned int num_regs,
 			       void __iomem *base, u8 flags)
 {

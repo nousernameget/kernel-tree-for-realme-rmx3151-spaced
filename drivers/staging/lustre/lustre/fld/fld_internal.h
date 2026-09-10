@@ -158,7 +158,7 @@ struct fld_cache_entry
 *fld_cache_entry_lookup_nolock(struct fld_cache *cache,
 			      struct lu_seq_range *range);
 
-static inline const char *
+static const char *
 fld_target_name(struct lu_fld_target *tar)
 {
 	if (tar->ft_srv)

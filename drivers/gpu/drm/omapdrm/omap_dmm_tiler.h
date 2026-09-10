@@ -112,7 +112,7 @@ bool dmm_is_available(void);
 extern struct platform_driver omap_dmm_driver;
 
 /* GEM bo flags -> tiler fmt */
-static inline enum tiler_fmt gem2fmt(uint32_t flags)
+static enum tiler_fmt gem2fmt(uint32_t flags)
 {
 	switch (flags & OMAP_BO_TILED) {
 	case OMAP_BO_TILED_8:
@@ -126,7 +126,7 @@ static inline enum tiler_fmt gem2fmt(uint32_t flags)
 	}
 }
 
-static inline bool validfmt(enum tiler_fmt fmt)
+static bool validfmt(enum tiler_fmt fmt)
 {
 	switch (fmt) {
 	case TILFMT_8BIT:

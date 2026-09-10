@@ -85,13 +85,13 @@ struct mdc_rpc_lock {
 
 #define MDC_FAKE_RPCL_IT ((void *)0x2c0012bfUL)
 
-static inline void mdc_init_rpc_lock(struct mdc_rpc_lock *lck)
+static void mdc_init_rpc_lock(struct mdc_rpc_lock *lck)
 {
 	mutex_init(&lck->rpcl_mutex);
 	lck->rpcl_it = NULL;
 }
 
-static inline void mdc_get_rpc_lock(struct mdc_rpc_lock *lck,
+static void mdc_get_rpc_lock(struct mdc_rpc_lock *lck,
 				    struct lookup_intent *it)
 {
 	if (it && (it->it_op == IT_GETATTR || it->it_op == IT_LOOKUP ||
@@ -131,7 +131,7 @@ static inline void mdc_get_rpc_lock(struct mdc_rpc_lock *lck,
 	lck->rpcl_it = it;
 }
 
-static inline void mdc_put_rpc_lock(struct mdc_rpc_lock *lck,
+static void mdc_put_rpc_lock(struct mdc_rpc_lock *lck,
 				    struct lookup_intent *it)
 {
 	if (it && (it->it_op == IT_GETATTR || it->it_op == IT_LOOKUP ||
@@ -155,7 +155,7 @@ static inline void mdc_put_rpc_lock(struct mdc_rpc_lock *lck,
 	mutex_unlock(&lck->rpcl_mutex);
 }
 
-static inline void mdc_get_mod_rpc_slot(struct ptlrpc_request *req,
+static void mdc_get_mod_rpc_slot(struct ptlrpc_request *req,
 					struct lookup_intent *it)
 {
 	struct client_obd *cli = &req->rq_import->imp_obd->u.cli;
@@ -167,7 +167,7 @@ static inline void mdc_get_mod_rpc_slot(struct ptlrpc_request *req,
 	lustre_msg_set_tag(req->rq_reqmsg, tag);
 }
 
-static inline void mdc_put_mod_rpc_slot(struct ptlrpc_request *req,
+static void mdc_put_mod_rpc_slot(struct ptlrpc_request *req,
 					struct lookup_intent *it)
 {
 	struct client_obd *cli = &req->rq_import->imp_obd->u.cli;
@@ -193,7 +193,7 @@ static inline void mdc_put_mod_rpc_slot(struct ptlrpc_request *req,
  * \param[in] body	body of ptlrpc reply from MDT
  *
  */
-static inline void mdc_update_max_ea_from_body(struct obd_export *exp,
+static void mdc_update_max_ea_from_body(struct obd_export *exp,
 					       struct mdt_body *body)
 {
 	if (body->mbo_valid & OBD_MD_FLMODEASIZE) {
@@ -212,12 +212,12 @@ static inline void mdc_update_max_ea_from_body(struct obd_export *exp,
 /* mdc/mdc_locks.c */
 int it_open_error(int phase, struct lookup_intent *it);
 
-static inline bool cl_is_lov_delay_create(unsigned int flags)
+static bool cl_is_lov_delay_create(unsigned int flags)
 {
 	return (flags & O_LOV_DELAY_CREATE) == O_LOV_DELAY_CREATE;
 }
 
-static inline void cl_lov_delay_create_clear(unsigned int *flags)
+static void cl_lov_delay_create_clear(unsigned int *flags)
 {
 	if ((*flags & O_LOV_DELAY_CREATE) == O_LOV_DELAY_CREATE)
 		*flags &= ~O_LOV_DELAY_CREATE;

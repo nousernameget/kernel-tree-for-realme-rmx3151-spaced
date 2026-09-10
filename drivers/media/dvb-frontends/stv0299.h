@@ -99,7 +99,7 @@ struct stv0299_config
 extern struct dvb_frontend *stv0299_attach(const struct stv0299_config *config,
 					   struct i2c_adapter *i2c);
 #else
-static inline struct dvb_frontend *stv0299_attach(const struct stv0299_config *config,
+static struct dvb_frontend *stv0299_attach(const struct stv0299_config *config,
 					   struct i2c_adapter *i2c)
 {
 	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);

@@ -441,7 +441,7 @@ struct iwl_mvm_sta {
 
 u16 iwl_mvm_tid_queued(struct iwl_mvm *mvm, struct iwl_mvm_tid_data *tid_data);
 
-static inline struct iwl_mvm_sta *
+static struct iwl_mvm_sta *
 iwl_mvm_sta_from_mac80211(struct ieee80211_sta *sta)
 {
 	return (void *)sta->drv_priv;
@@ -476,7 +476,7 @@ int iwl_mvm_add_sta(struct iwl_mvm *mvm,
 		    struct ieee80211_vif *vif,
 		    struct ieee80211_sta *sta);
 
-static inline int iwl_mvm_update_sta(struct iwl_mvm *mvm,
+static int iwl_mvm_update_sta(struct iwl_mvm *mvm,
 				     struct ieee80211_vif *vif,
 				     struct ieee80211_sta *sta)
 {

@@ -261,13 +261,13 @@ struct ci_hdrc {
 	enum ci_revision		rev;
 };
 
-static inline struct ci_role_driver *ci_role(struct ci_hdrc *ci)
+static struct ci_role_driver *ci_role(struct ci_hdrc *ci)
 {
 	BUG_ON(ci->role >= CI_ROLE_END || !ci->roles[ci->role]);
 	return ci->roles[ci->role];
 }
 
-static inline int ci_role_start(struct ci_hdrc *ci, enum ci_role role)
+static int ci_role_start(struct ci_hdrc *ci, enum ci_role role)
 {
 	int ret;
 
@@ -283,7 +283,7 @@ static inline int ci_role_start(struct ci_hdrc *ci, enum ci_role role)
 	return ret;
 }
 
-static inline void ci_role_stop(struct ci_hdrc *ci)
+static void ci_role_stop(struct ci_hdrc *ci)
 {
 	enum ci_role role = ci->role;
 
@@ -303,7 +303,7 @@ static inline void ci_role_stop(struct ci_hdrc *ci)
  *
  * This function returns register contents
  */
-static inline u32 hw_read_id_reg(struct ci_hdrc *ci, u32 offset, u32 mask)
+static u32 hw_read_id_reg(struct ci_hdrc *ci, u32 offset, u32 mask)
 {
 	return ioread32(ci->hw_bank.abs + offset) & mask;
 }
@@ -315,7 +315,7 @@ static inline u32 hw_read_id_reg(struct ci_hdrc *ci, u32 offset, u32 mask)
  * @mask: bitfield mask
  * @data: new value
  */
-static inline void hw_write_id_reg(struct ci_hdrc *ci, u32 offset,
+static void hw_write_id_reg(struct ci_hdrc *ci, u32 offset,
 			    u32 mask, u32 data)
 {
 	if (~mask)
@@ -333,23 +333,23 @@ static inline void hw_write_id_reg(struct ci_hdrc *ci, u32 offset,
  *
  * This function returns register contents
  */
-static inline u32 hw_read(struct ci_hdrc *ci, enum ci_hw_regs reg, u32 mask)
+static u32 hw_read(struct ci_hdrc *ci, enum ci_hw_regs reg, u32 mask)
 {
 	return ioread32(ci->hw_bank.regmap[reg]) & mask;
 }
 
 #ifdef CONFIG_SOC_IMX28
-static inline void imx28_ci_writel(u32 val, volatile void __iomem *addr)
+static void imx28_ci_writel(u32 val, volatile void __iomem *addr)
 {
 	__asm__ ("swp %0, %0, [%1]" : : "r"(val), "r"(addr));
 }
 #else
-static inline void imx28_ci_writel(u32 val, volatile void __iomem *addr)
+static void imx28_ci_writel(u32 val, volatile void __iomem *addr)
 {
 }
 #endif
 
-static inline void __hw_write(struct ci_hdrc *ci, u32 val,
+static void __hw_write(struct ci_hdrc *ci, u32 val,
 		void __iomem *addr)
 {
 	if (ci->imx28_write_fix)
@@ -365,7 +365,7 @@ static inline void __hw_write(struct ci_hdrc *ci, u32 val,
  * @mask: bitfield mask
  * @data: new value
  */
-static inline void hw_write(struct ci_hdrc *ci, enum ci_hw_regs reg,
+static void hw_write(struct ci_hdrc *ci, enum ci_hw_regs reg,
 			    u32 mask, u32 data)
 {
 	if (~mask)
@@ -383,7 +383,7 @@ static inline void hw_write(struct ci_hdrc *ci, enum ci_hw_regs reg,
  *
  * This function returns register contents
  */
-static inline u32 hw_test_and_clear(struct ci_hdrc *ci, enum ci_hw_regs reg,
+static u32 hw_test_and_clear(struct ci_hdrc *ci, enum ci_hw_regs reg,
 				    u32 mask)
 {
 	u32 val = ioread32(ci->hw_bank.regmap[reg]) & mask;
@@ -401,7 +401,7 @@ static inline u32 hw_test_and_clear(struct ci_hdrc *ci, enum ci_hw_regs reg,
  *
  * This function returns register contents
  */
-static inline u32 hw_test_and_write(struct ci_hdrc *ci, enum ci_hw_regs reg,
+static u32 hw_test_and_write(struct ci_hdrc *ci, enum ci_hw_regs reg,
 				    u32 mask, u32 data)
 {
 	u32 val = hw_read(ci, reg, ~0);
@@ -416,7 +416,7 @@ static inline u32 hw_test_and_write(struct ci_hdrc *ci, enum ci_hw_regs reg,
  *
  * @ci: chipidea device
  */
-static inline bool ci_otg_is_fsm_mode(struct ci_hdrc *ci)
+static bool ci_otg_is_fsm_mode(struct ci_hdrc *ci)
 {
 #ifdef CONFIG_USB_OTG_FSM
 	struct usb_otg_caps *otg_caps = &ci->platdata->ci_otg_caps;

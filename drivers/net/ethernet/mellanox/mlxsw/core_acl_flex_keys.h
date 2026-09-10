@@ -168,20 +168,20 @@ struct mlxsw_afk_element_usage {
 #define mlxsw_afk_element_usage_for_each(element, elusage)			\
 	for_each_set_bit(element, (elusage)->usage, MLXSW_AFK_ELEMENT_MAX)
 
-static inline void
+static void
 mlxsw_afk_element_usage_add(struct mlxsw_afk_element_usage *elusage,
 			    enum mlxsw_afk_element element)
 {
 	__set_bit(element, elusage->usage);
 }
 
-static inline void
+static void
 mlxsw_afk_element_usage_zero(struct mlxsw_afk_element_usage *elusage)
 {
 	bitmap_zero(elusage->usage, MLXSW_AFK_ELEMENT_MAX);
 }
 
-static inline void
+static void
 mlxsw_afk_element_usage_fill(struct mlxsw_afk_element_usage *elusage,
 			     const enum mlxsw_afk_element *elements,
 			     unsigned int elements_count)
@@ -193,7 +193,7 @@ mlxsw_afk_element_usage_fill(struct mlxsw_afk_element_usage *elusage,
 		mlxsw_afk_element_usage_add(elusage, elements[i]);
 }
 
-static inline bool
+static bool
 mlxsw_afk_element_usage_subset(struct mlxsw_afk_element_usage *elusage_small,
 			       struct mlxsw_afk_element_usage *elusage_big)
 {

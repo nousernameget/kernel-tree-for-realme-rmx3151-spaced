@@ -116,7 +116,7 @@ static struct cfs_crypto_hash_type hash_types[] = {
  * \retval	cfs_crypto_hash_type for valid ID (CFS_HASH_ALG_*)
  * \retval	NULL for unknown algorithm identifier
  */
-static inline const struct cfs_crypto_hash_type *
+static const struct cfs_crypto_hash_type *
 cfs_crypto_hash_type(enum cfs_crypto_hash_alg hash_alg)
 {
 	struct cfs_crypto_hash_type *ht;
@@ -137,7 +137,7 @@ cfs_crypto_hash_type(enum cfs_crypto_hash_alg hash_alg)
  * \retval	string name of known hash algorithm
  * \retval	"unknown" if hash algorithm is unknown
  */
-static inline const char *
+static const char *
 cfs_crypto_hash_name(enum cfs_crypto_hash_alg hash_alg)
 {
 	const struct cfs_crypto_hash_type *ht;
@@ -156,7 +156,7 @@ cfs_crypto_hash_name(enum cfs_crypto_hash_alg hash_alg)
  * \retval	hash algorithm digest size in bytes
  * \retval	0 if hash algorithm type is unknown
  */
-static inline int cfs_crypto_hash_digestsize(enum cfs_crypto_hash_alg hash_alg)
+static int cfs_crypto_hash_digestsize(enum cfs_crypto_hash_alg hash_alg)
 {
 	const struct cfs_crypto_hash_type *ht;
 
@@ -172,7 +172,7 @@ static inline int cfs_crypto_hash_digestsize(enum cfs_crypto_hash_alg hash_alg)
  * \retval	hash algorithm ID for valid ID (CFS_HASH_ALG_*)
  * \retval	CFS_HASH_ALG_UNKNOWN for unknown algorithm name
  */
-static inline unsigned char cfs_crypto_hash_alg(const char *algname)
+static unsigned char cfs_crypto_hash_alg(const char *algname)
 {
 	enum cfs_crypto_hash_alg hash_alg;
 

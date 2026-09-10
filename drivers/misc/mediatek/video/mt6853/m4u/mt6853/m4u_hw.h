@@ -121,7 +121,7 @@ struct M4U_PROG_DIST { /* prog pfh dist */
 extern struct m4u_port_t gM4uPort[];
 extern int gM4u_port_num;
 
-static inline char *m4u_get_port_name(int portID)
+static char *m4u_get_port_name(int portID)
 {
 	if ((portID < gM4u_port_num) &&  (portID >= M4U_PORT_DISP_OVL0))
 		return gM4uPort[portID].name;
@@ -129,7 +129,7 @@ static inline char *m4u_get_port_name(int portID)
 	return "m4u_port_unknown";
 }
 
-static inline int m4u_get_port_by_tf_id(int m4u_id, int tf_id)
+static int m4u_get_port_by_tf_id(int m4u_id, int tf_id)
 {
 	int i, tf_id_old;
 
@@ -147,19 +147,19 @@ static inline int m4u_get_port_by_tf_id(int m4u_id, int tf_id)
 	return gM4u_port_num;
 }
 
-static inline int m4u_port_2_larb_port(int port)
+static int m4u_port_2_larb_port(int port)
 {
 	return gM4uPort[port].larb_port;
 }
 
-static inline int m4u_port_2_larb_id(int port)
+static int m4u_port_2_larb_id(int port)
 {
 	if ((port < gM4u_port_num) &&  (port >= M4U_PORT_DISP_OVL0))
 		return gM4uPort[port].larb_id;
 	return 0xff;
 }
 
-static inline int larb_2_m4u_slave_id(int larb)
+static int larb_2_m4u_slave_id(int larb)
 {
 	int i;
 
@@ -170,17 +170,17 @@ static inline int larb_2_m4u_slave_id(int larb)
 	return 0;
 }
 
-static inline int m4u_port_2_m4u_id(int port)
+static int m4u_port_2_m4u_id(int port)
 {
 	return gM4uPort[port].m4u_id;
 }
 
-static inline int m4u_port_2_m4u_slave_id(int port)
+static int m4u_port_2_m4u_slave_id(int port)
 {
 	return gM4uPort[port].m4u_slave;
 }
 
-static inline int larb_port_2_m4u_port(int larb, int larb_port)
+static int larb_port_2_m4u_port(int larb, int larb_port)
 {
 	int i;
 

@@ -219,7 +219,7 @@ struct ali_ircc_cb {
 	unsigned char fifo_opti_buf;
 };
 
-static inline void switch_bank(int iobase, int bank)
+static void switch_bank(int iobase, int bank)
 {
 		outb(bank, iobase+FIR_MCR);
 }

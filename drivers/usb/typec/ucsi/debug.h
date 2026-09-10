@@ -27,7 +27,7 @@ static const char * const ucsi_cmd_strs[] = {
 	[UCSI_GET_ERROR_STATUS]		= "GET_ERROR_STATUS",
 };
 
-static inline const char *ucsi_cmd_str(u64 raw_cmd)
+static const char *ucsi_cmd_str(u64 raw_cmd)
 {
 	u8 cmd = raw_cmd & GENMASK(7, 0);
 
@@ -40,12 +40,12 @@ static const char * const ucsi_ack_strs[] = {
 	[UCSI_ACK_CMD]			= "command",
 };
 
-static inline const char *ucsi_ack_str(u8 ack)
+static const char *ucsi_ack_str(u8 ack)
 {
 	return ucsi_ack_strs[(ack >= ARRAY_SIZE(ucsi_ack_strs)) ? 0 : ack];
 }
 
-static inline const char *ucsi_cci_str(u32 cci)
+static const char *ucsi_cci_str(u32 cci)
 {
 	if (cci & GENMASK(7, 0)) {
 		if (cci & BIT(29))

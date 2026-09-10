@@ -478,7 +478,7 @@ struct disk_info {
  * This function is used to determine the 'next' bio in the list, given the
  * sector of the current stripe+device
  */
-static inline struct bio *r5_next_bio(struct bio *bio, sector_t sector)
+static struct bio *r5_next_bio(struct bio *bio, sector_t sector)
 {
 	int sectors = bio_sectors(bio);
 
@@ -722,12 +722,12 @@ struct r5conf {
 #define ALGORITHM_PARITY_0_6		20
 #define ALGORITHM_PARITY_N_6		ALGORITHM_PARITY_N
 
-static inline int algorithm_valid_raid5(int layout)
+static int algorithm_valid_raid5(int layout)
 {
 	return (layout >= 0) &&
 		(layout <= 5);
 }
-static inline int algorithm_valid_raid6(int layout)
+static int algorithm_valid_raid6(int layout)
 {
 	return (layout >= 0 && layout <= 5)
 		||
@@ -736,7 +736,7 @@ static inline int algorithm_valid_raid6(int layout)
 		(layout >= 16 && layout <= 20);
 }
 
-static inline int algorithm_is_DDF(int layout)
+static int algorithm_is_DDF(int layout)
 {
 	return layout >= 8 && layout <= 10;
 }

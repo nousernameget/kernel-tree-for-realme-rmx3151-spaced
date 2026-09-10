@@ -74,45 +74,45 @@ struct cx25840_state {
 #endif
 };
 
-static inline struct cx25840_state *to_state(struct v4l2_subdev *sd)
+static struct cx25840_state *to_state(struct v4l2_subdev *sd)
 {
 	return container_of(sd, struct cx25840_state, sd);
 }
 
-static inline struct v4l2_subdev *to_sd(struct v4l2_ctrl *ctrl)
+static struct v4l2_subdev *to_sd(struct v4l2_ctrl *ctrl)
 {
 	return &container_of(ctrl->handler, struct cx25840_state, hdl)->sd;
 }
 
-static inline bool is_cx2583x(struct cx25840_state *state)
+static bool is_cx2583x(struct cx25840_state *state)
 {
 	return state->id == CX25836 ||
 	       state->id == CX25837;
 }
 
-static inline bool is_cx231xx(struct cx25840_state *state)
+static bool is_cx231xx(struct cx25840_state *state)
 {
 	return state->id == CX2310X_AV;
 }
 
-static inline bool is_cx2388x(struct cx25840_state *state)
+static bool is_cx2388x(struct cx25840_state *state)
 {
 	return state->id == CX23885_AV ||
 	       state->id == CX23887_AV ||
 	       state->id == CX23888_AV;
 }
 
-static inline bool is_cx23885(struct cx25840_state *state)
+static bool is_cx23885(struct cx25840_state *state)
 {
 	return state->id == CX23885_AV;
 }
 
-static inline bool is_cx23887(struct cx25840_state *state)
+static bool is_cx23887(struct cx25840_state *state)
 {
 	return state->id == CX23887_AV;
 }
 
-static inline bool is_cx23888(struct cx25840_state *state)
+static bool is_cx23888(struct cx25840_state *state)
 {
 	return state->id == CX23888_AV;
 }

@@ -143,7 +143,7 @@ extern struct static_key basep_kinstr_jm_reader_static_key;
  *
  * This uses a static key to reduce overhead when tracing is disabled
  */
-static inline void kbase_kinstr_jm_atom_state(
+static void kbase_kinstr_jm_atom_state(
 	struct kbase_jd_atom *const atom,
 	const enum kbase_kinstr_jm_reader_atom_state state)
 {
@@ -156,7 +156,7 @@ static inline void kbase_kinstr_jm_atom_state(
  *                                      hardware or software queue.
  * @atom: The atom that has changed state
  */
-static inline void kbase_kinstr_jm_atom_state_queue(
+static void kbase_kinstr_jm_atom_state_queue(
 	struct kbase_jd_atom *const atom)
 {
 	kbase_kinstr_jm_atom_state(
@@ -168,7 +168,7 @@ static inline void kbase_kinstr_jm_atom_state_queue(
  *                                      atom
  * @atom: The atom that has changed state
  */
-static inline void kbase_kinstr_jm_atom_state_start(
+static void kbase_kinstr_jm_atom_state_start(
 	struct kbase_jd_atom *const atom)
 {
 	kbase_kinstr_jm_atom_state(
@@ -180,7 +180,7 @@ static inline void kbase_kinstr_jm_atom_state_start(
  *                                     atom
  * @atom: The atom that has changed state
  */
-static inline void kbase_kinstr_jm_atom_state_stop(
+static void kbase_kinstr_jm_atom_state_stop(
 	struct kbase_jd_atom *const atom)
 {
 	kbase_kinstr_jm_atom_state(
@@ -192,7 +192,7 @@ static inline void kbase_kinstr_jm_atom_state_stop(
  *                                         on an atom
  * @atom: The atom that has changed state
  */
-static inline void kbase_kinstr_jm_atom_state_complete(
+static void kbase_kinstr_jm_atom_state_complete(
 	struct kbase_jd_atom *const atom)
 {
 	kbase_kinstr_jm_atom_state(
@@ -204,7 +204,7 @@ static inline void kbase_kinstr_jm_atom_state_complete(
  *                                execution
  * @atom: The atom that has changed state
  */
-static inline void kbase_kinstr_jm_atom_queue(struct kbase_jd_atom *const atom)
+static void kbase_kinstr_jm_atom_queue(struct kbase_jd_atom *const atom)
 {
 	kbase_kinstr_jm_atom_state_queue(atom);
 }
@@ -214,7 +214,7 @@ static inline void kbase_kinstr_jm_atom_queue(struct kbase_jd_atom *const atom)
  *                                   completed
  * @atom: The atom that has changed state
  */
-static inline void kbase_kinstr_jm_atom_complete(
+static void kbase_kinstr_jm_atom_complete(
 	struct kbase_jd_atom *const atom)
 {
 	kbase_kinstr_jm_atom_state_complete(atom);
@@ -224,7 +224,7 @@ static inline void kbase_kinstr_jm_atom_complete(
  * kbase_kinstr_jm_atom_sw_start() - A software atom has started work
  * @atom: The atom that has changed state
  */
-static inline void kbase_kinstr_jm_atom_sw_start(
+static void kbase_kinstr_jm_atom_sw_start(
 	struct kbase_jd_atom *const atom)
 {
 	kbase_kinstr_jm_atom_state_start(atom);
@@ -234,7 +234,7 @@ static inline void kbase_kinstr_jm_atom_sw_start(
  * kbase_kinstr_jm_atom_sw_stop() - A software atom has stopped work
  * @atom: The atom that has changed state
  */
-static inline void kbase_kinstr_jm_atom_sw_stop(
+static void kbase_kinstr_jm_atom_sw_stop(
 	struct kbase_jd_atom *const atom)
 {
 	kbase_kinstr_jm_atom_state_stop(atom);
@@ -253,7 +253,7 @@ void kbasep_kinstr_jm_atom_hw_submit(struct kbase_jd_atom *const atom);
  * kbase_kinstr_jm_atom_hw_submit() - A hardware atom has been submitted
  * @atom: The atom that has been submitted
  */
-static inline void kbase_kinstr_jm_atom_hw_submit(
+static void kbase_kinstr_jm_atom_hw_submit(
 	struct kbase_jd_atom *const atom)
 {
 	if (static_branch_unlikely(&basep_kinstr_jm_reader_static_key))
@@ -273,7 +273,7 @@ void kbasep_kinstr_jm_atom_hw_release(struct kbase_jd_atom *const atom);
  * kbase_kinstr_jm_atom_hw_release() - A hardware atom has been released
  * @atom: The atom that has been released
  */
-static inline void kbase_kinstr_jm_atom_hw_release(
+static void kbase_kinstr_jm_atom_hw_release(
 	struct kbase_jd_atom *const atom)
 {
 	if (static_branch_unlikely(&basep_kinstr_jm_reader_static_key))

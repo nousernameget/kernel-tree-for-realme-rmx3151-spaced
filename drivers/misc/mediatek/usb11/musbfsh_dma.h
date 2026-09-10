@@ -95,7 +95,7 @@ struct dma_channel {
  * then it's possible that the hardware has completed (or aborted) a transfer,
  * so the driver needs to update that status.
  */
-static inline enum dma_channel_status
+static enum dma_channel_status
 dma_channel_status(struct dma_channel *c)
 {
 	return (is_dma_capable() && c) ? c->status : MUSBFSH_DMA_STATUS_UNKNOWN;

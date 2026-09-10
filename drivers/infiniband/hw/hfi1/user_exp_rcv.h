@@ -76,7 +76,7 @@ struct tid_rb_node {
 	struct page *pages[0];
 };
 
-static inline int num_user_pages(unsigned long addr,
+static int num_user_pages(unsigned long addr,
 				 unsigned long len)
 {
 	const unsigned long spage = addr & PAGE_MASK;

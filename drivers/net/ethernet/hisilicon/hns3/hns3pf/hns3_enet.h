@@ -543,23 +543,23 @@ union l4_hdr_info {
 /* the distance between [begin, end) in a ring buffer
  * note: there is a unuse slot between the begin and the end
  */
-static inline int ring_dist(struct hns3_enet_ring *ring, int begin, int end)
+static int ring_dist(struct hns3_enet_ring *ring, int begin, int end)
 {
 	return (end - begin + ring->desc_num) % ring->desc_num;
 }
 
-static inline int ring_space(struct hns3_enet_ring *ring)
+static int ring_space(struct hns3_enet_ring *ring)
 {
 	return ring->desc_num -
 		ring_dist(ring, ring->next_to_clean, ring->next_to_use) - 1;
 }
 
-static inline int is_ring_empty(struct hns3_enet_ring *ring)
+static int is_ring_empty(struct hns3_enet_ring *ring)
 {
 	return ring->next_to_use == ring->next_to_clean;
 }
 
-static inline void hns3_write_reg(void __iomem *base, u32 reg, u32 value)
+static void hns3_write_reg(void __iomem *base, u32 reg, u32 value)
 {
 	u8 __iomem *reg_addr = READ_ONCE(base);
 

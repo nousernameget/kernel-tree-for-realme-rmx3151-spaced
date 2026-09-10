@@ -518,7 +518,7 @@ extern struct ksock_proto ksocknal_protocol_v3x;
 #define CPU_MASK_NONE   0UL
 #endif
 
-static inline int
+static int
 ksocknal_route_mask(void)
 {
 	if (!*ksocknal_tunables.ksnd_typed_conns)
@@ -529,7 +529,7 @@ ksocknal_route_mask(void)
 		(1 << SOCKLND_CONN_BULK_OUT));
 }
 
-static inline struct list_head *
+static struct list_head *
 ksocknal_nid2peerlist(lnet_nid_t nid)
 {
 	unsigned int hash = ((unsigned int)nid) % ksocknal_data.ksnd_peer_hash_size;
@@ -537,7 +537,7 @@ ksocknal_nid2peerlist(lnet_nid_t nid)
 	return &ksocknal_data.ksnd_peers[hash];
 }
 
-static inline void
+static void
 ksocknal_conn_addref(struct ksock_conn *conn)
 {
 	LASSERT(atomic_read(&conn->ksnc_conn_refcount) > 0);
@@ -547,7 +547,7 @@ ksocknal_conn_addref(struct ksock_conn *conn)
 void ksocknal_queue_zombie_conn(struct ksock_conn *conn);
 void ksocknal_finalize_zcreq(struct ksock_conn *conn);
 
-static inline void
+static void
 ksocknal_conn_decref(struct ksock_conn *conn)
 {
 	LASSERT(atomic_read(&conn->ksnc_conn_refcount) > 0);
@@ -555,7 +555,7 @@ ksocknal_conn_decref(struct ksock_conn *conn)
 		ksocknal_queue_zombie_conn(conn);
 }
 
-static inline int
+static int
 ksocknal_connsock_addref(struct ksock_conn *conn)
 {
 	int rc = -ESHUTDOWN;
@@ -571,7 +571,7 @@ ksocknal_connsock_addref(struct ksock_conn *conn)
 	return rc;
 }
 
-static inline void
+static void
 ksocknal_connsock_decref(struct ksock_conn *conn)
 {
 	LASSERT(atomic_read(&conn->ksnc_sock_refcount) > 0);
@@ -583,7 +583,7 @@ ksocknal_connsock_decref(struct ksock_conn *conn)
 	}
 }
 
-static inline void
+static void
 ksocknal_tx_addref(struct ksock_tx *tx)
 {
 	LASSERT(atomic_read(&tx->tx_refcount) > 0);
@@ -593,7 +593,7 @@ ksocknal_tx_addref(struct ksock_tx *tx)
 void ksocknal_tx_prep(struct ksock_conn *, struct ksock_tx *tx);
 void ksocknal_tx_done(struct lnet_ni *ni, struct ksock_tx *tx);
 
-static inline void
+static void
 ksocknal_tx_decref(struct ksock_tx *tx)
 {
 	LASSERT(atomic_read(&tx->tx_refcount) > 0);
@@ -601,7 +601,7 @@ ksocknal_tx_decref(struct ksock_tx *tx)
 		ksocknal_tx_done(NULL, tx);
 }
 
-static inline void
+static void
 ksocknal_route_addref(struct ksock_route *route)
 {
 	LASSERT(atomic_read(&route->ksnr_refcount) > 0);
@@ -610,7 +610,7 @@ ksocknal_route_addref(struct ksock_route *route)
 
 void ksocknal_destroy_route(struct ksock_route *route);
 
-static inline void
+static void
 ksocknal_route_decref(struct ksock_route *route)
 {
 	LASSERT(atomic_read(&route->ksnr_refcount) > 0);
@@ -618,7 +618,7 @@ ksocknal_route_decref(struct ksock_route *route)
 		ksocknal_destroy_route(route);
 }
 
-static inline void
+static void
 ksocknal_peer_addref(struct ksock_peer *peer)
 {
 	LASSERT(atomic_read(&peer->ksnp_refcount) > 0);
@@ -627,7 +627,7 @@ ksocknal_peer_addref(struct ksock_peer *peer)
 
 void ksocknal_destroy_peer(struct ksock_peer *peer);
 
-static inline void
+static void
 ksocknal_peer_decref(struct ksock_peer *peer)
 {
 	LASSERT(atomic_read(&peer->ksnp_refcount) > 0);

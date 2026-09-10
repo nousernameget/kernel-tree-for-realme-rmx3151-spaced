@@ -110,7 +110,7 @@ struct remote_input {
 #define get_queue_entry(sp, read_index) \
 	((void*)(queue_begin + read_index * sizeof(struct remote_input)))
 
-static inline int advance_queue_reader(struct service_processor *sp, unsigned long reader)
+static int advance_queue_reader(struct service_processor *sp, unsigned long reader)
 {
 	reader++;
 	if (reader == REMOTE_QUEUE_SIZE)

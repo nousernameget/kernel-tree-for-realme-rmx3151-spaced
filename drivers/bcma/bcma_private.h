@@ -68,7 +68,7 @@ u32 bcma_pmu_get_cpu_clock(struct bcma_drv_cc *cc);
 extern struct platform_device bcma_pflash_dev;
 int bcma_pflash_init(struct bcma_drv_cc *cc);
 #else
-static inline int bcma_pflash_init(struct bcma_drv_cc *cc)
+static int bcma_pflash_init(struct bcma_drv_cc *cc)
 {
 	bcma_err(cc->core->bus, "Parallel flash not supported\n");
 	return 0;
@@ -80,7 +80,7 @@ static inline int bcma_pflash_init(struct bcma_drv_cc *cc)
 int bcma_sflash_init(struct bcma_drv_cc *cc);
 extern struct platform_device bcma_sflash_dev;
 #else
-static inline int bcma_sflash_init(struct bcma_drv_cc *cc)
+static int bcma_sflash_init(struct bcma_drv_cc *cc)
 {
 	bcma_err(cc->core->bus, "Serial flash not supported\n");
 	return 0;
@@ -92,7 +92,7 @@ static inline int bcma_sflash_init(struct bcma_drv_cc *cc)
 int bcma_nflash_init(struct bcma_drv_cc *cc);
 extern struct platform_device bcma_nflash_dev;
 #else
-static inline int bcma_nflash_init(struct bcma_drv_cc *cc)
+static int bcma_nflash_init(struct bcma_drv_cc *cc)
 {
 	bcma_err(cc->core->bus, "NAND flash not supported\n");
 	return 0;
@@ -110,11 +110,11 @@ extern void __exit bcma_host_pci_exit(void);
 extern int __init bcma_host_soc_register_driver(void);
 extern void __exit bcma_host_soc_unregister_driver(void);
 #else
-static inline int __init bcma_host_soc_register_driver(void)
+static int __init bcma_host_soc_register_driver(void)
 {
 	return 0;
 }
-static inline void __exit bcma_host_soc_unregister_driver(void)
+static void __exit bcma_host_soc_unregister_driver(void)
 {
 }
 #endif /* CONFIG_BCMA_HOST_SOC && CONFIG_OF */
@@ -127,11 +127,11 @@ void bcma_core_pci_init(struct bcma_drv_pci *pc);
 void bcma_core_pci_up(struct bcma_drv_pci *pc);
 void bcma_core_pci_down(struct bcma_drv_pci *pc);
 #else
-static inline void bcma_core_pci_early_init(struct bcma_drv_pci *pc)
+static void bcma_core_pci_early_init(struct bcma_drv_pci *pc)
 {
 	WARN_ON(pc->core->bus->hosttype == BCMA_HOSTTYPE_PCI);
 }
-static inline void bcma_core_pci_init(struct bcma_drv_pci *pc)
+static void bcma_core_pci_init(struct bcma_drv_pci *pc)
 {
 	/* Initialization is required for PCI hosted bus */
 	WARN_ON(pc->core->bus->hosttype == BCMA_HOSTTYPE_PCI);
@@ -143,7 +143,7 @@ static inline void bcma_core_pci_init(struct bcma_drv_pci *pc)
 void bcma_core_pcie2_init(struct bcma_drv_pcie2 *pcie2);
 void bcma_core_pcie2_up(struct bcma_drv_pcie2 *pcie2);
 #else
-static inline void bcma_core_pcie2_init(struct bcma_drv_pcie2 *pcie2)
+static void bcma_core_pcie2_init(struct bcma_drv_pcie2 *pcie2)
 {
 	/* Initialization is required for PCI hosted bus */
 	WARN_ON(pcie2->core->bus->hosttype == BCMA_HOSTTYPE_PCI);
@@ -156,11 +156,11 @@ extern int bcma_chipco_watchdog_register(struct bcma_drv_cc *cc);
 bool bcma_core_pci_is_in_hostmode(struct bcma_drv_pci *pc);
 void bcma_core_pci_hostmode_init(struct bcma_drv_pci *pc);
 #else
-static inline bool bcma_core_pci_is_in_hostmode(struct bcma_drv_pci *pc)
+static bool bcma_core_pci_is_in_hostmode(struct bcma_drv_pci *pc)
 {
 	return false;
 }
-static inline void bcma_core_pci_hostmode_init(struct bcma_drv_pci *pc)
+static void bcma_core_pci_hostmode_init(struct bcma_drv_pci *pc)
 {
 }
 #endif /* CONFIG_BCMA_DRIVER_PCI_HOSTMODE */
@@ -174,14 +174,14 @@ unsigned int bcma_core_mips_irq(struct bcma_device *dev);
 void bcma_core_mips_early_init(struct bcma_drv_mips *mcore);
 void bcma_core_mips_init(struct bcma_drv_mips *mcore);
 #else
-static inline unsigned int bcma_core_mips_irq(struct bcma_device *dev)
+static unsigned int bcma_core_mips_irq(struct bcma_device *dev)
 {
 	return 0;
 }
-static inline void bcma_core_mips_early_init(struct bcma_drv_mips *mcore)
+static void bcma_core_mips_early_init(struct bcma_drv_mips *mcore)
 {
 }
-static inline void bcma_core_mips_init(struct bcma_drv_mips *mcore)
+static void bcma_core_mips_init(struct bcma_drv_mips *mcore)
 {
 }
 #endif
@@ -193,7 +193,7 @@ static inline void bcma_core_mips_init(struct bcma_drv_mips *mcore)
 #ifdef CONFIG_BCMA_DRIVER_GMAC_CMN
 void bcma_core_gmac_cmn_init(struct bcma_drv_gmac_cmn *gc);
 #else
-static inline void bcma_core_gmac_cmn_init(struct bcma_drv_gmac_cmn *gc)
+static void bcma_core_gmac_cmn_init(struct bcma_drv_gmac_cmn *gc)
 {
 }
 #endif
@@ -203,11 +203,11 @@ static inline void bcma_core_gmac_cmn_init(struct bcma_drv_gmac_cmn *gc)
 int bcma_gpio_init(struct bcma_drv_cc *cc);
 int bcma_gpio_unregister(struct bcma_drv_cc *cc);
 #else
-static inline int bcma_gpio_init(struct bcma_drv_cc *cc)
+static int bcma_gpio_init(struct bcma_drv_cc *cc)
 {
 	return -ENOTSUPP;
 }
-static inline int bcma_gpio_unregister(struct bcma_drv_cc *cc)
+static int bcma_gpio_unregister(struct bcma_drv_cc *cc)
 {
 	return 0;
 }

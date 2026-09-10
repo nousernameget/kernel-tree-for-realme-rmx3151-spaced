@@ -57,7 +57,7 @@ struct vnic_cq {
 	unsigned int last_color;
 };
 
-static inline unsigned int svnic_cq_service(struct vnic_cq *cq,
+static unsigned int svnic_cq_service(struct vnic_cq *cq,
 	unsigned int work_to_do,
 	int (*q_service)(struct vnic_dev *vdev, struct cq_desc *cq_desc,
 	u8 type, u16 q_number, u16 completed_index, void *opaque),

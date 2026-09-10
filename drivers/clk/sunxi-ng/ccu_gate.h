@@ -36,7 +36,7 @@ struct ccu_gate {
 		}							\
 	}
 
-static inline struct ccu_gate *hw_to_ccu_gate(struct clk_hw *hw)
+static struct ccu_gate *hw_to_ccu_gate(struct clk_hw *hw)
 {
 	struct ccu_common *common = hw_to_ccu_common(hw);
 

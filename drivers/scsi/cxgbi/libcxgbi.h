@@ -82,7 +82,7 @@ do {									\
  * consume TCP sequence space.
  */
 static const unsigned int ulp2_extra_len[] = { 0, 4, 4, 8 };
-static inline unsigned int cxgbi_ulp_extra_len(int submode)
+static unsigned int cxgbi_ulp_extra_len(int submode)
 {
 	return ulp2_extra_len[submode & 3];
 }
@@ -235,25 +235,25 @@ struct cxgbi_skb_cb {
 #define cxgbi_skcb_rx_pdulen(skb)	(CXGBI_SKB_CB(skb)->rx.pdulen)
 #define cxgbi_skcb_tx_wr_next(skb)	(CXGBI_SKB_CB(skb)->tx.wr_next)
 
-static inline void cxgbi_skcb_set_flag(struct sk_buff *skb,
+static void cxgbi_skcb_set_flag(struct sk_buff *skb,
 					enum cxgbi_skcb_flags flag)
 {
 	__set_bit(flag, &(cxgbi_skcb_flags(skb)));
 }
 
-static inline void cxgbi_skcb_clear_flag(struct sk_buff *skb,
+static void cxgbi_skcb_clear_flag(struct sk_buff *skb,
 					enum cxgbi_skcb_flags flag)
 {
 	__clear_bit(flag, &(cxgbi_skcb_flags(skb)));
 }
 
-static inline int cxgbi_skcb_test_flag(const struct sk_buff *skb,
+static int cxgbi_skcb_test_flag(const struct sk_buff *skb,
 				       enum cxgbi_skcb_flags flag)
 {
 	return test_bit(flag, &(cxgbi_skcb_flags(skb)));
 }
 
-static inline void cxgbi_sock_set_flag(struct cxgbi_sock *csk,
+static void cxgbi_sock_set_flag(struct cxgbi_sock *csk,
 					enum cxgbi_sock_flags flag)
 {
 	__set_bit(flag, &csk->flags);
@@ -262,7 +262,7 @@ static inline void cxgbi_sock_set_flag(struct cxgbi_sock *csk,
 		csk, csk->state, csk->flags, flag);
 }
 
-static inline void cxgbi_sock_clear_flag(struct cxgbi_sock *csk,
+static void cxgbi_sock_clear_flag(struct cxgbi_sock *csk,
 					enum cxgbi_sock_flags flag)
 {
 	__clear_bit(flag, &csk->flags);
@@ -271,7 +271,7 @@ static inline void cxgbi_sock_clear_flag(struct cxgbi_sock *csk,
 		csk, csk->state, csk->flags, flag);
 }
 
-static inline int cxgbi_sock_flag(struct cxgbi_sock *csk,
+static int cxgbi_sock_flag(struct cxgbi_sock *csk,
 				enum cxgbi_sock_flags flag)
 {
 	if (csk == NULL)
@@ -279,7 +279,7 @@ static inline int cxgbi_sock_flag(struct cxgbi_sock *csk,
 	return test_bit(flag, &csk->flags);
 }
 
-static inline void cxgbi_sock_set_state(struct cxgbi_sock *csk, int state)
+static void cxgbi_sock_set_state(struct cxgbi_sock *csk, int state)
 {
 	log_debug(1 << CXGBI_DBG_SOCK,
 		"csk 0x%p,%u,0x%lx, state -> %u.\n",
@@ -287,7 +287,7 @@ static inline void cxgbi_sock_set_state(struct cxgbi_sock *csk, int state)
 	csk->state = state;
 }
 
-static inline void cxgbi_sock_free(struct kref *kref)
+static void cxgbi_sock_free(struct kref *kref)
 {
 	struct cxgbi_sock *csk = container_of(kref,
 						struct cxgbi_sock,
@@ -300,7 +300,7 @@ static inline void cxgbi_sock_free(struct kref *kref)
 	}
 }
 
-static inline void __cxgbi_sock_put(const char *fn, struct cxgbi_sock *csk)
+static void __cxgbi_sock_put(const char *fn, struct cxgbi_sock *csk)
 {
 	log_debug(1 << CXGBI_DBG_SOCK,
 		"%s, put csk 0x%p, ref %u-1.\n",
@@ -309,7 +309,7 @@ static inline void __cxgbi_sock_put(const char *fn, struct cxgbi_sock *csk)
 }
 #define cxgbi_sock_put(csk)	__cxgbi_sock_put(__func__, csk)
 
-static inline void __cxgbi_sock_get(const char *fn, struct cxgbi_sock *csk)
+static void __cxgbi_sock_get(const char *fn, struct cxgbi_sock *csk)
 {
 	log_debug(1 << CXGBI_DBG_SOCK,
 		"%s, get csk 0x%p, ref %u+1.\n",
@@ -318,17 +318,17 @@ static inline void __cxgbi_sock_get(const char *fn, struct cxgbi_sock *csk)
 }
 #define cxgbi_sock_get(csk)	__cxgbi_sock_get(__func__, csk)
 
-static inline int cxgbi_sock_is_closing(struct cxgbi_sock *csk)
+static int cxgbi_sock_is_closing(struct cxgbi_sock *csk)
 {
 	return csk->state >= CTP_ACTIVE_CLOSE;
 }
 
-static inline int cxgbi_sock_is_established(struct cxgbi_sock *csk)
+static int cxgbi_sock_is_established(struct cxgbi_sock *csk)
 {
 	return csk->state == CTP_ESTABLISHED;
 }
 
-static inline void cxgbi_sock_purge_write_queue(struct cxgbi_sock *csk)
+static void cxgbi_sock_purge_write_queue(struct cxgbi_sock *csk)
 {
 	struct sk_buff *skb;
 
@@ -336,7 +336,7 @@ static inline void cxgbi_sock_purge_write_queue(struct cxgbi_sock *csk)
 		__kfree_skb(skb);
 }
 
-static inline unsigned int cxgbi_sock_compute_wscale(unsigned int win)
+static unsigned int cxgbi_sock_compute_wscale(unsigned int win)
 {
 	unsigned int wscale = 0;
 
@@ -345,7 +345,7 @@ static inline unsigned int cxgbi_sock_compute_wscale(unsigned int win)
 	return wscale;
 }
 
-static inline struct sk_buff *alloc_wr(int wrlen, int dlen, gfp_t gfp)
+static struct sk_buff *alloc_wr(int wrlen, int dlen, gfp_t gfp)
 {
 	struct sk_buff *skb = alloc_skb(wrlen + dlen, gfp);
 
@@ -366,12 +366,12 @@ static inline struct sk_buff *alloc_wr(int wrlen, int dlen, gfp_t gfp)
  */
 #define SKB_WR_LIST_SIZE	 (MAX_SKB_FRAGS + 2)
 
-static inline void cxgbi_sock_reset_wr_list(struct cxgbi_sock *csk)
+static void cxgbi_sock_reset_wr_list(struct cxgbi_sock *csk)
 {
 	csk->wr_pending_head = csk->wr_pending_tail = NULL;
 }
 
-static inline void cxgbi_sock_enqueue_wr(struct cxgbi_sock *csk,
+static void cxgbi_sock_enqueue_wr(struct cxgbi_sock *csk,
 					  struct sk_buff *skb)
 {
 	cxgbi_skcb_tx_wr_next(skb) = NULL;
@@ -388,7 +388,7 @@ static inline void cxgbi_sock_enqueue_wr(struct cxgbi_sock *csk,
 	csk->wr_pending_tail = skb;
 }
 
-static inline int cxgbi_sock_count_pending_wrs(const struct cxgbi_sock *csk)
+static int cxgbi_sock_count_pending_wrs(const struct cxgbi_sock *csk)
 {
 	int n = 0;
 	const struct sk_buff *skb = csk->wr_pending_head;
@@ -400,12 +400,12 @@ static inline int cxgbi_sock_count_pending_wrs(const struct cxgbi_sock *csk)
 	return n;
 }
 
-static inline struct sk_buff *cxgbi_sock_peek_wr(const struct cxgbi_sock *csk)
+static struct sk_buff *cxgbi_sock_peek_wr(const struct cxgbi_sock *csk)
 {
 	return csk->wr_pending_head;
 }
 
-static inline struct sk_buff *cxgbi_sock_dequeue_wr(struct cxgbi_sock *csk)
+static struct sk_buff *cxgbi_sock_dequeue_wr(struct cxgbi_sock *csk)
 {
 	struct sk_buff *skb = csk->wr_pending_head;
 
@@ -534,7 +534,7 @@ struct cxgbi_task_data {
 #define iscsi_task_cxgbi_data(task) \
 	((task)->dd_data + sizeof(struct iscsi_tcp_task))
 
-static inline void *cxgbi_alloc_big_mem(unsigned int size,
+static void *cxgbi_alloc_big_mem(unsigned int size,
 					gfp_t gfp)
 {
 	void *p = kzalloc(size, gfp | __GFP_NOWARN);
@@ -545,12 +545,12 @@ static inline void *cxgbi_alloc_big_mem(unsigned int size,
 	return p;
 }
 
-static inline void cxgbi_free_big_mem(void *addr)
+static void cxgbi_free_big_mem(void *addr)
 {
 	kvfree(addr);
 }
 
-static inline void cxgbi_set_iscsi_ipv4(struct cxgbi_hba *chba, __be32 ipaddr)
+static void cxgbi_set_iscsi_ipv4(struct cxgbi_hba *chba, __be32 ipaddr)
 {
 	if (chba->cdev->flags & CXGBI_FLAG_IPV4_SET)
 		chba->ipv4addr = ipaddr;

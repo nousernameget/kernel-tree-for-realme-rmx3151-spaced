@@ -140,7 +140,7 @@ struct mlx5_ib_ucontext {
 	u64			lib_caps;
 };
 
-static inline struct mlx5_ib_ucontext *to_mucontext(struct ib_ucontext *ibucontext)
+static struct mlx5_ib_ucontext *to_mucontext(struct ib_ucontext *ibucontext)
 {
 	return container_of(ibucontext, struct mlx5_ib_ucontext, ibucontext);
 }
@@ -220,7 +220,7 @@ struct mlx5_ib_flow_db {
  */
 
 /* Create a UD QP whose source QP number is 1 */
-static inline enum ib_qp_create_flags mlx5_ib_create_qp_sqpn_qp1(void)
+static enum ib_qp_create_flags mlx5_ib_create_qp_sqpn_qp1(void)
 {
 	return IB_QP_CREATE_RESERVED_START;
 }
@@ -430,7 +430,7 @@ struct mlx5_umr_wr {
 	u8				ignore_free_state:1;
 };
 
-static inline struct mlx5_umr_wr *umr_wr(struct ib_send_wr *wr)
+static struct mlx5_umr_wr *umr_wr(struct ib_send_wr *wr)
 {
 	return container_of(wr, struct mlx5_umr_wr, wr);
 }
@@ -737,77 +737,77 @@ struct mlx5_ib_dev {
 	u8			umr_fence;
 };
 
-static inline struct mlx5_ib_cq *to_mibcq(struct mlx5_core_cq *mcq)
+static struct mlx5_ib_cq *to_mibcq(struct mlx5_core_cq *mcq)
 {
 	return container_of(mcq, struct mlx5_ib_cq, mcq);
 }
 
-static inline struct mlx5_ib_xrcd *to_mxrcd(struct ib_xrcd *ibxrcd)
+static struct mlx5_ib_xrcd *to_mxrcd(struct ib_xrcd *ibxrcd)
 {
 	return container_of(ibxrcd, struct mlx5_ib_xrcd, ibxrcd);
 }
 
-static inline struct mlx5_ib_dev *to_mdev(struct ib_device *ibdev)
+static struct mlx5_ib_dev *to_mdev(struct ib_device *ibdev)
 {
 	return container_of(ibdev, struct mlx5_ib_dev, ib_dev);
 }
 
-static inline struct mlx5_ib_cq *to_mcq(struct ib_cq *ibcq)
+static struct mlx5_ib_cq *to_mcq(struct ib_cq *ibcq)
 {
 	return container_of(ibcq, struct mlx5_ib_cq, ibcq);
 }
 
-static inline struct mlx5_ib_qp *to_mibqp(struct mlx5_core_qp *mqp)
+static struct mlx5_ib_qp *to_mibqp(struct mlx5_core_qp *mqp)
 {
 	return container_of(mqp, struct mlx5_ib_qp_base, mqp)->container_mibqp;
 }
 
-static inline struct mlx5_ib_rwq *to_mibrwq(struct mlx5_core_qp *core_qp)
+static struct mlx5_ib_rwq *to_mibrwq(struct mlx5_core_qp *core_qp)
 {
 	return container_of(core_qp, struct mlx5_ib_rwq, core_qp);
 }
 
-static inline struct mlx5_ib_mr *to_mibmr(struct mlx5_core_mkey *mmkey)
+static struct mlx5_ib_mr *to_mibmr(struct mlx5_core_mkey *mmkey)
 {
 	return container_of(mmkey, struct mlx5_ib_mr, mmkey);
 }
 
-static inline struct mlx5_ib_pd *to_mpd(struct ib_pd *ibpd)
+static struct mlx5_ib_pd *to_mpd(struct ib_pd *ibpd)
 {
 	return container_of(ibpd, struct mlx5_ib_pd, ibpd);
 }
 
-static inline struct mlx5_ib_srq *to_msrq(struct ib_srq *ibsrq)
+static struct mlx5_ib_srq *to_msrq(struct ib_srq *ibsrq)
 {
 	return container_of(ibsrq, struct mlx5_ib_srq, ibsrq);
 }
 
-static inline struct mlx5_ib_qp *to_mqp(struct ib_qp *ibqp)
+static struct mlx5_ib_qp *to_mqp(struct ib_qp *ibqp)
 {
 	return container_of(ibqp, struct mlx5_ib_qp, ibqp);
 }
 
-static inline struct mlx5_ib_rwq *to_mrwq(struct ib_wq *ibwq)
+static struct mlx5_ib_rwq *to_mrwq(struct ib_wq *ibwq)
 {
 	return container_of(ibwq, struct mlx5_ib_rwq, ibwq);
 }
 
-static inline struct mlx5_ib_rwq_ind_table *to_mrwq_ind_table(struct ib_rwq_ind_table *ib_rwq_ind_tbl)
+static struct mlx5_ib_rwq_ind_table *to_mrwq_ind_table(struct ib_rwq_ind_table *ib_rwq_ind_tbl)
 {
 	return container_of(ib_rwq_ind_tbl, struct mlx5_ib_rwq_ind_table, ib_rwq_ind_tbl);
 }
 
-static inline struct mlx5_ib_srq *to_mibsrq(struct mlx5_core_srq *msrq)
+static struct mlx5_ib_srq *to_mibsrq(struct mlx5_core_srq *msrq)
 {
 	return container_of(msrq, struct mlx5_ib_srq, msrq);
 }
 
-static inline struct mlx5_ib_mr *to_mmr(struct ib_mr *ibmr)
+static struct mlx5_ib_mr *to_mmr(struct ib_mr *ibmr)
 {
 	return container_of(ibmr, struct mlx5_ib_mr, ibmr);
 }
 
-static inline struct mlx5_ib_mw *to_mmw(struct ib_mw *ibmw)
+static struct mlx5_ib_mw *to_mmw(struct ib_mw *ibmw)
 {
 	return container_of(ibmw, struct mlx5_ib_mw, ibmw);
 }
@@ -954,7 +954,7 @@ void mlx5_odp_init_mr_cache_entry(struct mlx5_cache_ent *ent);
 void mlx5_odp_populate_klm(struct mlx5_klm *pklm, size_t offset,
 			   size_t nentries, struct mlx5_ib_mr *mr, int flags);
 #else /* CONFIG_INFINIBAND_ON_DEMAND_PAGING */
-static inline void mlx5_ib_internal_fill_odp_caps(struct mlx5_ib_dev *dev)
+static void mlx5_ib_internal_fill_odp_caps(struct mlx5_ib_dev *dev)
 {
 	return;
 }
@@ -964,7 +964,7 @@ static inline void mlx5_ib_odp_remove_one(struct mlx5_ib_dev *ibdev)	    {}
 static inline int mlx5_ib_odp_init(void) { return 0; }
 static inline void mlx5_ib_odp_cleanup(void)				    {}
 static inline void mlx5_odp_init_mr_cache_entry(struct mlx5_cache_ent *ent) {}
-static inline void mlx5_odp_populate_klm(struct mlx5_klm *pklm, size_t offset,
+static void mlx5_odp_populate_klm(struct mlx5_klm *pklm, size_t offset,
 					 size_t nentries, struct mlx5_ib_mr *mr,
 					 int flags) {}
 
@@ -1004,7 +1004,7 @@ void mlx5_ib_gsi_pkey_change(struct mlx5_ib_gsi_qp *gsi);
 
 int mlx5_ib_generate_wc(struct ib_cq *ibcq, struct ib_wc *wc);
 
-static inline void init_query_mad(struct ib_smp *mad)
+static void init_query_mad(struct ib_smp *mad)
 {
 	mad->base_version  = 1;
 	mad->mgmt_class    = IB_MGMT_CLASS_SUBN_LID_ROUTED;
@@ -1012,7 +1012,7 @@ static inline void init_query_mad(struct ib_smp *mad)
 	mad->method	   = IB_MGMT_METHOD_GET;
 }
 
-static inline u8 convert_access(int acc)
+static u8 convert_access(int acc)
 {
 	return (acc & IB_ACCESS_REMOTE_ATOMIC ? MLX5_PERM_ATOMIC       : 0) |
 	       (acc & IB_ACCESS_REMOTE_WRITE  ? MLX5_PERM_REMOTE_WRITE : 0) |
@@ -1021,7 +1021,7 @@ static inline u8 convert_access(int acc)
 	       MLX5_PERM_LOCAL_READ;
 }
 
-static inline int is_qp1(enum ib_qp_type qp_type)
+static int is_qp1(enum ib_qp_type qp_type)
 {
 	return qp_type == MLX5_IB_QPT_HW_GSI;
 }
@@ -1029,7 +1029,7 @@ static inline int is_qp1(enum ib_qp_type qp_type)
 #define MLX5_MAX_UMR_SHIFT 16
 #define MLX5_MAX_UMR_PAGES (1 << MLX5_MAX_UMR_SHIFT)
 
-static inline u32 check_cq_create_flags(u32 flags)
+static u32 check_cq_create_flags(u32 flags)
 {
 	/*
 	 * It returns non-zero value for unsupported CQ
@@ -1039,7 +1039,7 @@ static inline u32 check_cq_create_flags(u32 flags)
 			  IB_CQ_FLAGS_TIMESTAMP_COMPLETION));
 }
 
-static inline int verify_assign_uidx(u8 cqe_version, u32 cmd_uidx,
+static int verify_assign_uidx(u8 cqe_version, u32 cmd_uidx,
 				     u32 *user_index)
 {
 	if (cqe_version) {
@@ -1054,7 +1054,7 @@ static inline int verify_assign_uidx(u8 cqe_version, u32 cmd_uidx,
 	return 0;
 }
 
-static inline int get_qp_user_index(struct mlx5_ib_ucontext *ucontext,
+static int get_qp_user_index(struct mlx5_ib_ucontext *ucontext,
 				    struct mlx5_ib_create_qp *ucmd,
 				    int inlen,
 				    u32 *user_index)
@@ -1072,7 +1072,7 @@ static inline int get_qp_user_index(struct mlx5_ib_ucontext *ucontext,
 	return verify_assign_uidx(cqe_version, ucmd->uidx, user_index);
 }
 
-static inline int get_srq_user_index(struct mlx5_ib_ucontext *ucontext,
+static int get_srq_user_index(struct mlx5_ib_ucontext *ucontext,
 				     struct mlx5_ib_create_srq *ucmd,
 				     int inlen,
 				     u32 *user_index)
@@ -1090,13 +1090,13 @@ static inline int get_srq_user_index(struct mlx5_ib_ucontext *ucontext,
 	return verify_assign_uidx(cqe_version, ucmd->uidx, user_index);
 }
 
-static inline int get_uars_per_sys_page(struct mlx5_ib_dev *dev, bool lib_support)
+static int get_uars_per_sys_page(struct mlx5_ib_dev *dev, bool lib_support)
 {
 	return lib_support && MLX5_CAP_GEN(dev->mdev, uar_4k) ?
 				MLX5_UARS_IN_PAGE : 1;
 }
 
-static inline int get_num_uars(struct mlx5_ib_dev *dev,
+static int get_num_uars(struct mlx5_ib_dev *dev,
 			       struct mlx5_bfreg_info *bfregi)
 {
 	return get_uars_per_sys_page(dev, bfregi->lib_uar_4k) * bfregi->num_sys_pages;

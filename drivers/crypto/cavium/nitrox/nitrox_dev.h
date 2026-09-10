@@ -156,7 +156,7 @@ struct nitrox_device {
  *
  * Returns: value read
  */
-static inline u64 nitrox_read_csr(struct nitrox_device *ndev, u64 offset)
+static u64 nitrox_read_csr(struct nitrox_device *ndev, u64 offset)
 {
 	return readq(ndev->bar_addr + offset);
 }
@@ -167,13 +167,13 @@ static inline u64 nitrox_read_csr(struct nitrox_device *ndev, u64 offset)
  * @offset: offset of the register to write
  * @value: value to write
  */
-static inline void nitrox_write_csr(struct nitrox_device *ndev, u64 offset,
+static void nitrox_write_csr(struct nitrox_device *ndev, u64 offset,
 				    u64 value)
 {
 	writeq(value, (ndev->bar_addr + offset));
 }
 
-static inline int nitrox_ready(struct nitrox_device *ndev)
+static int nitrox_ready(struct nitrox_device *ndev)
 {
 	return test_bit(NITROX_READY, &ndev->status);
 }

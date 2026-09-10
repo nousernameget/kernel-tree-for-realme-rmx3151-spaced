@@ -148,68 +148,68 @@ struct mic_dma_device {
 	size_t max_xfer_size;
 };
 
-static inline struct mic_dma_chan *to_mic_dma_chan(struct dma_chan *ch)
+static struct mic_dma_chan *to_mic_dma_chan(struct dma_chan *ch)
 {
 	return container_of(ch, struct mic_dma_chan, api_ch);
 }
 
-static inline struct mic_dma_device *to_mic_dma_dev(struct mic_dma_chan *ch)
+static struct mic_dma_device *to_mic_dma_dev(struct mic_dma_chan *ch)
 {
 	return
 	container_of((const typeof(((struct mic_dma_device *)0)->mic_ch)*)
 		     (ch - ch->ch_num), struct mic_dma_device, mic_ch);
 }
 
-static inline struct mbus_device *to_mbus_device(struct mic_dma_chan *ch)
+static struct mbus_device *to_mbus_device(struct mic_dma_chan *ch)
 {
 	return to_mic_dma_dev(ch)->mbdev;
 }
 
-static inline struct mbus_hw_ops *to_mbus_hw_ops(struct mic_dma_chan *ch)
+static struct mbus_hw_ops *to_mbus_hw_ops(struct mic_dma_chan *ch)
 {
 	return to_mbus_device(ch)->hw_ops;
 }
 
-static inline struct device *mic_dma_ch_to_device(struct mic_dma_chan *ch)
+static struct device *mic_dma_ch_to_device(struct mic_dma_chan *ch)
 {
 	return to_mic_dma_dev(ch)->dma_dev.dev;
 }
 
-static inline void __iomem *mic_dma_chan_to_mmio(struct mic_dma_chan *ch)
+static void __iomem *mic_dma_chan_to_mmio(struct mic_dma_chan *ch)
 {
 	return to_mic_dma_dev(ch)->mmio;
 }
 
-static inline u32 mic_dma_read_reg(struct mic_dma_chan *ch, u32 reg)
+static u32 mic_dma_read_reg(struct mic_dma_chan *ch, u32 reg)
 {
 	return ioread32(mic_dma_chan_to_mmio(ch) + MIC_DMA_SBOX_CH_BASE +
 			ch->ch_num * MIC_DMA_SBOX_CHAN_OFF + reg);
 }
 
-static inline void mic_dma_write_reg(struct mic_dma_chan *ch, u32 reg, u32 val)
+static void mic_dma_write_reg(struct mic_dma_chan *ch, u32 reg, u32 val)
 {
 	iowrite32(val, mic_dma_chan_to_mmio(ch) + MIC_DMA_SBOX_CH_BASE +
 		  ch->ch_num * MIC_DMA_SBOX_CHAN_OFF + reg);
 }
 
-static inline u32 mic_dma_mmio_read(struct mic_dma_chan *ch, u32 offset)
+static u32 mic_dma_mmio_read(struct mic_dma_chan *ch, u32 offset)
 {
 	return ioread32(mic_dma_chan_to_mmio(ch) + offset);
 }
 
-static inline void mic_dma_mmio_write(struct mic_dma_chan *ch, u32 val,
+static void mic_dma_mmio_write(struct mic_dma_chan *ch, u32 val,
 				      u32 offset)
 {
 	iowrite32(val, mic_dma_chan_to_mmio(ch) + offset);
 }
 
-static inline u32 mic_dma_read_cmp_cnt(struct mic_dma_chan *ch)
+static u32 mic_dma_read_cmp_cnt(struct mic_dma_chan *ch)
 {
 	return mic_dma_read_reg(ch, MIC_DMA_REG_DSTAT) &
 	       MIC_DMA_HW_CMP_CNT_MASK;
 }
 
-static inline void mic_dma_chan_set_owner(struct mic_dma_chan *ch)
+static void mic_dma_chan_set_owner(struct mic_dma_chan *ch)
 {
 	u32 dcr = mic_dma_mmio_read(ch, MIC_DMA_SBOX_BASE + MIC_DMA_SBOX_DCR);
 	u32 chan_num = ch->ch_num;
@@ -218,7 +218,7 @@ static inline void mic_dma_chan_set_owner(struct mic_dma_chan *ch)
 	mic_dma_mmio_write(ch, dcr, MIC_DMA_SBOX_BASE + MIC_DMA_SBOX_DCR);
 }
 
-static inline void mic_dma_enable_chan(struct mic_dma_chan *ch)
+static void mic_dma_enable_chan(struct mic_dma_chan *ch)
 {
 	u32 dcr = mic_dma_mmio_read(ch, MIC_DMA_SBOX_BASE + MIC_DMA_SBOX_DCR);
 
@@ -226,7 +226,7 @@ static inline void mic_dma_enable_chan(struct mic_dma_chan *ch)
 	mic_dma_mmio_write(ch, dcr, MIC_DMA_SBOX_BASE + MIC_DMA_SBOX_DCR);
 }
 
-static inline void mic_dma_disable_chan(struct mic_dma_chan *ch)
+static void mic_dma_disable_chan(struct mic_dma_chan *ch)
 {
 	u32 dcr = mic_dma_mmio_read(ch, MIC_DMA_SBOX_BASE + MIC_DMA_SBOX_DCR);
 
@@ -252,7 +252,7 @@ static void mic_dma_chan_set_desc_ring(struct mic_dma_chan *ch)
 	mic_dma_write_reg(ch, MIC_DMA_REG_DRAR_HI, drar_hi);
 }
 
-static inline void mic_dma_chan_mask_intr(struct mic_dma_chan *ch)
+static void mic_dma_chan_mask_intr(struct mic_dma_chan *ch)
 {
 	u32 dcar = mic_dma_read_reg(ch, MIC_DMA_REG_DCAR);
 
@@ -263,7 +263,7 @@ static inline void mic_dma_chan_mask_intr(struct mic_dma_chan *ch)
 	mic_dma_write_reg(ch, MIC_DMA_REG_DCAR, dcar);
 }
 
-static inline void mic_dma_chan_unmask_intr(struct mic_dma_chan *ch)
+static void mic_dma_chan_unmask_intr(struct mic_dma_chan *ch)
 {
 	u32 dcar = mic_dma_read_reg(ch, MIC_DMA_REG_DCAR);
 

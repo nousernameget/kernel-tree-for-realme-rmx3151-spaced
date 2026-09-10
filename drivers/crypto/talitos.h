@@ -170,7 +170,7 @@ extern int talitos_submit(struct device *dev, int ch, struct talitos_desc *desc,
  * defined, we check the features which are set according to the device tree.
  * Otherwise, we answer true or false directly
  */
-static inline bool has_ftr_sec1(struct talitos_private *priv)
+static bool has_ftr_sec1(struct talitos_private *priv)
 {
 #if defined(CONFIG_CRYPTO_DEV_TALITOS1) && defined(CONFIG_CRYPTO_DEV_TALITOS2)
 	return priv->features & TALITOS_FTR_SEC1 ? true : false;

@@ -324,36 +324,36 @@ struct gelic_port {
 	long priv[0]; /* long for alignment */
 };
 
-static inline struct gelic_card *port_to_card(struct gelic_port *p)
+static struct gelic_card *port_to_card(struct gelic_port *p)
 {
 	return p->card;
 }
-static inline struct net_device *port_to_netdev(struct gelic_port *p)
+static struct net_device *port_to_netdev(struct gelic_port *p)
 {
 	return p->netdev;
 }
-static inline struct gelic_card *netdev_card(struct net_device *d)
+static struct gelic_card *netdev_card(struct net_device *d)
 {
 	return ((struct gelic_port *)netdev_priv(d))->card;
 }
-static inline struct gelic_port *netdev_port(struct net_device *d)
+static struct gelic_port *netdev_port(struct net_device *d)
 {
 	return (struct gelic_port *)netdev_priv(d);
 }
-static inline struct device *ctodev(struct gelic_card *card)
+static struct device *ctodev(struct gelic_card *card)
 {
 	return &card->dev->core;
 }
-static inline u64 bus_id(struct gelic_card *card)
+static u64 bus_id(struct gelic_card *card)
 {
 	return card->dev->bus_id;
 }
-static inline u64 dev_id(struct gelic_card *card)
+static u64 dev_id(struct gelic_card *card)
 {
 	return card->dev->dev_id;
 }
 
-static inline void *port_priv(struct gelic_port *port)
+static void *port_priv(struct gelic_port *port)
 {
 	return port->priv;
 }

@@ -37,12 +37,12 @@ void iwl_write32(struct iwl_trans *trans, u32 ofs, u32 val);
 void iwl_write64(struct iwl_trans *trans, u64 ofs, u64 val);
 u32 iwl_read32(struct iwl_trans *trans, u32 ofs);
 
-static inline void iwl_set_bit(struct iwl_trans *trans, u32 reg, u32 mask)
+static void iwl_set_bit(struct iwl_trans *trans, u32 reg, u32 mask)
 {
 	iwl_trans_set_bits_mask(trans, reg, mask, mask);
 }
 
-static inline void iwl_clear_bit(struct iwl_trans *trans, u32 reg, u32 mask)
+static void iwl_clear_bit(struct iwl_trans *trans, u32 reg, u32 mask)
 {
 	iwl_trans_set_bits_mask(trans, reg, mask, 0);
 }

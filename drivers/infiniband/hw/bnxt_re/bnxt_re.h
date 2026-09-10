@@ -154,7 +154,7 @@ struct bnxt_re_dev {
 #define BNXT_RE_ROCEV2_IPV4_PACKET	2
 #define BNXT_RE_ROCEV2_IPV6_PACKET	3
 
-static inline struct device *rdev_to_dev(struct bnxt_re_dev *rdev)
+static struct device *rdev_to_dev(struct bnxt_re_dev *rdev)
 {
 	if (rdev)
 		return  &rdev->ibdev.dev;

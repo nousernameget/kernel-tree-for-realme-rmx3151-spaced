@@ -67,7 +67,7 @@ enum aspm_mode {
 #define ASPM_L1_SUPPORTED(reg) \
 	(((reg & PCI_EXP_LNKCAP_ASPMS) >> 10) & 0x2)
 
-static inline bool aspm_hw_l1_supported(struct hfi1_devdata *dd)
+static bool aspm_hw_l1_supported(struct hfi1_devdata *dd)
 {
 	struct pci_dev *parent = dd->pcidev->bus->self;
 	u32 up, dn;
@@ -90,7 +90,7 @@ static inline bool aspm_hw_l1_supported(struct hfi1_devdata *dd)
 }
 
 /* Set L1 entrance latency for slower entry to L1 */
-static inline void aspm_hw_set_l1_ent_latency(struct hfi1_devdata *dd)
+static void aspm_hw_set_l1_ent_latency(struct hfi1_devdata *dd)
 {
 	u32 l1_ent_lat = 0x4u;
 	u32 reg32;
@@ -101,7 +101,7 @@ static inline void aspm_hw_set_l1_ent_latency(struct hfi1_devdata *dd)
 	pci_write_config_dword(dd->pcidev, PCIE_CFG_REG_PL3, reg32);
 }
 
-static inline void aspm_hw_enable_l1(struct hfi1_devdata *dd)
+static void aspm_hw_enable_l1(struct hfi1_devdata *dd)
 {
 	struct pci_dev *parent = dd->pcidev->bus->self;
 
@@ -121,7 +121,7 @@ static inline void aspm_hw_enable_l1(struct hfi1_devdata *dd)
 					   PCI_EXP_LNKCTL_ASPM_L1);
 }
 
-static inline void aspm_hw_disable_l1(struct hfi1_devdata *dd)
+static void aspm_hw_disable_l1(struct hfi1_devdata *dd)
 {
 	struct pci_dev *parent = dd->pcidev->bus->self;
 
@@ -133,7 +133,7 @@ static inline void aspm_hw_disable_l1(struct hfi1_devdata *dd)
 						   PCI_EXP_LNKCTL_ASPMC, 0x0);
 }
 
-static inline void aspm_enable(struct hfi1_devdata *dd)
+static void aspm_enable(struct hfi1_devdata *dd)
 {
 	if (dd->aspm_enabled || aspm_mode == ASPM_MODE_DISABLED ||
 	    !dd->aspm_supported)
@@ -143,7 +143,7 @@ static inline void aspm_enable(struct hfi1_devdata *dd)
 	dd->aspm_enabled = true;
 }
 
-static inline void aspm_disable(struct hfi1_devdata *dd)
+static void aspm_disable(struct hfi1_devdata *dd)
 {
 	if (!dd->aspm_enabled || aspm_mode == ASPM_MODE_ENABLED)
 		return;
@@ -152,7 +152,7 @@ static inline void aspm_disable(struct hfi1_devdata *dd)
 	dd->aspm_enabled = false;
 }
 
-static inline void aspm_disable_inc(struct hfi1_devdata *dd)
+static void aspm_disable_inc(struct hfi1_devdata *dd)
 {
 	unsigned long flags;
 
@@ -162,7 +162,7 @@ static inline void aspm_disable_inc(struct hfi1_devdata *dd)
 	spin_unlock_irqrestore(&dd->aspm_lock, flags);
 }
 
-static inline void aspm_enable_dec(struct hfi1_devdata *dd)
+static void aspm_enable_dec(struct hfi1_devdata *dd)
 {
 	unsigned long flags;
 
@@ -173,7 +173,7 @@ static inline void aspm_enable_dec(struct hfi1_devdata *dd)
 }
 
 /* ASPM processing for each receive context interrupt */
-static inline void aspm_ctx_disable(struct hfi1_ctxtdata *rcd)
+static void aspm_ctx_disable(struct hfi1_ctxtdata *rcd)
 {
 	bool restart_timer;
 	bool close_interrupts;
@@ -218,7 +218,7 @@ unlock:
 }
 
 /* Timer function for re-enabling ASPM in the absence of interrupt activity */
-static inline void aspm_ctx_timer_function(unsigned long data)
+static void aspm_ctx_timer_function(unsigned long data)
 {
 	struct hfi1_ctxtdata *rcd = (struct hfi1_ctxtdata *)data;
 	unsigned long flags;
@@ -233,7 +233,7 @@ static inline void aspm_ctx_timer_function(unsigned long data)
  * Disable interrupt processing for verbs contexts when PSM or VNIC contexts
  * are open.
  */
-static inline void aspm_disable_all(struct hfi1_devdata *dd)
+static void aspm_disable_all(struct hfi1_devdata *dd)
 {
 	struct hfi1_ctxtdata *rcd;
 	unsigned long flags;
@@ -255,7 +255,7 @@ static inline void aspm_disable_all(struct hfi1_devdata *dd)
 }
 
 /* Re-enable interrupt processing for verbs contexts */
-static inline void aspm_enable_all(struct hfi1_devdata *dd)
+static void aspm_enable_all(struct hfi1_devdata *dd)
 {
 	struct hfi1_ctxtdata *rcd;
 	unsigned long flags;
@@ -278,7 +278,7 @@ static inline void aspm_enable_all(struct hfi1_devdata *dd)
 	}
 }
 
-static inline void aspm_ctx_init(struct hfi1_ctxtdata *rcd)
+static void aspm_ctx_init(struct hfi1_ctxtdata *rcd)
 {
 	spin_lock_init(&rcd->aspm_lock);
 	setup_timer(&rcd->aspm_timer, aspm_ctx_timer_function,
@@ -288,7 +288,7 @@ static inline void aspm_ctx_init(struct hfi1_ctxtdata *rcd)
 		rcd->ctxt < rcd->dd->first_dyn_alloc_ctxt;
 }
 
-static inline void aspm_init(struct hfi1_devdata *dd)
+static void aspm_init(struct hfi1_devdata *dd)
 {
 	struct hfi1_ctxtdata *rcd;
 	u16 i;
@@ -312,7 +312,7 @@ static inline void aspm_init(struct hfi1_devdata *dd)
 	aspm_enable_all(dd);
 }
 
-static inline void aspm_exit(struct hfi1_devdata *dd)
+static void aspm_exit(struct hfi1_devdata *dd)
 {
 	aspm_disable_all(dd);
 

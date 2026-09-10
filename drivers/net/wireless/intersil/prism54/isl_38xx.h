@@ -71,7 +71,7 @@
  *  the pci memory buffers get flushed by performing one harmless read
  *  from the %ISL38XX_PCI_POSTING_FLUSH offset.
  */
-static inline void
+static void
 isl38xx_w32_flush(void __iomem *base, u32 val, unsigned long offset)
 {
 	writel(val, base + offset);

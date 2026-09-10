@@ -913,7 +913,7 @@ struct iwl_priv {
 	enum iwl_ucode_type cur_ucode;
 }; /*iwl_priv */
 
-static inline struct iwl_rxon_context *
+static struct iwl_rxon_context *
 iwl_rxon_ctx_from_vif(struct ieee80211_vif *vif)
 {
 	struct iwl_vif_priv *vif_priv = (void *)vif->drv_priv;
@@ -926,18 +926,18 @@ iwl_rxon_ctx_from_vif(struct ieee80211_vif *vif)
 	     ctx < &priv->contexts[NUM_IWL_RXON_CTX]; ctx++)	\
 		if (priv->valid_contexts & BIT(ctx->ctxid))
 
-static inline int iwl_is_associated_ctx(struct iwl_rxon_context *ctx)
+static int iwl_is_associated_ctx(struct iwl_rxon_context *ctx)
 {
 	return (ctx->active.filter_flags & RXON_FILTER_ASSOC_MSK) ? 1 : 0;
 }
 
-static inline int iwl_is_associated(struct iwl_priv *priv,
+static int iwl_is_associated(struct iwl_priv *priv,
 				    enum iwl_rxon_context_id ctxid)
 {
 	return iwl_is_associated_ctx(&priv->contexts[ctxid]);
 }
 
-static inline int iwl_is_any_associated(struct iwl_priv *priv)
+static int iwl_is_any_associated(struct iwl_priv *priv)
 {
 	struct iwl_rxon_context *ctx;
 	for_each_context(priv, ctx)

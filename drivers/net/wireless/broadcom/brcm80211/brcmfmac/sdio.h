@@ -352,17 +352,17 @@ void brcmf_sdiod_try_freeze(struct brcmf_sdio_dev *sdiodev);
 void brcmf_sdiod_freezer_count(struct brcmf_sdio_dev *sdiodev);
 void brcmf_sdiod_freezer_uncount(struct brcmf_sdio_dev *sdiodev);
 #else
-static inline bool brcmf_sdiod_freezing(struct brcmf_sdio_dev *sdiodev)
+static bool brcmf_sdiod_freezing(struct brcmf_sdio_dev *sdiodev)
 {
 	return false;
 }
-static inline void brcmf_sdiod_try_freeze(struct brcmf_sdio_dev *sdiodev)
+static void brcmf_sdiod_try_freeze(struct brcmf_sdio_dev *sdiodev)
 {
 }
-static inline void brcmf_sdiod_freezer_count(struct brcmf_sdio_dev *sdiodev)
+static void brcmf_sdiod_freezer_count(struct brcmf_sdio_dev *sdiodev)
 {
 }
-static inline void brcmf_sdiod_freezer_uncount(struct brcmf_sdio_dev *sdiodev)
+static void brcmf_sdiod_freezer_uncount(struct brcmf_sdio_dev *sdiodev)
 {
 }
 #endif /* CONFIG_PM_SLEEP */

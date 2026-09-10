@@ -3,7 +3,7 @@
  * Copyright IBM Corp. 2016
  * Author(s): Martin Schwidefsky <schwidefsky@de.ibm.com>
  *
- * Adjunct processor bus inline assemblies.
+ * Adjunct processor bus assemblies.
  */
 
 #ifndef _AP_ASM_H_
@@ -16,7 +16,7 @@
  *
  * Returns 0 if the AP instructions are installed.
  */
-static inline int ap_instructions_available(void)
+static int ap_instructions_available(void)
 {
 	register unsigned long reg0 asm ("0") = AP_MKQID(0, 0);
 	register unsigned long reg1 asm ("1") = -ENODEV;
@@ -38,7 +38,7 @@ static inline int ap_instructions_available(void)
  *
  * Returns AP queue status structure.
  */
-static inline struct ap_queue_status ap_tapq(ap_qid_t qid, unsigned long *info)
+static struct ap_queue_status ap_tapq(ap_qid_t qid, unsigned long *info)
 {
 	register unsigned long reg0 asm ("0") = qid;
 	register struct ap_queue_status reg1 asm ("1");
@@ -57,7 +57,7 @@ static inline struct ap_queue_status ap_tapq(ap_qid_t qid, unsigned long *info)
  *
  * Returns AP queue status structure.
  */
-static inline struct ap_queue_status ap_rapq(ap_qid_t qid)
+static struct ap_queue_status ap_rapq(ap_qid_t qid)
 {
 	register unsigned long reg0 asm ("0") = qid | 0x01000000UL;
 	register struct ap_queue_status reg1 asm ("1");
@@ -77,7 +77,7 @@ static inline struct ap_queue_status ap_rapq(ap_qid_t qid)
  *
  * Returns AP queue status.
  */
-static inline struct ap_queue_status ap_aqic(ap_qid_t qid,
+static struct ap_queue_status ap_aqic(ap_qid_t qid,
 					     struct ap_qirq_ctrl qirqctrl,
 					     void *ind)
 {
@@ -99,7 +99,7 @@ static inline struct ap_queue_status ap_aqic(ap_qid_t qid,
  *
  * Returns 0 on success, or -EOPNOTSUPP.
  */
-static inline int ap_qci(void *config)
+static int ap_qci(void *config)
 {
 	register unsigned long reg0 asm ("0") = 0x04000000UL;
 	register unsigned long reg1 asm ("1") = -EINVAL;
@@ -129,7 +129,7 @@ static inline int ap_qci(void *config)
  * Condition code 2 on NQAP also means the send is incomplete,
  * because a segment boundary was reached. The NQAP is repeated.
  */
-static inline struct ap_queue_status ap_nqap(ap_qid_t qid,
+static struct ap_queue_status ap_nqap(ap_qid_t qid,
 					     unsigned long long psmid,
 					     void *msg, size_t length)
 {
@@ -167,7 +167,7 @@ static inline struct ap_queue_status ap_nqap(ap_qid_t qid,
  * any 'residual' length, in case the instruction gets interrupted.
  * Hence it gets zeroed before the instruction.
  */
-static inline struct ap_queue_status ap_dqap(ap_qid_t qid,
+static struct ap_queue_status ap_dqap(ap_qid_t qid,
 					     unsigned long long *psmid,
 					     void *msg, size_t length)
 {

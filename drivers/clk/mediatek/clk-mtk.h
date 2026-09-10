@@ -291,7 +291,7 @@ struct clk *mtk_clk_register_ref2usb_tx(const char *name,
 void mtk_register_reset_controller(struct device_node *np,
 			unsigned int num_regs, int regofs);
 #else
-static inline void mtk_register_reset_controller(struct device_node *np,
+static void mtk_register_reset_controller(struct device_node *np,
 			unsigned int num_regs, int regofs)
 {
 }

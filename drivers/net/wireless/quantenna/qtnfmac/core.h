@@ -182,7 +182,7 @@ void qtnf_virtual_intf_cleanup(struct net_device *ndev);
 
 void qtnf_netdev_updown(struct net_device *ndev, bool up);
 
-static inline struct qtnf_vif *qtnf_netdev_get_priv(struct net_device *dev)
+static struct qtnf_vif *qtnf_netdev_get_priv(struct net_device *dev)
 {
 	return *((void **)netdev_priv(dev));
 }

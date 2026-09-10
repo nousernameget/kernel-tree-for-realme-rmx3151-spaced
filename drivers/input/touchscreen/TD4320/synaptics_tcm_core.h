@@ -539,31 +539,31 @@ void syna_tcm_bus_exit(void);
 
 int syna_tcm_add_module(struct syna_tcm_module_cb *mod_cb, bool insert);
 
-static inline int syna_tcm_rmi_read(struct syna_tcm_hcd *tcm_hcd,
+static int syna_tcm_rmi_read(struct syna_tcm_hcd *tcm_hcd,
 		unsigned short addr, unsigned char *data, unsigned int length)
 {
 	return tcm_hcd->hw_if->bus_io->rmi_read(tcm_hcd, addr, data, length);
 }
 
-static inline int syna_tcm_rmi_write(struct syna_tcm_hcd *tcm_hcd,
+static int syna_tcm_rmi_write(struct syna_tcm_hcd *tcm_hcd,
 		unsigned short addr, unsigned char *data, unsigned int length)
 {
 	return tcm_hcd->hw_if->bus_io->rmi_write(tcm_hcd, addr, data, length);
 }
 
-static inline int syna_tcm_read(struct syna_tcm_hcd *tcm_hcd,
+static int syna_tcm_read(struct syna_tcm_hcd *tcm_hcd,
 		unsigned char *data, unsigned int length)
 {
 	return tcm_hcd->hw_if->bus_io->read(tcm_hcd, data, length);
 }
 
-static inline int syna_tcm_write(struct syna_tcm_hcd *tcm_hcd,
+static int syna_tcm_write(struct syna_tcm_hcd *tcm_hcd,
 		unsigned char *data, unsigned int length)
 {
 	return tcm_hcd->hw_if->bus_io->write(tcm_hcd, data, length);
 }
 
-static inline ssize_t syna_tcm_show_error(struct device *dev,
+static ssize_t syna_tcm_show_error(struct device *dev,
 		struct device_attribute *attr, char *buf)
 {
 	pr_info("%s: Attribute not readable\n",
@@ -572,7 +572,7 @@ static inline ssize_t syna_tcm_show_error(struct device *dev,
 	return -EPERM;
 }
 
-static inline ssize_t syna_tcm_store_error(struct device *dev,
+static ssize_t syna_tcm_store_error(struct device *dev,
 		struct device_attribute *attr, const char *buf, size_t count)
 {
 	pr_info("%s: Attribute not writable\n",
@@ -581,7 +581,7 @@ static inline ssize_t syna_tcm_store_error(struct device *dev,
 	return -EPERM;
 }
 
-static inline int secure_memcpy(unsigned char *dest, unsigned int dest_size,
+static int secure_memcpy(unsigned char *dest, unsigned int dest_size,
 		const unsigned char *src, unsigned int src_size,
 		unsigned int count)
 {
@@ -599,7 +599,7 @@ static inline int secure_memcpy(unsigned char *dest, unsigned int dest_size,
 	return 0;
 }
 
-static inline int syna_tcm_realloc_mem(struct syna_tcm_hcd *tcm_hcd,
+static int syna_tcm_realloc_mem(struct syna_tcm_hcd *tcm_hcd,
 		struct syna_tcm_buffer *buffer, unsigned int size)
 {
 	int retval;
@@ -640,7 +640,7 @@ static inline int syna_tcm_realloc_mem(struct syna_tcm_hcd *tcm_hcd,
 	return 0;
 }
 
-static inline int syna_tcm_alloc_mem(struct syna_tcm_hcd *tcm_hcd,
+static int syna_tcm_alloc_mem(struct syna_tcm_hcd *tcm_hcd,
 		struct syna_tcm_buffer *buffer, unsigned int size)
 {
 	if (size > buffer->buf_size) {
@@ -666,13 +666,13 @@ static inline int syna_tcm_alloc_mem(struct syna_tcm_hcd *tcm_hcd,
 	return 0;
 }
 
-static inline unsigned int le2_to_uint(const unsigned char *src)
+static unsigned int le2_to_uint(const unsigned char *src)
 {
 	return (unsigned int)src[0] +
 			(unsigned int)src[1] * 0x100;
 }
 
-static inline unsigned int le4_to_uint(const unsigned char *src)
+static unsigned int le4_to_uint(const unsigned char *src)
 {
 	return (unsigned int)src[0] +
 			(unsigned int)src[1] * 0x100 +
@@ -680,7 +680,7 @@ static inline unsigned int le4_to_uint(const unsigned char *src)
 			(unsigned int)src[3] * 0x1000000;
 }
 
-static inline unsigned int ceil_div(unsigned int dividend, unsigned int divisor)
+static unsigned int ceil_div(unsigned int dividend, unsigned int divisor)
 {
 	return (dividend + divisor - 1) / divisor;
 }

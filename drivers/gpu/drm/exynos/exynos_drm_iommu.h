@@ -20,7 +20,7 @@
 #if defined(CONFIG_ARM_DMA_USE_IOMMU)
 #include <asm/dma-iommu.h>
 
-static inline int __exynos_iommu_create_mapping(struct exynos_drm_private *priv,
+static int __exynos_iommu_create_mapping(struct exynos_drm_private *priv,
 					unsigned long start, unsigned long size)
 {
 	priv->mapping = arm_iommu_create_mapping(&platform_bus_type, start,
@@ -28,13 +28,13 @@ static inline int __exynos_iommu_create_mapping(struct exynos_drm_private *priv,
 	return IS_ERR(priv->mapping);
 }
 
-static inline void
+static void
 __exynos_iommu_release_mapping(struct exynos_drm_private *priv)
 {
 	arm_iommu_release_mapping(priv->mapping);
 }
 
-static inline int __exynos_iommu_attach(struct exynos_drm_private *priv,
+static int __exynos_iommu_attach(struct exynos_drm_private *priv,
 					struct device *dev)
 {
 	if (dev->archdata.mapping)
@@ -43,7 +43,7 @@ static inline int __exynos_iommu_attach(struct exynos_drm_private *priv,
 	return arm_iommu_attach_device(dev, priv->mapping);
 }
 
-static inline void __exynos_iommu_detach(struct exynos_drm_private *priv,
+static void __exynos_iommu_detach(struct exynos_drm_private *priv,
 					 struct device *dev)
 {
 	arm_iommu_detach_device(dev);
@@ -52,7 +52,7 @@ static inline void __exynos_iommu_detach(struct exynos_drm_private *priv,
 #elif defined(CONFIG_IOMMU_DMA)
 #include <linux/dma-iommu.h>
 
-static inline int __exynos_iommu_create_mapping(struct exynos_drm_private *priv,
+static int __exynos_iommu_create_mapping(struct exynos_drm_private *priv,
 					unsigned long start, unsigned long size)
 {
 	struct iommu_domain *domain;
@@ -80,7 +80,7 @@ free_domain:
 	return ret;
 }
 
-static inline void __exynos_iommu_release_mapping(struct exynos_drm_private *priv)
+static void __exynos_iommu_release_mapping(struct exynos_drm_private *priv)
 {
 	struct iommu_domain *domain = priv->mapping;
 
@@ -89,7 +89,7 @@ static inline void __exynos_iommu_release_mapping(struct exynos_drm_private *pri
 	priv->mapping = NULL;
 }
 
-static inline int __exynos_iommu_attach(struct exynos_drm_private *priv,
+static int __exynos_iommu_attach(struct exynos_drm_private *priv,
 					struct device *dev)
 {
 	struct iommu_domain *domain = priv->mapping;
@@ -97,7 +97,7 @@ static inline int __exynos_iommu_attach(struct exynos_drm_private *priv,
 	return iommu_attach_device(domain, dev);
 }
 
-static inline void __exynos_iommu_detach(struct exynos_drm_private *priv,
+static void __exynos_iommu_detach(struct exynos_drm_private *priv,
 					 struct device *dev)
 {
 	struct iommu_domain *domain = priv->mapping;
@@ -118,7 +118,7 @@ int drm_iommu_attach_device(struct drm_device *drm_dev,
 void drm_iommu_detach_device(struct drm_device *dev_dev,
 				struct device *subdrv_dev);
 
-static inline bool is_drm_iommu_supported(struct drm_device *drm_dev)
+static bool is_drm_iommu_supported(struct drm_device *drm_dev)
 {
 	struct exynos_drm_private *priv = drm_dev->dev_private;
 
@@ -127,27 +127,27 @@ static inline bool is_drm_iommu_supported(struct drm_device *drm_dev)
 
 #else
 
-static inline int drm_create_iommu_mapping(struct drm_device *drm_dev)
+static int drm_create_iommu_mapping(struct drm_device *drm_dev)
 {
 	return 0;
 }
 
-static inline void drm_release_iommu_mapping(struct drm_device *drm_dev)
+static void drm_release_iommu_mapping(struct drm_device *drm_dev)
 {
 }
 
-static inline int drm_iommu_attach_device(struct drm_device *drm_dev,
+static int drm_iommu_attach_device(struct drm_device *drm_dev,
 						struct device *subdrv_dev)
 {
 	return 0;
 }
 
-static inline void drm_iommu_detach_device(struct drm_device *drm_dev,
+static void drm_iommu_detach_device(struct drm_device *drm_dev,
 						struct device *subdrv_dev)
 {
 }
 
-static inline bool is_drm_iommu_supported(struct drm_device *drm_dev)
+static bool is_drm_iommu_supported(struct drm_device *drm_dev)
 {
 	return false;
 }

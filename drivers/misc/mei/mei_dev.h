@@ -496,7 +496,7 @@ struct mei_device {
 	char hw[0] __aligned(sizeof(void *));
 };
 
-static inline unsigned long mei_secs_to_jiffies(unsigned long sec)
+static unsigned long mei_secs_to_jiffies(unsigned long sec)
 {
 	return msecs_to_jiffies(sec * MSEC_PER_SEC);
 }
@@ -509,7 +509,7 @@ static inline unsigned long mei_secs_to_jiffies(unsigned long sec)
  *
  * Return: number of slots
  */
-static inline u32 mei_data2slots(size_t length)
+static u32 mei_data2slots(size_t length)
 {
 	return DIV_ROUND_UP(sizeof(struct mei_msg_hdr) + length, 4);
 }
@@ -521,7 +521,7 @@ static inline u32 mei_data2slots(size_t length)
  *
  * Return: number of bytes in slots
  */
-static inline u32 mei_slots2data(int slots)
+static u32 mei_slots2data(int slots)
 {
 	return slots * 4;
 }
@@ -555,103 +555,103 @@ void mei_irq_compl_handler(struct mei_device *dev, struct list_head *cmpl_list);
  */
 
 
-static inline void mei_hw_config(struct mei_device *dev)
+static void mei_hw_config(struct mei_device *dev)
 {
 	dev->ops->hw_config(dev);
 }
 
-static inline enum mei_pg_state mei_pg_state(struct mei_device *dev)
+static enum mei_pg_state mei_pg_state(struct mei_device *dev)
 {
 	return dev->ops->pg_state(dev);
 }
 
-static inline bool mei_pg_in_transition(struct mei_device *dev)
+static bool mei_pg_in_transition(struct mei_device *dev)
 {
 	return dev->ops->pg_in_transition(dev);
 }
 
-static inline bool mei_pg_is_enabled(struct mei_device *dev)
+static bool mei_pg_is_enabled(struct mei_device *dev)
 {
 	return dev->ops->pg_is_enabled(dev);
 }
 
-static inline int mei_hw_reset(struct mei_device *dev, bool enable)
+static int mei_hw_reset(struct mei_device *dev, bool enable)
 {
 	return dev->ops->hw_reset(dev, enable);
 }
 
-static inline int mei_hw_start(struct mei_device *dev)
+static int mei_hw_start(struct mei_device *dev)
 {
 	return dev->ops->hw_start(dev);
 }
 
-static inline void mei_clear_interrupts(struct mei_device *dev)
+static void mei_clear_interrupts(struct mei_device *dev)
 {
 	dev->ops->intr_clear(dev);
 }
 
-static inline void mei_enable_interrupts(struct mei_device *dev)
+static void mei_enable_interrupts(struct mei_device *dev)
 {
 	dev->ops->intr_enable(dev);
 }
 
-static inline void mei_disable_interrupts(struct mei_device *dev)
+static void mei_disable_interrupts(struct mei_device *dev)
 {
 	dev->ops->intr_disable(dev);
 }
 
-static inline void mei_synchronize_irq(struct mei_device *dev)
+static void mei_synchronize_irq(struct mei_device *dev)
 {
 	dev->ops->synchronize_irq(dev);
 }
 
-static inline bool mei_host_is_ready(struct mei_device *dev)
+static bool mei_host_is_ready(struct mei_device *dev)
 {
 	return dev->ops->host_is_ready(dev);
 }
-static inline bool mei_hw_is_ready(struct mei_device *dev)
+static bool mei_hw_is_ready(struct mei_device *dev)
 {
 	return dev->ops->hw_is_ready(dev);
 }
 
-static inline bool mei_hbuf_is_ready(struct mei_device *dev)
+static bool mei_hbuf_is_ready(struct mei_device *dev)
 {
 	return dev->ops->hbuf_is_ready(dev);
 }
 
-static inline int mei_hbuf_empty_slots(struct mei_device *dev)
+static int mei_hbuf_empty_slots(struct mei_device *dev)
 {
 	return dev->ops->hbuf_free_slots(dev);
 }
 
-static inline size_t mei_hbuf_max_len(const struct mei_device *dev)
+static size_t mei_hbuf_max_len(const struct mei_device *dev)
 {
 	return dev->ops->hbuf_max_len(dev);
 }
 
-static inline int mei_write_message(struct mei_device *dev,
+static int mei_write_message(struct mei_device *dev,
 				    struct mei_msg_hdr *hdr, const void *buf)
 {
 	return dev->ops->write(dev, hdr, buf);
 }
 
-static inline u32 mei_read_hdr(const struct mei_device *dev)
+static u32 mei_read_hdr(const struct mei_device *dev)
 {
 	return dev->ops->read_hdr(dev);
 }
 
-static inline void mei_read_slots(struct mei_device *dev,
+static void mei_read_slots(struct mei_device *dev,
 		     unsigned char *buf, unsigned long len)
 {
 	dev->ops->read(dev, buf, len);
 }
 
-static inline int mei_count_full_read_slots(struct mei_device *dev)
+static int mei_count_full_read_slots(struct mei_device *dev)
 {
 	return dev->ops->rdbuf_full_slots(dev);
 }
 
-static inline int mei_fw_status(struct mei_device *dev,
+static int mei_fw_status(struct mei_device *dev,
 				struct mei_fw_status *fw_status)
 {
 	return dev->ops->fw_status(dev, fw_status);
@@ -665,7 +665,7 @@ bool mei_write_is_idle(struct mei_device *dev);
 int mei_dbgfs_register(struct mei_device *dev, const char *name);
 void mei_dbgfs_deregister(struct mei_device *dev);
 #else
-static inline int mei_dbgfs_register(struct mei_device *dev, const char *name)
+static int mei_dbgfs_register(struct mei_device *dev, const char *name)
 {
 	return 0;
 }
@@ -690,7 +690,7 @@ ssize_t mei_fw_status2str(struct mei_fw_status *fw_sts, char *buf, size_t len);
  *
  * Return: number of bytes written or < 0 on failure
  */
-static inline ssize_t mei_fw_status_str(struct mei_device *dev,
+static ssize_t mei_fw_status_str(struct mei_device *dev,
 					char *buf, size_t len)
 {
 	struct mei_fw_status fw_status;

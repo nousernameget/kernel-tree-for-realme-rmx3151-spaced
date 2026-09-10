@@ -68,7 +68,7 @@ struct musb_qh {
 };
 
 /* map from control or bulk queue head to the first qh on that ring */
-static inline struct musb_qh *first_qh(struct list_head *q)
+static struct musb_qh *first_qh(struct list_head *q)
 {
 	if (list_empty(q))
 		return NULL;
@@ -96,22 +96,22 @@ extern int musb_port_suspend(struct musb *musb, bool do_suspend);
 extern void musb_port_reset(struct musb *musb, bool do_reset);
 extern void musb_host_finish_resume(struct work_struct *work);
 #else
-static inline struct musb *hcd_to_musb(struct usb_hcd *hcd)
+static struct musb *hcd_to_musb(struct usb_hcd *hcd)
 {
 	return NULL;
 }
 
-static inline irqreturn_t musb_h_ep0_irq(struct musb *musb)
+static irqreturn_t musb_h_ep0_irq(struct musb *musb)
 {
 	return 0;
 }
 
-static inline int musb_host_alloc(struct musb *musb)
+static int musb_host_alloc(struct musb *musb)
 {
 	return 0;
 }
 
-static inline int musb_host_setup(struct musb *musb, int power_budget)
+static int musb_host_setup(struct musb *musb, int power_budget)
 {
 	return 0;
 }
@@ -124,7 +124,7 @@ static inline void musb_root_disconnect(struct musb *musb)	{}
 static inline void musb_host_resume_root_hub(struct musb *musb)	{}
 static inline void musb_host_poll_rh_status(struct musb *musb)	{}
 static inline void musb_host_poke_root_hub(struct musb *musb)	{}
-static inline int musb_port_suspend(struct musb *musb, bool do_suspend)
+static int musb_port_suspend(struct musb *musb, bool do_suspend)
 {
 	return 0;
 }
@@ -139,7 +139,7 @@ extern int musb_hub_control(struct usb_hcd *hcd,
 			u16 typeReq, u16 wValue, u16 wIndex,
 			char *buf, u16 wLength);
 
-static inline struct urb *next_urb(struct musb_qh *qh)
+static struct urb *next_urb(struct musb_qh *qh)
 {
 	struct list_head	*queue;
 

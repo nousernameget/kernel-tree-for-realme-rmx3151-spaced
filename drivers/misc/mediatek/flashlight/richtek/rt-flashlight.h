@@ -146,7 +146,7 @@ extern int flashlight_strobe_charge(struct flashlight_device *flashlight_dev,
 #define to_flashlight_device(obj) \
 	container_of(obj, struct flashlight_device, dev)
 
-static inline void *flashlight_get_data(
+static void *flashlight_get_data(
 			struct flashlight_device *flashlight_dev)
 {
 	return dev_get_drvdata(&flashlight_dev->dev);

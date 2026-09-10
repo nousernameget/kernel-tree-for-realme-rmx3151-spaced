@@ -211,7 +211,7 @@ extern struct kmem_cache *ioat_cache;
 extern int ioat_ring_max_alloc_order;
 extern struct kmem_cache *ioat_sed_cache;
 
-static inline struct ioatdma_chan *to_ioat_chan(struct dma_chan *c)
+static struct ioatdma_chan *to_ioat_chan(struct dma_chan *c)
 {
 	return container_of(c, struct ioatdma_chan, dma_chan);
 }
@@ -225,7 +225,7 @@ static inline struct ioatdma_chan *to_ioat_chan(struct dma_chan *c)
 #define desc_id(desc) (0)
 #endif
 
-static inline void
+static void
 __dump_desc_dbg(struct ioatdma_chan *ioat_chan, struct ioat_dma_descriptor *hw,
 		struct dma_async_tx_descriptor *tx, int id)
 {
@@ -241,28 +241,28 @@ __dump_desc_dbg(struct ioatdma_chan *ioat_chan, struct ioat_dma_descriptor *hw,
 #define dump_desc_dbg(c, d) \
 	({ if (d) __dump_desc_dbg(c, d->hw, &d->txd, desc_id(d)); 0; })
 
-static inline struct ioatdma_chan *
+static struct ioatdma_chan *
 ioat_chan_by_index(struct ioatdma_device *ioat_dma, int index)
 {
 	return ioat_dma->idx[index];
 }
 
-static inline u64 ioat_chansts(struct ioatdma_chan *ioat_chan)
+static u64 ioat_chansts(struct ioatdma_chan *ioat_chan)
 {
 	return readq(ioat_chan->reg_base + IOAT_CHANSTS_OFFSET);
 }
 
-static inline u64 ioat_chansts_to_addr(u64 status)
+static u64 ioat_chansts_to_addr(u64 status)
 {
 	return status & IOAT_CHANSTS_COMPLETED_DESCRIPTOR_ADDR;
 }
 
-static inline u32 ioat_chanerr(struct ioatdma_chan *ioat_chan)
+static u32 ioat_chanerr(struct ioatdma_chan *ioat_chan)
 {
 	return readl(ioat_chan->reg_base + IOAT_CHANERR_OFFSET);
 }
 
-static inline void ioat_suspend(struct ioatdma_chan *ioat_chan)
+static void ioat_suspend(struct ioatdma_chan *ioat_chan)
 {
 	u8 ver = ioat_chan->ioat_dma->version;
 
@@ -270,7 +270,7 @@ static inline void ioat_suspend(struct ioatdma_chan *ioat_chan)
 	       ioat_chan->reg_base + IOAT_CHANCMD_OFFSET(ver));
 }
 
-static inline void ioat_reset(struct ioatdma_chan *ioat_chan)
+static void ioat_reset(struct ioatdma_chan *ioat_chan)
 {
 	u8 ver = ioat_chan->ioat_dma->version;
 
@@ -278,7 +278,7 @@ static inline void ioat_reset(struct ioatdma_chan *ioat_chan)
 	       ioat_chan->reg_base + IOAT_CHANCMD_OFFSET(ver));
 }
 
-static inline bool ioat_reset_pending(struct ioatdma_chan *ioat_chan)
+static bool ioat_reset_pending(struct ioatdma_chan *ioat_chan)
 {
 	u8 ver = ioat_chan->ioat_dma->version;
 	u8 cmd;
@@ -287,28 +287,28 @@ static inline bool ioat_reset_pending(struct ioatdma_chan *ioat_chan)
 	return (cmd & IOAT_CHANCMD_RESET) == IOAT_CHANCMD_RESET;
 }
 
-static inline bool is_ioat_active(unsigned long status)
+static bool is_ioat_active(unsigned long status)
 {
 	return ((status & IOAT_CHANSTS_STATUS) == IOAT_CHANSTS_ACTIVE);
 }
 
-static inline bool is_ioat_idle(unsigned long status)
+static bool is_ioat_idle(unsigned long status)
 {
 	return ((status & IOAT_CHANSTS_STATUS) == IOAT_CHANSTS_DONE);
 }
 
-static inline bool is_ioat_halted(unsigned long status)
+static bool is_ioat_halted(unsigned long status)
 {
 	return ((status & IOAT_CHANSTS_STATUS) == IOAT_CHANSTS_HALTED);
 }
 
-static inline bool is_ioat_suspended(unsigned long status)
+static bool is_ioat_suspended(unsigned long status)
 {
 	return ((status & IOAT_CHANSTS_STATUS) == IOAT_CHANSTS_SUSPENDED);
 }
 
 /* channel was fatally programmed */
-static inline bool is_ioat_bug(unsigned long err)
+static bool is_ioat_bug(unsigned long err)
 {
 	return !!err;
 }
@@ -317,31 +317,31 @@ static inline bool is_ioat_bug(unsigned long err)
 #define IOAT_MAX_DESCS 65536
 #define IOAT_DESCS_PER_2M 32768
 
-static inline u32 ioat_ring_size(struct ioatdma_chan *ioat_chan)
+static u32 ioat_ring_size(struct ioatdma_chan *ioat_chan)
 {
 	return 1 << ioat_chan->alloc_order;
 }
 
 /* count of descriptors in flight with the engine */
-static inline u16 ioat_ring_active(struct ioatdma_chan *ioat_chan)
+static u16 ioat_ring_active(struct ioatdma_chan *ioat_chan)
 {
 	return CIRC_CNT(ioat_chan->head, ioat_chan->tail,
 			ioat_ring_size(ioat_chan));
 }
 
 /* count of descriptors pending submission to hardware */
-static inline u16 ioat_ring_pending(struct ioatdma_chan *ioat_chan)
+static u16 ioat_ring_pending(struct ioatdma_chan *ioat_chan)
 {
 	return CIRC_CNT(ioat_chan->head, ioat_chan->issued,
 			ioat_ring_size(ioat_chan));
 }
 
-static inline u32 ioat_ring_space(struct ioatdma_chan *ioat_chan)
+static u32 ioat_ring_space(struct ioatdma_chan *ioat_chan)
 {
 	return ioat_ring_size(ioat_chan) - ioat_ring_active(ioat_chan);
 }
 
-static inline u16
+static u16
 ioat_xferlen_to_descs(struct ioatdma_chan *ioat_chan, size_t len)
 {
 	u16 num_descs = len >> ioat_chan->xfercap_log;
@@ -350,13 +350,13 @@ ioat_xferlen_to_descs(struct ioatdma_chan *ioat_chan, size_t len)
 	return num_descs;
 }
 
-static inline struct ioat_ring_ent *
+static struct ioat_ring_ent *
 ioat_get_ring_ent(struct ioatdma_chan *ioat_chan, u16 idx)
 {
 	return ioat_chan->ring[idx & (ioat_ring_size(ioat_chan) - 1)];
 }
 
-static inline void
+static void
 ioat_set_chainaddr(struct ioatdma_chan *ioat_chan, u64 addr)
 {
 	writel(addr & 0x00000000FFFFFFFF,

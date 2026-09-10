@@ -48,7 +48,7 @@ struct ixgbe_jump_table {
 
 #define IXGBE_MAX_HW_ENTRIES 2045
 
-static inline int ixgbe_mat_prgm_sip(struct ixgbe_fdir_filter *input,
+static int ixgbe_mat_prgm_sip(struct ixgbe_fdir_filter *input,
 				     union ixgbe_atr_input *mask,
 				     u32 val, u32 m)
 {
@@ -57,7 +57,7 @@ static inline int ixgbe_mat_prgm_sip(struct ixgbe_fdir_filter *input,
 	return 0;
 }
 
-static inline int ixgbe_mat_prgm_dip(struct ixgbe_fdir_filter *input,
+static int ixgbe_mat_prgm_dip(struct ixgbe_fdir_filter *input,
 				     union ixgbe_atr_input *mask,
 				     u32 val, u32 m)
 {
@@ -74,7 +74,7 @@ static struct ixgbe_mat_field ixgbe_ipv4_fields[] = {
 	{ .val = NULL } /* terminal node */
 };
 
-static inline int ixgbe_mat_prgm_ports(struct ixgbe_fdir_filter *input,
+static int ixgbe_mat_prgm_ports(struct ixgbe_fdir_filter *input,
 				       union ixgbe_atr_input *mask,
 				       u32 val, u32 m)
 {

@@ -80,7 +80,7 @@ struct b43_rfatt_list {
 };
 
 /* Returns true, if the values are the same. */
-static inline bool b43_compare_rfatt(const struct b43_rfatt *a,
+static bool b43_compare_rfatt(const struct b43_rfatt *a,
 				     const struct b43_rfatt *b)
 {
 	return ((a->att == b->att) &&
@@ -101,7 +101,7 @@ struct b43_bbatt_list {
 };
 
 /* Returns true, if the values are the same. */
-static inline bool b43_compare_bbatt(const struct b43_bbatt *a,
+static bool b43_compare_bbatt(const struct b43_bbatt *a,
 				     const struct b43_bbatt *b)
 {
 	return (a->att == b->att);

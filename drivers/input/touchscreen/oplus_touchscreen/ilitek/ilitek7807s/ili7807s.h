@@ -947,7 +947,7 @@ extern int ili_get_tp_recore_data(u16 *out_buf,
 extern void ili_demo_debug_info_mode(u8 *buf,
                                      size_t rlen);
 
-static inline void ili_kfree(void **mem)
+static void ili_kfree(void **mem)
 {
     if (*mem != NULL) {
         kfree(*mem);
@@ -955,7 +955,7 @@ static inline void ili_kfree(void **mem)
     }
 }
 
-static inline void ili_vfree(void **mem)
+static void ili_vfree(void **mem)
 {
     if (*mem != NULL) {
         vfree(*mem);
@@ -963,7 +963,7 @@ static inline void ili_vfree(void **mem)
     }
 }
 
-static inline void *ipio_memcpy(void *dest,
+static void *ipio_memcpy(void *dest,
                                 const void *src, int n, int dest_size)
 {
     if (n > dest_size) {
@@ -973,7 +973,7 @@ static inline void *ipio_memcpy(void *dest,
     return memcpy(dest, src, n);
 }
 
-static inline int ipio_strcmp(const char *s1,
+static int ipio_strcmp(const char *s1,
                               const char *s2)
 {
     return (strlen(s1) != strlen(s2)) ? -1 : strncmp(

@@ -16,7 +16,7 @@ struct dvb_frontend *mt2063_attach(struct dvb_frontend *fe,
 
 #else
 
-static inline struct dvb_frontend *mt2063_attach(struct dvb_frontend *fe,
+static struct dvb_frontend *mt2063_attach(struct dvb_frontend *fe,
 				   struct mt2063_config *config,
 				   struct i2c_adapter *i2c)
 {

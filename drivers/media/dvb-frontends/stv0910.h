@@ -19,7 +19,7 @@ struct dvb_frontend *stv0910_attach(struct i2c_adapter *i2c,
 
 #else
 
-static inline struct dvb_frontend *stv0910_attach(struct i2c_adapter *i2c,
+static struct dvb_frontend *stv0910_attach(struct i2c_adapter *i2c,
 						  struct stv0910_cfg *cfg,
 						  int nr)
 {

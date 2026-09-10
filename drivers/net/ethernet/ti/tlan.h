@@ -441,7 +441,7 @@ struct tlan_priv {
 
 /* Routines to access internal registers. */
 
-static inline u8 tlan_dio_read8(u16 base_addr, u16 internal_addr)
+static u8 tlan_dio_read8(u16 base_addr, u16 internal_addr)
 {
 	outw(internal_addr, base_addr + TLAN_DIO_ADR);
 	return inb((base_addr + TLAN_DIO_DATA) + (internal_addr & 0x3));
@@ -451,7 +451,7 @@ static inline u8 tlan_dio_read8(u16 base_addr, u16 internal_addr)
 
 
 
-static inline u16 tlan_dio_read16(u16 base_addr, u16 internal_addr)
+static u16 tlan_dio_read16(u16 base_addr, u16 internal_addr)
 {
 	outw(internal_addr, base_addr + TLAN_DIO_ADR);
 	return inw((base_addr + TLAN_DIO_DATA) + (internal_addr & 0x2));
@@ -461,7 +461,7 @@ static inline u16 tlan_dio_read16(u16 base_addr, u16 internal_addr)
 
 
 
-static inline u32 tlan_dio_read32(u16 base_addr, u16 internal_addr)
+static u32 tlan_dio_read32(u16 base_addr, u16 internal_addr)
 {
 	outw(internal_addr, base_addr + TLAN_DIO_ADR);
 	return inl(base_addr + TLAN_DIO_DATA);
@@ -471,7 +471,7 @@ static inline u32 tlan_dio_read32(u16 base_addr, u16 internal_addr)
 
 
 
-static inline void tlan_dio_write8(u16 base_addr, u16 internal_addr, u8 data)
+static void tlan_dio_write8(u16 base_addr, u16 internal_addr, u8 data)
 {
 	outw(internal_addr, base_addr + TLAN_DIO_ADR);
 	outb(data, base_addr + TLAN_DIO_DATA + (internal_addr & 0x3));
@@ -481,7 +481,7 @@ static inline void tlan_dio_write8(u16 base_addr, u16 internal_addr, u8 data)
 
 
 
-static inline void tlan_dio_write16(u16 base_addr, u16 internal_addr, u16 data)
+static void tlan_dio_write16(u16 base_addr, u16 internal_addr, u16 data)
 {
 	outw(internal_addr, base_addr + TLAN_DIO_ADR);
 	outw(data, base_addr + TLAN_DIO_DATA + (internal_addr & 0x2));
@@ -491,7 +491,7 @@ static inline void tlan_dio_write16(u16 base_addr, u16 internal_addr, u16 data)
 
 
 
-static inline void tlan_dio_write32(u16 base_addr, u16 internal_addr, u32 data)
+static void tlan_dio_write32(u16 base_addr, u16 internal_addr, u32 data)
 {
 	outw(internal_addr, base_addr + TLAN_DIO_ADR);
 	outl(data, base_addr + TLAN_DIO_DATA + (internal_addr & 0x2));
@@ -528,7 +528,7 @@ static inline void tlan_dio_write32(u16 base_addr, u16 internal_addr, u32 data)
  *		      DA(a,35), DA(a,41), DA(a,47)) << 5;
  *
  */
-static inline u32 tlan_hash_func(const u8 *a)
+static u32 tlan_hash_func(const u8 *a)
 {
 	u8     hash;
 

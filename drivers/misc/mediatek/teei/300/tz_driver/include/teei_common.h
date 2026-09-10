@@ -151,7 +151,7 @@ struct service_handler {
 #define KATRACE_MESSAGE_LENGTH	1024
 #define BEGINED_PID		(current->tgid)
 
-static inline void tracing_mark_write(const char *buf)
+static void tracing_mark_write(const char *buf)
 {
 	TRACE_PUTS(buf);
 }
@@ -168,13 +168,13 @@ static inline void tracing_mark_write(const char *buf)
 }
 
 #define KATRACE_BEGIN(name)	katrace_begin_body(name)
-static inline void katrace_begin_body(const char *name)
+static void katrace_begin_body(const char *name)
 {
 	WRITE_MSG("B|%d|%s", BEGINED_PID, name);
 }
 
 #define KATRACE_END(name)	katrace_end(name)
-static inline void katrace_end(const char *name)
+static void katrace_end(const char *name)
 {
 	WRITE_MSG("E|%d|%s", BEGINED_PID, name);
 }

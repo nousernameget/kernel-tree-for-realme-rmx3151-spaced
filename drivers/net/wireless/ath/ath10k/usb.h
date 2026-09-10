@@ -120,7 +120,7 @@ struct ath10k_urb_context {
 	struct ath10k *ar;
 };
 
-static inline struct ath10k_usb *ath10k_usb_priv(struct ath10k *ar)
+static struct ath10k_usb *ath10k_usb_priv(struct ath10k *ar)
 {
 	return (struct ath10k_usb *)ar->drv_priv;
 }

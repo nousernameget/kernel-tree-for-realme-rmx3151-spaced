@@ -86,7 +86,7 @@ struct amd_sched_job {
 
 extern const struct dma_fence_ops amd_sched_fence_ops_scheduled;
 extern const struct dma_fence_ops amd_sched_fence_ops_finished;
-static inline struct amd_sched_fence *to_amd_sched_fence(struct dma_fence *f)
+static struct amd_sched_fence *to_amd_sched_fence(struct dma_fence *f)
 {
 	if (f->ops == &amd_sched_fence_ops_scheduled)
 		return container_of(f, struct amd_sched_fence, scheduled);
@@ -97,7 +97,7 @@ static inline struct amd_sched_fence *to_amd_sched_fence(struct dma_fence *f)
 	return NULL;
 }
 
-static inline bool amd_sched_invalidate_job(struct amd_sched_job *s_job, int threshold)
+static bool amd_sched_invalidate_job(struct amd_sched_job *s_job, int threshold)
 {
 	return (s_job && atomic_inc_return(&s_job->karma) > threshold);
 }

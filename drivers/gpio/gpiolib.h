@@ -100,14 +100,14 @@ struct gpio_desc *of_get_named_gpiod_flags(struct device_node *np,
 int of_gpiochip_add(struct gpio_chip *gc);
 void of_gpiochip_remove(struct gpio_chip *gc);
 #else
-static inline struct gpio_desc *of_find_gpio(struct device *dev,
+static struct gpio_desc *of_find_gpio(struct device *dev,
 					     const char *con_id,
 					     unsigned int idx,
 					     enum gpio_lookup_flags *flags)
 {
 	return ERR_PTR(-ENOENT);
 }
-static inline struct gpio_desc *of_get_named_gpiod_flags(struct device_node *np,
+static struct gpio_desc *of_get_named_gpiod_flags(struct device_node *np,
 		   const char *list_name, int index, enum of_gpio_flags *flags)
 {
 	return ERR_PTR(-ENOENT);
@@ -142,37 +142,37 @@ bool acpi_can_fallback_to_crs(struct acpi_device *adev, const char *con_id);
 static inline void acpi_gpiochip_add(struct gpio_chip *chip) { }
 static inline void acpi_gpiochip_remove(struct gpio_chip *chip) { }
 
-static inline void
+static void
 acpi_gpiochip_request_interrupts(struct gpio_chip *chip) { }
 
-static inline void
+static void
 acpi_gpiochip_free_interrupts(struct gpio_chip *chip) { }
 
-static inline int
+static int
 acpi_gpio_update_gpiod_flags(enum gpiod_flags *flags, enum gpiod_flags update)
 {
 	return 0;
 }
 
-static inline struct gpio_desc *
+static struct gpio_desc *
 acpi_find_gpio(struct device *dev, const char *con_id,
 	       unsigned int idx, enum gpiod_flags *dflags,
 	       enum gpio_lookup_flags *lookupflags)
 {
 	return ERR_PTR(-ENOENT);
 }
-static inline struct gpio_desc *
+static struct gpio_desc *
 acpi_node_get_gpiod(struct fwnode_handle *fwnode, const char *propname,
 		    int index, struct acpi_gpio_info *info)
 {
 	return ERR_PTR(-ENXIO);
 }
-static inline int acpi_gpio_count(struct device *dev, const char *con_id)
+static int acpi_gpio_count(struct device *dev, const char *con_id)
 {
 	return -ENODEV;
 }
 
-static inline bool acpi_can_fallback_to_crs(struct acpi_device *adev,
+static bool acpi_can_fallback_to_crs(struct acpi_device *adev,
 					    const char *con_id)
 {
 	return false;
@@ -219,7 +219,7 @@ int gpiod_hog(struct gpio_desc *desc, const char *name,
 /*
  * Return the GPIO number of the passed descriptor relative to its chip
  */
-static inline int gpio_chip_hwgpio(const struct gpio_desc *desc)
+static int gpio_chip_hwgpio(const struct gpio_desc *desc)
 {
 	return desc - &desc->gdev->descs[0];
 }
@@ -270,12 +270,12 @@ void gpiochip_sysfs_unregister(struct gpio_device *gdev);
 
 #else
 
-static inline int gpiochip_sysfs_register(struct gpio_device *gdev)
+static int gpiochip_sysfs_register(struct gpio_device *gdev)
 {
 	return 0;
 }
 
-static inline void gpiochip_sysfs_unregister(struct gpio_device *gdev)
+static void gpiochip_sysfs_unregister(struct gpio_device *gdev)
 {
 }
 

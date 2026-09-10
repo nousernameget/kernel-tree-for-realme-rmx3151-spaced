@@ -28,7 +28,7 @@
 #include "rtsx_chip.h"
 #include "rtsx_card.h"
 
-static inline void rtsx_exclusive_enter_ss(struct rtsx_chip *chip)
+static void rtsx_exclusive_enter_ss(struct rtsx_chip *chip)
 {
 	struct rtsx_dev *dev = chip->rtsx;
 
@@ -37,7 +37,7 @@ static inline void rtsx_exclusive_enter_ss(struct rtsx_chip *chip)
 	spin_unlock(&dev->reg_lock);
 }
 
-static inline void rtsx_reset_detected_cards(struct rtsx_chip *chip, int flag)
+static void rtsx_reset_detected_cards(struct rtsx_chip *chip, int flag)
 {
 	rtsx_reset_cards(chip);
 }

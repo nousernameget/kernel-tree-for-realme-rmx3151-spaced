@@ -95,7 +95,7 @@ struct intel_th_device {
  * @type:	resource type
  * @num:	number of the resource
  */
-static inline struct resource *
+static struct resource *
 intel_th_device_get_resource(struct intel_th_device *thdev, unsigned int type,
 			     unsigned int num)
 {
@@ -125,7 +125,7 @@ enum {
  *
  * Return:	true if the device is INTEL_TH_OUTPUT *and* is assigned a port
  */
-static inline bool
+static bool
 intel_th_output_assigned(struct intel_th_device *thdev)
 {
 	return thdev->type == INTEL_TH_OUTPUT &&
@@ -195,7 +195,7 @@ struct intel_th_driver {
  * In other words, INTEL_TH_OUTPUT devices are children of INTEL_TH_SWITCH;
  * INTEL_TH_SWITCH and INTEL_TH_SOURCE are children of the intel_th device.
  */
-static inline struct intel_th_device *
+static struct intel_th_device *
 to_intel_th_parent(struct intel_th_device *thdev)
 {
 	struct device *parent = thdev->dev.parent;
@@ -206,7 +206,7 @@ to_intel_th_parent(struct intel_th_device *thdev)
 	return to_intel_th_device(parent);
 }
 
-static inline struct intel_th *to_intel_th(struct intel_th_device *thdev)
+static struct intel_th *to_intel_th(struct intel_th_device *thdev)
 {
 	if (thdev->type == INTEL_TH_OUTPUT)
 		thdev = to_intel_th_parent(thdev);
@@ -279,7 +279,7 @@ struct intel_th {
 #endif
 };
 
-static inline struct intel_th_device *
+static struct intel_th_device *
 to_intel_th_hub(struct intel_th_device *thdev)
 {
 	if (thdev->type == INTEL_TH_SWITCH)

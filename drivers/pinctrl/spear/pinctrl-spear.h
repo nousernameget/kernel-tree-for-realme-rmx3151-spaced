@@ -182,12 +182,12 @@ struct spear_pmx {
 };
 
 /* exported routines */
-static inline u32 pmx_readl(struct spear_pmx *pmx, u32 reg)
+static u32 pmx_readl(struct spear_pmx *pmx, u32 reg)
 {
 	return readl_relaxed(pmx->vbase + reg);
 }
 
-static inline void pmx_writel(struct spear_pmx *pmx, u32 val, u32 reg)
+static void pmx_writel(struct spear_pmx *pmx, u32 val, u32 reg)
 {
 	writel_relaxed(val, pmx->vbase + reg);
 }

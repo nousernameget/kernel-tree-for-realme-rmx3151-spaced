@@ -22,7 +22,7 @@ int lbs_deinit_mesh(struct lbs_private *priv);
 
 void lbs_remove_mesh(struct lbs_private *priv);
 
-static inline bool lbs_mesh_activated(struct lbs_private *priv)
+static bool lbs_mesh_activated(struct lbs_private *priv)
 {
 	/* Mesh SSID is only programmed after successful init */
 	return priv->mesh_ssid_len != 0;

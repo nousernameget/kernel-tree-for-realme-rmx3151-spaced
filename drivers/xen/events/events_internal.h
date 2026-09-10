@@ -82,7 +82,7 @@ struct irq_info *info_for_irq(unsigned irq);
 unsigned cpu_from_irq(unsigned irq);
 unsigned cpu_from_evtchn(unsigned int evtchn);
 
-static inline unsigned xen_evtchn_max_channels(void)
+static unsigned xen_evtchn_max_channels(void)
 {
 	return evtchn_ops->max_channels();
 }
@@ -91,55 +91,55 @@ static inline unsigned xen_evtchn_max_channels(void)
  * Do any ABI specific setup for a bound event channel before it can
  * be unmasked and used.
  */
-static inline int xen_evtchn_port_setup(struct irq_info *info)
+static int xen_evtchn_port_setup(struct irq_info *info)
 {
 	if (evtchn_ops->setup)
 		return evtchn_ops->setup(info);
 	return 0;
 }
 
-static inline void xen_evtchn_port_bind_to_cpu(struct irq_info *info,
+static void xen_evtchn_port_bind_to_cpu(struct irq_info *info,
 					       unsigned cpu)
 {
 	evtchn_ops->bind_to_cpu(info, cpu);
 }
 
-static inline void clear_evtchn(unsigned port)
+static void clear_evtchn(unsigned port)
 {
 	evtchn_ops->clear_pending(port);
 }
 
-static inline void set_evtchn(unsigned port)
+static void set_evtchn(unsigned port)
 {
 	evtchn_ops->set_pending(port);
 }
 
-static inline bool test_evtchn(unsigned port)
+static bool test_evtchn(unsigned port)
 {
 	return evtchn_ops->is_pending(port);
 }
 
-static inline bool test_and_set_mask(unsigned port)
+static bool test_and_set_mask(unsigned port)
 {
 	return evtchn_ops->test_and_set_mask(port);
 }
 
-static inline void mask_evtchn(unsigned port)
+static void mask_evtchn(unsigned port)
 {
 	return evtchn_ops->mask(port);
 }
 
-static inline void unmask_evtchn(unsigned port)
+static void unmask_evtchn(unsigned port)
 {
 	return evtchn_ops->unmask(port);
 }
 
-static inline void xen_evtchn_handle_events(unsigned cpu)
+static void xen_evtchn_handle_events(unsigned cpu)
 {
 	return evtchn_ops->handle_events(cpu);
 }
 
-static inline void xen_evtchn_resume(void)
+static void xen_evtchn_resume(void)
 {
 	if (evtchn_ops->resume)
 		evtchn_ops->resume();

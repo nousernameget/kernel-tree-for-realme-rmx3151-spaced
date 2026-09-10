@@ -558,7 +558,7 @@ static struct gt9896s_ext_attribute ext_attr_##_name = \
 /*
  * get board data pointer
  */
-static inline struct gt9896s_ts_board_data *board_data(
+static struct gt9896s_ts_board_data *board_data(
 		struct gt9896s_ts_core *core)
 {
 	if (!core || !core->ts_dev)
@@ -569,7 +569,7 @@ static inline struct gt9896s_ts_board_data *board_data(
 /*
  * get touch device pointer
  */
-static inline struct gt9896s_ts_device *ts_device(
+static struct gt9896s_ts_device *ts_device(
 		struct gt9896s_ts_core *core)
 {
 	if (!core)
@@ -580,7 +580,7 @@ static inline struct gt9896s_ts_device *ts_device(
 /*
  * get touch hardware operations pointer
  */
-static inline const struct gt9896s_ts_hw_ops *ts_hw_ops(
+static const struct gt9896s_ts_hw_ops *ts_hw_ops(
 		struct gt9896s_ts_core *core)
 {
 	if (!core || !core->ts_dev)
@@ -595,7 +595,7 @@ static inline const struct gt9896s_ts_hw_ops *ts_hw_ops(
  * legality of @data and @size parameters, so be
  * careful when call these functions.
  */
-static inline u8 checksum_u8(u8 *data, u32 size)
+static u8 checksum_u8(u8 *data, u32 size)
 {
 	u8 checksum = 0;
 	u32 i;
@@ -606,7 +606,7 @@ static inline u8 checksum_u8(u8 *data, u32 size)
 }
 
 /* cal u8 data checksum for yellowston */
-static inline u16 checksum_u8_ys(u8 *data, u32 size)
+static u16 checksum_u8_ys(u8 *data, u32 size)
 {
 	u16 checksum = 0;
 	u32 i;
@@ -616,7 +616,7 @@ static inline u16 checksum_u8_ys(u8 *data, u32 size)
 	return checksum - (data[size - 2] << 8 | data[size - 1]);
 }
 
-static inline u16 checksum_le16(u8 *data, u32 size)
+static u16 checksum_le16(u8 *data, u32 size)
 {
 	u16 checksum = 0;
 	u32 i;
@@ -626,7 +626,7 @@ static inline u16 checksum_le16(u8 *data, u32 size)
 	return checksum;
 }
 
-static inline u16 checksum_be16(u8 *data, u32 size)
+static u16 checksum_be16(u8 *data, u32 size)
 {
 	u16 checksum = 0;
 	u32 i;
@@ -636,7 +636,7 @@ static inline u16 checksum_be16(u8 *data, u32 size)
 	return checksum;
 }
 
-static inline u32 checksum_le32(u8 *data, u32 size)
+static u32 checksum_le32(u8 *data, u32 size)
 {
 	u32 checksum = 0;
 	u32 i;
@@ -646,7 +646,7 @@ static inline u32 checksum_le32(u8 *data, u32 size)
 	return checksum;
 }
 
-static inline u32 checksum_be32(u8 *data, u32 size)
+static u32 checksum_be32(u8 *data, u32 size)
 {
 	u32 checksum = 0;
 	u32 i;

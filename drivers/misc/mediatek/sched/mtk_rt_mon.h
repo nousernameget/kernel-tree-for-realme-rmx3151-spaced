@@ -34,13 +34,13 @@ extern void mt_rt_mon_print_task_from_buffer(void);
 extern void update_mt_rt_mon_start(int cpu, u64 delta_exec);
 extern int mt_rt_mon_enable(int cpu);
 #else
-static inline void
+static void
 save_mt_rt_mon_info(int cpu, u64 delta_exec, struct task_struct *p) {};
 static inline void mt_rt_mon_switch(int on, int cpu) {};
 static inline void mt_rt_mon_print_task(int cpu) {};
 static inline void mt_rt_mon_print_task_from_buffer(void) {};
 static inline void update_mt_rt_mon_start(int cpu, u64 delta_exec) {};
-static inline int mt_rt_mon_enable(int cpu)
+static int mt_rt_mon_enable(int cpu)
 {
 	return 0;
 }

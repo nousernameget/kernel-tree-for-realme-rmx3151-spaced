@@ -11,7 +11,7 @@
 void oplus_lowmem_dbg(bool critical);
 
 #ifndef CONFIG_MTK_ION
-inline int oplus_is_dma_buf_file(struct file *file);
+int oplus_is_dma_buf_file(struct file *file);
 #endif /* CONFIG_MTK_ION */
 #ifdef CONFIG_KSWAPD_DEBUG_STATISTICS
 int kswapd_debug_init(struct proc_dir_entry *parent);

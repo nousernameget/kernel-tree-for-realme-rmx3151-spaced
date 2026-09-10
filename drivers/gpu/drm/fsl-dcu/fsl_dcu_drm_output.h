@@ -18,7 +18,7 @@ struct fsl_dcu_drm_connector {
 	struct drm_panel *panel;
 };
 
-static inline struct fsl_dcu_drm_connector *
+static struct fsl_dcu_drm_connector *
 to_fsl_dcu_connector(struct drm_connector *con)
 {
 	return con ? container_of(con, struct fsl_dcu_drm_connector, base)

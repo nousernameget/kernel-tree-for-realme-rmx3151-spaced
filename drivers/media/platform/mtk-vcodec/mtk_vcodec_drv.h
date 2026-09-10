@@ -503,12 +503,12 @@ struct mtk_vcodec_dev {
 	enum venc_lock enc_hw_locked[MTK_VENC_HW_NUM];
 };
 
-static inline struct mtk_vcodec_ctx *fh_to_ctx(struct v4l2_fh *fh)
+static struct mtk_vcodec_ctx *fh_to_ctx(struct v4l2_fh *fh)
 {
 	return container_of(fh, struct mtk_vcodec_ctx, fh);
 }
 
-static inline struct mtk_vcodec_ctx *ctrl_to_ctx(struct v4l2_ctrl *ctrl)
+static struct mtk_vcodec_ctx *ctrl_to_ctx(struct v4l2_ctrl *ctrl)
 {
 	return container_of(ctrl->handler, struct mtk_vcodec_ctx, ctrl_hdl);
 }

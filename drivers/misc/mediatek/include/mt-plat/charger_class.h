@@ -184,13 +184,13 @@ struct charger_ops {
 	int (*enable_bleed_discharge)(struct charger_device *dev, bool en);
 };
 
-static inline void *charger_dev_get_drvdata(
+static void *charger_dev_get_drvdata(
 	const struct charger_device *charger_dev)
 {
 	return charger_dev->driver_data;
 }
 
-static inline void charger_dev_set_drvdata(
+static void charger_dev_set_drvdata(
 	struct charger_device *charger_dev, void *data)
 {
 	charger_dev->driver_data = data;
@@ -207,7 +207,7 @@ extern struct charger_device *get_charger_by_name(
 
 #define to_charger_device(obj) container_of(obj, struct charger_device, dev)
 
-static inline void *charger_get_data(
+static void *charger_get_data(
 	struct charger_device *charger_dev)
 {
 	return dev_get_drvdata(&charger_dev->dev);

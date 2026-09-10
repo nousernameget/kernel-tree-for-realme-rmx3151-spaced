@@ -118,12 +118,12 @@ int iproc_pcie_shutdown(struct iproc_pcie *pcie);
 int iproc_msi_init(struct iproc_pcie *pcie, struct device_node *node);
 void iproc_msi_exit(struct iproc_pcie *pcie);
 #else
-static inline int iproc_msi_init(struct iproc_pcie *pcie,
+static int iproc_msi_init(struct iproc_pcie *pcie,
 				 struct device_node *node)
 {
 	return -ENODEV;
 }
-static inline void iproc_msi_exit(struct iproc_pcie *pcie)
+static void iproc_msi_exit(struct iproc_pcie *pcie)
 {
 }
 #endif

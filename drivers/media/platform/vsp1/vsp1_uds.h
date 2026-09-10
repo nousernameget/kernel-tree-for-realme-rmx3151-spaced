@@ -28,7 +28,7 @@ struct vsp1_uds {
 	bool scale_alpha;
 };
 
-static inline struct vsp1_uds *to_uds(struct v4l2_subdev *subdev)
+static struct vsp1_uds *to_uds(struct v4l2_subdev *subdev)
 {
 	return container_of(subdev, struct vsp1_uds, entity.subdev);
 }

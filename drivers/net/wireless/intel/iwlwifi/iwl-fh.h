@@ -125,7 +125,7 @@
 #define TFH_TFDQ_CBB_TABLE			(0x1C00)
 
 /* Find TFD CB base pointer for given queue */
-static inline unsigned int FH_MEM_CBBC_QUEUE(struct iwl_trans *trans,
+static unsigned int FH_MEM_CBBC_QUEUE(struct iwl_trans *trans,
 					     unsigned int chnl)
 {
 	if (trans->cfg->use_tfh) {
@@ -651,7 +651,7 @@ struct iwl_rb_status {
 #define IWL_NUM_OF_TBS		20
 #define IWL_TFH_NUM_TBS		25
 
-static inline u8 iwl_get_dma_hi_addr(dma_addr_t addr)
+static u8 iwl_get_dma_hi_addr(dma_addr_t addr)
 {
 	return (sizeof(addr) > sizeof(u32) ? upper_32_bits(addr) : 0) & 0xF;
 }

@@ -68,7 +68,7 @@ struct ptp_clock {
  * that a writer might concurrently increment the tail does not
  * matter, since the queue remains nonempty nonetheless.
  */
-static inline int queue_cnt(struct timestamp_event_queue *q)
+static int queue_cnt(struct timestamp_event_queue *q)
 {
 	int cnt = q->tail - q->head;
 	return cnt < 0 ? PTP_MAX_TIMESTAMPS + cnt : cnt;

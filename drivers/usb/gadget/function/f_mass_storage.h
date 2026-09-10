@@ -109,7 +109,7 @@ struct fsg_config {
 	unsigned int		fsg_num_buffers;
 };
 
-static inline struct fsg_opts *
+static struct fsg_opts *
 fsg_opts_from_func_inst(const struct usb_function_instance *fi)
 {
 	return container_of(fi, struct fsg_opts, func_inst);

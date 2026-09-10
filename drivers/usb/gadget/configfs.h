@@ -13,7 +13,7 @@ struct config_group *usb_os_desc_prepare_interf_dir(
 		char **names,
 		struct module *owner);
 
-static inline struct usb_os_desc *to_usb_os_desc(struct config_item *item)
+static struct usb_os_desc *to_usb_os_desc(struct config_item *item)
 {
 	return container_of(to_config_group(item), struct usb_os_desc, group);
 }

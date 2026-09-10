@@ -128,7 +128,7 @@ struct ath10k_bus_ops {
 	int (*get_num_banks)(struct ath10k *ar);
 };
 
-static inline struct ath10k_ce *ath10k_ce_priv(struct ath10k *ar)
+static struct ath10k_ce *ath10k_ce_priv(struct ath10k *ar)
 {
 	return (struct ath10k_ce *)ar->ce_priv;
 }
@@ -281,7 +281,7 @@ struct ce_attr {
 	void (*recv_cb)(struct ath10k_ce_pipe *);
 };
 
-static inline u32 ath10k_ce_base_address(struct ath10k *ar, unsigned int ce_id)
+static u32 ath10k_ce_base_address(struct ath10k *ar, unsigned int ce_id)
 {
 	return CE0_BASE_ADDRESS + (CE1_BASE_ADDRESS - CE0_BASE_ADDRESS) * ce_id;
 }
@@ -309,7 +309,7 @@ static inline u32 ath10k_ce_base_address(struct ath10k *ar, unsigned int ce_id)
 		CE_WRAPPER_INTERRUPT_SUMMARY_HOST_MSI_LSB)
 #define CE_WRAPPER_INTERRUPT_SUMMARY_ADDRESS			0x0000
 
-static inline u32 ath10k_ce_interrupt_summary(struct ath10k *ar)
+static u32 ath10k_ce_interrupt_summary(struct ath10k *ar)
 {
 	struct ath10k_ce *ce = ath10k_ce_priv(ar);
 

@@ -186,19 +186,19 @@ enum a3xx_rb_blend_opcode {
 #define REG_AXXX_CP_RB_CNTL					0x000001c1
 #define AXXX_CP_RB_CNTL_BUFSZ__MASK				0x0000003f
 #define AXXX_CP_RB_CNTL_BUFSZ__SHIFT				0
-static inline uint32_t AXXX_CP_RB_CNTL_BUFSZ(uint32_t val)
+static uint32_t AXXX_CP_RB_CNTL_BUFSZ(uint32_t val)
 {
 	return ((val) << AXXX_CP_RB_CNTL_BUFSZ__SHIFT) & AXXX_CP_RB_CNTL_BUFSZ__MASK;
 }
 #define AXXX_CP_RB_CNTL_BLKSZ__MASK				0x00003f00
 #define AXXX_CP_RB_CNTL_BLKSZ__SHIFT				8
-static inline uint32_t AXXX_CP_RB_CNTL_BLKSZ(uint32_t val)
+static uint32_t AXXX_CP_RB_CNTL_BLKSZ(uint32_t val)
 {
 	return ((val) << AXXX_CP_RB_CNTL_BLKSZ__SHIFT) & AXXX_CP_RB_CNTL_BLKSZ__MASK;
 }
 #define AXXX_CP_RB_CNTL_BUF_SWAP__MASK				0x00030000
 #define AXXX_CP_RB_CNTL_BUF_SWAP__SHIFT				16
-static inline uint32_t AXXX_CP_RB_CNTL_BUF_SWAP(uint32_t val)
+static uint32_t AXXX_CP_RB_CNTL_BUF_SWAP(uint32_t val)
 {
 	return ((val) << AXXX_CP_RB_CNTL_BUF_SWAP__SHIFT) & AXXX_CP_RB_CNTL_BUF_SWAP__MASK;
 }
@@ -209,13 +209,13 @@ static inline uint32_t AXXX_CP_RB_CNTL_BUF_SWAP(uint32_t val)
 #define REG_AXXX_CP_RB_RPTR_ADDR				0x000001c3
 #define AXXX_CP_RB_RPTR_ADDR_SWAP__MASK				0x00000003
 #define AXXX_CP_RB_RPTR_ADDR_SWAP__SHIFT			0
-static inline uint32_t AXXX_CP_RB_RPTR_ADDR_SWAP(uint32_t val)
+static uint32_t AXXX_CP_RB_RPTR_ADDR_SWAP(uint32_t val)
 {
 	return ((val) << AXXX_CP_RB_RPTR_ADDR_SWAP__SHIFT) & AXXX_CP_RB_RPTR_ADDR_SWAP__MASK;
 }
 #define AXXX_CP_RB_RPTR_ADDR_ADDR__MASK				0xfffffffc
 #define AXXX_CP_RB_RPTR_ADDR_ADDR__SHIFT			2
-static inline uint32_t AXXX_CP_RB_RPTR_ADDR_ADDR(uint32_t val)
+static uint32_t AXXX_CP_RB_RPTR_ADDR_ADDR(uint32_t val)
 {
 	return ((val >> 2) << AXXX_CP_RB_RPTR_ADDR_ADDR__SHIFT) & AXXX_CP_RB_RPTR_ADDR_ADDR__MASK;
 }
@@ -233,19 +233,19 @@ static inline uint32_t AXXX_CP_RB_RPTR_ADDR_ADDR(uint32_t val)
 #define REG_AXXX_CP_QUEUE_THRESHOLDS				0x000001d5
 #define AXXX_CP_QUEUE_THRESHOLDS_CSQ_IB1_START__MASK		0x0000000f
 #define AXXX_CP_QUEUE_THRESHOLDS_CSQ_IB1_START__SHIFT		0
-static inline uint32_t AXXX_CP_QUEUE_THRESHOLDS_CSQ_IB1_START(uint32_t val)
+static uint32_t AXXX_CP_QUEUE_THRESHOLDS_CSQ_IB1_START(uint32_t val)
 {
 	return ((val) << AXXX_CP_QUEUE_THRESHOLDS_CSQ_IB1_START__SHIFT) & AXXX_CP_QUEUE_THRESHOLDS_CSQ_IB1_START__MASK;
 }
 #define AXXX_CP_QUEUE_THRESHOLDS_CSQ_IB2_START__MASK		0x00000f00
 #define AXXX_CP_QUEUE_THRESHOLDS_CSQ_IB2_START__SHIFT		8
-static inline uint32_t AXXX_CP_QUEUE_THRESHOLDS_CSQ_IB2_START(uint32_t val)
+static uint32_t AXXX_CP_QUEUE_THRESHOLDS_CSQ_IB2_START(uint32_t val)
 {
 	return ((val) << AXXX_CP_QUEUE_THRESHOLDS_CSQ_IB2_START__SHIFT) & AXXX_CP_QUEUE_THRESHOLDS_CSQ_IB2_START__MASK;
 }
 #define AXXX_CP_QUEUE_THRESHOLDS_CSQ_ST_START__MASK		0x000f0000
 #define AXXX_CP_QUEUE_THRESHOLDS_CSQ_ST_START__SHIFT		16
-static inline uint32_t AXXX_CP_QUEUE_THRESHOLDS_CSQ_ST_START(uint32_t val)
+static uint32_t AXXX_CP_QUEUE_THRESHOLDS_CSQ_ST_START(uint32_t val)
 {
 	return ((val) << AXXX_CP_QUEUE_THRESHOLDS_CSQ_ST_START__SHIFT) & AXXX_CP_QUEUE_THRESHOLDS_CSQ_ST_START__MASK;
 }
@@ -253,13 +253,13 @@ static inline uint32_t AXXX_CP_QUEUE_THRESHOLDS_CSQ_ST_START(uint32_t val)
 #define REG_AXXX_CP_MEQ_THRESHOLDS				0x000001d6
 #define AXXX_CP_MEQ_THRESHOLDS_MEQ_END__MASK			0x001f0000
 #define AXXX_CP_MEQ_THRESHOLDS_MEQ_END__SHIFT			16
-static inline uint32_t AXXX_CP_MEQ_THRESHOLDS_MEQ_END(uint32_t val)
+static uint32_t AXXX_CP_MEQ_THRESHOLDS_MEQ_END(uint32_t val)
 {
 	return ((val) << AXXX_CP_MEQ_THRESHOLDS_MEQ_END__SHIFT) & AXXX_CP_MEQ_THRESHOLDS_MEQ_END__MASK;
 }
 #define AXXX_CP_MEQ_THRESHOLDS_ROQ_END__MASK			0x1f000000
 #define AXXX_CP_MEQ_THRESHOLDS_ROQ_END__SHIFT			24
-static inline uint32_t AXXX_CP_MEQ_THRESHOLDS_ROQ_END(uint32_t val)
+static uint32_t AXXX_CP_MEQ_THRESHOLDS_ROQ_END(uint32_t val)
 {
 	return ((val) << AXXX_CP_MEQ_THRESHOLDS_ROQ_END__SHIFT) & AXXX_CP_MEQ_THRESHOLDS_ROQ_END__MASK;
 }
@@ -267,19 +267,19 @@ static inline uint32_t AXXX_CP_MEQ_THRESHOLDS_ROQ_END(uint32_t val)
 #define REG_AXXX_CP_CSQ_AVAIL					0x000001d7
 #define AXXX_CP_CSQ_AVAIL_RING__MASK				0x0000007f
 #define AXXX_CP_CSQ_AVAIL_RING__SHIFT				0
-static inline uint32_t AXXX_CP_CSQ_AVAIL_RING(uint32_t val)
+static uint32_t AXXX_CP_CSQ_AVAIL_RING(uint32_t val)
 {
 	return ((val) << AXXX_CP_CSQ_AVAIL_RING__SHIFT) & AXXX_CP_CSQ_AVAIL_RING__MASK;
 }
 #define AXXX_CP_CSQ_AVAIL_IB1__MASK				0x00007f00
 #define AXXX_CP_CSQ_AVAIL_IB1__SHIFT				8
-static inline uint32_t AXXX_CP_CSQ_AVAIL_IB1(uint32_t val)
+static uint32_t AXXX_CP_CSQ_AVAIL_IB1(uint32_t val)
 {
 	return ((val) << AXXX_CP_CSQ_AVAIL_IB1__SHIFT) & AXXX_CP_CSQ_AVAIL_IB1__MASK;
 }
 #define AXXX_CP_CSQ_AVAIL_IB2__MASK				0x007f0000
 #define AXXX_CP_CSQ_AVAIL_IB2__SHIFT				16
-static inline uint32_t AXXX_CP_CSQ_AVAIL_IB2(uint32_t val)
+static uint32_t AXXX_CP_CSQ_AVAIL_IB2(uint32_t val)
 {
 	return ((val) << AXXX_CP_CSQ_AVAIL_IB2__SHIFT) & AXXX_CP_CSQ_AVAIL_IB2__MASK;
 }
@@ -287,7 +287,7 @@ static inline uint32_t AXXX_CP_CSQ_AVAIL_IB2(uint32_t val)
 #define REG_AXXX_CP_STQ_AVAIL					0x000001d8
 #define AXXX_CP_STQ_AVAIL_ST__MASK				0x0000007f
 #define AXXX_CP_STQ_AVAIL_ST__SHIFT				0
-static inline uint32_t AXXX_CP_STQ_AVAIL_ST(uint32_t val)
+static uint32_t AXXX_CP_STQ_AVAIL_ST(uint32_t val)
 {
 	return ((val) << AXXX_CP_STQ_AVAIL_ST__SHIFT) & AXXX_CP_STQ_AVAIL_ST__MASK;
 }
@@ -295,7 +295,7 @@ static inline uint32_t AXXX_CP_STQ_AVAIL_ST(uint32_t val)
 #define REG_AXXX_CP_MEQ_AVAIL					0x000001d9
 #define AXXX_CP_MEQ_AVAIL_MEQ__MASK				0x0000001f
 #define AXXX_CP_MEQ_AVAIL_MEQ__SHIFT				0
-static inline uint32_t AXXX_CP_MEQ_AVAIL_MEQ(uint32_t val)
+static uint32_t AXXX_CP_MEQ_AVAIL_MEQ(uint32_t val)
 {
 	return ((val) << AXXX_CP_MEQ_AVAIL_MEQ__SHIFT) & AXXX_CP_MEQ_AVAIL_MEQ__MASK;
 }
@@ -303,13 +303,13 @@ static inline uint32_t AXXX_CP_MEQ_AVAIL_MEQ(uint32_t val)
 #define REG_AXXX_SCRATCH_UMSK					0x000001dc
 #define AXXX_SCRATCH_UMSK_UMSK__MASK				0x000000ff
 #define AXXX_SCRATCH_UMSK_UMSK__SHIFT				0
-static inline uint32_t AXXX_SCRATCH_UMSK_UMSK(uint32_t val)
+static uint32_t AXXX_SCRATCH_UMSK_UMSK(uint32_t val)
 {
 	return ((val) << AXXX_SCRATCH_UMSK_UMSK__SHIFT) & AXXX_SCRATCH_UMSK_UMSK__MASK;
 }
 #define AXXX_SCRATCH_UMSK_SWAP__MASK				0x00030000
 #define AXXX_SCRATCH_UMSK_SWAP__SHIFT				16
-static inline uint32_t AXXX_SCRATCH_UMSK_SWAP(uint32_t val)
+static uint32_t AXXX_SCRATCH_UMSK_SWAP(uint32_t val)
 {
 	return ((val) << AXXX_SCRATCH_UMSK_SWAP__SHIFT) & AXXX_SCRATCH_UMSK_SWAP__MASK;
 }
@@ -353,13 +353,13 @@ static inline uint32_t AXXX_SCRATCH_UMSK_SWAP(uint32_t val)
 #define REG_AXXX_CP_CSQ_RB_STAT					0x000001fd
 #define AXXX_CP_CSQ_RB_STAT_RPTR__MASK				0x0000007f
 #define AXXX_CP_CSQ_RB_STAT_RPTR__SHIFT				0
-static inline uint32_t AXXX_CP_CSQ_RB_STAT_RPTR(uint32_t val)
+static uint32_t AXXX_CP_CSQ_RB_STAT_RPTR(uint32_t val)
 {
 	return ((val) << AXXX_CP_CSQ_RB_STAT_RPTR__SHIFT) & AXXX_CP_CSQ_RB_STAT_RPTR__MASK;
 }
 #define AXXX_CP_CSQ_RB_STAT_WPTR__MASK				0x007f0000
 #define AXXX_CP_CSQ_RB_STAT_WPTR__SHIFT				16
-static inline uint32_t AXXX_CP_CSQ_RB_STAT_WPTR(uint32_t val)
+static uint32_t AXXX_CP_CSQ_RB_STAT_WPTR(uint32_t val)
 {
 	return ((val) << AXXX_CP_CSQ_RB_STAT_WPTR__SHIFT) & AXXX_CP_CSQ_RB_STAT_WPTR__MASK;
 }
@@ -367,13 +367,13 @@ static inline uint32_t AXXX_CP_CSQ_RB_STAT_WPTR(uint32_t val)
 #define REG_AXXX_CP_CSQ_IB1_STAT				0x000001fe
 #define AXXX_CP_CSQ_IB1_STAT_RPTR__MASK				0x0000007f
 #define AXXX_CP_CSQ_IB1_STAT_RPTR__SHIFT			0
-static inline uint32_t AXXX_CP_CSQ_IB1_STAT_RPTR(uint32_t val)
+static uint32_t AXXX_CP_CSQ_IB1_STAT_RPTR(uint32_t val)
 {
 	return ((val) << AXXX_CP_CSQ_IB1_STAT_RPTR__SHIFT) & AXXX_CP_CSQ_IB1_STAT_RPTR__MASK;
 }
 #define AXXX_CP_CSQ_IB1_STAT_WPTR__MASK				0x007f0000
 #define AXXX_CP_CSQ_IB1_STAT_WPTR__SHIFT			16
-static inline uint32_t AXXX_CP_CSQ_IB1_STAT_WPTR(uint32_t val)
+static uint32_t AXXX_CP_CSQ_IB1_STAT_WPTR(uint32_t val)
 {
 	return ((val) << AXXX_CP_CSQ_IB1_STAT_WPTR__SHIFT) & AXXX_CP_CSQ_IB1_STAT_WPTR__MASK;
 }
@@ -381,13 +381,13 @@ static inline uint32_t AXXX_CP_CSQ_IB1_STAT_WPTR(uint32_t val)
 #define REG_AXXX_CP_CSQ_IB2_STAT				0x000001ff
 #define AXXX_CP_CSQ_IB2_STAT_RPTR__MASK				0x0000007f
 #define AXXX_CP_CSQ_IB2_STAT_RPTR__SHIFT			0
-static inline uint32_t AXXX_CP_CSQ_IB2_STAT_RPTR(uint32_t val)
+static uint32_t AXXX_CP_CSQ_IB2_STAT_RPTR(uint32_t val)
 {
 	return ((val) << AXXX_CP_CSQ_IB2_STAT_RPTR__SHIFT) & AXXX_CP_CSQ_IB2_STAT_RPTR__MASK;
 }
 #define AXXX_CP_CSQ_IB2_STAT_WPTR__MASK				0x007f0000
 #define AXXX_CP_CSQ_IB2_STAT_WPTR__SHIFT			16
-static inline uint32_t AXXX_CP_CSQ_IB2_STAT_WPTR(uint32_t val)
+static uint32_t AXXX_CP_CSQ_IB2_STAT_WPTR(uint32_t val)
 {
 	return ((val) << AXXX_CP_CSQ_IB2_STAT_WPTR__SHIFT) & AXXX_CP_CSQ_IB2_STAT_WPTR__MASK;
 }

@@ -110,13 +110,13 @@ struct nouveau_connector {
 	struct drm_display_mode *native_mode;
 };
 
-static inline struct nouveau_connector *nouveau_connector(
+static struct nouveau_connector *nouveau_connector(
 						struct drm_connector *con)
 {
 	return container_of(con, struct nouveau_connector, base);
 }
 
-static inline bool
+static bool
 nouveau_connector_is_mst(struct drm_connector *connector)
 {
 	const struct nouveau_encoder *nv_encoder;
@@ -137,7 +137,7 @@ nouveau_connector_is_mst(struct drm_connector *connector)
 	drm_for_each_connector_iter(connector, iter) \
 		for_each_if(!nouveau_connector_is_mst(connector))
 
-static inline struct nouveau_connector *
+static struct nouveau_connector *
 nouveau_crtc_connector_get(struct nouveau_crtc *nv_crtc)
 {
 	struct drm_device *dev = nv_crtc->base.dev;

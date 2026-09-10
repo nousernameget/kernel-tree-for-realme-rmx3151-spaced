@@ -114,7 +114,7 @@ extern struct nv17_tv_norm_params {
 
 extern const struct drm_display_mode nv17_tv_modes[];
 
-static inline int interpolate(int y0, int y1, int y2, int x)
+static int interpolate(int y0, int y1, int y2, int x)
 {
 	return y1 + (x < 50 ? y1 - y0 : y2 - y1) * (x - 50) / 50;
 }
@@ -127,27 +127,27 @@ void nv17_ctv_update_rescaler(struct drm_encoder *encoder);
 
 /* TV hardware access functions */
 
-static inline void nv_write_ptv(struct drm_device *dev, uint32_t reg,
+static void nv_write_ptv(struct drm_device *dev, uint32_t reg,
 				uint32_t val)
 {
 	struct nvif_device *device = &nouveau_drm(dev)->client.device;
 	nvif_wr32(&device->object, reg, val);
 }
 
-static inline uint32_t nv_read_ptv(struct drm_device *dev, uint32_t reg)
+static uint32_t nv_read_ptv(struct drm_device *dev, uint32_t reg)
 {
 	struct nvif_device *device = &nouveau_drm(dev)->client.device;
 	return nvif_rd32(&device->object, reg);
 }
 
-static inline void nv_write_tv_enc(struct drm_device *dev, uint8_t reg,
+static void nv_write_tv_enc(struct drm_device *dev, uint8_t reg,
 				   uint8_t val)
 {
 	nv_write_ptv(dev, NV_PTV_TV_INDEX, reg);
 	nv_write_ptv(dev, NV_PTV_TV_DATA, val);
 }
 
-static inline uint8_t nv_read_tv_enc(struct drm_device *dev, uint8_t reg)
+static uint8_t nv_read_tv_enc(struct drm_device *dev, uint8_t reg)
 {
 	nv_write_ptv(dev, NV_PTV_TV_INDEX, reg);
 	return nv_read_ptv(dev, NV_PTV_TV_DATA);

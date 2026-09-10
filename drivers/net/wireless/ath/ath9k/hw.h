@@ -987,27 +987,27 @@ struct ath_bus_ops {
 	void (*aspm_init)(struct ath_common *common);
 };
 
-static inline struct ath_common *ath9k_hw_common(struct ath_hw *ah)
+static struct ath_common *ath9k_hw_common(struct ath_hw *ah)
 {
 	return &ah->common;
 }
 
-static inline struct ath_regulatory *ath9k_hw_regulatory(struct ath_hw *ah)
+static struct ath_regulatory *ath9k_hw_regulatory(struct ath_hw *ah)
 {
 	return &(ath9k_hw_common(ah)->regulatory);
 }
 
-static inline struct ath_hw_private_ops *ath9k_hw_private_ops(struct ath_hw *ah)
+static struct ath_hw_private_ops *ath9k_hw_private_ops(struct ath_hw *ah)
 {
 	return &ah->private_ops;
 }
 
-static inline struct ath_hw_ops *ath9k_hw_ops(struct ath_hw *ah)
+static struct ath_hw_ops *ath9k_hw_ops(struct ath_hw *ah)
 {
 	return &ah->ops;
 }
 
-static inline u8 get_streams(int mask)
+static u8 get_streams(int mask)
 {
 	return !!(mask & BIT(0)) + !!(mask & BIT(1)) + !!(mask & BIT(2));
 }
@@ -1148,38 +1148,38 @@ void ath9k_hw_setslottime(struct ath_hw *ah, u32 us);
 
 #ifdef CONFIG_ATH9K_BTCOEX_SUPPORT
 void ar9003_hw_attach_aic_ops(struct ath_hw *ah);
-static inline bool ath9k_hw_btcoex_is_enabled(struct ath_hw *ah)
+static bool ath9k_hw_btcoex_is_enabled(struct ath_hw *ah)
 {
 	return ah->btcoex_hw.enabled;
 }
-static inline bool ath9k_hw_mci_is_enabled(struct ath_hw *ah)
+static bool ath9k_hw_mci_is_enabled(struct ath_hw *ah)
 {
 	return ah->common.btcoex_enabled &&
 	       (ah->caps.hw_caps & ATH9K_HW_CAP_MCI);
 
 }
 void ath9k_hw_btcoex_enable(struct ath_hw *ah);
-static inline enum ath_btcoex_scheme
+static enum ath_btcoex_scheme
 ath9k_hw_get_btcoex_scheme(struct ath_hw *ah)
 {
 	return ah->btcoex_hw.scheme;
 }
 #else
-static inline void ar9003_hw_attach_aic_ops(struct ath_hw *ah)
+static void ar9003_hw_attach_aic_ops(struct ath_hw *ah)
 {
 }
-static inline bool ath9k_hw_btcoex_is_enabled(struct ath_hw *ah)
-{
-	return false;
-}
-static inline bool ath9k_hw_mci_is_enabled(struct ath_hw *ah)
+static bool ath9k_hw_btcoex_is_enabled(struct ath_hw *ah)
 {
 	return false;
 }
-static inline void ath9k_hw_btcoex_enable(struct ath_hw *ah)
+static bool ath9k_hw_mci_is_enabled(struct ath_hw *ah)
+{
+	return false;
+}
+static void ath9k_hw_btcoex_enable(struct ath_hw *ah)
 {
 }
-static inline enum ath_btcoex_scheme
+static enum ath_btcoex_scheme
 ath9k_hw_get_btcoex_scheme(struct ath_hw *ah)
 {
 	return ATH_BTCOEX_CFG_NONE;
@@ -1194,7 +1194,7 @@ int ath9k_hw_wow_apply_pattern(struct ath_hw *ah, u8 *user_pattern,
 u32 ath9k_hw_wow_wakeup(struct ath_hw *ah);
 void ath9k_hw_wow_enable(struct ath_hw *ah, u32 pattern_enable);
 #else
-static inline int ath9k_hw_wow_apply_pattern(struct ath_hw *ah,
+static int ath9k_hw_wow_apply_pattern(struct ath_hw *ah,
 					     u8 *user_pattern,
 					     u8 *user_mask,
 					     int pattern_count,
@@ -1202,11 +1202,11 @@ static inline int ath9k_hw_wow_apply_pattern(struct ath_hw *ah,
 {
 	return 0;
 }
-static inline u32 ath9k_hw_wow_wakeup(struct ath_hw *ah)
+static u32 ath9k_hw_wow_wakeup(struct ath_hw *ah)
 {
 	return 0;
 }
-static inline void ath9k_hw_wow_enable(struct ath_hw *ah, u32 pattern_enable)
+static void ath9k_hw_wow_enable(struct ath_hw *ah, u32 pattern_enable)
 {
 }
 #endif

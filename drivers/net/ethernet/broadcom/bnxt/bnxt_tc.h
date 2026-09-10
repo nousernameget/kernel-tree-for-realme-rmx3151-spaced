@@ -140,18 +140,18 @@ void bnxt_shutdown_tc(struct bnxt *bp);
 
 #else /* CONFIG_BNXT_FLOWER_OFFLOAD */
 
-static inline int bnxt_tc_setup_flower(struct bnxt *bp, u16 src_fid,
+static int bnxt_tc_setup_flower(struct bnxt *bp, u16 src_fid,
 				       struct tc_cls_flower_offload *cls_flower)
 {
 	return -EOPNOTSUPP;
 }
 
-static inline int bnxt_init_tc(struct bnxt *bp)
+static int bnxt_init_tc(struct bnxt *bp)
 {
 	return 0;
 }
 
-static inline void bnxt_shutdown_tc(struct bnxt *bp)
+static void bnxt_shutdown_tc(struct bnxt *bp)
 {
 }
 #endif /* CONFIG_BNXT_FLOWER_OFFLOAD */

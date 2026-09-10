@@ -123,17 +123,17 @@ int brcmf_debugfs_add_entry(struct brcmf_pub *drvr, const char *fn,
 int brcmf_debug_create_memdump(struct brcmf_bus *bus, const void *data,
 			       size_t len);
 #else
-static inline void brcmf_debugfs_init(void)
+static void brcmf_debugfs_init(void)
 {
 }
-static inline void brcmf_debugfs_exit(void)
+static void brcmf_debugfs_exit(void)
 {
 }
-static inline int brcmf_debug_attach(struct brcmf_pub *drvr)
+static int brcmf_debug_attach(struct brcmf_pub *drvr)
 {
 	return 0;
 }
-static inline void brcmf_debug_detach(struct brcmf_pub *drvr)
+static void brcmf_debug_detach(struct brcmf_pub *drvr)
 {
 }
 static inline

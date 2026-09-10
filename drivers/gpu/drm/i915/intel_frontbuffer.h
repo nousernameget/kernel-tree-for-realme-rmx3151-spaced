@@ -52,7 +52,7 @@ void __intel_fb_obj_flush(struct drm_i915_gem_object *obj,
  * until the rendering completes or a flip on this frontbuffer plane is
  * scheduled.
  */
-static inline bool intel_fb_obj_invalidate(struct drm_i915_gem_object *obj,
+static bool intel_fb_obj_invalidate(struct drm_i915_gem_object *obj,
 					   enum fb_op_origin origin)
 {
 	unsigned int frontbuffer_bits;
@@ -73,7 +73,7 @@ static inline bool intel_fb_obj_invalidate(struct drm_i915_gem_object *obj,
  * This function gets called every time rendering on the given object has
  * completed and frontbuffer caching can be started again.
  */
-static inline void intel_fb_obj_flush(struct drm_i915_gem_object *obj,
+static void intel_fb_obj_flush(struct drm_i915_gem_object *obj,
 				      enum fb_op_origin origin)
 {
 	unsigned int frontbuffer_bits;

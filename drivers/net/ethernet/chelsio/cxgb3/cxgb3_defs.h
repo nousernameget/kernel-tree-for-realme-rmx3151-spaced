@@ -44,13 +44,13 @@
 /*
  * Map an ATID or STID to their entries in the corresponding TID tables.
  */
-static inline union active_open_entry *atid2entry(const struct tid_info *t,
+static union active_open_entry *atid2entry(const struct tid_info *t,
 						  unsigned int atid)
 {
 	return &t->atid_tab[atid - t->atid_base];
 }
 
-static inline union listen_entry *stid2entry(const struct tid_info *t,
+static union listen_entry *stid2entry(const struct tid_info *t,
 					     unsigned int stid)
 {
 	return &t->stid_tab[stid - t->stid_base];
@@ -59,7 +59,7 @@ static inline union listen_entry *stid2entry(const struct tid_info *t,
 /*
  * Find the connection corresponding to a TID.
  */
-static inline struct t3c_tid_entry *lookup_tid(const struct tid_info *t,
+static struct t3c_tid_entry *lookup_tid(const struct tid_info *t,
 					       unsigned int tid)
 {
 	struct t3c_tid_entry *t3c_tid = tid < t->ntids ?
@@ -71,7 +71,7 @@ static inline struct t3c_tid_entry *lookup_tid(const struct tid_info *t,
 /*
  * Find the connection corresponding to a server TID.
  */
-static inline struct t3c_tid_entry *lookup_stid(const struct tid_info *t,
+static struct t3c_tid_entry *lookup_stid(const struct tid_info *t,
 						unsigned int tid)
 {
 	union listen_entry *e;
@@ -90,7 +90,7 @@ static inline struct t3c_tid_entry *lookup_stid(const struct tid_info *t,
 /*
  * Find the connection corresponding to an active-open TID.
  */
-static inline struct t3c_tid_entry *lookup_atid(const struct tid_info *t,
+static struct t3c_tid_entry *lookup_atid(const struct tid_info *t,
 						unsigned int tid)
 {
 	union active_open_entry *e;

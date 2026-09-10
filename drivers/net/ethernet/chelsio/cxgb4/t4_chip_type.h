@@ -67,17 +67,17 @@ enum chip_type {
 	T6_LAST_REV	= T6_A0,
 };
 
-static inline int is_t4(enum chip_type chip)
+static int is_t4(enum chip_type chip)
 {
 	return (CHELSIO_CHIP_VERSION(chip) == CHELSIO_T4);
 }
 
-static inline int is_t5(enum chip_type chip)
+static int is_t5(enum chip_type chip)
 {
 	return (CHELSIO_CHIP_VERSION(chip) == CHELSIO_T5);
 }
 
-static inline int is_t6(enum chip_type chip)
+static int is_t6(enum chip_type chip)
 {
 	return (CHELSIO_CHIP_VERSION(chip) == CHELSIO_T6);
 }

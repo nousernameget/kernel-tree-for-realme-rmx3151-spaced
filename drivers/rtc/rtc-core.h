@@ -7,15 +7,15 @@ extern void rtc_dev_prepare(struct rtc_device *rtc);
 
 #else
 
-static inline void rtc_dev_init(void)
+static void rtc_dev_init(void)
 {
 }
 
-static inline void rtc_dev_exit(void)
+static void rtc_dev_exit(void)
 {
 }
 
-static inline void rtc_dev_prepare(struct rtc_device *rtc)
+static void rtc_dev_prepare(struct rtc_device *rtc)
 {
 }
 
@@ -28,11 +28,11 @@ extern void rtc_proc_del_device(struct rtc_device *rtc);
 
 #else
 
-static inline void rtc_proc_add_device(struct rtc_device *rtc)
+static void rtc_proc_add_device(struct rtc_device *rtc)
 {
 }
 
-static inline void rtc_proc_del_device(struct rtc_device *rtc)
+static void rtc_proc_del_device(struct rtc_device *rtc)
 {
 }
 
@@ -41,7 +41,7 @@ static inline void rtc_proc_del_device(struct rtc_device *rtc)
 #ifdef CONFIG_RTC_INTF_SYSFS
 const struct attribute_group **rtc_get_dev_attribute_groups(void);
 #else
-static inline const struct attribute_group **rtc_get_dev_attribute_groups(void)
+static const struct attribute_group **rtc_get_dev_attribute_groups(void)
 {
 	return NULL;
 }

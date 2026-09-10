@@ -153,7 +153,7 @@ void nmk_pinctrl_stn8815_init(const struct nmk_pinctrl_soc_data **soc);
 
 #else
 
-static inline void
+static void
 nmk_pinctrl_stn8815_init(const struct nmk_pinctrl_soc_data **soc)
 {
 }
@@ -166,7 +166,7 @@ void nmk_pinctrl_db8500_init(const struct nmk_pinctrl_soc_data **soc);
 
 #else
 
-static inline void
+static void
 nmk_pinctrl_db8500_init(const struct nmk_pinctrl_soc_data **soc)
 {
 }
@@ -179,7 +179,7 @@ void nmk_pinctrl_db8540_init(const struct nmk_pinctrl_soc_data **soc);
 
 #else
 
-static inline void
+static void
 nmk_pinctrl_db8540_init(const struct nmk_pinctrl_soc_data **soc)
 {
 }

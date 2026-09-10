@@ -842,12 +842,12 @@ struct libipw_device {
 #define IEEE_G            (1<<2)
 #define IEEE_MODE_MASK    (IEEE_A|IEEE_B|IEEE_G)
 
-static inline void *libipw_priv(struct net_device *dev)
+static void *libipw_priv(struct net_device *dev)
 {
 	return ((struct libipw_device *)netdev_priv(dev))->priv;
 }
 
-static inline int libipw_is_valid_mode(struct libipw_device *ieee,
+static int libipw_is_valid_mode(struct libipw_device *ieee,
 					  int mode)
 {
 	/*
@@ -874,7 +874,7 @@ static inline int libipw_is_valid_mode(struct libipw_device *ieee,
 	return 0;
 }
 
-static inline int libipw_get_hdrlen(u16 fc)
+static int libipw_get_hdrlen(u16 fc)
 {
 	int hdrlen = LIBIPW_3ADDR_LEN;
 	u16 stype = WLAN_FC_GET_STYPE(fc);
@@ -902,7 +902,7 @@ static inline int libipw_get_hdrlen(u16 fc)
 	return hdrlen;
 }
 
-static inline u8 *libipw_get_payload(struct ieee80211_hdr *hdr)
+static u8 *libipw_get_payload(struct ieee80211_hdr *hdr)
 {
 	switch (libipw_get_hdrlen(le16_to_cpu(hdr->frame_control))) {
 	case LIBIPW_1ADDR_LEN:
@@ -917,7 +917,7 @@ static inline u8 *libipw_get_payload(struct ieee80211_hdr *hdr)
 	return NULL;
 }
 
-static inline int libipw_is_ofdm_rate(u8 rate)
+static int libipw_is_ofdm_rate(u8 rate)
 {
 	switch (rate & ~LIBIPW_BASIC_RATE_MASK) {
 	case LIBIPW_OFDM_RATE_6MB:
@@ -933,7 +933,7 @@ static inline int libipw_is_ofdm_rate(u8 rate)
 	return 0;
 }
 
-static inline int libipw_is_cck_rate(u8 rate)
+static int libipw_is_cck_rate(u8 rate)
 {
 	switch (rate & ~LIBIPW_BASIC_RATE_MASK) {
 	case LIBIPW_CCK_RATE_1MB:
@@ -994,12 +994,12 @@ int libipw_wx_get_encodeext(struct libipw_device *ieee,
 			    struct iw_request_info *info,
 			    union iwreq_data *wrqu, char *extra);
 
-static inline void libipw_increment_scans(struct libipw_device *ieee)
+static void libipw_increment_scans(struct libipw_device *ieee)
 {
 	ieee->scans++;
 }
 
-static inline int libipw_get_scans(struct libipw_device *ieee)
+static int libipw_get_scans(struct libipw_device *ieee)
 {
 	return ieee->scans;
 }

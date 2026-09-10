@@ -54,7 +54,7 @@
 			       (LLI_HADDR_BIT_OFFSET + LLI_HADDR_BIT_SIZE - 1),\
 				LLI_HADDR_BIT_OFFSET)
 
-static inline void cc_lli_set_addr(u32 *lli_p, dma_addr_t addr)
+static void cc_lli_set_addr(u32 *lli_p, dma_addr_t addr)
 {
 	lli_p[LLI_WORD0_OFFSET] = (addr & U32_MAX);
 #ifdef CONFIG_ARCH_DMA_ADDR_T_64BIT
@@ -63,7 +63,7 @@ static inline void cc_lli_set_addr(u32 *lli_p, dma_addr_t addr)
 #endif /* CONFIG_ARCH_DMA_ADDR_T_64BIT */
 }
 
-static inline void cc_lli_set_size(u32 *lli_p, u16 size)
+static void cc_lli_set_size(u32 *lli_p, u16 size)
 {
 	lli_p[LLI_WORD1_OFFSET] &= ~LLI_SIZE_MASK;
 	lli_p[LLI_WORD1_OFFSET] |= FIELD_PREP(LLI_SIZE_MASK, size);

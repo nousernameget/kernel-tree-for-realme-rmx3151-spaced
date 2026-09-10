@@ -120,7 +120,7 @@ struct sun8i_mixer {
 	struct clk			*mod_clk;
 };
 
-static inline struct sun8i_mixer *
+static struct sun8i_mixer *
 engine_to_sun8i_mixer(struct sunxi_engine *engine)
 {
 	return container_of(engine, struct sun8i_mixer, engine);

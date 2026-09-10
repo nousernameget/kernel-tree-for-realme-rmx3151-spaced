@@ -259,12 +259,12 @@ struct xgene_indirect_ctl {
 	void __iomem *cmd_done;
 };
 
-static inline struct device *ndev_to_dev(struct net_device *ndev)
+static struct device *ndev_to_dev(struct net_device *ndev)
 {
 	return ndev->dev.parent;
 }
 
-static inline u16 xgene_enet_dst_ring_num(struct xgene_enet_desc_ring *ring)
+static u16 xgene_enet_dst_ring_num(struct xgene_enet_desc_ring *ring)
 {
 	struct xgene_enet_pdata *pdata = netdev_priv(ring->ndev);
 

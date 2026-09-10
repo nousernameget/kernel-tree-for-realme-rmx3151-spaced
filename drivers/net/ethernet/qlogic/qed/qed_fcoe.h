@@ -57,7 +57,7 @@ void qed_fcoe_free(struct qed_hwfn *p_hwfn);
 void qed_get_protocol_stats_fcoe(struct qed_dev *cdev,
 				 struct qed_mcp_fcoe_stats *stats);
 #else /* CONFIG_QED_FCOE */
-static inline int qed_fcoe_alloc(struct qed_hwfn *p_hwfn)
+static int qed_fcoe_alloc(struct qed_hwfn *p_hwfn)
 {
 	return -EINVAL;
 }
@@ -65,7 +65,7 @@ static inline int qed_fcoe_alloc(struct qed_hwfn *p_hwfn)
 static inline void qed_fcoe_setup(struct qed_hwfn *p_hwfn) {}
 static inline void qed_fcoe_free(struct qed_hwfn *p_hwfn) {}
 
-static inline void qed_get_protocol_stats_fcoe(struct qed_dev *cdev,
+static void qed_get_protocol_stats_fcoe(struct qed_dev *cdev,
 					       struct qed_mcp_fcoe_stats *stats)
 {
 }

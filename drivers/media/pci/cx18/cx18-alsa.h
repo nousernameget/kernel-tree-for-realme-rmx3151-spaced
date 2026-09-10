@@ -31,13 +31,13 @@ extern int cx18_alsa_debug;
  * File operations that manipulate the encoder or video or audio subdevices
  * need to be serialized.  Use the same lock we use for v4l2 file ops.
  */
-static inline void snd_cx18_lock(struct snd_cx18_card *cxsc)
+static void snd_cx18_lock(struct snd_cx18_card *cxsc)
 {
 	struct cx18 *cx = to_cx18(cxsc->v4l2_dev);
 	mutex_lock(&cx->serialize_lock);
 }
 
-static inline void snd_cx18_unlock(struct snd_cx18_card *cxsc)
+static void snd_cx18_unlock(struct snd_cx18_card *cxsc)
 {
 	struct cx18 *cx = to_cx18(cxsc->v4l2_dev);
 	mutex_unlock(&cx->serialize_lock);

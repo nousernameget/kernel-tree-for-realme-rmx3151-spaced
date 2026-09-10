@@ -40,17 +40,17 @@
 
 #define MLXSW_CMD_MBOX_SIZE	4096
 
-static inline char *mlxsw_cmd_mbox_alloc(void)
+static char *mlxsw_cmd_mbox_alloc(void)
 {
 	return kzalloc(MLXSW_CMD_MBOX_SIZE, GFP_KERNEL);
 }
 
-static inline void mlxsw_cmd_mbox_free(char *mbox)
+static void mlxsw_cmd_mbox_free(char *mbox)
 {
 	kfree(mbox);
 }
 
-static inline void mlxsw_cmd_mbox_zero(char *mbox)
+static void mlxsw_cmd_mbox_zero(char *mbox)
 {
 	memset(mbox, 0, MLXSW_CMD_MBOX_SIZE);
 }
@@ -62,7 +62,7 @@ int mlxsw_cmd_exec(struct mlxsw_core *mlxsw_core, u16 opcode, u8 opcode_mod,
 		   char *in_mbox, size_t in_mbox_size,
 		   char *out_mbox, size_t out_mbox_size);
 
-static inline int mlxsw_cmd_exec_in(struct mlxsw_core *mlxsw_core, u16 opcode,
+static int mlxsw_cmd_exec_in(struct mlxsw_core *mlxsw_core, u16 opcode,
 				    u8 opcode_mod, u32 in_mod, char *in_mbox,
 				    size_t in_mbox_size)
 {
@@ -70,7 +70,7 @@ static inline int mlxsw_cmd_exec_in(struct mlxsw_core *mlxsw_core, u16 opcode,
 			      in_mbox, in_mbox_size, NULL, 0);
 }
 
-static inline int mlxsw_cmd_exec_out(struct mlxsw_core *mlxsw_core, u16 opcode,
+static int mlxsw_cmd_exec_out(struct mlxsw_core *mlxsw_core, u16 opcode,
 				     u8 opcode_mod, u32 in_mod,
 				     bool out_mbox_direct,
 				     char *out_mbox, size_t out_mbox_size)
@@ -80,7 +80,7 @@ static inline int mlxsw_cmd_exec_out(struct mlxsw_core *mlxsw_core, u16 opcode,
 			      out_mbox, out_mbox_size);
 }
 
-static inline int mlxsw_cmd_exec_none(struct mlxsw_core *mlxsw_core, u16 opcode,
+static int mlxsw_cmd_exec_none(struct mlxsw_core *mlxsw_core, u16 opcode,
 				      u8 opcode_mod, u32 in_mod)
 {
 	return mlxsw_cmd_exec(mlxsw_core, opcode, opcode_mod, in_mod, false,
@@ -108,7 +108,7 @@ enum mlxsw_cmd_opcode {
 	MLXSW_CMD_OPCODE_QUERY_RESOURCES	= 0x101,
 };
 
-static inline const char *mlxsw_cmd_opcode_str(u16 opcode)
+static const char *mlxsw_cmd_opcode_str(u16 opcode)
 {
 	switch (opcode) {
 	case MLXSW_CMD_OPCODE_QUERY_FW:
@@ -183,7 +183,7 @@ enum mlxsw_cmd_status {
 	MLXSW_CMD_STATUS_BAD_PKT	= 0x30,
 };
 
-static inline const char *mlxsw_cmd_status_str(u8 status)
+static const char *mlxsw_cmd_status_str(u8 status)
 {
 	switch (status) {
 	case MLXSW_CMD_STATUS_OK:
@@ -224,7 +224,7 @@ static inline const char *mlxsw_cmd_status_str(u8 status)
  * the firmware.
  */
 
-static inline int mlxsw_cmd_query_fw(struct mlxsw_core *mlxsw_core,
+static int mlxsw_cmd_query_fw(struct mlxsw_core *mlxsw_core,
 				     char *out_mbox)
 {
 	return mlxsw_cmd_exec_out(mlxsw_core, MLXSW_CMD_OPCODE_QUERY_FW,
@@ -352,7 +352,7 @@ MLXSW_ITEM32(cmd_mbox, query_fw, doorbell_page_bar, 0x48, 30, 2);
  * The QUERY_BOARDINFO command retrieves adapter specific parameters.
  */
 
-static inline int mlxsw_cmd_boardinfo(struct mlxsw_core *mlxsw_core,
+static int mlxsw_cmd_boardinfo(struct mlxsw_core *mlxsw_core,
 				      char *out_mbox)
 {
 	return mlxsw_cmd_exec_out(mlxsw_core, MLXSW_CMD_OPCODE_QUERY_BOARDINFO,
@@ -396,7 +396,7 @@ MLXSW_ITEM_BUF(cmd_mbox, boardinfo, psid, 0xF0, MLXSW_CMD_BOARDINFO_PSID_LEN);
  * capabilities supported.
  */
 
-static inline int mlxsw_cmd_query_aq_cap(struct mlxsw_core *mlxsw_core,
+static int mlxsw_cmd_query_aq_cap(struct mlxsw_core *mlxsw_core,
 					 char *out_mbox)
 {
 	return mlxsw_cmd_exec_out(mlxsw_core, MLXSW_CMD_OPCODE_QUERY_AQ_CAP,
@@ -469,7 +469,7 @@ MLXSW_ITEM32(cmd_mbox, query_aq_cap, max_sg_rq, 0x10, 0, 8);
 
 #define MLXSW_CMD_MAP_FA_VPM_ENTRIES_MAX 32
 
-static inline int mlxsw_cmd_map_fa(struct mlxsw_core *mlxsw_core,
+static int mlxsw_cmd_map_fa(struct mlxsw_core *mlxsw_core,
 				   char *in_mbox, u32 vpm_entries_count)
 {
 	return mlxsw_cmd_exec_in(mlxsw_core, MLXSW_CMD_OPCODE_MAP_FA,
@@ -498,7 +498,7 @@ MLXSW_ITEM32_INDEXED(cmd_mbox, map_fa, log2size, 0x00, 0, 5, 0x08, 0x04, false);
  * command, software reset must be done prior to execution of MAP_FW command.
  */
 
-static inline int mlxsw_cmd_unmap_fa(struct mlxsw_core *mlxsw_core)
+static int mlxsw_cmd_unmap_fa(struct mlxsw_core *mlxsw_core)
 {
 	return mlxsw_cmd_exec_none(mlxsw_core, MLXSW_CMD_OPCODE_UNMAP_FA, 0, 0);
 }
@@ -518,7 +518,7 @@ static inline int mlxsw_cmd_unmap_fa(struct mlxsw_core *mlxsw_core)
 #define MLXSW_CMD_QUERY_RESOURCES_MAX_QUERIES 100
 #define MLXSW_CMD_QUERY_RESOURCES_PER_QUERY 32
 
-static inline int mlxsw_cmd_query_resources(struct mlxsw_core *mlxsw_core,
+static int mlxsw_cmd_query_resources(struct mlxsw_core *mlxsw_core,
 					    char *out_mbox, int index)
 {
 	return mlxsw_cmd_exec_out(mlxsw_core, MLXSW_CMD_OPCODE_QUERY_RESOURCES,
@@ -552,7 +552,7 @@ MLXSW_ITEM64_INDEXED(cmd_mbox, query_resource, data,
  * to perform software reset to the device to change an existing profile.
  */
 
-static inline int mlxsw_cmd_config_profile_set(struct mlxsw_core *mlxsw_core,
+static int mlxsw_cmd_config_profile_set(struct mlxsw_core *mlxsw_core,
 					       char *in_mbox)
 {
 	return mlxsw_cmd_exec_in(mlxsw_core, MLXSW_CMD_OPCODE_CONFIG_PROFILE,
@@ -849,7 +849,7 @@ MLXSW_ITEM32_INDEXED(cmd_mbox, config_profile, swid_config_properties,
  * is mainly used for bootstrapping.
  */
 
-static inline int mlxsw_cmd_access_reg(struct mlxsw_core *mlxsw_core,
+static int mlxsw_cmd_access_reg(struct mlxsw_core *mlxsw_core,
 				       char *in_mbox, char *out_mbox)
 {
 	return mlxsw_cmd_exec(mlxsw_core, MLXSW_CMD_OPCODE_ACCESS_REG,
@@ -867,7 +867,7 @@ static inline int mlxsw_cmd_access_reg(struct mlxsw_core *mlxsw_core,
  * on the descriptor queue.
  */
 
-static inline int __mlxsw_cmd_sw2hw_dq(struct mlxsw_core *mlxsw_core,
+static int __mlxsw_cmd_sw2hw_dq(struct mlxsw_core *mlxsw_core,
 				       char *in_mbox, u32 dq_number,
 				       u8 opcode_mod)
 {
@@ -881,14 +881,14 @@ enum {
 	MLXSW_CMD_OPCODE_MOD_RDQ = 1,
 };
 
-static inline int mlxsw_cmd_sw2hw_sdq(struct mlxsw_core *mlxsw_core,
+static int mlxsw_cmd_sw2hw_sdq(struct mlxsw_core *mlxsw_core,
 				      char *in_mbox, u32 dq_number)
 {
 	return __mlxsw_cmd_sw2hw_dq(mlxsw_core, in_mbox, dq_number,
 				    MLXSW_CMD_OPCODE_MOD_SDQ);
 }
 
-static inline int mlxsw_cmd_sw2hw_rdq(struct mlxsw_core *mlxsw_core,
+static int mlxsw_cmd_sw2hw_rdq(struct mlxsw_core *mlxsw_core,
 				      char *in_mbox, u32 dq_number)
 {
 	return __mlxsw_cmd_sw2hw_dq(mlxsw_core, in_mbox, dq_number,
@@ -926,21 +926,21 @@ MLXSW_ITEM64_INDEXED(cmd_mbox, sw2hw_dq, pa, 0x10, 12, 52, 0x08, 0x00, true);
  * SW should not post descriptors on nonoperational DQs.
  */
 
-static inline int __mlxsw_cmd_hw2sw_dq(struct mlxsw_core *mlxsw_core,
+static int __mlxsw_cmd_hw2sw_dq(struct mlxsw_core *mlxsw_core,
 				       u32 dq_number, u8 opcode_mod)
 {
 	return mlxsw_cmd_exec_none(mlxsw_core, MLXSW_CMD_OPCODE_HW2SW_DQ,
 				   opcode_mod, dq_number);
 }
 
-static inline int mlxsw_cmd_hw2sw_sdq(struct mlxsw_core *mlxsw_core,
+static int mlxsw_cmd_hw2sw_sdq(struct mlxsw_core *mlxsw_core,
 				      u32 dq_number)
 {
 	return __mlxsw_cmd_hw2sw_dq(mlxsw_core, dq_number,
 				    MLXSW_CMD_OPCODE_MOD_SDQ);
 }
 
-static inline int mlxsw_cmd_hw2sw_rdq(struct mlxsw_core *mlxsw_core,
+static int mlxsw_cmd_hw2sw_rdq(struct mlxsw_core *mlxsw_core,
 				      u32 dq_number)
 {
 	return __mlxsw_cmd_hw2sw_dq(mlxsw_core, dq_number,
@@ -961,21 +961,21 @@ static inline int mlxsw_cmd_hw2sw_rdq(struct mlxsw_core *mlxsw_core,
  * the error state.
  */
 
-static inline int __mlxsw_cmd_2err_dq(struct mlxsw_core *mlxsw_core,
+static int __mlxsw_cmd_2err_dq(struct mlxsw_core *mlxsw_core,
 				      u32 dq_number, u8 opcode_mod)
 {
 	return mlxsw_cmd_exec_none(mlxsw_core, MLXSW_CMD_OPCODE_2ERR_DQ,
 				   opcode_mod, dq_number);
 }
 
-static inline int mlxsw_cmd_2err_sdq(struct mlxsw_core *mlxsw_core,
+static int mlxsw_cmd_2err_sdq(struct mlxsw_core *mlxsw_core,
 				     u32 dq_number)
 {
 	return __mlxsw_cmd_2err_dq(mlxsw_core, dq_number,
 				   MLXSW_CMD_OPCODE_MOD_SDQ);
 }
 
-static inline int mlxsw_cmd_2err_rdq(struct mlxsw_core *mlxsw_core,
+static int mlxsw_cmd_2err_rdq(struct mlxsw_core *mlxsw_core,
 				     u32 dq_number)
 {
 	return __mlxsw_cmd_2err_dq(mlxsw_core, dq_number,
@@ -992,7 +992,7 @@ static inline int mlxsw_cmd_2err_rdq(struct mlxsw_core *mlxsw_core,
  * Note: Output mailbox has the same format as SW2HW_DQ.
  */
 
-static inline int __mlxsw_cmd_query_dq(struct mlxsw_core *mlxsw_core,
+static int __mlxsw_cmd_query_dq(struct mlxsw_core *mlxsw_core,
 				       char *out_mbox, u32 dq_number,
 				       u8 opcode_mod)
 {
@@ -1001,14 +1001,14 @@ static inline int __mlxsw_cmd_query_dq(struct mlxsw_core *mlxsw_core,
 				  out_mbox, MLXSW_CMD_MBOX_SIZE);
 }
 
-static inline int mlxsw_cmd_query_sdq(struct mlxsw_core *mlxsw_core,
+static int mlxsw_cmd_query_sdq(struct mlxsw_core *mlxsw_core,
 				      char *out_mbox, u32 dq_number)
 {
 	return __mlxsw_cmd_query_dq(mlxsw_core, out_mbox, dq_number,
 				    MLXSW_CMD_OPCODE_MOD_SDQ);
 }
 
-static inline int mlxsw_cmd_query_rdq(struct mlxsw_core *mlxsw_core,
+static int mlxsw_cmd_query_rdq(struct mlxsw_core *mlxsw_core,
 				      char *out_mbox, u32 dq_number)
 {
 	return __mlxsw_cmd_query_dq(mlxsw_core, out_mbox, dq_number,
@@ -1025,7 +1025,7 @@ static inline int mlxsw_cmd_query_rdq(struct mlxsw_core *mlxsw_core,
  * if the requested CQC entry is already in the ownership of the hardware.
  */
 
-static inline int mlxsw_cmd_sw2hw_cq(struct mlxsw_core *mlxsw_core,
+static int mlxsw_cmd_sw2hw_cq(struct mlxsw_core *mlxsw_core,
 				     char *in_mbox, u32 cq_number)
 {
 	return mlxsw_cmd_exec_in(mlxsw_core, MLXSW_CMD_OPCODE_SW2HW_CQ,
@@ -1075,7 +1075,7 @@ MLXSW_ITEM64_INDEXED(cmd_mbox, sw2hw_cq, pa, 0x10, 11, 53, 0x08, 0x00, true);
  * to software. The CQC entry is invalidated as a result of this command.
  */
 
-static inline int mlxsw_cmd_hw2sw_cq(struct mlxsw_core *mlxsw_core,
+static int mlxsw_cmd_hw2sw_cq(struct mlxsw_core *mlxsw_core,
 				     u32 cq_number)
 {
 	return mlxsw_cmd_exec_none(mlxsw_core, MLXSW_CMD_OPCODE_HW2SW_CQ,
@@ -1094,7 +1094,7 @@ static inline int mlxsw_cmd_hw2sw_cq(struct mlxsw_core *mlxsw_core,
  * Note: Output mailbox has the same format as SW2HW_CQ.
  */
 
-static inline int mlxsw_cmd_query_cq(struct mlxsw_core *mlxsw_core,
+static int mlxsw_cmd_query_cq(struct mlxsw_core *mlxsw_core,
 				     char *out_mbox, u32 cq_number)
 {
 	return mlxsw_cmd_exec_out(mlxsw_core, MLXSW_CMD_OPCODE_QUERY_CQ,
@@ -1112,7 +1112,7 @@ static inline int mlxsw_cmd_query_cq(struct mlxsw_core *mlxsw_core,
  * if the requested EQC entry is already in the ownership of the hardware.
  */
 
-static inline int mlxsw_cmd_sw2hw_eq(struct mlxsw_core *mlxsw_core,
+static int mlxsw_cmd_sw2hw_eq(struct mlxsw_core *mlxsw_core,
 				     char *in_mbox, u32 eq_number)
 {
 	return mlxsw_cmd_exec_in(mlxsw_core, MLXSW_CMD_OPCODE_SW2HW_EQ,
@@ -1157,7 +1157,7 @@ MLXSW_ITEM64_INDEXED(cmd_mbox, sw2hw_eq, pa, 0x10, 11, 53, 0x08, 0x00, true);
  * -------------------------------------
  */
 
-static inline int mlxsw_cmd_hw2sw_eq(struct mlxsw_core *mlxsw_core,
+static int mlxsw_cmd_hw2sw_eq(struct mlxsw_core *mlxsw_core,
 				     u32 eq_number)
 {
 	return mlxsw_cmd_exec_none(mlxsw_core, MLXSW_CMD_OPCODE_HW2SW_EQ,
@@ -1172,7 +1172,7 @@ static inline int mlxsw_cmd_hw2sw_eq(struct mlxsw_core *mlxsw_core,
  * Note: Output mailbox has the same format as SW2HW_EQ.
  */
 
-static inline int mlxsw_cmd_query_eq(struct mlxsw_core *mlxsw_core,
+static int mlxsw_cmd_query_eq(struct mlxsw_core *mlxsw_core,
 				     char *out_mbox, u32 eq_number)
 {
 	return mlxsw_cmd_exec_out(mlxsw_core, MLXSW_CMD_OPCODE_QUERY_EQ,

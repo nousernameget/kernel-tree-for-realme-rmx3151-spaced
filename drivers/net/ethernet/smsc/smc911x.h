@@ -120,7 +120,7 @@ struct smc911x_local {
  */
 
 #ifdef SMC_DYNAMIC_BUS_CONFIG
-static inline unsigned int SMC_inl(struct smc911x_local *lp, int reg)
+static unsigned int SMC_inl(struct smc911x_local *lp, int reg)
 {
 	void __iomem *ioaddr = lp->base + reg;
 
@@ -133,7 +133,7 @@ static inline unsigned int SMC_inl(struct smc911x_local *lp, int reg)
 	BUG();
 }
 
-static inline void SMC_outl(unsigned int value, struct smc911x_local *lp,
+static void SMC_outl(unsigned int value, struct smc911x_local *lp,
 			    int reg)
 {
 	void __iomem *ioaddr = lp->base + reg;
@@ -152,7 +152,7 @@ static inline void SMC_outl(unsigned int value, struct smc911x_local *lp,
 	BUG();
 }
 
-static inline void SMC_insl(struct smc911x_local *lp, int reg,
+static void SMC_insl(struct smc911x_local *lp, int reg,
 			      void *addr, unsigned int count)
 {
 	void __iomem *ioaddr = lp->base + reg;
@@ -170,7 +170,7 @@ static inline void SMC_insl(struct smc911x_local *lp, int reg,
 	BUG();
 }
 
-static inline void SMC_outsl(struct smc911x_local *lp, int reg,
+static void SMC_outsl(struct smc911x_local *lp, int reg,
 			     void *addr, unsigned int count)
 {
 	void __iomem *ioaddr = lp->base + reg;
@@ -225,7 +225,7 @@ static void smc911x_tx_dma_irq(void *data);
 #define SMC_insl(lp, r, p, l) \
 	smc_pxa_dma_insl(lp, lp->physaddr, r, lp->rxdma, p, l)
 
-static inline void
+static void
 smc_pxa_dma_insl(struct smc911x_local *lp, u_long physaddr,
 		int reg, struct dma_chan *dma, u_char *buf, int len)
 {
@@ -257,7 +257,7 @@ smc_pxa_dma_insl(struct smc911x_local *lp, u_long physaddr,
 #define SMC_outsl(lp, r, p, l) \
 	 smc_pxa_dma_outsl(lp, lp->physaddr, r, lp->txdma, p, l)
 
-static inline void
+static void
 smc_pxa_dma_outsl(struct smc911x_local *lp, u_long physaddr,
 		int reg, struct dma_chan *dma, u_char *buf, int len)
 {

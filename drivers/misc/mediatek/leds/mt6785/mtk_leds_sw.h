@@ -122,12 +122,12 @@ enum MT65XX_PMIC_ISINK_FSEL {
 #define BACKLIGHT_LEVEL_PWM_64_FIFO_MODE_SUPPORT 64
 #define BACKLIGHT_LEVEL_PWM_256_SUPPORT 256
 #define BACKLIGHT_LEVEL_PWM_MODE_CONFIG BACKLIGHT_LEVEL_PWM_256_SUPPORT
-static inline unsigned int Cust_GetBacklightLevelSupport_byPWM(void)
+static unsigned int Cust_GetBacklightLevelSupport_byPWM(void)
 {
 	return BACKLIGHT_LEVEL_PWM_MODE_CONFIG;
 }
 
-static inline unsigned int brightness_mapping(unsigned int level)
+static unsigned int brightness_mapping(unsigned int level)
 {
 	unsigned int mapped_level;
 

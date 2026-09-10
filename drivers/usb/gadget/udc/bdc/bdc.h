@@ -460,12 +460,12 @@ struct bdc {
 	struct clk		*clk;
 };
 
-static inline u32 bdc_readl(void __iomem *base, u32 offset)
+static u32 bdc_readl(void __iomem *base, u32 offset)
 {
 	return readl(base + offset);
 }
 
-static inline void bdc_writel(void __iomem *base, u32 offset, u32 value)
+static void bdc_writel(void __iomem *base, u32 offset, u32 value)
 {
 	writel(value, base + offset);
 }

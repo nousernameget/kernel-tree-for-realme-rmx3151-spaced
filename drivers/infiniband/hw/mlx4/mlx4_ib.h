@@ -652,82 +652,82 @@ struct mlx4_uverbs_ex_query_device_resp {
 	__u32 reserved;
 };
 
-static inline struct mlx4_ib_dev *to_mdev(struct ib_device *ibdev)
+static struct mlx4_ib_dev *to_mdev(struct ib_device *ibdev)
 {
 	return container_of(ibdev, struct mlx4_ib_dev, ib_dev);
 }
 
-static inline struct mlx4_ib_ucontext *to_mucontext(struct ib_ucontext *ibucontext)
+static struct mlx4_ib_ucontext *to_mucontext(struct ib_ucontext *ibucontext)
 {
 	return container_of(ibucontext, struct mlx4_ib_ucontext, ibucontext);
 }
 
-static inline struct mlx4_ib_pd *to_mpd(struct ib_pd *ibpd)
+static struct mlx4_ib_pd *to_mpd(struct ib_pd *ibpd)
 {
 	return container_of(ibpd, struct mlx4_ib_pd, ibpd);
 }
 
-static inline struct mlx4_ib_xrcd *to_mxrcd(struct ib_xrcd *ibxrcd)
+static struct mlx4_ib_xrcd *to_mxrcd(struct ib_xrcd *ibxrcd)
 {
 	return container_of(ibxrcd, struct mlx4_ib_xrcd, ibxrcd);
 }
 
-static inline struct mlx4_ib_cq *to_mcq(struct ib_cq *ibcq)
+static struct mlx4_ib_cq *to_mcq(struct ib_cq *ibcq)
 {
 	return container_of(ibcq, struct mlx4_ib_cq, ibcq);
 }
 
-static inline struct mlx4_ib_cq *to_mibcq(struct mlx4_cq *mcq)
+static struct mlx4_ib_cq *to_mibcq(struct mlx4_cq *mcq)
 {
 	return container_of(mcq, struct mlx4_ib_cq, mcq);
 }
 
-static inline struct mlx4_ib_mr *to_mmr(struct ib_mr *ibmr)
+static struct mlx4_ib_mr *to_mmr(struct ib_mr *ibmr)
 {
 	return container_of(ibmr, struct mlx4_ib_mr, ibmr);
 }
 
-static inline struct mlx4_ib_mw *to_mmw(struct ib_mw *ibmw)
+static struct mlx4_ib_mw *to_mmw(struct ib_mw *ibmw)
 {
 	return container_of(ibmw, struct mlx4_ib_mw, ibmw);
 }
 
-static inline struct mlx4_ib_fmr *to_mfmr(struct ib_fmr *ibfmr)
+static struct mlx4_ib_fmr *to_mfmr(struct ib_fmr *ibfmr)
 {
 	return container_of(ibfmr, struct mlx4_ib_fmr, ibfmr);
 }
 
-static inline struct mlx4_ib_flow *to_mflow(struct ib_flow *ibflow)
+static struct mlx4_ib_flow *to_mflow(struct ib_flow *ibflow)
 {
 	return container_of(ibflow, struct mlx4_ib_flow, ibflow);
 }
 
-static inline struct mlx4_ib_qp *to_mqp(struct ib_qp *ibqp)
+static struct mlx4_ib_qp *to_mqp(struct ib_qp *ibqp)
 {
 	return container_of(ibqp, struct mlx4_ib_qp, ibqp);
 }
 
-static inline struct mlx4_ib_qp *to_mibqp(struct mlx4_qp *mqp)
+static struct mlx4_ib_qp *to_mibqp(struct mlx4_qp *mqp)
 {
 	return container_of(mqp, struct mlx4_ib_qp, mqp);
 }
 
-static inline struct mlx4_ib_srq *to_msrq(struct ib_srq *ibsrq)
+static struct mlx4_ib_srq *to_msrq(struct ib_srq *ibsrq)
 {
 	return container_of(ibsrq, struct mlx4_ib_srq, ibsrq);
 }
 
-static inline struct mlx4_ib_srq *to_mibsrq(struct mlx4_srq *msrq)
+static struct mlx4_ib_srq *to_mibsrq(struct mlx4_srq *msrq)
 {
 	return container_of(msrq, struct mlx4_ib_srq, msrq);
 }
 
-static inline struct mlx4_ib_ah *to_mah(struct ib_ah *ibah)
+static struct mlx4_ib_ah *to_mah(struct ib_ah *ibah)
 {
 	return container_of(ibah, struct mlx4_ib_ah, ibah);
 }
 
-static inline u8 mlx4_ib_bond_next_port(struct mlx4_ib_dev *dev)
+static u8 mlx4_ib_bond_next_port(struct mlx4_ib_dev *dev)
 {
 	dev->bond_next_port = (dev->bond_next_port + 1) % dev->num_ports;
 
@@ -822,7 +822,7 @@ int __mlx4_ib_query_pkey(struct ib_device *ibdev, u8 port, u16 index,
 int __mlx4_ib_query_gid(struct ib_device *ibdev, u8 port, int index,
 			union ib_gid *gid, int netw_view);
 
-static inline bool mlx4_ib_ah_grh_present(struct mlx4_ib_ah *ah)
+static bool mlx4_ib_ah_grh_present(struct mlx4_ib_ah *ah)
 {
 	u8 port = be32_to_cpu(ah->av.ib.port_pd) >> 24 & 3;
 

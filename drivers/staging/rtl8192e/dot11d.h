@@ -53,7 +53,7 @@ struct rt_dot11d_info {
 	enum dot11d_state State;
 };
 
-static inline void cpMacAddr(unsigned char *des, unsigned char *src)
+static void cpMacAddr(unsigned char *des, unsigned char *src)
 {
 	memcpy(des, src, 6);
 }
@@ -74,7 +74,7 @@ static inline void cpMacAddr(unsigned char *des, unsigned char *src)
 
 #define GET_CIE_WATCHDOG(__pIeeeDev)				\
 	 (GET_DOT11D_INFO(__pIeeeDev)->CountryIeWatchdog)
-static inline void RESET_CIE_WATCHDOG(struct rtllib_device *__pIeeeDev)
+static void RESET_CIE_WATCHDOG(struct rtllib_device *__pIeeeDev)
 {
 	GET_CIE_WATCHDOG(__pIeeeDev) = 0;
 }

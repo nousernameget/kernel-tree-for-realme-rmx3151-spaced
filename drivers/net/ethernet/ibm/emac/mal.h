@@ -128,13 +128,13 @@
 #define MAL_MAX_TX_SIZE		4080
 #define MAL_MAX_RX_SIZE		4080
 
-static inline int mal_rx_size(int len)
+static int mal_rx_size(int len)
 {
 	len = (len + 0xf) & ~0xf;
 	return len > MAL_MAX_RX_SIZE ? MAL_MAX_RX_SIZE : len;
 }
 
-static inline int mal_tx_chunks(int len)
+static int mal_tx_chunks(int len)
 {
 	return (len + MAL_MAX_TX_SIZE - 1) / MAL_MAX_TX_SIZE;
 }
@@ -215,12 +215,12 @@ struct mal_instance {
 	unsigned int features;
 };
 
-static inline u32 get_mal_dcrn(struct mal_instance *mal, int reg)
+static u32 get_mal_dcrn(struct mal_instance *mal, int reg)
 {
 	return dcr_read(mal->dcr_host, reg);
 }
 
-static inline void set_mal_dcrn(struct mal_instance *mal, int reg, u32 val)
+static void set_mal_dcrn(struct mal_instance *mal, int reg, u32 val)
 {
 	dcr_write(mal->dcr_host, reg, val);
 }
@@ -250,7 +250,7 @@ enum {
 		0,
 };
 
-static inline int mal_has_feature(struct mal_instance *dev,
+static int mal_has_feature(struct mal_instance *dev,
 		unsigned long feature)
 {
 	return (MAL_FTRS_ALWAYS & feature) ||

@@ -51,22 +51,22 @@ struct vnic_intr {
 	struct vnic_intr_ctrl __iomem *ctrl;		/* memory-mapped */
 };
 
-static inline void vnic_intr_unmask(struct vnic_intr *intr)
+static void vnic_intr_unmask(struct vnic_intr *intr)
 {
 	iowrite32(0, &intr->ctrl->mask);
 }
 
-static inline void vnic_intr_mask(struct vnic_intr *intr)
+static void vnic_intr_mask(struct vnic_intr *intr)
 {
 	iowrite32(1, &intr->ctrl->mask);
 }
 
-static inline int vnic_intr_masked(struct vnic_intr *intr)
+static int vnic_intr_masked(struct vnic_intr *intr)
 {
 	return ioread32(&intr->ctrl->mask);
 }
 
-static inline void vnic_intr_return_credits(struct vnic_intr *intr,
+static void vnic_intr_return_credits(struct vnic_intr *intr,
 	unsigned int credits, int unmask, int reset_timer)
 {
 #define VNIC_INTR_UNMASK_SHIFT		16
@@ -79,12 +79,12 @@ static inline void vnic_intr_return_credits(struct vnic_intr *intr,
 	iowrite32(int_credit_return, &intr->ctrl->int_credit_return);
 }
 
-static inline unsigned int vnic_intr_credits(struct vnic_intr *intr)
+static unsigned int vnic_intr_credits(struct vnic_intr *intr)
 {
 	return ioread32(&intr->ctrl->int_credits);
 }
 
-static inline void vnic_intr_return_all_credits(struct vnic_intr *intr)
+static void vnic_intr_return_all_credits(struct vnic_intr *intr)
 {
 	unsigned int credits = vnic_intr_credits(intr);
 	int unmask = 1;
@@ -93,7 +93,7 @@ static inline void vnic_intr_return_all_credits(struct vnic_intr *intr)
 	vnic_intr_return_credits(intr, credits, unmask, reset_timer);
 }
 
-static inline u32 vnic_intr_legacy_pba(u32 __iomem *legacy_pba)
+static u32 vnic_intr_legacy_pba(u32 __iomem *legacy_pba)
 {
 	/* read PBA without clearing */
 	return ioread32(legacy_pba);

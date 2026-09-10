@@ -77,7 +77,7 @@ struct svdm_svid_ops {
 		struct svdm_svid_data *svid_data);
 };
 
-static inline bool dpm_check_data_msg_event(
+static bool dpm_check_data_msg_event(
 	struct pd_port *pd_port, uint8_t msg)
 {
 	return pd_event_data_msg_match(
@@ -85,7 +85,7 @@ static inline bool dpm_check_data_msg_event(
 }
 
 #ifdef CONFIG_USB_PD_REV30
-static inline bool dpm_check_ext_msg_event(
+static bool dpm_check_ext_msg_event(
 	struct pd_port *pd_port, uint8_t msg)
 {
 	return pd_event_ext_msg_match(
@@ -93,24 +93,24 @@ static inline bool dpm_check_ext_msg_event(
 }
 #endif	/* CONFIG_USB_PD_REV30 */
 
-static inline uint8_t dpm_vdm_get_ops(struct pd_port *pd_port)
+static uint8_t dpm_vdm_get_ops(struct pd_port *pd_port)
 {
 	return pd_port->curr_vdm_ops;
 }
 
-static inline uint16_t dpm_vdm_get_svid(struct pd_port *pd_port)
+static uint16_t dpm_vdm_get_svid(struct pd_port *pd_port)
 {
 	return pd_port->curr_vdm_svid;
 }
 
-static inline int dpm_vdm_reply_svdm_request(
+static int dpm_vdm_reply_svdm_request(
 		struct pd_port *pd_port, bool ack)
 {
 	return pd_reply_svdm_request_simply(
 		pd_port, ack ? CMDT_RSP_ACK : CMDT_RSP_NAK);
 }
 
-static inline int dpm_vdm_reply_svdm_nak(struct pd_port *pd_port)
+static int dpm_vdm_reply_svdm_nak(struct pd_port *pd_port)
 {
 	return pd_reply_svdm_request_simply(pd_port, CMDT_RSP_NAK);
 }
@@ -132,7 +132,7 @@ extern struct svdm_svid_data *
 extern bool svdm_reset_state(struct pd_port *pd_port);
 extern bool svdm_notify_pe_startup(struct pd_port *pd_port);
 
-static inline int svdm_notify_pe_ready(struct pd_port *pd_port)
+static int svdm_notify_pe_ready(struct pd_port *pd_port)
 {
 	int i, ret;
 	struct svdm_svid_data *svid_data;
@@ -150,7 +150,7 @@ static inline int svdm_notify_pe_ready(struct pd_port *pd_port)
 	return 0;
 }
 
-static inline bool svdm_notify_pe_shutdown(
+static bool svdm_notify_pe_shutdown(
 	struct pd_port *pd_port)
 {
 	int i;
@@ -167,7 +167,7 @@ static inline bool svdm_notify_pe_shutdown(
 	return 0;
 }
 
-static inline bool svdm_dfp_inform_id(struct pd_port *pd_port, bool ack)
+static bool svdm_dfp_inform_id(struct pd_port *pd_port, bool ack)
 {
 	int i;
 	struct svdm_svid_data *svid_data;
@@ -181,7 +181,7 @@ static inline bool svdm_dfp_inform_id(struct pd_port *pd_port, bool ack)
 	return true;
 }
 
-static inline bool svdm_dfp_inform_svids(struct pd_port *pd_port, bool ack)
+static bool svdm_dfp_inform_svids(struct pd_port *pd_port, bool ack)
 {
 	int i;
 	struct svdm_svid_data *svid_data;
@@ -196,7 +196,7 @@ static inline bool svdm_dfp_inform_svids(struct pd_port *pd_port, bool ack)
 	return true;
 }
 
-static inline bool svdm_dfp_inform_modes(
+static bool svdm_dfp_inform_modes(
 		struct pd_port *pd_port, uint16_t svid, bool ack)
 {
 	struct svdm_svid_data *svid_data;
@@ -211,7 +211,7 @@ static inline bool svdm_dfp_inform_modes(
 	return true;
 }
 
-static inline bool svdm_dfp_inform_enter_mode(
+static bool svdm_dfp_inform_enter_mode(
 	struct pd_port *pd_port, uint16_t svid, uint8_t ops, bool ack)
 {
 	struct svdm_svid_data *svid_data;
@@ -227,7 +227,7 @@ static inline bool svdm_dfp_inform_enter_mode(
 	return true;
 }
 
-static inline bool svdm_dfp_inform_exit_mode(
+static bool svdm_dfp_inform_exit_mode(
 	struct pd_port *pd_port, uint16_t svid, uint8_t ops)
 {
 	struct svdm_svid_data *svid_data;
@@ -242,7 +242,7 @@ static inline bool svdm_dfp_inform_exit_mode(
 	return true;
 }
 
-static inline bool svdm_dfp_inform_attention(
+static bool svdm_dfp_inform_attention(
 	struct pd_port *pd_port, uint16_t svid)
 {
 	struct svdm_svid_data *svid_data;
@@ -257,7 +257,7 @@ static inline bool svdm_dfp_inform_attention(
 	return true;
 }
 
-static inline bool svdm_ufp_request_enter_mode(
+static bool svdm_ufp_request_enter_mode(
 	struct pd_port *pd_port, uint16_t svid, uint8_t ops)
 {
 	struct svdm_svid_data *svid_data;
@@ -272,7 +272,7 @@ static inline bool svdm_ufp_request_enter_mode(
 	return true;
 }
 
-static inline bool svdm_ufp_request_exit_mode(
+static bool svdm_ufp_request_exit_mode(
 	struct pd_port *pd_port, uint16_t svid, uint8_t ops)
 {
 	struct svdm_svid_data *svid_data;

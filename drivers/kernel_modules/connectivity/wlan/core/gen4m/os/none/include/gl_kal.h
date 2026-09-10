@@ -1705,7 +1705,7 @@ kalGetIPv6Address(IN struct net_device *prDev,
 		  IN uint32_t u4MaxNumOfAddr, OUT uint8_t *pucIpv6Addrs,
 		  OUT uint32_t *pu4NumOfIpv6Addr);
 #else
-static inline u_int8_t
+static u_int8_t
 kalGetIPv6Address(IN struct net_device *prDev,
 		  IN uint32_t u4MaxNumOfAddr, OUT uint8_t *pucIpv6Addrs,
 		  OUT uint32_t *pu4NumOfIpv6Addr) {

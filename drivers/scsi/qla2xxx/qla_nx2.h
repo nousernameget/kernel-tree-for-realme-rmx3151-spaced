@@ -58,7 +58,7 @@
 #define QLA8044_PCI_QDR_NET_MAX		((unsigned long)0x043fffff)
 
 /*  PCI Windowing for DDR regions.  */
-static inline bool addr_in_range(u64 addr, u64 low, u64 high)
+static bool addr_in_range(u64 addr, u64 low, u64 high)
 {
 	return addr <= high && addr >= low;
 }

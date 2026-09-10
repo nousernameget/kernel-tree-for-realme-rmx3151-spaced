@@ -70,12 +70,12 @@
 /* OPA status codes */
 #define OPA_PM_STATUS_REQUEST_TOO_LARGE		cpu_to_be16(0x100)
 
-static inline u8 port_states_to_logical_state(struct opa_port_states *ps)
+static u8 port_states_to_logical_state(struct opa_port_states *ps)
 {
 	return ps->portphysstate_portstate & OPA_PI_MASK_PORT_STATE;
 }
 
-static inline u8 port_states_to_phys_state(struct opa_port_states *ps)
+static u8 port_states_to_phys_state(struct opa_port_states *ps)
 {
 	return ((ps->portphysstate_portstate &
 		  OPA_PI_MASK_PORT_PHYSICAL_STATE) >> 4) & 0xf;

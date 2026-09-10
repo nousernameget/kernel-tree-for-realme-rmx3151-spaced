@@ -111,7 +111,7 @@ struct iwl_ucode_capabilities;
 
 extern const struct ieee80211_ops iwlagn_hw_ops;
 
-static inline void iwl_set_calib_hdr(struct iwl_calib_hdr *hdr, u8 cmd)
+static void iwl_set_calib_hdr(struct iwl_calib_hdr *hdr, u8 cmd)
 {
 	hdr->op_code = cmd;
 	hdr->first_group = 0;
@@ -185,7 +185,7 @@ int iwlagn_send_beacon_cmd(struct iwl_priv *priv);
 int iwl_send_statistics_request(struct iwl_priv *priv,
 				u8 flags, bool clear);
 
-static inline const struct ieee80211_supported_band *iwl_get_hw_mode(
+static const struct ieee80211_supported_band *iwl_get_hw_mode(
 			struct iwl_priv *priv, enum nl80211_band band)
 {
 	return priv->hw->wiphy->bands[band];
@@ -219,7 +219,7 @@ void iwlagn_rx_reply_compressed_ba(struct iwl_priv *priv,
 				   struct iwl_rx_cmd_buffer *rxb);
 void iwlagn_rx_reply_tx(struct iwl_priv *priv, struct iwl_rx_cmd_buffer *rxb);
 
-static inline u32 iwl_tx_status_to_mac80211(u32 status)
+static u32 iwl_tx_status_to_mac80211(u32 status)
 {
 	status &= TX_STATUS_MSK;
 
@@ -235,7 +235,7 @@ static inline u32 iwl_tx_status_to_mac80211(u32 status)
 	}
 }
 
-static inline bool iwl_is_tx_success(u32 status)
+static bool iwl_is_tx_success(u32 status)
 {
 	status &= TX_STATUS_MSK;
 	return (status == TX_STATUS_SUCCESS) ||
@@ -280,7 +280,7 @@ void iwlagn_bt_cancel_deferred_work(struct iwl_priv *priv);
 void iwlagn_bt_coex_rssi_monitor(struct iwl_priv *priv);
 void iwlagn_bt_adjust_rssi_monitor(struct iwl_priv *priv, bool rssi_ena);
 
-static inline bool iwl_advanced_bt_coexist(struct iwl_priv *priv)
+static bool iwl_advanced_bt_coexist(struct iwl_priv *priv)
 {
 	return priv->lib->bt_params &&
 	       priv->lib->bt_params->advanced_bt_coexist;
@@ -334,7 +334,7 @@ bool iwl_is_ht40_tx_allowed(struct iwl_priv *priv,
 			    struct iwl_rxon_context *ctx,
 			    struct ieee80211_sta *sta);
 
-static inline int iwl_sta_id(struct ieee80211_sta *sta)
+static int iwl_sta_id(struct ieee80211_sta *sta)
 {
 	if (WARN_ON(!sta))
 		return IWL_INVALID_STATION;
@@ -375,17 +375,17 @@ int iwl_update_bcast_station(struct iwl_priv *priv,
 int iwl_update_bcast_stations(struct iwl_priv *priv);
 
 /* rate */
-static inline u32 iwl_ant_idx_to_flags(u8 ant_idx)
+static u32 iwl_ant_idx_to_flags(u8 ant_idx)
 {
 	return BIT(ant_idx) << RATE_MCS_ANT_POS;
 }
 
-static inline u8 iwl_hw_get_rate(__le32 rate_n_flags)
+static u8 iwl_hw_get_rate(__le32 rate_n_flags)
 {
 	return le32_to_cpu(rate_n_flags) & RATE_MCS_RATE_MSK;
 }
 
-static inline __le32 iwl_hw_set_rate_n_flags(u8 rate, u32 flags)
+static __le32 iwl_hw_set_rate_n_flags(u8 rate, u32 flags)
 {
 	return cpu_to_le32(flags|(u32)rate);
 }
@@ -396,7 +396,7 @@ int iwl_alive_start(struct iwl_priv *priv);
 void iwl_print_rx_config_cmd(struct iwl_priv *priv,
 			     enum iwl_rxon_context_id ctxid);
 #else
-static inline void iwl_print_rx_config_cmd(struct iwl_priv *priv,
+static void iwl_print_rx_config_cmd(struct iwl_priv *priv,
 					   enum iwl_rxon_context_id ctxid)
 {
 }
@@ -404,29 +404,29 @@ static inline void iwl_print_rx_config_cmd(struct iwl_priv *priv,
 
 /* status checks */
 
-static inline int iwl_is_ready(struct iwl_priv *priv)
+static int iwl_is_ready(struct iwl_priv *priv)
 {
 	/* The adapter is 'ready' if READY EXIT_PENDING is not set */
 	return test_bit(STATUS_READY, &priv->status) &&
 	       !test_bit(STATUS_EXIT_PENDING, &priv->status);
 }
 
-static inline int iwl_is_alive(struct iwl_priv *priv)
+static int iwl_is_alive(struct iwl_priv *priv)
 {
 	return test_bit(STATUS_ALIVE, &priv->status);
 }
 
-static inline int iwl_is_rfkill(struct iwl_priv *priv)
+static int iwl_is_rfkill(struct iwl_priv *priv)
 {
 	return test_bit(STATUS_RF_KILL_HW, &priv->status);
 }
 
-static inline int iwl_is_ctkill(struct iwl_priv *priv)
+static int iwl_is_ctkill(struct iwl_priv *priv)
 {
 	return test_bit(STATUS_CT_KILL, &priv->status);
 }
 
-static inline int iwl_is_ready_rf(struct iwl_priv *priv)
+static int iwl_is_ready_rf(struct iwl_priv *priv)
 {
 	if (iwl_is_rfkill(priv))
 		return 0;
@@ -434,7 +434,7 @@ static inline int iwl_is_ready_rf(struct iwl_priv *priv)
 	return iwl_is_ready(priv);
 }
 
-static inline void iwl_dvm_set_pmi(struct iwl_priv *priv, bool state)
+static void iwl_dvm_set_pmi(struct iwl_priv *priv, bool state)
 {
 	if (state)
 		set_bit(STATUS_POWER_PMI, &priv->status);
@@ -446,7 +446,7 @@ static inline void iwl_dvm_set_pmi(struct iwl_priv *priv, bool state)
 #ifdef CONFIG_IWLWIFI_DEBUGFS
 int iwl_dbgfs_register(struct iwl_priv *priv, struct dentry *dbgfs_dir);
 #else
-static inline int iwl_dbgfs_register(struct iwl_priv *priv,
+static int iwl_dbgfs_register(struct iwl_priv *priv,
 				     struct dentry *dbgfs_dir)
 {
 	return 0;

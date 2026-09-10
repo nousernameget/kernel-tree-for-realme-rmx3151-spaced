@@ -114,17 +114,17 @@ int ccp_dev_resume(struct sp_device *sp);
 
 #else	/* !CONFIG_CRYPTO_DEV_SP_CCP */
 
-static inline int ccp_dev_init(struct sp_device *sp)
+static int ccp_dev_init(struct sp_device *sp)
 {
 	return 0;
 }
 static inline void ccp_dev_destroy(struct sp_device *sp) { }
 
-static inline int ccp_dev_suspend(struct sp_device *sp, pm_message_t state)
+static int ccp_dev_suspend(struct sp_device *sp, pm_message_t state)
 {
 	return 0;
 }
-static inline int ccp_dev_resume(struct sp_device *sp)
+static int ccp_dev_resume(struct sp_device *sp)
 {
 	return 0;
 }

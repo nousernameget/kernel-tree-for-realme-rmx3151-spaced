@@ -61,11 +61,11 @@ int comedi_device_attach(struct comedi_device *dev,
 void comedi_proc_init(void);
 void comedi_proc_cleanup(void);
 #else
-static inline void comedi_proc_init(void)
+static void comedi_proc_init(void)
 {
 }
 
-static inline void comedi_proc_cleanup(void)
+static void comedi_proc_cleanup(void)
 {
 }
 #endif

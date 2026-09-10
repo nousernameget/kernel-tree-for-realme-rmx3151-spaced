@@ -22,25 +22,25 @@ static inline unsigned ef4_mdio_id_rev(u32 id) { return id & 0xf; }
 static inline unsigned ef4_mdio_id_model(u32 id) { return (id >> 4) & 0x3f; }
 unsigned ef4_mdio_id_oui(u32 id);
 
-static inline int ef4_mdio_read(struct ef4_nic *efx, int devad, int addr)
+static int ef4_mdio_read(struct ef4_nic *efx, int devad, int addr)
 {
 	return efx->mdio.mdio_read(efx->net_dev, efx->mdio.prtad, devad, addr);
 }
 
-static inline void
+static void
 ef4_mdio_write(struct ef4_nic *efx, int devad, int addr, int value)
 {
 	efx->mdio.mdio_write(efx->net_dev, efx->mdio.prtad, devad, addr, value);
 }
 
-static inline u32 ef4_mdio_read_id(struct ef4_nic *efx, int mmd)
+static u32 ef4_mdio_read_id(struct ef4_nic *efx, int mmd)
 {
 	u16 id_low = ef4_mdio_read(efx, mmd, MDIO_DEVID2);
 	u16 id_hi = ef4_mdio_read(efx, mmd, MDIO_DEVID1);
 	return (id_hi << 16) | (id_low);
 }
 
-static inline bool ef4_mdio_phyxgxs_lane_sync(struct ef4_nic *efx)
+static bool ef4_mdio_phyxgxs_lane_sync(struct ef4_nic *efx)
 {
 	int i, lane_status;
 	bool sync;
@@ -98,7 +98,7 @@ u8 ef4_mdio_get_pause(struct ef4_nic *efx);
 int ef4_mdio_wait_reset_mmds(struct ef4_nic *efx, unsigned int mmd_mask);
 
 /* Set or clear flag, debouncing */
-static inline void
+static void
 ef4_mdio_set_flag(struct ef4_nic *efx, int devad, int addr,
 		  int mask, bool state)
 {

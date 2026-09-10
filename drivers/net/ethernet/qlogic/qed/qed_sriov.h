@@ -376,70 +376,70 @@ void qed_vf_start_iov_wq(struct qed_dev *cdev);
 int qed_sriov_disable(struct qed_dev *cdev, bool pci_enabled);
 void qed_inform_vf_link_state(struct qed_hwfn *hwfn);
 #else
-static inline u16 qed_iov_get_next_active_vf(struct qed_hwfn *p_hwfn,
+static u16 qed_iov_get_next_active_vf(struct qed_hwfn *p_hwfn,
 					     u16 rel_vf_id)
 {
 	return MAX_NUM_VFS;
 }
 
-static inline void
+static void
 qed_iov_bulletin_set_udp_ports(struct qed_hwfn *p_hwfn, int vfid,
 			       u16 vxlan_port, u16 geneve_port)
 {
 }
 
-static inline int qed_iov_hw_info(struct qed_hwfn *p_hwfn)
+static int qed_iov_hw_info(struct qed_hwfn *p_hwfn)
 {
 	return 0;
 }
 
-static inline int qed_iov_alloc(struct qed_hwfn *p_hwfn)
+static int qed_iov_alloc(struct qed_hwfn *p_hwfn)
 {
 	return 0;
 }
 
-static inline void qed_iov_setup(struct qed_hwfn *p_hwfn)
+static void qed_iov_setup(struct qed_hwfn *p_hwfn)
 {
 }
 
-static inline void qed_iov_free(struct qed_hwfn *p_hwfn)
+static void qed_iov_free(struct qed_hwfn *p_hwfn)
 {
 }
 
-static inline void qed_iov_free_hw_info(struct qed_dev *cdev)
+static void qed_iov_free_hw_info(struct qed_dev *cdev)
 {
 }
 
-static inline bool qed_iov_mark_vf_flr(struct qed_hwfn *p_hwfn,
+static bool qed_iov_mark_vf_flr(struct qed_hwfn *p_hwfn,
 				       u32 *disabled_vfs)
 {
 	return false;
 }
 
-static inline void qed_iov_wq_stop(struct qed_dev *cdev, bool schedule_first)
+static void qed_iov_wq_stop(struct qed_dev *cdev, bool schedule_first)
 {
 }
 
-static inline int qed_iov_wq_start(struct qed_dev *cdev)
+static int qed_iov_wq_start(struct qed_dev *cdev)
 {
 	return 0;
 }
 
-static inline void qed_schedule_iov(struct qed_hwfn *hwfn,
+static void qed_schedule_iov(struct qed_hwfn *hwfn,
 				    enum qed_iov_wq_flag flag)
 {
 }
 
-static inline void qed_vf_start_iov_wq(struct qed_dev *cdev)
+static void qed_vf_start_iov_wq(struct qed_dev *cdev)
 {
 }
 
-static inline int qed_sriov_disable(struct qed_dev *cdev, bool pci_enabled)
+static int qed_sriov_disable(struct qed_dev *cdev, bool pci_enabled)
 {
 	return 0;
 }
 
-static inline void qed_inform_vf_link_state(struct qed_hwfn *hwfn)
+static void qed_inform_vf_link_state(struct qed_hwfn *hwfn)
 {
 }
 #endif

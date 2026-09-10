@@ -322,25 +322,25 @@ int m5mols_init_controls(struct v4l2_subdev *sd);
 int m5mols_update_fw(struct v4l2_subdev *sd,
 		     int (*set_power)(struct m5mols_info *, bool));
 
-static inline struct m5mols_info *to_m5mols(struct v4l2_subdev *subdev)
+static struct m5mols_info *to_m5mols(struct v4l2_subdev *subdev)
 {
 	return container_of(subdev, struct m5mols_info, sd);
 }
 
-static inline struct v4l2_subdev *to_sd(struct v4l2_ctrl *ctrl)
+static struct v4l2_subdev *to_sd(struct v4l2_ctrl *ctrl)
 {
 	struct m5mols_info *info = container_of(ctrl->handler,
 						struct m5mols_info, handle);
 	return &info->sd;
 }
 
-static inline void m5mols_set_ctrl_mode(struct v4l2_ctrl *ctrl,
+static void m5mols_set_ctrl_mode(struct v4l2_ctrl *ctrl,
 					unsigned int mode)
 {
 	ctrl->priv = (void *)(uintptr_t)mode;
 }
 
-static inline unsigned int m5mols_get_ctrl_mode(struct v4l2_ctrl *ctrl)
+static unsigned int m5mols_get_ctrl_mode(struct v4l2_ctrl *ctrl)
 {
 	return (unsigned int)(uintptr_t)ctrl->priv;
 }

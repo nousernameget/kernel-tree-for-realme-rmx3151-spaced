@@ -444,7 +444,7 @@ struct hc_xfer_info {
 u32 dwc2_calc_frame_interval(struct dwc2_hsotg *hsotg);
 
 /* Gets the struct usb_hcd that contains a struct dwc2_hsotg */
-static inline struct usb_hcd *dwc2_hsotg_to_hcd(struct dwc2_hsotg *hsotg)
+static struct usb_hcd *dwc2_hsotg_to_hcd(struct dwc2_hsotg *hsotg)
 {
 	return (struct usb_hcd *)hsotg->priv;
 }
@@ -456,7 +456,7 @@ static inline struct usb_hcd *dwc2_hsotg_to_hcd(struct dwc2_hsotg *hsotg)
  * channel is re-assigned. In fact, subsequent handling may cause crashes
  * because the channel structures are cleaned up when the channel is released.
  */
-static inline void disable_hc_int(struct dwc2_hsotg *hsotg, int chnum, u32 intr)
+static void disable_hc_int(struct dwc2_hsotg *hsotg, int chnum, u32 intr)
 {
 	u32 mask = dwc2_readl(hsotg->regs + HCINTMSK(chnum));
 
@@ -474,7 +474,7 @@ void dwc2_hc_start_transfer_ddma(struct dwc2_hsotg *hsotg,
  * Reads HPRT0 in preparation to modify. It keeps the WC bits 0 so that if they
  * are read as 1, they won't clear when written back.
  */
-static inline u32 dwc2_read_hprt0(struct dwc2_hsotg *hsotg)
+static u32 dwc2_read_hprt0(struct dwc2_hsotg *hsotg)
 {
 	u32 hprt0 = dwc2_readl(hsotg->regs + HPRT0);
 
@@ -482,57 +482,57 @@ static inline u32 dwc2_read_hprt0(struct dwc2_hsotg *hsotg)
 	return hprt0;
 }
 
-static inline u8 dwc2_hcd_get_ep_num(struct dwc2_hcd_pipe_info *pipe)
+static u8 dwc2_hcd_get_ep_num(struct dwc2_hcd_pipe_info *pipe)
 {
 	return pipe->ep_num;
 }
 
-static inline u8 dwc2_hcd_get_pipe_type(struct dwc2_hcd_pipe_info *pipe)
+static u8 dwc2_hcd_get_pipe_type(struct dwc2_hcd_pipe_info *pipe)
 {
 	return pipe->pipe_type;
 }
 
-static inline u16 dwc2_hcd_get_maxp(struct dwc2_hcd_pipe_info *pipe)
+static u16 dwc2_hcd_get_maxp(struct dwc2_hcd_pipe_info *pipe)
 {
 	return pipe->maxp;
 }
 
-static inline u16 dwc2_hcd_get_maxp_mult(struct dwc2_hcd_pipe_info *pipe)
+static u16 dwc2_hcd_get_maxp_mult(struct dwc2_hcd_pipe_info *pipe)
 {
 	return pipe->maxp_mult;
 }
 
-static inline u8 dwc2_hcd_get_dev_addr(struct dwc2_hcd_pipe_info *pipe)
+static u8 dwc2_hcd_get_dev_addr(struct dwc2_hcd_pipe_info *pipe)
 {
 	return pipe->dev_addr;
 }
 
-static inline u8 dwc2_hcd_is_pipe_isoc(struct dwc2_hcd_pipe_info *pipe)
+static u8 dwc2_hcd_is_pipe_isoc(struct dwc2_hcd_pipe_info *pipe)
 {
 	return pipe->pipe_type == USB_ENDPOINT_XFER_ISOC;
 }
 
-static inline u8 dwc2_hcd_is_pipe_int(struct dwc2_hcd_pipe_info *pipe)
+static u8 dwc2_hcd_is_pipe_int(struct dwc2_hcd_pipe_info *pipe)
 {
 	return pipe->pipe_type == USB_ENDPOINT_XFER_INT;
 }
 
-static inline u8 dwc2_hcd_is_pipe_bulk(struct dwc2_hcd_pipe_info *pipe)
+static u8 dwc2_hcd_is_pipe_bulk(struct dwc2_hcd_pipe_info *pipe)
 {
 	return pipe->pipe_type == USB_ENDPOINT_XFER_BULK;
 }
 
-static inline u8 dwc2_hcd_is_pipe_control(struct dwc2_hcd_pipe_info *pipe)
+static u8 dwc2_hcd_is_pipe_control(struct dwc2_hcd_pipe_info *pipe)
 {
 	return pipe->pipe_type == USB_ENDPOINT_XFER_CONTROL;
 }
 
-static inline u8 dwc2_hcd_is_pipe_in(struct dwc2_hcd_pipe_info *pipe)
+static u8 dwc2_hcd_is_pipe_in(struct dwc2_hcd_pipe_info *pipe)
 {
 	return pipe->pipe_dir == USB_DIR_IN;
 }
 
-static inline u8 dwc2_hcd_is_pipe_out(struct dwc2_hcd_pipe_info *pipe)
+static u8 dwc2_hcd_is_pipe_out(struct dwc2_hcd_pipe_info *pipe)
 {
 	return !dwc2_hcd_is_pipe_in(pipe);
 }
@@ -562,7 +562,7 @@ int dwc2_hcd_qtd_add(struct dwc2_hsotg *hsotg, struct dwc2_qtd *qtd,
 		     struct dwc2_qh *qh);
 
 /* Unlinks and frees a QTD */
-static inline void dwc2_hcd_qtd_unlink_and_free(struct dwc2_hsotg *hsotg,
+static void dwc2_hcd_qtd_unlink_and_free(struct dwc2_hsotg *hsotg,
 						struct dwc2_qtd *qtd,
 						struct dwc2_qh *qh)
 {
@@ -593,19 +593,19 @@ static inline bool dbg_qh(struct dwc2_qh *qh) { return true; }
 static inline bool dbg_urb(struct urb *urb) { return true; }
 static inline bool dbg_perio(void) { return true; }
 #else /* !CONFIG_USB_DWC2_DEBUG_PERIODIC */
-static inline bool dbg_hc(struct dwc2_host_chan *hc)
+static bool dbg_hc(struct dwc2_host_chan *hc)
 {
 	return hc->ep_type == USB_ENDPOINT_XFER_BULK ||
 	       hc->ep_type == USB_ENDPOINT_XFER_CONTROL;
 }
 
-static inline bool dbg_qh(struct dwc2_qh *qh)
+static bool dbg_qh(struct dwc2_qh *qh)
 {
 	return qh->ep_type == USB_ENDPOINT_XFER_BULK ||
 	       qh->ep_type == USB_ENDPOINT_XFER_CONTROL;
 }
 
-static inline bool dbg_urb(struct urb *urb)
+static bool dbg_urb(struct urb *urb)
 {
 	return usb_pipetype(urb->pipe) == PIPE_BULK ||
 	       usb_pipetype(urb->pipe) == PIPE_CONTROL;
@@ -619,7 +619,7 @@ static inline bool dbg_perio(void) { return false; }
  * is done modulo FRLISTEN_64_SIZE. This accounts for the rollover of the
  * frame number when the max index frame number is reached.
  */
-static inline bool dwc2_frame_idx_num_gt(u16 fr_idx1, u16 fr_idx2)
+static bool dwc2_frame_idx_num_gt(u16 fr_idx1, u16 fr_idx2)
 {
 	u16 diff = fr_idx1 - fr_idx2;
 	u16 sign = diff & (FRLISTEN_64_SIZE >> 1);
@@ -632,7 +632,7 @@ static inline bool dwc2_frame_idx_num_gt(u16 fr_idx1, u16 fr_idx2)
  * done modulo HFNUM_MAX_FRNUM. This accounts for the rollover of the
  * frame number when the max frame number is reached.
  */
-static inline int dwc2_frame_num_le(u16 frame1, u16 frame2)
+static int dwc2_frame_num_le(u16 frame1, u16 frame2)
 {
 	return ((frame2 - frame1) & HFNUM_MAX_FRNUM) <= (HFNUM_MAX_FRNUM >> 1);
 }
@@ -642,7 +642,7 @@ static inline int dwc2_frame_num_le(u16 frame1, u16 frame2)
  * modulo HFNUM_MAX_FRNUM. This accounts for the rollover of the frame
  * number when the max frame number is reached.
  */
-static inline int dwc2_frame_num_gt(u16 frame1, u16 frame2)
+static int dwc2_frame_num_gt(u16 frame1, u16 frame2)
 {
 	return (frame1 != frame2) &&
 	       ((frame1 - frame2) & HFNUM_MAX_FRNUM) < (HFNUM_MAX_FRNUM >> 1);
@@ -652,22 +652,22 @@ static inline int dwc2_frame_num_gt(u16 frame1, u16 frame2)
  * Increments frame by the amount specified by inc. The addition is done
  * modulo HFNUM_MAX_FRNUM. Returns the incremented value.
  */
-static inline u16 dwc2_frame_num_inc(u16 frame, u16 inc)
+static u16 dwc2_frame_num_inc(u16 frame, u16 inc)
 {
 	return (frame + inc) & HFNUM_MAX_FRNUM;
 }
 
-static inline u16 dwc2_frame_num_dec(u16 frame, u16 dec)
+static u16 dwc2_frame_num_dec(u16 frame, u16 dec)
 {
 	return (frame + HFNUM_MAX_FRNUM + 1 - dec) & HFNUM_MAX_FRNUM;
 }
 
-static inline u16 dwc2_full_frame_num(u16 frame)
+static u16 dwc2_full_frame_num(u16 frame)
 {
 	return (frame & HFNUM_MAX_FRNUM) >> 3;
 }
 
-static inline u16 dwc2_micro_frame_num(u16 frame)
+static u16 dwc2_micro_frame_num(u16 frame)
 {
 	return frame & 0x7;
 }
@@ -676,29 +676,29 @@ static inline u16 dwc2_micro_frame_num(u16 frame)
  * Returns the Core Interrupt Status register contents, ANDed with the Core
  * Interrupt Mask register contents
  */
-static inline u32 dwc2_read_core_intr(struct dwc2_hsotg *hsotg)
+static u32 dwc2_read_core_intr(struct dwc2_hsotg *hsotg)
 {
 	return dwc2_readl(hsotg->regs + GINTSTS) &
 	       dwc2_readl(hsotg->regs + GINTMSK);
 }
 
-static inline u32 dwc2_hcd_urb_get_status(struct dwc2_hcd_urb *dwc2_urb)
+static u32 dwc2_hcd_urb_get_status(struct dwc2_hcd_urb *dwc2_urb)
 {
 	return dwc2_urb->status;
 }
 
-static inline u32 dwc2_hcd_urb_get_actual_length(
+static u32 dwc2_hcd_urb_get_actual_length(
 		struct dwc2_hcd_urb *dwc2_urb)
 {
 	return dwc2_urb->actual_length;
 }
 
-static inline u32 dwc2_hcd_urb_get_error_count(struct dwc2_hcd_urb *dwc2_urb)
+static u32 dwc2_hcd_urb_get_error_count(struct dwc2_hcd_urb *dwc2_urb)
 {
 	return dwc2_urb->error_count;
 }
 
-static inline void dwc2_hcd_urb_set_iso_desc_params(
+static void dwc2_hcd_urb_set_iso_desc_params(
 		struct dwc2_hcd_urb *dwc2_urb, int desc_num, u32 offset,
 		u32 length)
 {
@@ -706,19 +706,19 @@ static inline void dwc2_hcd_urb_set_iso_desc_params(
 	dwc2_urb->iso_descs[desc_num].length = length;
 }
 
-static inline u32 dwc2_hcd_urb_get_iso_desc_status(
+static u32 dwc2_hcd_urb_get_iso_desc_status(
 		struct dwc2_hcd_urb *dwc2_urb, int desc_num)
 {
 	return dwc2_urb->iso_descs[desc_num].status;
 }
 
-static inline u32 dwc2_hcd_urb_get_iso_desc_actual_length(
+static u32 dwc2_hcd_urb_get_iso_desc_actual_length(
 		struct dwc2_hcd_urb *dwc2_urb, int desc_num)
 {
 	return dwc2_urb->iso_descs[desc_num].actual_length;
 }
 
-static inline int dwc2_hcd_is_bandwidth_allocated(struct dwc2_hsotg *hsotg,
+static int dwc2_hcd_is_bandwidth_allocated(struct dwc2_hsotg *hsotg,
 						  struct usb_host_endpoint *ep)
 {
 	struct dwc2_qh *qh = ep->hcpriv;
@@ -729,7 +729,7 @@ static inline int dwc2_hcd_is_bandwidth_allocated(struct dwc2_hsotg *hsotg,
 	return 0;
 }
 
-static inline u16 dwc2_hcd_get_ep_bandwidth(struct dwc2_hsotg *hsotg,
+static u16 dwc2_hcd_get_ep_bandwidth(struct dwc2_hsotg *hsotg,
 					    struct usb_host_endpoint *ep)
 {
 	struct dwc2_qh *qh = ep->hcpriv;

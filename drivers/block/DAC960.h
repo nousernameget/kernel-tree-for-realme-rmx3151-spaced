@@ -2628,7 +2628,7 @@ typedef union DAC960_GEM_ErrorStatusRegister
 DAC960_GEM_ErrorStatusRegister_T;
 
 /*
-  Define inline functions to provide an abstraction for reading and writing the
+  Define functions to provide an abstraction for reading and writing the
   DAC960 GEM Series Controller Interface Registers.
 */
 
@@ -2808,19 +2808,19 @@ void DAC960_GEM_WriteHardwareMailbox(void __iomem *ControllerBaseAddress,
 		DAC960_GEM_CommandMailboxBusAddressOffset);
 }
 
-static inline DAC960_V2_CommandIdentifier_T
+static DAC960_V2_CommandIdentifier_T
 DAC960_GEM_ReadCommandIdentifier(void __iomem *ControllerBaseAddress)
 {
   return readw(ControllerBaseAddress + DAC960_GEM_CommandStatusOffset);
 }
 
-static inline DAC960_V2_CommandStatus_T
+static DAC960_V2_CommandStatus_T
 DAC960_GEM_ReadCommandStatus(void __iomem *ControllerBaseAddress)
 {
   return readw(ControllerBaseAddress + DAC960_GEM_CommandStatusOffset + 2);
 }
 
-static inline bool
+static bool
 DAC960_GEM_ReadErrorStatus(void __iomem *ControllerBaseAddress,
 			  unsigned char *ErrorStatus,
 			  unsigned char *Parameter0,
@@ -2939,7 +2939,7 @@ DAC960_BA_ErrorStatusRegister_T;
 
 
 /*
-  Define inline functions to provide an abstraction for reading and writing the
+  Define functions to provide an abstraction for reading and writing the
   DAC960 BA Series Controller Interface Registers.
 */
 
@@ -3114,19 +3114,19 @@ void DAC960_BA_WriteHardwareMailbox(void __iomem *ControllerBaseAddress,
 		DAC960_BA_CommandMailboxBusAddressOffset);
 }
 
-static inline DAC960_V2_CommandIdentifier_T
+static DAC960_V2_CommandIdentifier_T
 DAC960_BA_ReadCommandIdentifier(void __iomem *ControllerBaseAddress)
 {
   return readw(ControllerBaseAddress + DAC960_BA_CommandStatusOffset);
 }
 
-static inline DAC960_V2_CommandStatus_T
+static DAC960_V2_CommandStatus_T
 DAC960_BA_ReadCommandStatus(void __iomem *ControllerBaseAddress)
 {
   return readw(ControllerBaseAddress + DAC960_BA_CommandStatusOffset + 2);
 }
 
-static inline bool
+static bool
 DAC960_BA_ReadErrorStatus(void __iomem *ControllerBaseAddress,
 			  unsigned char *ErrorStatus,
 			  unsigned char *Parameter0,
@@ -3244,7 +3244,7 @@ DAC960_LP_ErrorStatusRegister_T;
 
 
 /*
-  Define inline functions to provide an abstraction for reading and writing the
+  Define functions to provide an abstraction for reading and writing the
   DAC960 LP Series Controller Interface Registers.
 */
 
@@ -3416,19 +3416,19 @@ void DAC960_LP_WriteHardwareMailbox(void __iomem *ControllerBaseAddress,
 		DAC960_LP_CommandMailboxBusAddressOffset);
 }
 
-static inline DAC960_V2_CommandIdentifier_T
+static DAC960_V2_CommandIdentifier_T
 DAC960_LP_ReadCommandIdentifier(void __iomem *ControllerBaseAddress)
 {
   return readw(ControllerBaseAddress + DAC960_LP_CommandStatusOffset);
 }
 
-static inline DAC960_V2_CommandStatus_T
+static DAC960_V2_CommandStatus_T
 DAC960_LP_ReadCommandStatus(void __iomem *ControllerBaseAddress)
 {
   return readw(ControllerBaseAddress + DAC960_LP_CommandStatusOffset + 2);
 }
 
-static inline bool
+static bool
 DAC960_LP_ReadErrorStatus(void __iomem *ControllerBaseAddress,
 			  unsigned char *ErrorStatus,
 			  unsigned char *Parameter0,
@@ -3558,7 +3558,7 @@ DAC960_LA_ErrorStatusRegister_T;
 
 
 /*
-  Define inline functions to provide an abstraction for reading and writing the
+  Define functions to provide an abstraction for reading and writing the
   DAC960 LA Series Controller Interface Registers.
 */
 
@@ -3736,20 +3736,20 @@ void DAC960_LA_WriteHardwareMailbox(void __iomem *ControllerBaseAddress,
 	 ControllerBaseAddress + DAC960_LA_MailboxRegister12Offset);
 }
 
-static inline DAC960_V1_CommandIdentifier_T
+static DAC960_V1_CommandIdentifier_T
 DAC960_LA_ReadStatusCommandIdentifier(void __iomem *ControllerBaseAddress)
 {
   return readb(ControllerBaseAddress
 	       + DAC960_LA_StatusCommandIdentifierRegOffset);
 }
 
-static inline DAC960_V1_CommandStatus_T
+static DAC960_V1_CommandStatus_T
 DAC960_LA_ReadStatusRegister(void __iomem *ControllerBaseAddress)
 {
   return readw(ControllerBaseAddress + DAC960_LA_StatusRegisterOffset);
 }
 
-static inline bool
+static bool
 DAC960_LA_ReadErrorStatus(void __iomem *ControllerBaseAddress,
 			  unsigned char *ErrorStatus,
 			  unsigned char *Parameter0,
@@ -3879,7 +3879,7 @@ DAC960_PG_ErrorStatusRegister_T;
 
 
 /*
-  Define inline functions to provide an abstraction for reading and writing the
+  Define functions to provide an abstraction for reading and writing the
   DAC960 PG Series Controller Interface Registers.
 */
 
@@ -4061,20 +4061,20 @@ void DAC960_PG_WriteHardwareMailbox(void __iomem *ControllerBaseAddress,
 	 ControllerBaseAddress + DAC960_PG_MailboxRegister12Offset);
 }
 
-static inline DAC960_V1_CommandIdentifier_T
+static DAC960_V1_CommandIdentifier_T
 DAC960_PG_ReadStatusCommandIdentifier(void __iomem *ControllerBaseAddress)
 {
   return readb(ControllerBaseAddress
 	       + DAC960_PG_StatusCommandIdentifierRegOffset);
 }
 
-static inline DAC960_V1_CommandStatus_T
+static DAC960_V1_CommandStatus_T
 DAC960_PG_ReadStatusRegister(void __iomem *ControllerBaseAddress)
 {
   return readw(ControllerBaseAddress + DAC960_PG_StatusRegisterOffset);
 }
 
-static inline bool
+static bool
 DAC960_PG_ReadErrorStatus(void __iomem *ControllerBaseAddress,
 			  unsigned char *ErrorStatus,
 			  unsigned char *Parameter0,
@@ -4199,7 +4199,7 @@ DAC960_PD_ErrorStatusRegister_T;
 
 
 /*
-  Define inline functions to provide an abstraction for reading and writing the
+  Define functions to provide an abstraction for reading and writing the
   DAC960 PD Series Controller Interface Registers.
 */
 
@@ -4323,20 +4323,20 @@ void DAC960_PD_WriteCommandMailbox(void __iomem *ControllerBaseAddress,
 	 ControllerBaseAddress + DAC960_PD_MailboxRegister12Offset);
 }
 
-static inline DAC960_V1_CommandIdentifier_T
+static DAC960_V1_CommandIdentifier_T
 DAC960_PD_ReadStatusCommandIdentifier(void __iomem *ControllerBaseAddress)
 {
   return readb(ControllerBaseAddress
 	       + DAC960_PD_StatusCommandIdentifierRegOffset);
 }
 
-static inline DAC960_V1_CommandStatus_T
+static DAC960_V1_CommandStatus_T
 DAC960_PD_ReadStatusRegister(void __iomem *ControllerBaseAddress)
 {
   return readw(ControllerBaseAddress + DAC960_PD_StatusRegisterOffset);
 }
 
-static inline bool
+static bool
 DAC960_PD_ReadErrorStatus(void __iomem *ControllerBaseAddress,
 			  unsigned char *ErrorStatus,
 			  unsigned char *Parameter0,
@@ -4356,13 +4356,13 @@ DAC960_PD_ReadErrorStatus(void __iomem *ControllerBaseAddress,
   return true;
 }
 
-static inline void DAC960_P_To_PD_TranslateEnquiry(void *Enquiry)
+static void DAC960_P_To_PD_TranslateEnquiry(void *Enquiry)
 {
   memcpy(Enquiry + 132, Enquiry + 36, 64);
   memset(Enquiry + 36, 0, 96);
 }
 
-static inline void DAC960_P_To_PD_TranslateDeviceState(void *DeviceState)
+static void DAC960_P_To_PD_TranslateDeviceState(void *DeviceState)
 {
   memcpy(DeviceState + 2, DeviceState + 3, 1);
   memmove(DeviceState + 4, DeviceState + 5, 2);

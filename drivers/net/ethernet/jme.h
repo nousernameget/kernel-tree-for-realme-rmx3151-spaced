@@ -471,7 +471,7 @@ enum jme_flags_bits {
 #define JME_REG_LEN		0x500
 #define MAX_ETHERNET_JUMBO_PACKET_SIZE 9216
 
-static inline struct jme_adapter*
+static struct jme_adapter*
 jme_napi_priv(struct napi_struct *napi)
 {
 	struct jme_adapter *jme;
@@ -816,12 +816,12 @@ enum jme_smi_bit_shift {
 	SMI_PHY_ADDR_SHIFT	= 6,
 };
 
-static inline u32 smi_reg_addr(int x)
+static u32 smi_reg_addr(int x)
 {
 	return (x << SMI_REG_ADDR_SHIFT) & SMI_REG_ADDR_MASK;
 }
 
-static inline u32 smi_phy_addr(int x)
+static u32 smi_phy_addr(int x)
 {
 	return (x << SMI_PHY_ADDR_SHIFT) & SMI_PHY_ADDR_MASK;
 }
@@ -1184,7 +1184,7 @@ static char *MISC_REG_NAME[] = {
 	"JME_TIMER1", "JME_TIMER2",   "UNKNOWN",     "JME_APMC",
 	"JME_PCCSRX0"};
 
-static inline void reg_dbg(const struct jme_adapter *jme,
+static void reg_dbg(const struct jme_adapter *jme,
 		const char *msg, u32 val, u32 reg)
 {
 	const char *regname;
@@ -1205,26 +1205,26 @@ static inline void reg_dbg(const struct jme_adapter *jme,
 			msg, val, regname);
 }
 #else
-static inline void reg_dbg(const struct jme_adapter *jme,
+static void reg_dbg(const struct jme_adapter *jme,
 		const char *msg, u32 val, u32 reg) {}
 #endif
 
 /*
  * Read/Write MMaped I/O Registers
  */
-static inline u32 jread32(struct jme_adapter *jme, u32 reg)
+static u32 jread32(struct jme_adapter *jme, u32 reg)
 {
 	return readl(jme->regs + reg);
 }
 
-static inline void jwrite32(struct jme_adapter *jme, u32 reg, u32 val)
+static void jwrite32(struct jme_adapter *jme, u32 reg, u32 val)
 {
 	reg_dbg(jme, "REG WRITE", val, reg);
 	writel(val, jme->regs + reg);
 	reg_dbg(jme, "VAL AFTER WRITE", readl(jme->regs + reg), reg);
 }
 
-static inline void jwrite32f(struct jme_adapter *jme, u32 reg, u32 val)
+static void jwrite32f(struct jme_adapter *jme, u32 reg, u32 val)
 {
 	/*
 	 * Read after write should cause flush
@@ -1257,12 +1257,12 @@ enum jme_phy_reg17_vals {
 /*
  * Workaround
  */
-static inline int is_buggy250(unsigned short device, u8 chiprev)
+static int is_buggy250(unsigned short device, u8 chiprev)
 {
 	return device == PCI_DEVICE_ID_JMICRON_JMC250 && chiprev == 0x11;
 }
 
-static inline int new_phy_power_ctrl(u8 chip_main_rev)
+static int new_phy_power_ctrl(u8 chip_main_rev)
 {
 	return chip_main_rev >= 5;
 }

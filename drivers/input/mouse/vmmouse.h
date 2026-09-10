@@ -17,11 +17,11 @@
 int vmmouse_detect(struct psmouse *psmouse, bool set_properties);
 int vmmouse_init(struct psmouse *psmouse);
 #else
-static inline int vmmouse_detect(struct psmouse *psmouse, bool set_properties)
+static int vmmouse_detect(struct psmouse *psmouse, bool set_properties)
 {
 	return -ENOSYS;
 }
-static inline int vmmouse_init(struct psmouse *psmouse)
+static int vmmouse_init(struct psmouse *psmouse)
 {
 	return -ENOSYS;
 }

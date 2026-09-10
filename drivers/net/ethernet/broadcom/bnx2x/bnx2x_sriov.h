@@ -363,18 +363,18 @@ struct bnx2x_vfdb {
 };
 
 /* queue access */
-static inline struct bnx2x_vf_queue *vfq_get(struct bnx2x_virtf *vf, u8 index)
+static struct bnx2x_vf_queue *vfq_get(struct bnx2x_virtf *vf, u8 index)
 {
 	return &(vf->vfqs[index]);
 }
 
 /* FW ids */
-static inline u8 vf_igu_sb(struct bnx2x_virtf *vf, u16 sb_idx)
+static u8 vf_igu_sb(struct bnx2x_virtf *vf, u16 sb_idx)
 {
 	return vf->igu_base_id + sb_idx;
 }
 
-static inline u8 vf_hc_qzone(struct bnx2x_virtf *vf, u16 sb_idx)
+static u8 vf_hc_qzone(struct bnx2x_virtf *vf, u16 sb_idx)
 {
 	return vf_igu_sb(vf, sb_idx);
 }
@@ -384,7 +384,7 @@ static u8 vfq_cl_id(struct bnx2x_virtf *vf, struct bnx2x_vf_queue *q)
 	return vf->igu_base_id + q->index;
 }
 
-static inline u8 vfq_stat_id(struct bnx2x_virtf *vf, struct bnx2x_vf_queue *q)
+static u8 vfq_stat_id(struct bnx2x_virtf *vf, struct bnx2x_vf_queue *q)
 {
 	if (vf->cfg_flags & VF_CFG_STATS_COALESCE)
 		return vf->leading_rss;
@@ -392,7 +392,7 @@ static inline u8 vfq_stat_id(struct bnx2x_virtf *vf, struct bnx2x_vf_queue *q)
 		return vfq_cl_id(vf, q);
 }
 
-static inline u8 vfq_qzone_id(struct bnx2x_virtf *vf, struct bnx2x_vf_queue *q)
+static u8 vfq_qzone_id(struct bnx2x_virtf *vf, struct bnx2x_vf_queue *q)
 {
 	return vfq_cl_id(vf, q);
 }
@@ -512,13 +512,13 @@ int bnx2x_vfpf_config_rss(struct bnx2x *bp,
 int bnx2x_vfpf_set_mcast(struct net_device *dev);
 int bnx2x_vfpf_storm_rx_mode(struct bnx2x *bp);
 
-static inline void bnx2x_vf_fill_fw_str(struct bnx2x *bp, char *buf,
+static void bnx2x_vf_fill_fw_str(struct bnx2x *bp, char *buf,
 					size_t buf_len)
 {
 	strlcpy(buf, bp->acquire_resp.pfdev_info.fw_ver, buf_len);
 }
 
-static inline int bnx2x_vf_ustorm_prods_offset(struct bnx2x *bp,
+static int bnx2x_vf_ustorm_prods_offset(struct bnx2x *bp,
 					       struct bnx2x_fastpath *fp)
 {
 	return PXP_VF_ADDR_USDM_QUEUES_START +
@@ -533,7 +533,7 @@ void bnx2x_vf_pci_dealloc(struct bnx2x *bp);
 int bnx2x_vf_pci_alloc(struct bnx2x *bp);
 int bnx2x_enable_sriov(struct bnx2x *bp);
 void bnx2x_disable_sriov(struct bnx2x *bp);
-static inline int bnx2x_vf_headroom(struct bnx2x *bp)
+static int bnx2x_vf_headroom(struct bnx2x *bp)
 {
 	return bp->vfdb->sriov.nr_virtfn * BNX2X_CIDS_PER_VF;
 }
@@ -558,13 +558,13 @@ int bnx2x_vfpf_update_vlan(struct bnx2x *bp, u16 vid, u8 vf_qid, bool add);
 #define VF_MAC_CREDIT_CNT		0
 #define VF_VLAN_CREDIT_CNT		0
 
-static inline void bnx2x_iov_set_queue_sp_obj(struct bnx2x *bp, int vf_cid,
+static void bnx2x_iov_set_queue_sp_obj(struct bnx2x *bp, int vf_cid,
 				struct bnx2x_queue_sp_obj **q_obj) {}
 static inline void bnx2x_vf_handle_flr_event(struct bnx2x *bp) {}
-static inline int bnx2x_iov_eq_sp_event(struct bnx2x *bp,
+static int bnx2x_iov_eq_sp_event(struct bnx2x *bp,
 					union event_ring_elem *elem) {return 1; }
 static inline void bnx2x_vf_mbx(struct bnx2x *bp) {}
-static inline void bnx2x_vf_mbx_schedule(struct bnx2x *bp,
+static void bnx2x_vf_mbx_schedule(struct bnx2x *bp,
 					 struct vf_pf_event_data *vfpf_event) {}
 static inline int bnx2x_iov_init_ilt(struct bnx2x *bp, u16 line) {return line; }
 static inline void bnx2x_iov_init_dq(struct bnx2x *bp) {}
@@ -572,37 +572,37 @@ static inline int bnx2x_iov_alloc_mem(struct bnx2x *bp) {return 0; }
 static inline void bnx2x_iov_free_mem(struct bnx2x *bp) {}
 static inline int bnx2x_iov_chip_cleanup(struct bnx2x *bp) {return 0; }
 static inline void bnx2x_iov_init_dmae(struct bnx2x *bp) {}
-static inline int bnx2x_iov_init_one(struct bnx2x *bp, int int_mode_param,
+static int bnx2x_iov_init_one(struct bnx2x *bp, int int_mode_param,
 				     int num_vfs_param) {return 0; }
 static inline void bnx2x_iov_remove_one(struct bnx2x *bp) {}
 static inline int bnx2x_enable_sriov(struct bnx2x *bp) {return 0; }
 static inline void bnx2x_disable_sriov(struct bnx2x *bp) {}
-static inline int bnx2x_vfpf_acquire(struct bnx2x *bp,
+static int bnx2x_vfpf_acquire(struct bnx2x *bp,
 				     u8 tx_count, u8 rx_count) {return 0; }
 static inline int bnx2x_vfpf_release(struct bnx2x *bp) {return 0; }
 static inline int bnx2x_vfpf_init(struct bnx2x *bp) {return 0; }
 static inline void bnx2x_vfpf_close_vf(struct bnx2x *bp) {}
 static inline int bnx2x_vfpf_setup_q(struct bnx2x *bp, struct bnx2x_fastpath *fp, bool is_leading) {return 0; }
-static inline int bnx2x_vfpf_config_mac(struct bnx2x *bp, u8 *addr,
+static int bnx2x_vfpf_config_mac(struct bnx2x *bp, u8 *addr,
 					u8 vf_qid, bool set) {return 0; }
-static inline int bnx2x_vfpf_config_rss(struct bnx2x *bp,
+static int bnx2x_vfpf_config_rss(struct bnx2x *bp,
 					struct bnx2x_config_rss_params *params) {return 0; }
 static inline int bnx2x_vfpf_set_mcast(struct net_device *dev) {return 0; }
 static inline int bnx2x_vfpf_storm_rx_mode(struct bnx2x *bp) {return 0; }
 static inline int bnx2x_iov_nic_init(struct bnx2x *bp) {return 0; }
 static inline int bnx2x_vf_headroom(struct bnx2x *bp) {return 0; }
 static inline void bnx2x_iov_adjust_stats_req(struct bnx2x *bp) {}
-static inline void bnx2x_vf_fill_fw_str(struct bnx2x *bp, char *buf,
+static void bnx2x_vf_fill_fw_str(struct bnx2x *bp, char *buf,
 					size_t buf_len) {}
-static inline int bnx2x_vf_ustorm_prods_offset(struct bnx2x *bp,
+static int bnx2x_vf_ustorm_prods_offset(struct bnx2x *bp,
 					       struct bnx2x_fastpath *fp) {return 0; }
-static inline enum sample_bulletin_result bnx2x_sample_bulletin(struct bnx2x *bp)
+static enum sample_bulletin_result bnx2x_sample_bulletin(struct bnx2x *bp)
 {
 	return PFVF_BULLETIN_UNCHANGED;
 }
 static inline void bnx2x_timer_sriov(struct bnx2x *bp) {}
 
-static inline void __iomem *bnx2x_vf_doorbells(struct bnx2x *bp)
+static void __iomem *bnx2x_vf_doorbells(struct bnx2x *bp)
 {
 	return NULL;
 }
@@ -618,10 +618,10 @@ static inline void bnx2x_schedule_iov_task(struct bnx2x *bp, enum bnx2x_iov_flag
 static inline void bnx2x_iov_link_update(struct bnx2x *bp) {}
 static inline int bnx2x_iov_link_update_vf(struct bnx2x *bp, int idx) {return 0; }
 
-static inline int bnx2x_set_vf_link_state(struct net_device *dev, int vf,
+static int bnx2x_set_vf_link_state(struct net_device *dev, int vf,
 					  int link_state) {return 0; }
 struct pf_vf_bulletin_content;
-static inline void bnx2x_vf_bulletin_finalize(struct pf_vf_bulletin_content *bulletin,
+static void bnx2x_vf_bulletin_finalize(struct pf_vf_bulletin_content *bulletin,
 					      bool support_long) {}
 
 static inline int bnx2x_vfpf_update_vlan(struct bnx2x *bp, u16 vid, u8 vf_qid, bool add) {return 0; }

@@ -37,10 +37,10 @@ void wcn36xx_debugfs_init(struct wcn36xx *wcn);
 void wcn36xx_debugfs_exit(struct wcn36xx *wcn);
 
 #else
-static inline void wcn36xx_debugfs_init(struct wcn36xx *wcn)
+static void wcn36xx_debugfs_init(struct wcn36xx *wcn)
 {
 }
-static inline void wcn36xx_debugfs_exit(struct wcn36xx *wcn)
+static void wcn36xx_debugfs_exit(struct wcn36xx *wcn)
 {
 }
 

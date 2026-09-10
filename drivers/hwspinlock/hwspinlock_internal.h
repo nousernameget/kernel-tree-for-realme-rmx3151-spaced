@@ -67,7 +67,7 @@ struct hwspinlock_device {
 	struct hwspinlock lock[0];
 };
 
-static inline int hwlock_to_id(struct hwspinlock *hwlock)
+static int hwlock_to_id(struct hwspinlock *hwlock)
 {
 	int local_id = hwlock - &hwlock->bank->lock[0];
 

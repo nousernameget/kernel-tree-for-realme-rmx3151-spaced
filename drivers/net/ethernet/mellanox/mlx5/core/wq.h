@@ -111,17 +111,17 @@ u32 mlx5_wq_ll_get_size(struct mlx5_wq_ll *wq);
 void mlx5_wq_destroy(struct mlx5_wq_ctrl *wq_ctrl);
 void mlx5_cqwq_destroy(struct mlx5_frag_wq_ctrl *wq_ctrl);
 
-static inline u16 mlx5_wq_cyc_ctr2ix(struct mlx5_wq_cyc *wq, u16 ctr)
+static u16 mlx5_wq_cyc_ctr2ix(struct mlx5_wq_cyc *wq, u16 ctr)
 {
 	return ctr & wq->sz_m1;
 }
 
-static inline void *mlx5_wq_cyc_get_wqe(struct mlx5_wq_cyc *wq, u16 ix)
+static void *mlx5_wq_cyc_get_wqe(struct mlx5_wq_cyc *wq, u16 ix)
 {
 	return wq->buf + (ix << wq->log_stride);
 }
 
-static inline int mlx5_wq_cyc_cc_bigger(u16 cc1, u16 cc2)
+static int mlx5_wq_cyc_cc_bigger(u16 cc1, u16 cc2)
 {
 	int equal   = (cc1 == cc2);
 	int smaller = 0x8000 & (cc1 - cc2);
@@ -129,12 +129,12 @@ static inline int mlx5_wq_cyc_cc_bigger(u16 cc1, u16 cc2)
 	return !equal && !smaller;
 }
 
-static inline u32 mlx5_cqwq_get_ci(struct mlx5_cqwq *wq)
+static u32 mlx5_cqwq_get_ci(struct mlx5_cqwq *wq)
 {
 	return wq->cc & wq->sz_m1;
 }
 
-static inline void *mlx5_cqwq_get_wqe(struct mlx5_cqwq *wq, u32 ix)
+static void *mlx5_cqwq_get_wqe(struct mlx5_cqwq *wq, u32 ix)
 {
 	unsigned int frag = (ix >> wq->log_frag_strides);
 
@@ -142,22 +142,22 @@ static inline void *mlx5_cqwq_get_wqe(struct mlx5_cqwq *wq, u32 ix)
 		((wq->frag_sz_m1 & ix) << wq->log_stride);
 }
 
-static inline u32 mlx5_cqwq_get_wrap_cnt(struct mlx5_cqwq *wq)
+static u32 mlx5_cqwq_get_wrap_cnt(struct mlx5_cqwq *wq)
 {
 	return wq->cc >> wq->log_sz;
 }
 
-static inline void mlx5_cqwq_pop(struct mlx5_cqwq *wq)
+static void mlx5_cqwq_pop(struct mlx5_cqwq *wq)
 {
 	wq->cc++;
 }
 
-static inline void mlx5_cqwq_update_db_record(struct mlx5_cqwq *wq)
+static void mlx5_cqwq_update_db_record(struct mlx5_cqwq *wq)
 {
 	*wq->db = cpu_to_be32(wq->cc & 0xffffff);
 }
 
-static inline struct mlx5_cqe64 *mlx5_cqwq_get_cqe(struct mlx5_cqwq *wq)
+static struct mlx5_cqe64 *mlx5_cqwq_get_cqe(struct mlx5_cqwq *wq)
 {
 	u32 ci = mlx5_cqwq_get_ci(wq);
 	struct mlx5_cqe64 *cqe = mlx5_cqwq_get_wqe(wq, ci);
@@ -173,29 +173,29 @@ static inline struct mlx5_cqe64 *mlx5_cqwq_get_cqe(struct mlx5_cqwq *wq)
 	return cqe;
 }
 
-static inline int mlx5_wq_ll_is_full(struct mlx5_wq_ll *wq)
+static int mlx5_wq_ll_is_full(struct mlx5_wq_ll *wq)
 {
 	return wq->cur_sz == wq->sz_m1;
 }
 
-static inline int mlx5_wq_ll_is_empty(struct mlx5_wq_ll *wq)
+static int mlx5_wq_ll_is_empty(struct mlx5_wq_ll *wq)
 {
 	return !wq->cur_sz;
 }
 
-static inline void *mlx5_wq_ll_get_wqe(struct mlx5_wq_ll *wq, u16 ix)
+static void *mlx5_wq_ll_get_wqe(struct mlx5_wq_ll *wq, u16 ix)
 {
 	return wq->buf + (ix << wq->log_stride);
 }
 
-static inline void mlx5_wq_ll_push(struct mlx5_wq_ll *wq, u16 head_next)
+static void mlx5_wq_ll_push(struct mlx5_wq_ll *wq, u16 head_next)
 {
 	wq->head = head_next;
 	wq->wqe_ctr++;
 	wq->cur_sz++;
 }
 
-static inline void mlx5_wq_ll_pop(struct mlx5_wq_ll *wq, __be16 ix,
+static void mlx5_wq_ll_pop(struct mlx5_wq_ll *wq, __be16 ix,
 				  __be16 *next_tail_next)
 {
 	*wq->tail_next = ix;
@@ -203,7 +203,7 @@ static inline void mlx5_wq_ll_pop(struct mlx5_wq_ll *wq, __be16 ix,
 	wq->cur_sz--;
 }
 
-static inline void mlx5_wq_ll_update_db_record(struct mlx5_wq_ll *wq)
+static void mlx5_wq_ll_update_db_record(struct mlx5_wq_ll *wq)
 {
 	*wq->db = cpu_to_be32(wq->wqe_ctr);
 }

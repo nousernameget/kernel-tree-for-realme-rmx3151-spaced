@@ -21,7 +21,7 @@ struct nvkm_grctx {
 	u32 ctxvals_base;
 };
 
-static inline void
+static void
 cp_out(struct nvkm_grctx *ctx, u32 inst)
 {
 	u32 *ctxprog = ctx->ucode;
@@ -33,13 +33,13 @@ cp_out(struct nvkm_grctx *ctx, u32 inst)
 	ctxprog[ctx->ctxprog_len++] = inst;
 }
 
-static inline void
+static void
 cp_lsr(struct nvkm_grctx *ctx, u32 val)
 {
 	cp_out(ctx, CP_LOAD_SR | val);
 }
 
-static inline void
+static void
 cp_ctx(struct nvkm_grctx *ctx, u32 reg, u32 length)
 {
 	ctx->ctxprog_reg = (reg - 0x00400000) >> 2;
@@ -55,7 +55,7 @@ cp_ctx(struct nvkm_grctx *ctx, u32 reg, u32 length)
 	cp_out(ctx, CP_CTX | (length << CP_CTX_COUNT_SHIFT) | ctx->ctxprog_reg);
 }
 
-static inline void
+static void
 cp_name(struct nvkm_grctx *ctx, int name)
 {
 	u32 *ctxprog = ctx->ucode;
@@ -75,7 +75,7 @@ cp_name(struct nvkm_grctx *ctx, int name)
 	}
 }
 
-static inline void
+static void
 _cp_bra(struct nvkm_grctx *ctx, u32 mod, int flag, int state, int name)
 {
 	int ip = 0;
@@ -93,21 +93,21 @@ _cp_bra(struct nvkm_grctx *ctx, u32 mod, int flag, int state, int name)
 #define cp_cal(c, f, s, n) _cp_bra((c), 1, CP_FLAG_##f, CP_FLAG_##f##_##s, n)
 #define cp_ret(c, f, s) _cp_bra((c), 2, CP_FLAG_##f, CP_FLAG_##f##_##s, 0)
 
-static inline void
+static void
 _cp_wait(struct nvkm_grctx *ctx, int flag, int state)
 {
 	cp_out(ctx, CP_WAIT | flag | (state ? CP_WAIT_SET : 0));
 }
 #define cp_wait(c, f, s) _cp_wait((c), CP_FLAG_##f, CP_FLAG_##f##_##s)
 
-static inline void
+static void
 _cp_set(struct nvkm_grctx *ctx, int flag, int state)
 {
 	cp_out(ctx, CP_SET | flag | (state ? CP_SET_1 : 0));
 }
 #define cp_set(c, f, s) _cp_set((c), CP_FLAG_##f, CP_FLAG_##f##_##s)
 
-static inline void
+static void
 cp_pos(struct nvkm_grctx *ctx, int offset)
 {
 	ctx->ctxvals_pos = offset;
@@ -117,7 +117,7 @@ cp_pos(struct nvkm_grctx *ctx, int offset)
 	cp_out(ctx, CP_SET_CONTEXT_POINTER);
 }
 
-static inline void
+static void
 gr_def(struct nvkm_grctx *ctx, u32 reg, u32 val)
 {
 	if (ctx->mode != NVKM_GRCTX_VALS)

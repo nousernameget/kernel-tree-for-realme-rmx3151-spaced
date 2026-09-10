@@ -79,7 +79,7 @@ struct irda_sock {
 	LOCAL_FLOW rx_flow;
 };
 
-static inline struct irda_sock *irda_sk(struct sock *sk)
+static struct irda_sock *irda_sk(struct sock *sk)
 {
 	return (struct irda_sock *)sk;
 }

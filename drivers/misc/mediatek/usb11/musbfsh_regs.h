@@ -326,53 +326,53 @@
 #define MUSBFSH_BUSCTL_OFFSET(_epnum, _offset) \
 	(0x80 + (8*(_epnum)) + (_offset))
 
-static inline void musbfsh_write_txfifosz(void __iomem *mbase, u8 c_size)
+static void musbfsh_write_txfifosz(void __iomem *mbase, u8 c_size)
 {
 	musbfsh_writeb(mbase, MUSBFSH_TXFIFOSZ, c_size);
 }
 
-static inline void musbfsh_write_txfifoadd(void __iomem *mbase, u16 c_off)
+static void musbfsh_write_txfifoadd(void __iomem *mbase, u16 c_off)
 {
 	musbfsh_writew(mbase, MUSBFSH_TXFIFOADD, c_off);
 }
 
-static inline void musbfsh_write_rxfifosz(void __iomem *mbase, u8 c_size)
+static void musbfsh_write_rxfifosz(void __iomem *mbase, u8 c_size)
 {
 	musbfsh_writeb(mbase, MUSBFSH_RXFIFOSZ, c_size);
 }
 
-static inline void musbfsh_write_rxfifoadd(void __iomem *mbase, u16 c_off)
+static void musbfsh_write_rxfifoadd(void __iomem *mbase, u16 c_off)
 {
 	musbfsh_writew(mbase, MUSBFSH_RXFIFOADD, c_off);
 }
 
-static inline u8 musbfsh_read_txfifosz(void __iomem *mbase)
+static u8 musbfsh_read_txfifosz(void __iomem *mbase)
 {
 	return musbfsh_readb(mbase, MUSBFSH_TXFIFOSZ);
 }
 
-static inline u16 musbfsh_read_txfifoadd(void __iomem *mbase)
+static u16 musbfsh_read_txfifoadd(void __iomem *mbase)
 {
 	return musbfsh_readw(mbase, MUSBFSH_TXFIFOADD);
 }
 
-static inline u8 musbfsh_read_rxfifosz(void __iomem *mbase)
+static u8 musbfsh_read_rxfifosz(void __iomem *mbase)
 {
 	return musbfsh_readb(mbase, MUSBFSH_RXFIFOSZ);
 }
 
-static inline u16 musbfsh_read_rxfifoadd(void __iomem *mbase)
+static u16 musbfsh_read_rxfifoadd(void __iomem *mbase)
 {
 	return musbfsh_readw(mbase, MUSBFSH_RXFIFOADD);
 }
 
-static inline u8 musbfsh_read_configdata(void __iomem *mbase)
+static u8 musbfsh_read_configdata(void __iomem *mbase)
 {
 	musbfsh_writeb(mbase, MUSBFSH_INDEX, 0);
 	return musbfsh_readb(mbase, 0x10 + MUSBFSH_CONFIGDATA);
 }
 
-static inline void __iomem *musbfsh_read_target_reg_base(u8 i,
+static void __iomem *musbfsh_read_target_reg_base(u8 i,
 							 void __iomem *mbase)
 {
 	void __iomem *tmp_base;
@@ -381,13 +381,13 @@ static inline void __iomem *musbfsh_read_target_reg_base(u8 i,
 	return tmp_base;
 }
 
-static inline void musbfsh_write_rxfunaddr(void __iomem *mbase, u8 epnum,
+static void musbfsh_write_rxfunaddr(void __iomem *mbase, u8 epnum,
 					   u8 qh_addr_reg)
 {
 	musbfsh_writew(mbase, MUSBFSH_RXFUNCADDR + 8 * epnum, qh_addr_reg);
 }
 
-static inline void musbfsh_write_rxhubaddr(void __iomem *mbase, u8 epnum,
+static void musbfsh_write_rxhubaddr(void __iomem *mbase, u8 epnum,
 					   u8 qh_h_addr_reg)
 {
 	u16 rx_hub_port_addr = musbfsh_readw(mbase,
@@ -397,7 +397,7 @@ static inline void musbfsh_write_rxhubaddr(void __iomem *mbase, u8 epnum,
 	musbfsh_writew(mbase, MUSBFSH_RXHUBADDR + 8 * epnum, rx_hub_port_addr);
 }
 
-static inline void musbfsh_write_rxhubport(void __iomem *mbase, u8 epnum,
+static void musbfsh_write_rxhubport(void __iomem *mbase, u8 epnum,
 					   u8 qh_h_port_reg)
 {
 	u16 rx_hub_port_addr = musbfsh_readw(mbase,
@@ -409,13 +409,13 @@ static inline void musbfsh_write_rxhubport(void __iomem *mbase, u8 epnum,
 	musbfsh_writew(mbase, MUSBFSH_RXHUBADDR + 8 * epnum, rx_hub_port_addr);
 }
 
-static inline void musbfsh_write_txfunaddr(void __iomem *mbase, u8 epnum,
+static void musbfsh_write_txfunaddr(void __iomem *mbase, u8 epnum,
 					   u8 qh_addr_reg)
 {
 	musbfsh_writew(mbase, MUSBFSH_TXFUNCADDR + 8 * epnum, qh_addr_reg);
 }
 
-static inline void musbfsh_write_txhubaddr(void __iomem *mbase, u8 epnum,
+static void musbfsh_write_txhubaddr(void __iomem *mbase, u8 epnum,
 					   u8 qh_h_addr_reg)
 {
 	u16 tx_hub_port_addr = musbfsh_readw(mbase,
@@ -425,7 +425,7 @@ static inline void musbfsh_write_txhubaddr(void __iomem *mbase, u8 epnum,
 	musbfsh_writew(mbase, MUSBFSH_TXHUBADDR + 8 * epnum, tx_hub_port_addr);
 }
 
-static inline void musbfsh_write_txhubport(void __iomem *mbase, u8 epnum,
+static void musbfsh_write_txhubport(void __iomem *mbase, u8 epnum,
 					   u8 qh_h_port_reg)
 {
 	u16 tx_hub_port_addr = musbfsh_readw(mbase,

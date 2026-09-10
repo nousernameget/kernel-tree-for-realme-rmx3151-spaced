@@ -927,7 +927,7 @@ struct mlx4_priv {
 	struct work_struct	opreq_task;
 };
 
-static inline struct mlx4_priv *mlx4_priv(struct mlx4_dev *dev)
+static struct mlx4_priv *mlx4_priv(struct mlx4_dev *dev)
 {
 	return container_of(dev, struct mlx4_priv, dev);
 }
@@ -1370,27 +1370,27 @@ int mlx4_ACCESS_REG_wrapper(struct mlx4_dev *dev, int slave,
 int mlx4_get_mgm_entry_size(struct mlx4_dev *dev);
 int mlx4_get_qp_per_mgm(struct mlx4_dev *dev);
 
-static inline void set_param_l(u64 *arg, u32 val)
+static void set_param_l(u64 *arg, u32 val)
 {
 	*arg = (*arg & 0xffffffff00000000ULL) | (u64) val;
 }
 
-static inline void set_param_h(u64 *arg, u32 val)
+static void set_param_h(u64 *arg, u32 val)
 {
 	*arg = (*arg & 0xffffffff) | ((u64) val << 32);
 }
 
-static inline u32 get_param_l(u64 *arg)
+static u32 get_param_l(u64 *arg)
 {
 	return (u32) (*arg & 0xffffffff);
 }
 
-static inline u32 get_param_h(u64 *arg)
+static u32 get_param_h(u64 *arg)
 {
 	return (u32)(*arg >> 32);
 }
 
-static inline spinlock_t *mlx4_tlock(struct mlx4_dev *dev)
+static spinlock_t *mlx4_tlock(struct mlx4_dev *dev)
 {
 	return &mlx4_priv(dev)->mfunc.master.res_tracker.lock;
 }

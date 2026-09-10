@@ -46,7 +46,7 @@ struct stv0288_config {
 extern struct dvb_frontend *stv0288_attach(const struct stv0288_config *config,
 					   struct i2c_adapter *i2c);
 #else
-static inline struct dvb_frontend *stv0288_attach(const struct stv0288_config *config,
+static struct dvb_frontend *stv0288_attach(const struct stv0288_config *config,
 					   struct i2c_adapter *i2c)
 {
 	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);
@@ -54,7 +54,7 @@ static inline struct dvb_frontend *stv0288_attach(const struct stv0288_config *c
 }
 #endif /* CONFIG_DVB_STV0288 */
 
-static inline int stv0288_writereg(struct dvb_frontend *fe, u8 reg, u8 val)
+static int stv0288_writereg(struct dvb_frontend *fe, u8 reg, u8 val)
 {
 	int r = 0;
 	u8 buf[] = { reg, val };

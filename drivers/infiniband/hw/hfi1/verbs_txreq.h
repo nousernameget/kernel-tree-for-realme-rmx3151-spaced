@@ -73,7 +73,7 @@ struct verbs_txreq *__get_txreq(struct hfi1_ibdev *dev,
 				struct rvt_qp *qp);
 
 #define VERBS_TXREQ_GFP (GFP_ATOMIC | __GFP_NOWARN)
-static inline struct verbs_txreq *get_txreq(struct hfi1_ibdev *dev,
+static struct verbs_txreq *get_txreq(struct hfi1_ibdev *dev,
 					    struct rvt_qp *qp)
 	__must_hold(&qp->slock)
 {
@@ -96,12 +96,12 @@ static inline struct verbs_txreq *get_txreq(struct hfi1_ibdev *dev,
 	return tx;
 }
 
-static inline struct sdma_txreq *get_sdma_txreq(struct verbs_txreq *tx)
+static struct sdma_txreq *get_sdma_txreq(struct verbs_txreq *tx)
 {
 	return &tx->txreq;
 }
 
-static inline struct verbs_txreq *get_waiting_verbs_txreq(struct rvt_qp *qp)
+static struct verbs_txreq *get_waiting_verbs_txreq(struct rvt_qp *qp)
 {
 	struct sdma_txreq *stx;
 	struct hfi1_qp_priv *priv = qp->priv;

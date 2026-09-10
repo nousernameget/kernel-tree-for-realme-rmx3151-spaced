@@ -6628,7 +6628,7 @@ struct bnx2_sw_bd {
 /* Its faster to compute this from data than storing it in sw_bd
  * (less cache misses)
  */
-static inline struct l2_fhdr *get_l2_fhdr(u8 *data)
+static struct l2_fhdr *get_l2_fhdr(u8 *data)
 {
 	return (struct l2_fhdr *)(PTR_ALIGN(data, BNX2_RX_ALIGN) + NET_SKB_PAD);
 }

@@ -37,7 +37,7 @@
 #include <soc/fsl/qman.h>
 #include "regs.h"
 
-static inline void __dma_to_qm_sg(struct qm_sg_entry *qm_sg_ptr, dma_addr_t dma,
+static void __dma_to_qm_sg(struct qm_sg_entry *qm_sg_ptr, dma_addr_t dma,
 				  u16 offset)
 {
 	qm_sg_entry_set64(qm_sg_ptr, dma);
@@ -46,28 +46,28 @@ static inline void __dma_to_qm_sg(struct qm_sg_entry *qm_sg_ptr, dma_addr_t dma,
 	qm_sg_ptr->offset = cpu_to_be16(offset & QM_SG_OFF_MASK);
 }
 
-static inline void dma_to_qm_sg_one(struct qm_sg_entry *qm_sg_ptr,
+static void dma_to_qm_sg_one(struct qm_sg_entry *qm_sg_ptr,
 				    dma_addr_t dma, u32 len, u16 offset)
 {
 	__dma_to_qm_sg(qm_sg_ptr, dma, offset);
 	qm_sg_entry_set_len(qm_sg_ptr, len);
 }
 
-static inline void dma_to_qm_sg_one_last(struct qm_sg_entry *qm_sg_ptr,
+static void dma_to_qm_sg_one_last(struct qm_sg_entry *qm_sg_ptr,
 					 dma_addr_t dma, u32 len, u16 offset)
 {
 	__dma_to_qm_sg(qm_sg_ptr, dma, offset);
 	qm_sg_entry_set_f(qm_sg_ptr, len);
 }
 
-static inline void dma_to_qm_sg_one_ext(struct qm_sg_entry *qm_sg_ptr,
+static void dma_to_qm_sg_one_ext(struct qm_sg_entry *qm_sg_ptr,
 					dma_addr_t dma, u32 len, u16 offset)
 {
 	__dma_to_qm_sg(qm_sg_ptr, dma, offset);
 	qm_sg_ptr->cfg = cpu_to_be32(QM_SG_EXT | (len & QM_SG_LEN_MASK));
 }
 
-static inline void dma_to_qm_sg_one_last_ext(struct qm_sg_entry *qm_sg_ptr,
+static void dma_to_qm_sg_one_last_ext(struct qm_sg_entry *qm_sg_ptr,
 					     dma_addr_t dma, u32 len,
 					     u16 offset)
 {
@@ -80,7 +80,7 @@ static inline void dma_to_qm_sg_one_last_ext(struct qm_sg_entry *qm_sg_ptr,
  * convert scatterlist to h/w link table format
  * but does not have final bit; instead, returns last entry
  */
-static inline struct qm_sg_entry *
+static struct qm_sg_entry *
 sg_to_qm_sg(struct scatterlist *sg, int sg_count,
 	    struct qm_sg_entry *qm_sg_ptr, u16 offset)
 {
@@ -98,7 +98,7 @@ sg_to_qm_sg(struct scatterlist *sg, int sg_count,
  * convert scatterlist to h/w link table format
  * scatterlist must have been previously dma mapped
  */
-static inline void sg_to_qm_sg_last(struct scatterlist *sg, int sg_count,
+static void sg_to_qm_sg_last(struct scatterlist *sg, int sg_count,
 				    struct qm_sg_entry *qm_sg_ptr, u16 offset)
 {
 	qm_sg_ptr = sg_to_qm_sg(sg, sg_count, qm_sg_ptr, offset);

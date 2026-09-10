@@ -53,12 +53,12 @@ extern const struct brcms_mcs_info mcs_table[];
 #define MCS_TXS_SHIFT	6	/* num tx streams - 1 bit shift */
 
 /* returns num tx streams - 1 */
-static inline u8 mcs_2_txstreams(u8 mcs)
+static u8 mcs_2_txstreams(u8 mcs)
 {
 	return (mcs_table[mcs].tx_phy_ctl3 & MCS_TXS_MASK) >> MCS_TXS_SHIFT;
 }
 
-static inline uint mcs_2_rate(u8 mcs, bool is40, bool sgi)
+static uint mcs_2_rate(u8 mcs, bool is40, bool sgi)
 {
 	if (sgi) {
 		if (is40)
@@ -112,34 +112,34 @@ static inline uint mcs_2_rate(u8 mcs, bool is40, bool sgi)
 /* bit indicates override rate only */
 #define RSPEC_OVERRIDE_MCS_ONLY 0x40000000
 
-static inline bool rspec_active(u32 rspec)
+static bool rspec_active(u32 rspec)
 {
 	return rspec & (RSPEC_RATE_MASK | RSPEC_MIMORATE);
 }
 
-static inline u8 rspec_phytxbyte2(u32 rspec)
+static u8 rspec_phytxbyte2(u32 rspec)
 {
 	return (rspec & 0xff00) >> 8;
 }
 
-static inline u32 rspec_get_bw(u32 rspec)
+static u32 rspec_get_bw(u32 rspec)
 {
 	return (rspec & RSPEC_BW_MASK) >> RSPEC_BW_SHIFT;
 }
 
-static inline bool rspec_issgi(u32 rspec)
+static bool rspec_issgi(u32 rspec)
 {
 	return (rspec & RSPEC_SHORT_GI) == RSPEC_SHORT_GI;
 }
 
-static inline bool rspec_is40mhz(u32 rspec)
+static bool rspec_is40mhz(u32 rspec)
 {
 	u32 bw = rspec_get_bw(rspec);
 
 	return bw == PHY_TXC1_BW_40MHZ || bw == PHY_TXC1_BW_40MHZ_DUP;
 }
 
-static inline uint rspec2rate(u32 rspec)
+static uint rspec2rate(u32 rspec)
 {
 	if (rspec & RSPEC_MIMORATE)
 		return mcs_2_rate(rspec & RSPEC_RATE_MASK, rspec_is40mhz(rspec),
@@ -147,38 +147,38 @@ static inline uint rspec2rate(u32 rspec)
 	return rspec & RSPEC_RATE_MASK;
 }
 
-static inline u8 rspec_mimoplcp3(u32 rspec)
+static u8 rspec_mimoplcp3(u32 rspec)
 {
 	return (rspec & 0xf00000) >> 16;
 }
 
-static inline bool plcp3_issgi(u8 plcp)
+static bool plcp3_issgi(u8 plcp)
 {
 	return (plcp & (RSPEC_SHORT_GI >> 16)) != 0;
 }
 
-static inline uint rspec_stc(u32 rspec)
+static uint rspec_stc(u32 rspec)
 {
 	return (rspec & RSPEC_STC_MASK) >> RSPEC_STC_SHIFT;
 }
 
-static inline uint rspec_stf(u32 rspec)
+static uint rspec_stf(u32 rspec)
 {
 	return (rspec & RSPEC_STF_MASK) >> RSPEC_STF_SHIFT;
 }
 
-static inline bool is_mcs_rate(u32 ratespec)
+static bool is_mcs_rate(u32 ratespec)
 {
 	return (ratespec & RSPEC_MIMORATE) != 0;
 }
 
-static inline bool is_ofdm_rate(u32 ratespec)
+static bool is_ofdm_rate(u32 ratespec)
 {
 	return !is_mcs_rate(ratespec) &&
 	       (rate_info[ratespec & RSPEC_RATE_MASK] & BRCMS_RATE_FLAG);
 }
 
-static inline bool is_cck_rate(u32 ratespec)
+static bool is_cck_rate(u32 ratespec)
 {
 	u32 rate = (ratespec & BRCMS_RATE_MASK);
 
@@ -187,24 +187,24 @@ static inline bool is_cck_rate(u32 ratespec)
 			rate == BRCM_RATE_5M5 || rate == BRCM_RATE_11M);
 }
 
-static inline bool is_single_stream(u8 mcs)
+static bool is_single_stream(u8 mcs)
 {
 	return mcs <= HIGHEST_SINGLE_STREAM_MCS || mcs == 32;
 }
 
-static inline u8 cck_rspec(u8 cck)
+static u8 cck_rspec(u8 cck)
 {
 	return cck & RSPEC_RATE_MASK;
 }
 
 /* Convert encoded rate value in plcp header to numerical rates in 500 KHz
  * increments */
-static inline u8 ofdm_phy2mac_rate(u8 rlpt)
+static u8 ofdm_phy2mac_rate(u8 rlpt)
 {
 	return wlc_phy_get_ofdm_rate_lookup()[rlpt & 0x7];
 }
 
-static inline u8 cck_phy2mac_rate(u8 signal)
+static u8 cck_phy2mac_rate(u8 signal)
 {
 	return signal/5;
 }

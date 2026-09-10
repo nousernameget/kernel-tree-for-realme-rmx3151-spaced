@@ -428,12 +428,12 @@ struct cx18_open_id {
 	struct cx18 *cx;
 };
 
-static inline struct cx18_open_id *fh2id(struct v4l2_fh *fh)
+static struct cx18_open_id *fh2id(struct v4l2_fh *fh)
 {
 	return container_of(fh, struct cx18_open_id, fh);
 }
 
-static inline struct cx18_open_id *file2id(struct file *file)
+static struct cx18_open_id *file2id(struct file *file)
 {
 	return fh2id(file->private_data);
 }
@@ -670,7 +670,7 @@ struct cx18 {
 	struct work_struct request_module_wk;
 };
 
-static inline struct cx18 *to_cx18(struct v4l2_device *v4l2_dev)
+static struct cx18 *to_cx18(struct v4l2_device *v4l2_dev)
 {
 	return container_of(v4l2_dev, struct cx18, v4l2_dev);
 }
@@ -694,7 +694,7 @@ void cx18_read_eeprom(struct cx18 *cx, struct tveeprom *tv);
 int cx18_init_on_first_open(struct cx18 *cx);
 
 /* Test if the current VBI mode is raw (1) or sliced (0) */
-static inline int cx18_raw_vbi(const struct cx18 *cx)
+static int cx18_raw_vbi(const struct cx18 *cx)
 {
 	return cx->vbi.in.type == V4L2_BUF_TYPE_VBI_CAPTURE;
 }

@@ -48,23 +48,23 @@ bool cpuidle_state_is_coupled(struct cpuidle_driver *drv, int state)
 	return false;
 }
 
-static inline int cpuidle_coupled_state_verify(struct cpuidle_driver *drv)
+static int cpuidle_coupled_state_verify(struct cpuidle_driver *drv)
 {
 	return 0;
 }
 
-static inline int cpuidle_enter_state_coupled(struct cpuidle_device *dev,
+static int cpuidle_enter_state_coupled(struct cpuidle_device *dev,
 		struct cpuidle_driver *drv, int next_state)
 {
 	return -1;
 }
 
-static inline int cpuidle_coupled_register_device(struct cpuidle_device *dev)
+static int cpuidle_coupled_register_device(struct cpuidle_device *dev)
 {
 	return 0;
 }
 
-static inline void cpuidle_coupled_unregister_device(struct cpuidle_device *dev)
+static void cpuidle_coupled_unregister_device(struct cpuidle_device *dev)
 {
 }
 #endif

@@ -6,11 +6,11 @@
 int byd_detect(struct psmouse *psmouse, bool set_properties);
 int byd_init(struct psmouse *psmouse);
 #else
-static inline int byd_detect(struct psmouse *psmouse, bool set_properties)
+static int byd_detect(struct psmouse *psmouse, bool set_properties)
 {
 	return -ENOSYS;
 }
-static inline int byd_init(struct psmouse *psmouse)
+static int byd_init(struct psmouse *psmouse)
 {
 	return -ENOSYS;
 }

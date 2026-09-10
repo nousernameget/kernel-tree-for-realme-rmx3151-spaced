@@ -557,18 +557,18 @@ struct slic_device {
 	unsigned char model;
 };
 
-static inline u32 slic_read(struct slic_device *sdev, unsigned int reg)
+static u32 slic_read(struct slic_device *sdev, unsigned int reg)
 {
 	return ioread32(sdev->regs + reg);
 }
 
-static inline void slic_write(struct slic_device *sdev, unsigned int reg,
+static void slic_write(struct slic_device *sdev, unsigned int reg,
 			      u32 val)
 {
 	iowrite32(val, sdev->regs + reg);
 }
 
-static inline void slic_flush_write(struct slic_device *sdev)
+static void slic_flush_write(struct slic_device *sdev)
 {
 	(void)ioread32(sdev->regs + SLIC_REG_HOSTID);
 }

@@ -34,7 +34,7 @@ struct or51132_config
 extern struct dvb_frontend* or51132_attach(const struct or51132_config* config,
 					   struct i2c_adapter* i2c);
 #else
-static inline struct dvb_frontend* or51132_attach(const struct or51132_config* config,
+static struct dvb_frontend* or51132_attach(const struct or51132_config* config,
 					   struct i2c_adapter* i2c)
 {
 	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);

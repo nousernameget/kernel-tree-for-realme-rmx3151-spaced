@@ -338,12 +338,12 @@ struct cx18_av_state {
 #define CXADEC_SELECT_AUDIO_STANDARD_FM    0xF9  /* FM radio */
 #define CXADEC_SELECT_AUDIO_STANDARD_AUTO  0xFF  /* Auto detect */
 
-static inline struct cx18_av_state *to_cx18_av_state(struct v4l2_subdev *sd)
+static struct cx18_av_state *to_cx18_av_state(struct v4l2_subdev *sd)
 {
 	return container_of(sd, struct cx18_av_state, sd);
 }
 
-static inline struct v4l2_subdev *to_sd(struct v4l2_ctrl *ctrl)
+static struct v4l2_subdev *to_sd(struct v4l2_ctrl *ctrl)
 {
 	return &container_of(ctrl->handler, struct cx18_av_state, hdl)->sd;
 }

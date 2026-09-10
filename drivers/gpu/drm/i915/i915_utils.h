@@ -112,7 +112,7 @@
 
 #include <linux/list.h>
 
-static inline void __list_del_many(struct list_head *head,
+static void __list_del_many(struct list_head *head,
 				   struct list_head *first)
 {
 	first->prev = head;

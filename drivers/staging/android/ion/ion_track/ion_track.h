@@ -5,7 +5,7 @@
 
 static struct ion_device *internal_dev = NULL;
 
-static inline void update_internal_dev(struct ion_device *dev)
+static void update_internal_dev(struct ion_device *dev)
 {
 	if (!internal_dev)
 		internal_dev = dev;

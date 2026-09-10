@@ -74,7 +74,7 @@ struct lap_cb;
 
 typedef void (*TIMER_CALLBACK)(void *);
 
-static inline void irda_start_timer(struct timer_list *ptimer, int timeout, 
+static void irda_start_timer(struct timer_list *ptimer, int timeout, 
 				    void* data, TIMER_CALLBACK callback)
 {
 	ptimer->function = (void (*)(unsigned long)) callback;

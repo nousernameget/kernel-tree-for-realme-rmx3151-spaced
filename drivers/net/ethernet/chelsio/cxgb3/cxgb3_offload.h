@@ -132,7 +132,7 @@ typedef int (*cpl_handler_func)(struct t3cdev *dev, struct sk_buff *skb);
  * Returns a pointer to the first byte of the CPL header in an sk_buff that
  * contains a CPL message.
  */
-static inline void *cplhdr(struct sk_buff *skb)
+static void *cplhdr(struct sk_buff *skb)
 {
 	return skb->data;
 }

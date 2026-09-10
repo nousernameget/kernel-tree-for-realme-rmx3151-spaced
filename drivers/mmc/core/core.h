@@ -61,7 +61,7 @@ void mmc_power_off(struct mmc_host *host);
 void mmc_power_cycle(struct mmc_host *host, u32 ocr);
 void mmc_set_initial_state(struct mmc_host *host);
 
-static inline void mmc_delay(unsigned int ms)
+static void mmc_delay(unsigned int ms)
 {
 	if (ms < 1000 / HZ) {
 		cond_resched();
@@ -177,7 +177,7 @@ extern int mmc_blk_cmdq_switch(struct mmc_card *card, int enable);
  *
  *	Claim a host for a set of operations.
  */
-static inline void mmc_claim_host(struct mmc_host *host)
+static void mmc_claim_host(struct mmc_host *host)
 {
 	__mmc_claim_host(host, NULL);
 }

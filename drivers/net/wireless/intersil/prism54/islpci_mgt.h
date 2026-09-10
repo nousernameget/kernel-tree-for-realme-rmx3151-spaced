@@ -129,7 +129,7 @@ islpci_mgt_transaction(struct net_device *ndev,
 		       void *senddata, int sendlen,
 		       struct islpci_mgmtframe **recvframe);
 
-static inline void
+static void
 islpci_mgt_release(struct islpci_mgmtframe *frame)
 {
         kfree(frame);

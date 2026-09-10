@@ -68,7 +68,7 @@ struct dib7000p_ops {
 #if IS_REACHABLE(CONFIG_DVB_DIB7000P)
 void *dib7000p_attach(struct dib7000p_ops *ops);
 #else
-static inline void *dib7000p_attach(struct dib7000p_ops *ops)
+static void *dib7000p_attach(struct dib7000p_ops *ops)
 {
 	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);
 	return NULL;

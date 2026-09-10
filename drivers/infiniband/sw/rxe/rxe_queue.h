@@ -102,77 +102,77 @@ int rxe_queue_resize(struct rxe_queue *q,
 
 void rxe_queue_cleanup(struct rxe_queue *queue);
 
-static inline int next_index(struct rxe_queue *q, int index)
+static int next_index(struct rxe_queue *q, int index)
 {
 	return (index + 1) & q->buf->index_mask;
 }
 
-static inline int queue_empty(struct rxe_queue *q)
+static int queue_empty(struct rxe_queue *q)
 {
 	return ((q->buf->producer_index - q->buf->consumer_index)
 			& q->index_mask) == 0;
 }
 
-static inline int queue_full(struct rxe_queue *q)
+static int queue_full(struct rxe_queue *q)
 {
 	return ((q->buf->producer_index + 1 - q->buf->consumer_index)
 			& q->index_mask) == 0;
 }
 
-static inline void advance_producer(struct rxe_queue *q)
+static void advance_producer(struct rxe_queue *q)
 {
 	q->buf->producer_index = (q->buf->producer_index + 1)
 			& q->index_mask;
 }
 
-static inline void advance_consumer(struct rxe_queue *q)
+static void advance_consumer(struct rxe_queue *q)
 {
 	q->buf->consumer_index = (q->buf->consumer_index + 1)
 			& q->index_mask;
 }
 
-static inline void *producer_addr(struct rxe_queue *q)
+static void *producer_addr(struct rxe_queue *q)
 {
 	return q->buf->data + ((q->buf->producer_index & q->index_mask)
 				<< q->log2_elem_size);
 }
 
-static inline void *consumer_addr(struct rxe_queue *q)
+static void *consumer_addr(struct rxe_queue *q)
 {
 	return q->buf->data + ((q->buf->consumer_index & q->index_mask)
 				<< q->log2_elem_size);
 }
 
-static inline unsigned int producer_index(struct rxe_queue *q)
+static unsigned int producer_index(struct rxe_queue *q)
 {
 	return q->buf->producer_index;
 }
 
-static inline unsigned int consumer_index(struct rxe_queue *q)
+static unsigned int consumer_index(struct rxe_queue *q)
 {
 	return q->buf->consumer_index;
 }
 
-static inline void *addr_from_index(struct rxe_queue *q, unsigned int index)
+static void *addr_from_index(struct rxe_queue *q, unsigned int index)
 {
 	return q->buf->data + ((index & q->index_mask)
 				<< q->buf->log2_elem_size);
 }
 
-static inline unsigned int index_from_addr(const struct rxe_queue *q,
+static unsigned int index_from_addr(const struct rxe_queue *q,
 					   const void *addr)
 {
 	return (((u8 *)addr - q->buf->data) >> q->log2_elem_size)
 		& q->index_mask;
 }
 
-static inline unsigned int queue_count(const struct rxe_queue *q)
+static unsigned int queue_count(const struct rxe_queue *q)
 {
 	return (q->buf->producer_index - q->buf->consumer_index)
 		& q->index_mask;
 }
 
-static inline void *queue_head(struct rxe_queue *q)
+static void *queue_head(struct rxe_queue *q)
 {
 	return queue_empty(q) ? NULL : consumer_addr(q);
 }

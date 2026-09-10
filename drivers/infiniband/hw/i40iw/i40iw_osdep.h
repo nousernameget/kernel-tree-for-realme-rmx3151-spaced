@@ -45,7 +45,7 @@
 
 #define STATS_TIMER_DELAY 1000
 
-static inline void set_64bit_val(u64 *wqe_words, u32 byte_index, u64 value)
+static void set_64bit_val(u64 *wqe_words, u32 byte_index, u64 value)
 {
 	wqe_words[byte_index >> 3] = value;
 }
@@ -56,7 +56,7 @@ static inline void set_64bit_val(u64 *wqe_words, u32 byte_index, u64 value)
  * @byte_index: index in wqe
  * @value: value to write
  **/
-static inline void set_32bit_val(u32 *wqe_words, u32 byte_index, u32 value)
+static void set_32bit_val(u32 *wqe_words, u32 byte_index, u32 value)
 {
 	wqe_words[byte_index >> 2] = value;
 }
@@ -67,7 +67,7 @@ static inline void set_32bit_val(u32 *wqe_words, u32 byte_index, u32 value)
  * @byte_index: index to read from
  * @value: read value
  **/
-static inline void get_64bit_val(u64 *wqe_words, u32 byte_index, u64 *value)
+static void get_64bit_val(u64 *wqe_words, u32 byte_index, u64 *value)
 {
 	*value = wqe_words[byte_index >> 3];
 }
@@ -78,7 +78,7 @@ static inline void get_64bit_val(u64 *wqe_words, u32 byte_index, u64 *value)
  * @byte_index: index to reaad from
  * @value: return 32 bit value
  **/
-static inline void get_32bit_val(u32 *wqe_words, u32 byte_index, u32 *value)
+static void get_32bit_val(u32 *wqe_words, u32 byte_index, u32 *value)
 {
 	*value = wqe_words[byte_index >> 2];
 }

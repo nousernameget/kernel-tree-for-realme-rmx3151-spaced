@@ -734,7 +734,7 @@ VOID scanReportScanResultToAgps(P_ADAPTER_T prAdapter);
 #endif
 
 #if CFG_SCAN_CHANNEL_SPECIFIED
-static inline bool is_valid_scan_chnl_cnt(UINT_8 num)
+static bool is_valid_scan_chnl_cnt(UINT_8 num)
 {
 	return (num && num < MAXIMUM_OPERATION_CHANNEL_LIST);
 }

@@ -815,7 +815,7 @@ int i2400m_tx(struct i2400m *, const void *, size_t, enum i2400m_pt);
 int i2400m_debugfs_add(struct i2400m *);
 void i2400m_debugfs_rm(struct i2400m *);
 #else
-static inline int i2400m_debugfs_add(struct i2400m *i2400m)
+static int i2400m_debugfs_add(struct i2400m *i2400m)
 {
 	return 0;
 }

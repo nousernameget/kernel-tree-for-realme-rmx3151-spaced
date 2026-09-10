@@ -176,7 +176,7 @@ struct lynxfb_par {
 	struct sm750_dev *dev;
 };
 
-static inline unsigned long ps_to_hz(unsigned int psvalue)
+static unsigned long ps_to_hz(unsigned int psvalue)
 {
 	unsigned long long numerator = 1000 * 1000 * 1000 * 1000ULL;
 	/* 10^12 / picosecond period gives frequency in Hz */

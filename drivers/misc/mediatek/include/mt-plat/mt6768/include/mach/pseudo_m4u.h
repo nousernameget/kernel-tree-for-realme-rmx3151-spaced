@@ -185,7 +185,7 @@ int m4u_mva_unmap_kernel(unsigned int mva, unsigned int size,
 int m4u_config_port(struct M4U_PORT_STRUCT *pM4uPort);
 int pseudo_config_port_tee(int kernelport);
 
-static inline bool m4u_enable_4G(void)
+static bool m4u_enable_4G(void)
 {
 	return (max_pfn > (0xffffffffUL >> PAGE_SHIFT));
 }

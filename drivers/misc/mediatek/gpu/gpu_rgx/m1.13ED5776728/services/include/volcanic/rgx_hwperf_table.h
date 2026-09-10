@@ -116,8 +116,8 @@ struct RGXFW_HWPERF_CNTBLK_TYPE_MODEL_
 #	include "rgxfw_pow.h"
 #	include "rgxfw_utils.h"
 
-static inline IMG_BOOL rgxfw_hwperf_pow_st_direct(RGX_HWPERF_CNTBLK_ID, IMG_UINT8);
-static inline IMG_BOOL rgxfw_hwperf_pow_st_direct(RGX_HWPERF_CNTBLK_ID eBlkType, IMG_UINT8 ui8UnitId)
+static IMG_BOOL rgxfw_hwperf_pow_st_direct(RGX_HWPERF_CNTBLK_ID, IMG_UINT8);
+static IMG_BOOL rgxfw_hwperf_pow_st_direct(RGX_HWPERF_CNTBLK_ID eBlkType, IMG_UINT8 ui8UnitId)
 {
 	PVR_UNREFERENCED_PARAMETER(ui8UnitId);
 
@@ -160,8 +160,8 @@ static inline IMG_BOOL rgxfw_hwperf_pow_st_direct(RGX_HWPERF_CNTBLK_ID eBlkType,
 /* Only use conditional compilation when counter blocks appear in different
  * islands for different Rogue families.
  */
-static inline IMG_BOOL rgxfw_hwperf_pow_st_indirect(RGX_HWPERF_CNTBLK_ID, IMG_UINT8);
-static inline IMG_BOOL rgxfw_hwperf_pow_st_indirect(RGX_HWPERF_CNTBLK_ID eBlkType, IMG_UINT8 ui8UnitId)
+static IMG_BOOL rgxfw_hwperf_pow_st_indirect(RGX_HWPERF_CNTBLK_ID, IMG_UINT8);
+static IMG_BOOL rgxfw_hwperf_pow_st_indirect(RGX_HWPERF_CNTBLK_ID eBlkType, IMG_UINT8 ui8UnitId)
 {
 	PVR_UNREFERENCED_PARAMETER(ui8UnitId);
 
@@ -218,7 +218,7 @@ static inline IMG_BOOL rgxfw_hwperf_pow_st_indirect(RGX_HWPERF_CNTBLK_ID eBlkTyp
 
 
 /* Used for all block types: Direct and Indirect */
-static inline IMG_BOOL rgx_hwperf_blk_present(const RGXFW_HWPERF_CNTBLK_TYPE_MODEL* psBlkTypeDesc, void *pvDev_km, RGX_HWPERF_CNTBLK_RT_INFO *psRtInfo)
+static IMG_BOOL rgx_hwperf_blk_present(const RGXFW_HWPERF_CNTBLK_TYPE_MODEL* psBlkTypeDesc, void *pvDev_km, RGX_HWPERF_CNTBLK_RT_INFO *psRtInfo)
 {
 #if defined(__KERNEL__)	/* Server context -- Run-time Only */
 	PVRSRV_RGXDEV_INFO *psDevInfo = (PVRSRV_RGXDEV_INFO *)pvDev_km;

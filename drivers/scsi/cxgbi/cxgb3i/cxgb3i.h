@@ -24,12 +24,12 @@
 
 extern cxgb3_cpl_handler_func cxgb3i_cpl_handlers[NUM_CPL_CMDS];
 
-static inline unsigned int cxgb3i_get_private_ipv4addr(struct net_device *ndev)
+static unsigned int cxgb3i_get_private_ipv4addr(struct net_device *ndev)
 {
 	return ((struct port_info *)(netdev_priv(ndev)))->iscsi_ipv4addr;
 }
 
-static inline void cxgb3i_set_private_ipv4addr(struct net_device *ndev,
+static void cxgb3i_set_private_ipv4addr(struct net_device *ndev,
 						unsigned int addr)
 {
 	struct port_info *pi =  (struct port_info *)netdev_priv(ndev);

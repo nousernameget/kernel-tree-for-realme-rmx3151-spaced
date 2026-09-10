@@ -127,7 +127,7 @@ struct sdma_txreq {
 	struct sdma_desc descs[NUM_DESC];
 };
 
-static inline int sdma_txreq_built(struct sdma_txreq *tx)
+static int sdma_txreq_built(struct sdma_txreq *tx)
 {
 	return tx->num_desc;
 }

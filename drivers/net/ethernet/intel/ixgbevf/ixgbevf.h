@@ -224,13 +224,13 @@ struct ixgbevf_q_vector {
 #define EITR_REG_TO_INTS_PER_SEC EITR_INTS_PER_SEC_TO_REG
 
 /* ixgbevf_test_staterr - tests bits in Rx descriptor status and error fields */
-static inline __le32 ixgbevf_test_staterr(union ixgbe_adv_rx_desc *rx_desc,
+static __le32 ixgbevf_test_staterr(union ixgbe_adv_rx_desc *rx_desc,
 					  const u32 stat_err_bits)
 {
 	return rx_desc->wb.upper.status_error & cpu_to_le32(stat_err_bits);
 }
 
-static inline u16 ixgbevf_desc_unused(struct ixgbevf_ring *ring)
+static u16 ixgbevf_desc_unused(struct ixgbevf_ring *ring)
 {
 	u16 ntc = ring->next_to_clean;
 	u16 ntu = ring->next_to_use;
@@ -238,7 +238,7 @@ static inline u16 ixgbevf_desc_unused(struct ixgbevf_ring *ring)
 	return ((ntc > ntu) ? 0 : ring->count) + ntc - ntu - 1;
 }
 
-static inline void ixgbevf_write_tail(struct ixgbevf_ring *ring, u32 value)
+static void ixgbevf_write_tail(struct ixgbevf_ring *ring, u32 value)
 {
 	writel(value, ring->tail);
 }

@@ -120,7 +120,7 @@ enum intel_uc_fw_type {
 };
 
 /* User-friendly representation of an enum */
-static inline const char *intel_uc_fw_type_repr(enum intel_uc_fw_type type)
+static const char *intel_uc_fw_type_repr(enum intel_uc_fw_type type)
 {
 	switch (type) {
 	case INTEL_UC_FW_TYPE_GUC:
@@ -230,12 +230,12 @@ int intel_guc_sample_forcewake(struct intel_guc *guc);
 int intel_guc_send_nop(struct intel_guc *guc, const u32 *action, u32 len);
 int intel_guc_send_mmio(struct intel_guc *guc, const u32 *action, u32 len);
 
-static inline int intel_guc_send(struct intel_guc *guc, const u32 *action, u32 len)
+static int intel_guc_send(struct intel_guc *guc, const u32 *action, u32 len)
 {
 	return guc->send(guc, action, len);
 }
 
-static inline void intel_guc_notify(struct intel_guc *guc)
+static void intel_guc_notify(struct intel_guc *guc)
 {
 	guc->notify(guc);
 }
@@ -263,7 +263,7 @@ int i915_guc_log_control(struct drm_i915_private *dev_priv, u64 control_val);
 void i915_guc_log_register(struct drm_i915_private *dev_priv);
 void i915_guc_log_unregister(struct drm_i915_private *dev_priv);
 
-static inline u32 guc_ggtt_offset(struct i915_vma *vma)
+static u32 guc_ggtt_offset(struct i915_vma *vma)
 {
 	u32 offset = i915_ggtt_offset(vma);
 	GEM_BUG_ON(offset < GUC_WOPCM_TOP);

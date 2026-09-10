@@ -9,7 +9,7 @@
 
 #include "dm-block-manager.h"
 
-static inline unsigned dm_hash_block(dm_block_t b, unsigned hash_mask)
+static unsigned dm_hash_block(dm_block_t b, unsigned hash_mask)
 {
 	const unsigned BIG_PRIME = 4294967291UL;
 

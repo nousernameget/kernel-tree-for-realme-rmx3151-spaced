@@ -125,7 +125,7 @@ __inline static void _cancel_workitem_sync(_workitem *pwork)
 	cancel_work_sync(pwork);
 }
 
-static inline int rtw_netif_queue_stopped(struct net_device *pnetdev)
+static int rtw_netif_queue_stopped(struct net_device *pnetdev)
 {
 	return (netif_tx_queue_stopped(netdev_get_tx_queue(pnetdev, 0)) &&
 		netif_tx_queue_stopped(netdev_get_tx_queue(pnetdev, 1)) &&
@@ -133,22 +133,22 @@ static inline int rtw_netif_queue_stopped(struct net_device *pnetdev)
 		netif_tx_queue_stopped(netdev_get_tx_queue(pnetdev, 3)));
 }
 
-static inline void rtw_netif_wake_queue(struct net_device *pnetdev)
+static void rtw_netif_wake_queue(struct net_device *pnetdev)
 {
 	netif_tx_wake_all_queues(pnetdev);
 }
 
-static inline void rtw_netif_start_queue(struct net_device *pnetdev)
+static void rtw_netif_start_queue(struct net_device *pnetdev)
 {
 	netif_tx_start_all_queues(pnetdev);
 }
 
-static inline void rtw_netif_stop_queue(struct net_device *pnetdev)
+static void rtw_netif_stop_queue(struct net_device *pnetdev)
 {
 	netif_tx_stop_all_queues(pnetdev);
 }
 
-static inline void rtw_merge_string(char *dst, int dst_len, char *src1, char *src2)
+static void rtw_merge_string(char *dst, int dst_len, char *src1, char *src2)
 {
 	int	len = 0;
 	len += snprintf(dst+len, dst_len - len, "%s", src1);

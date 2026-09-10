@@ -152,7 +152,7 @@ struct intel_rotation_info {
 	} plane[2];
 } __packed;
 
-static inline void assert_intel_rotation_info_is_packed(void)
+static void assert_intel_rotation_info_is_packed(void)
 {
 	BUILD_BUG_ON(sizeof(struct intel_rotation_info) != 8*sizeof(unsigned int));
 }
@@ -162,7 +162,7 @@ struct intel_partial_info {
 	unsigned int size;
 } __packed;
 
-static inline void assert_intel_partial_info_is_packed(void)
+static void assert_intel_partial_info_is_packed(void)
 {
 	BUILD_BUG_ON(sizeof(struct intel_partial_info) != sizeof(u64) + sizeof(unsigned int));
 }
@@ -173,7 +173,7 @@ enum i915_ggtt_view_type {
 	I915_GGTT_VIEW_PARTIAL = sizeof(struct intel_partial_info),
 };
 
-static inline void assert_i915_ggtt_view_type_is_unique(void)
+static void assert_i915_ggtt_view_type_is_unique(void)
 {
 	/* As we encode the size of each branch inside the union into its type,
 	 * we have to be careful that each branch has a unique size.
@@ -335,7 +335,7 @@ struct i915_address_space {
 
 #define i915_is_ggtt(V) (!(V)->file)
 
-static inline bool
+static bool
 i915_vm_is_48bit(const struct i915_address_space *vm)
 {
 	return (vm->total - 1) >> 32;
@@ -419,7 +419,7 @@ struct i915_hw_ppgtt {
 		(pt = (pd)->page_table[iter], true);			\
 	     ++iter)
 
-static inline u32 i915_pte_index(u64 address, unsigned int pde_shift)
+static u32 i915_pte_index(u64 address, unsigned int pde_shift)
 {
 	const u32 mask = NUM_PTE(pde_shift) - 1;
 
@@ -430,7 +430,7 @@ static inline u32 i915_pte_index(u64 address, unsigned int pde_shift)
  * does not cross a page table boundary, so the max value would be
  * GEN6_PTES for GEN6, and GEN8_PTES for GEN8.
 */
-static inline u32 i915_pte_count(u64 addr, u64 length, unsigned int pde_shift)
+static u32 i915_pte_count(u64 addr, u64 length, unsigned int pde_shift)
 {
 	const u64 mask = ~((1ULL << pde_shift) - 1);
 	u64 end;
@@ -446,27 +446,27 @@ static inline u32 i915_pte_count(u64 addr, u64 length, unsigned int pde_shift)
 	return i915_pte_index(end, pde_shift) - i915_pte_index(addr, pde_shift);
 }
 
-static inline u32 i915_pde_index(u64 addr, u32 shift)
+static u32 i915_pde_index(u64 addr, u32 shift)
 {
 	return (addr >> shift) & I915_PDE_MASK;
 }
 
-static inline u32 gen6_pte_index(u32 addr)
+static u32 gen6_pte_index(u32 addr)
 {
 	return i915_pte_index(addr, GEN6_PDE_SHIFT);
 }
 
-static inline u32 gen6_pte_count(u32 addr, u32 length)
+static u32 gen6_pte_count(u32 addr, u32 length)
 {
 	return i915_pte_count(addr, length, GEN6_PDE_SHIFT);
 }
 
-static inline u32 gen6_pde_index(u32 addr)
+static u32 gen6_pde_index(u32 addr)
 {
 	return i915_pde_index(addr, GEN6_PDE_SHIFT);
 }
 
-static inline unsigned int
+static unsigned int
 i915_pdpes_per_pdp(const struct i915_address_space *vm)
 {
 	if (i915_vm_is_48bit(vm))
@@ -503,38 +503,38 @@ i915_pdpes_per_pdp(const struct i915_address_space *vm)
 		    temp = min(temp - start, length);			\
 		    start += temp, length -= temp; }), ++iter)
 
-static inline u32 gen8_pte_index(u64 address)
+static u32 gen8_pte_index(u64 address)
 {
 	return i915_pte_index(address, GEN8_PDE_SHIFT);
 }
 
-static inline u32 gen8_pde_index(u64 address)
+static u32 gen8_pde_index(u64 address)
 {
 	return i915_pde_index(address, GEN8_PDE_SHIFT);
 }
 
-static inline u32 gen8_pdpe_index(u64 address)
+static u32 gen8_pdpe_index(u64 address)
 {
 	return (address >> GEN8_PDPE_SHIFT) & GEN8_PDPE_MASK;
 }
 
-static inline u32 gen8_pml4e_index(u64 address)
+static u32 gen8_pml4e_index(u64 address)
 {
 	return (address >> GEN8_PML4E_SHIFT) & GEN8_PML4E_MASK;
 }
 
-static inline u64 gen8_pte_count(u64 address, u64 length)
+static u64 gen8_pte_count(u64 address, u64 length)
 {
 	return i915_pte_count(address, length, GEN8_PDE_SHIFT);
 }
 
-static inline dma_addr_t
+static dma_addr_t
 i915_page_dir_dma_addr(const struct i915_hw_ppgtt *ppgtt, const unsigned n)
 {
 	return px_dma(ppgtt->pdp.page_directory[n]);
 }
 
-static inline struct i915_ggtt *
+static struct i915_ggtt *
 i915_vm_to_ggtt(struct i915_address_space *vm)
 {
 	GEM_BUG_ON(!i915_is_ggtt(vm));
@@ -558,12 +558,12 @@ struct i915_hw_ppgtt *i915_ppgtt_create(struct drm_i915_private *dev_priv,
 					struct drm_i915_file_private *fpriv,
 					const char *name);
 void i915_ppgtt_close(struct i915_address_space *vm);
-static inline void i915_ppgtt_get(struct i915_hw_ppgtt *ppgtt)
+static void i915_ppgtt_get(struct i915_hw_ppgtt *ppgtt)
 {
 	if (ppgtt)
 		kref_get(&ppgtt->ref);
 }
-static inline void i915_ppgtt_put(struct i915_hw_ppgtt *ppgtt)
+static void i915_ppgtt_put(struct i915_hw_ppgtt *ppgtt)
 {
 	if (ppgtt)
 		kref_put(&ppgtt->ref, i915_ppgtt_release);

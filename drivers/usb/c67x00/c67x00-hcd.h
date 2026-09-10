@@ -98,12 +98,12 @@ struct c67x00_hcd {
 	u16 last_frame;
 };
 
-static inline struct c67x00_hcd *hcd_to_c67x00_hcd(struct usb_hcd *hcd)
+static struct c67x00_hcd *hcd_to_c67x00_hcd(struct usb_hcd *hcd)
 {
 	return (struct c67x00_hcd *)(hcd->hcd_priv);
 }
 
-static inline struct usb_hcd *c67x00_hcd_to_hcd(struct c67x00_hcd *c67x00)
+static struct usb_hcd *c67x00_hcd_to_hcd(struct c67x00_hcd *c67x00)
 {
 	return container_of((void *)c67x00, struct usb_hcd, hcd_priv);
 }

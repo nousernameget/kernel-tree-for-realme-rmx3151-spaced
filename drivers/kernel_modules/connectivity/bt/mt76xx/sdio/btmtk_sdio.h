@@ -413,7 +413,7 @@ enum {
 /**
  * Inline functions
  */
-static inline int is_support_unify_woble(struct btmtk_sdio_card *data)
+static int is_support_unify_woble(struct btmtk_sdio_card *data)
 {
 	if (data->bt_cfg.support_unify_woble) {
 		if (((data->chip_id & 0xffff) == 0x7668) ||
@@ -426,7 +426,7 @@ static inline int is_support_unify_woble(struct btmtk_sdio_card *data)
 	}
 }
 
-static inline int is_mt7668(struct btmtk_sdio_card *data)
+static int is_mt7668(struct btmtk_sdio_card *data)
 {
 #if SUPPORT_MT7668
 	return ((data->chip_id & 0xffff) == 0x7668);
@@ -435,7 +435,7 @@ static inline int is_mt7668(struct btmtk_sdio_card *data)
 #endif
 }
 
-static inline int is_mt7663(struct btmtk_sdio_card *data)
+static int is_mt7663(struct btmtk_sdio_card *data)
 {
 #if SUPPORT_MT7663
 	return ((data->chip_id & 0xffff) == 0x7663);

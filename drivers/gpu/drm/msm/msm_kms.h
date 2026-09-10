@@ -89,7 +89,7 @@ struct msm_kms_state {
 };
 #define to_kms_state(x) container_of(x, struct msm_kms_state, base)
 
-static inline void msm_kms_init(struct msm_kms *kms,
+static void msm_kms_init(struct msm_kms *kms,
 		const struct msm_kms_funcs *funcs)
 {
 	kms->funcs = funcs;

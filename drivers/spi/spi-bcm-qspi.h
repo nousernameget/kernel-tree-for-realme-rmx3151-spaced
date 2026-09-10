@@ -70,7 +70,7 @@ struct bcm_qspi_soc_intc {
 };
 
 /* Read controller register*/
-static inline u32 bcm_qspi_readl(bool be, void __iomem *addr)
+static u32 bcm_qspi_readl(bool be, void __iomem *addr)
 {
 	if (be)
 		return ioread32be(addr);
@@ -79,7 +79,7 @@ static inline u32 bcm_qspi_readl(bool be, void __iomem *addr)
 }
 
 /* Write controller register*/
-static inline void bcm_qspi_writel(bool be,
+static void bcm_qspi_writel(bool be,
 				   unsigned int data, void __iomem *addr)
 {
 	if (be)
@@ -88,7 +88,7 @@ static inline void bcm_qspi_writel(bool be,
 		writel_relaxed(data, addr);
 }
 
-static inline u32 get_qspi_mask(int type)
+static u32 get_qspi_mask(int type)
 {
 	switch (type) {
 	case MSPI_DONE:

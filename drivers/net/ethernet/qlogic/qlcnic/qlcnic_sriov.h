@@ -209,7 +209,7 @@ void qlcnic_sriov_del_vlan_id(struct qlcnic_sriov *,
 void qlcnic_sriov_add_vlan_id(struct qlcnic_sriov *,
 			      struct qlcnic_vf_info *, u16);
 
-static inline bool qlcnic_sriov_enable_check(struct qlcnic_adapter *adapter)
+static bool qlcnic_sriov_enable_check(struct qlcnic_adapter *adapter)
 {
 	return test_bit(__QLCNIC_SRIOV_ENABLE, &adapter->state) ? true : false;
 }
@@ -243,35 +243,35 @@ int qlcnic_sriov_set_vf_spoofchk(struct net_device *, int, bool);
 #else
 static inline void qlcnic_sriov_pf_disable(struct qlcnic_adapter *adapter) {}
 static inline void qlcnic_sriov_pf_cleanup(struct qlcnic_adapter *adapter) {}
-static inline void
+static void
 qlcnic_pf_set_interface_id_create_rx_ctx(struct qlcnic_adapter *adapter,
 					 u32 *int_id) {}
-static inline void
+static void
 qlcnic_pf_set_interface_id_create_tx_ctx(struct qlcnic_adapter *adapter,
 					 u32 *int_id) {}
-static inline void
+static void
 qlcnic_pf_set_interface_id_del_rx_ctx(struct qlcnic_adapter *adapter,
 				      u32 *int_id) {}
-static inline void
+static void
 qlcnic_pf_set_interface_id_del_tx_ctx(struct qlcnic_adapter *adapter,
 				      u32 *int_id) {}
-static inline void
+static void
 qlcnic_pf_set_interface_id_ipaddr(struct qlcnic_adapter *adapter, u32 *int_id)
 {}
-static inline void
+static void
 qlcnic_pf_set_interface_id_macaddr(struct qlcnic_adapter *adapter, u32 *int_id)
 {}
-static inline void
+static void
 qlcnic_pf_set_interface_id_promisc(struct qlcnic_adapter *adapter, u32 *int_id)
 {}
-static inline void qlcnic_sriov_pf_handle_flr(struct qlcnic_sriov *sriov,
+static void qlcnic_sriov_pf_handle_flr(struct qlcnic_sriov *sriov,
 					      struct qlcnic_vf_info *vf) {}
-static inline bool qlcnic_sriov_soft_flr_check(struct qlcnic_adapter *adapter,
+static bool qlcnic_sriov_soft_flr_check(struct qlcnic_adapter *adapter,
 					       struct qlcnic_bc_trans *trans,
 					       struct qlcnic_vf_info *vf)
 { return false; }
 static inline void qlcnic_sriov_pf_reset(struct qlcnic_adapter *adapter) {}
-static inline int qlcnic_sriov_pf_reinit(struct qlcnic_adapter *adapter)
+static int qlcnic_sriov_pf_reinit(struct qlcnic_adapter *adapter)
 { return 0; }
 #endif
 

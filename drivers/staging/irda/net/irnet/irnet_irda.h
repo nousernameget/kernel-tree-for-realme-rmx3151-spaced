@@ -72,39 +72,39 @@ static void
 			 char *,
 			 __u16);
 /* ----------------------- IRDA SUBROUTINES ----------------------- */
-static inline int
+static int
 	irnet_open_tsap(irnet_socket *);
-static inline __u8
+static __u8
 	irnet_ias_to_tsap(irnet_socket *,
 			  int,
 			  struct ias_value *);
-static inline int
+static int
 	irnet_find_lsap_sel(irnet_socket *);
-static inline int
+static int
 	irnet_connect_tsap(irnet_socket *);
-static inline int
+static int
 	irnet_discover_next_daddr(irnet_socket *);
-static inline int
+static int
 	irnet_discover_daddr_and_lsap_sel(irnet_socket *);
-static inline int
+static int
 	irnet_dname_to_daddr(irnet_socket *);
 /* ------------------------ SERVER SOCKET ------------------------ */
-static inline int
+static int
 	irnet_daddr_to_dname(irnet_socket *);
-static inline irnet_socket *
+static irnet_socket *
 	irnet_find_socket(irnet_socket *);
-static inline int
+static int
 	irnet_connect_socket(irnet_socket *,
 			     irnet_socket *,
 			     struct qos_info *,
 			     __u32,
 			     __u8);
-static inline void
+static void
 	irnet_disconnect_server(irnet_socket *,
 				struct sk_buff *);
-static inline int
+static int
 	irnet_setup_server(void);
-static inline void
+static void
 	irnet_destroy_server(void);
 /* ---------------------- IRDA-TTP CALLBACKS ---------------------- */
 static int

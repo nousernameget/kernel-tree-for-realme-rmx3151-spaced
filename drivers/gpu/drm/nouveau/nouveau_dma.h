@@ -85,7 +85,7 @@ enum {
 #define NV50_MEMORY_TO_MEMORY_FORMAT_OFFSET_IN_HIGH                   0x00000238
 #define NV50_MEMORY_TO_MEMORY_FORMAT_OFFSET_OUT_HIGH                  0x0000023c
 
-static __must_check inline int
+static __must_check int
 RING_SPACE(struct nouveau_channel *chan, int size)
 {
 	int ret;
@@ -98,7 +98,7 @@ RING_SPACE(struct nouveau_channel *chan, int size)
 	return 0;
 }
 
-static inline void
+static void
 OUT_RING(struct nouveau_channel *chan, int data)
 {
 	nouveau_bo_wr32(chan->push.buffer, chan->dma.cur++, data);
@@ -107,31 +107,31 @@ OUT_RING(struct nouveau_channel *chan, int data)
 extern void
 OUT_RINGp(struct nouveau_channel *chan, const void *data, unsigned nr_dwords);
 
-static inline void
+static void
 BEGIN_NV04(struct nouveau_channel *chan, int subc, int mthd, int size)
 {
 	OUT_RING(chan, 0x00000000 | (subc << 13) | (size << 18) | mthd);
 }
 
-static inline void
+static void
 BEGIN_NI04(struct nouveau_channel *chan, int subc, int mthd, int size)
 {
 	OUT_RING(chan, 0x40000000 | (subc << 13) | (size << 18) | mthd);
 }
 
-static inline void
+static void
 BEGIN_NVC0(struct nouveau_channel *chan, int subc, int mthd, int size)
 {
 	OUT_RING(chan, 0x20000000 | (size << 16) | (subc << 13) | (mthd >> 2));
 }
 
-static inline void
+static void
 BEGIN_NIC0(struct nouveau_channel *chan, int subc, int mthd, int size)
 {
 	OUT_RING(chan, 0x60000000 | (size << 16) | (subc << 13) | (mthd >> 2));
 }
 
-static inline void
+static void
 BEGIN_IMC0(struct nouveau_channel *chan, int subc, int mthd, u16 data)
 {
 	OUT_RING(chan, 0x80000000 | (data << 16) | (subc << 13) | (mthd >> 2));
@@ -143,7 +143,7 @@ BEGIN_IMC0(struct nouveau_channel *chan, int subc, int mthd, u16 data)
 	nvif_wr32(&chan->user, chan->user_put, ((val) << 2) + chan->push.vma.offset); \
 } while (0)
 
-static inline void
+static void
 FIRE_RING(struct nouveau_channel *chan)
 {
 	if (chan->dma.cur == chan->dma.put)
@@ -160,7 +160,7 @@ FIRE_RING(struct nouveau_channel *chan)
 	chan->dma.put = chan->dma.cur;
 }
 
-static inline void
+static void
 WIND_RING(struct nouveau_channel *chan)
 {
 	chan->dma.cur = chan->dma.put;

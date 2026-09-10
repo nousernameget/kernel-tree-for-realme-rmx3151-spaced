@@ -301,28 +301,28 @@ bool mt76_poll_msec(struct mt7601u_dev *dev, u32 offset, u32 mask, u32 val,
 #define mt76_rmw_field(_dev, _reg, _field, _val)	\
 	mt76_rmw(_dev, _reg, _field, FIELD_PREP(_field, _val))
 
-static inline u32 mt76_rr(struct mt7601u_dev *dev, u32 offset)
+static u32 mt76_rr(struct mt7601u_dev *dev, u32 offset)
 {
 	return mt7601u_rr(dev, offset);
 }
 
-static inline void mt76_wr(struct mt7601u_dev *dev, u32 offset, u32 val)
+static void mt76_wr(struct mt7601u_dev *dev, u32 offset, u32 val)
 {
 	return mt7601u_wr(dev, offset, val);
 }
 
-static inline u32
+static u32
 mt76_rmw(struct mt7601u_dev *dev, u32 offset, u32 mask, u32 val)
 {
 	return mt7601u_rmw(dev, offset, mask, val);
 }
 
-static inline u32 mt76_set(struct mt7601u_dev *dev, u32 offset, u32 val)
+static u32 mt76_set(struct mt7601u_dev *dev, u32 offset, u32 val)
 {
 	return mt76_rmw(dev, offset, 0, val);
 }
 
-static inline u32 mt76_clear(struct mt7601u_dev *dev, u32 offset, u32 val)
+static u32 mt76_clear(struct mt7601u_dev *dev, u32 offset, u32 val)
 {
 	return mt76_rmw(dev, offset, val, 0);
 }
@@ -382,7 +382,7 @@ int mt76_insert_hdr_pad(struct sk_buff *skb);
 
 u32 mt7601u_bbp_set_ctrlch(struct mt7601u_dev *dev, bool below);
 
-static inline u32 mt7601u_mac_set_ctrlch(struct mt7601u_dev *dev, bool below)
+static u32 mt7601u_mac_set_ctrlch(struct mt7601u_dev *dev, bool below)
 {
 	return mt7601u_rmc(dev, MT_TX_BAND_CFG, 1, below);
 }

@@ -277,13 +277,13 @@ extern int mt6360_pmu_reg_read(struct mt6360_pmu_info *mpi, u8 addr);
 extern int mt6360_pmu_reg_write(struct mt6360_pmu_info *mpi, u8 addr, u8 data);
 extern int mt6360_pmu_reg_update_bits(struct mt6360_pmu_info *mpi,
 				      u8 addr, u8 mask, u8 data);
-static inline int mt6360_pmu_reg_set_bits(struct mt6360_pmu_info *mpi,
+static int mt6360_pmu_reg_set_bits(struct mt6360_pmu_info *mpi,
 					  u8 addr, u8 mask)
 {
 	return mt6360_pmu_reg_update_bits(mpi, addr, mask, mask);
 }
 
-static inline int mt6360_pmu_reg_clr_bits(struct mt6360_pmu_info *mpi,
+static int mt6360_pmu_reg_clr_bits(struct mt6360_pmu_info *mpi,
 					  u8 addr, u8 mask)
 {
 	return mt6360_pmu_reg_update_bits(mpi, addr, mask, 0);
@@ -307,7 +307,7 @@ struct mt6360_val_prop {
 	size_t offset;
 };
 
-static inline void mt6360_dt_parser_helper(struct device_node *np, void *data,
+static void mt6360_dt_parser_helper(struct device_node *np, void *data,
 					   const struct mt6360_val_prop *props,
 					   int prop_cnt)
 {
@@ -332,7 +332,7 @@ struct mt6360_pdata_prop {
 	u8 base;
 };
 
-static inline int mt6360_pdata_apply_helper(void *info, void *pdata,
+static int mt6360_pdata_apply_helper(void *info, void *pdata,
 					   const struct mt6360_pdata_prop *prop,
 					   int prop_cnt)
 {

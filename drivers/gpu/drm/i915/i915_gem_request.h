@@ -199,7 +199,7 @@ struct drm_i915_gem_request {
 
 extern const struct dma_fence_ops i915_fence_ops;
 
-static inline bool dma_fence_is_i915(const struct dma_fence *fence)
+static bool dma_fence_is_i915(const struct dma_fence *fence)
 {
 	return fence->ops == &i915_fence_ops;
 }
@@ -209,7 +209,7 @@ i915_gem_request_alloc(struct intel_engine_cs *engine,
 		       struct i915_gem_context *ctx);
 void i915_gem_request_retire_upto(struct drm_i915_gem_request *req);
 
-static inline struct drm_i915_gem_request *
+static struct drm_i915_gem_request *
 to_request(struct dma_fence *fence)
 {
 	/* We assume that NULL fence/request are interoperable */
@@ -218,25 +218,25 @@ to_request(struct dma_fence *fence)
 	return container_of(fence, struct drm_i915_gem_request, fence);
 }
 
-static inline struct drm_i915_gem_request *
+static struct drm_i915_gem_request *
 i915_gem_request_get(struct drm_i915_gem_request *req)
 {
 	return to_request(dma_fence_get(&req->fence));
 }
 
-static inline struct drm_i915_gem_request *
+static struct drm_i915_gem_request *
 i915_gem_request_get_rcu(struct drm_i915_gem_request *req)
 {
 	return to_request(dma_fence_get_rcu(&req->fence));
 }
 
-static inline void
+static void
 i915_gem_request_put(struct drm_i915_gem_request *req)
 {
 	dma_fence_put(&req->fence);
 }
 
-static inline void i915_gem_request_assign(struct drm_i915_gem_request **pdst,
+static void i915_gem_request_assign(struct drm_i915_gem_request **pdst,
 					   struct drm_i915_gem_request *src)
 {
 	if (src)
@@ -302,17 +302,17 @@ long i915_wait_request(struct drm_i915_gem_request *req,
 #define I915_WAIT_LOCKED	BIT(1) /* struct_mutex held, handle GPU reset */
 #define I915_WAIT_ALL		BIT(2) /* used by i915_gem_object_wait() */
 
-static inline u32 intel_engine_get_seqno(struct intel_engine_cs *engine);
+static u32 intel_engine_get_seqno(struct intel_engine_cs *engine);
 
 /**
  * Returns true if seq1 is later than seq2.
  */
-static inline bool i915_seqno_passed(u32 seq1, u32 seq2)
+static bool i915_seqno_passed(u32 seq1, u32 seq2)
 {
 	return (s32)(seq1 - seq2) >= 0;
 }
 
-static inline bool
+static bool
 __i915_gem_request_started(const struct drm_i915_gem_request *req, u32 seqno)
 {
 	GEM_BUG_ON(!seqno);
@@ -320,7 +320,7 @@ __i915_gem_request_started(const struct drm_i915_gem_request *req, u32 seqno)
 				 seqno - 1);
 }
 
-static inline bool
+static bool
 i915_gem_request_started(const struct drm_i915_gem_request *req)
 {
 	u32 seqno;
@@ -332,7 +332,7 @@ i915_gem_request_started(const struct drm_i915_gem_request *req)
 	return __i915_gem_request_started(req, seqno);
 }
 
-static inline bool
+static bool
 __i915_gem_request_completed(const struct drm_i915_gem_request *req, u32 seqno)
 {
 	GEM_BUG_ON(!seqno);
@@ -340,7 +340,7 @@ __i915_gem_request_completed(const struct drm_i915_gem_request *req, u32 seqno)
 		seqno == i915_gem_request_global_seqno(req);
 }
 
-static inline bool
+static bool
 i915_gem_request_completed(const struct drm_i915_gem_request *req)
 {
 	u32 seqno;
@@ -354,7 +354,7 @@ i915_gem_request_completed(const struct drm_i915_gem_request *req)
 
 bool __i915_spin_request(const struct drm_i915_gem_request *request,
 			 u32 seqno, int state, unsigned long timeout_us);
-static inline bool i915_spin_request(const struct drm_i915_gem_request *request,
+static bool i915_spin_request(const struct drm_i915_gem_request *request,
 				     int state, unsigned long timeout_us)
 {
 	u32 seqno;
@@ -419,7 +419,7 @@ void i915_gem_retire_noop(struct i915_gem_active *,
  * associated with it. When the last request becomes idle, when it is retired
  * after completion, the optional callback @func is invoked.
  */
-static inline void
+static void
 init_request_active(struct i915_gem_active *active,
 		    i915_gem_retire_fn retire)
 {
@@ -436,7 +436,7 @@ init_request_active(struct i915_gem_active *active,
  * that @request is busy, the @active reports busy. When that @request is
  * retired, the @active tracker is updated to report idle.
  */
-static inline void
+static void
 i915_gem_active_set(struct i915_gem_active *active,
 		    struct drm_i915_gem_request *request)
 {
@@ -454,7 +454,7 @@ i915_gem_active_set(struct i915_gem_active *active,
  * is called when the final request associated with the @active tracker
  * is retired.
  */
-static inline void
+static void
 i915_gem_active_set_retire_fn(struct i915_gem_active *active,
 			      i915_gem_retire_fn fn,
 			      struct mutex *mutex)
@@ -463,7 +463,7 @@ i915_gem_active_set_retire_fn(struct i915_gem_active *active,
 	active->retire = fn ?: i915_gem_retire_noop;
 }
 
-static inline struct drm_i915_gem_request *
+static struct drm_i915_gem_request *
 __i915_gem_active_peek(const struct i915_gem_active *active)
 {
 	/* Inside the error capture (running with the driver in an unknown
@@ -483,7 +483,7 @@ __i915_gem_active_peek(const struct i915_gem_active *active)
  * It does not obtain a reference on the request for the caller, so the caller
  * must hold struct_mutex.
  */
-static inline struct drm_i915_gem_request *
+static struct drm_i915_gem_request *
 i915_gem_active_raw(const struct i915_gem_active *active, struct mutex *mutex)
 {
 	return rcu_dereference_protected(active->request,
@@ -498,7 +498,7 @@ i915_gem_active_raw(const struct i915_gem_active *active, struct mutex *mutex)
  * still active, or NULL. It does not obtain a reference on the request
  * for the caller, so the caller must hold struct_mutex.
  */
-static inline struct drm_i915_gem_request *
+static struct drm_i915_gem_request *
 i915_gem_active_peek(const struct i915_gem_active *active, struct mutex *mutex)
 {
 	struct drm_i915_gem_request *request;
@@ -517,7 +517,7 @@ i915_gem_active_peek(const struct i915_gem_active *active, struct mutex *mutex)
  * i915_gem_active_get() returns a reference to the active request, or NULL
  * if the active tracker is idle. The caller must hold struct_mutex.
  */
-static inline struct drm_i915_gem_request *
+static struct drm_i915_gem_request *
 i915_gem_active_get(const struct i915_gem_active *active, struct mutex *mutex)
 {
 	return i915_gem_request_get(i915_gem_active_peek(active, mutex));
@@ -531,7 +531,7 @@ i915_gem_active_get(const struct i915_gem_active *active, struct mutex *mutex)
  * if the active tracker is idle. The caller must hold the RCU read lock, but
  * the returned pointer is safe to use outside of RCU.
  */
-static inline struct drm_i915_gem_request *
+static struct drm_i915_gem_request *
 __i915_gem_active_get_rcu(const struct i915_gem_active *active)
 {
 	/* Performing a lockless retrieval of the active request is super
@@ -644,7 +644,7 @@ __i915_gem_active_get_rcu(const struct i915_gem_active *active)
  *
  * The reference should be freed with i915_gem_request_put().
  */
-static inline struct drm_i915_gem_request *
+static struct drm_i915_gem_request *
 i915_gem_active_get_unlocked(const struct i915_gem_active *active)
 {
 	struct drm_i915_gem_request *request;
@@ -664,7 +664,7 @@ i915_gem_active_get_unlocked(const struct i915_gem_active *active)
  * assigned to a request. Due to the lazy retiring, that request may be idle
  * and this may report stale information.
  */
-static inline bool
+static bool
 i915_gem_active_isset(const struct i915_gem_active *active)
 {
 	return rcu_access_pointer(active->request);
@@ -692,7 +692,7 @@ i915_gem_active_isset(const struct i915_gem_active *active)
  *
  * Returns 0 if successful, or a negative error code.
  */
-static inline int
+static int
 i915_gem_active_wait(const struct i915_gem_active *active, unsigned int flags)
 {
 	struct drm_i915_gem_request *request;
@@ -716,7 +716,7 @@ i915_gem_active_wait(const struct i915_gem_active *active, unsigned int flags)
  * @active tracker is called before returning. If the @active
  * tracker is idle, the function returns immediately.
  */
-static inline int __must_check
+static int __must_check
 i915_gem_active_retire(struct i915_gem_active *active,
 		       struct mutex *mutex)
 {

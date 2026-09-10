@@ -368,7 +368,7 @@ struct knav_range_info {
 #define for_each_qmgr(kdev, qmgr)				\
 	list_for_each_entry(qmgr, &kdev->qmgrs, list)
 
-static inline struct knav_pdsp_info *
+static struct knav_pdsp_info *
 knav_find_pdsp(struct knav_device *kdev, unsigned pdsp_id)
 {
 	struct knav_pdsp_info *pdsp;

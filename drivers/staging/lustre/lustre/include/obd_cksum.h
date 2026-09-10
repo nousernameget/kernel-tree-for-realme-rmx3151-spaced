@@ -34,7 +34,7 @@
 #include <linux/libcfs/libcfs_crypto.h>
 #include <uapi/linux/lustre/lustre_idl.h>
 
-static inline unsigned char cksum_obd2cfs(enum cksum_type cksum_type)
+static unsigned char cksum_obd2cfs(enum cksum_type cksum_type)
 {
 	switch (cksum_type) {
 	case OBD_CKSUM_CRC32:
@@ -62,7 +62,7 @@ static inline unsigned char cksum_obd2cfs(enum cksum_type cksum_type)
  *
  * In case multiple algorithms are supported the best one is used.
  */
-static inline u32 cksum_type_pack(enum cksum_type cksum_type)
+static u32 cksum_type_pack(enum cksum_type cksum_type)
 {
 	unsigned int    performance = 0, tmp;
 	u32		flag = OBD_FL_CKSUM_ADLER;
@@ -96,7 +96,7 @@ static inline u32 cksum_type_pack(enum cksum_type cksum_type)
 	return flag;
 }
 
-static inline enum cksum_type cksum_type_unpack(u32 o_flags)
+static enum cksum_type cksum_type_unpack(u32 o_flags)
 {
 	switch (o_flags & OBD_FL_CKSUM_ALL) {
 	case OBD_FL_CKSUM_CRC32C:
@@ -114,7 +114,7 @@ static inline enum cksum_type cksum_type_unpack(u32 o_flags)
  * 1.8 supported ADLER it is base and not depend on hw
  * Client uses all available local algos
  */
-static inline enum cksum_type cksum_types_supported_client(void)
+static enum cksum_type cksum_types_supported_client(void)
 {
 	enum cksum_type ret = OBD_CKSUM_ADLER;
 
@@ -139,7 +139,7 @@ static inline enum cksum_type cksum_types_supported_client(void)
  * Caution is advised, however, since what is fastest on a single client may
  * not be the fastest or most efficient algorithm on the server.
  */
-static inline enum cksum_type cksum_type_select(enum cksum_type cksum_types)
+static enum cksum_type cksum_type_select(enum cksum_type cksum_types)
 {
 	return cksum_type_unpack(cksum_type_pack(cksum_types));
 }

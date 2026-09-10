@@ -246,17 +246,17 @@ struct asd_ha_struct {
 
 /* ---------- DMA allocs ---------- */
 
-static inline struct asd_dma_tok *asd_dmatok_alloc(gfp_t flags)
+static struct asd_dma_tok *asd_dmatok_alloc(gfp_t flags)
 {
 	return kmem_cache_alloc(asd_dma_token_cache, flags);
 }
 
-static inline void asd_dmatok_free(struct asd_dma_tok *token)
+static void asd_dmatok_free(struct asd_dma_tok *token)
 {
 	kmem_cache_free(asd_dma_token_cache, token);
 }
 
-static inline struct asd_dma_tok *asd_alloc_coherent(struct asd_ha_struct *
+static struct asd_dma_tok *asd_alloc_coherent(struct asd_ha_struct *
 						     asd_ha, size_t size,
 						     gfp_t flags)
 {
@@ -275,7 +275,7 @@ static inline struct asd_dma_tok *asd_alloc_coherent(struct asd_ha_struct *
 	return token;
 }
 
-static inline void asd_free_coherent(struct asd_ha_struct *asd_ha,
+static void asd_free_coherent(struct asd_ha_struct *asd_ha,
 				     struct asd_dma_tok *token)
 {
 	if (token) {
@@ -285,7 +285,7 @@ static inline void asd_free_coherent(struct asd_ha_struct *asd_ha,
 	}
 }
 
-static inline void asd_init_ascb(struct asd_ha_struct *asd_ha,
+static void asd_init_ascb(struct asd_ha_struct *asd_ha,
 				 struct asd_ascb *ascb)
 {
 	INIT_LIST_HEAD(&ascb->list);
@@ -298,7 +298,7 @@ static inline void asd_init_ascb(struct asd_ha_struct *asd_ha,
 
 /* Must be called with the tc_index_lock held!
  */
-static inline void asd_tc_index_release(struct asd_seq_data *seq, int index)
+static void asd_tc_index_release(struct asd_seq_data *seq, int index)
 {
 	seq->tc_index_array[index] = NULL;
 	clear_bit(index, seq->tc_index_bitmap);
@@ -306,7 +306,7 @@ static inline void asd_tc_index_release(struct asd_seq_data *seq, int index)
 
 /* Must be called with the tc_index_lock held!
  */
-static inline int asd_tc_index_get(struct asd_seq_data *seq, void *ptr)
+static int asd_tc_index_get(struct asd_seq_data *seq, void *ptr)
 {
 	int index;
 
@@ -323,7 +323,7 @@ static inline int asd_tc_index_get(struct asd_seq_data *seq, void *ptr)
 
 /* Must be called with the tc_index_lock held!
  */
-static inline void *asd_tc_index_find(struct asd_seq_data *seq, int index)
+static void *asd_tc_index_find(struct asd_seq_data *seq, int index)
 {
 	return seq->tc_index_array[index];
 }
@@ -335,7 +335,7 @@ static inline void *asd_tc_index_find(struct asd_seq_data *seq, int index)
  * This frees an aSCB after it has been executed/completed by
  * the sequencer.
  */
-static inline void asd_ascb_free(struct asd_ascb *ascb)
+static void asd_ascb_free(struct asd_ascb *ascb)
 {
 	if (ascb) {
 		struct asd_ha_struct *asd_ha = ascb->ha;
@@ -359,7 +359,7 @@ static inline void asd_ascb_free(struct asd_ascb *ascb)
  * It is used when say the scb queueing function returned QUEUE_FULL,
  * and we do not need the ascbs any more.
  */
-static inline void asd_ascb_free_list(struct asd_ascb *ascb_list)
+static void asd_ascb_free_list(struct asd_ascb *ascb_list)
 {
 	LIST_HEAD(list);
 	struct list_head *n, *pos;

@@ -345,7 +345,7 @@ enum e1000_ring_flags_t {
 #define clear_ring_build_skb_enabled(ring) \
 	clear_bit(IGB_RING_FLAG_RX_BUILD_SKB_ENABLED, &(ring)->flags)
 
-static inline unsigned int igb_rx_bufsz(struct igb_ring *ring)
+static unsigned int igb_rx_bufsz(struct igb_ring *ring)
 {
 #if (PAGE_SIZE < 8192)
 	if (ring_uses_large_buffer(ring))
@@ -357,7 +357,7 @@ static inline unsigned int igb_rx_bufsz(struct igb_ring *ring)
 	return IGB_RXBUFFER_2048;
 }
 
-static inline unsigned int igb_rx_pg_order(struct igb_ring *ring)
+static unsigned int igb_rx_pg_order(struct igb_ring *ring)
 {
 #if (PAGE_SIZE < 8192)
 	if (ring_uses_large_buffer(ring))
@@ -378,14 +378,14 @@ static inline unsigned int igb_rx_pg_order(struct igb_ring *ring)
 	(&(((struct e1000_adv_tx_context_desc *)((R)->desc))[i]))
 
 /* igb_test_staterr - tests bits within Rx descriptor status and error fields */
-static inline __le32 igb_test_staterr(union e1000_adv_rx_desc *rx_desc,
+static __le32 igb_test_staterr(union e1000_adv_rx_desc *rx_desc,
 				      const u32 stat_err_bits)
 {
 	return rx_desc->wb.upper.status_error & cpu_to_le32(stat_err_bits);
 }
 
 /* igb_desc_unused - calculate if we have unused descriptors */
-static inline int igb_desc_unused(struct igb_ring *ring)
+static int igb_desc_unused(struct igb_ring *ring)
 {
 	if (ring->next_to_clean > ring->next_to_use)
 		return ring->next_to_clean - ring->next_to_use - 1;
@@ -688,7 +688,7 @@ void igb_set_flag_queue_pairs(struct igb_adapter *, const u32);
 void igb_sysfs_exit(struct igb_adapter *adapter);
 int igb_sysfs_init(struct igb_adapter *adapter);
 #endif
-static inline s32 igb_reset_phy(struct e1000_hw *hw)
+static s32 igb_reset_phy(struct e1000_hw *hw)
 {
 	if (hw->phy.ops.reset)
 		return hw->phy.ops.reset(hw);
@@ -696,7 +696,7 @@ static inline s32 igb_reset_phy(struct e1000_hw *hw)
 	return 0;
 }
 
-static inline s32 igb_read_phy_reg(struct e1000_hw *hw, u32 offset, u16 *data)
+static s32 igb_read_phy_reg(struct e1000_hw *hw, u32 offset, u16 *data)
 {
 	if (hw->phy.ops.read_reg)
 		return hw->phy.ops.read_reg(hw, offset, data);
@@ -704,7 +704,7 @@ static inline s32 igb_read_phy_reg(struct e1000_hw *hw, u32 offset, u16 *data)
 	return 0;
 }
 
-static inline s32 igb_write_phy_reg(struct e1000_hw *hw, u32 offset, u16 data)
+static s32 igb_write_phy_reg(struct e1000_hw *hw, u32 offset, u16 data)
 {
 	if (hw->phy.ops.write_reg)
 		return hw->phy.ops.write_reg(hw, offset, data);
@@ -712,7 +712,7 @@ static inline s32 igb_write_phy_reg(struct e1000_hw *hw, u32 offset, u16 data)
 	return 0;
 }
 
-static inline s32 igb_get_phy_info(struct e1000_hw *hw)
+static s32 igb_get_phy_info(struct e1000_hw *hw)
 {
 	if (hw->phy.ops.get_phy_info)
 		return hw->phy.ops.get_phy_info(hw);
@@ -720,7 +720,7 @@ static inline s32 igb_get_phy_info(struct e1000_hw *hw)
 	return 0;
 }
 
-static inline struct netdev_queue *txring_txq(const struct igb_ring *tx_ring)
+static struct netdev_queue *txring_txq(const struct igb_ring *tx_ring)
 {
 	return netdev_get_tx_queue(tx_ring->netdev, tx_ring->queue_index);
 }

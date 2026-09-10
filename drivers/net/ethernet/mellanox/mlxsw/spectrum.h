@@ -165,7 +165,7 @@ struct mlxsw_sp {
 	} span;
 };
 
-static inline struct mlxsw_sp_upper *
+static struct mlxsw_sp_upper *
 mlxsw_sp_lag_get(struct mlxsw_sp *mlxsw_sp, u16 lag_id)
 {
 	return &mlxsw_sp->lags[lag_id];
@@ -235,13 +235,13 @@ struct mlxsw_sp_port {
 	struct list_head vlans_list;
 };
 
-static inline bool
+static bool
 mlxsw_sp_port_is_pause_en(const struct mlxsw_sp_port *mlxsw_sp_port)
 {
 	return mlxsw_sp_port->link.tx_pause || mlxsw_sp_port->link.rx_pause;
 }
 
-static inline struct mlxsw_sp_port *
+static struct mlxsw_sp_port *
 mlxsw_sp_port_lagged_get(struct mlxsw_sp *mlxsw_sp, u16 lag_id, u8 port_index)
 {
 	struct mlxsw_sp_port *mlxsw_sp_port;
@@ -253,7 +253,7 @@ mlxsw_sp_port_lagged_get(struct mlxsw_sp *mlxsw_sp, u16 lag_id, u8 port_index)
 	return mlxsw_sp_port && mlxsw_sp_port->lagged ? mlxsw_sp_port : NULL;
 }
 
-static inline struct mlxsw_sp_port_vlan *
+static struct mlxsw_sp_port_vlan *
 mlxsw_sp_port_vlan_find_by_vid(const struct mlxsw_sp_port *mlxsw_sp_port,
 			       u16 vid)
 {
@@ -372,11 +372,11 @@ struct mlxsw_sp_port *mlxsw_sp_port_dev_lower_find_rcu(struct net_device *dev);
 int mlxsw_sp_port_dcb_init(struct mlxsw_sp_port *mlxsw_sp_port);
 void mlxsw_sp_port_dcb_fini(struct mlxsw_sp_port *mlxsw_sp_port);
 #else
-static inline int mlxsw_sp_port_dcb_init(struct mlxsw_sp_port *mlxsw_sp_port)
+static int mlxsw_sp_port_dcb_init(struct mlxsw_sp_port *mlxsw_sp_port)
 {
 	return 0;
 }
-static inline void mlxsw_sp_port_dcb_fini(struct mlxsw_sp_port *mlxsw_sp_port)
+static void mlxsw_sp_port_dcb_fini(struct mlxsw_sp_port *mlxsw_sp_port)
 {}
 #endif
 

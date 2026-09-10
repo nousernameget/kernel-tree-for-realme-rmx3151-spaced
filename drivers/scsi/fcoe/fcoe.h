@@ -96,7 +96,7 @@ struct fcoe_interface {
  * fcoe_netdev() - Return the net device associated with a local port
  * @lport: The local port to get the net device from
  */
-static inline struct net_device *fcoe_netdev(const struct fc_lport *lport)
+static struct net_device *fcoe_netdev(const struct fc_lport *lport)
 {
 	return ((struct fcoe_interface *)
 			((struct fcoe_port *)lport_priv(lport))->priv)->netdev;

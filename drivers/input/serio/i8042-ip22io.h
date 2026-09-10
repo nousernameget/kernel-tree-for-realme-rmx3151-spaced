@@ -33,27 +33,27 @@
 #define I8042_STATUS_REG	((unsigned long)&sgioc->kbdmouse.command)
 #define I8042_DATA_REG		((unsigned long)&sgioc->kbdmouse.data)
 
-static inline int i8042_read_data(void)
+static int i8042_read_data(void)
 {
 	return sgioc->kbdmouse.data;
 }
 
-static inline int i8042_read_status(void)
+static int i8042_read_status(void)
 {
 	return sgioc->kbdmouse.command;
 }
 
-static inline void i8042_write_data(int val)
+static void i8042_write_data(int val)
 {
 	sgioc->kbdmouse.data = val;
 }
 
-static inline void i8042_write_command(int val)
+static void i8042_write_command(int val)
 {
 	sgioc->kbdmouse.command = val;
 }
 
-static inline int i8042_platform_init(void)
+static int i8042_platform_init(void)
 {
 #if 0
 	/* XXX sgi_kh is a virtual address */
@@ -66,7 +66,7 @@ static inline int i8042_platform_init(void)
 	return 0;
 }
 
-static inline void i8042_platform_exit(void)
+static void i8042_platform_exit(void)
 {
 #if 0
 	release_mem_region(JAZZ_KEYBOARD_ADDRESS, sizeof(struct hpc_keyb));

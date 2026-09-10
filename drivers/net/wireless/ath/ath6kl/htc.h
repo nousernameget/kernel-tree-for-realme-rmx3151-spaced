@@ -632,7 +632,7 @@ struct htc_target {
 int ath6kl_htc_rxmsg_pending_handler(struct htc_target *target,
 				     u32 msg_look_ahead, int *n_pkts);
 
-static inline void set_htc_pkt_info(struct htc_packet *packet, void *context,
+static void set_htc_pkt_info(struct htc_packet *packet, void *context,
 				    u8 *buf, unsigned int len,
 				    enum htc_endpoint_id eid, u16 tag)
 {
@@ -643,13 +643,13 @@ static inline void set_htc_pkt_info(struct htc_packet *packet, void *context,
 	packet->info.tx.tag = tag;
 }
 
-static inline void htc_rxpkt_reset(struct htc_packet *packet)
+static void htc_rxpkt_reset(struct htc_packet *packet)
 {
 	packet->buf = packet->buf_start;
 	packet->act_len = 0;
 }
 
-static inline void set_htc_rxpkt_info(struct htc_packet *packet, void *context,
+static void set_htc_rxpkt_info(struct htc_packet *packet, void *context,
 				      u8 *buf, unsigned long len,
 				      enum htc_endpoint_id eid)
 {
@@ -660,7 +660,7 @@ static inline void set_htc_rxpkt_info(struct htc_packet *packet, void *context,
 	packet->endpoint = eid;
 }
 
-static inline int get_queue_depth(struct list_head *queue)
+static int get_queue_depth(struct list_head *queue)
 {
 	struct list_head *tmp_list;
 	int depth = 0;

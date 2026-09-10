@@ -62,7 +62,7 @@ void ddcb_requ_free(struct genwqe_ddcb_cmd *req);
 
 u32  genwqe_crc32(u8 *buff, size_t len, u32 init);
 
-static inline void genwqe_hexdump(struct pci_dev *pci_dev,
+static void genwqe_hexdump(struct pci_dev *pci_dev,
 				  const void *buff, unsigned int size)
 {
 	char prefix[32];

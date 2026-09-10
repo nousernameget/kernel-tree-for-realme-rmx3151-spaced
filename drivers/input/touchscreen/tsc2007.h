@@ -92,7 +92,7 @@ bool tsc2007_is_pen_down(struct tsc2007 *ts);
 /* defined in tsc2007_iio.c */
 int tsc2007_iio_configure(struct tsc2007 *ts);
 #else
-static inline int tsc2007_iio_configure(struct tsc2007 *ts)
+static int tsc2007_iio_configure(struct tsc2007 *ts)
 {
 	return 0;
 }

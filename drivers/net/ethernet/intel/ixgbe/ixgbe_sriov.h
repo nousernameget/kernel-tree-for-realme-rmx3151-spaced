@@ -63,7 +63,7 @@ void ixgbe_enable_sriov(struct ixgbe_adapter *adapter, unsigned int max_vfs);
 #endif
 int ixgbe_pci_sriov_configure(struct pci_dev *dev, int num_vfs);
 
-static inline void ixgbe_set_vmvir(struct ixgbe_adapter *adapter,
+static void ixgbe_set_vmvir(struct ixgbe_adapter *adapter,
 				   u16 vid, u16 qos, u32 vf)
 {
 	struct ixgbe_hw *hw = &adapter->hw;

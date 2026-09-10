@@ -28,7 +28,7 @@ void smp_inner_dcache_flush_all(void);
 int ion_history_init(void);
 void ion_history_count_kick(bool allc, size_t len);
 #else
-static inline int ion_history_init(void)
+static int ion_history_init(void)
 {
 	return 0;
 }

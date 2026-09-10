@@ -180,22 +180,22 @@ void rxe_qp_destroy(struct rxe_qp *qp);
 
 void rxe_qp_cleanup(struct rxe_pool_entry *arg);
 
-static inline int qp_num(struct rxe_qp *qp)
+static int qp_num(struct rxe_qp *qp)
 {
 	return qp->ibqp.qp_num;
 }
 
-static inline enum ib_qp_type qp_type(struct rxe_qp *qp)
+static enum ib_qp_type qp_type(struct rxe_qp *qp)
 {
 	return qp->ibqp.qp_type;
 }
 
-static inline enum ib_qp_state qp_state(struct rxe_qp *qp)
+static enum ib_qp_state qp_state(struct rxe_qp *qp)
 {
 	return qp->attr.qp_state;
 }
 
-static inline int qp_mtu(struct rxe_qp *qp)
+static int qp_mtu(struct rxe_qp *qp)
 {
 	if (qp->ibqp.qp_type == IB_QPT_RC || qp->ibqp.qp_type == IB_QPT_UC)
 		return qp->attr.path_mtu;
@@ -203,7 +203,7 @@ static inline int qp_mtu(struct rxe_qp *qp)
 		return RXE_PORT_MAX_MTU;
 }
 
-static inline int rcv_wqe_size(int max_sge)
+static int rcv_wqe_size(int max_sge)
 {
 	return sizeof(struct rxe_recv_wqe) +
 		max_sge * sizeof(struct ib_sge);
@@ -211,7 +211,7 @@ static inline int rcv_wqe_size(int max_sge)
 
 void free_rd_atomic_resource(struct rxe_qp *qp, struct resp_res *res);
 
-static inline void rxe_advance_resp_resource(struct rxe_qp *qp)
+static void rxe_advance_resp_resource(struct rxe_qp *qp)
 {
 	qp->resp.res_head++;
 	if (unlikely(qp->resp.res_head == qp->attr.max_dest_rd_atomic))
@@ -249,12 +249,12 @@ void rxe_resp_queue_pkt(struct rxe_dev *rxe,
 void rxe_comp_queue_pkt(struct rxe_dev *rxe,
 			struct rxe_qp *qp, struct sk_buff *skb);
 
-static inline unsigned int wr_opcode_mask(int opcode, struct rxe_qp *qp)
+static unsigned int wr_opcode_mask(int opcode, struct rxe_qp *qp)
 {
 	return rxe_wr_opcode_info[opcode].mask[qp->ibqp.qp_type];
 }
 
-static inline int rxe_xmit_packet(struct rxe_dev *rxe, struct rxe_qp *qp,
+static int rxe_xmit_packet(struct rxe_dev *rxe, struct rxe_qp *qp,
 				  struct rxe_pkt_info *pkt, struct sk_buff *skb)
 {
 	int err;

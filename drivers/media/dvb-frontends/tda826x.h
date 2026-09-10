@@ -40,7 +40,7 @@ extern struct dvb_frontend* tda826x_attach(struct dvb_frontend *fe, int addr,
 					   struct i2c_adapter *i2c,
 					   int has_loopthrough);
 #else
-static inline struct dvb_frontend* tda826x_attach(struct dvb_frontend *fe,
+static struct dvb_frontend* tda826x_attach(struct dvb_frontend *fe,
 						  int addr,
 						  struct i2c_adapter *i2c,
 						  int has_loopthrough)

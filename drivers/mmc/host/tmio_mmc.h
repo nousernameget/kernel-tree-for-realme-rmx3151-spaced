@@ -219,14 +219,14 @@ void tmio_mmc_enable_mmc_irqs(struct tmio_mmc_host *host, u32 i);
 void tmio_mmc_disable_mmc_irqs(struct tmio_mmc_host *host, u32 i);
 irqreturn_t tmio_mmc_irq(int irq, void *devid);
 
-static inline char *tmio_mmc_kmap_atomic(struct scatterlist *sg,
+static char *tmio_mmc_kmap_atomic(struct scatterlist *sg,
 					 unsigned long *flags)
 {
 	local_irq_save(*flags);
 	return kmap_atomic(sg_page(sg)) + sg->offset;
 }
 
-static inline void tmio_mmc_kunmap_atomic(struct scatterlist *sg,
+static void tmio_mmc_kunmap_atomic(struct scatterlist *sg,
 					  unsigned long *flags, void *virt)
 {
 	kunmap_atomic(virt - sg->offset);
@@ -238,31 +238,31 @@ int tmio_mmc_host_runtime_suspend(struct device *dev);
 int tmio_mmc_host_runtime_resume(struct device *dev);
 #endif
 
-static inline u16 sd_ctrl_read16(struct tmio_mmc_host *host, int addr)
+static u16 sd_ctrl_read16(struct tmio_mmc_host *host, int addr)
 {
 	return readw(host->ctl + (addr << host->bus_shift));
 }
 
-static inline void sd_ctrl_read16_rep(struct tmio_mmc_host *host, int addr,
+static void sd_ctrl_read16_rep(struct tmio_mmc_host *host, int addr,
 				      u16 *buf, int count)
 {
 	readsw(host->ctl + (addr << host->bus_shift), buf, count);
 }
 
-static inline u32 sd_ctrl_read16_and_16_as_32(struct tmio_mmc_host *host,
+static u32 sd_ctrl_read16_and_16_as_32(struct tmio_mmc_host *host,
 					      int addr)
 {
 	return readw(host->ctl + (addr << host->bus_shift)) |
 	       readw(host->ctl + ((addr + 2) << host->bus_shift)) << 16;
 }
 
-static inline void sd_ctrl_read32_rep(struct tmio_mmc_host *host, int addr,
+static void sd_ctrl_read32_rep(struct tmio_mmc_host *host, int addr,
 				      u32 *buf, int count)
 {
 	readsl(host->ctl + (addr << host->bus_shift), buf, count);
 }
 
-static inline void sd_ctrl_write16(struct tmio_mmc_host *host, int addr,
+static void sd_ctrl_write16(struct tmio_mmc_host *host, int addr,
 				   u16 val)
 {
 	/* If there is a hook and it returns non-zero then there
@@ -273,25 +273,25 @@ static inline void sd_ctrl_write16(struct tmio_mmc_host *host, int addr,
 	writew(val, host->ctl + (addr << host->bus_shift));
 }
 
-static inline void sd_ctrl_write16_rep(struct tmio_mmc_host *host, int addr,
+static void sd_ctrl_write16_rep(struct tmio_mmc_host *host, int addr,
 				       u16 *buf, int count)
 {
 	writesw(host->ctl + (addr << host->bus_shift), buf, count);
 }
 
-static inline void sd_ctrl_write32_as_16_and_16(struct tmio_mmc_host *host,
+static void sd_ctrl_write32_as_16_and_16(struct tmio_mmc_host *host,
 						int addr, u32 val)
 {
 	writew(val & 0xffff, host->ctl + (addr << host->bus_shift));
 	writew(val >> 16, host->ctl + ((addr + 2) << host->bus_shift));
 }
 
-static inline void sd_ctrl_write32(struct tmio_mmc_host *host, int addr, u32 val)
+static void sd_ctrl_write32(struct tmio_mmc_host *host, int addr, u32 val)
 {
 	iowrite32(val, host->ctl + (addr << host->bus_shift));
 }
 
-static inline void sd_ctrl_write32_rep(struct tmio_mmc_host *host, int addr,
+static void sd_ctrl_write32_rep(struct tmio_mmc_host *host, int addr,
 				       const u32 *buf, int count)
 {
 	writesl(host->ctl + (addr << host->bus_shift), buf, count);

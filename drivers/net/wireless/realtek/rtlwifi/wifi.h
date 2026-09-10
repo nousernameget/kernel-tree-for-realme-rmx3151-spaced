@@ -2953,22 +2953,22 @@ extern u8 channel5g[CHANNEL_MAX_NUMBER_5G];
 
 extern u8 channel5g_80m[CHANNEL_MAX_NUMBER_5G_80M];
 
-static inline u8 rtl_read_byte(struct rtl_priv *rtlpriv, u32 addr)
+static u8 rtl_read_byte(struct rtl_priv *rtlpriv, u32 addr)
 {
 	return rtlpriv->io.read8_sync(rtlpriv, addr);
 }
 
-static inline u16 rtl_read_word(struct rtl_priv *rtlpriv, u32 addr)
+static u16 rtl_read_word(struct rtl_priv *rtlpriv, u32 addr)
 {
 	return rtlpriv->io.read16_sync(rtlpriv, addr);
 }
 
-static inline u32 rtl_read_dword(struct rtl_priv *rtlpriv, u32 addr)
+static u32 rtl_read_dword(struct rtl_priv *rtlpriv, u32 addr)
 {
 	return rtlpriv->io.read32_sync(rtlpriv, addr);
 }
 
-static inline void rtl_write_byte(struct rtl_priv *rtlpriv, u32 addr, u8 val8)
+static void rtl_write_byte(struct rtl_priv *rtlpriv, u32 addr, u8 val8)
 {
 	rtlpriv->io.write8_async(rtlpriv, addr, val8);
 
@@ -2976,7 +2976,7 @@ static inline void rtl_write_byte(struct rtl_priv *rtlpriv, u32 addr, u8 val8)
 		rtlpriv->io.read8_sync(rtlpriv, addr);
 }
 
-static inline void rtl_write_byte_with_val32(struct ieee80211_hw *hw,
+static void rtl_write_byte_with_val32(struct ieee80211_hw *hw,
 					     u32 addr, u32 val8)
 {
 	struct rtl_priv *rtlpriv = rtl_priv(hw);
@@ -2984,7 +2984,7 @@ static inline void rtl_write_byte_with_val32(struct ieee80211_hw *hw,
 	rtl_write_byte(rtlpriv, addr, (u8)val8);
 }
 
-static inline void rtl_write_word(struct rtl_priv *rtlpriv, u32 addr, u16 val16)
+static void rtl_write_word(struct rtl_priv *rtlpriv, u32 addr, u16 val16)
 {
 	rtlpriv->io.write16_async(rtlpriv, addr, val16);
 
@@ -2992,7 +2992,7 @@ static inline void rtl_write_word(struct rtl_priv *rtlpriv, u32 addr, u16 val16)
 		rtlpriv->io.read16_sync(rtlpriv, addr);
 }
 
-static inline void rtl_write_dword(struct rtl_priv *rtlpriv,
+static void rtl_write_dword(struct rtl_priv *rtlpriv,
 				   u32 addr, u32 val32)
 {
 	rtlpriv->io.write32_async(rtlpriv, addr, val32);
@@ -3001,7 +3001,7 @@ static inline void rtl_write_dword(struct rtl_priv *rtlpriv,
 		rtlpriv->io.read32_sync(rtlpriv, addr);
 }
 
-static inline u32 rtl_get_bbreg(struct ieee80211_hw *hw,
+static u32 rtl_get_bbreg(struct ieee80211_hw *hw,
 				u32 regaddr, u32 bitmask)
 {
 	struct rtl_priv *rtlpriv = hw->priv;
@@ -3009,7 +3009,7 @@ static inline u32 rtl_get_bbreg(struct ieee80211_hw *hw,
 	return rtlpriv->cfg->ops->get_bbreg(hw, regaddr, bitmask);
 }
 
-static inline void rtl_set_bbreg(struct ieee80211_hw *hw, u32 regaddr,
+static void rtl_set_bbreg(struct ieee80211_hw *hw, u32 regaddr,
 				 u32 bitmask, u32 data)
 {
 	struct rtl_priv *rtlpriv = hw->priv;
@@ -3017,13 +3017,13 @@ static inline void rtl_set_bbreg(struct ieee80211_hw *hw, u32 regaddr,
 	rtlpriv->cfg->ops->set_bbreg(hw, regaddr, bitmask, data);
 }
 
-static inline void rtl_set_bbreg_with_dwmask(struct ieee80211_hw *hw,
+static void rtl_set_bbreg_with_dwmask(struct ieee80211_hw *hw,
 				 u32 regaddr, u32 data)
 {
 	rtl_set_bbreg(hw, regaddr, 0xffffffff, data);
 }
 
-static inline u32 rtl_get_rfreg(struct ieee80211_hw *hw,
+static u32 rtl_get_rfreg(struct ieee80211_hw *hw,
 				enum radio_path rfpath, u32 regaddr,
 				u32 bitmask)
 {
@@ -3032,7 +3032,7 @@ static inline u32 rtl_get_rfreg(struct ieee80211_hw *hw,
 	return rtlpriv->cfg->ops->get_rfreg(hw, rfpath, regaddr, bitmask);
 }
 
-static inline void rtl_set_rfreg(struct ieee80211_hw *hw,
+static void rtl_set_rfreg(struct ieee80211_hw *hw,
 				 enum radio_path rfpath, u32 regaddr,
 				 u32 bitmask, u32 data)
 {
@@ -3041,54 +3041,54 @@ static inline void rtl_set_rfreg(struct ieee80211_hw *hw,
 	rtlpriv->cfg->ops->set_rfreg(hw, rfpath, regaddr, bitmask, data);
 }
 
-static inline bool is_hal_stop(struct rtl_hal *rtlhal)
+static bool is_hal_stop(struct rtl_hal *rtlhal)
 {
 	return (_HAL_STATE_STOP == rtlhal->state);
 }
 
-static inline void set_hal_start(struct rtl_hal *rtlhal)
+static void set_hal_start(struct rtl_hal *rtlhal)
 {
 	rtlhal->state = _HAL_STATE_START;
 }
 
-static inline void set_hal_stop(struct rtl_hal *rtlhal)
+static void set_hal_stop(struct rtl_hal *rtlhal)
 {
 	rtlhal->state = _HAL_STATE_STOP;
 }
 
-static inline u8 get_rf_type(struct rtl_phy *rtlphy)
+static u8 get_rf_type(struct rtl_phy *rtlphy)
 {
 	return rtlphy->rf_type;
 }
 
-static inline struct ieee80211_hdr *rtl_get_hdr(struct sk_buff *skb)
+static struct ieee80211_hdr *rtl_get_hdr(struct sk_buff *skb)
 {
 	return (struct ieee80211_hdr *)(skb->data);
 }
 
-static inline __le16 rtl_get_fc(struct sk_buff *skb)
+static __le16 rtl_get_fc(struct sk_buff *skb)
 {
 	return rtl_get_hdr(skb)->frame_control;
 }
 
-static inline u16 rtl_get_tid_h(struct ieee80211_hdr *hdr)
+static u16 rtl_get_tid_h(struct ieee80211_hdr *hdr)
 {
 	return (ieee80211_get_qos_ctl(hdr))[0] & IEEE80211_QOS_CTL_TID_MASK;
 }
 
-static inline u16 rtl_get_tid(struct sk_buff *skb)
+static u16 rtl_get_tid(struct sk_buff *skb)
 {
 	return rtl_get_tid_h(rtl_get_hdr(skb));
 }
 
-static inline struct ieee80211_sta *get_sta(struct ieee80211_hw *hw,
+static struct ieee80211_sta *get_sta(struct ieee80211_hw *hw,
 					    struct ieee80211_vif *vif,
 					    const u8 *bssid)
 {
 	return ieee80211_find_sta(vif, bssid);
 }
 
-static inline struct ieee80211_sta *rtl_find_sta(struct ieee80211_hw *hw,
+static struct ieee80211_sta *rtl_find_sta(struct ieee80211_hw *hw,
 		u8 *mac_addr)
 {
 	struct rtl_mac *mac = rtl_mac(rtl_priv(hw));

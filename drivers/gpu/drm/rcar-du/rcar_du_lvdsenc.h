@@ -42,20 +42,20 @@ int rcar_du_lvdsenc_enable(struct rcar_du_lvdsenc *lvds,
 void rcar_du_lvdsenc_atomic_check(struct rcar_du_lvdsenc *lvds,
 				  struct drm_display_mode *mode);
 #else
-static inline int rcar_du_lvdsenc_init(struct rcar_du_device *rcdu)
+static int rcar_du_lvdsenc_init(struct rcar_du_device *rcdu)
 {
 	return 0;
 }
-static inline void rcar_du_lvdsenc_set_mode(struct rcar_du_lvdsenc *lvds,
+static void rcar_du_lvdsenc_set_mode(struct rcar_du_lvdsenc *lvds,
 					    enum rcar_lvds_mode mode)
 {
 }
-static inline int rcar_du_lvdsenc_enable(struct rcar_du_lvdsenc *lvds,
+static int rcar_du_lvdsenc_enable(struct rcar_du_lvdsenc *lvds,
 					 struct drm_crtc *crtc, bool enable)
 {
 	return 0;
 }
-static inline void rcar_du_lvdsenc_atomic_check(struct rcar_du_lvdsenc *lvds,
+static void rcar_du_lvdsenc_atomic_check(struct rcar_du_lvdsenc *lvds,
 						struct drm_display_mode *mode)
 {
 }

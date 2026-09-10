@@ -140,12 +140,12 @@ void log_store_bootup(void);
 void store_log_to_emmc_enable(bool value);
 void disable_early_log(void);
 #ifdef MODULE
-static inline int set_emmc_config(int type, int value)
+static int set_emmc_config(int type, int value)
 {
 	return 0;
 }
 
-static inline int read_emmc_config(struct log_emmc_header *log_header)
+static int read_emmc_config(struct log_emmc_header *log_header)
 {
 	return 0;
 }
@@ -158,37 +158,37 @@ u32 get_last_boot_phase(void);
 void set_boot_phase(u32 step);
 #else
 
-static inline void  log_store_bootup(void)
+static void  log_store_bootup(void)
 {
 
 }
 
-static inline void store_log_to_emmc_enable(bool value)
+static void store_log_to_emmc_enable(bool value)
 {
 
 }
 
-static inline void disable_early_log(void)
+static void disable_early_log(void)
 {
 }
 
-static inline void log_store_to_emmc(void)
+static void log_store_to_emmc(void)
 {
 }
-static inline int set_emmc_config(int type, int value)
+static int set_emmc_config(int type, int value)
 {
 	return 0;
 }
 
-static inline int read_emmc_config(struct log_emmc_header *log_header)
+static int read_emmc_config(struct log_emmc_header *log_header)
 {
 	return 0;
 }
-static inline u32 get_last_boot_phase(void)
+static u32 get_last_boot_phase(void)
 {
 	return 0;
 }
-static inline void set_boot_phase(u32 step)
+static void set_boot_phase(u32 step)
 {
 }
 #endif

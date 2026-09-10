@@ -4,7 +4,7 @@
  * simple SPI master driver.  Two do polled word-at-a-time I/O:
  *
  *   -	GPIO/parport bitbangers.  Provide chipselect() and txrx_word[](),
- *	expanding the per-word routines from the inline templates below.
+ *	expanding the per-word routines from the templates below.
  *
  *   -	Drivers for controllers resembling bare shift registers.  Provide
  *	chipselect() and txrx_word[](), with custom setup()/cleanup() methods
@@ -43,7 +43,7 @@
  * particular CPU clock rate.
  */
 
-static inline u32
+static u32
 bitbang_txrx_be_cpha0(struct spi_device *spi,
 		unsigned nsecs, unsigned cpol, unsigned flags,
 		u32 word, u8 bits)
@@ -75,7 +75,7 @@ bitbang_txrx_be_cpha0(struct spi_device *spi,
 	return word;
 }
 
-static inline u32
+static u32
 bitbang_txrx_be_cpha1(struct spi_device *spi,
 		unsigned nsecs, unsigned cpol, unsigned flags,
 		u32 word, u8 bits)

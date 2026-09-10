@@ -33,23 +33,23 @@ struct vnic_wq_copy {
 	unsigned to_clean_index;
 };
 
-static inline unsigned int vnic_wq_copy_desc_avail(struct vnic_wq_copy *wq)
+static unsigned int vnic_wq_copy_desc_avail(struct vnic_wq_copy *wq)
 {
 	return wq->ring.desc_avail;
 }
 
-static inline unsigned int vnic_wq_copy_desc_in_use(struct vnic_wq_copy *wq)
+static unsigned int vnic_wq_copy_desc_in_use(struct vnic_wq_copy *wq)
 {
 	return wq->ring.desc_count - 1 - wq->ring.desc_avail;
 }
 
-static inline void *vnic_wq_copy_next_desc(struct vnic_wq_copy *wq)
+static void *vnic_wq_copy_next_desc(struct vnic_wq_copy *wq)
 {
 	struct fcpio_host_req *desc = wq->ring.descs;
 	return &desc[wq->to_use_index];
 }
 
-static inline void vnic_wq_copy_post(struct vnic_wq_copy *wq)
+static void vnic_wq_copy_post(struct vnic_wq_copy *wq)
 {
 
 	((wq->to_use_index + 1) == wq->ring.desc_count) ?
@@ -66,7 +66,7 @@ static inline void vnic_wq_copy_post(struct vnic_wq_copy *wq)
 	iowrite32(wq->to_use_index, &wq->ctrl->posted_index);
 }
 
-static inline void vnic_wq_copy_desc_process(struct vnic_wq_copy *wq, u16 index)
+static void vnic_wq_copy_desc_process(struct vnic_wq_copy *wq, u16 index)
 {
 	unsigned int cnt;
 
@@ -80,7 +80,7 @@ static inline void vnic_wq_copy_desc_process(struct vnic_wq_copy *wq, u16 index)
 
 }
 
-static inline void vnic_wq_copy_service(struct vnic_wq_copy *wq,
+static void vnic_wq_copy_service(struct vnic_wq_copy *wq,
 	u16 completed_index,
 	void (*q_service)(struct vnic_wq_copy *wq,
 	struct fcpio_host_req *wq_desc))

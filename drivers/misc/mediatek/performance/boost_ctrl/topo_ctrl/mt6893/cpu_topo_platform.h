@@ -31,7 +31,7 @@ extern "C" {
 #define CORE_NUM_B	(3)
 #define CORE_NUM_BB	(1)
 
-static inline unsigned int get_cluster_cpu_core(unsigned int id)
+static unsigned int get_cluster_cpu_core(unsigned int id)
 {
 	if (id == 0)
 		return CORE_NUM_L;

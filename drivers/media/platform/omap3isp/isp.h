@@ -351,7 +351,7 @@ void isp_reg_clr_set(struct isp_device *isp, enum isp_mem_resources mmio_range,
 	isp_reg_writel(isp, (v & ~clr_bits) | set_bits, mmio_range, reg);
 }
 
-static inline enum v4l2_buf_type
+static enum v4l2_buf_type
 isp_pad_buffer_type(const struct v4l2_subdev *subdev, int pad)
 {
 	if (pad >= subdev->entity.num_pads)

@@ -130,12 +130,12 @@ extern enum charger_type mt_get_charger_type(void);
 #define MUSB_CONFIG_PROC_FS
 #endif
 
-static inline struct usb_hcd *musb_to_hcd(struct musb *musb)
+static struct usb_hcd *musb_to_hcd(struct musb *musb)
 {
 	return container_of((void *)musb, struct usb_hcd, hcd_priv);
 }
 
-static inline struct musb *hcd_to_musb(struct usb_hcd *hcd)
+static struct musb *hcd_to_musb(struct usb_hcd *hcd)
 {
 	return (struct musb *)(hcd->hcd_priv);
 }
@@ -401,12 +401,12 @@ struct musb_hw_ep {
 	struct musb_ep ep_out;	/* RX */
 };
 
-static inline struct musb_request *next_in_request(struct musb_hw_ep *hw_ep)
+static struct musb_request *next_in_request(struct musb_hw_ep *hw_ep)
 {
 	return next_request(&hw_ep->ep_in);
 }
 
-static inline struct musb_request *next_out_request(struct musb_hw_ep *hw_ep)
+static struct musb_request *next_out_request(struct musb_hw_ep *hw_ep)
 {
 	return next_request(&hw_ep->ep_out);
 }
@@ -642,13 +642,13 @@ struct musb {
 	struct workqueue_struct *st_wq;
 };
 
-static inline struct musb *gadget_to_musb(struct usb_gadget *g)
+static struct musb *gadget_to_musb(struct usb_gadget *g)
 {
 	return container_of(g, struct musb, g);
 }
 
 #ifdef CONFIG_BLACKFIN
-static inline int musb_read_fifosize(struct musb *musb, struct musb_hw_ep *hw_ep, u8 epnum)
+static int musb_read_fifosize(struct musb *musb, struct musb_hw_ep *hw_ep, u8 epnum)
 {
 	musb->nr_endpoints++;
 	musb->epmask |= (1 << epnum);
@@ -665,7 +665,7 @@ static inline int musb_read_fifosize(struct musb *musb, struct musb_hw_ep *hw_ep
 	return 0;
 }
 
-static inline void musb_configure_ep0(struct musb *musb)
+static void musb_configure_ep0(struct musb *musb)
 {
 	musb->endpoints[0].max_packet_sz_tx = MUSB_EP0_FIFOSIZE;
 	musb->endpoints[0].max_packet_sz_rx = MUSB_EP0_FIFOSIZE;
@@ -674,7 +674,7 @@ static inline void musb_configure_ep0(struct musb *musb)
 
 #else
 
-static inline int musb_read_fifosize(struct musb *musb, struct musb_hw_ep *hw_ep, u8 epnum)
+static int musb_read_fifosize(struct musb *musb, struct musb_hw_ep *hw_ep, u8 epnum)
 {
 	void __iomem *mbase = musb->mregs;
 	u8 reg = 0;
@@ -702,7 +702,7 @@ static inline int musb_read_fifosize(struct musb *musb, struct musb_hw_ep *hw_ep
 	return 0;
 }
 
-static inline void musb_configure_ep0(struct musb *musb)
+static void musb_configure_ep0(struct musb *musb)
 {
 	musb->endpoints[0].max_packet_sz_tx = MUSB_EP0_FIFOSIZE;
 	musb->endpoints[0].max_packet_sz_rx = MUSB_EP0_FIFOSIZE;
@@ -727,25 +727,25 @@ extern irqreturn_t musb_interrupt(struct musb *);
 
 extern void musb_hnp_stop(struct musb *musb);
 
-static inline void musb_platform_set_vbus(struct musb *musb, int is_on)
+static void musb_platform_set_vbus(struct musb *musb, int is_on)
 {
 	if (musb->ops->set_vbus)
 		musb->ops->set_vbus(musb, is_on);
 }
 
-static inline void musb_platform_enable(struct musb *musb)
+static void musb_platform_enable(struct musb *musb)
 {
 	if (musb->ops->enable)
 		musb->ops->enable(musb);
 }
 
-static inline void musb_platform_disable(struct musb *musb)
+static void musb_platform_disable(struct musb *musb)
 {
 	if (musb->ops->disable)
 		musb->ops->disable(musb);
 }
 
-static inline int musb_platform_set_mode(struct musb *musb, u8 mode)
+static int musb_platform_set_mode(struct musb *musb, u8 mode)
 {
 	if (!musb->ops->set_mode)
 		return 0;
@@ -753,13 +753,13 @@ static inline int musb_platform_set_mode(struct musb *musb, u8 mode)
 	return musb->ops->set_mode(musb, mode);
 }
 
-static inline void musb_platform_try_idle(struct musb *musb, unsigned long timeout)
+static void musb_platform_try_idle(struct musb *musb, unsigned long timeout)
 {
 	if (musb->ops->try_idle)
 		musb->ops->try_idle(musb, timeout);
 }
 
-static inline int musb_platform_get_vbus_status(struct musb *musb)
+static int musb_platform_get_vbus_status(struct musb *musb)
 {
 	if (!musb->ops->vbus_status)
 		return 0;
@@ -767,7 +767,7 @@ static inline int musb_platform_get_vbus_status(struct musb *musb)
 	return musb->ops->vbus_status(musb);
 }
 
-static inline int musb_platform_init(struct musb *musb)
+static int musb_platform_init(struct musb *musb)
 {
 	if (!musb->ops->init)
 		return -EINVAL;
@@ -775,7 +775,7 @@ static inline int musb_platform_init(struct musb *musb)
 	return musb->ops->init(musb);
 }
 
-static inline int musb_platform_exit(struct musb *musb)
+static int musb_platform_exit(struct musb *musb)
 {
 	if (!musb->ops->exit)
 		return -EINVAL;
@@ -848,7 +848,7 @@ extern u32 upmu_get_rgs_chrdet(void);
 extern bool mtk_is_host_mode(void);
 
 #else
-static inline int mtk_is_host_mode(void)
+static int mtk_is_host_mode(void)
 {
 	return 0;
 }

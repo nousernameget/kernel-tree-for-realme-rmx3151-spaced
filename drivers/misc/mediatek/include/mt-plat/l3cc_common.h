@@ -25,7 +25,7 @@ extern void hook_ca_context_switch(struct rq *rq,
 	    struct task_struct *next);
 
 #else
-inline void hook_ca_context_switch(struct rq *rq,
+void hook_ca_context_switch(struct rq *rq,
 		struct task_struct *prev,
 	    struct task_struct *next) {}
 #endif

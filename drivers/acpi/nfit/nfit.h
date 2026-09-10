@@ -214,17 +214,17 @@ int acpi_nfit_ars_rescan(struct acpi_nfit_desc *acpi_desc, u8 flags);
 void nfit_mce_register(void);
 void nfit_mce_unregister(void);
 #else
-static inline void nfit_mce_register(void)
+static void nfit_mce_register(void)
 {
 }
-static inline void nfit_mce_unregister(void)
+static void nfit_mce_unregister(void)
 {
 }
 #endif
 
 int nfit_spa_type(struct acpi_nfit_system_address *spa);
 
-static inline struct acpi_nfit_memory_map *__to_nfit_memdev(
+static struct acpi_nfit_memory_map *__to_nfit_memdev(
 		struct nfit_mem *nfit_mem)
 {
 	if (nfit_mem->memdev_dcr)
@@ -232,7 +232,7 @@ static inline struct acpi_nfit_memory_map *__to_nfit_memdev(
 	return nfit_mem->memdev_pmem;
 }
 
-static inline struct acpi_nfit_desc *to_acpi_desc(
+static struct acpi_nfit_desc *to_acpi_desc(
 		struct nvdimm_bus_descriptor *nd_desc)
 {
 	return container_of(nd_desc, struct acpi_nfit_desc, nd_desc);

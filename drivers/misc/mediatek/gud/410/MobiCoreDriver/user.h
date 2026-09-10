@@ -18,7 +18,7 @@
 struct cdev;
 
 int mc_user_init(struct cdev *cdev);
-static inline void mc_user_exit(void)
+static void mc_user_exit(void)
 {
 }
 

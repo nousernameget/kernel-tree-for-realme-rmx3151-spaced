@@ -44,7 +44,7 @@
  *
  * Return: Final POSIX CRC32 value
  */
-static inline u32 crc32_posix_end(u32 crc, size_t total_len)
+static u32 crc32_posix_end(u32 crc, size_t total_len)
 {
 	/* Extend with the length of the string. */
 	while (total_len != 0) {
@@ -57,7 +57,7 @@ static inline u32 crc32_posix_end(u32 crc, size_t total_len)
 	return ~crc;
 }
 
-static inline u32 crc32_posix(const void *buff, size_t len)
+static u32 crc32_posix(const void *buff, size_t len)
 {
 	return crc32_posix_end(crc32_be(0, buff, len), len);
 }

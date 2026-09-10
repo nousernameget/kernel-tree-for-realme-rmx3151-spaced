@@ -128,7 +128,7 @@ struct vvp_thread_info {
 	struct cl_attr		vti_attr;
 };
 
-static inline struct vvp_thread_info *vvp_env_info(const struct lu_env *env)
+static struct vvp_thread_info *vvp_env_info(const struct lu_env *env)
 {
 	struct vvp_thread_info      *vti;
 
@@ -138,7 +138,7 @@ static inline struct vvp_thread_info *vvp_env_info(const struct lu_env *env)
 	return vti;
 }
 
-static inline struct cl_lock *vvp_env_lock(const struct lu_env *env)
+static struct cl_lock *vvp_env_lock(const struct lu_env *env)
 {
 	struct cl_lock *lock = &vvp_env_info(env)->vti_lock;
 
@@ -146,7 +146,7 @@ static inline struct cl_lock *vvp_env_lock(const struct lu_env *env)
 	return lock;
 }
 
-static inline struct cl_attr *vvp_env_thread_attr(const struct lu_env *env)
+static struct cl_attr *vvp_env_thread_attr(const struct lu_env *env)
 {
 	struct cl_attr *attr = &vvp_env_info(env)->vti_attr;
 
@@ -155,7 +155,7 @@ static inline struct cl_attr *vvp_env_thread_attr(const struct lu_env *env)
 	return attr;
 }
 
-static inline struct cl_io *vvp_env_thread_io(const struct lu_env *env)
+static struct cl_io *vvp_env_thread_io(const struct lu_env *env)
 {
 	struct cl_io *io = &vvp_env_info(env)->vti_io;
 
@@ -168,7 +168,7 @@ struct vvp_session {
 	struct vvp_io cs_ios;
 };
 
-static inline struct vvp_session *vvp_env_session(const struct lu_env *env)
+static struct vvp_session *vvp_env_session(const struct lu_env *env)
 {
 	struct vvp_session *ses;
 
@@ -178,7 +178,7 @@ static inline struct vvp_session *vvp_env_session(const struct lu_env *env)
 	return ses;
 }
 
-static inline struct vvp_io *vvp_env_io(const struct lu_env *env)
+static struct vvp_io *vvp_env_io(const struct lu_env *env)
 {
 	return &vvp_env_session(env)->cs_ios;
 }
@@ -229,12 +229,12 @@ struct vvp_page {
 	struct page	  *vpg_page;
 };
 
-static inline struct vvp_page *cl2vvp_page(const struct cl_page_slice *slice)
+static struct vvp_page *cl2vvp_page(const struct cl_page_slice *slice)
 {
 	return container_of(slice, struct vvp_page, vpg_cl);
 }
 
-static inline pgoff_t vvp_index(struct vvp_page *vvp)
+static pgoff_t vvp_index(struct vvp_page *vvp)
 {
 	return vvp->vpg_cl.cpl_index;
 }
@@ -255,32 +255,32 @@ void ccc_key_fini(const struct lu_context *ctx,
 
 void ccc_umount(const struct lu_env *env, struct cl_device *dev);
 
-static inline struct lu_device *vvp2lu_dev(struct vvp_device *vdv)
+static struct lu_device *vvp2lu_dev(struct vvp_device *vdv)
 {
 	return &vdv->vdv_cl.cd_lu_dev;
 }
 
-static inline struct vvp_device *lu2vvp_dev(const struct lu_device *d)
+static struct vvp_device *lu2vvp_dev(const struct lu_device *d)
 {
 	return container_of0(d, struct vvp_device, vdv_cl.cd_lu_dev);
 }
 
-static inline struct vvp_device *cl2vvp_dev(const struct cl_device *d)
+static struct vvp_device *cl2vvp_dev(const struct cl_device *d)
 {
 	return container_of0(d, struct vvp_device, vdv_cl);
 }
 
-static inline struct vvp_object *cl2vvp(const struct cl_object *obj)
+static struct vvp_object *cl2vvp(const struct cl_object *obj)
 {
 	return container_of0(obj, struct vvp_object, vob_cl);
 }
 
-static inline struct vvp_object *lu2vvp(const struct lu_object *obj)
+static struct vvp_object *lu2vvp(const struct lu_object *obj)
 {
 	return container_of0(obj, struct vvp_object, vob_cl.co_lu);
 }
 
-static inline struct inode *vvp_object_inode(const struct cl_object *obj)
+static struct inode *vvp_object_inode(const struct cl_object *obj)
 {
 	return cl2vvp(obj)->vob_inode;
 }
@@ -288,12 +288,12 @@ static inline struct inode *vvp_object_inode(const struct cl_object *obj)
 int vvp_object_invariant(const struct cl_object *obj);
 struct vvp_object *cl_inode2vvp(struct inode *inode);
 
-static inline struct page *cl2vm_page(const struct cl_page_slice *slice)
+static struct page *cl2vm_page(const struct cl_page_slice *slice)
 {
 	return cl2vvp_page(slice)->vpg_page;
 }
 
-static inline struct vvp_lock *cl2vvp_lock(const struct cl_lock_slice *slice)
+static struct vvp_lock *cl2vvp_lock(const struct cl_lock_slice *slice)
 {
 	return container_of(slice, struct vvp_lock, vlk_cl);
 }

@@ -266,7 +266,7 @@ enum drbd_req_state_bits {
 #define MR_WRITE       1
 #define MR_READ        2
 
-static inline void drbd_req_make_private_bio(struct drbd_request *req, struct bio *bio_src)
+static void drbd_req_make_private_bio(struct drbd_request *req, struct bio *bio_src)
 {
 	struct bio *bio;
 	bio = bio_clone_fast(bio_src, GFP_NOIO, drbd_io_bio_set);
@@ -304,7 +304,7 @@ extern void drbd_restart_request(struct drbd_request *req);
 
 /* use this if you don't want to deal with calling complete_master_bio()
  * outside the spinlock, e.g. when walking some list on cleanup. */
-static inline int _req_mod(struct drbd_request *req, enum drbd_req_event what)
+static int _req_mod(struct drbd_request *req, enum drbd_req_event what)
 {
 	struct drbd_device *device = req->device;
 	struct bio_and_error m;
@@ -322,7 +322,7 @@ static inline int _req_mod(struct drbd_request *req, enum drbd_req_event what)
  * We still may or may not be inside some irqs disabled section
  * of the lower level driver completion callback, so we need to
  * spin_lock_irqsave here. */
-static inline int req_mod(struct drbd_request *req,
+static int req_mod(struct drbd_request *req,
 		enum drbd_req_event what)
 {
 	unsigned long flags;

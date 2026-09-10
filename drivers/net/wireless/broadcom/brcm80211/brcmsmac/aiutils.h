@@ -186,42 +186,42 @@ bool ai_deviceremoved(struct si_pub *sih);
 /* Enable Ex-PA for 4313 */
 void ai_epa_4313war(struct si_pub *sih);
 
-static inline u32 ai_get_cccaps(struct si_pub *sih)
+static u32 ai_get_cccaps(struct si_pub *sih)
 {
 	return sih->cccaps;
 }
 
-static inline int ai_get_pmurev(struct si_pub *sih)
+static int ai_get_pmurev(struct si_pub *sih)
 {
 	return sih->pmurev;
 }
 
-static inline u32 ai_get_pmucaps(struct si_pub *sih)
+static u32 ai_get_pmucaps(struct si_pub *sih)
 {
 	return sih->pmucaps;
 }
 
-static inline uint ai_get_boardtype(struct si_pub *sih)
+static uint ai_get_boardtype(struct si_pub *sih)
 {
 	return sih->boardtype;
 }
 
-static inline uint ai_get_boardvendor(struct si_pub *sih)
+static uint ai_get_boardvendor(struct si_pub *sih)
 {
 	return sih->boardvendor;
 }
 
-static inline uint ai_get_chip_id(struct si_pub *sih)
+static uint ai_get_chip_id(struct si_pub *sih)
 {
 	return sih->chip;
 }
 
-static inline uint ai_get_chiprev(struct si_pub *sih)
+static uint ai_get_chiprev(struct si_pub *sih)
 {
 	return sih->chiprev;
 }
 
-static inline uint ai_get_chippkg(struct si_pub *sih)
+static uint ai_get_chippkg(struct si_pub *sih)
 {
 	return sih->chippkg;
 }

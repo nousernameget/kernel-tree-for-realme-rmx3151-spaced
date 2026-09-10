@@ -55,7 +55,7 @@ unsigned int __attribute__((weak)) enable_4G(void)
 #define MAPPING_DRAM_ACCESS_ADDR(phy_addr)
 #define MT_OVERFLOW_ADDR_START 0
 
-static inline unsigned int enable_4G(void)
+static unsigned int enable_4G(void)
 {
 	return 0;
 }

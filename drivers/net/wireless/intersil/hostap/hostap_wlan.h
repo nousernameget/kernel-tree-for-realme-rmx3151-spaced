@@ -976,7 +976,7 @@ enum { BAP0 = 0, BAP1 = 1 };
 #define PRISM2_IO_DEBUG_ENTRY(cmd, reg, value) \
 (((cmd) << 24) | ((reg) << 16) | value)
 
-static inline void prism2_io_debug_add(struct net_device *dev, int cmd,
+static void prism2_io_debug_add(struct net_device *dev, int cmd,
 				       int reg, int value)
 {
 	struct hostap_interface *iface = netdev_priv(dev);
@@ -995,7 +995,7 @@ static inline void prism2_io_debug_add(struct net_device *dev, int cmd,
 }
 
 
-static inline void prism2_io_debug_error(struct net_device *dev, int err)
+static void prism2_io_debug_error(struct net_device *dev, int err)
 {
 	struct hostap_interface *iface = netdev_priv(dev);
 	local_info_t *local = iface->local;
@@ -1015,12 +1015,12 @@ static inline void prism2_io_debug_error(struct net_device *dev, int err)
 
 #else /* PRISM2_IO_DEBUG */
 
-static inline void prism2_io_debug_add(struct net_device *dev, int cmd,
+static void prism2_io_debug_add(struct net_device *dev, int cmd,
 				       int reg, int value)
 {
 }
 
-static inline void prism2_io_debug_error(struct net_device *dev, int err)
+static void prism2_io_debug_error(struct net_device *dev, int err)
 {
 }
 

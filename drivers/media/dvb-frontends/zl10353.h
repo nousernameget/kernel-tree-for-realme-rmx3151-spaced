@@ -47,7 +47,7 @@ struct zl10353_config
 extern struct dvb_frontend* zl10353_attach(const struct zl10353_config *config,
 					   struct i2c_adapter *i2c);
 #else
-static inline struct dvb_frontend* zl10353_attach(const struct zl10353_config *config,
+static struct dvb_frontend* zl10353_attach(const struct zl10353_config *config,
 					   struct i2c_adapter *i2c)
 {
 	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);

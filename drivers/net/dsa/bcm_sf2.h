@@ -116,24 +116,24 @@ struct bcm_sf2_priv {
 	struct bcm_sf2_cfp_priv		cfp;
 };
 
-static inline struct bcm_sf2_priv *bcm_sf2_to_priv(struct dsa_switch *ds)
+static struct bcm_sf2_priv *bcm_sf2_to_priv(struct dsa_switch *ds)
 {
 	struct b53_device *dev = ds->priv;
 
 	return dev->priv;
 }
 
-static inline u32 bcm_sf2_mangle_addr(struct bcm_sf2_priv *priv, u32 off)
+static u32 bcm_sf2_mangle_addr(struct bcm_sf2_priv *priv, u32 off)
 {
 	return off << priv->core_reg_align;
 }
 
 #define SF2_IO_MACRO(name) \
-static inline u32 name##_readl(struct bcm_sf2_priv *priv, u32 off)	\
+static u32 name##_readl(struct bcm_sf2_priv *priv, u32 off)	\
 {									\
 	return readl_relaxed(priv->name + off);				\
 }									\
-static inline void name##_writel(struct bcm_sf2_priv *priv,		\
+static void name##_writel(struct bcm_sf2_priv *priv,		\
 				  u32 val, u32 off)			\
 {									\
 	writel_relaxed(val, priv->name + off);				\
@@ -145,7 +145,7 @@ static inline void name##_writel(struct bcm_sf2_priv *priv,		\
  * atomiticy with latched reads/writes.
  */
 #define SF2_IO64_MACRO(name) \
-static inline u64 name##_readq(struct bcm_sf2_priv *priv, u32 off)	\
+static u64 name##_readq(struct bcm_sf2_priv *priv, u32 off)	\
 {									\
 	u32 indir, dir;							\
 	spin_lock(&priv->indir_lock);					\
@@ -154,7 +154,7 @@ static inline u64 name##_readq(struct bcm_sf2_priv *priv, u32 off)	\
 	spin_unlock(&priv->indir_lock);					\
 	return (u64)indir << 32 | dir;					\
 }									\
-static inline void name##_writeq(struct bcm_sf2_priv *priv, u64 val,	\
+static void name##_writeq(struct bcm_sf2_priv *priv, u64 val,	\
 							u32 off)	\
 {									\
 	spin_lock(&priv->indir_lock);					\
@@ -164,37 +164,37 @@ static inline void name##_writeq(struct bcm_sf2_priv *priv, u64 val,	\
 }
 
 #define SWITCH_INTR_L2(which)						\
-static inline void intrl2_##which##_mask_clear(struct bcm_sf2_priv *priv, \
+static void intrl2_##which##_mask_clear(struct bcm_sf2_priv *priv, \
 						u32 mask)		\
 {									\
 	priv->irq##which##_mask &= ~(mask);				\
 	intrl2_##which##_writel(priv, mask, INTRL2_CPU_MASK_CLEAR);	\
 }									\
-static inline void intrl2_##which##_mask_set(struct bcm_sf2_priv *priv, \
+static void intrl2_##which##_mask_set(struct bcm_sf2_priv *priv, \
 						u32 mask)		\
 {									\
 	intrl2_## which##_writel(priv, mask, INTRL2_CPU_MASK_SET);	\
 	priv->irq##which##_mask |= (mask);				\
 }									\
 
-static inline u32 core_readl(struct bcm_sf2_priv *priv, u32 off)
+static u32 core_readl(struct bcm_sf2_priv *priv, u32 off)
 {
 	u32 tmp = bcm_sf2_mangle_addr(priv, off);
 	return readl_relaxed(priv->core + tmp);
 }
 
-static inline void core_writel(struct bcm_sf2_priv *priv, u32 val, u32 off)
+static void core_writel(struct bcm_sf2_priv *priv, u32 val, u32 off)
 {
 	u32 tmp = bcm_sf2_mangle_addr(priv, off);
 	writel_relaxed(val, priv->core + tmp);
 }
 
-static inline u32 reg_readl(struct bcm_sf2_priv *priv, u16 off)
+static u32 reg_readl(struct bcm_sf2_priv *priv, u16 off)
 {
 	return readl_relaxed(priv->reg + priv->reg_offsets[off]);
 }
 
-static inline void reg_writel(struct bcm_sf2_priv *priv, u32 val, u16 off)
+static void reg_writel(struct bcm_sf2_priv *priv, u32 val, u16 off)
 {
 	writel_relaxed(val, priv->reg + priv->reg_offsets[off]);
 }

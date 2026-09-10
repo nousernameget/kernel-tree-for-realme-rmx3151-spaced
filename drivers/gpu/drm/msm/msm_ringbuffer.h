@@ -32,7 +32,7 @@ void msm_ringbuffer_destroy(struct msm_ringbuffer *ring);
 
 /* ringbuffer helpers (the parts that are same for a3xx/a2xx/z180..) */
 
-static inline void
+static void
 OUT_RING(struct msm_ringbuffer *ring, uint32_t data)
 {
 	if (ring->cur == ring->end)

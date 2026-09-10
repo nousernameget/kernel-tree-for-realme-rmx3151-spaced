@@ -107,7 +107,7 @@ struct mic_irq;
  *
  * RETURNS: register value.
  */
-static inline u32 mic_mmio_read(struct mic_mw *mw, u32 offset)
+static u32 mic_mmio_read(struct mic_mw *mw, u32 offset)
 {
 	return ioread32(mw->va + offset);
 }
@@ -120,7 +120,7 @@ static inline u32 mic_mmio_read(struct mic_mw *mw, u32 offset)
  *
  * RETURNS: none.
  */
-static inline void
+static void
 mic_mmio_write(struct mic_mw *mw, u32 val, u32 offset)
 {
 	iowrite32(val, mw->va + offset);

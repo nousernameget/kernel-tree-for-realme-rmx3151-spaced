@@ -44,13 +44,13 @@ struct nouveau_bo {
 	struct ttm_bo_kmap_obj dma_buf_vmap;
 };
 
-static inline struct nouveau_bo *
+static struct nouveau_bo *
 nouveau_bo(struct ttm_buffer_object *bo)
 {
 	return container_of(bo, struct nouveau_bo, bo);
 }
 
-static inline int
+static int
 nouveau_bo_ref(struct nouveau_bo *ref, struct nouveau_bo **pnvbo)
 {
 	struct nouveau_bo *prev;
@@ -98,7 +98,7 @@ int  nouveau_bo_vma_add(struct nouveau_bo *, struct nvkm_vm *,
 void nouveau_bo_vma_del(struct nouveau_bo *, struct nvkm_vma *);
 
 /* TODO: submit equivalent to TTM generic API upstream? */
-static inline void __iomem *
+static void __iomem *
 nvbo_kmap_obj_iovirtual(struct nouveau_bo *nvbo)
 {
 	bool is_iomem;

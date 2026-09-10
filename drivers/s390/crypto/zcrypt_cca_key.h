@@ -114,7 +114,7 @@ struct cca_pvt_ext_CRT_sec {
  *
  * Returns the size of the key area or -EFAULT
  */
-static inline int zcrypt_type6_mex_key_en(struct ica_rsa_modexpo *mex, void *p)
+static int zcrypt_type6_mex_key_en(struct ica_rsa_modexpo *mex, void *p)
 {
 	static struct cca_token_hdr static_pub_hdr = {
 		.token_identifier	=  0x1E,
@@ -174,7 +174,7 @@ static inline int zcrypt_type6_mex_key_en(struct ica_rsa_modexpo *mex, void *p)
  *
  * Returns the size of the key area or -EFAULT
  */
-static inline int zcrypt_type6_crt_key(struct ica_rsa_modexpo_crt *crt, void *p)
+static int zcrypt_type6_crt_key(struct ica_rsa_modexpo_crt *crt, void *p)
 {
 	static struct cca_public_sec static_cca_pub_sec = {
 		.section_identifier = 4,

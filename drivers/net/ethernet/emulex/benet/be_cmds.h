@@ -1008,7 +1008,7 @@ struct lancer_cmd_resp_pport_stats {
 	struct lancer_pport_stats pport_stats;
 };
 
-static inline struct lancer_pport_stats*
+static struct lancer_pport_stats*
 	pport_stats_from_cmd(struct be_adapter *adapter)
 {
 	struct lancer_cmd_resp_pport_stats *cmd = adapter->stats_cmd.va;
@@ -2231,7 +2231,7 @@ enum mc_type {
 };
 
 /* Is BE in a multi-channel mode */
-static inline bool be_is_mc(struct be_adapter *adapter)
+static bool be_is_mc(struct be_adapter *adapter)
 {
 	return adapter->mc_type > MC_NONE;
 }
@@ -2299,7 +2299,7 @@ struct be_cmd_req_intr_set {
 	u8 rsvd[3];
 };
 
-static inline bool check_privilege(struct be_adapter *adapter, u32 flags)
+static bool check_privilege(struct be_adapter *adapter, u32 flags)
 {
 	return flags & adapter->cmd_privileges ? true : false;
 }

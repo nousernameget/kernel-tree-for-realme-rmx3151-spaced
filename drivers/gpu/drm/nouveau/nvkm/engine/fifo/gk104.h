@@ -59,7 +59,7 @@ void gk104_fifo_runlist_insert(struct gk104_fifo *, struct gk104_fifo_chan *);
 void gk104_fifo_runlist_remove(struct gk104_fifo *, struct gk104_fifo_chan *);
 void gk104_fifo_runlist_commit(struct gk104_fifo *, int runl);
 
-static inline u64
+static u64
 gk104_fifo_engine_subdev(int engine)
 {
 	switch (engine) {

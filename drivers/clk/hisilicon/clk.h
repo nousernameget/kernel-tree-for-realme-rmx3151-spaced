@@ -130,7 +130,7 @@ void hi6220_clk_register_divider(const struct hi6220_divider_clock *,
 				int, struct hisi_clock_data *);
 
 #define hisi_clk_unregister(type) \
-static inline \
+static \
 void hisi_clk_unregister_##type(const struct hisi_##type##_clock *clks, \
 				int nums, struct hisi_clock_data *data) \
 { \

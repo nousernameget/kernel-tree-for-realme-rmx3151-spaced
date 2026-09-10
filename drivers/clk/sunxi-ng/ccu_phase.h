@@ -38,7 +38,7 @@ struct ccu_phase {
 		}							\
 	}
 
-static inline struct ccu_phase *hw_to_ccu_phase(struct clk_hw *hw)
+static struct ccu_phase *hw_to_ccu_phase(struct clk_hw *hw)
 {
 	struct ccu_common *common = hw_to_ccu_common(hw);
 

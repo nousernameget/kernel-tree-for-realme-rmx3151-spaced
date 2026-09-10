@@ -16,12 +16,12 @@ struct drbd_interval {
 					 * ignore for conflict detection */
 };
 
-static inline void drbd_clear_interval(struct drbd_interval *i)
+static void drbd_clear_interval(struct drbd_interval *i)
 {
 	RB_CLEAR_NODE(&i->rb);
 }
 
-static inline bool drbd_interval_empty(struct drbd_interval *i)
+static bool drbd_interval_empty(struct drbd_interval *i)
 {
 	return RB_EMPTY_NODE(&i->rb);
 }

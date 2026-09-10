@@ -780,12 +780,12 @@ struct zd_chip {
 		supports_tx_led:1;
 };
 
-static inline struct zd_chip *zd_usb_to_chip(struct zd_usb *usb)
+static struct zd_chip *zd_usb_to_chip(struct zd_usb *usb)
 {
 	return container_of(usb, struct zd_chip, usb);
 }
 
-static inline struct zd_chip *zd_rf_to_chip(struct zd_rf *rf)
+static struct zd_chip *zd_rf_to_chip(struct zd_rf *rf)
 {
 	return container_of(rf, struct zd_chip, rf);
 }
@@ -800,12 +800,12 @@ int zd_chip_read_mac_addr_fw(struct zd_chip *chip, u8 *addr);
 int zd_chip_init_hw(struct zd_chip *chip);
 int zd_chip_reset(struct zd_chip *chip);
 
-static inline int zd_chip_is_zd1211b(struct zd_chip *chip)
+static int zd_chip_is_zd1211b(struct zd_chip *chip)
 {
 	return chip->usb.is_zd1211b;
 }
 
-static inline int zd_ioread16v_locked(struct zd_chip *chip, u16 *values,
+static int zd_ioread16v_locked(struct zd_chip *chip, u16 *values,
 	                              const zd_addr_t *addresses,
 				      unsigned int count)
 {
@@ -813,7 +813,7 @@ static inline int zd_ioread16v_locked(struct zd_chip *chip, u16 *values,
 	return zd_usb_ioread16v(&chip->usb, values, addresses, count);
 }
 
-static inline int zd_ioread16_locked(struct zd_chip *chip, u16 *value,
+static int zd_ioread16_locked(struct zd_chip *chip, u16 *value,
 	                             const zd_addr_t addr)
 {
 	ZD_ASSERT(mutex_is_locked(&chip->mutex));
@@ -823,13 +823,13 @@ static inline int zd_ioread16_locked(struct zd_chip *chip, u16 *value,
 int zd_ioread32v_locked(struct zd_chip *chip, u32 *values,
 	                const zd_addr_t *addresses, unsigned int count);
 
-static inline int zd_ioread32_locked(struct zd_chip *chip, u32 *value,
+static int zd_ioread32_locked(struct zd_chip *chip, u32 *value,
 	                             const zd_addr_t addr)
 {
 	return zd_ioread32v_locked(chip, value, &addr, 1);
 }
 
-static inline int zd_iowrite16_locked(struct zd_chip *chip, u16 value,
+static int zd_iowrite16_locked(struct zd_chip *chip, u16 value,
 	                              zd_addr_t addr)
 {
 	struct zd_ioreq16 ioreq;
@@ -847,7 +847,7 @@ int zd_iowrite16a_locked(struct zd_chip *chip,
 int _zd_iowrite32v_locked(struct zd_chip *chip, const struct zd_ioreq32 *ioreqs,
 			  unsigned int count);
 
-static inline int zd_iowrite32_locked(struct zd_chip *chip, u32 value,
+static int zd_iowrite32_locked(struct zd_chip *chip, u32 value,
 	                              zd_addr_t addr)
 {
 	struct zd_ioreq32 ioreq;
@@ -861,7 +861,7 @@ static inline int zd_iowrite32_locked(struct zd_chip *chip, u32 value,
 int zd_iowrite32a_locked(struct zd_chip *chip,
 	                 const struct zd_ioreq32 *ioreqs, unsigned int count);
 
-static inline int zd_rfwrite_locked(struct zd_chip *chip, u32 value, u8 bits)
+static int zd_rfwrite_locked(struct zd_chip *chip, u32 value, u8 bits)
 {
 	ZD_ASSERT(mutex_is_locked(&chip->mutex));
 	return zd_usb_rfwrite(&chip->usb, value, bits);
@@ -887,7 +887,7 @@ int zd_iowrite32a(struct zd_chip *chip, const struct zd_ioreq32 *ioreqs,
 	           unsigned int count);
 
 int zd_chip_set_channel(struct zd_chip *chip, u8 channel);
-static inline u8 _zd_chip_get_channel(struct zd_chip *chip)
+static u8 _zd_chip_get_channel(struct zd_chip *chip)
 {
 	return chip->rf.channel;
 }
@@ -906,17 +906,17 @@ int zd_chip_disable_hwint(struct zd_chip *chip);
 int zd_chip_generic_patch_6m_band(struct zd_chip *chip, int channel);
 int zd_chip_set_rts_cts_rate_locked(struct zd_chip *chip, int preamble);
 
-static inline int zd_get_encryption_type(struct zd_chip *chip, u32 *type)
+static int zd_get_encryption_type(struct zd_chip *chip, u32 *type)
 {
 	return zd_ioread32(chip, CR_ENCRYPTION_TYPE, type);
 }
 
-static inline int zd_set_encryption_type(struct zd_chip *chip, u32 type)
+static int zd_set_encryption_type(struct zd_chip *chip, u32 type)
 {
 	return zd_iowrite32(chip, CR_ENCRYPTION_TYPE, type);
 }
 
-static inline int zd_chip_get_basic_rates(struct zd_chip *chip, u16 *cr_rates)
+static int zd_chip_get_basic_rates(struct zd_chip *chip, u16 *cr_rates)
 {
 	return zd_ioread16(chip, CR_BASIC_RATE_TBL, cr_rates);
 }
@@ -937,7 +937,7 @@ int zd_chip_control_leds(struct zd_chip *chip, enum led_status status);
 int zd_set_beacon_interval(struct zd_chip *chip, u16 interval, u8 dtim_period,
 			   int type);
 
-static inline int zd_get_beacon_interval(struct zd_chip *chip, u32 *interval)
+static int zd_get_beacon_interval(struct zd_chip *chip, u32 *interval)
 {
 	return zd_ioread32(chip, CR_BCN_INTERVAL, interval);
 }
@@ -951,7 +951,7 @@ struct zd_mc_hash {
 	u32 high;
 };
 
-static inline void zd_mc_clear(struct zd_mc_hash *hash)
+static void zd_mc_clear(struct zd_mc_hash *hash)
 {
 	hash->low = 0;
 	/* The interfaces must always received broadcasts.
@@ -960,12 +960,12 @@ static inline void zd_mc_clear(struct zd_mc_hash *hash)
 	hash->high = 0x80000000;
 }
 
-static inline void zd_mc_add_all(struct zd_mc_hash *hash)
+static void zd_mc_add_all(struct zd_mc_hash *hash)
 {
 	hash->low = hash->high = 0xffffffff;
 }
 
-static inline void zd_mc_add_addr(struct zd_mc_hash *hash, u8 *addr)
+static void zd_mc_add_addr(struct zd_mc_hash *hash, u8 *addr)
 {
 	unsigned int i = addr[5] >> 2;
 	if (i < 32) {

@@ -20,7 +20,7 @@ struct aq_obj_s {
 	atomic_t flags;
 };
 
-static inline void aq_utils_obj_set(atomic_t *flags, u32 mask)
+static void aq_utils_obj_set(atomic_t *flags, u32 mask)
 {
 	unsigned long flags_old, flags_new;
 
@@ -30,7 +30,7 @@ static inline void aq_utils_obj_set(atomic_t *flags, u32 mask)
 	} while (atomic_cmpxchg(flags, flags_old, flags_new) != flags_old);
 }
 
-static inline void aq_utils_obj_clear(atomic_t *flags, u32 mask)
+static void aq_utils_obj_clear(atomic_t *flags, u32 mask)
 {
 	unsigned long flags_old, flags_new;
 
@@ -40,7 +40,7 @@ static inline void aq_utils_obj_clear(atomic_t *flags, u32 mask)
 	} while (atomic_cmpxchg(flags, flags_old, flags_new) != flags_old);
 }
 
-static inline bool aq_utils_obj_test(atomic_t *flags, u32 mask)
+static bool aq_utils_obj_test(atomic_t *flags, u32 mask)
 {
 	return atomic_read(flags) & mask;
 }

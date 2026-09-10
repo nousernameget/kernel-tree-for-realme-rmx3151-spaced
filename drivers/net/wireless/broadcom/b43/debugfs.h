@@ -85,24 +85,24 @@ void b43_debugfs_log_txstat(struct b43_wldev *dev,
 
 #else /* CONFIG_B43_DEBUG */
 
-static inline bool b43_debug(struct b43_wldev *dev, enum b43_dyndbg feature)
+static bool b43_debug(struct b43_wldev *dev, enum b43_dyndbg feature)
 {
 	return false;
 }
 
-static inline void b43_debugfs_init(void)
+static void b43_debugfs_init(void)
 {
 }
-static inline void b43_debugfs_exit(void)
+static void b43_debugfs_exit(void)
 {
 }
-static inline void b43_debugfs_add_device(struct b43_wldev *dev)
+static void b43_debugfs_add_device(struct b43_wldev *dev)
 {
 }
-static inline void b43_debugfs_remove_device(struct b43_wldev *dev)
+static void b43_debugfs_remove_device(struct b43_wldev *dev)
 {
 }
-static inline void b43_debugfs_log_txstat(struct b43_wldev *dev,
+static void b43_debugfs_log_txstat(struct b43_wldev *dev,
 					  const struct b43_txstatus *status)
 {
 }

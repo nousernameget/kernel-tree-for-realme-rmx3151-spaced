@@ -46,7 +46,7 @@ extern struct dvb_frontend *tea5767_attach(struct dvb_frontend *fe,
 					   struct i2c_adapter* i2c_adap,
 					   u8 i2c_addr);
 #else
-static inline int tea5767_autodetection(struct i2c_adapter* i2c_adap,
+static int tea5767_autodetection(struct i2c_adapter* i2c_adap,
 					u8 i2c_addr)
 {
 	printk(KERN_INFO "%s: not probed - driver disabled by Kconfig\n",
@@ -54,7 +54,7 @@ static inline int tea5767_autodetection(struct i2c_adapter* i2c_adap,
 	return -EINVAL;
 }
 
-static inline struct dvb_frontend *tea5767_attach(struct dvb_frontend *fe,
+static struct dvb_frontend *tea5767_attach(struct dvb_frontend *fe,
 						   struct i2c_adapter* i2c_adap,
 						   u8 i2c_addr)
 {

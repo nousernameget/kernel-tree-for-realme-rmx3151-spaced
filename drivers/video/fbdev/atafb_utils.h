@@ -46,7 +46,7 @@
    movep is rather expensive compared to ordinary move's
    some functions rewritten in C for clarity, no speed loss */
 
-static inline void *fb_memclear_small(void *s, size_t count)
+static void *fb_memclear_small(void *s, size_t count)
 {
 	if (!count)
 		return 0;
@@ -75,7 +75,7 @@ static inline void *fb_memclear_small(void *s, size_t count)
 }
 
 
-static inline void *fb_memclear(void *s, size_t count)
+static void *fb_memclear(void *s, size_t count)
 {
 	if (!count)
 		return 0;
@@ -115,7 +115,7 @@ static inline void *fb_memclear(void *s, size_t count)
 }
 
 
-static inline void *fb_memset255(void *s, size_t count)
+static void *fb_memset255(void *s, size_t count)
 {
 	if (!count)
 		return 0;
@@ -142,7 +142,7 @@ static inline void *fb_memset255(void *s, size_t count)
 }
 
 
-static inline void *fb_memmove(void *d, const void *s, size_t count)
+static void *fb_memmove(void *d, const void *s, size_t count)
 {
 	if (d < s) {
 		if (count < 16) {
@@ -217,7 +217,7 @@ static inline void *fb_memmove(void *d, const void *s, size_t count)
 
 /* ++andreas: Simple and fast version of memmove, assumes size is
    divisible by 16, suitable for moving the whole screen bitplane */
-static inline void fast_memmove(char *dst, const char *src, size_t size)
+static void fast_memmove(char *dst, const char *src, size_t size)
 {
 	if (!size)
 		return;
@@ -258,7 +258,7 @@ static const u32 four2long[] = {
 	0xffff0000, 0xffff00ff, 0xffffff00, 0xffffffff,
 };
 
-static inline void expand8_col2mask(u8 c, u32 m[])
+static void expand8_col2mask(u8 c, u32 m[])
 {
 	m[0] = four2long[c & 15];
 #if BPL > 4
@@ -266,7 +266,7 @@ static inline void expand8_col2mask(u8 c, u32 m[])
 #endif
 }
 
-static inline void expand8_2col2mask(u8 fg, u8 bg, u32 fgm[], u32 bgm[])
+static void expand8_2col2mask(u8 fg, u8 bg, u32 fgm[], u32 bgm[])
 {
 	fgm[0] = four2long[fg & 15] ^ (bgm[0] = four2long[bg & 15]);
 #if BPL > 4
@@ -277,7 +277,7 @@ static inline void expand8_2col2mask(u8 fg, u8 bg, u32 fgm[], u32 bgm[])
 /*
  * set an 8bit value to a color
  */
-static inline void fill8_col(u8 *dst, u32 m[])
+static void fill8_col(u8 *dst, u32 m[])
 {
 	u32 tmp = m[0];
 	dst[0] = tmp;
@@ -298,7 +298,7 @@ static inline void fill8_col(u8 *dst, u32 m[])
 /*
  * set an 8bit value according to foreground/background color
  */
-static inline void fill8_2col(u8 *dst, u8 fg, u8 bg, u32 mask)
+static void fill8_2col(u8 *dst, u8 fg, u8 bg, u32 mask)
 {
 	u32 fgm[2], bgm[2], tmp;
 
@@ -328,7 +328,7 @@ static const u32 two2word[] = {
 	0x00000000, 0xffff0000, 0x0000ffff, 0xffffffff
 };
 
-static inline void expand16_col2mask(u8 c, u32 m[])
+static void expand16_col2mask(u8 c, u32 m[])
 {
 	m[0] = two2word[c & 3];
 #if BPL > 2
@@ -340,7 +340,7 @@ static inline void expand16_col2mask(u8 c, u32 m[])
 #endif
 }
 
-static inline void expand16_2col2mask(u8 fg, u8 bg, u32 fgm[], u32 bgm[])
+static void expand16_2col2mask(u8 fg, u8 bg, u32 fgm[], u32 bgm[])
 {
 	bgm[0] = two2word[bg & 3];
 	fgm[0] = two2word[fg & 3] ^ bgm[0];
@@ -356,7 +356,7 @@ static inline void expand16_2col2mask(u8 fg, u8 bg, u32 fgm[], u32 bgm[])
 #endif
 }
 
-static inline u32 *fill16_col(u32 *dst, int rows, u32 m[])
+static u32 *fill16_col(u32 *dst, int rows, u32 m[])
 {
 	while (rows) {
 		*dst++ = m[0];
@@ -372,7 +372,7 @@ static inline u32 *fill16_col(u32 *dst, int rows, u32 m[])
 	return dst;
 }
 
-static inline void memmove32_col(void *dst, void *src, u32 mask, u32 h, u32 bytes)
+static void memmove32_col(void *dst, void *src, u32 mask, u32 h, u32 bytes)
 {
 	u32 *s, *d, v;
 

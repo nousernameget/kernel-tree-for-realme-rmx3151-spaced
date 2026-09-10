@@ -63,22 +63,22 @@
 typedef __s16 __bitwise a_sle16;
 typedef __s32 __bitwise a_sle32;
 
-static inline a_sle32 a_cpu_to_sle32(s32 val)
+static a_sle32 a_cpu_to_sle32(s32 val)
 {
 	return (__force a_sle32) cpu_to_le32(val);
 }
 
-static inline s32 a_sle32_to_cpu(a_sle32 val)
+static s32 a_sle32_to_cpu(a_sle32 val)
 {
 	return le32_to_cpu((__force __le32) val);
 }
 
-static inline a_sle16 a_cpu_to_sle16(s16 val)
+static a_sle16 a_cpu_to_sle16(s16 val)
 {
 	return (__force a_sle16) cpu_to_le16(val);
 }
 
-static inline s16 a_sle16_to_cpu(a_sle16 val)
+static s16 a_sle16_to_cpu(a_sle16 val)
 {
 	return le16_to_cpu((__force __le16) val);
 }
@@ -227,19 +227,19 @@ struct wmi_data_hdr {
 	__le16 info3;
 } __packed;
 
-static inline u8 wmi_data_hdr_get_up(struct wmi_data_hdr *dhdr)
+static u8 wmi_data_hdr_get_up(struct wmi_data_hdr *dhdr)
 {
 	return (dhdr->info >> WMI_DATA_HDR_UP_SHIFT) & WMI_DATA_HDR_UP_MASK;
 }
 
-static inline void wmi_data_hdr_set_up(struct wmi_data_hdr *dhdr,
+static void wmi_data_hdr_set_up(struct wmi_data_hdr *dhdr,
 				       u8 usr_pri)
 {
 	dhdr->info &= ~(WMI_DATA_HDR_UP_MASK << WMI_DATA_HDR_UP_SHIFT);
 	dhdr->info |= usr_pri << WMI_DATA_HDR_UP_SHIFT;
 }
 
-static inline u8 wmi_data_hdr_get_dot11(struct wmi_data_hdr *dhdr)
+static u8 wmi_data_hdr_get_dot11(struct wmi_data_hdr *dhdr)
 {
 	u8 data_type;
 
@@ -248,25 +248,25 @@ static inline u8 wmi_data_hdr_get_dot11(struct wmi_data_hdr *dhdr)
 	return (data_type == WMI_DATA_HDR_DATA_TYPE_802_11);
 }
 
-static inline u16 wmi_data_hdr_get_seqno(struct wmi_data_hdr *dhdr)
+static u16 wmi_data_hdr_get_seqno(struct wmi_data_hdr *dhdr)
 {
 	return (le16_to_cpu(dhdr->info2) >> WMI_DATA_HDR_SEQNO_SHIFT) &
 				WMI_DATA_HDR_SEQNO_MASK;
 }
 
-static inline u8 wmi_data_hdr_is_amsdu(struct wmi_data_hdr *dhdr)
+static u8 wmi_data_hdr_is_amsdu(struct wmi_data_hdr *dhdr)
 {
 	return (le16_to_cpu(dhdr->info2) >> WMI_DATA_HDR_AMSDU_SHIFT) &
 			       WMI_DATA_HDR_AMSDU_MASK;
 }
 
-static inline u8 wmi_data_hdr_get_meta(struct wmi_data_hdr *dhdr)
+static u8 wmi_data_hdr_get_meta(struct wmi_data_hdr *dhdr)
 {
 	return (le16_to_cpu(dhdr->info2) >> WMI_DATA_HDR_META_SHIFT) &
 			       WMI_DATA_HDR_META_MASK;
 }
 
-static inline u8 wmi_data_hdr_get_if_idx(struct wmi_data_hdr *dhdr)
+static u8 wmi_data_hdr_get_if_idx(struct wmi_data_hdr *dhdr)
 {
 	return le16_to_cpu(dhdr->info3) & WMI_DATA_HDR_IF_IDX_MASK;
 }
@@ -338,7 +338,7 @@ struct wmi_cmd_hdr {
 	__le16 reserved;
 } __packed;
 
-static inline u8 wmi_cmd_hdr_get_if_idx(struct wmi_cmd_hdr *chdr)
+static u8 wmi_cmd_hdr_get_if_idx(struct wmi_cmd_hdr *chdr)
 {
 	return le16_to_cpu(chdr->info1) & WMI_CMD_HDR_IF_ID_MASK;
 }

@@ -49,7 +49,7 @@ struct vsp1_drm {
 	} inputs[VSP1_MAX_RPF];
 };
 
-static inline struct vsp1_drm_pipeline *
+static struct vsp1_drm_pipeline *
 to_vsp1_drm_pipeline(struct vsp1_pipeline *pipe)
 {
 	return container_of(pipe, struct vsp1_drm_pipeline, pipe);

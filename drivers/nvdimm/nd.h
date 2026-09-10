@@ -57,7 +57,7 @@ struct nd_region_data {
 	void __iomem *flush_wpq[0];
 };
 
-static inline void __iomem *ndrd_get_flush_wpq(struct nd_region_data *ndrd,
+static void __iomem *ndrd_get_flush_wpq(struct nd_region_data *ndrd,
 		int dimm, int hint)
 {
 	unsigned int num = 1 << ndrd->hints_shift;
@@ -66,7 +66,7 @@ static inline void __iomem *ndrd_get_flush_wpq(struct nd_region_data *ndrd,
 	return ndrd->flush_wpq[dimm * num + (hint & mask)];
 }
 
-static inline void ndrd_set_flush_wpq(struct nd_region_data *ndrd, int dimm,
+static void ndrd_set_flush_wpq(struct nd_region_data *ndrd, int dimm,
 		int hint, void __iomem *flush)
 {
 	unsigned int num = 1 << ndrd->hints_shift;
@@ -75,7 +75,7 @@ static inline void ndrd_set_flush_wpq(struct nd_region_data *ndrd, int dimm,
 	ndrd->flush_wpq[dimm * num + (hint & mask)] = flush;
 }
 
-static inline struct nd_namespace_index *to_namespace_index(
+static struct nd_namespace_index *to_namespace_index(
 		struct nvdimm_drvdata *ndd, int i)
 {
 	if (i < 0)
@@ -84,13 +84,13 @@ static inline struct nd_namespace_index *to_namespace_index(
 	return ndd->data + sizeof_namespace_index(ndd) * i;
 }
 
-static inline struct nd_namespace_index *to_current_namespace_index(
+static struct nd_namespace_index *to_current_namespace_index(
 		struct nvdimm_drvdata *ndd)
 {
 	return to_namespace_index(ndd, ndd->ns_current);
 }
 
-static inline struct nd_namespace_index *to_next_namespace_index(
+static struct nd_namespace_index *to_next_namespace_index(
 		struct nvdimm_drvdata *ndd)
 {
 	return to_namespace_index(ndd, ndd->ns_next);
@@ -185,7 +185,7 @@ struct nd_blk_region {
 /*
  * Lookup next in the repeating sequence of 01, 10, and 11.
  */
-static inline unsigned nd_inc_seq(unsigned seq)
+static unsigned nd_inc_seq(unsigned seq)
 {
 	static const unsigned next[] = { 0, 2, 3, 1 };
 
@@ -273,18 +273,18 @@ int nd_btt_probe(struct device *dev, struct nd_namespace_common *ndns);
 bool is_nd_btt(struct device *dev);
 struct device *nd_btt_create(struct nd_region *nd_region);
 #else
-static inline int nd_btt_probe(struct device *dev,
+static int nd_btt_probe(struct device *dev,
 		struct nd_namespace_common *ndns)
 {
 	return -ENODEV;
 }
 
-static inline bool is_nd_btt(struct device *dev)
+static bool is_nd_btt(struct device *dev)
 {
 	return false;
 }
 
-static inline struct device *nd_btt_create(struct nd_region *nd_region)
+static struct device *nd_btt_create(struct nd_region *nd_region)
 {
 	return NULL;
 }
@@ -307,23 +307,23 @@ struct device *nd_pfn_devinit(struct nd_pfn *nd_pfn,
 int nd_pfn_validate(struct nd_pfn *nd_pfn, const char *sig);
 extern struct attribute_group nd_pfn_attribute_group;
 #else
-static inline int nd_pfn_probe(struct device *dev,
+static int nd_pfn_probe(struct device *dev,
 		struct nd_namespace_common *ndns)
 {
 	return -ENODEV;
 }
 
-static inline bool is_nd_pfn(struct device *dev)
+static bool is_nd_pfn(struct device *dev)
 {
 	return false;
 }
 
-static inline struct device *nd_pfn_create(struct nd_region *nd_region)
+static struct device *nd_pfn_create(struct nd_region *nd_region)
 {
 	return NULL;
 }
 
-static inline int nd_pfn_validate(struct nd_pfn *nd_pfn, const char *sig)
+static int nd_pfn_validate(struct nd_pfn *nd_pfn, const char *sig)
 {
 	return -ENODEV;
 }
@@ -335,18 +335,18 @@ int nd_dax_probe(struct device *dev, struct nd_namespace_common *ndns);
 bool is_nd_dax(struct device *dev);
 struct device *nd_dax_create(struct nd_region *nd_region);
 #else
-static inline int nd_dax_probe(struct device *dev,
+static int nd_dax_probe(struct device *dev,
 		struct nd_namespace_common *ndns)
 {
 	return -ENODEV;
 }
 
-static inline bool is_nd_dax(struct device *dev)
+static bool is_nd_dax(struct device *dev)
 {
 	return false;
 }
 
-static inline struct device *nd_dax_create(struct nd_region *nd_region)
+static struct device *nd_dax_create(struct nd_region *nd_region)
 {
 	return NULL;
 }
@@ -384,17 +384,17 @@ struct vmem_altmap *nvdimm_setup_pfn(struct nd_pfn *nd_pfn,
 int devm_nsio_enable(struct device *dev, struct nd_namespace_io *nsio);
 void devm_nsio_disable(struct device *dev, struct nd_namespace_io *nsio);
 #else
-static inline struct vmem_altmap *nvdimm_setup_pfn(struct nd_pfn *nd_pfn,
+static struct vmem_altmap *nvdimm_setup_pfn(struct nd_pfn *nd_pfn,
 		struct resource *res, struct vmem_altmap *altmap)
 {
 	return ERR_PTR(-ENXIO);
 }
-static inline int devm_nsio_enable(struct device *dev,
+static int devm_nsio_enable(struct device *dev,
 		struct nd_namespace_io *nsio)
 {
 	return -ENXIO;
 }
-static inline void devm_nsio_disable(struct device *dev,
+static void devm_nsio_disable(struct device *dev,
 		struct nd_namespace_io *nsio)
 {
 }
@@ -402,7 +402,7 @@ static inline void devm_nsio_disable(struct device *dev,
 int nd_blk_region_init(struct nd_region *nd_region);
 int nd_region_activate(struct nd_region *nd_region);
 void __nd_iostat_start(struct bio *bio, unsigned long *start);
-static inline bool nd_iostat_start(struct bio *bio, unsigned long *start)
+static bool nd_iostat_start(struct bio *bio, unsigned long *start)
 {
 	struct gendisk *disk = bio->bi_disk;
 
@@ -414,14 +414,14 @@ static inline bool nd_iostat_start(struct bio *bio, unsigned long *start)
 			      bio_sectors(bio), &disk->part0);
 	return true;
 }
-static inline void nd_iostat_end(struct bio *bio, unsigned long start)
+static void nd_iostat_end(struct bio *bio, unsigned long start)
 {
 	struct gendisk *disk = bio->bi_disk;
 
 	generic_end_io_acct(disk->queue, bio_data_dir(bio), &disk->part0,
 				start);
 }
-static inline bool is_bad_pmem(struct badblocks *bb, sector_t sector,
+static bool is_bad_pmem(struct badblocks *bb, sector_t sector,
 		unsigned int len)
 {
 	if (bb->count) {

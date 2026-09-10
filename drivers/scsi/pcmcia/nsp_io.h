@@ -12,29 +12,29 @@
 #ifndef __NSP_IO_H__
 #define __NSP_IO_H__
 
-static inline          void nsp_write(unsigned int base,
+static void nsp_write(unsigned int base,
 				      unsigned int index,
 				      unsigned char val);
-static inline unsigned char nsp_read(unsigned int base,
+static unsigned char nsp_read(unsigned int base,
 				     unsigned int index);
-static inline          void nsp_index_write(unsigned int BaseAddr,
+static void nsp_index_write(unsigned int BaseAddr,
 					    unsigned int Register,
 					    unsigned char Value);
-static inline unsigned char nsp_index_read(unsigned int BaseAddr,
+static unsigned char nsp_index_read(unsigned int BaseAddr,
 					   unsigned int Register);
 
 /*******************************************************************
  * Basic IO
  */
 
-static inline void nsp_write(unsigned int  base,
+static void nsp_write(unsigned int  base,
 			     unsigned int  index,
 			     unsigned char val)
 {
 	outb(val, (base + index));
 }
 
-static inline unsigned char nsp_read(unsigned int base,
+static unsigned char nsp_read(unsigned int base,
 				     unsigned int index)
 {
 	return inb(base + index);
@@ -44,14 +44,14 @@ static inline unsigned char nsp_read(unsigned int base,
 /**********************************************************************
  * Indexed IO
  */
-static inline unsigned char nsp_index_read(unsigned int BaseAddr,
+static unsigned char nsp_index_read(unsigned int BaseAddr,
 					   unsigned int Register)
 {
 	outb(Register, BaseAddr + INDEXREG);
 	return inb(BaseAddr + DATAREG);
 }
 
-static inline void nsp_index_write(unsigned int  BaseAddr,
+static void nsp_index_write(unsigned int  BaseAddr,
 				   unsigned int  Register,
 				   unsigned char Value)
 {
@@ -64,7 +64,7 @@ static inline void nsp_index_write(unsigned int  BaseAddr,
  */
 
 /* read 8 bit FIFO */
-static inline void nsp_multi_read_1(unsigned int   BaseAddr,
+static void nsp_multi_read_1(unsigned int   BaseAddr,
 				    unsigned int   Register,
 				    void          *buf,
 				    unsigned long  count)
@@ -72,7 +72,7 @@ static inline void nsp_multi_read_1(unsigned int   BaseAddr,
 	insb(BaseAddr + Register, buf, count);
 }
 
-static inline void nsp_fifo8_read(unsigned int   base,
+static void nsp_fifo8_read(unsigned int   base,
 				  void          *buf,
 				  unsigned long  count)
 {
@@ -83,7 +83,7 @@ static inline void nsp_fifo8_read(unsigned int   base,
 /*--------------------------------------------------------------*/
 
 /* read 16 bit FIFO */
-static inline void nsp_multi_read_2(unsigned int   BaseAddr,
+static void nsp_multi_read_2(unsigned int   BaseAddr,
 				    unsigned int   Register,
 				    void          *buf,
 				    unsigned long  count)
@@ -91,7 +91,7 @@ static inline void nsp_multi_read_2(unsigned int   BaseAddr,
 	insw(BaseAddr + Register, buf, count);
 }
 
-static inline void nsp_fifo16_read(unsigned int   base,
+static void nsp_fifo16_read(unsigned int   base,
 				   void          *buf,
 				   unsigned long  count)
 {
@@ -102,7 +102,7 @@ static inline void nsp_fifo16_read(unsigned int   base,
 /*--------------------------------------------------------------*/
 
 /* read 32bit FIFO */
-static inline void nsp_multi_read_4(unsigned int   BaseAddr,
+static void nsp_multi_read_4(unsigned int   BaseAddr,
 				    unsigned int   Register,
 				    void          *buf,
 				    unsigned long  count)
@@ -110,7 +110,7 @@ static inline void nsp_multi_read_4(unsigned int   BaseAddr,
 	insl(BaseAddr + Register, buf, count);
 }
 
-static inline void nsp_fifo32_read(unsigned int   base,
+static void nsp_fifo32_read(unsigned int   base,
 				   void          *buf,
 				   unsigned long  count)
 {
@@ -121,7 +121,7 @@ static inline void nsp_fifo32_read(unsigned int   base,
 /*----------------------------------------------------------*/
 
 /* write 8bit FIFO */
-static inline void nsp_multi_write_1(unsigned int   BaseAddr,
+static void nsp_multi_write_1(unsigned int   BaseAddr,
 				     unsigned int   Register,
 				     void          *buf,
 				     unsigned long  count)
@@ -129,7 +129,7 @@ static inline void nsp_multi_write_1(unsigned int   BaseAddr,
 	outsb(BaseAddr + Register, buf, count);
 }
 
-static inline void nsp_fifo8_write(unsigned int   base,
+static void nsp_fifo8_write(unsigned int   base,
 				   void          *buf,
 				   unsigned long  count)
 {
@@ -139,7 +139,7 @@ static inline void nsp_fifo8_write(unsigned int   base,
 /*---------------------------------------------------------*/
 
 /* write 16bit FIFO */
-static inline void nsp_multi_write_2(unsigned int   BaseAddr,
+static void nsp_multi_write_2(unsigned int   BaseAddr,
 				     unsigned int   Register,
 				     void          *buf,
 				     unsigned long  count)
@@ -147,7 +147,7 @@ static inline void nsp_multi_write_2(unsigned int   BaseAddr,
 	outsw(BaseAddr + Register, buf, count);
 }
 
-static inline void nsp_fifo16_write(unsigned int   base,
+static void nsp_fifo16_write(unsigned int   base,
 				    void          *buf,
 				    unsigned long  count)
 {
@@ -157,7 +157,7 @@ static inline void nsp_fifo16_write(unsigned int   base,
 /*---------------------------------------------------------*/
 
 /* write 32bit FIFO */
-static inline void nsp_multi_write_4(unsigned int   BaseAddr,
+static void nsp_multi_write_4(unsigned int   BaseAddr,
 				     unsigned int   Register,
 				     void          *buf,
 				     unsigned long  count)
@@ -165,7 +165,7 @@ static inline void nsp_multi_write_4(unsigned int   BaseAddr,
 	outsl(BaseAddr + Register, buf, count);
 }
 
-static inline void nsp_fifo32_write(unsigned int   base,
+static void nsp_fifo32_write(unsigned int   base,
 				    void          *buf,
 				    unsigned long  count)
 {
@@ -175,7 +175,7 @@ static inline void nsp_fifo32_write(unsigned int   base,
 
 /*====================================================================*/
 
-static inline void nsp_mmio_write(unsigned long base,
+static void nsp_mmio_write(unsigned long base,
 				  unsigned int  index,
 				  unsigned char val)
 {
@@ -184,7 +184,7 @@ static inline void nsp_mmio_write(unsigned long base,
 	writeb(val, ptr);
 }
 
-static inline unsigned char nsp_mmio_read(unsigned long base,
+static unsigned char nsp_mmio_read(unsigned long base,
 					  unsigned int  index)
 {
 	unsigned char *ptr = (unsigned char *)(base + NSP_MMIO_OFFSET + index);
@@ -194,7 +194,7 @@ static inline unsigned char nsp_mmio_read(unsigned long base,
 
 /*-----------*/
 
-static inline unsigned char nsp_mmio_index_read(unsigned long base,
+static unsigned char nsp_mmio_index_read(unsigned long base,
 						unsigned int  reg)
 {
 	unsigned char *index_ptr = (unsigned char *)(base + NSP_MMIO_OFFSET + INDEXREG);
@@ -204,7 +204,7 @@ static inline unsigned char nsp_mmio_index_read(unsigned long base,
 	return readb(data_ptr);
 }
 
-static inline void nsp_mmio_index_write(unsigned long base,
+static void nsp_mmio_index_write(unsigned long base,
 					unsigned int  reg,
 					unsigned char val)
 {
@@ -216,7 +216,7 @@ static inline void nsp_mmio_index_write(unsigned long base,
 }
 
 /* read 32bit FIFO */
-static inline void nsp_mmio_multi_read_4(unsigned long  base,
+static void nsp_mmio_multi_read_4(unsigned long  base,
 					 unsigned int   Register,
 					 void          *buf,
 					 unsigned long  count)
@@ -234,7 +234,7 @@ static inline void nsp_mmio_multi_read_4(unsigned long  base,
 	}
 }
 
-static inline void nsp_mmio_fifo32_read(unsigned int   base,
+static void nsp_mmio_fifo32_read(unsigned int   base,
 					void          *buf,
 					unsigned long  count)
 {
@@ -242,7 +242,7 @@ static inline void nsp_mmio_fifo32_read(unsigned int   base,
 	nsp_mmio_multi_read_4(base, FIFODATA, buf, count);
 }
 
-static inline void nsp_mmio_multi_write_4(unsigned long  base,
+static void nsp_mmio_multi_write_4(unsigned long  base,
 					  unsigned int   Register,
 					  void          *buf,
 					  unsigned long  count)
@@ -260,7 +260,7 @@ static inline void nsp_mmio_multi_write_4(unsigned long  base,
 	}
 }
 
-static inline void nsp_mmio_fifo32_write(unsigned int   base,
+static void nsp_mmio_fifo32_write(unsigned int   base,
 					 void          *buf,
 					 unsigned long  count)
 {

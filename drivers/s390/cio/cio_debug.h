@@ -21,7 +21,7 @@ extern debug_info_t *cio_debug_crw_id;
 		debug_sprintf_event(cio_debug_crw_id, imp , ##args);	\
 	} while (0)
 
-static inline void CIO_HEX_EVENT(int level, void *data, int length)
+static void CIO_HEX_EVENT(int level, void *data, int length)
 {
 	if (unlikely(!cio_debug_trace_id))
 		return;

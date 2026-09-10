@@ -58,12 +58,12 @@ struct vsp1_histogram {
 	bool readout;
 };
 
-static inline struct vsp1_histogram *vdev_to_histo(struct video_device *vdev)
+static struct vsp1_histogram *vdev_to_histo(struct video_device *vdev)
 {
 	return container_of(vdev, struct vsp1_histogram, video);
 }
 
-static inline struct vsp1_histogram *subdev_to_histo(struct v4l2_subdev *subdev)
+static struct vsp1_histogram *subdev_to_histo(struct v4l2_subdev *subdev)
 {
 	return container_of(subdev, struct vsp1_histogram, entity.subdev);
 }

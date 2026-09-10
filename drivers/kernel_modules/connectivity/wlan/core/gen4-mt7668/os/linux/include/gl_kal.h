@@ -506,7 +506,7 @@ typedef struct _MONITOR_RADIOTAP_T {
  * struct cfg80211_scan_info, but we don't use all fields yet.
  */
 #if KERNEL_VERSION(4, 8, 0) <= CFG80211_VERSION_CODE
-static inline void kalCfg80211ScanDone(struct cfg80211_scan_request *request,
+static void kalCfg80211ScanDone(struct cfg80211_scan_request *request,
 				       bool aborted)
 {
 	struct cfg80211_scan_info info = { .aborted = aborted };
@@ -514,7 +514,7 @@ static inline void kalCfg80211ScanDone(struct cfg80211_scan_request *request,
 	cfg80211_scan_done(request, &info);
 }
 #else
-static inline void kalCfg80211ScanDone(struct cfg80211_scan_request *request,
+static void kalCfg80211ScanDone(struct cfg80211_scan_request *request,
 				       bool aborted)
 {
 	cfg80211_scan_done(request, aborted);
@@ -1161,7 +1161,7 @@ BOOLEAN
 kalGetIPv6Address(IN struct net_device *prDev,
 		  IN UINT_32 u4MaxNumOfAddr, OUT PUINT_8 pucIpv6Addrs, OUT PUINT_32 pu4NumOfIpv6Addr);
 #else
-static inline BOOLEAN
+static BOOLEAN
 kalGetIPv6Address(IN struct net_device *prDev,
 		  IN UINT_32 u4MaxNumOfAddr, OUT PUINT_8 pucIpv6Addrs, OUT PUINT_32 pu4NumOfIpv6Addr) {
 	/* Not support IPv6 */
@@ -1267,18 +1267,18 @@ VOID kalFreeTxMsdu(P_ADAPTER_T prAdapter, P_MSDU_INFO_T prMsduInfo);
 
 #if KERNEL_VERSION(3, 0, 0) <= LINUX_VERSION_CODE
 /* since: 0b5c9db1b11d3175bb42b80663a9f072f801edf5 */
-static inline void kal_skb_reset_mac_len(struct sk_buff *skb)
+static void kal_skb_reset_mac_len(struct sk_buff *skb)
 {
 	skb_reset_mac_len(skb);
 }
 #else
-static inline void kal_skb_reset_mac_len(struct sk_buff *skb)
+static void kal_skb_reset_mac_len(struct sk_buff *skb)
 {
 	skb->mac_len = skb->network_header - skb->mac_header;
 }
 #endif
 
-static inline UINT_64 kalDivU64(UINT_64 dividend, UINT_32 divisor)
+static UINT_64 kalDivU64(UINT_64 dividend, UINT_32 divisor)
 {
 	return div_u64(dividend, divisor);
 }

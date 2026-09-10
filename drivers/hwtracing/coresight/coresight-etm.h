@@ -265,7 +265,7 @@ struct etm_drvdata {
 	struct etm_config		config;
 };
 
-static inline void etm_writel(struct etm_drvdata *drvdata,
+static void etm_writel(struct etm_drvdata *drvdata,
 			      u32 val, u32 off)
 {
 	if (drvdata->use_cp14) {
@@ -278,7 +278,7 @@ static inline void etm_writel(struct etm_drvdata *drvdata,
 	}
 }
 
-static inline unsigned int etm_readl(struct etm_drvdata *drvdata, u32 off)
+static unsigned int etm_readl(struct etm_drvdata *drvdata, u32 off)
 {
 	u32 val;
 

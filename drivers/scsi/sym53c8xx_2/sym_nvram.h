@@ -200,12 +200,12 @@ char *sym_nvram_type(struct sym_nvram *nvp);
 #else
 static inline void sym_nvram_setup_host(struct Scsi_Host *shost, struct sym_hcb *np, struct sym_nvram *nvram) { }
 static inline void sym_nvram_setup_target(struct sym_tcb *tp, struct sym_nvram *nvram) { }
-static inline int sym_read_nvram(struct sym_device *np, struct sym_nvram *nvp)
+static int sym_read_nvram(struct sym_device *np, struct sym_nvram *nvp)
 {
 	nvp->type = 0;
 	return 0;
 }
-static inline char *sym_nvram_type(struct sym_nvram *nvp)
+static char *sym_nvram_type(struct sym_nvram *nvp)
 {
 	return "No NVRAM";
 }

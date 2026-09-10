@@ -548,7 +548,7 @@ static struct goodix_ext_attribute ext_attr_##_name = \
 /*
  * get board data pointer
  */
-static inline struct goodix_ts_board_data *board_data(
+static struct goodix_ts_board_data *board_data(
 		struct goodix_ts_core *core)
 {
 	return core->ts_dev->board_data;
@@ -557,7 +557,7 @@ static inline struct goodix_ts_board_data *board_data(
 /*
  * get touch device pointer
  */
-static inline struct goodix_ts_device *ts_device(
+static struct goodix_ts_device *ts_device(
 		struct goodix_ts_core *core)
 {
 	return core->ts_dev;
@@ -566,7 +566,7 @@ static inline struct goodix_ts_device *ts_device(
 /*
  * get touch hardware operations pointer
  */
-static inline const struct goodix_ts_hw_ops *ts_hw_ops(
+static const struct goodix_ts_hw_ops *ts_hw_ops(
 		struct goodix_ts_core *core)
 {
 	return core->ts_dev->hw_ops;
@@ -579,7 +579,7 @@ static inline const struct goodix_ts_hw_ops *ts_hw_ops(
  * legality of @data and @size parameters, so be
  * careful when call these functions.
  */
-static inline u8 checksum_u8(u8 *data, u32 size)
+static u8 checksum_u8(u8 *data, u32 size)
 {
 	u8 checksum = 0;
 	u32 i;
@@ -589,7 +589,7 @@ static inline u8 checksum_u8(u8 *data, u32 size)
 	return checksum;
 }
 
-static inline u16 checksum_le16(u8 *data, u32 size)
+static u16 checksum_le16(u8 *data, u32 size)
 {
 	u16 checksum = 0;
 	u32 i;
@@ -599,7 +599,7 @@ static inline u16 checksum_le16(u8 *data, u32 size)
 	return checksum;
 }
 
-static inline u16 checksum_be16(u8 *data, u32 size)
+static u16 checksum_be16(u8 *data, u32 size)
 {
 	u16 checksum = 0;
 	u32 i;
@@ -609,7 +609,7 @@ static inline u16 checksum_be16(u8 *data, u32 size)
 	return checksum;
 }
 
-static inline u32 checksum_le32(u8 *data, u32 size)
+static u32 checksum_le32(u8 *data, u32 size)
 {
 	u32 checksum = 0;
 	u32 i;
@@ -619,7 +619,7 @@ static inline u32 checksum_le32(u8 *data, u32 size)
 	return checksum;
 }
 
-static inline u32 checksum_be32(u8 *data, u32 size)
+static u32 checksum_be32(u8 *data, u32 size)
 {
 	u32 checksum = 0;
 	u32 i;

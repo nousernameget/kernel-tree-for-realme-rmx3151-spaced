@@ -16,17 +16,17 @@ extern struct platform_driver zx_hdmi_driver;
 extern struct platform_driver zx_tvenc_driver;
 extern struct platform_driver zx_vga_driver;
 
-static inline u32 zx_readl(void __iomem *reg)
+static u32 zx_readl(void __iomem *reg)
 {
 	return readl_relaxed(reg);
 }
 
-static inline void zx_writel(void __iomem *reg, u32 val)
+static void zx_writel(void __iomem *reg, u32 val)
 {
 	writel_relaxed(val, reg);
 }
 
-static inline void zx_writel_mask(void __iomem *reg, u32 mask, u32 val)
+static void zx_writel_mask(void __iomem *reg, u32 mask, u32 val)
 {
 	u32 tmp;
 

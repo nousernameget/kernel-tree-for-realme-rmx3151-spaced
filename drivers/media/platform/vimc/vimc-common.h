@@ -132,7 +132,7 @@ struct media_pad *vimc_pads_init(u16 num_pads,
  *
  * Helper function to free the pads initialized with vimc_pads_init
  */
-static inline void vimc_pads_cleanup(struct media_pad *pads)
+static void vimc_pads_cleanup(struct media_pad *pads)
 {
 	kfree(pads);
 }

@@ -449,7 +449,7 @@ struct cx23885_dev {
 
 };
 
-static inline struct cx23885_dev *to_cx23885(struct v4l2_device *v4l2_dev)
+static struct cx23885_dev *to_cx23885(struct v4l2_device *v4l2_dev)
 {
 	return container_of(v4l2_dev, struct cx23885_dev, v4l2_dev);
 }
@@ -632,7 +632,7 @@ extern int cx23885_risc_databuffer(struct pci_dev *pci,
 /* ----------------------------------------------------------- */
 /* tv norms                                                    */
 
-static inline unsigned int norm_maxh(v4l2_std_id norm)
+static unsigned int norm_maxh(v4l2_std_id norm)
 {
 	return (norm & V4L2_STD_525_60) ? 480 : 576;
 }

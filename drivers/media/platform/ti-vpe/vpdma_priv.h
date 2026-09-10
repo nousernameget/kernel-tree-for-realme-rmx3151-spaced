@@ -253,7 +253,7 @@ struct vpdma_dtd {
 #define DTD_MAX_HEIGHT_MASK	0x07
 #define DTD_MAX_HEIGHT_SHFT	0
 
-static inline u32 dtd_type_ctl_stride(int type, bool notify, int field,
+static u32 dtd_type_ctl_stride(int type, bool notify, int field,
 			bool one_d, bool even_line_skip, bool odd_line_skip,
 			int line_stride)
 {
@@ -264,12 +264,12 @@ static inline u32 dtd_type_ctl_stride(int type, bool notify, int field,
 		line_stride;
 }
 
-static inline u32 dtd_xfer_length_height(int line_length, int xfer_height)
+static u32 dtd_xfer_length_height(int line_length, int xfer_height)
 {
 	return (line_length << DTD_LINE_LENGTH_SHFT) | xfer_height;
 }
 
-static inline u32 dtd_pkt_ctl(bool mode, bool dir, int chan, int pri,
+static u32 dtd_pkt_ctl(bool mode, bool dir, int chan, int pri,
 			int next_chan)
 {
 	return (DTD_PKT_TYPE << DTD_PKT_TYPE_SHFT) | (mode << DTD_MODE_SHFT) |
@@ -277,12 +277,12 @@ static inline u32 dtd_pkt_ctl(bool mode, bool dir, int chan, int pri,
 		(pri << DTD_PRI_SHFT) | next_chan;
 }
 
-static inline u32 dtd_frame_width_height(int width, int height)
+static u32 dtd_frame_width_height(int width, int height)
 {
 	return (width << DTD_FRAME_WIDTH_SHFT) | height;
 }
 
-static inline u32 dtd_desc_write_addr(unsigned int addr, bool write_desc,
+static u32 dtd_desc_write_addr(unsigned int addr, bool write_desc,
 			bool drop_data, bool use_desc)
 {
 	return (addr & DTD_DESC_START_MASK) |
@@ -291,142 +291,142 @@ static inline u32 dtd_desc_write_addr(unsigned int addr, bool write_desc,
 		use_desc;
 }
 
-static inline u32 dtd_start_h_v(int h_start, int v_start)
+static u32 dtd_start_h_v(int h_start, int v_start)
 {
 	return (h_start << DTD_H_START_SHFT) | v_start;
 }
 
-static inline u32 dtd_max_width_height(int max_width, int max_height)
+static u32 dtd_max_width_height(int max_width, int max_height)
 {
 	return (max_width << DTD_MAX_WIDTH_SHFT) | max_height;
 }
 
-static inline int dtd_get_data_type(struct vpdma_dtd *dtd)
+static int dtd_get_data_type(struct vpdma_dtd *dtd)
 {
 	return dtd->type_ctl_stride >> DTD_DATA_TYPE_SHFT;
 }
 
-static inline bool dtd_get_notify(struct vpdma_dtd *dtd)
+static bool dtd_get_notify(struct vpdma_dtd *dtd)
 {
 	return (dtd->type_ctl_stride >> DTD_NOTIFY_SHFT) & DTD_NOTIFY_MASK;
 }
 
-static inline int dtd_get_field(struct vpdma_dtd *dtd)
+static int dtd_get_field(struct vpdma_dtd *dtd)
 {
 	return (dtd->type_ctl_stride >> DTD_FIELD_SHFT) & DTD_FIELD_MASK;
 }
 
-static inline bool dtd_get_1d(struct vpdma_dtd *dtd)
+static bool dtd_get_1d(struct vpdma_dtd *dtd)
 {
 	return (dtd->type_ctl_stride >> DTD_1D_SHFT) & DTD_1D_MASK;
 }
 
-static inline bool dtd_get_even_line_skip(struct vpdma_dtd *dtd)
+static bool dtd_get_even_line_skip(struct vpdma_dtd *dtd)
 {
 	return (dtd->type_ctl_stride >> DTD_EVEN_LINE_SKIP_SHFT)
 		& DTD_EVEN_LINE_SKIP_MASK;
 }
 
-static inline bool dtd_get_odd_line_skip(struct vpdma_dtd *dtd)
+static bool dtd_get_odd_line_skip(struct vpdma_dtd *dtd)
 {
 	return (dtd->type_ctl_stride >> DTD_ODD_LINE_SKIP_SHFT)
 		& DTD_ODD_LINE_SKIP_MASK;
 }
 
-static inline int dtd_get_line_stride(struct vpdma_dtd *dtd)
+static int dtd_get_line_stride(struct vpdma_dtd *dtd)
 {
 	return dtd->type_ctl_stride & DTD_LINE_STRIDE_MASK;
 }
 
-static inline int dtd_get_line_length(struct vpdma_dtd *dtd)
+static int dtd_get_line_length(struct vpdma_dtd *dtd)
 {
 	return dtd->xfer_length_height >> DTD_LINE_LENGTH_SHFT;
 }
 
-static inline int dtd_get_xfer_height(struct vpdma_dtd *dtd)
+static int dtd_get_xfer_height(struct vpdma_dtd *dtd)
 {
 	return dtd->xfer_length_height & DTD_XFER_HEIGHT_MASK;
 }
 
-static inline int dtd_get_pkt_type(struct vpdma_dtd *dtd)
+static int dtd_get_pkt_type(struct vpdma_dtd *dtd)
 {
 	return dtd->pkt_ctl >> DTD_PKT_TYPE_SHFT;
 }
 
-static inline bool dtd_get_mode(struct vpdma_dtd *dtd)
+static bool dtd_get_mode(struct vpdma_dtd *dtd)
 {
 	return (dtd->pkt_ctl >> DTD_MODE_SHFT) & DTD_MODE_MASK;
 }
 
-static inline bool dtd_get_dir(struct vpdma_dtd *dtd)
+static bool dtd_get_dir(struct vpdma_dtd *dtd)
 {
 	return (dtd->pkt_ctl >> DTD_DIR_SHFT) & DTD_DIR_MASK;
 }
 
-static inline int dtd_get_chan(struct vpdma_dtd *dtd)
+static int dtd_get_chan(struct vpdma_dtd *dtd)
 {
 	return (dtd->pkt_ctl >> DTD_CHAN_SHFT) & DTD_CHAN_MASK;
 }
 
-static inline int dtd_get_priority(struct vpdma_dtd *dtd)
+static int dtd_get_priority(struct vpdma_dtd *dtd)
 {
 	return (dtd->pkt_ctl >> DTD_PRI_SHFT) & DTD_PRI_MASK;
 }
 
-static inline int dtd_get_next_chan(struct vpdma_dtd *dtd)
+static int dtd_get_next_chan(struct vpdma_dtd *dtd)
 {
 	return (dtd->pkt_ctl >> DTD_NEXT_CHAN_SHFT) & DTD_NEXT_CHAN_MASK;
 }
 
-static inline int dtd_get_frame_width(struct vpdma_dtd *dtd)
+static int dtd_get_frame_width(struct vpdma_dtd *dtd)
 {
 	return dtd->frame_width_height >> DTD_FRAME_WIDTH_SHFT;
 }
 
-static inline int dtd_get_frame_height(struct vpdma_dtd *dtd)
+static int dtd_get_frame_height(struct vpdma_dtd *dtd)
 {
 	return dtd->frame_width_height & DTD_FRAME_HEIGHT_MASK;
 }
 
-static inline int dtd_get_desc_write_addr(struct vpdma_dtd *dtd)
+static int dtd_get_desc_write_addr(struct vpdma_dtd *dtd)
 {
 	return dtd->desc_write_addr & DTD_DESC_START_MASK;
 }
 
-static inline bool dtd_get_write_desc(struct vpdma_dtd *dtd)
+static bool dtd_get_write_desc(struct vpdma_dtd *dtd)
 {
 	return (dtd->desc_write_addr >> DTD_WRITE_DESC_SHIFT) &
 							DTD_WRITE_DESC_MASK;
 }
 
-static inline bool dtd_get_drop_data(struct vpdma_dtd *dtd)
+static bool dtd_get_drop_data(struct vpdma_dtd *dtd)
 {
 	return (dtd->desc_write_addr >> DTD_DROP_DATA_SHIFT) &
 							DTD_DROP_DATA_MASK;
 }
 
-static inline bool dtd_get_use_desc(struct vpdma_dtd *dtd)
+static bool dtd_get_use_desc(struct vpdma_dtd *dtd)
 {
 	return dtd->desc_write_addr & DTD_USE_DESC_MASK;
 }
 
-static inline int dtd_get_h_start(struct vpdma_dtd *dtd)
+static int dtd_get_h_start(struct vpdma_dtd *dtd)
 {
 	return dtd->start_h_v >> DTD_H_START_SHFT;
 }
 
-static inline int dtd_get_v_start(struct vpdma_dtd *dtd)
+static int dtd_get_v_start(struct vpdma_dtd *dtd)
 {
 	return dtd->start_h_v & DTD_V_START_MASK;
 }
 
-static inline int dtd_get_max_width(struct vpdma_dtd *dtd)
+static int dtd_get_max_width(struct vpdma_dtd *dtd)
 {
 	return (dtd->max_width_height >> DTD_MAX_WIDTH_SHFT) &
 							DTD_MAX_WIDTH_MASK;
 }
 
-static inline int dtd_get_max_height(struct vpdma_dtd *dtd)
+static int dtd_get_max_height(struct vpdma_dtd *dtd)
 {
 	return (dtd->max_width_height >> DTD_MAX_HEIGHT_SHFT) &
 							DTD_MAX_HEIGHT_MASK;
@@ -473,7 +473,7 @@ struct vpdma_cfd {
 #define CFD_PAYLOAD_LEN_MASK	0xffff
 #define CFD_PAYLOAD_LEN_SHFT	0
 
-static inline u32 cfd_pkt_payload_len(bool direct, int cls, int dest,
+static u32 cfd_pkt_payload_len(bool direct, int cls, int dest,
 		int payload_len)
 {
 	return (CFD_PKT_TYPE << CFD_PKT_TYPE_SHFT) |
@@ -483,27 +483,27 @@ static inline u32 cfd_pkt_payload_len(bool direct, int cls, int dest,
 		payload_len;
 }
 
-static inline int cfd_get_pkt_type(struct vpdma_cfd *cfd)
+static int cfd_get_pkt_type(struct vpdma_cfd *cfd)
 {
 	return cfd->ctl_payload_len >> CFD_PKT_TYPE_SHFT;
 }
 
-static inline bool cfd_get_direct(struct vpdma_cfd *cfd)
+static bool cfd_get_direct(struct vpdma_cfd *cfd)
 {
 	return (cfd->ctl_payload_len >> CFD_DIRECT_SHFT) & CFD_DIRECT_MASK;
 }
 
-static inline bool cfd_get_class(struct vpdma_cfd *cfd)
+static bool cfd_get_class(struct vpdma_cfd *cfd)
 {
 	return (cfd->ctl_payload_len >> CFD_CLASS_SHFT) & CFD_CLASS_MASK;
 }
 
-static inline int cfd_get_dest(struct vpdma_cfd *cfd)
+static int cfd_get_dest(struct vpdma_cfd *cfd)
 {
 	return (cfd->ctl_payload_len >> CFD_DEST_SHFT) & CFD_DEST_MASK;
 }
 
-static inline int cfd_get_payload_len(struct vpdma_cfd *cfd)
+static int cfd_get_payload_len(struct vpdma_cfd *cfd)
 {
 	return cfd->ctl_payload_len & CFD_PAYLOAD_LEN_MASK;
 }
@@ -577,63 +577,63 @@ struct vpdma_ctd {
 #define CTD_CONTROL_MASK	0x0f
 #define CTD_CONTROL_SHFT	0
 
-static inline u32 ctd_pixel_line_count(int pixel_count, int line_count)
+static u32 ctd_pixel_line_count(int pixel_count, int line_count)
 {
 	return (pixel_count << CTD_PIXEL_COUNT_SHFT) | line_count;
 }
 
-static inline u32 ctd_set_fid_ctl(int fid0, int fid1, int fid2)
+static u32 ctd_set_fid_ctl(int fid0, int fid1, int fid2)
 {
 	return (fid2 << CTD_FID2_SHFT) | (fid1 << CTD_FID1_SHFT) | fid0;
 }
 
-static inline u32 ctd_type_source_ctl(int source, int control)
+static u32 ctd_type_source_ctl(int source, int control)
 {
 	return (CTD_PKT_TYPE << CTD_PKT_TYPE_SHFT) |
 		(source << CTD_SOURCE_SHFT) | control;
 }
 
-static inline u32 ctd_get_pixel_count(struct vpdma_ctd *ctd)
+static u32 ctd_get_pixel_count(struct vpdma_ctd *ctd)
 {
 	return ctd->pixel_line_count >> CTD_PIXEL_COUNT_SHFT;
 }
 
-static inline int ctd_get_line_count(struct vpdma_ctd *ctd)
+static int ctd_get_line_count(struct vpdma_ctd *ctd)
 {
 	return ctd->pixel_line_count & CTD_LINE_COUNT_MASK;
 }
 
-static inline int ctd_get_event(struct vpdma_ctd *ctd)
+static int ctd_get_event(struct vpdma_ctd *ctd)
 {
 	return ctd->event & CTD_EVENT_MASK;
 }
 
-static inline int ctd_get_fid2_ctl(struct vpdma_ctd *ctd)
+static int ctd_get_fid2_ctl(struct vpdma_ctd *ctd)
 {
 	return (ctd->fid_ctl >> CTD_FID2_SHFT) & CTD_FID2_MASK;
 }
 
-static inline int ctd_get_fid1_ctl(struct vpdma_ctd *ctd)
+static int ctd_get_fid1_ctl(struct vpdma_ctd *ctd)
 {
 	return (ctd->fid_ctl >> CTD_FID1_SHFT) & CTD_FID1_MASK;
 }
 
-static inline int ctd_get_fid0_ctl(struct vpdma_ctd *ctd)
+static int ctd_get_fid0_ctl(struct vpdma_ctd *ctd)
 {
 	return ctd->fid_ctl & CTD_FID2_MASK;
 }
 
-static inline int ctd_get_pkt_type(struct vpdma_ctd *ctd)
+static int ctd_get_pkt_type(struct vpdma_ctd *ctd)
 {
 	return ctd->type_source_ctl >> CTD_PKT_TYPE_SHFT;
 }
 
-static inline int ctd_get_source(struct vpdma_ctd *ctd)
+static int ctd_get_source(struct vpdma_ctd *ctd)
 {
 	return (ctd->type_source_ctl >> CTD_SOURCE_SHFT) & CTD_SOURCE_MASK;
 }
 
-static inline int ctd_get_ctl(struct vpdma_ctd *ctd)
+static int ctd_get_ctl(struct vpdma_ctd *ctd)
 {
 	return ctd->type_source_ctl & CTD_CONTROL_MASK;
 }

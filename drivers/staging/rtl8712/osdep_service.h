@@ -57,13 +57,13 @@ struct	__queue	{
 		spin_lock_init(&((pqueue)->lock));	\
 	} while (0)
 
-static inline u32 end_of_queue_search(struct list_head *head,
+static u32 end_of_queue_search(struct list_head *head,
 		struct list_head *plist)
 {
 	return (head == plist);
 }
 
-static inline void flush_signals_thread(void)
+static void flush_signals_thread(void)
 {
 	if (signal_pending(current))
 		flush_signals(current);

@@ -479,7 +479,7 @@ struct axienet_option {
  *
  * This function returns the contents of the corresponding register.
  */
-static inline u32 axienet_ior(struct axienet_local *lp, off_t offset)
+static u32 axienet_ior(struct axienet_local *lp, off_t offset)
 {
 	return in_be32(lp->regs + offset);
 }
@@ -493,7 +493,7 @@ static inline u32 axienet_ior(struct axienet_local *lp, off_t offset)
  * This function writes the desired value into the corresponding Axi Ethernet
  * register.
  */
-static inline void axienet_iow(struct axienet_local *lp, off_t offset,
+static void axienet_iow(struct axienet_local *lp, off_t offset,
 			       u32 value)
 {
 	out_be32((lp->regs + offset), value);

@@ -45,7 +45,7 @@
 
 #include "ocrdma_sli.h"
 
-static inline void ocrdma_cpu_to_le32(void *dst, u32 len)
+static void ocrdma_cpu_to_le32(void *dst, u32 len)
 {
 #ifdef __BIG_ENDIAN
 	int i = 0;
@@ -56,7 +56,7 @@ static inline void ocrdma_cpu_to_le32(void *dst, u32 len)
 #endif
 }
 
-static inline void ocrdma_le32_to_cpu(void *dst, u32 len)
+static void ocrdma_le32_to_cpu(void *dst, u32 len)
 {
 #ifdef __BIG_ENDIAN
 	int i = 0;
@@ -67,7 +67,7 @@ static inline void ocrdma_le32_to_cpu(void *dst, u32 len)
 #endif
 }
 
-static inline void ocrdma_copy_cpu_to_le32(void *dst, void *src, u32 len)
+static void ocrdma_copy_cpu_to_le32(void *dst, void *src, u32 len)
 {
 #ifdef __BIG_ENDIAN
 	int i = 0;
@@ -80,7 +80,7 @@ static inline void ocrdma_copy_cpu_to_le32(void *dst, void *src, u32 len)
 #endif
 }
 
-static inline void ocrdma_copy_le32_to_cpu(void *dst, void *src, u32 len)
+static void ocrdma_copy_le32_to_cpu(void *dst, void *src, u32 len)
 {
 #ifdef __BIG_ENDIAN
 	int i = 0;
@@ -93,7 +93,7 @@ static inline void ocrdma_copy_le32_to_cpu(void *dst, void *src, u32 len)
 #endif
 }
 
-static inline u64 ocrdma_get_db_addr(struct ocrdma_dev *dev, u32 pdid)
+static u64 ocrdma_get_db_addr(struct ocrdma_dev *dev, u32 pdid)
 {
 	return dev->nic_info.unmapped_db + (pdid * dev->nic_info.db_page_size);
 }

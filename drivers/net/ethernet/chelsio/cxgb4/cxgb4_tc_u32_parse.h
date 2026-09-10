@@ -42,7 +42,7 @@ struct cxgb4_match_field {
 };
 
 /* IPv4 match fields */
-static inline int cxgb4_fill_ipv4_tos(struct ch_filter_specification *f,
+static int cxgb4_fill_ipv4_tos(struct ch_filter_specification *f,
 				      u32 val, u32 mask)
 {
 	f->val.tos  = (ntohl(val)  >> 16) & 0x000000FF;
@@ -51,7 +51,7 @@ static inline int cxgb4_fill_ipv4_tos(struct ch_filter_specification *f,
 	return 0;
 }
 
-static inline int cxgb4_fill_ipv4_frag(struct ch_filter_specification *f,
+static int cxgb4_fill_ipv4_frag(struct ch_filter_specification *f,
 				       u32 val, u32 mask)
 {
 	u32 mask_val;
@@ -73,7 +73,7 @@ static inline int cxgb4_fill_ipv4_frag(struct ch_filter_specification *f,
 	return 0;
 }
 
-static inline int cxgb4_fill_ipv4_proto(struct ch_filter_specification *f,
+static int cxgb4_fill_ipv4_proto(struct ch_filter_specification *f,
 					u32 val, u32 mask)
 {
 	f->val.proto  = (ntohl(val)  >> 16) & 0x000000FF;
@@ -82,7 +82,7 @@ static inline int cxgb4_fill_ipv4_proto(struct ch_filter_specification *f,
 	return 0;
 }
 
-static inline int cxgb4_fill_ipv4_src_ip(struct ch_filter_specification *f,
+static int cxgb4_fill_ipv4_src_ip(struct ch_filter_specification *f,
 					 u32 val, u32 mask)
 {
 	memcpy(&f->val.fip[0],  &val,  sizeof(u32));
@@ -91,7 +91,7 @@ static inline int cxgb4_fill_ipv4_src_ip(struct ch_filter_specification *f,
 	return 0;
 }
 
-static inline int cxgb4_fill_ipv4_dst_ip(struct ch_filter_specification *f,
+static int cxgb4_fill_ipv4_dst_ip(struct ch_filter_specification *f,
 					 u32 val, u32 mask)
 {
 	memcpy(&f->val.lip[0],  &val,  sizeof(u32));
@@ -110,7 +110,7 @@ static const struct cxgb4_match_field cxgb4_ipv4_fields[] = {
 };
 
 /* IPv6 match fields */
-static inline int cxgb4_fill_ipv6_tos(struct ch_filter_specification *f,
+static int cxgb4_fill_ipv6_tos(struct ch_filter_specification *f,
 				      u32 val, u32 mask)
 {
 	f->val.tos  = (ntohl(val)  >> 20) & 0x000000FF;
@@ -119,7 +119,7 @@ static inline int cxgb4_fill_ipv6_tos(struct ch_filter_specification *f,
 	return 0;
 }
 
-static inline int cxgb4_fill_ipv6_proto(struct ch_filter_specification *f,
+static int cxgb4_fill_ipv6_proto(struct ch_filter_specification *f,
 					u32 val, u32 mask)
 {
 	f->val.proto  = (ntohl(val)  >> 8) & 0x000000FF;
@@ -128,7 +128,7 @@ static inline int cxgb4_fill_ipv6_proto(struct ch_filter_specification *f,
 	return 0;
 }
 
-static inline int cxgb4_fill_ipv6_src_ip0(struct ch_filter_specification *f,
+static int cxgb4_fill_ipv6_src_ip0(struct ch_filter_specification *f,
 					  u32 val, u32 mask)
 {
 	memcpy(&f->val.fip[0],  &val,  sizeof(u32));
@@ -137,7 +137,7 @@ static inline int cxgb4_fill_ipv6_src_ip0(struct ch_filter_specification *f,
 	return 0;
 }
 
-static inline int cxgb4_fill_ipv6_src_ip1(struct ch_filter_specification *f,
+static int cxgb4_fill_ipv6_src_ip1(struct ch_filter_specification *f,
 					  u32 val, u32 mask)
 {
 	memcpy(&f->val.fip[4],  &val,  sizeof(u32));
@@ -146,7 +146,7 @@ static inline int cxgb4_fill_ipv6_src_ip1(struct ch_filter_specification *f,
 	return 0;
 }
 
-static inline int cxgb4_fill_ipv6_src_ip2(struct ch_filter_specification *f,
+static int cxgb4_fill_ipv6_src_ip2(struct ch_filter_specification *f,
 					  u32 val, u32 mask)
 {
 	memcpy(&f->val.fip[8],  &val,  sizeof(u32));
@@ -155,7 +155,7 @@ static inline int cxgb4_fill_ipv6_src_ip2(struct ch_filter_specification *f,
 	return 0;
 }
 
-static inline int cxgb4_fill_ipv6_src_ip3(struct ch_filter_specification *f,
+static int cxgb4_fill_ipv6_src_ip3(struct ch_filter_specification *f,
 					  u32 val, u32 mask)
 {
 	memcpy(&f->val.fip[12],  &val,  sizeof(u32));
@@ -164,7 +164,7 @@ static inline int cxgb4_fill_ipv6_src_ip3(struct ch_filter_specification *f,
 	return 0;
 }
 
-static inline int cxgb4_fill_ipv6_dst_ip0(struct ch_filter_specification *f,
+static int cxgb4_fill_ipv6_dst_ip0(struct ch_filter_specification *f,
 					  u32 val, u32 mask)
 {
 	memcpy(&f->val.lip[0],  &val,  sizeof(u32));
@@ -173,7 +173,7 @@ static inline int cxgb4_fill_ipv6_dst_ip0(struct ch_filter_specification *f,
 	return 0;
 }
 
-static inline int cxgb4_fill_ipv6_dst_ip1(struct ch_filter_specification *f,
+static int cxgb4_fill_ipv6_dst_ip1(struct ch_filter_specification *f,
 					  u32 val, u32 mask)
 {
 	memcpy(&f->val.lip[4],  &val,  sizeof(u32));
@@ -182,7 +182,7 @@ static inline int cxgb4_fill_ipv6_dst_ip1(struct ch_filter_specification *f,
 	return 0;
 }
 
-static inline int cxgb4_fill_ipv6_dst_ip2(struct ch_filter_specification *f,
+static int cxgb4_fill_ipv6_dst_ip2(struct ch_filter_specification *f,
 					  u32 val, u32 mask)
 {
 	memcpy(&f->val.lip[8],  &val,  sizeof(u32));
@@ -191,7 +191,7 @@ static inline int cxgb4_fill_ipv6_dst_ip2(struct ch_filter_specification *f,
 	return 0;
 }
 
-static inline int cxgb4_fill_ipv6_dst_ip3(struct ch_filter_specification *f,
+static int cxgb4_fill_ipv6_dst_ip3(struct ch_filter_specification *f,
 					  u32 val, u32 mask)
 {
 	memcpy(&f->val.lip[12],  &val,  sizeof(u32));
@@ -215,7 +215,7 @@ static const struct cxgb4_match_field cxgb4_ipv6_fields[] = {
 };
 
 /* TCP/UDP match */
-static inline int cxgb4_fill_l4_ports(struct ch_filter_specification *f,
+static int cxgb4_fill_l4_ports(struct ch_filter_specification *f,
 				      u32 val, u32 mask)
 {
 	f->val.fport  = ntohl(val)  >> 16;

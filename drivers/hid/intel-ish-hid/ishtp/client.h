@@ -158,7 +158,7 @@ int ishtp_io_rb_alloc_buf(struct ishtp_cl_rb *rb, size_t length);
  * ishtp_cl_cmp_id - tells if file private data have same id
  * returns true  - if ids are the same and not NULL
  */
-static inline bool ishtp_cl_cmp_id(const struct ishtp_cl *cl1,
+static bool ishtp_cl_cmp_id(const struct ishtp_cl *cl1,
 				   const struct ishtp_cl *cl2)
 {
 	return cl1 && cl2 &&

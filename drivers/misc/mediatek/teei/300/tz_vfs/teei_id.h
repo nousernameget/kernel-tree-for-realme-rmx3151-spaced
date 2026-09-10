@@ -89,7 +89,7 @@ enum teei_cmd_type {
  *     end   - mva end
  * @return:
  * ***************************************************************/
-static inline void Flush_Dcache_By_Area(unsigned long start, unsigned long end)
+static void Flush_Dcache_By_Area(unsigned long start, unsigned long end)
 {
 
 }
@@ -101,7 +101,7 @@ static inline void Flush_Dcache_By_Area(unsigned long start, unsigned long end)
  *     end   - mva end
  * @return:
  * *****************************************************************/
-static inline void Invalidate_Dcache_By_Area(unsigned long start,
+static void Invalidate_Dcache_By_Area(unsigned long start,
 							unsigned long end)
 {
 

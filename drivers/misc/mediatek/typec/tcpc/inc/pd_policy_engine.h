@@ -133,7 +133,7 @@ enum pd_pe_state_machine {
 	pd_port->pe_data.vdm_state_flags = \
 		VDM_STATE_FLAG_BACK_READY_IF_RECV_GOOD_CRC; }
 
-static inline bool pd_check_pe_during_hard_reset(struct pd_port *pd_port)
+static bool pd_check_pe_during_hard_reset(struct pd_port *pd_port)
 {
 	return pd_port->tcpc_dev->pd_wait_hard_reset_complete;
 }
@@ -445,7 +445,7 @@ int pd_policy_engine_run(struct tcpc_device *tcpc_dev);
 
 void pe_power_ready_entry(struct pd_port *pd_port);
 
-static inline void pe_send_swap_request_entry(
+static void pe_send_swap_request_entry(
 		struct pd_port *pd_port, uint8_t msg)
 {
 	PE_STATE_WAIT_ANSWER_MSG(pd_port);

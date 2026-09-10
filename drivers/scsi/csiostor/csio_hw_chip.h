@@ -68,12 +68,12 @@ enum chip_type {
 	T6_LAST_REV     = T6_A0,
 };
 
-static inline int csio_is_t5(uint16_t chip)
+static int csio_is_t5(uint16_t chip)
 {
 	return (chip == CSIO_HW_T5);
 }
 
-static inline int csio_is_t6(uint16_t chip)
+static int csio_is_t6(uint16_t chip)
 {
 	return (chip == CSIO_HW_T6);
 }

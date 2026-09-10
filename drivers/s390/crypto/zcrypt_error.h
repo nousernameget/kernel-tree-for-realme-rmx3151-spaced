@@ -91,7 +91,7 @@ struct error_hdr {
 #define REP88_ERROR_OPERAND		    0x84 /* CEX2A	*/
 #define REP88_ERROR_OPERAND_EVEN_MOD	    0x85 /* CEX2A	*/
 
-static inline int convert_error(struct zcrypt_queue *zq,
+static int convert_error(struct zcrypt_queue *zq,
 				struct ap_message *reply)
 {
 	struct error_hdr *ehdr = reply->message;

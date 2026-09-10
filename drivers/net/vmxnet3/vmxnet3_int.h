@@ -133,7 +133,7 @@ struct vmxnet3_cmd_ring {
 	dma_addr_t	basePA;
 };
 
-static inline void
+static void
 vmxnet3_cmd_ring_adv_next2fill(struct vmxnet3_cmd_ring *ring)
 {
 	ring->next2fill++;
@@ -143,13 +143,13 @@ vmxnet3_cmd_ring_adv_next2fill(struct vmxnet3_cmd_ring *ring)
 	}
 }
 
-static inline void
+static void
 vmxnet3_cmd_ring_adv_next2comp(struct vmxnet3_cmd_ring *ring)
 {
 	VMXNET3_INC_RING_IDX_ONLY(ring->next2comp, ring->size);
 }
 
-static inline int
+static int
 vmxnet3_cmd_ring_desc_avail(struct vmxnet3_cmd_ring *ring)
 {
 	return (ring->next2comp > ring->next2fill ? 0 : ring->size) +
@@ -165,7 +165,7 @@ struct vmxnet3_comp_ring {
 	dma_addr_t           basePA;
 };
 
-static inline void
+static void
 vmxnet3_comp_ring_adv_next2proc(struct vmxnet3_comp_ring *ring)
 {
 	ring->next2proc++;

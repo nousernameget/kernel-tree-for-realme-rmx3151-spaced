@@ -160,7 +160,7 @@ enum intel_vgpu_edid {
 	GVT_EDID_NUM,
 };
 
-static inline char *vgpu_edid_str(enum intel_vgpu_edid id)
+static char *vgpu_edid_str(enum intel_vgpu_edid id)
 {
 	switch (id) {
 	case GVT_EDID_1024_768:

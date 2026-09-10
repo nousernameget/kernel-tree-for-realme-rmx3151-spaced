@@ -76,7 +76,7 @@ void bfa_fcp_res_recfg(struct bfa_s *bfa, u16 num_ioim_fw, u16 max_ioim_fw);
 #define BFA_IOIM_RETRY_MAX 7
 
 /* Buckets are are 512 bytes to 2MB */
-static inline u32
+static u32
 bfa_ioim_get_index(u32 n) {
 	int pos = 0;
 	if (n >= (1UL)<<22)
@@ -263,7 +263,7 @@ struct bfa_itnim_s {
 	(__ioim)->iotag |= k << BFA_IOIM_RETRY_TAG_OFFSET;		\
 } while (0)
 
-static inline bfa_boolean_t
+static bfa_boolean_t
 bfa_ioim_maxretry_reached(struct bfa_ioim_s *ioim)
 {
 	uint16_t k = ioim->iotag >> BFA_IOIM_RETRY_TAG_OFFSET;

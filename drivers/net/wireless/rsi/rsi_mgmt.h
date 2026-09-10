@@ -576,32 +576,32 @@ struct rsi_request_ps {
 	__le16 ps_num_dtim_intervals;
 } __packed;
 
-static inline u32 rsi_get_queueno(u8 *addr, u16 offset)
+static u32 rsi_get_queueno(u8 *addr, u16 offset)
 {
 	return (le16_to_cpu(*(__le16 *)&addr[offset]) & 0x7000) >> 12;
 }
 
-static inline u32 rsi_get_length(u8 *addr, u16 offset)
+static u32 rsi_get_length(u8 *addr, u16 offset)
 {
 	return (le16_to_cpu(*(__le16 *)&addr[offset])) & 0x0fff;
 }
 
-static inline u8 rsi_get_extended_desc(u8 *addr, u16 offset)
+static u8 rsi_get_extended_desc(u8 *addr, u16 offset)
 {
 	return le16_to_cpu(*((__le16 *)&addr[offset + 4])) & 0x00ff;
 }
 
-static inline u8 rsi_get_rssi(u8 *addr)
+static u8 rsi_get_rssi(u8 *addr)
 {
 	return *(u8 *)(addr + FRAME_DESC_SZ);
 }
 
-static inline u8 rsi_get_channel(u8 *addr)
+static u8 rsi_get_channel(u8 *addr)
 {
 	return *(char *)(addr + 15);
 }
 
-static inline void rsi_set_len_qno(__le16 *addr, u16 len, u8 qno)
+static void rsi_set_len_qno(__le16 *addr, u16 len, u8 qno)
 {
 	*addr = cpu_to_le16(len | ((qno & 7) << 12));
 }

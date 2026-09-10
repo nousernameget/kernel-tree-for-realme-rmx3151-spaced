@@ -110,14 +110,14 @@ int pob_qosbm_get_last_avg(int lastcount,
 			int ssidx);
 
 #else
-static inline int pob_qosbm_get_cap(enum pob_qosbm_type pqbt,
+static int pob_qosbm_get_cap(enum pob_qosbm_type pqbt,
 			enum pob_qosbm_probe pqbp,
 			enum pob_qosbm_source pqbs,
 			int *super,
 			int *sub)
 { return -1; }
 
-static inline int pob_qosbm_get_stat(void *pstats,
+static int pob_qosbm_get_stat(void *pstats,
 			int idx,
 			enum pob_qosbm_type pqbt,
 			enum pob_qosbm_probe pqbp,
@@ -126,13 +126,13 @@ static inline int pob_qosbm_get_stat(void *pstats,
 			int ssidx)
 { return -1; }
 
-static inline int pob_qoslat_get_cap(enum pob_qoslat_type pqlt,
+static int pob_qoslat_get_cap(enum pob_qoslat_type pqlt,
 			enum pob_qoslat_source pqls,
 			int *super,
 			int *sub)
 { return -1; }
 
-static inline int pob_qoslat_get_stat(void *pstats,
+static int pob_qoslat_get_stat(void *pstats,
 			int idx,
 			enum pob_qoslat_type pqlt,
 			enum pob_qoslat_source pqls,
@@ -140,13 +140,13 @@ static inline int pob_qoslat_get_stat(void *pstats,
 			int ssidx)
 { return -1; }
 
-static inline int pob_qosseq_get(void *pstats, int idx)
+static int pob_qosseq_get(void *pstats, int idx)
 { return -1; }
 
-static inline int pob_qos_get_max_bw_threshold(void)
+static int pob_qos_get_max_bw_threshold(void)
 { return -1; }
 
-static inline int pob_qosbm_get_last_avg(int lastcount,
+static int pob_qosbm_get_last_avg(int lastcount,
 			enum pob_qosbm_type pqbt,
 			enum pob_qosbm_probe pqbp,
 			enum pob_qosbm_source pqbs,

@@ -238,7 +238,7 @@ struct ofdm_plcp_header {
 	__le16 service;
 } __packed;
 
-static inline u8 zd_ofdm_plcp_header_rate(const struct ofdm_plcp_header *header)
+static u8 zd_ofdm_plcp_header_rate(const struct ofdm_plcp_header *header)
 {
 	return header->prefix[0] & 0xf;
 }
@@ -265,7 +265,7 @@ struct cck_plcp_header {
 	__le16 crc16;
 } __packed;
 
-static inline u8 zd_cck_plcp_header_signal(const struct cck_plcp_header *header)
+static u8 zd_cck_plcp_header_signal(const struct cck_plcp_header *header)
 {
 	return header->signal;
 }
@@ -282,22 +282,22 @@ static inline u8 zd_cck_plcp_header_signal(const struct cck_plcp_header *header)
 #define ZD_CCK_PLCP_SIGNAL_5M5	0x37
 #define ZD_CCK_PLCP_SIGNAL_11M	0x6e
 
-static inline struct zd_mac *zd_hw_mac(struct ieee80211_hw *hw)
+static struct zd_mac *zd_hw_mac(struct ieee80211_hw *hw)
 {
 	return hw->priv;
 }
 
-static inline struct zd_mac *zd_chip_to_mac(struct zd_chip *chip)
+static struct zd_mac *zd_chip_to_mac(struct zd_chip *chip)
 {
 	return container_of(chip, struct zd_mac, chip);
 }
 
-static inline struct zd_mac *zd_usb_to_mac(struct zd_usb *usb)
+static struct zd_mac *zd_usb_to_mac(struct zd_usb *usb)
 {
 	return zd_chip_to_mac(zd_usb_to_chip(usb));
 }
 
-static inline u8 *zd_mac_get_perm_addr(struct zd_mac *mac)
+static u8 *zd_mac_get_perm_addr(struct zd_mac *mac)
 {
 	return mac->hw->wiphy->perm_addr;
 }

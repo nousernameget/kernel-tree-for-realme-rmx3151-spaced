@@ -174,7 +174,7 @@ BOOLEAN cnmChUtilIsRunning(P_ADAPTER_T prAdapter);
  * We'll need this to guarantee the same member order in different structures
  * to simply handling effort in some functions.
  */
-static inline VOID cnmMsgDataTypeCheck(VOID)
+static VOID cnmMsgDataTypeCheck(VOID)
 {
 	DATA_STRUCT_INSPECTING_ASSERT(OFFSET_OF(MSG_CH_GRANT_T, rMsgHdr) == 0);
 

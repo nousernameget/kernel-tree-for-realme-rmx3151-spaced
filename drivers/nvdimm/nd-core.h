@@ -66,11 +66,11 @@ bool is_nvdimm(struct device *dev);
 bool is_nd_pmem(struct device *dev);
 bool is_nd_volatile(struct device *dev);
 bool is_nd_blk(struct device *dev);
-static inline bool is_nd_region(struct device *dev)
+static bool is_nd_region(struct device *dev)
 {
 	return is_nd_pmem(dev) || is_nd_blk(dev) || is_nd_volatile(dev);
 }
-static inline bool is_memory(struct device *dev)
+static bool is_memory(struct device *dev)
 {
 	return is_nd_pmem(dev) || is_nd_volatile(dev);
 }

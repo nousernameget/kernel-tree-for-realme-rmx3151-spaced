@@ -28,13 +28,13 @@ struct arcpgu_drm_private {
 
 #define crtc_to_arcpgu_priv(x) container_of(x, struct arcpgu_drm_private, crtc)
 
-static inline void arc_pgu_write(struct arcpgu_drm_private *arcpgu,
+static void arc_pgu_write(struct arcpgu_drm_private *arcpgu,
 				 unsigned int reg, u32 value)
 {
 	iowrite32(value, arcpgu->regs + reg);
 }
 
-static inline u32 arc_pgu_read(struct arcpgu_drm_private *arcpgu,
+static u32 arc_pgu_read(struct arcpgu_drm_private *arcpgu,
 			       unsigned int reg)
 {
 	return ioread32(arcpgu->regs + reg);

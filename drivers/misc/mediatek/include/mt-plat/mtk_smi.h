@@ -52,7 +52,7 @@ static char *MTK_SMI_BWC_SCEN_NAME[SMI_BWC_SCEN_CNT] = {
 	"SMI_BWC_SCEN_MM_GPU",
 };
 
-static inline char *smi_bwc_scen_name_get(const enum MTK_SMI_BWC_SCEN scen)
+static char *smi_bwc_scen_name_get(const enum MTK_SMI_BWC_SCEN scen)
 {
 	if (scen >= 0 && scen < SMI_BWC_SCEN_CNT)
 		return MTK_SMI_BWC_SCEN_NAME[scen];

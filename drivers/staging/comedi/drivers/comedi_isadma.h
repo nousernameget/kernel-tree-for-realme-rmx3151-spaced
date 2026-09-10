@@ -78,32 +78,32 @@ void comedi_isadma_free(struct comedi_isadma *dma);
 
 #else	/* !IS_ENABLED(CONFIG_ISA_DMA_API) */
 
-static inline void comedi_isadma_program(struct comedi_isadma_desc *desc)
+static void comedi_isadma_program(struct comedi_isadma_desc *desc)
 {
 }
 
-static inline unsigned int comedi_isadma_disable(unsigned int dma_chan)
+static unsigned int comedi_isadma_disable(unsigned int dma_chan)
 {
 	return 0;
 }
 
-static inline unsigned int
+static unsigned int
 comedi_isadma_disable_on_sample(unsigned int dma_chan, unsigned int size)
 {
 	return 0;
 }
 
-static inline unsigned int comedi_isadma_poll(struct comedi_isadma *dma)
+static unsigned int comedi_isadma_poll(struct comedi_isadma *dma)
 {
 	return 0;
 }
 
-static inline void comedi_isadma_set_mode(struct comedi_isadma_desc *desc,
+static void comedi_isadma_set_mode(struct comedi_isadma_desc *desc,
 					  char dma_dir)
 {
 }
 
-static inline struct comedi_isadma *
+static struct comedi_isadma *
 comedi_isadma_alloc(struct comedi_device *dev, int n_desc,
 		    unsigned int dma_chan1, unsigned int dma_chan2,
 		    unsigned int maxsize, char dma_dir)
@@ -111,7 +111,7 @@ comedi_isadma_alloc(struct comedi_device *dev, int n_desc,
 	return NULL;
 }
 
-static inline void comedi_isadma_free(struct comedi_isadma *dma)
+static void comedi_isadma_free(struct comedi_isadma *dma)
 {
 }
 

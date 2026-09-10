@@ -299,12 +299,12 @@ struct isci_pci_info {
 	struct isci_orom *orom;
 };
 
-static inline struct isci_pci_info *to_pci_info(struct pci_dev *pdev)
+static struct isci_pci_info *to_pci_info(struct pci_dev *pdev)
 {
 	return pci_get_drvdata(pdev);
 }
 
-static inline struct Scsi_Host *to_shost(struct isci_host *ihost)
+static struct Scsi_Host *to_shost(struct isci_host *ihost)
 {
 	return ihost->sas_ha.core.shost;
 }
@@ -313,32 +313,32 @@ static inline struct Scsi_Host *to_shost(struct isci_host *ihost)
 	for (id = 0; id < SCI_MAX_CONTROLLERS && \
 	     (ihost = to_pci_info(pdev)->hosts[id]); id++)
 
-static inline void wait_for_start(struct isci_host *ihost)
+static void wait_for_start(struct isci_host *ihost)
 {
 	wait_event(ihost->eventq, !test_bit(IHOST_START_PENDING, &ihost->flags));
 }
 
-static inline void wait_for_stop(struct isci_host *ihost)
+static void wait_for_stop(struct isci_host *ihost)
 {
 	wait_event(ihost->eventq, !test_bit(IHOST_STOP_PENDING, &ihost->flags));
 }
 
-static inline void wait_for_device_start(struct isci_host *ihost, struct isci_remote_device *idev)
+static void wait_for_device_start(struct isci_host *ihost, struct isci_remote_device *idev)
 {
 	wait_event(ihost->eventq, !test_bit(IDEV_START_PENDING, &idev->flags));
 }
 
-static inline void wait_for_device_stop(struct isci_host *ihost, struct isci_remote_device *idev)
+static void wait_for_device_stop(struct isci_host *ihost, struct isci_remote_device *idev)
 {
 	wait_event(ihost->eventq, !test_bit(IDEV_STOP_PENDING, &idev->flags));
 }
 
-static inline struct isci_host *dev_to_ihost(struct domain_device *dev)
+static struct isci_host *dev_to_ihost(struct domain_device *dev)
 {
 	return dev->port->ha->lldd_ha;
 }
 
-static inline struct isci_host *idev_to_ihost(struct isci_remote_device *idev)
+static struct isci_host *idev_to_ihost(struct isci_remote_device *idev)
 {
 	return dev_to_ihost(idev->domain_dev);
 }
@@ -357,7 +357,7 @@ static inline struct isci_host *idev_to_ihost(struct isci_remote_device *idev)
 #define ISCI_COALESCE_BASE 9
 
 /* expander attached sata devices require 3 rnc slots */
-static inline int sci_remote_device_node_count(struct isci_remote_device *idev)
+static int sci_remote_device_node_count(struct isci_remote_device *idev)
 {
 	struct domain_device *dev = idev->domain_dev;
 
@@ -376,7 +376,7 @@ static inline int sci_remote_device_node_count(struct isci_remote_device *idev)
 #define sci_controller_clear_invalid_phy(controller, phy) \
 	((controller)->invalid_phy_mask &= ~(1 << (phy)->phy_index))
 
-static inline struct device *scirdev_to_dev(struct isci_remote_device *idev)
+static struct device *scirdev_to_dev(struct isci_remote_device *idev)
 {
 	if (!idev || !idev->isci_port || !idev->isci_port->isci_host)
 		return NULL;
@@ -384,28 +384,28 @@ static inline struct device *scirdev_to_dev(struct isci_remote_device *idev)
 	return &idev->isci_port->isci_host->pdev->dev;
 }
 
-static inline bool is_a2(struct pci_dev *pdev)
+static bool is_a2(struct pci_dev *pdev)
 {
 	if (pdev->revision < 4)
 		return true;
 	return false;
 }
 
-static inline bool is_b0(struct pci_dev *pdev)
+static bool is_b0(struct pci_dev *pdev)
 {
 	if (pdev->revision == 4)
 		return true;
 	return false;
 }
 
-static inline bool is_c0(struct pci_dev *pdev)
+static bool is_c0(struct pci_dev *pdev)
 {
 	if (pdev->revision == 5)
 		return true;
 	return false;
 }
 
-static inline bool is_c1(struct pci_dev *pdev)
+static bool is_c1(struct pci_dev *pdev)
 {
 	if (pdev->revision >= 6)
 		return true;
@@ -421,7 +421,7 @@ enum cable_selections {
 
 #define CABLE_OVERRIDE_DISABLED (0x10000)
 
-static inline int is_cable_select_overridden(void)
+static int is_cable_select_overridden(void)
 {
 	return cable_selection_override < CABLE_OVERRIDE_DISABLED;
 }
@@ -437,7 +437,7 @@ char *lookup_cable_names(enum cable_selections);
  */
 #define SGPIO_HW_CONTROL 0x00000443
 
-static inline int isci_gpio_count(struct isci_host *ihost)
+static int isci_gpio_count(struct isci_host *ihost)
 {
 	return ARRAY_SIZE(ihost->scu_registers->peg0.sgpio.output_data_select);
 }

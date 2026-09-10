@@ -24,13 +24,13 @@ struct io_subchannel_private {
 			  dev_get_drvdata(&(n)->dev))
 #define set_io_private(n, p) (dev_set_drvdata(&(n)->dev, p))
 
-static inline struct ccw_device *sch_get_cdev(struct subchannel *sch)
+static struct ccw_device *sch_get_cdev(struct subchannel *sch)
 {
 	struct io_subchannel_private *priv = to_io_private(sch);
 	return priv ? priv->cdev : NULL;
 }
 
-static inline void sch_set_cdev(struct subchannel *sch,
+static void sch_set_cdev(struct subchannel *sch,
 				struct ccw_device *cdev)
 {
 	struct io_subchannel_private *priv = to_io_private(sch);

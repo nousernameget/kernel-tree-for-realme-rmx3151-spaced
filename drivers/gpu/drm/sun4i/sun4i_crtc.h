@@ -21,7 +21,7 @@ struct sun4i_crtc {
 	struct sun4i_tcon		*tcon;
 };
 
-static inline struct sun4i_crtc *drm_crtc_to_sun4i_crtc(struct drm_crtc *crtc)
+static struct sun4i_crtc *drm_crtc_to_sun4i_crtc(struct drm_crtc *crtc)
 {
 	return container_of(crtc, struct sun4i_crtc, crtc);
 }

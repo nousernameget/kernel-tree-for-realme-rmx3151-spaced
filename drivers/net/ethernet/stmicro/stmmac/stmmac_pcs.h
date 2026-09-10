@@ -57,7 +57,7 @@
  * Description: it is the ISR for PCS events: Auto-Negotiation Completed and
  * Link status.
  */
-static inline void dwmac_pcs_isr(void __iomem *ioaddr, u32 reg,
+static void dwmac_pcs_isr(void __iomem *ioaddr, u32 reg,
 				 unsigned int intr_status,
 				 struct stmmac_extra_stats *x)
 {
@@ -85,7 +85,7 @@ static inline void dwmac_pcs_isr(void __iomem *ioaddr, u32 reg,
  * @restart: to restart ANE
  * Description: this is to just restart the Auto-Negotiation.
  */
-static inline void dwmac_rane(void __iomem *ioaddr, u32 reg, bool restart)
+static void dwmac_rane(void __iomem *ioaddr, u32 reg, bool restart)
 {
 	u32 value = readl(ioaddr + GMAC_AN_CTRL(reg));
 
@@ -106,7 +106,7 @@ static inline void dwmac_rane(void __iomem *ioaddr, u32 reg, bool restart)
  * and init the ANE, select loopback (usually for debugging purpose) and
  * configure SGMII RAL.
  */
-static inline void dwmac_ctrl_ane(void __iomem *ioaddr, u32 reg, bool ane,
+static void dwmac_ctrl_ane(void __iomem *ioaddr, u32 reg, bool ane,
 				  bool srgmi_ral, bool loopback)
 {
 	u32 value = readl(ioaddr + GMAC_AN_CTRL(reg));
@@ -135,7 +135,7 @@ static inline void dwmac_ctrl_ane(void __iomem *ioaddr, u32 reg, bool ane,
  * Description: this is to expose the ANE advertisement and Link partner ability
  * status to ethtool support.
  */
-static inline void dwmac_get_adv_lp(void __iomem *ioaddr, u32 reg,
+static void dwmac_get_adv_lp(void __iomem *ioaddr, u32 reg,
 				    struct rgmii_adv *adv_lp)
 {
 	u32 value = readl(ioaddr + GMAC_ANE_ADV(reg));

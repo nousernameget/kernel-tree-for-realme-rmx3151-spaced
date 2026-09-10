@@ -52,12 +52,12 @@ enum ptp_rx_filter_mode {
 
 struct port_info;
 
-static inline bool cxgb4_xmit_with_hwtstamp(struct sk_buff *skb)
+static bool cxgb4_xmit_with_hwtstamp(struct sk_buff *skb)
 {
 	return skb_shinfo(skb)->tx_flags & SKBTX_HW_TSTAMP;
 }
 
-static inline void cxgb4_xmit_hwtstamp_pending(struct sk_buff *skb)
+static void cxgb4_xmit_hwtstamp_pending(struct sk_buff *skb)
 {
 	skb_shinfo(skb)->tx_flags |= SKBTX_IN_PROGRESS;
 }

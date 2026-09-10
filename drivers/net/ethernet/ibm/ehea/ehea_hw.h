@@ -194,18 +194,18 @@ struct ehea_eqtemm {
  * the new access methods for POWER has settled.
  */
 
-static inline u64 epa_load(struct h_epa epa, u32 offset)
+static u64 epa_load(struct h_epa epa, u32 offset)
 {
 	return __raw_readq((void __iomem *)(epa.addr + offset));
 }
 
-static inline void epa_store(struct h_epa epa, u32 offset, u64 value)
+static void epa_store(struct h_epa epa, u32 offset, u64 value)
 {
 	__raw_writeq(value, (void __iomem *)(epa.addr + offset));
 	epa_load(epa, offset);	/* synchronize explicitly to eHEA */
 }
 
-static inline void epa_store_acc(struct h_epa epa, u32 offset, u64 value)
+static void epa_store_acc(struct h_epa epa, u32 offset, u64 value)
 {
 	__raw_writeq(value, (void __iomem *)(epa.addr + offset));
 }
@@ -215,49 +215,49 @@ static inline void epa_store_acc(struct h_epa epa, u32 offset, u64 value)
 #define epa_load_cq(epa, offset)\
 	epa_load(epa, CQTEMM_OFFSET(offset))
 
-static inline void ehea_update_sqa(struct ehea_qp *qp, u16 nr_wqes)
+static void ehea_update_sqa(struct ehea_qp *qp, u16 nr_wqes)
 {
 	struct h_epa epa = qp->epas.kernel;
 	epa_store_acc(epa, QPTEMM_OFFSET(qpx_sqa),
 		      EHEA_BMASK_SET(QPX_SQA_VALUE, nr_wqes));
 }
 
-static inline void ehea_update_rq3a(struct ehea_qp *qp, u16 nr_wqes)
+static void ehea_update_rq3a(struct ehea_qp *qp, u16 nr_wqes)
 {
 	struct h_epa epa = qp->epas.kernel;
 	epa_store_acc(epa, QPTEMM_OFFSET(qpx_rq3a),
 		      EHEA_BMASK_SET(QPX_RQ1A_VALUE, nr_wqes));
 }
 
-static inline void ehea_update_rq2a(struct ehea_qp *qp, u16 nr_wqes)
+static void ehea_update_rq2a(struct ehea_qp *qp, u16 nr_wqes)
 {
 	struct h_epa epa = qp->epas.kernel;
 	epa_store_acc(epa, QPTEMM_OFFSET(qpx_rq2a),
 		      EHEA_BMASK_SET(QPX_RQ2A_VALUE, nr_wqes));
 }
 
-static inline void ehea_update_rq1a(struct ehea_qp *qp, u16 nr_wqes)
+static void ehea_update_rq1a(struct ehea_qp *qp, u16 nr_wqes)
 {
 	struct h_epa epa = qp->epas.kernel;
 	epa_store_acc(epa, QPTEMM_OFFSET(qpx_rq1a),
 		      EHEA_BMASK_SET(QPX_RQ3A_VALUE, nr_wqes));
 }
 
-static inline void ehea_update_feca(struct ehea_cq *cq, u32 nr_cqes)
+static void ehea_update_feca(struct ehea_cq *cq, u32 nr_cqes)
 {
 	struct h_epa epa = cq->epas.kernel;
 	epa_store_acc(epa, CQTEMM_OFFSET(cqx_feca),
 		      EHEA_BMASK_SET(CQX_FECADDER, nr_cqes));
 }
 
-static inline void ehea_reset_cq_n1(struct ehea_cq *cq)
+static void ehea_reset_cq_n1(struct ehea_cq *cq)
 {
 	struct h_epa epa = cq->epas.kernel;
 	epa_store_cq(epa, cqx_n1,
 		     EHEA_BMASK_SET(CQX_N1_GENERATE_COMP_EVENT, 1));
 }
 
-static inline void ehea_reset_cq_ep(struct ehea_cq *my_cq)
+static void ehea_reset_cq_ep(struct ehea_cq *my_cq)
 {
 	struct h_epa epa = my_cq->epas.kernel;
 	epa_store_acc(epa, CQTEMM_OFFSET(cqx_ep),

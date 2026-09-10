@@ -17,7 +17,7 @@ struct si21xx_config {
 extern struct dvb_frontend *si21xx_attach(const struct si21xx_config *config,
 						struct i2c_adapter *i2c);
 #else
-static inline struct dvb_frontend *si21xx_attach(
+static struct dvb_frontend *si21xx_attach(
 		const struct si21xx_config *config, struct i2c_adapter *i2c)
 {
 	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);
@@ -25,7 +25,7 @@ static inline struct dvb_frontend *si21xx_attach(
 }
 #endif
 
-static inline int si21xx_writeregister(struct dvb_frontend *fe, u8 reg, u8 val)
+static int si21xx_writeregister(struct dvb_frontend *fe, u8 reg, u8 val)
 {
 	int r = 0;
 	u8 buf[] = {reg, val};

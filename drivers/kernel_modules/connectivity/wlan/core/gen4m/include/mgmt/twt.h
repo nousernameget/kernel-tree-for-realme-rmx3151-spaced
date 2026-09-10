@@ -232,7 +232,7 @@ u_int8_t twtGetTxTeardownFlowId(
 uint8_t twtGetTxInfoFlowId(
 	struct MSDU_INFO *prMsduInfo);
 
-static inline u_int8_t twtGetNextTWTByteCnt(u_int8_t ucNextTWTSize)
+static u_int8_t twtGetNextTWTByteCnt(u_int8_t ucNextTWTSize)
 {
 	return (ucNextTWTSize == NEXT_TWT_SUBFIELD_64_BITS) ? 8 :
 		((ucNextTWTSize == NEXT_TWT_SUBFIELD_32_BITS) ? 4 :

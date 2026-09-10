@@ -459,11 +459,11 @@ struct uhci_hcd {
 };
 
 /* Convert between a usb_hcd pointer and the corresponding uhci_hcd */
-static inline struct uhci_hcd *hcd_to_uhci(struct usb_hcd *hcd)
+static struct uhci_hcd *hcd_to_uhci(struct usb_hcd *hcd)
 {
 	return (struct uhci_hcd *) (hcd->hcd_priv);
 }
-static inline struct usb_hcd *uhci_to_hcd(struct uhci_hcd *uhci)
+static struct usb_hcd *uhci_to_hcd(struct uhci_hcd *uhci)
 {
 	return container_of((void *) uhci, struct usb_hcd, hcd_priv);
 }
@@ -495,7 +495,7 @@ struct urb_priv {
 #define PCI_DEVICE_ID_GL880S_UHCI	0x8083
 
 /* Aspeed SoC needs some quirks */
-static inline bool uhci_is_aspeed(const struct uhci_hcd *uhci)
+static bool uhci_is_aspeed(const struct uhci_hcd *uhci)
 {
 	return IS_ENABLED(CONFIG_USB_UHCI_ASPEED) && uhci->is_aspeed;
 }
@@ -508,32 +508,32 @@ static inline bool uhci_is_aspeed(const struct uhci_hcd *uhci)
 
 #ifndef CONFIG_USB_UHCI_SUPPORT_NON_PCI_HC
 /* Support PCI only */
-static inline u32 uhci_readl(const struct uhci_hcd *uhci, int reg)
+static u32 uhci_readl(const struct uhci_hcd *uhci, int reg)
 {
 	return inl(uhci->io_addr + reg);
 }
 
-static inline void uhci_writel(const struct uhci_hcd *uhci, u32 val, int reg)
+static void uhci_writel(const struct uhci_hcd *uhci, u32 val, int reg)
 {
 	outl(val, uhci->io_addr + reg);
 }
 
-static inline u16 uhci_readw(const struct uhci_hcd *uhci, int reg)
+static u16 uhci_readw(const struct uhci_hcd *uhci, int reg)
 {
 	return inw(uhci->io_addr + reg);
 }
 
-static inline void uhci_writew(const struct uhci_hcd *uhci, u16 val, int reg)
+static void uhci_writew(const struct uhci_hcd *uhci, u16 val, int reg)
 {
 	outw(val, uhci->io_addr + reg);
 }
 
-static inline u8 uhci_readb(const struct uhci_hcd *uhci, int reg)
+static u8 uhci_readb(const struct uhci_hcd *uhci, int reg)
 {
 	return inb(uhci->io_addr + reg);
 }
 
-static inline void uhci_writeb(const struct uhci_hcd *uhci, u8 val, int reg)
+static void uhci_writeb(const struct uhci_hcd *uhci, u8 val, int reg)
 {
 	outb(val, uhci->io_addr + reg);
 }
@@ -555,7 +555,7 @@ static inline void uhci_writeb(const struct uhci_hcd *uhci, u8 val, int reg)
 #define uhci_big_endian_mmio(u)		0
 #endif
 
-static inline int uhci_aspeed_reg(unsigned int reg)
+static int uhci_aspeed_reg(unsigned int reg)
 {
 	switch (reg) {
 	case USBCMD:
@@ -585,7 +585,7 @@ static inline int uhci_aspeed_reg(unsigned int reg)
 	}
 }
 
-static inline u32 uhci_readl(const struct uhci_hcd *uhci, int reg)
+static u32 uhci_readl(const struct uhci_hcd *uhci, int reg)
 {
 	if (uhci_has_pci_registers(uhci))
 		return inl(uhci->io_addr + reg);
@@ -599,7 +599,7 @@ static inline u32 uhci_readl(const struct uhci_hcd *uhci, int reg)
 		return readl(uhci->regs + reg);
 }
 
-static inline void uhci_writel(const struct uhci_hcd *uhci, u32 val, int reg)
+static void uhci_writel(const struct uhci_hcd *uhci, u32 val, int reg)
 {
 	if (uhci_has_pci_registers(uhci))
 		outl(val, uhci->io_addr + reg);
@@ -613,7 +613,7 @@ static inline void uhci_writel(const struct uhci_hcd *uhci, u32 val, int reg)
 		writel(val, uhci->regs + reg);
 }
 
-static inline u16 uhci_readw(const struct uhci_hcd *uhci, int reg)
+static u16 uhci_readw(const struct uhci_hcd *uhci, int reg)
 {
 	if (uhci_has_pci_registers(uhci))
 		return inw(uhci->io_addr + reg);
@@ -627,7 +627,7 @@ static inline u16 uhci_readw(const struct uhci_hcd *uhci, int reg)
 		return readw(uhci->regs + reg);
 }
 
-static inline void uhci_writew(const struct uhci_hcd *uhci, u16 val, int reg)
+static void uhci_writew(const struct uhci_hcd *uhci, u16 val, int reg)
 {
 	if (uhci_has_pci_registers(uhci))
 		outw(val, uhci->io_addr + reg);
@@ -641,7 +641,7 @@ static inline void uhci_writew(const struct uhci_hcd *uhci, u16 val, int reg)
 		writew(val, uhci->regs + reg);
 }
 
-static inline u8 uhci_readb(const struct uhci_hcd *uhci, int reg)
+static u8 uhci_readb(const struct uhci_hcd *uhci, int reg)
 {
 	if (uhci_has_pci_registers(uhci))
 		return inb(uhci->io_addr + reg);
@@ -655,7 +655,7 @@ static inline u8 uhci_readb(const struct uhci_hcd *uhci, int reg)
 		return readb(uhci->regs + reg);
 }
 
-static inline void uhci_writeb(const struct uhci_hcd *uhci, u8 val, int reg)
+static void uhci_writeb(const struct uhci_hcd *uhci, u8 val, int reg)
 {
 	if (uhci_has_pci_registers(uhci))
 		outb(val, uhci->io_addr + reg);
@@ -680,7 +680,7 @@ static inline void uhci_writeb(const struct uhci_hcd *uhci, u8 val, int reg)
 #define uhci_big_endian_desc(u)		((u)->big_endian_desc)
 
 /* cpu to uhci */
-static inline __hc32 cpu_to_hc32(const struct uhci_hcd *uhci, const u32 x)
+static __hc32 cpu_to_hc32(const struct uhci_hcd *uhci, const u32 x)
 {
 	return uhci_big_endian_desc(uhci)
 		? (__force __hc32)cpu_to_be32(x)
@@ -688,7 +688,7 @@ static inline __hc32 cpu_to_hc32(const struct uhci_hcd *uhci, const u32 x)
 }
 
 /* uhci to cpu */
-static inline u32 hc32_to_cpu(const struct uhci_hcd *uhci, const __hc32 x)
+static u32 hc32_to_cpu(const struct uhci_hcd *uhci, const __hc32 x)
 {
 	return uhci_big_endian_desc(uhci)
 		? be32_to_cpu((__force __be32)x)
@@ -697,13 +697,13 @@ static inline u32 hc32_to_cpu(const struct uhci_hcd *uhci, const __hc32 x)
 
 #else
 /* cpu to uhci */
-static inline __hc32 cpu_to_hc32(const struct uhci_hcd *uhci, const u32 x)
+static __hc32 cpu_to_hc32(const struct uhci_hcd *uhci, const u32 x)
 {
 	return cpu_to_le32(x);
 }
 
 /* uhci to cpu */
-static inline u32 hc32_to_cpu(const struct uhci_hcd *uhci, const __hc32 x)
+static u32 hc32_to_cpu(const struct uhci_hcd *uhci, const __hc32 x)
 {
 	return le32_to_cpu(x);
 }

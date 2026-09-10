@@ -184,7 +184,7 @@ struct dma_mapping {
 	struct list_head pin_list;	/* list of pinned memory for dev */
 };
 
-static inline void genwqe_mapping_init(struct dma_mapping *m,
+static void genwqe_mapping_init(struct dma_mapping *m,
 				       enum dma_mapping_type type)
 {
 	memset(m, 0, sizeof(*m));
@@ -424,7 +424,7 @@ int  genwqe_release_service_layer(struct genwqe_dev *cd);
  *         0x02: SLC2 (sept2012)
  *         0x03: SLC2 (feb2013, generic driver)
  */
-static inline int genwqe_get_slu_id(struct genwqe_dev *cd)
+static int genwqe_get_slu_id(struct genwqe_dev *cd)
 {
 	return (int)((cd->slu_unitcfg >> 32) & 0xff);
 }
@@ -491,7 +491,7 @@ int  genwqe_user_vmap(struct genwqe_dev *cd, struct dma_mapping *m,
 int  genwqe_user_vunmap(struct genwqe_dev *cd, struct dma_mapping *m,
 			struct ddcb_requ *req);
 
-static inline bool dma_mapping_used(struct dma_mapping *m)
+static bool dma_mapping_used(struct dma_mapping *m)
 {
 	if (!m)
 		return 0;
@@ -574,7 +574,7 @@ bool genwqe_need_err_masking(struct genwqe_dev *cd);
  *          cd->is_privileged = (__genwqe_readq(cd, IO_SLU_BITSTREAM)
  *				 != IO_ILLEGAL_VALUE);
  */
-static inline int genwqe_is_privileged(struct genwqe_dev *cd)
+static int genwqe_is_privileged(struct genwqe_dev *cd)
 {
 	return cd->is_privileged;
 }

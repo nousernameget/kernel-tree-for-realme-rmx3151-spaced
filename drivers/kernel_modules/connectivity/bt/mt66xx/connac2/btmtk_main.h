@@ -56,7 +56,7 @@ int main_driver_init(void);
 void main_driver_exit(void);
 #endif
 
-//static inline struct sk_buff *mtk_add_stp(struct btmtk_dev *bdev, struct sk_buff *skb);
+//static struct sk_buff *mtk_add_stp(struct btmtk_dev *bdev, struct sk_buff *skb);
 
 #define hci_dev_clear_flag(hdev, nr)  clear_bit((nr), (hdev)->dev_flags)
 

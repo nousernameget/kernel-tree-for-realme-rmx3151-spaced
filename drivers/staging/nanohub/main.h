@@ -43,7 +43,7 @@ struct nanohub_io {
 	struct list_head buf_list;
 };
 
-static inline struct nanohub_data *dev_get_nanohub_data(struct device *dev)
+static struct nanohub_data *dev_get_nanohub_data(struct device *dev)
 {
 	struct nanohub_io *io = dev_get_drvdata(dev);
 
@@ -112,32 +112,32 @@ int nanohub_remove(struct iio_dev *iio_dev);
 int nanohub_suspend(struct iio_dev *iio_dev);
 int nanohub_resume(struct iio_dev *iio_dev);
 
-static inline int nanohub_irq1_fired(struct nanohub_data *data)
+static int nanohub_irq1_fired(struct nanohub_data *data)
 {
 	const struct nanohub_platform_data *pdata = data->pdata;
 
 	return !gpio_get_value(pdata->irq1_gpio);
 }
 
-static inline int nanohub_irq2_fired(struct nanohub_data *data)
+static int nanohub_irq2_fired(struct nanohub_data *data)
 {
 	const struct nanohub_platform_data *pdata = data->pdata;
 
 	return data->irq2 && !gpio_get_value(pdata->irq2_gpio);
 }
 
-static inline int request_wakeup_timeout(struct nanohub_data *data, int timeout)
+static int request_wakeup_timeout(struct nanohub_data *data, int timeout)
 {
 	return request_wakeup_ex(data, timeout, KEY_WAKEUP, LOCK_MODE_NORMAL);
 }
 
-static inline int request_wakeup(struct nanohub_data *data)
+static int request_wakeup(struct nanohub_data *data)
 {
 	return request_wakeup_ex(data, MAX_SCHEDULE_TIMEOUT, KEY_WAKEUP,
 				 LOCK_MODE_NORMAL);
 }
 
-static inline void release_wakeup(struct nanohub_data *data)
+static void release_wakeup(struct nanohub_data *data)
 {
 	release_wakeup_ex(data, KEY_WAKEUP, LOCK_MODE_NORMAL);
 }

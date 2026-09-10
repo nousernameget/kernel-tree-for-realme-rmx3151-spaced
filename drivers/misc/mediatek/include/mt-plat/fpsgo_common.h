@@ -119,26 +119,26 @@ int fbt_cpu_set_floor_kmin(int k);
 int fbt_cpu_set_floor_opp(int new_opp);
 
 #else
-static inline void fpsgo_systrace_c(uint32_t m, pid_t id,
+static void fpsgo_systrace_c(uint32_t m, pid_t id,
 	unsigned long long bufID, int val, const char *s, ...) { }
-static inline void fpsgo_systrace_b(uint32_t m, pid_t id,
+static void fpsgo_systrace_b(uint32_t m, pid_t id,
 				    const char *s, ...) { }
 static inline void fpsgo_systrace_e(uint32_t m) { }
 
 
-static inline void fpsgo_systrace_c_fbt_gm(pid_t id,
+static void fpsgo_systrace_c_fbt_gm(pid_t id,
 	unsigned long long bufID, int val, const char *s, ...) { }
-static inline void fpsgo_systrace_c_fstb(pid_t id,
+static void fpsgo_systrace_c_fstb(pid_t id,
 	unsigned long long bufID, int val, const char *s, ...) { }
-static inline void fpsgo_systrace_c_xgf(pid_t id,
+static void fpsgo_systrace_c_xgf(pid_t id,
 	unsigned long long bufID, int val, const char *s, ...) { }
-static inline void fpsgo_systrace_c_log(pid_t id, int val,
+static void fpsgo_systrace_c_log(pid_t id, int val,
 					const char *s, ...) { }
 
 static inline int fpsgo_is_fstb_enable(void) { return 0; }
 static inline int fpsgo_switch_fstb(int en) { return 0; }
 static inline int fpsgo_fstb_sample_window(long long time_usec) { return 0; }
-static inline int fpsgo_fstb_fps_range(int nr_level, struct fps_level *level)
+static int fpsgo_fstb_fps_range(int nr_level, struct fps_level *level)
 { return 0; }
 static inline int fpsgo_fstb_fps_error_threhosld(int threshold) { return 0; }
 static inline int fpsgo_fstb_percentile_frametime(int ratio) { return 0; }
@@ -166,7 +166,7 @@ void xgf_qudeq_notify(unsigned int cmd, unsigned long arg);
 void fpsgo_update_render_dep(struct task_struct *p);
 #else
 static inline void xgf_igather_timer(const void * const t, int v) { }
-static inline void xgf_epoll_igather_timer(const void * const t,
+static void xgf_epoll_igather_timer(const void * const t,
 		ktime_t *to, int v) { }
 static inline void xgf_qudeq_notify(unsigned int cmd, unsigned long arg) { }
 static inline void fpsgo_update_render_dep(struct task_struct *p) { }
@@ -175,7 +175,7 @@ static inline void fpsgo_update_render_dep(struct task_struct *p) { }
 #if defined(CONFIG_MTK_FPSGO_V3)
 int fpsgo_notify_gpu_block(int tid, unsigned long long mid, int begin);
 #else
-static inline int fpsgo_notify_gpu_block(int tid,
+static int fpsgo_notify_gpu_block(int tid,
 	unsigned long long mid, int begin) { return -1; }
 #endif
 

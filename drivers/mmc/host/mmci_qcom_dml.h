@@ -19,11 +19,11 @@
 int dml_hw_init(struct mmci_host *host, struct device_node *np);
 void dml_start_xfer(struct mmci_host *host, struct mmc_data *data);
 #else
-static inline int dml_hw_init(struct mmci_host *host, struct device_node *np)
+static int dml_hw_init(struct mmci_host *host, struct device_node *np)
 {
 	return -ENOSYS;
 }
-static inline void dml_start_xfer(struct mmci_host *host, struct mmc_data *data)
+static void dml_start_xfer(struct mmci_host *host, struct mmc_data *data)
 {
 }
 #endif /* CONFIG_MMC_QCOM_DML */

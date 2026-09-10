@@ -94,7 +94,7 @@ int gf119_i2c_new(struct nvkm_device *, int, struct nvkm_i2c **);
 int gk104_i2c_new(struct nvkm_device *, int, struct nvkm_i2c **);
 int gm200_i2c_new(struct nvkm_device *, int, struct nvkm_i2c **);
 
-static inline int
+static int
 nvkm_rdi2cr(struct i2c_adapter *adap, u8 addr, u8 reg)
 {
 	u8 val;
@@ -110,7 +110,7 @@ nvkm_rdi2cr(struct i2c_adapter *adap, u8 addr, u8 reg)
 	return val;
 }
 
-static inline int
+static int
 nv_rd16i2cr(struct i2c_adapter *adap, u8 addr, u8 reg)
 {
 	u8 val[2];
@@ -126,7 +126,7 @@ nv_rd16i2cr(struct i2c_adapter *adap, u8 addr, u8 reg)
 	return val[0] << 8 | val[1];
 }
 
-static inline int
+static int
 nvkm_wri2cr(struct i2c_adapter *adap, u8 addr, u8 reg, u8 val)
 {
 	u8 buf[2] = { reg, val };
@@ -141,7 +141,7 @@ nvkm_wri2cr(struct i2c_adapter *adap, u8 addr, u8 reg, u8 val)
 	return 0;
 }
 
-static inline int
+static int
 nv_wr16i2cr(struct i2c_adapter *adap, u8 addr, u8 reg, u16 val)
 {
 	u8 buf[3] = { reg, val >> 8, val & 0xff};
@@ -156,13 +156,13 @@ nv_wr16i2cr(struct i2c_adapter *adap, u8 addr, u8 reg, u16 val)
 	return 0;
 }
 
-static inline bool
+static bool
 nvkm_probe_i2c(struct i2c_adapter *adap, u8 addr)
 {
 	return nvkm_rdi2cr(adap, addr, 0) >= 0;
 }
 
-static inline int
+static int
 nvkm_rdaux(struct nvkm_i2c_aux *aux, u32 addr, u8 *data, u8 size)
 {
 	const u8 xfer = size;
@@ -175,7 +175,7 @@ nvkm_rdaux(struct nvkm_i2c_aux *aux, u32 addr, u8 *data, u8 size)
 	return ret;
 }
 
-static inline int
+static int
 nvkm_wraux(struct nvkm_i2c_aux *aux, u32 addr, u8 *data, u8 size)
 {
 	int ret = nvkm_i2c_aux_acquire(aux);

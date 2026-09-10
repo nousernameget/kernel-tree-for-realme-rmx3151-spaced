@@ -33,15 +33,15 @@ void trace_tag_end(void);
 void trace_async_tag(bool isBegin, const char *format, ...);
 
 #else
-static inline void trace_tag_begin(const char *format, ...)
+static void trace_tag_begin(const char *format, ...)
 {
 }
 
-static inline void trace_tag_end(void)
+static void trace_tag_end(void)
 {
 }
 
-static inline void trace_async_tag(const char *fmt, ...)
+static void trace_async_tag(const char *fmt, ...)
 {
 }
 #endif

@@ -17,7 +17,7 @@
      *  Basic transpose step
      */
 
-static inline void _transp(u32 d[], unsigned int i1, unsigned int i2,
+static void _transp(u32 d[], unsigned int i1, unsigned int i2,
 			   unsigned int shift, u32 mask)
 {
 	u32 t = (d[i1] ^ (d[i2] >> shift)) & mask;
@@ -29,7 +29,7 @@ static inline void _transp(u32 d[], unsigned int i1, unsigned int i2,
 
 extern void c2p_unsupported(void);
 
-static inline u32 get_mask(unsigned int n)
+static u32 get_mask(unsigned int n)
 {
 	switch (n) {
 	case 1:
@@ -57,7 +57,7 @@ static inline u32 get_mask(unsigned int n)
      *  Transpose operations on 8 32-bit words
      */
 
-static inline void transp8(u32 d[], unsigned int n, unsigned int m)
+static void transp8(u32 d[], unsigned int n, unsigned int m)
 {
 	u32 mask = get_mask(n);
 
@@ -99,7 +99,7 @@ static inline void transp8(u32 d[], unsigned int n, unsigned int m)
      *  Transpose operations on 4 32-bit words
      */
 
-static inline void transp4(u32 d[], unsigned int n, unsigned int m)
+static void transp4(u32 d[], unsigned int n, unsigned int m)
 {
 	u32 mask = get_mask(n);
 
@@ -126,7 +126,7 @@ static inline void transp4(u32 d[], unsigned int n, unsigned int m)
      *  Transpose operations on 4 32-bit words (reverse order)
      */
 
-static inline void transp4x(u32 d[], unsigned int n, unsigned int m)
+static void transp4x(u32 d[], unsigned int n, unsigned int m)
 {
 	u32 mask = get_mask(n);
 
@@ -147,7 +147,7 @@ static inline void transp4x(u32 d[], unsigned int n, unsigned int m)
      *  This is equivalent to (a & mask) | (b & ~mask)
      */
 
-static inline u32 comp(u32 a, u32 b, u32 mask)
+static u32 comp(u32 a, u32 b, u32 mask)
 {
 	return ((a ^ b) & mask) ^ b;
 }

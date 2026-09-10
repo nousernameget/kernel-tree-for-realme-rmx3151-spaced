@@ -198,7 +198,7 @@ enum r1bio_state {
 	R1BIO_FailFast,
 };
 
-static inline int sector_to_idx(sector_t sector)
+static int sector_to_idx(sector_t sector)
 {
 	return hash_long(sector >> BARRIER_UNIT_SECTOR_BITS,
 			 BARRIER_BUCKETS_NR_BITS);

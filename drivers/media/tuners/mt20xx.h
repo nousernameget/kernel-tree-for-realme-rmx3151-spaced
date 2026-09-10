@@ -25,7 +25,7 @@ extern struct dvb_frontend *microtune_attach(struct dvb_frontend *fe,
 					     struct i2c_adapter* i2c_adap,
 					     u8 i2c_addr);
 #else
-static inline struct dvb_frontend *microtune_attach(struct dvb_frontend *fe,
+static struct dvb_frontend *microtune_attach(struct dvb_frontend *fe,
 					     struct i2c_adapter* i2c_adap,
 					     u8 i2c_addr)
 {

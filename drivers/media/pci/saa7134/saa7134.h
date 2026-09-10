@@ -737,7 +737,7 @@ struct saa7134_dev {
 	_rc;								\
 })
 
-static inline bool is_empress(struct file *file)
+static bool is_empress(struct file *file)
 {
 	struct video_device *vdev = video_devdata(file);
 	struct saa7134_dev *dev = video_get_drvdata(vdev);

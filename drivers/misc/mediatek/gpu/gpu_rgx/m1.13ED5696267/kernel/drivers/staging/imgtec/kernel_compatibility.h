@@ -168,7 +168,7 @@ do { \
  * have been available since 2.x
  */
 #include <linux/seq_file.h>
-static inline bool seq_has_overflowed(struct seq_file *m)
+static bool seq_has_overflowed(struct seq_file *m)
 {
 	return m->count == m->size;
 }
@@ -398,7 +398,7 @@ static inline bool seq_has_overflowed(struct seq_file *m)
   * NOTE: This function should not be called directly as it exists simply to
   * work around copy_from_user being defined as a macro that calls access_ok.
   */
-static inline int
+static int
 __pvr_copy_from_user(void *to, const void __user *from, unsigned long n)
 {
 	return copy_from_user(to, from, n);
@@ -413,7 +413,7 @@ __pvr_copy_from_user(void *to, const void __user *from, unsigned long n)
   * NOTE: This function should not be called directly as it exists simply to
   * work around copy_to_user being defined as a macro that calls access_ok.
   */
-static inline int
+static int
 __pvr_copy_to_user(void __user *to, const void *from, unsigned long n)
 {
 	return copy_to_user(to, from, n);
@@ -435,7 +435,7 @@ __pvr_copy_to_user(void __user *to, const void *from, unsigned long n)
   * NOTE: This function should not be called directly as it exists simply to
   * work around access_ok being defined as a macro.
   */
-static inline int
+static int
 __pvr_access_ok_compat(int type, const void __user * addr, unsigned long size)
 {
 	return access_ok(type, addr, size);

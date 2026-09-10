@@ -180,7 +180,7 @@ struct fimc_lite {
 	bool			streaming;
 };
 
-static inline bool fimc_lite_active(struct fimc_lite *fimc)
+static bool fimc_lite_active(struct fimc_lite *fimc)
 {
 	unsigned long flags;
 	bool ret;
@@ -192,13 +192,13 @@ static inline bool fimc_lite_active(struct fimc_lite *fimc)
 	return ret;
 }
 
-static inline void fimc_lite_active_queue_add(struct fimc_lite *dev,
+static void fimc_lite_active_queue_add(struct fimc_lite *dev,
 					 struct flite_buffer *buf)
 {
 	list_add_tail(&buf->list, &dev->active_buf_q);
 }
 
-static inline struct flite_buffer *fimc_lite_active_queue_pop(
+static struct flite_buffer *fimc_lite_active_queue_pop(
 					struct fimc_lite *dev)
 {
 	struct flite_buffer *buf = list_entry(dev->active_buf_q.next,
@@ -207,13 +207,13 @@ static inline struct flite_buffer *fimc_lite_active_queue_pop(
 	return buf;
 }
 
-static inline void fimc_lite_pending_queue_add(struct fimc_lite *dev,
+static void fimc_lite_pending_queue_add(struct fimc_lite *dev,
 					struct flite_buffer *buf)
 {
 	list_add_tail(&buf->list, &dev->pending_buf_q);
 }
 
-static inline struct flite_buffer *fimc_lite_pending_queue_pop(
+static struct flite_buffer *fimc_lite_pending_queue_pop(
 					struct fimc_lite *dev)
 {
 	struct flite_buffer *buf = list_entry(dev->pending_buf_q.next,

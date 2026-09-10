@@ -167,7 +167,7 @@ struct arc_emac_priv {
  * @reg:	Register offset from base address.
  * @value:	Value to set in register.
  */
-static inline void arc_reg_set(struct arc_emac_priv *priv, int reg, int value)
+static void arc_reg_set(struct arc_emac_priv *priv, int reg, int value)
 {
 	iowrite32(value, priv->regs + reg * sizeof(int));
 }
@@ -179,7 +179,7 @@ static inline void arc_reg_set(struct arc_emac_priv *priv, int reg, int value)
  *
  * returns:	Value of requested register.
  */
-static inline unsigned int arc_reg_get(struct arc_emac_priv *priv, int reg)
+static unsigned int arc_reg_get(struct arc_emac_priv *priv, int reg)
 {
 	return ioread32(priv->regs + reg * sizeof(int));
 }
@@ -193,7 +193,7 @@ static inline unsigned int arc_reg_get(struct arc_emac_priv *priv, int reg)
  * This function reads initial register value, then applies provided mask
  * to it and then writes register back.
  */
-static inline void arc_reg_or(struct arc_emac_priv *priv, int reg, int mask)
+static void arc_reg_or(struct arc_emac_priv *priv, int reg, int mask)
 {
 	unsigned int value = arc_reg_get(priv, reg);
 
@@ -209,7 +209,7 @@ static inline void arc_reg_or(struct arc_emac_priv *priv, int reg, int mask)
  * This function reads initial register value, then applies provided mask
  * to it and then writes register back.
  */
-static inline void arc_reg_clr(struct arc_emac_priv *priv, int reg, int mask)
+static void arc_reg_clr(struct arc_emac_priv *priv, int reg, int mask)
 {
 	unsigned int value = arc_reg_get(priv, reg);
 

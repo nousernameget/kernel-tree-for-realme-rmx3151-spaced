@@ -8,7 +8,7 @@
 #include "hif.h"
 
 #if !defined(_ATH6KL_TRACE_H)
-static inline unsigned int ath6kl_get_wmi_id(void *buf, size_t buf_len)
+static unsigned int ath6kl_get_wmi_id(void *buf, size_t buf_len)
 {
 	struct wmi_cmd_hdr *hdr = buf;
 

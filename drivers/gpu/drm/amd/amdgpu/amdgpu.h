@@ -1105,13 +1105,13 @@ struct amdgpu_job {
 #define to_amdgpu_job(sched_job)		\
 		container_of((sched_job), struct amdgpu_job, base)
 
-static inline u32 amdgpu_get_ib_value(struct amdgpu_cs_parser *p,
+static u32 amdgpu_get_ib_value(struct amdgpu_cs_parser *p,
 				      uint32_t ib_idx, int idx)
 {
 	return p->job->ibs[ib_idx].ptr[idx];
 }
 
-static inline void amdgpu_set_ib_value(struct amdgpu_cs_parser *p,
+static void amdgpu_set_ib_value(struct amdgpu_cs_parser *p,
 				       uint32_t ib_idx, int idx,
 				       uint32_t value)
 {
@@ -1203,7 +1203,7 @@ void amdgpu_test_moves(struct amdgpu_device *adev);
 int amdgpu_mn_register(struct amdgpu_bo *bo, unsigned long addr);
 void amdgpu_mn_unregister(struct amdgpu_bo *bo);
 #else
-static inline int amdgpu_mn_register(struct amdgpu_bo *bo, unsigned long addr)
+static int amdgpu_mn_register(struct amdgpu_bo *bo, unsigned long addr)
 {
 	return -ENODEV;
 }
@@ -1590,7 +1590,7 @@ struct amdgpu_device {
 	unsigned long last_mm_index;
 };
 
-static inline struct amdgpu_device *amdgpu_ttm_adev(struct ttm_bo_device *bdev)
+static struct amdgpu_device *amdgpu_ttm_adev(struct ttm_bo_device *bdev)
 {
 	return container_of(bdev, struct amdgpu_device, mman.bdev);
 }
@@ -1695,7 +1695,7 @@ void amdgpu_mm_wdoorbell64(struct amdgpu_device *adev, u32 index, u64 v);
 #define RBIOS16(i) (RBIOS8(i) | (RBIOS8((i)+1) << 8))
 #define RBIOS32(i) ((RBIOS16(i)) | (RBIOS16((i)+2) << 16))
 
-static inline struct amdgpu_sdma_instance *
+static struct amdgpu_sdma_instance *
 amdgpu_get_sdma_instance(struct amdgpu_ring *ring)
 {
 	struct amdgpu_device *adev = ring->adev;

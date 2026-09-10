@@ -51,7 +51,7 @@ static const u8 tos_to_tid_inv[] = {
 /*
  * This function retrieves the TID of the given RA list.
  */
-static inline int
+static int
 mwifiex_get_tid(struct mwifiex_ra_list_tbl *ptr)
 {
 	struct sk_buff *skb;
@@ -67,7 +67,7 @@ mwifiex_get_tid(struct mwifiex_ra_list_tbl *ptr)
 /*
  * This function gets the length of a list.
  */
-static inline int
+static int
 mwifiex_wmm_list_len(struct list_head *head)
 {
 	struct list_head *pos;
@@ -82,7 +82,7 @@ mwifiex_wmm_list_len(struct list_head *head)
 /*
  * This function checks if a RA list is empty or not.
  */
-static inline u8
+static u8
 mwifiex_wmm_is_ra_list_empty(struct list_head *ra_list_hhead)
 {
 	struct mwifiex_ra_list_tbl *ra_list;

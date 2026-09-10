@@ -94,7 +94,7 @@ struct amdgpu_bo {
  *
  * Returns corresponding domain of the ttm mem_type
  */
-static inline unsigned amdgpu_mem_type_to_domain(u32 mem_type)
+static unsigned amdgpu_mem_type_to_domain(u32 mem_type)
 {
 	switch (mem_type) {
 	case TTM_PL_VRAM:
@@ -124,7 +124,7 @@ static inline unsigned amdgpu_mem_type_to_domain(u32 mem_type)
  * -ERESTARTSYS: A wait for the buffer to become unreserved was interrupted by
  * a signal. Release all buffer reservations and return to user-space.
  */
-static inline int amdgpu_bo_reserve(struct amdgpu_bo *bo, bool no_intr)
+static int amdgpu_bo_reserve(struct amdgpu_bo *bo, bool no_intr)
 {
 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
 	int r;
@@ -138,22 +138,22 @@ static inline int amdgpu_bo_reserve(struct amdgpu_bo *bo, bool no_intr)
 	return 0;
 }
 
-static inline void amdgpu_bo_unreserve(struct amdgpu_bo *bo)
+static void amdgpu_bo_unreserve(struct amdgpu_bo *bo)
 {
 	ttm_bo_unreserve(&bo->tbo);
 }
 
-static inline unsigned long amdgpu_bo_size(struct amdgpu_bo *bo)
+static unsigned long amdgpu_bo_size(struct amdgpu_bo *bo)
 {
 	return bo->tbo.num_pages << PAGE_SHIFT;
 }
 
-static inline unsigned amdgpu_bo_ngpu_pages(struct amdgpu_bo *bo)
+static unsigned amdgpu_bo_ngpu_pages(struct amdgpu_bo *bo)
 {
 	return (bo->tbo.num_pages << PAGE_SHIFT) / AMDGPU_GPU_PAGE_SIZE;
 }
 
-static inline unsigned amdgpu_bo_gpu_page_alignment(struct amdgpu_bo *bo)
+static unsigned amdgpu_bo_gpu_page_alignment(struct amdgpu_bo *bo)
 {
 	return (bo->tbo.mem.page_alignment << PAGE_SHIFT) / AMDGPU_GPU_PAGE_SIZE;
 }
@@ -164,7 +164,7 @@ static inline unsigned amdgpu_bo_gpu_page_alignment(struct amdgpu_bo *bo)
  *
  * Returns mmap offset of the object.
  */
-static inline u64 amdgpu_bo_mmap_offset(struct amdgpu_bo *bo)
+static u64 amdgpu_bo_mmap_offset(struct amdgpu_bo *bo)
 {
 	return drm_vma_node_offset_addr(&bo->tbo.vma_node);
 }
@@ -173,7 +173,7 @@ static inline u64 amdgpu_bo_mmap_offset(struct amdgpu_bo *bo)
  * amdgpu_bo_gpu_accessible - return whether the bo is currently in memory that
  * is accessible to the GPU.
  */
-static inline bool amdgpu_bo_gpu_accessible(struct amdgpu_bo *bo)
+static bool amdgpu_bo_gpu_accessible(struct amdgpu_bo *bo)
 {
 	switch (bo->tbo.mem.mem_type) {
 	case TTM_PL_TT: return amdgpu_ttm_is_bound(bo->tbo.ttm);
@@ -254,12 +254,12 @@ int amdgpu_bo_restore_from_shadow(struct amdgpu_device *adev,
  * sub allocation
  */
 
-static inline uint64_t amdgpu_sa_bo_gpu_addr(struct amdgpu_sa_bo *sa_bo)
+static uint64_t amdgpu_sa_bo_gpu_addr(struct amdgpu_sa_bo *sa_bo)
 {
 	return sa_bo->manager->gpu_addr + sa_bo->soffset;
 }
 
-static inline void * amdgpu_sa_bo_cpu_addr(struct amdgpu_sa_bo *sa_bo)
+static void * amdgpu_sa_bo_cpu_addr(struct amdgpu_sa_bo *sa_bo)
 {
 	return sa_bo->manager->cpu_ptr + sa_bo->soffset;
 }

@@ -109,7 +109,7 @@ struct ath_spec_scan_priv {
 #define	SPECTRAL_SAMPLE_MAX_LEN		SPECTRAL_HT20_40_SAMPLE_LEN
 
 /* grabs the max magnitude from the all/upper/lower bins */
-static inline u16 spectral_max_magnitude(u8 *bins)
+static u16 spectral_max_magnitude(u8 *bins)
 {
 	return (bins[0] & 0xc0) >> 6 |
 	       (bins[1] & 0xff) << 2 |
@@ -117,7 +117,7 @@ static inline u16 spectral_max_magnitude(u8 *bins)
 }
 
 /* return the max magnitude from the all/upper/lower bins */
-static inline u8 spectral_max_index(u8 *bins, int num_bins)
+static u8 spectral_max_index(u8 *bins, int num_bins)
 {
 	s8 m = (bins[2] & 0xfc) >> 2;
 	u8 zero_idx = num_bins / 2;
@@ -146,7 +146,7 @@ static inline u8 spectral_max_index(u8 *bins, int num_bins)
 }
 
 /* return the bitmap weight from the all/upper/lower bins */
-static inline u8 spectral_bitmap_weight(u8 *bins)
+static u8 spectral_bitmap_weight(u8 *bins)
 {
 	return bins[0] & 0x3f;
 }
@@ -163,21 +163,21 @@ int ath9k_cmn_spectral_scan_config(struct ath_common *common,
 int ath_cmn_process_fft(struct ath_spec_scan_priv *spec_priv, struct ieee80211_hdr *hdr,
 		    struct ath_rx_status *rs, u64 tsf);
 #else
-static inline void ath9k_cmn_spectral_init_debug(struct ath_spec_scan_priv *spec_priv,
+static void ath9k_cmn_spectral_init_debug(struct ath_spec_scan_priv *spec_priv,
 						 struct dentry *debugfs_phy)
 {
 }
 
-static inline void ath9k_cmn_spectral_deinit_debug(struct ath_spec_scan_priv *spec_priv)
+static void ath9k_cmn_spectral_deinit_debug(struct ath_spec_scan_priv *spec_priv)
 {
 }
 
-static inline void ath9k_cmn_spectral_scan_trigger(struct ath_common *common,
+static void ath9k_cmn_spectral_scan_trigger(struct ath_common *common,
 						   struct ath_spec_scan_priv *spec_priv)
 {
 }
 
-static inline int ath_cmn_process_fft(struct ath_spec_scan_priv *spec_priv,
+static int ath_cmn_process_fft(struct ath_spec_scan_priv *spec_priv,
 				      struct ieee80211_hdr *hdr,
 				      struct ath_rx_status *rs, u64 tsf)
 {

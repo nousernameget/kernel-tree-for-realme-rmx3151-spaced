@@ -60,7 +60,7 @@
 #define NELR_ADAPTER_MALFUNC	EHEA_BMASK_IBM(62, 62)
 #define NELR_PORTSTATE_CHG	EHEA_BMASK_IBM(63, 63)
 
-static inline void hcp_epas_ctor(struct h_epas *epas, u64 paddr_kernel,
+static void hcp_epas_ctor(struct h_epas *epas, u64 paddr_kernel,
 				 u64 paddr_user)
 {
 	/* To support 64k pages we must round to 64k page boundary */
@@ -69,7 +69,7 @@ static inline void hcp_epas_ctor(struct h_epas *epas, u64 paddr_kernel,
 	epas->user.addr = paddr_user;
 }
 
-static inline void hcp_epas_dtor(struct h_epas *epas)
+static void hcp_epas_dtor(struct h_epas *epas)
 {
 	if (epas->kernel.addr)
 		iounmap((void __iomem *)((u64)epas->kernel.addr & PAGE_MASK));

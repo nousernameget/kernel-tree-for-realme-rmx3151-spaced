@@ -156,7 +156,7 @@ int pciehp_reset_slot(struct slot *slot, int probe);
 int pciehp_set_raw_indicator_status(struct hotplug_slot *h_slot, u8 status);
 int pciehp_get_raw_indicator_status(struct hotplug_slot *h_slot, u8 *status);
 
-static inline const char *slot_name(struct slot *slot)
+static const char *slot_name(struct slot *slot)
 {
 	return hotplug_slot_name(slot->hotplug_slot);
 }

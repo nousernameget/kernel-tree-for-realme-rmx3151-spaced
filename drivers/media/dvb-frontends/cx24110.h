@@ -33,7 +33,7 @@ struct cx24110_config
 	u8 demod_address;
 };
 
-static inline int cx24110_pll_write(struct dvb_frontend *fe, u32 val)
+static int cx24110_pll_write(struct dvb_frontend *fe, u32 val)
 {
 	u8 buf[] = {
 		(u8)((val >> 24) & 0xff),
@@ -50,7 +50,7 @@ static inline int cx24110_pll_write(struct dvb_frontend *fe, u32 val)
 extern struct dvb_frontend* cx24110_attach(const struct cx24110_config* config,
 					   struct i2c_adapter* i2c);
 #else
-static inline struct dvb_frontend* cx24110_attach(const struct cx24110_config* config,
+static struct dvb_frontend* cx24110_attach(const struct cx24110_config* config,
 						  struct i2c_adapter* i2c)
 {
 	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);

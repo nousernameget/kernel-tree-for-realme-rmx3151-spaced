@@ -204,7 +204,7 @@ enum {
 
 
 /* Maps the specified queue to the specified COS */
-static inline void bnx2x_map_q_cos(struct bnx2x *bp, u32 q_num, u32 new_cos)
+static void bnx2x_map_q_cos(struct bnx2x *bp, u32 q_num, u32 new_cos)
 {
 	/* find current COS mapping */
 	u32 curr_cos = REG_RD(bp, QM_REG_QVOQIDX_0 + q_num * 4);
@@ -259,7 +259,7 @@ static inline void bnx2x_map_q_cos(struct bnx2x *bp, u32 q_num, u32 new_cos)
 }
 
 /* Configures the QM according to the specified per-traffic-type COSes */
-static inline void bnx2x_dcb_config_qm(struct bnx2x *bp, enum cos_mode mode,
+static void bnx2x_dcb_config_qm(struct bnx2x *bp, enum cos_mode mode,
 				       struct priority_cos *traffic_cos)
 {
 	bnx2x_map_q_cos(bp, BNX2X_FCOE_Q,
@@ -331,7 +331,7 @@ static inline void bnx2x_dcb_config_qm(struct bnx2x *bp, enum cos_mode mode,
 #define SDM_TICKS 4
 
 
-static inline void bnx2x_init_max(const struct cmng_init_input *input_data,
+static void bnx2x_init_max(const struct cmng_init_input *input_data,
 				  u32 r_param, struct cmng_init *ram_data)
 {
 	u32 vnic;
@@ -368,7 +368,7 @@ static inline void bnx2x_init_max(const struct cmng_init_input *input_data,
 
 }
 
-static inline void bnx2x_init_min(const struct cmng_init_input *input_data,
+static void bnx2x_init_min(const struct cmng_init_input *input_data,
 				  u32 r_param, struct cmng_init *ram_data)
 {
 	u32 vnic, fair_periodic_timeout_usec, vnicWeightSum, tFair;
@@ -423,7 +423,7 @@ static inline void bnx2x_init_min(const struct cmng_init_input *input_data,
 	}
 }
 
-static inline void bnx2x_init_fw_wrr(const struct cmng_init_input *input_data,
+static void bnx2x_init_fw_wrr(const struct cmng_init_input *input_data,
 				     u32 r_param, struct cmng_init *ram_data)
 {
 	u32 vnic, cos;
@@ -460,7 +460,7 @@ static inline void bnx2x_init_fw_wrr(const struct cmng_init_input *input_data,
 	}
 }
 
-static inline void bnx2x_init_safc(const struct cmng_init_input *input_data,
+static void bnx2x_init_safc(const struct cmng_init_input *input_data,
 				   struct cmng_init *ram_data)
 {
 	/* in microSeconds */
@@ -468,7 +468,7 @@ static inline void bnx2x_init_safc(const struct cmng_init_input *input_data,
 }
 
 /* Congestion management port init */
-static inline void bnx2x_init_cmng(const struct cmng_init_input *input_data,
+static void bnx2x_init_cmng(const struct cmng_init_input *input_data,
 				   struct cmng_init *ram_data)
 {
 	u32 r_param;
@@ -673,7 +673,7 @@ static const struct {
 		MISC_AEU_ENABLE_MCP_PRTY_SUB_BITS }
 };
 
-static inline void bnx2x_set_mcp_parity(struct bnx2x *bp, u8 enable)
+static void bnx2x_set_mcp_parity(struct bnx2x *bp, u8 enable)
 {
 	int i;
 	u32 reg_val;
@@ -690,7 +690,7 @@ static inline void bnx2x_set_mcp_parity(struct bnx2x *bp, u8 enable)
 	}
 }
 
-static inline u32 bnx2x_parity_reg_mask(struct bnx2x *bp, int idx)
+static u32 bnx2x_parity_reg_mask(struct bnx2x *bp, int idx)
 {
 	if (CHIP_IS_E1(bp))
 		return bnx2x_blocks_parity_data[idx].reg_mask.e1;
@@ -702,7 +702,7 @@ static inline u32 bnx2x_parity_reg_mask(struct bnx2x *bp, int idx)
 		return bnx2x_blocks_parity_data[idx].reg_mask.e3;
 }
 
-static inline void bnx2x_disable_blocks_parity(struct bnx2x *bp)
+static void bnx2x_disable_blocks_parity(struct bnx2x *bp)
 {
 	int i;
 
@@ -723,7 +723,7 @@ static inline void bnx2x_disable_blocks_parity(struct bnx2x *bp)
 }
 
 /* Clear the parity error status registers. */
-static inline void bnx2x_clear_blocks_parity(struct bnx2x *bp)
+static void bnx2x_clear_blocks_parity(struct bnx2x *bp)
 {
 	int i;
 	u32 reg_val, mcp_aeu_bits =
@@ -767,7 +767,7 @@ static inline void bnx2x_clear_blocks_parity(struct bnx2x *bp)
 	REG_WR(bp, MISC_REG_AEU_CLR_LATCH_SIGNAL, 0x780);
 }
 
-static inline void bnx2x_enable_blocks_parity(struct bnx2x *bp)
+static void bnx2x_enable_blocks_parity(struct bnx2x *bp)
 {
 	int i;
 

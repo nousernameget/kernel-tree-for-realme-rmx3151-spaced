@@ -128,7 +128,7 @@ struct resource;
  *
  * Return:      NFP CPP target
  */
-static inline u8 NFP_CPP_ID_TARGET_of(u32 id)
+static u8 NFP_CPP_ID_TARGET_of(u32 id)
 {
 	return (id >> 24) & NFP_CPP_TARGET_ID_MASK;
 }
@@ -138,7 +138,7 @@ static inline u8 NFP_CPP_ID_TARGET_of(u32 id)
  * @id:         NFP CPP ID
  * Return:      NFP CPP token
  */
-static inline u8 NFP_CPP_ID_TOKEN_of(u32 id)
+static u8 NFP_CPP_ID_TOKEN_of(u32 id)
 {
 	return (id >> 16) & 0xff;
 }
@@ -149,7 +149,7 @@ static inline u8 NFP_CPP_ID_TOKEN_of(u32 id)
  *
  * Return:      NFP CPP action
  */
-static inline u8 NFP_CPP_ID_ACTION_of(u32 id)
+static u8 NFP_CPP_ID_ACTION_of(u32 id)
 {
 	return (id >> 8) & 0xff;
 }
@@ -160,7 +160,7 @@ static inline u8 NFP_CPP_ID_ACTION_of(u32 id)
  *
  * Return:      NFP CPP island
  */
-static inline u8 NFP_CPP_ID_ISLAND_of(u32 id)
+static u8 NFP_CPP_ID_ISLAND_of(u32 id)
 {
 	return (id >> 0) & 0xff;
 }
@@ -301,7 +301,7 @@ int nfp_cpp_mutex_trylock(struct nfp_cpp_mutex *mutex);
  *
  * Return: PCI unit for the NFP CPP handle
  */
-static inline u8 nfp_cppcore_pcie_unit(struct nfp_cpp *cpp)
+static u8 nfp_cppcore_pcie_unit(struct nfp_cpp *cpp)
 {
 	return NFP_CPP_INTERFACE_UNIT_of(nfp_cpp_interface(cpp));
 }

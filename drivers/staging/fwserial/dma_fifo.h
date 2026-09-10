@@ -71,12 +71,12 @@ struct dma_pending {
 	unsigned int	 out;
 };
 
-static inline void dp_mark_completed(struct dma_pending *dp)
+static void dp_mark_completed(struct dma_pending *dp)
 {
 	dp->data += 1;
 }
 
-static inline bool dp_is_completed(struct dma_pending *dp)
+static bool dp_is_completed(struct dma_pending *dp)
 {
 	return (unsigned long)dp->data & 1UL;
 }
@@ -92,31 +92,31 @@ int dma_fifo_out_complete(struct dma_fifo *fifo,
 			  struct dma_pending *complete);
 
 /* returns the # of used bytes in the fifo */
-static inline int dma_fifo_level(struct dma_fifo *fifo)
+static int dma_fifo_level(struct dma_fifo *fifo)
 {
 	return fifo->size - fifo->avail;
 }
 
 /* returns the # of bytes ready for output in the fifo */
-static inline int dma_fifo_out_level(struct dma_fifo *fifo)
+static int dma_fifo_out_level(struct dma_fifo *fifo)
 {
 	return fifo->in - fifo->out;
 }
 
 /* returns the # of unused bytes in the fifo */
-static inline int dma_fifo_avail(struct dma_fifo *fifo)
+static int dma_fifo_avail(struct dma_fifo *fifo)
 {
 	return fifo->avail;
 }
 
 /* returns true if fifo has max # of outstanding dmas */
-static inline bool dma_fifo_busy(struct dma_fifo *fifo)
+static bool dma_fifo_busy(struct dma_fifo *fifo)
 {
 	return fifo->open == fifo->open_limit;
 }
 
 /* changes the max size of dma returned from dma_fifo_out_pend() */
-static inline int dma_fifo_change_tx_limit(struct dma_fifo *fifo, int tx_limit)
+static int dma_fifo_change_tx_limit(struct dma_fifo *fifo, int tx_limit)
 {
 	tx_limit = round_down(tx_limit, fifo->align);
 	fifo->tx_limit = max_t(int, tx_limit, fifo->align);

@@ -17,7 +17,7 @@
 extern void trigger_lowmem_hint(long *out_avail_mem,
 				long *out_free_mem);
 #else
-static inline void trigger_lowmem_hint(long *out_avail_mem,
+static void trigger_lowmem_hint(long *out_avail_mem,
 				       long *out_free_mem) {}
 #endif
 #endif /* _LOWMEM_HINT_H */

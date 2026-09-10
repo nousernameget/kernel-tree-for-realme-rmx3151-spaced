@@ -23,7 +23,7 @@
 #ifdef FWTTY_PROFILING
 #define DISTRIBUTION_MAX_SIZE     8192
 #define DISTRIBUTION_MAX_INDEX    (ilog2(DISTRIBUTION_MAX_SIZE) + 1)
-static inline void fwtty_profile_data(unsigned int stat[], unsigned int val)
+static void fwtty_profile_data(unsigned int stat[], unsigned int val)
 {
 	int n = (val) ? min(ilog2(val) + 1, DISTRIBUTION_MAX_INDEX) : 0;
 	++stat[n];
@@ -122,12 +122,12 @@ enum fwtty_peer_state {
 #define MAX_CONNECT_RETRIES	10
 
 /* must be holding peer lock for these state funclets */
-static inline void peer_set_state(struct fwtty_peer *peer, int new)
+static void peer_set_state(struct fwtty_peer *peer, int new)
 {
 	peer->state = new;
 }
 
-static inline struct fwtty_port *peer_revert_state(struct fwtty_peer *peer)
+static struct fwtty_port *peer_revert_state(struct fwtty_peer *peer)
 {
 	struct fwtty_port *port = peer->port;
 
@@ -350,7 +350,7 @@ extern struct tty_driver *fwtty_driver;
  *	being used for isochronous traffic)
  *   2) isochronous arbitration always wins.
  */
-static inline int link_speed_to_max_payload(unsigned int speed)
+static int link_speed_to_max_payload(unsigned int speed)
 {
 	/* Max async payload is 4096 - see IEEE 1394-2008 tables 6-4, 16-18 */
 	return min(512 << speed, 4096);

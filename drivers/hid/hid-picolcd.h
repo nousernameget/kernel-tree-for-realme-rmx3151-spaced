@@ -159,22 +159,22 @@ void picolcd_init_devfs(struct picolcd_data *data,
 
 void picolcd_exit_devfs(struct picolcd_data *data);
 #else
-static inline void picolcd_debug_out_report(struct picolcd_data *data,
+static void picolcd_debug_out_report(struct picolcd_data *data,
 		struct hid_device *hdev, struct hid_report *report)
 {
 }
-static inline void picolcd_debug_raw_event(struct picolcd_data *data,
+static void picolcd_debug_raw_event(struct picolcd_data *data,
 		struct hid_device *hdev, struct hid_report *report,
 		u8 *raw_data, int size)
 {
 }
-static inline void picolcd_init_devfs(struct picolcd_data *data,
+static void picolcd_init_devfs(struct picolcd_data *data,
 		struct hid_report *eeprom_r, struct hid_report *eeprom_w,
 		struct hid_report *flash_r, struct hid_report *flash_w,
 		struct hid_report *reset)
 {
 }
-static inline void picolcd_exit_devfs(struct picolcd_data *data)
+static void picolcd_exit_devfs(struct picolcd_data *data)
 {
 }
 #endif /* CONFIG_DEBUG_FS */
@@ -190,18 +190,18 @@ void picolcd_exit_framebuffer(struct picolcd_data *data);
 void picolcd_fb_refresh(struct picolcd_data *data);
 #define picolcd_fbinfo(d) ((d)->fb_info)
 #else
-static inline int picolcd_fb_reset(struct picolcd_data *data, int clear)
+static int picolcd_fb_reset(struct picolcd_data *data, int clear)
 {
 	return 0;
 }
-static inline int picolcd_init_framebuffer(struct picolcd_data *data)
+static int picolcd_init_framebuffer(struct picolcd_data *data)
 {
 	return 0;
 }
-static inline void picolcd_exit_framebuffer(struct picolcd_data *data)
+static void picolcd_exit_framebuffer(struct picolcd_data *data)
 {
 }
-static inline void picolcd_fb_refresh(struct picolcd_data *data)
+static void picolcd_fb_refresh(struct picolcd_data *data)
 {
 }
 #define picolcd_fbinfo(d) NULL
@@ -218,19 +218,19 @@ int picolcd_resume_backlight(struct picolcd_data *data);
 
 void picolcd_suspend_backlight(struct picolcd_data *data);
 #else
-static inline int picolcd_init_backlight(struct picolcd_data *data,
+static int picolcd_init_backlight(struct picolcd_data *data,
 		struct hid_report *report)
 {
 	return 0;
 }
-static inline void picolcd_exit_backlight(struct picolcd_data *data)
+static void picolcd_exit_backlight(struct picolcd_data *data)
 {
 }
-static inline int picolcd_resume_backlight(struct picolcd_data *data)
+static int picolcd_resume_backlight(struct picolcd_data *data)
 {
 	return 0;
 }
-static inline void picolcd_suspend_backlight(struct picolcd_data *data)
+static void picolcd_suspend_backlight(struct picolcd_data *data)
 {
 }
 
@@ -245,15 +245,15 @@ void picolcd_exit_lcd(struct picolcd_data *data);
 
 int picolcd_resume_lcd(struct picolcd_data *data);
 #else
-static inline int picolcd_init_lcd(struct picolcd_data *data,
+static int picolcd_init_lcd(struct picolcd_data *data,
 		struct hid_report *report)
 {
 	return 0;
 }
-static inline void picolcd_exit_lcd(struct picolcd_data *data)
+static void picolcd_exit_lcd(struct picolcd_data *data)
 {
 }
-static inline int picolcd_resume_lcd(struct picolcd_data *data)
+static int picolcd_resume_lcd(struct picolcd_data *data)
 {
 	return 0;
 }
@@ -268,15 +268,15 @@ void picolcd_exit_leds(struct picolcd_data *data);
 
 void picolcd_leds_set(struct picolcd_data *data);
 #else
-static inline int picolcd_init_leds(struct picolcd_data *data,
+static int picolcd_init_leds(struct picolcd_data *data,
 		struct hid_report *report)
 {
 	return 0;
 }
-static inline void picolcd_exit_leds(struct picolcd_data *data)
+static void picolcd_exit_leds(struct picolcd_data *data)
 {
 }
-static inline void picolcd_leds_set(struct picolcd_data *data)
+static void picolcd_leds_set(struct picolcd_data *data)
 {
 }
 #endif /* CONFIG_HID_PICOLCD_LEDS */
@@ -290,16 +290,16 @@ int picolcd_init_cir(struct picolcd_data *data, struct hid_report *report);
 
 void picolcd_exit_cir(struct picolcd_data *data);
 #else
-static inline int picolcd_raw_cir(struct picolcd_data *data,
+static int picolcd_raw_cir(struct picolcd_data *data,
 		struct hid_report *report, u8 *raw_data, int size)
 {
 	return 1;
 }
-static inline int picolcd_init_cir(struct picolcd_data *data, struct hid_report *report)
+static int picolcd_init_cir(struct picolcd_data *data, struct hid_report *report)
 {
 	return 0;
 }
-static inline void picolcd_exit_cir(struct picolcd_data *data)
+static void picolcd_exit_cir(struct picolcd_data *data)
 {
 }
 #endif /* CONFIG_HID_PICOLCD_CIR */

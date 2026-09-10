@@ -62,7 +62,7 @@ extern enum smi_action smi_handle_dr_smp_send(struct ib_smp *smp,
  * Return IB_SMI_HANDLE if the SMP should be handled by the local SMA/SM
  * via process_mad
  */
-static inline enum smi_action smi_check_local_smp(struct ib_smp *smp,
+static enum smi_action smi_check_local_smp(struct ib_smp *smp,
 						  struct ib_device *device)
 {
 	/* C14-9:3 -- We're at the end of the DR segment of path */
@@ -77,7 +77,7 @@ static inline enum smi_action smi_check_local_smp(struct ib_smp *smp,
  * Return IB_SMI_HANDLE if the SMP should be handled by the local SMA/SM
  * via process_mad
  */
-static inline enum smi_action smi_check_local_returning_smp(struct ib_smp *smp,
+static enum smi_action smi_check_local_returning_smp(struct ib_smp *smp,
 						   struct ib_device *device)
 {
 	/* C14-13:3 -- We're at the end of the DR segment of path */

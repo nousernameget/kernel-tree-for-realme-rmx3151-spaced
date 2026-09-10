@@ -167,7 +167,7 @@ VOID cnmTimerDoTimeOutCheck(IN P_ADAPTER_T prAdapter);
 *                              F U N C T I O N S
 ********************************************************************************
 */
-static inline INT_32 timerPendingTimer(IN P_TIMER_T prTimer)
+static INT_32 timerPendingTimer(IN P_TIMER_T prTimer)
 {
 	ASSERT(prTimer);
 

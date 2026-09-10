@@ -156,12 +156,12 @@ struct sl811 {
 	unsigned		periodic_count;
 };
 
-static inline struct sl811 *hcd_to_sl811(struct usb_hcd *hcd)
+static struct sl811 *hcd_to_sl811(struct usb_hcd *hcd)
 {
 	return (struct sl811 *) (hcd->hcd_priv);
 }
 
-static inline struct usb_hcd *sl811_to_hcd(struct sl811 *sl811)
+static struct usb_hcd *sl811_to_hcd(struct sl811 *sl811)
 {
 	return container_of((void *) sl811, struct usb_hcd, hcd_priv);
 }
@@ -195,19 +195,19 @@ struct sl811h_ep {
  * NOTE:  caller must hold sl811->lock.
  */
 
-static inline u8 sl811_read(struct sl811 *sl811, int reg)
+static u8 sl811_read(struct sl811 *sl811, int reg)
 {
 	writeb(reg, sl811->addr_reg);
 	return readb(sl811->data_reg);
 }
 
-static inline void sl811_write(struct sl811 *sl811, int reg, u8 val)
+static void sl811_write(struct sl811 *sl811, int reg, u8 val)
 {
 	writeb(reg, sl811->addr_reg);
 	writeb(val, sl811->data_reg);
 }
 
-static inline void
+static void
 sl811_write_buf(struct sl811 *sl811, int addr, const void *buf, size_t count)
 {
 	const u8	*data;
@@ -224,7 +224,7 @@ sl811_write_buf(struct sl811 *sl811, int addr, const void *buf, size_t count)
 	} while (--count);
 }
 
-static inline void
+static void
 sl811_read_buf(struct sl811 *sl811, int addr, void *buf, size_t count)
 {
 	u8 		*data;

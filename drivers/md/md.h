@@ -202,7 +202,7 @@ enum flag_bits {
 				 */
 };
 
-static inline int is_badblock(struct md_rdev *rdev, sector_t s, int sectors,
+static int is_badblock(struct md_rdev *rdev, sector_t s, int sectors,
 			      sector_t *first_bad, int *bad_sectors)
 {
 	if (unlikely(rdev->badblocks.count)) {
@@ -492,7 +492,7 @@ enum recovery_flags {
 	MD_RECOVERY_ERROR,	/* sync-action interrupted because io-error */
 };
 
-static inline int __must_check mddev_lock(struct mddev *mddev)
+static int __must_check mddev_lock(struct mddev *mddev)
 {
 	return mutex_lock_interruptible(&mddev->reconfig_mutex);
 }
@@ -500,28 +500,28 @@ static inline int __must_check mddev_lock(struct mddev *mddev)
 /* Sometimes we need to take the lock in a situation where
  * failure due to interrupts is not acceptable.
  */
-static inline void mddev_lock_nointr(struct mddev *mddev)
+static void mddev_lock_nointr(struct mddev *mddev)
 {
 	mutex_lock(&mddev->reconfig_mutex);
 }
 
-static inline int mddev_is_locked(struct mddev *mddev)
+static int mddev_is_locked(struct mddev *mddev)
 {
 	return mutex_is_locked(&mddev->reconfig_mutex);
 }
 
-static inline int mddev_trylock(struct mddev *mddev)
+static int mddev_trylock(struct mddev *mddev)
 {
 	return mutex_trylock(&mddev->reconfig_mutex);
 }
 extern void mddev_unlock(struct mddev *mddev);
 
-static inline void md_sync_acct(struct block_device *bdev, unsigned long nr_sectors)
+static void md_sync_acct(struct block_device *bdev, unsigned long nr_sectors)
 {
 	atomic_add(nr_sectors, &bdev->bd_contains->bd_disk->sync_io);
 }
 
-static inline void md_sync_acct_bio(struct bio *bio, unsigned long nr_sectors)
+static void md_sync_acct_bio(struct bio *bio, unsigned long nr_sectors)
 {
 	atomic_add(nr_sectors, &bio->bi_disk->sync_io);
 }
@@ -578,24 +578,24 @@ struct md_sysfs_entry {
 };
 extern struct attribute_group md_bitmap_group;
 
-static inline struct kernfs_node *sysfs_get_dirent_safe(struct kernfs_node *sd, char *name)
+static struct kernfs_node *sysfs_get_dirent_safe(struct kernfs_node *sd, char *name)
 {
 	if (sd)
 		return sysfs_get_dirent(sd, name);
 	return sd;
 }
-static inline void sysfs_notify_dirent_safe(struct kernfs_node *sd)
+static void sysfs_notify_dirent_safe(struct kernfs_node *sd)
 {
 	if (sd)
 		sysfs_notify_dirent(sd);
 }
 
-static inline char * mdname (struct mddev * mddev)
+static char * mdname (struct mddev * mddev)
 {
 	return mddev->gendisk ? mddev->gendisk->disk_name : "mdX";
 }
 
-static inline int sysfs_link_rdev(struct mddev *mddev, struct md_rdev *rdev)
+static int sysfs_link_rdev(struct mddev *mddev, struct md_rdev *rdev)
 {
 	char nm[20];
 	if (!test_bit(Replacement, &rdev->flags) &&
@@ -607,7 +607,7 @@ static inline int sysfs_link_rdev(struct mddev *mddev, struct md_rdev *rdev)
 		return 0;
 }
 
-static inline void sysfs_unlink_rdev(struct mddev *mddev, struct md_rdev *rdev)
+static void sysfs_unlink_rdev(struct mddev *mddev, struct md_rdev *rdev)
 {
 	char nm[20];
 	if (!test_bit(Replacement, &rdev->flags) &&
@@ -649,7 +649,7 @@ struct md_thread {
 
 #define THREAD_WAKEUP  0
 
-static inline void safe_put_page(struct page *p)
+static void safe_put_page(struct page *p)
 {
 	if (p) put_page(p);
 }
@@ -713,7 +713,7 @@ extern void md_update_sb(struct mddev *mddev, int force);
 extern void md_kick_rdev_from_array(struct md_rdev * rdev);
 struct md_rdev *md_find_rdev_nr_rcu(struct mddev *mddev, int nr);
 
-static inline void rdev_dec_pending(struct md_rdev *rdev, struct mddev *mddev)
+static void rdev_dec_pending(struct md_rdev *rdev, struct mddev *mddev)
 {
 	int faulty = test_bit(Faulty, &rdev->flags);
 	if (atomic_dec_and_test(&rdev->nr_pending) && faulty) {
@@ -723,26 +723,26 @@ static inline void rdev_dec_pending(struct md_rdev *rdev, struct mddev *mddev)
 }
 
 extern struct md_cluster_operations *md_cluster_ops;
-static inline int mddev_is_clustered(struct mddev *mddev)
+static int mddev_is_clustered(struct mddev *mddev)
 {
 	return mddev->cluster_info && mddev->bitmap_info.nodes > 1;
 }
 
 /* clear unsupported mddev_flags */
-static inline void mddev_clear_unsupported_flags(struct mddev *mddev,
+static void mddev_clear_unsupported_flags(struct mddev *mddev,
 	unsigned long unsupported_flags)
 {
 	mddev->flags &= ~unsupported_flags;
 }
 
-static inline void mddev_check_writesame(struct mddev *mddev, struct bio *bio)
+static void mddev_check_writesame(struct mddev *mddev, struct bio *bio)
 {
 	if (bio_op(bio) == REQ_OP_WRITE_SAME &&
 	    !bio->bi_disk->queue->limits.max_write_same_sectors)
 		mddev->queue->limits.max_write_same_sectors = 0;
 }
 
-static inline void mddev_check_write_zeroes(struct mddev *mddev, struct bio *bio)
+static void mddev_check_write_zeroes(struct mddev *mddev, struct bio *bio)
 {
 	if (bio_op(bio) == REQ_OP_WRITE_ZEROES &&
 	    !bio->bi_disk->queue->limits.max_write_zeroes_sectors)

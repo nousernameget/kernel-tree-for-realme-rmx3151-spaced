@@ -63,7 +63,7 @@ enum mt76_qsel {
 #define MT_TXD_CMD_INFO_SEQ		GENMASK(19, 16)
 #define MT_TXD_CMD_INFO_TYPE		GENMASK(26, 20)
 
-static inline int mt7601u_dma_skb_wrap(struct sk_buff *skb,
+static int mt7601u_dma_skb_wrap(struct sk_buff *skb,
 				       enum mt76_msg_port d_port,
 				       enum mt76_info_type type, u32 flags)
 {
@@ -85,7 +85,7 @@ static inline int mt7601u_dma_skb_wrap(struct sk_buff *skb,
 	return skb_put_padto(skb, round_up(skb->len, 4) + 4);
 }
 
-static inline int
+static int
 mt7601u_dma_skb_wrap_pkt(struct sk_buff *skb, enum mt76_qsel qsel, u32 flags)
 {
 	flags |= FIELD_PREP(MT_TXD_PKT_INFO_QSEL, qsel);

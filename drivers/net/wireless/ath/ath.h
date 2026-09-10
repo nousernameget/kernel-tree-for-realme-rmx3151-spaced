@@ -188,7 +188,7 @@ struct ath_common {
 	struct ieee80211_supported_band sbands[NUM_NL80211_BANDS];
 };
 
-static inline const struct ath_ps_ops *ath_ps_ops(struct ath_common *common)
+static const struct ath_ps_ops *ath_ps_ops(struct ath_common *common)
 {
 	return common->ps_ops;
 }
@@ -301,7 +301,7 @@ do {									\
 
 #else
 
-static inline  __attribute__ ((format (printf, 3, 4)))
+static __attribute__ ((format (printf, 3, 4)))
 void _ath_dbg(struct ath_common *common, enum ATH_DEBUG dbg_mask,
 	     const char *fmt, ...)
 {
@@ -321,14 +321,14 @@ void _ath_dbg(struct ath_common *common, enum ATH_DEBUG dbg_mask,
 #ifdef CONFIG_ATH_DEBUG
 const char *ath_opmode_to_string(enum nl80211_iftype opmode);
 #else
-static inline const char *ath_opmode_to_string(enum nl80211_iftype opmode)
+static const char *ath_opmode_to_string(enum nl80211_iftype opmode)
 {
 	return "UNKNOWN";
 }
 #endif
 
 extern const char *ath_bus_type_strings[];
-static inline const char *ath_bus_type_to_string(enum ath_bus_type bustype)
+static const char *ath_bus_type_to_string(enum ath_bus_type bustype)
 {
 	return ath_bus_type_strings[bustype];
 }

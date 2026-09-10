@@ -144,12 +144,12 @@ enum ldlm_side {
 
 extern enum ldlm_mode lck_compat_array[];
 
-static inline void lockmode_verify(enum ldlm_mode mode)
+static void lockmode_verify(enum ldlm_mode mode)
 {
 	LASSERT(mode > LCK_MINMODE && mode < LCK_MAXMODE);
 }
 
-static inline int lockmode_compat(enum ldlm_mode exist_mode,
+static int lockmode_compat(enum ldlm_mode exist_mode,
 				  enum ldlm_mode new_mode)
 {
 	return (lck_compat_array[exist_mode] & new_mode);
@@ -465,7 +465,7 @@ struct ldlm_namespace {
 /**
  * Returns 1 if namespace \a ns supports early lock cancel (ELC).
  */
-static inline int ns_connect_cancelset(struct ldlm_namespace *ns)
+static int ns_connect_cancelset(struct ldlm_namespace *ns)
 {
 	return !!(ns->ns_connect_flags & OBD_CONNECT_CANCELSET);
 }
@@ -473,12 +473,12 @@ static inline int ns_connect_cancelset(struct ldlm_namespace *ns)
 /**
  * Returns 1 if this namespace supports lru_resize.
  */
-static inline int ns_connect_lru_resize(struct ldlm_namespace *ns)
+static int ns_connect_lru_resize(struct ldlm_namespace *ns)
 {
 	return !!(ns->ns_connect_flags & OBD_CONNECT_LRU_RESIZE);
 }
 
-static inline void ns_register_cancel(struct ldlm_namespace *ns,
+static void ns_register_cancel(struct ldlm_namespace *ns,
 				      ldlm_cancel_cbt arg)
 {
 	ns->ns_cancel = arg;
@@ -878,43 +878,43 @@ struct ldlm_resource {
 	struct inode		*lr_lvb_inode;
 };
 
-static inline bool ldlm_has_layout(struct ldlm_lock *lock)
+static bool ldlm_has_layout(struct ldlm_lock *lock)
 {
 	return lock->l_resource->lr_type == LDLM_IBITS &&
 		lock->l_policy_data.l_inodebits.bits & MDS_INODELOCK_LAYOUT;
 }
 
-static inline char *
+static char *
 ldlm_ns_name(struct ldlm_namespace *ns)
 {
 	return ns->ns_rs_hash->hs_name;
 }
 
-static inline struct ldlm_namespace *
+static struct ldlm_namespace *
 ldlm_res_to_ns(struct ldlm_resource *res)
 {
 	return res->lr_ns_bucket->nsb_namespace;
 }
 
-static inline struct ldlm_namespace *
+static struct ldlm_namespace *
 ldlm_lock_to_ns(struct ldlm_lock *lock)
 {
 	return ldlm_res_to_ns(lock->l_resource);
 }
 
-static inline char *
+static char *
 ldlm_lock_to_ns_name(struct ldlm_lock *lock)
 {
 	return ldlm_ns_name(ldlm_lock_to_ns(lock));
 }
 
-static inline struct adaptive_timeout *
+static struct adaptive_timeout *
 ldlm_lock_to_ns_at(struct ldlm_lock *lock)
 {
 	return &lock->l_resource->lr_ns_bucket->nsb_at_estimate;
 }
 
-static inline int ldlm_lvbo_init(struct ldlm_resource *res)
+static int ldlm_lvbo_init(struct ldlm_resource *res)
 {
 	struct ldlm_namespace *ns = ldlm_res_to_ns(res);
 
@@ -924,7 +924,7 @@ static inline int ldlm_lvbo_init(struct ldlm_resource *res)
 	return 0;
 }
 
-static inline int ldlm_lvbo_size(struct ldlm_lock *lock)
+static int ldlm_lvbo_size(struct ldlm_lock *lock)
 {
 	struct ldlm_namespace *ns = ldlm_lock_to_ns(lock);
 
@@ -934,7 +934,7 @@ static inline int ldlm_lvbo_size(struct ldlm_lock *lock)
 	return 0;
 }
 
-static inline int ldlm_lvbo_fill(struct ldlm_lock *lock, void *buf, int len)
+static int ldlm_lvbo_fill(struct ldlm_lock *lock, void *buf, int len)
 {
 	struct ldlm_namespace *ns = ldlm_lock_to_ns(lock);
 
@@ -1075,7 +1075,7 @@ int ldlm_lock_set_data(const struct lustre_handle *lockh, void *data);
 /**
  * Obtain a lock reference by its handle.
  */
-static inline struct ldlm_lock *ldlm_handle2lock(const struct lustre_handle *h)
+static struct ldlm_lock *ldlm_handle2lock(const struct lustre_handle *h)
 {
 	return __ldlm_handle2lock(h, 0);
 }
@@ -1083,7 +1083,7 @@ static inline struct ldlm_lock *ldlm_handle2lock(const struct lustre_handle *h)
 #define LDLM_LOCK_REF_DEL(lock) \
 	lu_ref_del(&lock->l_reference, "handle", current)
 
-static inline struct ldlm_lock *
+static struct ldlm_lock *
 ldlm_handle2lock_long(const struct lustre_handle *h, __u64 flags)
 {
 	struct ldlm_lock *lock;
@@ -1098,7 +1098,7 @@ ldlm_handle2lock_long(const struct lustre_handle *h, __u64 flags)
  * Update Lock Value Block Operations (LVBO) on a resource taking into account
  * data from request \a r
  */
-static inline int ldlm_res_lvbo_update(struct ldlm_resource *res,
+static int ldlm_res_lvbo_update(struct ldlm_resource *res,
 				       struct ptlrpc_request *r, int increase)
 {
 	if (ldlm_res_to_ns(res)->ns_lvbo &&
@@ -1294,26 +1294,26 @@ enum lock_res_type {
 };
 
 /** Lock resource. */
-static inline void lock_res(struct ldlm_resource *res)
+static void lock_res(struct ldlm_resource *res)
 {
 	spin_lock(&res->lr_lock);
 }
 
 /** Lock resource with a way to instruct lockdep code about nestedness-safe. */
-static inline void lock_res_nested(struct ldlm_resource *res,
+static void lock_res_nested(struct ldlm_resource *res,
 				   enum lock_res_type mode)
 {
 	spin_lock_nested(&res->lr_lock, mode);
 }
 
 /** Unlock resource. */
-static inline void unlock_res(struct ldlm_resource *res)
+static void unlock_res(struct ldlm_resource *res)
 {
 	spin_unlock(&res->lr_lock);
 }
 
 /** Check if resource is already locked, assert if not. */
-static inline void check_res_locked(struct ldlm_resource *res)
+static void check_res_locked(struct ldlm_resource *res)
 {
 	assert_spin_locked(&res->lr_lock);
 }
@@ -1336,14 +1336,14 @@ void ldlm_pool_add(struct ldlm_pool *pl, struct ldlm_lock *lock);
 void ldlm_pool_del(struct ldlm_pool *pl, struct ldlm_lock *lock);
 /** @} */
 
-static inline int ldlm_extent_overlap(const struct ldlm_extent *ex1,
+static int ldlm_extent_overlap(const struct ldlm_extent *ex1,
 				      const struct ldlm_extent *ex2)
 {
 	return ex1->start <= ex2->end && ex2->start <= ex1->end;
 }
 
 /* check if @ex1 contains @ex2 */
-static inline int ldlm_extent_contain(const struct ldlm_extent *ex1,
+static int ldlm_extent_contain(const struct ldlm_extent *ex1,
 				      const struct ldlm_extent *ex2)
 {
 	return ex1->start <= ex2->start && ex1->end >= ex2->end;

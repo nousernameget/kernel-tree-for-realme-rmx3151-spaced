@@ -249,7 +249,7 @@ u32 rtw_free_uc_swdec_pending_queue(struct adapter *adapter);
 
 void rtw_reordering_ctrl_timeout_handler(unsigned long data);
 
-static inline s32 translate_percentage_to_dbm(u32 sig_stren_index)
+static s32 translate_percentage_to_dbm(u32 sig_stren_index)
 {
 	s32	power; /*  in dBm. */
 

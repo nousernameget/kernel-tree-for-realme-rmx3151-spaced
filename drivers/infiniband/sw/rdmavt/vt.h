@@ -88,7 +88,7 @@
 #define __rvt_pr_err(pdev, name, fmt, ...) \
 	dev_err(&pdev->dev, "%s: " fmt, name, ##__VA_ARGS__)
 
-static inline int ibport_num_to_idx(struct ib_device *ibdev, u8 port_num)
+static int ibport_num_to_idx(struct ib_device *ibdev, u8 port_num)
 {
 	struct rvt_dev_info *rdi = ib_to_rvt(ibdev);
 	int port_index;

@@ -605,7 +605,7 @@ struct i40e_hw {
 	char err_str[16];
 };
 
-static inline bool i40e_is_vf(struct i40e_hw *hw)
+static bool i40e_is_vf(struct i40e_hw *hw)
 {
 	return (hw->mac.type == I40E_MAC_VF ||
 		hw->mac.type == I40E_MAC_X722_VF);

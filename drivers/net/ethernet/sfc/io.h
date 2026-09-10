@@ -79,29 +79,29 @@
 #endif
 
 #ifdef EFX_USE_QWORD_IO
-static inline void _efx_writeq(struct efx_nic *efx, __le64 value,
+static void _efx_writeq(struct efx_nic *efx, __le64 value,
 				  unsigned int reg)
 {
 	__raw_writeq((__force u64)value, efx->membase + reg);
 }
-static inline __le64 _efx_readq(struct efx_nic *efx, unsigned int reg)
+static __le64 _efx_readq(struct efx_nic *efx, unsigned int reg)
 {
 	return (__force __le64)__raw_readq(efx->membase + reg);
 }
 #endif
 
-static inline void _efx_writed(struct efx_nic *efx, __le32 value,
+static void _efx_writed(struct efx_nic *efx, __le32 value,
 				  unsigned int reg)
 {
 	__raw_writel((__force u32)value, efx->membase + reg);
 }
-static inline __le32 _efx_readd(struct efx_nic *efx, unsigned int reg)
+static __le32 _efx_readd(struct efx_nic *efx, unsigned int reg)
 {
 	return (__force __le32)__raw_readl(efx->membase + reg);
 }
 
 /* Write a normal 128-bit CSR, locking as appropriate. */
-static inline void efx_writeo(struct efx_nic *efx, const efx_oword_t *value,
+static void efx_writeo(struct efx_nic *efx, const efx_oword_t *value,
 			      unsigned int reg)
 {
 	unsigned long flags __attribute__ ((unused));
@@ -125,7 +125,7 @@ static inline void efx_writeo(struct efx_nic *efx, const efx_oword_t *value,
 }
 
 /* Write 64-bit SRAM through the supplied mapping, locking as appropriate. */
-static inline void efx_sram_writeq(struct efx_nic *efx, void __iomem *membase,
+static void efx_sram_writeq(struct efx_nic *efx, void __iomem *membase,
 				   const efx_qword_t *value, unsigned int index)
 {
 	unsigned int addr = index * sizeof(*value);
@@ -147,7 +147,7 @@ static inline void efx_sram_writeq(struct efx_nic *efx, void __iomem *membase,
 }
 
 /* Write a 32-bit CSR or the last dword of a special 128-bit CSR */
-static inline void efx_writed(struct efx_nic *efx, const efx_dword_t *value,
+static void efx_writed(struct efx_nic *efx, const efx_dword_t *value,
 			      unsigned int reg)
 {
 	netif_vdbg(efx, hw, efx->net_dev,
@@ -159,7 +159,7 @@ static inline void efx_writed(struct efx_nic *efx, const efx_dword_t *value,
 }
 
 /* Read a 128-bit CSR, locking as appropriate. */
-static inline void efx_reado(struct efx_nic *efx, efx_oword_t *value,
+static void efx_reado(struct efx_nic *efx, efx_oword_t *value,
 			     unsigned int reg)
 {
 	unsigned long flags __attribute__ ((unused));
@@ -177,7 +177,7 @@ static inline void efx_reado(struct efx_nic *efx, efx_oword_t *value,
 }
 
 /* Read 64-bit SRAM through the supplied mapping, locking as appropriate. */
-static inline void efx_sram_readq(struct efx_nic *efx, void __iomem *membase,
+static void efx_sram_readq(struct efx_nic *efx, void __iomem *membase,
 				  efx_qword_t *value, unsigned int index)
 {
 	unsigned int addr = index * sizeof(*value);
@@ -198,7 +198,7 @@ static inline void efx_sram_readq(struct efx_nic *efx, void __iomem *membase,
 }
 
 /* Read a 32-bit CSR or SRAM */
-static inline void efx_readd(struct efx_nic *efx, efx_dword_t *value,
+static void efx_readd(struct efx_nic *efx, efx_dword_t *value,
 				unsigned int reg)
 {
 	value->u32[0] = _efx_readd(efx, reg);
@@ -208,7 +208,7 @@ static inline void efx_readd(struct efx_nic *efx, efx_dword_t *value,
 }
 
 /* Write a 128-bit CSR forming part of a table */
-static inline void
+static void
 efx_writeo_table(struct efx_nic *efx, const efx_oword_t *value,
 		 unsigned int reg, unsigned int index)
 {
@@ -216,7 +216,7 @@ efx_writeo_table(struct efx_nic *efx, const efx_oword_t *value,
 }
 
 /* Read a 128-bit CSR forming part of a table */
-static inline void efx_reado_table(struct efx_nic *efx, efx_oword_t *value,
+static void efx_reado_table(struct efx_nic *efx, efx_oword_t *value,
 				     unsigned int reg, unsigned int index)
 {
 	efx_reado(efx, value, reg + index * sizeof(efx_oword_t));
@@ -230,7 +230,7 @@ static inline void efx_reado_table(struct efx_nic *efx, efx_oword_t *value,
 	((page) * EFX_VI_PAGE_SIZE + (reg))
 
 /* Write the whole of RX_DESC_UPD or TX_DESC_UPD */
-static inline void _efx_writeo_page(struct efx_nic *efx, efx_oword_t *value,
+static void _efx_writeo_page(struct efx_nic *efx, efx_oword_t *value,
 				    unsigned int reg, unsigned int page)
 {
 	reg = EFX_PAGED_REG(page, reg);
@@ -258,7 +258,7 @@ static inline void _efx_writeo_page(struct efx_nic *efx, efx_oword_t *value,
 /* Write a page-mapped 32-bit CSR (EVQ_RPTR, EVQ_TMR (EF10), or the
  * high bits of RX_DESC_UPD or TX_DESC_UPD)
  */
-static inline void
+static void
 _efx_writed_page(struct efx_nic *efx, const efx_dword_t *value,
 		 unsigned int reg, unsigned int page)
 {
@@ -279,7 +279,7 @@ _efx_writed_page(struct efx_nic *efx, const efx_dword_t *value,
  * in the BIU means that writes to TIMER_COMMAND[0] invalidate the
  * collector register.
  */
-static inline void _efx_writed_page_locked(struct efx_nic *efx,
+static void _efx_writed_page_locked(struct efx_nic *efx,
 					   const efx_dword_t *value,
 					   unsigned int reg,
 					   unsigned int page)

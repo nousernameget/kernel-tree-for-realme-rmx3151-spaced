@@ -471,7 +471,7 @@ struct dma_addr {
 	struct dma_addr *next;
 };
 
-static inline unsigned int uffs(unsigned int x)
+static unsigned int uffs(unsigned int x)
 {
 	unsigned int r = 1;
 

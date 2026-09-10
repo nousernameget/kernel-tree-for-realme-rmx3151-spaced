@@ -206,7 +206,7 @@ void cfs_trace_unlock_tcd(struct cfs_trace_cpu_data *tcd, int walking);
 extern char *cfs_trace_console_buffers[NR_CPUS][CFS_TCD_TYPE_MAX];
 enum cfs_trace_buf_type cfs_trace_buf_idx_get(void);
 
-static inline char *
+static char *
 cfs_trace_get_console_buffer(void)
 {
 	unsigned int i = get_cpu();
@@ -215,7 +215,7 @@ cfs_trace_get_console_buffer(void)
 	return cfs_trace_console_buffers[i][j];
 }
 
-static inline struct cfs_trace_cpu_data *
+static struct cfs_trace_cpu_data *
 cfs_trace_get_tcd(void)
 {
 	struct cfs_trace_cpu_data *tcd =
@@ -226,7 +226,7 @@ cfs_trace_get_tcd(void)
 	return tcd;
 }
 
-static inline void cfs_trace_put_tcd(struct cfs_trace_cpu_data *tcd)
+static void cfs_trace_put_tcd(struct cfs_trace_cpu_data *tcd)
 {
 	cfs_trace_unlock_tcd(tcd, 0);
 

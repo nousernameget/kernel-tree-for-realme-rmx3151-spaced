@@ -19,7 +19,7 @@ struct ramfuc_reg {
 	u32 data;
 };
 
-static inline struct ramfuc_reg
+static struct ramfuc_reg
 ramfuc_stride(u32 addr, u32 stride, u32 mask)
 {
 	return (struct ramfuc_reg) {
@@ -31,7 +31,7 @@ ramfuc_stride(u32 addr, u32 stride, u32 mask)
 	};
 }
 
-static inline struct ramfuc_reg
+static struct ramfuc_reg
 ramfuc_reg2(u32 addr1, u32 addr2)
 {
 	return (struct ramfuc_reg) {
@@ -55,7 +55,7 @@ ramfuc_reg(u32 addr)
 	};
 }
 
-static inline int
+static int
 ramfuc_init(struct ramfuc *ram, struct nvkm_fb *fb)
 {
 	int ret = nvkm_memx_init(fb->subdev.device->pmu, &ram->memx);
@@ -67,7 +67,7 @@ ramfuc_init(struct ramfuc *ram, struct nvkm_fb *fb)
 	return 0;
 }
 
-static inline int
+static int
 ramfuc_exec(struct ramfuc *ram, bool exec)
 {
 	int ret = 0;
@@ -78,7 +78,7 @@ ramfuc_exec(struct ramfuc *ram, bool exec)
 	return ret;
 }
 
-static inline u32
+static u32
 ramfuc_rd32(struct ramfuc *ram, struct ramfuc_reg *reg)
 {
 	struct nvkm_device *device = ram->fb->subdev.device;
@@ -87,7 +87,7 @@ ramfuc_rd32(struct ramfuc *ram, struct ramfuc_reg *reg)
 	return reg->data;
 }
 
-static inline void
+static void
 ramfuc_wr32(struct ramfuc *ram, struct ramfuc_reg *reg, u32 data)
 {
 	unsigned int mask, off = 0;
@@ -102,13 +102,13 @@ ramfuc_wr32(struct ramfuc *ram, struct ramfuc_reg *reg, u32 data)
 	}
 }
 
-static inline void
+static void
 ramfuc_nuke(struct ramfuc *ram, struct ramfuc_reg *reg)
 {
 	reg->force = true;
 }
 
-static inline u32
+static u32
 ramfuc_mask(struct ramfuc *ram, struct ramfuc_reg *reg, u32 mask, u32 data)
 {
 	u32 temp = ramfuc_rd32(ram, reg);
@@ -119,43 +119,43 @@ ramfuc_mask(struct ramfuc *ram, struct ramfuc_reg *reg, u32 mask, u32 data)
 	return temp;
 }
 
-static inline void
+static void
 ramfuc_wait(struct ramfuc *ram, u32 addr, u32 mask, u32 data, u32 nsec)
 {
 	nvkm_memx_wait(ram->memx, addr, mask, data, nsec);
 }
 
-static inline void
+static void
 ramfuc_nsec(struct ramfuc *ram, u32 nsec)
 {
 	nvkm_memx_nsec(ram->memx, nsec);
 }
 
-static inline void
+static void
 ramfuc_wait_vblank(struct ramfuc *ram)
 {
 	nvkm_memx_wait_vblank(ram->memx);
 }
 
-static inline void
+static void
 ramfuc_train(struct ramfuc *ram)
 {
 	nvkm_memx_train(ram->memx);
 }
 
-static inline int
+static int
 ramfuc_train_result(struct nvkm_fb *fb, u32 *result, u32 rsize)
 {
 	return nvkm_memx_train_result(fb->subdev.device->pmu, result, rsize);
 }
 
-static inline void
+static void
 ramfuc_block(struct ramfuc *ram)
 {
 	nvkm_memx_block(ram->memx);
 }
 
-static inline void
+static void
 ramfuc_unblock(struct ramfuc *ram)
 {
 	nvkm_memx_unblock(ram->memx);

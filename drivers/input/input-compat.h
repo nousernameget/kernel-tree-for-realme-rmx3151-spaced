@@ -53,7 +53,7 @@ struct ff_effect_compat {
 	} u;
 };
 
-static inline size_t input_event_size(void)
+static size_t input_event_size(void)
 {
 	return (in_compat_syscall() && !COMPAT_USE_64BIT_TIME) ?
 		sizeof(struct input_event_compat) : sizeof(struct input_event);
@@ -61,7 +61,7 @@ static inline size_t input_event_size(void)
 
 #else
 
-static inline size_t input_event_size(void)
+static size_t input_event_size(void)
 {
 	return sizeof(struct input_event);
 }

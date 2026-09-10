@@ -101,7 +101,7 @@ void ccci_md_add_log_history(struct ccci_hif_traffic *tinfo,
 		enum DIRECTION dir, int queue_index,
 		struct ccci_header *msg, int is_droped);
 
-static inline void *ccci_hif_get_by_id(unsigned char hif_id)
+static void *ccci_hif_get_by_id(unsigned char hif_id)
 {
 	if (hif_id >= CCCI_HIF_NUM) {
 		CCCI_ERROR_LOG(-1, CORE,
@@ -111,7 +111,7 @@ static inline void *ccci_hif_get_by_id(unsigned char hif_id)
 		return ccci_hif[hif_id];
 }
 
-static inline void ccci_hif_queue_status_notify(int md_id, int hif_id,
+static void ccci_hif_queue_status_notify(int md_id, int hif_id,
 	int qno, int dir, int state)
 {
 	return ccci_port_queue_status_notify(md_id, hif_id, qno,
@@ -119,7 +119,7 @@ static inline void ccci_hif_queue_status_notify(int md_id, int hif_id,
 }
 
 
-static inline void ccci_reset_seq_num(struct ccci_hif_traffic *traffic_info)
+static void ccci_reset_seq_num(struct ccci_hif_traffic *traffic_info)
 {
 	/* it's redundant to use 2 arrays,
 	 * but this makes sequence checking easy
@@ -135,7 +135,7 @@ static inline void ccci_reset_seq_num(struct ccci_hif_traffic *traffic_info)
  * so it's safe we call this function in hardware
  * queue's lock protection
  */
-static inline void ccci_md_inc_tx_seq_num(unsigned char md_id,
+static void ccci_md_inc_tx_seq_num(unsigned char md_id,
 	struct ccci_hif_traffic *traffic_info,
 	struct ccci_header *ccci_h)
 {
@@ -161,7 +161,7 @@ static inline void ccci_md_inc_tx_seq_num(unsigned char md_id,
 		ccci_h->assert_bit = 0;
 }
 
-static inline void ccci_md_check_rx_seq_num(unsigned char md_id,
+static void ccci_md_check_rx_seq_num(unsigned char md_id,
 	struct ccci_hif_traffic *traffic_info,
 	struct ccci_header *ccci_h, int qno)
 {
@@ -192,14 +192,14 @@ static inline void ccci_md_check_rx_seq_num(unsigned char md_id,
 	}
 }
 
-static inline void ccci_channel_update_packet_counter(
+static void ccci_channel_update_packet_counter(
 	unsigned long *logic_ch_pkt_cnt, struct ccci_header *ccci_h)
 {
 	if ((ccci_h->channel & 0xFF) < CCCI_MAX_CH_NUM)
 		logic_ch_pkt_cnt[ccci_h->channel]++;
 }
 
-static inline void ccci_channel_dump_packet_counter(
+static void ccci_channel_dump_packet_counter(
 	unsigned char md_id, struct ccci_hif_traffic *traffic_info)
 {
 	CCCI_REPEAT_LOG(md_id, CORE,
@@ -223,7 +223,7 @@ static inline void ccci_channel_dump_packet_counter(
 	CCCI_CCMNI3_RX, traffic_info->logic_ch_pkt_cnt[CCCI_CCMNI3_RX]);
 }
 
-static inline unsigned int ccci_md_get_seq_num(
+static unsigned int ccci_md_get_seq_num(
 	struct ccci_hif_traffic *traffic_info, enum DIRECTION dir,
 	enum CCCI_CH ch)
 {

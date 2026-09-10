@@ -47,22 +47,22 @@ static int i8042_command_reg = 0x64;
 static int i8042_data_reg = 0x60;
 
 
-static inline int i8042_read_data(void)
+static int i8042_read_data(void)
 {
 	return inb(I8042_DATA_REG);
 }
 
-static inline int i8042_read_status(void)
+static int i8042_read_status(void)
 {
 	return inb(I8042_STATUS_REG);
 }
 
-static inline void i8042_write_data(int val)
+static void i8042_write_data(int val)
 {
 	outb(val, I8042_DATA_REG);
 }
 
-static inline void i8042_write_command(int val)
+static void i8042_write_command(int val)
 {
 	outb(val, I8042_COMMAND_REG);
 }
@@ -1233,7 +1233,7 @@ static int __init i8042_platform_init(void)
 	return retval;
 }
 
-static inline void i8042_platform_exit(void)
+static void i8042_platform_exit(void)
 {
 	i8042_pnp_exit();
 }

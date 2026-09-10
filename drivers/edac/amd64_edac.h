@@ -394,13 +394,13 @@ struct err_info {
 	u32 offset;
 };
 
-static inline u32 get_umc_base(u8 channel)
+static u32 get_umc_base(u8 channel)
 {
 	/* ch0: 0x50000, ch1: 0x150000 */
 	return 0x50000 + (!!channel << 20);
 }
 
-static inline u64 get_dram_base(struct amd64_pvt *pvt, u8 i)
+static u64 get_dram_base(struct amd64_pvt *pvt, u8 i)
 {
 	u64 addr = ((u64)pvt->ranges[i].base.lo & 0xffff0000) << 8;
 
@@ -410,7 +410,7 @@ static inline u64 get_dram_base(struct amd64_pvt *pvt, u8 i)
 	return (((u64)pvt->ranges[i].base.hi & 0x000000ff) << 40) | addr;
 }
 
-static inline u64 get_dram_limit(struct amd64_pvt *pvt, u8 i)
+static u64 get_dram_limit(struct amd64_pvt *pvt, u8 i)
 {
 	u64 lim = (((u64)pvt->ranges[i].lim.lo & 0xffff0000) << 8) | 0x00ffffff;
 
@@ -420,12 +420,12 @@ static inline u64 get_dram_limit(struct amd64_pvt *pvt, u8 i)
 	return (((u64)pvt->ranges[i].lim.hi & 0x000000ff) << 40) | lim;
 }
 
-static inline u16 extract_syndrome(u64 status)
+static u16 extract_syndrome(u64 status)
 {
 	return ((status >> 47) & 0xff) | ((status >> 16) & 0xff00);
 }
 
-static inline u8 dct_sel_interleave_addr(struct amd64_pvt *pvt)
+static u8 dct_sel_interleave_addr(struct amd64_pvt *pvt)
 {
 	if (pvt->fam == 0x15 && pvt->model >= 0x30)
 		return (((pvt->dct_sel_hi >> 9) & 0x1) << 2) |
@@ -489,18 +489,18 @@ int amd64_get_dram_hole_info(struct mem_ctl_info *mci, u64 *hole_base,
 #define to_mci(k) container_of(k, struct mem_ctl_info, dev)
 
 /* Injection helpers */
-static inline void disable_caches(void *dummy)
+static void disable_caches(void *dummy)
 {
 	write_cr0(read_cr0() | X86_CR0_CD);
 	wbinvd();
 }
 
-static inline void enable_caches(void *dummy)
+static void enable_caches(void *dummy)
 {
 	write_cr0(read_cr0() & ~X86_CR0_CD);
 }
 
-static inline u8 dram_intlv_en(struct amd64_pvt *pvt, unsigned int i)
+static u8 dram_intlv_en(struct amd64_pvt *pvt, unsigned int i)
 {
 	if (pvt->fam == 0x15 && pvt->model >= 0x30) {
 		u32 tmp;
@@ -510,7 +510,7 @@ static inline u8 dram_intlv_en(struct amd64_pvt *pvt, unsigned int i)
 	return (u8) (pvt->ranges[i].base.lo >> 8) & 0x7;
 }
 
-static inline u8 dhar_valid(struct amd64_pvt *pvt)
+static u8 dhar_valid(struct amd64_pvt *pvt)
 {
 	if (pvt->fam == 0x15 && pvt->model >= 0x30) {
 		u32 tmp;
@@ -520,7 +520,7 @@ static inline u8 dhar_valid(struct amd64_pvt *pvt)
 	return (pvt)->dhar & BIT(0);
 }
 
-static inline u32 dct_sel_baseaddr(struct amd64_pvt *pvt)
+static u32 dct_sel_baseaddr(struct amd64_pvt *pvt)
 {
 	if (pvt->fam == 0x15 && pvt->model >= 0x30) {
 		u32 tmp;

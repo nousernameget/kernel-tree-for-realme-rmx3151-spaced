@@ -337,13 +337,13 @@ extern void au0828_usb_v4l2_media_release(struct au0828_dev *dev);
 extern void au0828_v4l2_suspend(struct au0828_dev *dev);
 extern void au0828_v4l2_resume(struct au0828_dev *dev);
 #else
-static inline int au0828_v4l2_device_register(struct usb_interface *interface,
+static int au0828_v4l2_device_register(struct usb_interface *interface,
 					      struct au0828_dev *dev)
 { return 0; };
-static inline int au0828_analog_register(struct au0828_dev *dev,
+static int au0828_analog_register(struct au0828_dev *dev,
 				     struct usb_interface *interface)
 { return 0; };
-static inline int au0828_analog_unregister(struct au0828_dev *dev)
+static int au0828_analog_unregister(struct au0828_dev *dev)
 { return 0; };
 static inline void au0828_usb_v4l2_media_release(struct au0828_dev *dev) { };
 static inline void au0828_v4l2_suspend(struct au0828_dev *dev) { };

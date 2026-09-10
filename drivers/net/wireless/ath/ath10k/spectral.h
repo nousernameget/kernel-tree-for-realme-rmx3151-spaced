@@ -57,7 +57,7 @@ void ath10k_spectral_destroy(struct ath10k *ar);
 
 #else
 
-static inline int
+static int
 ath10k_spectral_process_fft(struct ath10k *ar,
 			    struct wmi_phyerr_ev_arg *phyerr,
 			    const struct phyerr_fft_report *fftr,
@@ -66,22 +66,22 @@ ath10k_spectral_process_fft(struct ath10k *ar,
 	return 0;
 }
 
-static inline int ath10k_spectral_start(struct ath10k *ar)
+static int ath10k_spectral_start(struct ath10k *ar)
 {
 	return 0;
 }
 
-static inline int ath10k_spectral_vif_stop(struct ath10k_vif *arvif)
+static int ath10k_spectral_vif_stop(struct ath10k_vif *arvif)
 {
 	return 0;
 }
 
-static inline int ath10k_spectral_create(struct ath10k *ar)
+static int ath10k_spectral_create(struct ath10k *ar)
 {
 	return 0;
 }
 
-static inline void ath10k_spectral_destroy(struct ath10k *ar)
+static void ath10k_spectral_destroy(struct ath10k *ar)
 {
 }
 

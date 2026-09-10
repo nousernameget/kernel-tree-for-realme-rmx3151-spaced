@@ -163,7 +163,7 @@ void rtl8187_write_phy(struct ieee80211_hw *dev, u8 addr, u32 data);
 u8 rtl818x_ioread8_idx(struct rtl8187_priv *priv,
 				u8 *addr, u8 idx);
 
-static inline u8 rtl818x_ioread8(struct rtl8187_priv *priv, u8 *addr)
+static u8 rtl818x_ioread8(struct rtl8187_priv *priv, u8 *addr)
 {
 	return rtl818x_ioread8_idx(priv, addr, 0);
 }
@@ -171,7 +171,7 @@ static inline u8 rtl818x_ioread8(struct rtl8187_priv *priv, u8 *addr)
 u16 rtl818x_ioread16_idx(struct rtl8187_priv *priv,
 				__le16 *addr, u8 idx);
 
-static inline u16 rtl818x_ioread16(struct rtl8187_priv *priv, __le16 *addr)
+static u16 rtl818x_ioread16(struct rtl8187_priv *priv, __le16 *addr)
 {
 	return rtl818x_ioread16_idx(priv, addr, 0);
 }
@@ -179,7 +179,7 @@ static inline u16 rtl818x_ioread16(struct rtl8187_priv *priv, __le16 *addr)
 u32 rtl818x_ioread32_idx(struct rtl8187_priv *priv,
 				__le32 *addr, u8 idx);
 
-static inline u32 rtl818x_ioread32(struct rtl8187_priv *priv, __le32 *addr)
+static u32 rtl818x_ioread32(struct rtl8187_priv *priv, __le32 *addr)
 {
 	return rtl818x_ioread32_idx(priv, addr, 0);
 }
@@ -187,7 +187,7 @@ static inline u32 rtl818x_ioread32(struct rtl8187_priv *priv, __le32 *addr)
 void rtl818x_iowrite8_idx(struct rtl8187_priv *priv,
 				u8 *addr, u8 val, u8 idx);
 
-static inline void rtl818x_iowrite8(struct rtl8187_priv *priv, u8 *addr, u8 val)
+static void rtl818x_iowrite8(struct rtl8187_priv *priv, u8 *addr, u8 val)
 {
 	rtl818x_iowrite8_idx(priv, addr, val, 0);
 }
@@ -195,7 +195,7 @@ static inline void rtl818x_iowrite8(struct rtl8187_priv *priv, u8 *addr, u8 val)
 void rtl818x_iowrite16_idx(struct rtl8187_priv *priv,
 				__le16 *addr, u16 val, u8 idx);
 
-static inline void rtl818x_iowrite16(struct rtl8187_priv *priv, __le16 *addr,
+static void rtl818x_iowrite16(struct rtl8187_priv *priv, __le16 *addr,
 				     u16 val)
 {
 	rtl818x_iowrite16_idx(priv, addr, val, 0);
@@ -204,7 +204,7 @@ static inline void rtl818x_iowrite16(struct rtl8187_priv *priv, __le16 *addr,
 void rtl818x_iowrite32_idx(struct rtl8187_priv *priv,
 				__le32 *addr, u32 val, u8 idx);
 
-static inline void rtl818x_iowrite32(struct rtl8187_priv *priv, __le32 *addr,
+static void rtl818x_iowrite32(struct rtl8187_priv *priv, __le32 *addr,
 				     u32 val)
 {
 	rtl818x_iowrite32_idx(priv, addr, val, 0);

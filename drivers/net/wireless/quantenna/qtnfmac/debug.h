@@ -31,15 +31,15 @@ void qtnf_debugfs_add_entry(struct qtnf_bus *bus, const char *name,
 
 #else
 
-static inline void qtnf_debugfs_init(struct qtnf_bus *bus, const char *name)
+static void qtnf_debugfs_init(struct qtnf_bus *bus, const char *name)
 {
 }
 
-static inline void qtnf_debugfs_remove(struct qtnf_bus *bus)
+static void qtnf_debugfs_remove(struct qtnf_bus *bus)
 {
 }
 
-static inline void
+static void
 qtnf_debugfs_add_entry(struct qtnf_bus *bus, const char *name,
 		       int (*fn)(struct seq_file *seq, void *data))
 {

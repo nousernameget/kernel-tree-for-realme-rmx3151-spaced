@@ -47,12 +47,12 @@ struct tegra_bo {
 	struct tegra_bo_tiling tiling;
 };
 
-static inline struct tegra_bo *to_tegra_bo(struct drm_gem_object *gem)
+static struct tegra_bo *to_tegra_bo(struct drm_gem_object *gem)
 {
 	return container_of(gem, struct tegra_bo, gem);
 }
 
-static inline struct tegra_bo *host1x_to_tegra_bo(struct host1x_bo *bo)
+static struct tegra_bo *host1x_to_tegra_bo(struct host1x_bo *bo)
 {
 	return container_of(bo, struct tegra_bo, base);
 }

@@ -440,14 +440,14 @@ void virtgpu_gem_prime_vunmap(struct drm_gem_object *obj, void *vaddr);
 int virtgpu_gem_prime_mmap(struct drm_gem_object *obj,
 			   struct vm_area_struct *vma);
 
-static inline struct virtio_gpu_object*
+static struct virtio_gpu_object*
 virtio_gpu_object_ref(struct virtio_gpu_object *bo)
 {
 	ttm_bo_reference(&bo->tbo);
 	return bo;
 }
 
-static inline void virtio_gpu_object_unref(struct virtio_gpu_object **bo)
+static void virtio_gpu_object_unref(struct virtio_gpu_object **bo)
 {
 	struct ttm_buffer_object *tbo;
 
@@ -459,12 +459,12 @@ static inline void virtio_gpu_object_unref(struct virtio_gpu_object **bo)
 		*bo = NULL;
 }
 
-static inline u64 virtio_gpu_object_mmap_offset(struct virtio_gpu_object *bo)
+static u64 virtio_gpu_object_mmap_offset(struct virtio_gpu_object *bo)
 {
 	return drm_vma_node_offset_addr(&bo->tbo.vma_node);
 }
 
-static inline int virtio_gpu_object_reserve(struct virtio_gpu_object *bo,
+static int virtio_gpu_object_reserve(struct virtio_gpu_object *bo,
 					 bool no_wait)
 {
 	int r;
@@ -481,7 +481,7 @@ static inline int virtio_gpu_object_reserve(struct virtio_gpu_object *bo,
 	return 0;
 }
 
-static inline void virtio_gpu_object_unreserve(struct virtio_gpu_object *bo)
+static void virtio_gpu_object_unreserve(struct virtio_gpu_object *bo)
 {
 	ttm_bo_unreserve(&bo->tbo);
 }

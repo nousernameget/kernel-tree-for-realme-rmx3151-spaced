@@ -91,23 +91,23 @@ int pnp_register_mem_resource(struct pnp_dev *dev, unsigned int option_flags,
 			      resource_size_t align, resource_size_t size,
 			      unsigned char flags);
 
-static inline int pnp_option_is_dependent(struct pnp_option *option)
+static int pnp_option_is_dependent(struct pnp_option *option)
 {
 	return option->flags & PNP_OPTION_DEPENDENT ? 1 : 0;
 }
 
-static inline unsigned int pnp_option_set(struct pnp_option *option)
+static unsigned int pnp_option_set(struct pnp_option *option)
 {
 	return (option->flags >> PNP_OPTION_SET_SHIFT) & PNP_OPTION_SET_MASK;
 }
 
-static inline unsigned int pnp_option_priority(struct pnp_option *option)
+static unsigned int pnp_option_priority(struct pnp_option *option)
 {
 	return (option->flags >> PNP_OPTION_PRIORITY_SHIFT) &
 	    PNP_OPTION_PRIORITY_MASK;
 }
 
-static inline unsigned int pnp_new_dependent_set(struct pnp_dev *dev,
+static unsigned int pnp_new_dependent_set(struct pnp_dev *dev,
 						 int priority)
 {
 	unsigned int flags;

@@ -330,11 +330,11 @@ struct alps_data {
 int alps_detect(struct psmouse *psmouse, bool set_properties);
 int alps_init(struct psmouse *psmouse);
 #else
-inline int alps_detect(struct psmouse *psmouse, bool set_properties)
+int alps_detect(struct psmouse *psmouse, bool set_properties)
 {
 	return -ENOSYS;
 }
-inline int alps_init(struct psmouse *psmouse)
+int alps_init(struct psmouse *psmouse)
 {
 	return -ENOSYS;
 }

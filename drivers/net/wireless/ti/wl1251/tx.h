@@ -208,7 +208,7 @@ struct tx_result {
 	u8 done_2;
 } __packed;
 
-static inline int wl1251_tx_get_queue(int queue)
+static int wl1251_tx_get_queue(int queue)
 {
 	switch (queue) {
 	case 0:

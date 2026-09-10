@@ -161,7 +161,7 @@ struct M4U_PROG_DIST_T {	/* prog pfh dist */
 extern struct m4u_port_t gM4uPort[];
 extern int gM4u_port_num;
 
-static inline char *m4u_get_vpu_port_name(int fault_id)
+static char *m4u_get_vpu_port_name(int fault_id)
 {
 	fault_id &= F_MSK(9, 0);
 
@@ -185,7 +185,7 @@ static inline char *m4u_get_vpu_port_name(int fault_id)
 		return "VPU_UNKNOWN";
 }
 
-static inline char *m4u_get_port_name(unsigned int portID)
+static char *m4u_get_port_name(unsigned int portID)
 {
 	if ((portID < M4U_PORT_NR) &&  (portID >= M4U_PORT_MIN))
 		return gM4uPort[portID].name;
@@ -193,7 +193,7 @@ static inline char *m4u_get_port_name(unsigned int portID)
 	return "m4u_port_unknown";
 }
 
-static inline unsigned int m4u_get_port_by_tf_id(unsigned int m4u_id, int tf_id)
+static unsigned int m4u_get_port_by_tf_id(unsigned int m4u_id, int tf_id)
 {
 	int i, tf_id_old;
 
@@ -216,7 +216,7 @@ static inline unsigned int m4u_get_port_by_tf_id(unsigned int m4u_id, int tf_id)
 	return M4U_PORT_UNKNOWN;
 }
 
-static inline unsigned int m4u_port_2_larb_port(unsigned int port)
+static unsigned int m4u_port_2_larb_port(unsigned int port)
 {
 	if (unlikely(port < M4U_PORT_MIN || port >= M4U_PORT_NR)) {
 		M4UMSG("%s, %d, invalid port%d\n", __func__, __LINE__, port);
@@ -225,7 +225,7 @@ static inline unsigned int m4u_port_2_larb_port(unsigned int port)
 	return gM4uPort[port].larb_port;
 }
 
-static inline unsigned int m4u_port_2_larb_id(unsigned int port)
+static unsigned int m4u_port_2_larb_id(unsigned int port)
 {
 	if (unlikely(port < M4U_PORT_MIN || port >= M4U_PORT_NR)) {
 		M4UMSG("%s, %d, invalid port%d\n", __func__, __LINE__, port);
@@ -234,7 +234,7 @@ static inline unsigned int m4u_port_2_larb_id(unsigned int port)
 	return gM4uPort[port].larb_id;
 }
 
-static inline int larb_2_m4u_slave_id(int larb)
+static int larb_2_m4u_slave_id(int larb)
 {
 	int i;
 
@@ -245,7 +245,7 @@ static inline int larb_2_m4u_slave_id(int larb)
 	return M4U_MAX_SLAVE;
 }
 
-static inline unsigned int m4u_port_2_m4u_id(unsigned int port)
+static unsigned int m4u_port_2_m4u_id(unsigned int port)
 {
 	if (unlikely(port < M4U_PORT_MIN || port >= M4U_PORT_NR)) {
 		M4UMSG("%s, %d, invalid port%d\n", __func__, __LINE__, port);
@@ -254,7 +254,7 @@ static inline unsigned int m4u_port_2_m4u_id(unsigned int port)
 	return gM4uPort[port].m4u_id;
 }
 
-static inline unsigned int m4u_port_2_m4u_slave_id(unsigned int port)
+static unsigned int m4u_port_2_m4u_slave_id(unsigned int port)
 {
 	if (unlikely(port < M4U_PORT_MIN || port >= M4U_PORT_NR)) {
 		M4UMSG("%s, %d, invalid port%d\n", __func__, __LINE__, port);
@@ -263,7 +263,7 @@ static inline unsigned int m4u_port_2_m4u_slave_id(unsigned int port)
 	return gM4uPort[port].m4u_slave;
 }
 
-static inline unsigned int larb_port_2_m4u_port(int larb, int larb_port)
+static unsigned int larb_port_2_m4u_port(int larb, int larb_port)
 {
 	int i;
 

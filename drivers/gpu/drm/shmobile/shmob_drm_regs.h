@@ -249,7 +249,7 @@
 #define LCDC_SIDE_B_OFFSET	0x1000
 #define LCDC_MIRROR_OFFSET	0x2000
 
-static inline bool lcdc_is_banked(u32 reg)
+static bool lcdc_is_banked(u32 reg)
 {
 	switch (reg) {
 	case LDMT1R:
@@ -276,25 +276,25 @@ static inline bool lcdc_is_banked(u32 reg)
 	}
 }
 
-static inline void lcdc_write_mirror(struct shmob_drm_device *sdev, u32 reg,
+static void lcdc_write_mirror(struct shmob_drm_device *sdev, u32 reg,
 				     u32 data)
 {
 	iowrite32(data, sdev->mmio + reg + LCDC_MIRROR_OFFSET);
 }
 
-static inline void lcdc_write(struct shmob_drm_device *sdev, u32 reg, u32 data)
+static void lcdc_write(struct shmob_drm_device *sdev, u32 reg, u32 data)
 {
 	iowrite32(data, sdev->mmio + reg);
 	if (lcdc_is_banked(reg))
 		iowrite32(data, sdev->mmio + reg + LCDC_SIDE_B_OFFSET);
 }
 
-static inline u32 lcdc_read(struct shmob_drm_device *sdev, u32 reg)
+static u32 lcdc_read(struct shmob_drm_device *sdev, u32 reg)
 {
 	return ioread32(sdev->mmio + reg);
 }
 
-static inline int lcdc_wait_bit(struct shmob_drm_device *sdev, u32 reg,
+static int lcdc_wait_bit(struct shmob_drm_device *sdev, u32 reg,
 				u32 mask, u32 until)
 {
 	unsigned long timeout = jiffies + msecs_to_jiffies(5);

@@ -2,7 +2,7 @@
 #ifndef __NOUVEAU_TTM_H__
 #define __NOUVEAU_TTM_H__
 
-static inline struct nouveau_drm *
+static struct nouveau_drm *
 nouveau_bdev(struct ttm_bo_device *bd)
 {
 	return container_of(bd, struct nouveau_drm, ttm.bdev);

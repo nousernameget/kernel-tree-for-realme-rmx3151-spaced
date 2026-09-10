@@ -692,12 +692,12 @@ struct be_cmd_req_mcast_mac_config {
 	struct macaddr mac[32];
 } __packed;
 
-static inline void *embedded_payload(struct be_mcc_wrb *wrb)
+static void *embedded_payload(struct be_mcc_wrb *wrb)
 {
 	return wrb->payload.embedded_payload;
 }
 
-static inline struct be_sge *nonembedded_sgl(struct be_mcc_wrb *wrb)
+static struct be_sge *nonembedded_sgl(struct be_mcc_wrb *wrb)
 {
 	return &wrb->payload.sgl[0];
 }

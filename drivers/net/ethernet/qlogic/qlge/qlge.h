@@ -2155,7 +2155,7 @@ struct ql_adapter {
 /*
  * Typical Register accessor for memory mapped device.
  */
-static inline u32 ql_read32(const struct ql_adapter *qdev, int reg)
+static u32 ql_read32(const struct ql_adapter *qdev, int reg)
 {
 	return readl(qdev->reg_base + reg);
 }
@@ -2163,7 +2163,7 @@ static inline u32 ql_read32(const struct ql_adapter *qdev, int reg)
 /*
  * Typical Register accessor for memory mapped device.
  */
-static inline void ql_write32(const struct ql_adapter *qdev, int reg, u32 val)
+static void ql_write32(const struct ql_adapter *qdev, int reg, u32 val)
 {
 	writel(val, qdev->reg_base + reg);
 }
@@ -2178,7 +2178,7 @@ static inline void ql_write32(const struct ql_adapter *qdev, int reg, u32 val)
  * 1 4k chunk of memory.  The lower half of the space is for outbound
  * queues. The upper half is for inbound queues.
  */
-static inline void ql_write_db_reg(u32 val, void __iomem *addr)
+static void ql_write_db_reg(u32 val, void __iomem *addr)
 {
 	writel(val, addr);
 	mmiowb();
@@ -2194,7 +2194,7 @@ static inline void ql_write_db_reg(u32 val, void __iomem *addr)
  * update the relevant index register and then copy the value to the
  * shadow register in host memory.
  */
-static inline u32 ql_read_sh_reg(__le32  *addr)
+static u32 ql_read_sh_reg(__le32  *addr)
 {
 	u32 reg;
 	reg =  le32_to_cpu(*addr);

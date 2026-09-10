@@ -11,12 +11,12 @@
 #include "ufshcd.h"
 #include "ufshci.h"
 
-static inline int ufshcd_num_keyslots(struct ufs_hba *hba)
+static int ufshcd_num_keyslots(struct ufs_hba *hba)
 {
 	return hba->crypto_capabilities.config_count + 1;
 }
 
-static inline bool ufshcd_keyslot_valid(struct ufs_hba *hba, unsigned int slot)
+static bool ufshcd_keyslot_valid(struct ufs_hba *hba, unsigned int slot)
 {
 	/*
 	 * The actual number of configurations supported is (CFGC+1), so slot
@@ -25,12 +25,12 @@ static inline bool ufshcd_keyslot_valid(struct ufs_hba *hba, unsigned int slot)
 	return slot < ufshcd_num_keyslots(hba);
 }
 
-static inline bool ufshcd_hba_is_crypto_supported(struct ufs_hba *hba)
+static bool ufshcd_hba_is_crypto_supported(struct ufs_hba *hba)
 {
 	return hba->crypto_capabilities.reg_val != 0;
 }
 
-static inline bool ufshcd_is_crypto_enabled(struct ufs_hba *hba)
+static bool ufshcd_is_crypto_enabled(struct ufs_hba *hba)
 {
 	return hba->caps & UFSHCD_CAP_CRYPTO;
 }
@@ -58,7 +58,7 @@ void ufshcd_crypto_setup_rq_keyslot_manager_spec(struct ufs_hba *hba,
 void ufshcd_crypto_destroy_rq_keyslot_manager_spec(struct ufs_hba *hba,
 						   struct request_queue *q);
 
-static inline bool ufshcd_lrbp_crypto_enabled(struct ufshcd_lrb *lrbp)
+static bool ufshcd_lrbp_crypto_enabled(struct ufshcd_lrb *lrbp)
 {
 	return lrbp->crypto_enable;
 }
@@ -97,18 +97,18 @@ void ufshcd_crypto_set_vops(struct ufs_hba *hba,
 
 #else /* CONFIG_SCSI_UFS_CRYPTO */
 
-static inline bool ufshcd_keyslot_valid(struct ufs_hba *hba,
+static bool ufshcd_keyslot_valid(struct ufs_hba *hba,
 					unsigned int slot)
 {
 	return false;
 }
 
-static inline bool ufshcd_hba_is_crypto_supported(struct ufs_hba *hba)
+static bool ufshcd_hba_is_crypto_supported(struct ufs_hba *hba)
 {
 	return false;
 }
 
-static inline bool ufshcd_is_crypto_enabled(struct ufs_hba *hba)
+static bool ufshcd_is_crypto_enabled(struct ufs_hba *hba)
 {
 	return false;
 }
@@ -117,36 +117,36 @@ static inline void ufshcd_crypto_enable(struct ufs_hba *hba) { }
 
 static inline void ufshcd_crypto_disable(struct ufs_hba *hba) { }
 
-static inline int ufshcd_hba_init_crypto(struct ufs_hba *hba)
+static int ufshcd_hba_init_crypto(struct ufs_hba *hba)
 {
 	return 0;
 }
 
-static inline void ufshcd_crypto_setup_rq_keyslot_manager(struct ufs_hba *hba,
+static void ufshcd_crypto_setup_rq_keyslot_manager(struct ufs_hba *hba,
 						struct request_queue *q) { }
 
-static inline void ufshcd_crypto_destroy_rq_keyslot_manager(struct ufs_hba *hba,
+static void ufshcd_crypto_destroy_rq_keyslot_manager(struct ufs_hba *hba,
 						struct request_queue *q) { }
 
-static inline int ufshcd_prepare_lrbp_crypto(struct ufs_hba *hba,
+static int ufshcd_prepare_lrbp_crypto(struct ufs_hba *hba,
 					     struct scsi_cmnd *cmd,
 					     struct ufshcd_lrb *lrbp)
 {
 	return 0;
 }
 
-static inline int ufshcd_map_sg_crypto(struct ufs_hba *hba,
+static int ufshcd_map_sg_crypto(struct ufs_hba *hba,
 				       struct ufshcd_lrb *lrbp)
 {
 	return 0;
 }
 
-static inline bool ufshcd_lrbp_crypto_enabled(struct ufshcd_lrb *lrbp)
+static bool ufshcd_lrbp_crypto_enabled(struct ufshcd_lrb *lrbp)
 {
 	return false;
 }
 
-static inline int ufshcd_complete_lrbp_crypto(struct ufs_hba *hba,
+static int ufshcd_complete_lrbp_crypto(struct ufs_hba *hba,
 					      struct scsi_cmnd *cmd,
 					      struct ufshcd_lrb *lrbp)
 {
@@ -155,19 +155,19 @@ static inline int ufshcd_complete_lrbp_crypto(struct ufs_hba *hba,
 
 static inline void ufshcd_crypto_debug(struct ufs_hba *hba) { }
 
-static inline int ufshcd_crypto_suspend(struct ufs_hba *hba,
+static int ufshcd_crypto_suspend(struct ufs_hba *hba,
 					enum ufs_pm_op pm_op)
 {
 	return 0;
 }
 
-static inline int ufshcd_crypto_resume(struct ufs_hba *hba,
+static int ufshcd_crypto_resume(struct ufs_hba *hba,
 					enum ufs_pm_op pm_op)
 {
 	return 0;
 }
 
-static inline void ufshcd_crypto_set_vops(struct ufs_hba *hba,
+static void ufshcd_crypto_set_vops(struct ufs_hba *hba,
 			struct ufs_hba_crypto_variant_ops *crypto_vops) { }
 
 #endif /* CONFIG_SCSI_UFS_CRYPTO */

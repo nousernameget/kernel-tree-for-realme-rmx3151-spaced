@@ -96,25 +96,25 @@ int i915_gem_timeline_init__global(struct drm_i915_private *i915);
 void i915_gem_timelines_mark_idle(struct drm_i915_private *i915);
 void i915_gem_timeline_fini(struct i915_gem_timeline *tl);
 
-static inline int __intel_timeline_sync_set(struct intel_timeline *tl,
+static int __intel_timeline_sync_set(struct intel_timeline *tl,
 					    u64 context, u32 seqno)
 {
 	return i915_syncmap_set(&tl->sync, context, seqno);
 }
 
-static inline int intel_timeline_sync_set(struct intel_timeline *tl,
+static int intel_timeline_sync_set(struct intel_timeline *tl,
 					  const struct dma_fence *fence)
 {
 	return __intel_timeline_sync_set(tl, fence->context, fence->seqno);
 }
 
-static inline bool __intel_timeline_sync_is_later(struct intel_timeline *tl,
+static bool __intel_timeline_sync_is_later(struct intel_timeline *tl,
 						  u64 context, u32 seqno)
 {
 	return i915_syncmap_is_later(&tl->sync, context, seqno);
 }
 
-static inline bool intel_timeline_sync_is_later(struct intel_timeline *tl,
+static bool intel_timeline_sync_is_later(struct intel_timeline *tl,
 						const struct dma_fence *fence)
 {
 	return __intel_timeline_sync_is_later(tl, fence->context, fence->seqno);

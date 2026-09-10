@@ -57,12 +57,12 @@ void iwp_session_init(struct iwp_session *session,
 		      const struct identity *identity);
 
 /* Getters */
-static inline u32 iwp_session_id(struct iwp_session *session)
+static u32 iwp_session_id(struct iwp_session *session)
 {
 	return session->sid;
 }
 
-static inline u64 iwp_session_slot(struct iwp_session *session)
+static u64 iwp_session_slot(struct iwp_session *session)
 {
 	return session->slot;
 }

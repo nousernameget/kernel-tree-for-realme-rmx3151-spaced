@@ -41,7 +41,7 @@ extern int i810_probe_i2c_connector(struct fb_info *info, u8 **out_edid,
 extern void i810_create_i2c_busses(struct i810fb_par *par);
 extern void i810_delete_i2c_busses(struct i810fb_par *par);
 #else
-static inline int i810_probe_i2c_connector(struct fb_info *info, u8 **out_edid,
+static int i810_probe_i2c_connector(struct fb_info *info, u8 **out_edid,
 				    int conn)
 {
 	return 1;
@@ -52,7 +52,7 @@ static inline void i810_delete_i2c_busses(struct i810fb_par *par) { }
 
 /* Conditionals */
 #ifdef CONFIG_X86
-static inline void flush_cache(void)
+static void flush_cache(void)
 {
 	asm volatile ("wbinvd":::"memory");
 }

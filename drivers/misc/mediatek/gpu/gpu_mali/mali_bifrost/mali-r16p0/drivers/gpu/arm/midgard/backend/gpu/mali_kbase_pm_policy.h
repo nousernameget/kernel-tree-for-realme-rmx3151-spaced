@@ -84,7 +84,7 @@ void kbase_pm_update_cores(struct kbase_device *kbdev);
  * Return: true if the request to the HW was successfully made else false if the
  *         request is still pending.
  */
-static inline bool kbase_pm_cores_requested(struct kbase_device *kbdev,
+static bool kbase_pm_cores_requested(struct kbase_device *kbdev,
 		bool shader_required)
 {
 	lockdep_assert_held(&kbdev->hwaccess_lock);

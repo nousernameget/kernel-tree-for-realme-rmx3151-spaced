@@ -389,7 +389,7 @@ struct iwl_lq_sta {
 	u8 last_bt_traffic;
 };
 
-static inline u8 first_antenna(u8 mask)
+static u8 first_antenna(u8 mask)
 {
 	if (mask & ANT_A)
 		return ANT_A;

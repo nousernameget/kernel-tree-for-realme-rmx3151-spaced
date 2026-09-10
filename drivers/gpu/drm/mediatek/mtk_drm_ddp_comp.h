@@ -343,7 +343,7 @@ struct mtk_ddp_comp {
 	u32 hrt_bw;
 };
 
-static inline void mtk_ddp_comp_config(struct mtk_ddp_comp *comp,
+static void mtk_ddp_comp_config(struct mtk_ddp_comp *comp,
 				       struct mtk_ddp_config *cfg,
 				       struct cmdq_pkt *handle)
 {
@@ -351,33 +351,33 @@ static inline void mtk_ddp_comp_config(struct mtk_ddp_comp *comp,
 		comp->funcs->config(comp, cfg, handle);
 }
 
-static inline void mtk_ddp_comp_prepare(struct mtk_ddp_comp *comp)
+static void mtk_ddp_comp_prepare(struct mtk_ddp_comp *comp)
 {
 	if (comp && comp->funcs && comp->funcs->prepare && !comp->blank_mode)
 		comp->funcs->prepare(comp);
 }
 
-static inline void mtk_ddp_comp_unprepare(struct mtk_ddp_comp *comp)
+static void mtk_ddp_comp_unprepare(struct mtk_ddp_comp *comp)
 {
 	if (comp && comp->funcs && comp->funcs->unprepare && !comp->blank_mode)
 		comp->funcs->unprepare(comp);
 }
 
-static inline void mtk_ddp_comp_start(struct mtk_ddp_comp *comp,
+static void mtk_ddp_comp_start(struct mtk_ddp_comp *comp,
 				      struct cmdq_pkt *handle)
 {
 	if (comp && comp->funcs && comp->funcs->start && !comp->blank_mode)
 		comp->funcs->start(comp, handle);
 }
 
-static inline void mtk_ddp_comp_stop(struct mtk_ddp_comp *comp,
+static void mtk_ddp_comp_stop(struct mtk_ddp_comp *comp,
 				     struct cmdq_pkt *handle)
 {
 	if (comp && comp->funcs && comp->funcs->stop && !comp->blank_mode)
 		comp->funcs->stop(comp, handle);
 }
 
-static inline void mtk_ddp_comp_enable_vblank(struct mtk_ddp_comp *comp,
+static void mtk_ddp_comp_enable_vblank(struct mtk_ddp_comp *comp,
 					      struct drm_crtc *crtc,
 					      struct cmdq_pkt *handle)
 {
@@ -386,7 +386,7 @@ static inline void mtk_ddp_comp_enable_vblank(struct mtk_ddp_comp *comp,
 		comp->funcs->enable_vblank(comp, crtc, handle);
 }
 
-static inline void mtk_ddp_comp_disable_vblank(struct mtk_ddp_comp *comp,
+static void mtk_ddp_comp_disable_vblank(struct mtk_ddp_comp *comp,
 					       struct cmdq_pkt *handle)
 {
 	if (comp && comp->funcs && comp->funcs->disable_vblank &&
@@ -394,7 +394,7 @@ static inline void mtk_ddp_comp_disable_vblank(struct mtk_ddp_comp *comp,
 		comp->funcs->disable_vblank(comp, handle);
 }
 
-static inline void mtk_ddp_comp_layer_on(struct mtk_ddp_comp *comp,
+static void mtk_ddp_comp_layer_on(struct mtk_ddp_comp *comp,
 					 unsigned int idx, unsigned int ext_idx,
 					 struct cmdq_pkt *handle)
 {
@@ -402,7 +402,7 @@ static inline void mtk_ddp_comp_layer_on(struct mtk_ddp_comp *comp,
 		comp->funcs->layer_on(comp, idx, ext_idx, handle);
 }
 
-static inline void mtk_ddp_comp_layer_off(struct mtk_ddp_comp *comp,
+static void mtk_ddp_comp_layer_off(struct mtk_ddp_comp *comp,
 					  unsigned int idx,
 					  unsigned int ext_idx,
 					  struct cmdq_pkt *handle)
@@ -411,7 +411,7 @@ static inline void mtk_ddp_comp_layer_off(struct mtk_ddp_comp *comp,
 		comp->funcs->layer_off(comp, idx, ext_idx, handle);
 }
 
-static inline void mtk_ddp_comp_layer_config(struct mtk_ddp_comp *comp,
+static void mtk_ddp_comp_layer_config(struct mtk_ddp_comp *comp,
 					     unsigned int idx,
 					     struct mtk_plane_state *state,
 					     struct cmdq_pkt *handle)
@@ -427,7 +427,7 @@ static inline void mtk_ddp_comp_layer_config(struct mtk_ddp_comp *comp,
 	}
 }
 
-static inline void mtk_ddp_gamma_set(struct mtk_ddp_comp *comp,
+static void mtk_ddp_gamma_set(struct mtk_ddp_comp *comp,
 				     struct drm_crtc_state *state,
 				     struct cmdq_pkt *handle)
 {
@@ -435,14 +435,14 @@ static inline void mtk_ddp_gamma_set(struct mtk_ddp_comp *comp,
 		comp->funcs->gamma_set(comp, state, handle);
 }
 
-static inline void mtk_ddp_comp_bypass(struct mtk_ddp_comp *comp, int bypass,
+static void mtk_ddp_comp_bypass(struct mtk_ddp_comp *comp, int bypass,
 				       struct cmdq_pkt *handle)
 {
 	if (comp && comp->funcs && comp->funcs->bypass && !comp->blank_mode)
 		comp->funcs->bypass(comp, bypass, handle);
 }
 
-static inline void mtk_ddp_comp_first_cfg(struct mtk_ddp_comp *comp,
+static void mtk_ddp_comp_first_cfg(struct mtk_ddp_comp *comp,
 				       struct mtk_ddp_config *cfg,
 				       struct cmdq_pkt *handle)
 {
@@ -450,7 +450,7 @@ static inline void mtk_ddp_comp_first_cfg(struct mtk_ddp_comp *comp,
 		comp->funcs->first_cfg(comp, cfg, handle);
 }
 
-static inline void
+static void
 mtk_ddp_comp_config_trigger(struct mtk_ddp_comp *comp, struct cmdq_pkt *handle,
 			    enum mtk_ddp_comp_trigger_flag flag)
 {
@@ -459,7 +459,7 @@ mtk_ddp_comp_config_trigger(struct mtk_ddp_comp *comp, struct cmdq_pkt *handle,
 		comp->funcs->config_trigger(comp, handle, flag);
 }
 
-static inline void
+static void
 mtk_ddp_comp_addon_config(struct mtk_ddp_comp *comp, enum mtk_ddp_comp_id prev,
 			  enum mtk_ddp_comp_id next,
 			  union mtk_addon_config *addon_config,
@@ -471,7 +471,7 @@ mtk_ddp_comp_addon_config(struct mtk_ddp_comp *comp, enum mtk_ddp_comp_id prev,
 				handle);
 }
 
-static inline int mtk_ddp_comp_io_cmd(struct mtk_ddp_comp *comp,
+static int mtk_ddp_comp_io_cmd(struct mtk_ddp_comp *comp,
 				      struct cmdq_pkt *handle,
 				      enum mtk_ddp_io_cmd io_cmd, void *params)
 {
@@ -483,7 +483,7 @@ static inline int mtk_ddp_comp_io_cmd(struct mtk_ddp_comp *comp,
 	return ret;
 }
 
-static inline int
+static int
 mtk_ddp_comp_is_busy(struct mtk_ddp_comp *comp)
 {
 	int ret = 0;
@@ -494,7 +494,7 @@ mtk_ddp_comp_is_busy(struct mtk_ddp_comp *comp)
 	return ret;
 }
 
-static inline void mtk_ddp_cpu_mask_write(struct mtk_ddp_comp *comp,
+static void mtk_ddp_cpu_mask_write(struct mtk_ddp_comp *comp,
 					  unsigned int off, unsigned int val,
 					  unsigned int mask)
 {

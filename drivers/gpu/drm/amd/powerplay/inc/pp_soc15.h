@@ -25,7 +25,7 @@
 
 #include "vega10/soc15ip.h"
 
-inline static uint32_t soc15_get_register_offset(
+static uint32_t soc15_get_register_offset(
 		uint32_t hw_id,
 		uint32_t inst,
 		uint32_t segment,

@@ -152,7 +152,7 @@ enum {
 	EF4_FILTER_RX_DMAQ_ID_DROP = 0xfff
 };
 
-static inline void ef4_filter_init_rx(struct ef4_filter_spec *spec,
+static void ef4_filter_init_rx(struct ef4_filter_spec *spec,
 				      enum ef4_filter_priority priority,
 				      enum ef4_filter_flags flags,
 				      unsigned rxq_id)
@@ -164,7 +164,7 @@ static inline void ef4_filter_init_rx(struct ef4_filter_spec *spec,
 	spec->dmaq_id = rxq_id;
 }
 
-static inline void ef4_filter_init_tx(struct ef4_filter_spec *spec,
+static void ef4_filter_init_tx(struct ef4_filter_spec *spec,
 				      unsigned txq_id)
 {
 	memset(spec, 0, sizeof(*spec));
@@ -180,7 +180,7 @@ static inline void ef4_filter_init_tx(struct ef4_filter_spec *spec,
  * @host: Local host address (network byte order)
  * @port: Local port (network byte order)
  */
-static inline int
+static int
 ef4_filter_set_ipv4_local(struct ef4_filter_spec *spec, u8 proto,
 			  __be32 host, __be16 port)
 {
@@ -203,7 +203,7 @@ ef4_filter_set_ipv4_local(struct ef4_filter_spec *spec, u8 proto,
  * @rhost: Remote host address (network byte order)
  * @rport: Remote port (network byte order)
  */
-static inline int
+static int
 ef4_filter_set_ipv4_full(struct ef4_filter_spec *spec, u8 proto,
 			 __be32 lhost, __be16 lport,
 			 __be32 rhost, __be16 rport)
@@ -231,7 +231,7 @@ enum {
  * @vid: Outer VLAN ID to match, or %EF4_FILTER_VID_UNSPEC
  * @addr: Local Ethernet MAC address, or %NULL
  */
-static inline int ef4_filter_set_eth_local(struct ef4_filter_spec *spec,
+static int ef4_filter_set_eth_local(struct ef4_filter_spec *spec,
 					   u16 vid, const u8 *addr)
 {
 	if (vid == EF4_FILTER_VID_UNSPEC && addr == NULL)
@@ -252,7 +252,7 @@ static inline int ef4_filter_set_eth_local(struct ef4_filter_spec *spec,
  * ef4_filter_set_uc_def - specify matching otherwise-unmatched unicast
  * @spec: Specification to initialise
  */
-static inline int ef4_filter_set_uc_def(struct ef4_filter_spec *spec)
+static int ef4_filter_set_uc_def(struct ef4_filter_spec *spec)
 {
 	spec->match_flags |= EF4_FILTER_MATCH_LOC_MAC_IG;
 	return 0;
@@ -262,7 +262,7 @@ static inline int ef4_filter_set_uc_def(struct ef4_filter_spec *spec)
  * ef4_filter_set_mc_def - specify matching otherwise-unmatched multicast
  * @spec: Specification to initialise
  */
-static inline int ef4_filter_set_mc_def(struct ef4_filter_spec *spec)
+static int ef4_filter_set_mc_def(struct ef4_filter_spec *spec)
 {
 	spec->match_flags |= EF4_FILTER_MATCH_LOC_MAC_IG;
 	spec->loc_mac[0] = 1;

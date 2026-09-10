@@ -52,14 +52,14 @@ void hgpk_module_init(void);
 int hgpk_detect(struct psmouse *psmouse, bool set_properties);
 int hgpk_init(struct psmouse *psmouse);
 #else
-static inline void hgpk_module_init(void)
+static void hgpk_module_init(void)
 {
 }
-static inline int hgpk_detect(struct psmouse *psmouse, bool set_properties)
+static int hgpk_detect(struct psmouse *psmouse, bool set_properties)
 {
 	return -ENODEV;
 }
-static inline int hgpk_init(struct psmouse *psmouse)
+static int hgpk_init(struct psmouse *psmouse)
 {
 	return -ENODEV;
 }

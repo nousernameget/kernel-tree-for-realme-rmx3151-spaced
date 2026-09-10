@@ -574,65 +574,65 @@ struct hns_roce_dev {
 	struct hns_roce_hw	*hw;
 };
 
-static inline struct hns_roce_dev *to_hr_dev(struct ib_device *ib_dev)
+static struct hns_roce_dev *to_hr_dev(struct ib_device *ib_dev)
 {
 	return container_of(ib_dev, struct hns_roce_dev, ib_dev);
 }
 
-static inline struct hns_roce_ucontext
+static struct hns_roce_ucontext
 			*to_hr_ucontext(struct ib_ucontext *ibucontext)
 {
 	return container_of(ibucontext, struct hns_roce_ucontext, ibucontext);
 }
 
-static inline struct hns_roce_pd *to_hr_pd(struct ib_pd *ibpd)
+static struct hns_roce_pd *to_hr_pd(struct ib_pd *ibpd)
 {
 	return container_of(ibpd, struct hns_roce_pd, ibpd);
 }
 
-static inline struct hns_roce_ah *to_hr_ah(struct ib_ah *ibah)
+static struct hns_roce_ah *to_hr_ah(struct ib_ah *ibah)
 {
 	return container_of(ibah, struct hns_roce_ah, ibah);
 }
 
-static inline struct hns_roce_mr *to_hr_mr(struct ib_mr *ibmr)
+static struct hns_roce_mr *to_hr_mr(struct ib_mr *ibmr)
 {
 	return container_of(ibmr, struct hns_roce_mr, ibmr);
 }
 
-static inline struct hns_roce_qp *to_hr_qp(struct ib_qp *ibqp)
+static struct hns_roce_qp *to_hr_qp(struct ib_qp *ibqp)
 {
 	return container_of(ibqp, struct hns_roce_qp, ibqp);
 }
 
-static inline struct hns_roce_cq *to_hr_cq(struct ib_cq *ib_cq)
+static struct hns_roce_cq *to_hr_cq(struct ib_cq *ib_cq)
 {
 	return container_of(ib_cq, struct hns_roce_cq, ib_cq);
 }
 
-static inline struct hns_roce_srq *to_hr_srq(struct ib_srq *ibsrq)
+static struct hns_roce_srq *to_hr_srq(struct ib_srq *ibsrq)
 {
 	return container_of(ibsrq, struct hns_roce_srq, ibsrq);
 }
 
-static inline struct hns_roce_sqp *hr_to_hr_sqp(struct hns_roce_qp *hr_qp)
+static struct hns_roce_sqp *hr_to_hr_sqp(struct hns_roce_qp *hr_qp)
 {
 	return container_of(hr_qp, struct hns_roce_sqp, hr_qp);
 }
 
-static inline void hns_roce_write64_k(__be32 val[2], void __iomem *dest)
+static void hns_roce_write64_k(__be32 val[2], void __iomem *dest)
 {
 	__raw_writeq(*(u64 *) val, dest);
 }
 
-static inline struct hns_roce_qp
+static struct hns_roce_qp
 	*__hns_roce_qp_lookup(struct hns_roce_dev *hr_dev, u32 qpn)
 {
 	return radix_tree_lookup(&hr_dev->qp_table_tree,
 				 qpn & (hr_dev->caps.num_qps - 1));
 }
 
-static inline void *hns_roce_buf_offset(struct hns_roce_buf *buf, int offset)
+static void *hns_roce_buf_offset(struct hns_roce_buf *buf, int offset)
 {
 	u32 bits_per_long_val = BITS_PER_LONG;
 

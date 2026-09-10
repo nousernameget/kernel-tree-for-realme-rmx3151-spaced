@@ -48,7 +48,7 @@ struct qm_mcr_querywq {
 	u32 wq_len[8];
 } __packed;
 
-static inline u16 qm_mcr_querywq_get_chan(const struct qm_mcr_querywq *wq)
+static u16 qm_mcr_querywq_get_chan(const struct qm_mcr_querywq *wq)
 {
 	return wq->channel_wq >> 3;
 }
@@ -81,11 +81,11 @@ struct qm_mcr_querycgr {
 	__be32 cscn_targ_swp[4];
 } __packed;
 
-static inline u64 qm_mcr_querycgr_i_get64(const struct qm_mcr_querycgr *q)
+static u64 qm_mcr_querycgr_i_get64(const struct qm_mcr_querycgr *q)
 {
 	return ((u64)q->i_bcnt_hi << 32) | be32_to_cpu(q->i_bcnt_lo);
 }
-static inline u64 qm_mcr_querycgr_a_get64(const struct qm_mcr_querycgr *q)
+static u64 qm_mcr_querycgr_a_get64(const struct qm_mcr_querycgr *q)
 {
 	return ((u64)q->a_bcnt_hi << 32) | be32_to_cpu(q->a_bcnt_lo);
 }
@@ -107,28 +107,28 @@ struct qman_cgrs {
 	struct __qm_mcr_querycongestion q;
 };
 
-static inline void qman_cgrs_init(struct qman_cgrs *c)
+static void qman_cgrs_init(struct qman_cgrs *c)
 {
 	memset(c, 0, sizeof(*c));
 }
 
-static inline void qman_cgrs_fill(struct qman_cgrs *c)
+static void qman_cgrs_fill(struct qman_cgrs *c)
 {
 	memset(c, 0xff, sizeof(*c));
 }
 
-static inline int qman_cgrs_get(struct qman_cgrs *c, u8 cgr)
+static int qman_cgrs_get(struct qman_cgrs *c, u8 cgr)
 {
 	return c->q.state[CGR_WORD(cgr)] & CGR_BIT(cgr);
 }
 
-static inline void qman_cgrs_cp(struct qman_cgrs *dest,
+static void qman_cgrs_cp(struct qman_cgrs *dest,
 				const struct qman_cgrs *src)
 {
 	*dest = *src;
 }
 
-static inline void qman_cgrs_and(struct qman_cgrs *dest,
+static void qman_cgrs_and(struct qman_cgrs *dest,
 			const struct qman_cgrs *a, const struct qman_cgrs *b)
 {
 	int ret;
@@ -140,7 +140,7 @@ static inline void qman_cgrs_and(struct qman_cgrs *dest,
 		*_d++ = *_a++ & *_b++;
 }
 
-static inline void qman_cgrs_xor(struct qman_cgrs *dest,
+static void qman_cgrs_xor(struct qman_cgrs *dest,
 			const struct qman_cgrs *a, const struct qman_cgrs *b)
 {
 	int ret;

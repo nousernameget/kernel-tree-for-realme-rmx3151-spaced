@@ -148,7 +148,7 @@ void flite_hw_dump_regs(struct fimc_lite *dev, const char *label);
 void flite_hw_set_dma_buffer(struct fimc_lite *dev, struct flite_buffer *buf);
 void flite_hw_mask_dma_buffer(struct fimc_lite *dev, u32 index);
 
-static inline void flite_hw_set_dma_buf_mask(struct fimc_lite *dev, u32 mask)
+static void flite_hw_set_dma_buf_mask(struct fimc_lite *dev, u32 mask)
 {
 	writel(mask, dev->regs + FLITE_REG_CIFCNTSEQ);
 }

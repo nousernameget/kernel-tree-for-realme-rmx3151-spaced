@@ -102,7 +102,7 @@ void sas_free_device(struct kref *kref);
 #ifdef CONFIG_SCSI_SAS_HOST_SMP
 extern void sas_smp_host_handler(struct bsg_job *job, struct Scsi_Host *shost);
 #else
-static inline void sas_smp_host_handler(struct bsg_job *job,
+static void sas_smp_host_handler(struct bsg_job *job,
 		struct Scsi_Host *shost)
 {
 	shost_printk(KERN_ERR, shost,
@@ -111,7 +111,7 @@ static inline void sas_smp_host_handler(struct bsg_job *job,
 }
 #endif
 
-static inline void sas_fail_probe(struct domain_device *dev, const char *func, int err)
+static void sas_fail_probe(struct domain_device *dev, const char *func, int err)
 {
 	SAS_DPRINTK("%s: for %s device %16llx returned %d\n",
 		    func, dev->parent ? "exp-attached" :
@@ -120,7 +120,7 @@ static inline void sas_fail_probe(struct domain_device *dev, const char *func, i
 	sas_unregister_dev(dev->port, dev);
 }
 
-static inline void sas_fill_in_rphy(struct domain_device *dev,
+static void sas_fill_in_rphy(struct domain_device *dev,
 				    struct sas_rphy *rphy)
 {
 	rphy->identify.sas_address = SAS_ADDR(dev->sas_addr);
@@ -145,7 +145,7 @@ static inline void sas_fill_in_rphy(struct domain_device *dev,
 	}
 }
 
-static inline void sas_phy_set_target(struct asd_sas_phy *p, struct domain_device *dev)
+static void sas_phy_set_target(struct asd_sas_phy *p, struct domain_device *dev)
 {
 	struct sas_phy *phy = p->phy;
 
@@ -161,7 +161,7 @@ static inline void sas_phy_set_target(struct asd_sas_phy *p, struct domain_devic
 	}
 }
 
-static inline void sas_add_parent_port(struct domain_device *dev, int phy_id)
+static void sas_add_parent_port(struct domain_device *dev, int phy_id)
 {
 	struct expander_device *ex = &dev->ex_dev;
 	struct ex_phy *ex_phy = &ex->ex_phy[phy_id];
@@ -176,7 +176,7 @@ static inline void sas_add_parent_port(struct domain_device *dev, int phy_id)
 	sas_port_add_phy(ex->parent_port, ex_phy->phy);
 }
 
-static inline struct domain_device *sas_alloc_device(void)
+static struct domain_device *sas_alloc_device(void)
 {
 	struct domain_device *dev = kzalloc(sizeof(*dev), GFP_KERNEL);
 
@@ -190,7 +190,7 @@ static inline struct domain_device *sas_alloc_device(void)
 	return dev;
 }
 
-static inline void sas_put_device(struct domain_device *dev)
+static void sas_put_device(struct domain_device *dev)
 {
 	kref_put(&dev->kref, sas_free_device);
 }

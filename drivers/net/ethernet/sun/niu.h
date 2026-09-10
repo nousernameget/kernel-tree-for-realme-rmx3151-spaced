@@ -2879,7 +2879,7 @@ struct tx_ring_info {
 #define NEXT_TX(tp, index) \
 	(((index) + 1) < (tp)->pending ? ((index) + 1) : 0)
 
-static inline u32 niu_tx_avail(struct tx_ring_info *tp)
+static u32 niu_tx_avail(struct tx_ring_info *tp)
 {
 	return (tp->pending -
 		((tp->prod - tp->cons) & (MAX_TX_RING_SIZE - 1)));

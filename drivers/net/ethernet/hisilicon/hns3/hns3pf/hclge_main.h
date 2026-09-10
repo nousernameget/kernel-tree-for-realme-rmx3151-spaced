@@ -507,7 +507,7 @@ int hclge_cfg_func_mta_filter(struct hclge_dev *hdev,
 struct hclge_vport *hclge_get_vport(struct hnae3_handle *handle);
 int hclge_map_vport_ring_to_vector(struct hclge_vport *vport, int vector,
 				   struct hnae3_ring_chain_node *ring_chain);
-static inline int hclge_get_queue_id(struct hnae3_queue *queue)
+static int hclge_get_queue_id(struct hnae3_queue *queue)
 {
 	struct hclge_tqp *tqp = container_of(queue, struct hclge_tqp, q);
 

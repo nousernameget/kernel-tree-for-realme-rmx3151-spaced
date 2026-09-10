@@ -44,7 +44,7 @@ static void kbase_trace_gpu_mem_usage(struct kbase_device *kbdev,
 				kctx->kprcs->total_gpu_pages << PAGE_SHIFT);
 }
 
-static inline void kbase_trace_gpu_mem_usage_dec(struct kbase_device *kbdev,
+static void kbase_trace_gpu_mem_usage_dec(struct kbase_device *kbdev,
 				struct kbase_context *kctx, size_t pages)
 {
 	spin_lock(&kbdev->gpu_mem_usage_lock);
@@ -59,7 +59,7 @@ static inline void kbase_trace_gpu_mem_usage_dec(struct kbase_device *kbdev,
 	spin_unlock(&kbdev->gpu_mem_usage_lock);
 }
 
-static inline void kbase_trace_gpu_mem_usage_inc(struct kbase_device *kbdev,
+static void kbase_trace_gpu_mem_usage_inc(struct kbase_device *kbdev,
 				struct kbase_context *kctx, size_t pages)
 {
 	spin_lock(&kbdev->gpu_mem_usage_lock);

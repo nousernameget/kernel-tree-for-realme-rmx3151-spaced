@@ -211,7 +211,7 @@ extern struct rt_regmap_device*
 				struct device *parent,
 				void *client, int slv_addr, void *drvdata);
 
-static inline struct rt_regmap_device*
+static struct rt_regmap_device*
 	rt_regmap_device_register(struct rt_regmap_properties *props,
 				struct rt_regmap_fops *rops,
 				struct device *parent,

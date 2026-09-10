@@ -122,7 +122,7 @@ struct idma64_desc {
 	enum dma_status status;
 };
 
-static inline struct idma64_desc *to_idma64_desc(struct virt_dma_desc *vdesc)
+static struct idma64_desc *to_idma64_desc(struct virt_dma_desc *vdesc)
 {
 	return container_of(vdesc, struct idma64_desc, vdesc);
 }
@@ -141,7 +141,7 @@ struct idma64_chan {
 	struct idma64_desc *desc;
 };
 
-static inline struct idma64_chan *to_idma64_chan(struct dma_chan *chan)
+static struct idma64_chan *to_idma64_chan(struct dma_chan *chan)
 {
 	return container_of(chan, struct idma64_chan, vchan.chan);
 }
@@ -151,12 +151,12 @@ static inline struct idma64_chan *to_idma64_chan(struct dma_chan *chan)
 #define channel_clear_bit(idma64, reg, mask)	\
 	dma_writel(idma64, reg, ((mask) << 8) | 0)
 
-static inline u32 idma64c_readl(struct idma64_chan *idma64c, int offset)
+static u32 idma64c_readl(struct idma64_chan *idma64c, int offset)
 {
 	return readl(idma64c->regs + offset);
 }
 
-static inline void idma64c_writel(struct idma64_chan *idma64c, int offset,
+static void idma64c_writel(struct idma64_chan *idma64c, int offset,
 				  u32 value)
 {
 	writel(value, idma64c->regs + offset);
@@ -167,12 +167,12 @@ static inline void idma64c_writel(struct idma64_chan *idma64c, int offset,
 #define channel_writel(idma64c, reg, value)	\
 	idma64c_writel(idma64c, IDMA64_CH_##reg, (value))
 
-static inline u64 idma64c_readq(struct idma64_chan *idma64c, int offset)
+static u64 idma64c_readq(struct idma64_chan *idma64c, int offset)
 {
 	return lo_hi_readq(idma64c->regs + offset);
 }
 
-static inline void idma64c_writeq(struct idma64_chan *idma64c, int offset,
+static void idma64c_writeq(struct idma64_chan *idma64c, int offset,
 				  u64 value)
 {
 	lo_hi_writeq(value, idma64c->regs + offset);
@@ -193,17 +193,17 @@ struct idma64 {
 	struct idma64_chan *chan;
 };
 
-static inline struct idma64 *to_idma64(struct dma_device *ddev)
+static struct idma64 *to_idma64(struct dma_device *ddev)
 {
 	return container_of(ddev, struct idma64, dma);
 }
 
-static inline u32 idma64_readl(struct idma64 *idma64, int offset)
+static u32 idma64_readl(struct idma64 *idma64, int offset)
 {
 	return readl(idma64->regs + offset);
 }
 
-static inline void idma64_writel(struct idma64 *idma64, int offset, u32 value)
+static void idma64_writel(struct idma64 *idma64, int offset, u32 value)
 {
 	writel(value, idma64->regs + offset);
 }

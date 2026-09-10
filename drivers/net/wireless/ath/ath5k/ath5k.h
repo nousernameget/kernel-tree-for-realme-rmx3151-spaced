@@ -1639,12 +1639,12 @@ int ath5k_hw_phy_init(struct ath5k_hw *ah, struct ieee80211_channel *channel,
  * Functions used internally
  */
 
-static inline struct ath_common *ath5k_hw_common(struct ath5k_hw *ah)
+static struct ath_common *ath5k_hw_common(struct ath5k_hw *ah)
 {
 	return &ah->common;
 }
 
-static inline struct ath_regulatory *ath5k_hw_regulatory(struct ath5k_hw *ah)
+static struct ath_regulatory *ath5k_hw_regulatory(struct ath5k_hw *ah)
 {
 	return &(ath5k_hw_common(ah)->regulatory);
 }
@@ -1652,7 +1652,7 @@ static inline struct ath_regulatory *ath5k_hw_regulatory(struct ath5k_hw *ah)
 #ifdef CONFIG_ATH5K_AHB
 #define AR5K_AR2315_PCI_BASE	((void __iomem *)0xb0100000)
 
-static inline void __iomem *ath5k_ahb_reg(struct ath5k_hw *ah, u16 reg)
+static void __iomem *ath5k_ahb_reg(struct ath5k_hw *ah, u16 reg)
 {
 	/* On AR2315 and AR2317 the PCI clock domain registers
 	 * are outside of the WMAC register space */
@@ -1663,47 +1663,47 @@ static inline void __iomem *ath5k_ahb_reg(struct ath5k_hw *ah, u16 reg)
 	return ah->iobase + reg;
 }
 
-static inline u32 ath5k_hw_reg_read(struct ath5k_hw *ah, u16 reg)
+static u32 ath5k_hw_reg_read(struct ath5k_hw *ah, u16 reg)
 {
 	return ioread32(ath5k_ahb_reg(ah, reg));
 }
 
-static inline void ath5k_hw_reg_write(struct ath5k_hw *ah, u32 val, u16 reg)
+static void ath5k_hw_reg_write(struct ath5k_hw *ah, u32 val, u16 reg)
 {
 	iowrite32(val, ath5k_ahb_reg(ah, reg));
 }
 
 #else
 
-static inline u32 ath5k_hw_reg_read(struct ath5k_hw *ah, u16 reg)
+static u32 ath5k_hw_reg_read(struct ath5k_hw *ah, u16 reg)
 {
 	return ioread32(ah->iobase + reg);
 }
 
-static inline void ath5k_hw_reg_write(struct ath5k_hw *ah, u32 val, u16 reg)
+static void ath5k_hw_reg_write(struct ath5k_hw *ah, u32 val, u16 reg)
 {
 	iowrite32(val, ah->iobase + reg);
 }
 
 #endif
 
-static inline enum ath_bus_type ath5k_get_bus_type(struct ath5k_hw *ah)
+static enum ath_bus_type ath5k_get_bus_type(struct ath5k_hw *ah)
 {
 	return ath5k_hw_common(ah)->bus_ops->ath_bus_type;
 }
 
-static inline void ath5k_read_cachesize(struct ath_common *common, int *csz)
+static void ath5k_read_cachesize(struct ath_common *common, int *csz)
 {
 	common->bus_ops->read_cachesize(common, csz);
 }
 
-static inline bool ath5k_hw_nvram_read(struct ath5k_hw *ah, u32 off, u16 *data)
+static bool ath5k_hw_nvram_read(struct ath5k_hw *ah, u32 off, u16 *data)
 {
 	struct ath_common *common = ath5k_hw_common(ah);
 	return common->bus_ops->eeprom_read(common, off, data);
 }
 
-static inline u32 ath5k_hw_bitswap(u32 val, unsigned int bits)
+static u32 ath5k_hw_bitswap(u32 val, unsigned int bits)
 {
 	u32 retval = 0, bit, i;
 

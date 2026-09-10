@@ -52,7 +52,7 @@ struct lmv_stripe_md {
 	struct lmv_oinfo lsm_md_oinfo[0];
 };
 
-static inline bool
+static bool
 lsm_md_eq(const struct lmv_stripe_md *lsm1, const struct lmv_stripe_md *lsm2)
 {
 	__u32 idx;
@@ -78,7 +78,7 @@ union lmv_mds_md;
 
 void lmv_free_memmd(struct lmv_stripe_md *lsm);
 
-static inline void lmv1_le_to_cpu(struct lmv_mds_md_v1 *lmv_dst,
+static void lmv1_le_to_cpu(struct lmv_mds_md_v1 *lmv_dst,
 				  const struct lmv_mds_md_v1 *lmv_src)
 {
 	__u32 i;
@@ -95,7 +95,7 @@ static inline void lmv1_le_to_cpu(struct lmv_mds_md_v1 *lmv_dst,
 			      &lmv_src->lmv_stripe_fids[i]);
 }
 
-static inline void lmv_le_to_cpu(union lmv_mds_md *lmv_dst,
+static void lmv_le_to_cpu(union lmv_mds_md *lmv_dst,
 				 const union lmv_mds_md *lmv_src)
 {
 	switch (le32_to_cpu(lmv_src->lmv_magic)) {
@@ -108,7 +108,7 @@ static inline void lmv_le_to_cpu(union lmv_mds_md *lmv_dst,
 }
 
 /* This hash is only for testing purpose */
-static inline unsigned int
+static unsigned int
 lmv_hash_all_chars(unsigned int count, const char *name, int namelen)
 {
 	const unsigned char *p = (const unsigned char *)name;
@@ -122,7 +122,7 @@ lmv_hash_all_chars(unsigned int count, const char *name, int namelen)
 	return c;
 }
 
-static inline unsigned int
+static unsigned int
 lmv_hash_fnv1a(unsigned int count, const char *name, int namelen)
 {
 	__u64 hash;
@@ -132,7 +132,7 @@ lmv_hash_fnv1a(unsigned int count, const char *name, int namelen)
 	return do_div(hash, count);
 }
 
-static inline int lmv_name_to_stripe_index(__u32 lmv_hash_type,
+static int lmv_name_to_stripe_index(__u32 lmv_hash_type,
 					   unsigned int stripe_count,
 					   const char *name, int namelen)
 {
@@ -164,7 +164,7 @@ static inline int lmv_name_to_stripe_index(__u32 lmv_hash_type,
 	return idx;
 }
 
-static inline bool lmv_is_known_hash_type(__u32 type)
+static bool lmv_is_known_hash_type(__u32 type)
 {
 	return (type & LMV_HASH_TYPE_MASK) == LMV_HASH_TYPE_FNV_1A_64 ||
 	       (type & LMV_HASH_TYPE_MASK) == LMV_HASH_TYPE_ALL_CHARS;

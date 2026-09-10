@@ -107,7 +107,7 @@
 #define IXGBE_2K_TOO_SMALL_WITH_PADDING \
 ((NET_SKB_PAD + IXGBE_RXBUFFER_1536) > SKB_WITH_OVERHEAD(IXGBE_RXBUFFER_2K))
 
-static inline int ixgbe_compute_pad(int rx_buf_len)
+static int ixgbe_compute_pad(int rx_buf_len)
 {
 	int page_size, pad_size;
 
@@ -117,7 +117,7 @@ static inline int ixgbe_compute_pad(int rx_buf_len)
 	return pad_size;
 }
 
-static inline int ixgbe_skb_pad(void)
+static int ixgbe_skb_pad(void)
 {
 	int rx_buf_len;
 
@@ -413,7 +413,7 @@ struct ixgbe_ring_feature {
  * this is twice the size of a half page we need to double the page order
  * for FCoE enabled Rx queues.
  */
-static inline unsigned int ixgbe_rx_bufsz(struct ixgbe_ring *ring)
+static unsigned int ixgbe_rx_bufsz(struct ixgbe_ring *ring)
 {
 	if (test_bit(__IXGBE_RX_3K_BUFFER, &ring->state))
 		return IXGBE_RXBUFFER_3K;
@@ -424,7 +424,7 @@ static inline unsigned int ixgbe_rx_bufsz(struct ixgbe_ring *ring)
 	return IXGBE_RXBUFFER_2K;
 }
 
-static inline unsigned int ixgbe_rx_pg_order(struct ixgbe_ring *ring)
+static unsigned int ixgbe_rx_pg_order(struct ixgbe_ring *ring)
 {
 #if (PAGE_SIZE < 8192)
 	if (test_bit(__IXGBE_RX_3K_BUFFER, &ring->state))
@@ -508,13 +508,13 @@ struct hwmon_buff {
 #define IXGBE_12K_ITR		336
 
 /* ixgbe_test_staterr - tests bits in Rx descriptor status and error fields */
-static inline __le32 ixgbe_test_staterr(union ixgbe_adv_rx_desc *rx_desc,
+static __le32 ixgbe_test_staterr(union ixgbe_adv_rx_desc *rx_desc,
 					const u32 stat_err_bits)
 {
 	return rx_desc->wb.upper.status_error & cpu_to_le32(stat_err_bits);
 }
 
-static inline u16 ixgbe_desc_unused(struct ixgbe_ring *ring)
+static u16 ixgbe_desc_unused(struct ixgbe_ring *ring)
 {
 	u16 ntc = ring->next_to_clean;
 	u16 ntu = ring->next_to_use;
@@ -773,7 +773,7 @@ struct ixgbe_adapter {
 	u32 *rss_key;
 };
 
-static inline u8 ixgbe_max_rss_indices(struct ixgbe_adapter *adapter)
+static u8 ixgbe_max_rss_indices(struct ixgbe_adapter *adapter)
 {
 	switch (adapter->hw.mac.type) {
 	case ixgbe_mac_82598EB:
@@ -951,7 +951,7 @@ static inline void ixgbe_dbg_adapter_exit(struct ixgbe_adapter *adapter) {}
 static inline void ixgbe_dbg_init(void) {}
 static inline void ixgbe_dbg_exit(void) {}
 #endif /* CONFIG_DEBUG_FS */
-static inline struct netdev_queue *txring_txq(const struct ixgbe_ring *ring)
+static struct netdev_queue *txring_txq(const struct ixgbe_ring *ring)
 {
 	return netdev_get_tx_queue(ring->netdev, ring->queue_index);
 }
@@ -964,7 +964,7 @@ void ixgbe_ptp_rx_hang(struct ixgbe_adapter *adapter);
 void ixgbe_ptp_tx_hang(struct ixgbe_adapter *adapter);
 void ixgbe_ptp_rx_pktstamp(struct ixgbe_q_vector *, struct sk_buff *);
 void ixgbe_ptp_rx_rgtstamp(struct ixgbe_q_vector *, struct sk_buff *skb);
-static inline void ixgbe_ptp_rx_hwtstamp(struct ixgbe_ring *rx_ring,
+static void ixgbe_ptp_rx_hwtstamp(struct ixgbe_ring *rx_ring,
 					 union ixgbe_adv_rx_desc *rx_desc,
 					 struct sk_buff *skb)
 {

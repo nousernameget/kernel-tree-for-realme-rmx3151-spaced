@@ -34,20 +34,20 @@
 
 #define HW_ACCESS_PRAM_MAX_RANGE		0x3c000
 
-static inline u32 wl1251_read32(struct wl1251 *wl, int addr)
+static u32 wl1251_read32(struct wl1251 *wl, int addr)
 {
 	wl->if_ops->read(wl, addr, &wl->buffer_32, sizeof(wl->buffer_32));
 
 	return le32_to_cpu(wl->buffer_32);
 }
 
-static inline void wl1251_write32(struct wl1251 *wl, int addr, u32 val)
+static void wl1251_write32(struct wl1251 *wl, int addr, u32 val)
 {
 	wl->buffer_32 = cpu_to_le32(val);
 	wl->if_ops->write(wl, addr, &wl->buffer_32, sizeof(wl->buffer_32));
 }
 
-static inline u32 wl1251_read_elp(struct wl1251 *wl, int addr)
+static u32 wl1251_read_elp(struct wl1251 *wl, int addr)
 {
 	u32 response;
 
@@ -59,7 +59,7 @@ static inline u32 wl1251_read_elp(struct wl1251 *wl, int addr)
 	return response;
 }
 
-static inline void wl1251_write_elp(struct wl1251 *wl, int addr, u32 val)
+static void wl1251_write_elp(struct wl1251 *wl, int addr, u32 val)
 {
 	if (wl->if_ops->write_elp)
 		wl->if_ops->write_elp(wl, addr, val);

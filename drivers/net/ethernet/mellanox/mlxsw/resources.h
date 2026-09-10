@@ -108,7 +108,7 @@ struct mlxsw_res {
 	u64 values[__MLXSW_RES_ID_MAX];
 };
 
-static inline bool mlxsw_res_valid(struct mlxsw_res *res,
+static bool mlxsw_res_valid(struct mlxsw_res *res,
 				   enum mlxsw_res_id res_id)
 {
 	return res->valid[res_id];
@@ -117,7 +117,7 @@ static inline bool mlxsw_res_valid(struct mlxsw_res *res,
 #define MLXSW_RES_VALID(res, short_res_id)			\
 	mlxsw_res_valid(res, MLXSW_RES_ID_##short_res_id)
 
-static inline u64 mlxsw_res_get(struct mlxsw_res *res,
+static u64 mlxsw_res_get(struct mlxsw_res *res,
 				enum mlxsw_res_id res_id)
 {
 	if (WARN_ON(!res->valid[res_id]))
@@ -128,7 +128,7 @@ static inline u64 mlxsw_res_get(struct mlxsw_res *res,
 #define MLXSW_RES_GET(res, short_res_id)			\
 	mlxsw_res_get(res, MLXSW_RES_ID_##short_res_id)
 
-static inline void mlxsw_res_set(struct mlxsw_res *res,
+static void mlxsw_res_set(struct mlxsw_res *res,
 				 enum mlxsw_res_id res_id, u64 value)
 {
 	res->valid[res_id] = true;
@@ -138,7 +138,7 @@ static inline void mlxsw_res_set(struct mlxsw_res *res,
 #define MLXSW_RES_SET(res, short_res_id, value)			\
 	mlxsw_res_set(res, MLXSW_RES_ID_##short_res_id, value)
 
-static inline void mlxsw_res_parse(struct mlxsw_res *res, u16 id, u64 value)
+static void mlxsw_res_parse(struct mlxsw_res *res, u16 id, u64 value)
 {
 	int i;
 

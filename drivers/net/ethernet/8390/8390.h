@@ -40,7 +40,7 @@ struct net_device_stats *ei_get_stats(struct net_device *dev);
 extern const struct net_device_ops ei_netdev_ops;
 
 struct net_device *__alloc_ei_netdev(int size);
-static inline struct net_device *alloc_ei_netdev(void)
+static struct net_device *alloc_ei_netdev(void)
 {
 	return __alloc_ei_netdev(0);
 }
@@ -58,7 +58,7 @@ struct net_device_stats *eip_get_stats(struct net_device *dev);
 extern const struct net_device_ops eip_netdev_ops;
 
 struct net_device *__alloc_eip_netdev(int size);
-static inline struct net_device *alloc_eip_netdev(void)
+static struct net_device *alloc_eip_netdev(void)
 {
 	return __alloc_eip_netdev(0);
 }

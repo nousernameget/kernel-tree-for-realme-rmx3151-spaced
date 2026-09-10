@@ -940,13 +940,13 @@ static const struct svga3d_surface_desc svga3d_surface_descs[] = {
 
 };
 
-static inline u32 clamped_umul32(u32 a, u32 b)
+static u32 clamped_umul32(u32 a, u32 b)
 {
 	uint64_t tmp = (uint64_t) a*b;
 	return (tmp > (uint64_t) ((u32) -1)) ? (u32) -1 : tmp;
 }
 
-static inline const struct svga3d_surface_desc *
+static const struct svga3d_surface_desc *
 svga3dsurface_get_desc(SVGA3dSurfaceFormat format)
 {
 	if (format < ARRAY_SIZE(svga3d_surface_descs))
@@ -972,7 +972,7 @@ svga3dsurface_get_desc(SVGA3dSurfaceFormat format)
  *----------------------------------------------------------------------
  */
 
-static inline surf_size_struct
+static surf_size_struct
 svga3dsurface_get_mip_size(surf_size_struct base_level, u32 mip_level)
 {
 	surf_size_struct size;
@@ -985,7 +985,7 @@ svga3dsurface_get_mip_size(surf_size_struct base_level, u32 mip_level)
 	return size;
 }
 
-static inline void
+static void
 svga3dsurface_get_size_in_blocks(const struct svga3d_surface_desc *desc,
 				 const surf_size_struct *pixel_size,
 				 surf_size_struct *block_size)
@@ -998,13 +998,13 @@ svga3dsurface_get_size_in_blocks(const struct svga3d_surface_desc *desc,
 						  desc->block_size.depth);
 }
 
-static inline bool
+static bool
 svga3dsurface_is_planar_surface(const struct svga3d_surface_desc *desc)
 {
 	return (desc->block_desc & SVGA3DBLOCKDESC_PLANAR_YUV) != 0;
 }
 
-static inline u32
+static u32
 svga3dsurface_calculate_pitch(const struct svga3d_surface_desc *desc,
 			      const surf_size_struct *size)
 {
@@ -1040,7 +1040,7 @@ svga3dsurface_calculate_pitch(const struct svga3d_surface_desc *desc,
  *-----------------------------------------------------------------------------
  */
 
-static inline u32
+static u32
 svga3dsurface_get_image_buffer_size(const struct svga3d_surface_desc *desc,
 				    const surf_size_struct *size,
 				    u32 pitch)
@@ -1067,7 +1067,7 @@ svga3dsurface_get_image_buffer_size(const struct svga3d_surface_desc *desc,
 	return total_size;
 }
 
-static inline u32
+static u32
 svga3dsurface_get_serialized_size(SVGA3dSurfaceFormat format,
 				  surf_size_struct base_level_size,
 				  u32 num_mip_levels,
@@ -1095,7 +1095,7 @@ svga3dsurface_get_serialized_size(SVGA3dSurfaceFormat format,
  * @width: The image width in pixels.
  * @height: The image height in pixels
  */
-static inline u32
+static u32
 svga3dsurface_get_pixel_offset(SVGA3dSurfaceFormat format,
 			       u32 width, u32 height,
 			       u32 x, u32 y, u32 z)
@@ -1113,7 +1113,7 @@ svga3dsurface_get_pixel_offset(SVGA3dSurfaceFormat format,
 }
 
 
-static inline u32
+static u32
 svga3dsurface_get_image_offset(SVGA3dSurfaceFormat format,
 			       surf_size_struct baseLevelSize,
 			       u32 numMipLevels,
@@ -1157,7 +1157,7 @@ svga3dsurface_get_image_offset(SVGA3dSurfaceFormat format,
  * RETURNS:
  * true if queried format is valid for screen targets
  */
-static inline bool
+static bool
 svga3dsurface_is_gb_screen_target_format(SVGA3dSurfaceFormat format)
 {
 	return (format == SVGA3D_X8R8G8B8 ||
@@ -1179,7 +1179,7 @@ svga3dsurface_is_gb_screen_target_format(SVGA3dSurfaceFormat format)
  * Results:
  * true if queried format is valid for screen targets
  */
-static inline bool
+static bool
 svga3dsurface_is_dx_screen_target_format(SVGA3dSurfaceFormat format)
 {
 	return (format == SVGA3D_R8G8B8A8_UNORM ||
@@ -1198,7 +1198,7 @@ svga3dsurface_is_dx_screen_target_format(SVGA3dSurfaceFormat format)
  * Results:
  * true if queried format is valid for screen targets
  */
-static inline bool
+static bool
 svga3dsurface_is_screen_target_format(SVGA3dSurfaceFormat format)
 {
 	if (svga3dsurface_is_gb_screen_target_format(format)) {

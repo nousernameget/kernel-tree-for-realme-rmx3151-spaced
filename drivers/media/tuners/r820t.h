@@ -46,7 +46,7 @@ struct dvb_frontend *r820t_attach(struct dvb_frontend *fe,
 				  struct i2c_adapter *i2c,
 				  const struct r820t_config *cfg);
 #else
-static inline struct dvb_frontend *r820t_attach(struct dvb_frontend *fe,
+static struct dvb_frontend *r820t_attach(struct dvb_frontend *fe,
 						struct i2c_adapter *i2c,
 						const struct r820t_config *cfg)
 {

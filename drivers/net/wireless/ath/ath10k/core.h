@@ -95,7 +95,7 @@ enum ath10k_bus {
 	ATH10K_BUS_USB,
 };
 
-static inline const char *ath10k_bus_str(enum ath10k_bus bus)
+static const char *ath10k_bus_str(enum ath10k_bus bus)
 {
 	switch (bus) {
 	case ATH10K_BUS_PCI:
@@ -133,14 +133,14 @@ struct ath10k_skb_rxcb {
 	struct hlist_node hlist;
 };
 
-static inline struct ath10k_skb_cb *ATH10K_SKB_CB(struct sk_buff *skb)
+static struct ath10k_skb_cb *ATH10K_SKB_CB(struct sk_buff *skb)
 {
 	BUILD_BUG_ON(sizeof(struct ath10k_skb_cb) >
 		     IEEE80211_TX_INFO_DRIVER_DATA_SIZE);
 	return (struct ath10k_skb_cb *)&IEEE80211_SKB_CB(skb)->driver_data;
 }
 
-static inline struct ath10k_skb_rxcb *ATH10K_SKB_RXCB(struct sk_buff *skb)
+static struct ath10k_skb_rxcb *ATH10K_SKB_RXCB(struct sk_buff *skb)
 {
 	BUILD_BUG_ON(sizeof(struct ath10k_skb_rxcb) > sizeof(skb->cb));
 	return (struct ath10k_skb_rxcb *)skb->cb;
@@ -149,7 +149,7 @@ static inline struct ath10k_skb_rxcb *ATH10K_SKB_RXCB(struct sk_buff *skb)
 #define ATH10K_RXCB_SKB(rxcb) \
 		container_of((void *)rxcb, struct sk_buff, cb)
 
-static inline u32 host_interest_item_address(u32 item_offset)
+static u32 host_interest_item_address(u32 item_offset)
 {
 	return QCA988X_HOST_INTEREST_ADDRESS + item_offset;
 }
@@ -658,7 +658,7 @@ enum ath10k_crypt_mode {
 	ATH10K_CRYPT_MODE_SW,
 };
 
-static inline const char *ath10k_cal_mode_str(enum ath10k_cal_mode mode)
+static const char *ath10k_cal_mode_str(enum ath10k_cal_mode mode)
 {
 	switch (mode) {
 	case ATH10K_CAL_MODE_FILE:
@@ -685,7 +685,7 @@ enum ath10k_scan_state {
 	ATH10K_SCAN_ABORTING,
 };
 
-static inline const char *ath10k_scan_state_str(enum ath10k_scan_state state)
+static const char *ath10k_scan_state_str(enum ath10k_scan_state state)
 {
 	switch (state) {
 	case ATH10K_SCAN_IDLE:
@@ -1005,7 +1005,7 @@ struct ath10k {
 	u8 drv_priv[0] __aligned(sizeof(void *));
 };
 
-static inline bool ath10k_peer_stats_enabled(struct ath10k *ar)
+static bool ath10k_peer_stats_enabled(struct ath10k *ar)
 {
 	if (test_bit(ATH10K_FLAG_PEER_STATS, &ar->dev_flags) &&
 	    test_bit(WMI_SERVICE_PEER_STATS, ar->wmi.svc_map))

@@ -136,14 +136,14 @@ extern struct rw_semaphore fw_device_rwsem;
 extern struct idr fw_device_idr;
 extern int fw_cdev_major;
 
-static inline struct fw_device *fw_device_get(struct fw_device *device)
+static struct fw_device *fw_device_get(struct fw_device *device)
 {
 	get_device(&device->device);
 
 	return device;
 }
 
-static inline void fw_device_put(struct fw_device *device)
+static void fw_device_put(struct fw_device *device)
 {
 	put_device(&device->device);
 }
@@ -196,14 +196,14 @@ struct fw_node {
 	struct fw_node *ports[0];
 };
 
-static inline struct fw_node *fw_node_get(struct fw_node *node)
+static struct fw_node *fw_node_get(struct fw_node *node)
 {
 	refcount_inc(&node->ref_count);
 
 	return node;
 }
 
-static inline void fw_node_put(struct fw_node *node)
+static void fw_node_put(struct fw_node *node)
 {
 	if (refcount_dec_and_test(&node->ref_count))
 		kfree(node);
@@ -217,7 +217,7 @@ void fw_destroy_nodes(struct fw_card *card);
  * Check whether new_generation is the immediate successor of old_generation.
  * Take counter roll-over at 255 (as per OHCI) into account.
  */
-static inline bool is_next_generation(int new_generation, int old_generation)
+static bool is_next_generation(int new_generation, int old_generation)
 {
 	return (new_generation & 0xff) == ((old_generation + 1) & 0xff);
 }
@@ -251,7 +251,7 @@ void fw_fill_response(struct fw_packet *response, u32 *request_header,
 void fw_send_phy_config(struct fw_card *card,
 			int node_id, int generation, int gap_count);
 
-static inline bool is_ping_packet(u32 *data)
+static bool is_ping_packet(u32 *data)
 {
 	return (data[0] & 0xc0ffffff) == 0 && ~data[0] == data[1];
 }

@@ -555,12 +555,12 @@ struct ccp_op {
 	} u;
 };
 
-static inline u32 ccp_addr_lo(struct ccp_dma_info *info)
+static u32 ccp_addr_lo(struct ccp_dma_info *info)
 {
 	return lower_32_bits(info->address + info->offset);
 }
 
-static inline u32 ccp_addr_hi(struct ccp_dma_info *info)
+static u32 ccp_addr_hi(struct ccp_dma_info *info)
 {
 	return upper_32_bits(info->address + info->offset) & 0x0000ffff;
 }

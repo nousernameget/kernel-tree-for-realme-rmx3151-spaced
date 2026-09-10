@@ -11,7 +11,7 @@
      *  This is equivalent to (a & mask) | (b & ~mask)
      */
 
-static inline unsigned long
+static unsigned long
 comp(unsigned long a, unsigned long b, unsigned long mask)
 {
     return ((a ^ b) & mask) ^ b;
@@ -22,7 +22,7 @@ comp(unsigned long a, unsigned long b, unsigned long mask)
      */
 
 #if BITS_PER_LONG == 64
-static inline unsigned long
+static unsigned long
 pixel_to_pat( u32 bpp, u32 pixel)
 {
 	switch (bpp) {
@@ -48,7 +48,7 @@ pixel_to_pat( u32 bpp, u32 pixel)
     }
 }
 #else
-static inline unsigned long
+static unsigned long
 pixel_to_pat( u32 bpp, u32 pixel)
 {
 	switch (bpp) {
@@ -86,7 +86,7 @@ pixel_to_pat( u32 bpp, u32 pixel)
 #define REV_PIXELS_MASK4 0x0f0f0f0ful
 #endif
 
-static inline unsigned long fb_rev_pixels_in_long(unsigned long val,
+static unsigned long fb_rev_pixels_in_long(unsigned long val,
 						  u32 bswapmask)
 {
 	if (bswapmask & 1)
@@ -98,7 +98,7 @@ static inline unsigned long fb_rev_pixels_in_long(unsigned long val,
 	return val;
 }
 
-static inline u32 fb_shifted_pixels_mask_u32(struct fb_info *p, u32 index,
+static u32 fb_shifted_pixels_mask_u32(struct fb_info *p, u32 index,
 					     u32 bswapmask)
 {
 	u32 mask;
@@ -119,7 +119,7 @@ static inline u32 fb_shifted_pixels_mask_u32(struct fb_info *p, u32 index,
 	return mask;
 }
 
-static inline unsigned long fb_shifted_pixels_mask_long(struct fb_info *p,
+static unsigned long fb_shifted_pixels_mask_long(struct fb_info *p,
 							u32 index,
 							u32 bswapmask)
 {
@@ -142,7 +142,7 @@ static inline unsigned long fb_shifted_pixels_mask_long(struct fb_info *p,
 }
 
 
-static inline u32 fb_compute_bswapmask(struct fb_info *info)
+static u32 fb_compute_bswapmask(struct fb_info *info)
 {
 	u32 bswapmask = 0;
 	unsigned bpp = info->var.bits_per_pixel;
@@ -159,7 +159,7 @@ static inline u32 fb_compute_bswapmask(struct fb_info *info)
 
 #else /* CONFIG_FB_CFB_REV_PIXELS_IN_BYTE */
 
-static inline unsigned long fb_rev_pixels_in_long(unsigned long val,
+static unsigned long fb_rev_pixels_in_long(unsigned long val,
 						  u32 bswapmask)
 {
 	return val;
@@ -179,7 +179,7 @@ static inline unsigned long fb_rev_pixels_in_long(unsigned long val,
 #define _le_long_to_cpu(x) __le_long_to_cpu(x)
 #define __le_long_to_cpu(x) le##x##_to_cpu
 
-static inline unsigned long rolx(unsigned long word, unsigned int shift, unsigned int x)
+static unsigned long rolx(unsigned long word, unsigned int shift, unsigned int x)
 {
 	return (word << shift) | (word >> (x - shift));
 }

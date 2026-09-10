@@ -31,55 +31,55 @@ extern bool mtk_pep20_get_is_connect(void);
 extern bool mtk_pep20_get_is_enable(void);
 
 #else /* NOT CONFIG_MTK_PUMP_EXPRESS_PLUS_20_SUPPORT */
-static inline int mtk_pep20_init(void)
+static int mtk_pep20_init(void)
 {
 	return -ENOTSUPP;
 }
 
-static inline int mtk_pep20_reset_ta_vchr(void)
+static int mtk_pep20_reset_ta_vchr(void)
 {
 	return -ENOTSUPP;
 }
 
-static inline int mtk_pep20_check_charger(void)
+static int mtk_pep20_check_charger(void)
 {
 	return -ENOTSUPP;
 }
 
-static inline int mtk_pep20_start_algorithm(void)
+static int mtk_pep20_start_algorithm(void)
 {
 	return -ENOTSUPP;
 }
 
-static inline int mtk_pep20_set_charging_current(enum CHR_CURRENT_ENUM *ichg,
+static int mtk_pep20_set_charging_current(enum CHR_CURRENT_ENUM *ichg,
 						 enum CHR_CURRENT_ENUM *aicr)
 {
 	return -ENOTSUPP;
 }
 
-static inline void mtk_pep20_set_to_check_chr_type(bool check)
+static void mtk_pep20_set_to_check_chr_type(bool check)
 {
 }
 
-static inline void mtk_pep20_set_is_enable(bool enable)
+static void mtk_pep20_set_is_enable(bool enable)
 {
 }
 
-static inline void mtk_pep20_set_is_cable_out_occur(bool out)
+static void mtk_pep20_set_is_cable_out_occur(bool out)
 {
 }
 
-static inline bool mtk_pep20_get_to_check_chr_type(void)
-{
-	return false;
-}
-
-static inline bool mtk_pep20_get_is_connect(void)
+static bool mtk_pep20_get_to_check_chr_type(void)
 {
 	return false;
 }
 
-static inline bool mtk_pep20_get_is_enable(void)
+static bool mtk_pep20_get_is_connect(void)
+{
+	return false;
+}
+
+static bool mtk_pep20_get_is_enable(void)
 {
 	return false;
 }

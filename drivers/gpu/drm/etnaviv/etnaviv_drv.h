@@ -61,7 +61,7 @@ struct etnaviv_drm_private {
 	struct workqueue_struct *wq;
 };
 
-static inline void etnaviv_queue_work(struct drm_device *dev,
+static void etnaviv_queue_work(struct drm_device *dev,
 	struct work_struct *w)
 {
 	struct etnaviv_drm_private *priv = dev->dev_private;
@@ -126,7 +126,7 @@ u32 etnaviv_readl(const void __iomem *addr);
  * The array is nelem elements of elem_size, where the base structure
  * is defined by base.  If the size overflows size_t, return zero.
  */
-static inline size_t size_vstruct(size_t nelem, size_t elem_size, size_t base)
+static size_t size_vstruct(size_t nelem, size_t elem_size, size_t base)
 {
 	if (elem_size && nelem > (SIZE_MAX - base) / elem_size)
 		return 0;
@@ -134,17 +134,17 @@ static inline size_t size_vstruct(size_t nelem, size_t elem_size, size_t base)
 }
 
 /* returns true if fence a comes after fence b */
-static inline bool fence_after(u32 a, u32 b)
+static bool fence_after(u32 a, u32 b)
 {
 	return (s32)(a - b) > 0;
 }
 
-static inline bool fence_after_eq(u32 a, u32 b)
+static bool fence_after_eq(u32 a, u32 b)
 {
 	return (s32)(a - b) >= 0;
 }
 
-static inline unsigned long etnaviv_timeout_to_jiffies(
+static unsigned long etnaviv_timeout_to_jiffies(
 	const struct timespec *timeout)
 {
 	unsigned long timeout_jiffies = timespec_to_jiffies(timeout);

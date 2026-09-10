@@ -60,7 +60,7 @@ struct xc2028_config {
 extern struct dvb_frontend *xc2028_attach(struct dvb_frontend *fe,
 					  struct xc2028_config *cfg);
 #else
-static inline struct dvb_frontend *xc2028_attach(struct dvb_frontend *fe,
+static struct dvb_frontend *xc2028_attach(struct dvb_frontend *fe,
 						 struct xc2028_config *cfg)
 {
 	printk(KERN_INFO "%s: not probed - driver disabled by Kconfig\n",

@@ -31,7 +31,7 @@
 #include <net/cfg80211.h>
 #include "iwl-trans.h"
 #if !defined(__IWLWIFI_DEVICE_TRACE)
-static inline bool iwl_trace_data(struct sk_buff *skb)
+static bool iwl_trace_data(struct sk_buff *skb)
 {
 	struct ieee80211_hdr *hdr = (void *)skb->data;
 	__le16 fc = hdr->frame_control;
@@ -59,7 +59,7 @@ static inline bool iwl_trace_data(struct sk_buff *skb)
 		*(__be16 *)(skb->data + offs) != cpu_to_be16(ETH_P_PAE);
 }
 
-static inline size_t iwl_rx_trace_len(const struct iwl_trans *trans,
+static size_t iwl_rx_trace_len(const struct iwl_trans *trans,
 				      void *rxbuf, size_t len)
 {
 	struct iwl_cmd_header *cmd = (void *)((u8 *)rxbuf + sizeof(__le32));

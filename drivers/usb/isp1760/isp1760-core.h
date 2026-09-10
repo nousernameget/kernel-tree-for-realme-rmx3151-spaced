@@ -55,12 +55,12 @@ void isp1760_unregister(struct device *dev);
 
 void isp1760_set_pullup(struct isp1760_device *isp, bool enable);
 
-static inline u32 isp1760_read32(void __iomem *base, u32 reg)
+static u32 isp1760_read32(void __iomem *base, u32 reg)
 {
 	return readl(base + reg);
 }
 
-static inline void isp1760_write32(void __iomem *base, u32 reg, u32 val)
+static void isp1760_write32(void __iomem *base, u32 reg, u32 val)
 {
 	writel(val, base + reg);
 }

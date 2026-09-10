@@ -349,7 +349,7 @@ static const u64 sha512_init[SHA512_DIGEST_SIZE / 8] = {
 		SHA512_H4, SHA512_H5, SHA512_H6, SHA512_H7,
 };
 
-static inline void copy_hash_init_values(char *key, int digestsize)
+static void copy_hash_init_values(char *key, int digestsize)
 {
 	u8 i;
 	__be32 *dkey = (__be32 *)key;
@@ -388,7 +388,7 @@ static const u8 sgl_lengths[20] = {
 /* Number of len fields(8) * size of one addr field */
 #define PHYSDSGL_MAX_LEN_SIZE 16
 
-static inline u16 get_space_for_phys_dsgl(unsigned int sgl_entr)
+static u16 get_space_for_phys_dsgl(unsigned int sgl_entr)
 {
 	/* len field size + addr field size */
 	return ((sgl_entr >> 3) + ((sgl_entr % 8) ?
@@ -419,7 +419,7 @@ static const u8 aes_sbox[256] = {
 	187, 22
 };
 
-static inline u32 aes_ks_subword(const u32 w)
+static u32 aes_ks_subword(const u32 w)
 {
 	u8 bytes[4];
 

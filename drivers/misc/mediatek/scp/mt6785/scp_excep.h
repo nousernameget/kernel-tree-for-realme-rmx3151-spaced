@@ -84,7 +84,7 @@ struct TaskContextType {
 #define ELF_PRARGSZ 80
 #define ELF_CORE_EFLAGS	0
 #define EM_ARM 40
-static inline void elf_setup_eident(unsigned char e_ident[EI_NIDENT],
+static void elf_setup_eident(unsigned char e_ident[EI_NIDENT],
 		unsigned char elfclasz)
 {
 	memcpy(e_ident, ELFMAG, SELFMAG);

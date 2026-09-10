@@ -13,12 +13,12 @@
 extern void __iomem *mmio750;
 
 /* software control endianness */
-static inline u32 peek32(u32 addr)
+static u32 peek32(u32 addr)
 {
 	return readl(addr + mmio750);
 }
 
-static inline void poke32(u32 addr, u32 data)
+static void poke32(u32 addr, u32 data)
 {
 	writel(data, addr + mmio750);
 }

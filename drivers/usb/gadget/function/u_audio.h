@@ -53,12 +53,12 @@ struct g_audio {
 	struct uac_params params;
 };
 
-static inline struct g_audio *func_to_g_audio(struct usb_function *f)
+static struct g_audio *func_to_g_audio(struct usb_function *f)
 {
 	return container_of(f, struct g_audio, func);
 }
 
-static inline uint num_channels(uint chanmask)
+static uint num_channels(uint chanmask)
 {
 	uint num = 0;
 

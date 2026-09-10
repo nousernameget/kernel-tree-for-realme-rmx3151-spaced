@@ -179,7 +179,7 @@ extern cmdqBackupSlotHandle dispsys_slot;
 	mt_reg_sync_writel(val, (unsigned long *)(reg32))
 
 /* after apply device tree va/pa is not mapped by a fixed offset */
-static inline unsigned long disp_addr_convert(unsigned long va)
+static unsigned long disp_addr_convert(unsigned long va)
 {
 	unsigned int i = 0;
 

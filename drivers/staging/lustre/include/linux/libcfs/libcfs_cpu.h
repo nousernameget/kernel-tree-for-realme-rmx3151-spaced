@@ -95,13 +95,13 @@ struct cfs_cpt_table {
 	u64			ctb_version;
 };
 
-static inline cpumask_t *
+static cpumask_t *
 cfs_cpt_cpumask(struct cfs_cpt_table *cptab, int cpt)
 {
 	return NULL;
 }
 
-static inline int
+static int
 cfs_cpt_table_print(struct cfs_cpt_table *cptab, char *buf, int len)
 {
 	return 0;

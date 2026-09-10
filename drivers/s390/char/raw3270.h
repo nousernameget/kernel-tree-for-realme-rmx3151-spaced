@@ -118,7 +118,7 @@ int  raw3270_request_add_data(struct raw3270_request *, void *, size_t);
 void raw3270_request_set_data(struct raw3270_request *, void *, size_t);
 void raw3270_request_set_idal(struct raw3270_request *, struct idal_buffer *);
 
-static inline int
+static int
 raw3270_request_final(struct raw3270_request *rq)
 {
 	return list_empty(&rq->list);
@@ -173,7 +173,7 @@ struct raw3270_view *raw3270_view(struct raw3270_view *);
 int raw3270_view_active(struct raw3270_view *);
 
 /* Reference count inliner for view structures. */
-static inline void
+static void
 raw3270_get_view(struct raw3270_view *view)
 {
 	atomic_inc(&view->ref_count);
@@ -181,7 +181,7 @@ raw3270_get_view(struct raw3270_view *view)
 
 extern wait_queue_head_t raw3270_wait_queue;
 
-static inline void
+static void
 raw3270_put_view(struct raw3270_view *view)
 {
 	if (atomic_dec_return(&view->ref_count) == 0)
@@ -214,7 +214,7 @@ struct string
 	char string[0];
 } __attribute__ ((aligned(8)));
 
-static inline struct string *
+static struct string *
 alloc_string(struct list_head *free_list, unsigned long len)
 {
 	struct string *cs, *tmp;
@@ -240,7 +240,7 @@ alloc_string(struct list_head *free_list, unsigned long len)
 	return NULL;
 }
 
-static inline unsigned long
+static unsigned long
 free_string(struct list_head *free_list, struct string *cs)
 {
 	struct string *tmp;
@@ -273,7 +273,7 @@ free_string(struct list_head *free_list, struct string *cs)
 	return cs->size;
 }
 
-static inline void
+static void
 add_string_memory(struct list_head *free_list, void *mem, unsigned long size)
 {
 	struct string *cs;

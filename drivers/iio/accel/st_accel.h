@@ -70,11 +70,11 @@ void st_accel_deallocate_ring(struct iio_dev *indio_dev);
 int st_accel_trig_set_state(struct iio_trigger *trig, bool state);
 #define ST_ACCEL_TRIGGER_SET_STATE (&st_accel_trig_set_state)
 #else /* CONFIG_IIO_BUFFER */
-static inline int st_accel_allocate_ring(struct iio_dev *indio_dev)
+static int st_accel_allocate_ring(struct iio_dev *indio_dev)
 {
 	return 0;
 }
-static inline void st_accel_deallocate_ring(struct iio_dev *indio_dev)
+static void st_accel_deallocate_ring(struct iio_dev *indio_dev)
 {
 }
 #define ST_ACCEL_TRIGGER_SET_STATE NULL

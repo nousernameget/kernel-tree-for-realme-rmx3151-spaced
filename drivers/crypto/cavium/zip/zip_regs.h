@@ -441,7 +441,7 @@ union zip_corex_bist_status {
 	} s;
 };
 
-static inline u64 ZIP_COREX_BIST_STATUS(u64 param1)
+static u64 ZIP_COREX_BIST_STATUS(u64 param1)
 {
 	if (((param1 <= 1)))
 		return 0x0520ull + (param1 & 1) * 0x8ull;
@@ -535,7 +535,7 @@ union zip_dbg_corex_inst {
 	} s;
 };
 
-static inline u64 ZIP_DBG_COREX_INST(u64 param1)
+static u64 ZIP_DBG_COREX_INST(u64 param1)
 {
 	if (((param1 <= 1)))
 		return 0x0640ull + (param1 & 1) * 0x8ull;
@@ -566,7 +566,7 @@ union zip_dbg_corex_sta {
 	} s;
 };
 
-static inline u64 ZIP_DBG_COREX_STA(u64 param1)
+static u64 ZIP_DBG_COREX_STA(u64 param1)
 {
 	if (((param1 <= 1)))
 		return 0x0680ull + (param1 & 1) * 0x8ull;
@@ -597,7 +597,7 @@ union zip_dbg_quex_sta {
 	} s;
 };
 
-static inline u64 ZIP_DBG_QUEX_STA(u64 param1)
+static u64 ZIP_DBG_QUEX_STA(u64 param1)
 {
 	if (((param1 <= 7)))
 		return 0x1800ull + (param1 & 7) * 0x8ull;
@@ -815,7 +815,7 @@ union zip_msix_pbax {
 	} s;
 };
 
-static inline u64 ZIP_MSIX_PBAX(u64 param1)
+static u64 ZIP_MSIX_PBAX(u64 param1)
 {
 	if (((param1 == 0)))
 		return 0x0000838000FF0000ull;
@@ -844,7 +844,7 @@ union zip_msix_vecx_addr {
 	} s;
 };
 
-static inline u64 ZIP_MSIX_VECX_ADDR(u64 param1)
+static u64 ZIP_MSIX_VECX_ADDR(u64 param1)
 {
 	if (((param1 <= 17)))
 		return 0x0000838000F00000ull + (param1 & 31) * 0x10ull;
@@ -873,7 +873,7 @@ union zip_msix_vecx_ctl {
 	} s;
 };
 
-static inline u64 ZIP_MSIX_VECX_CTL(u64 param1)
+static u64 ZIP_MSIX_VECX_CTL(u64 param1)
 {
 	if (((param1 <= 17)))
 		return 0x0000838000F00008ull + (param1 & 31) * 0x10ull;
@@ -898,7 +898,7 @@ union zip_quex_done {
 	} s;
 };
 
-static inline u64 ZIP_QUEX_DONE(u64 param1)
+static u64 ZIP_QUEX_DONE(u64 param1)
 {
 	if (((param1 <= 7)))
 		return 0x2000ull + (param1 & 7) * 0x8ull;
@@ -923,7 +923,7 @@ union zip_quex_done_ack {
 	} s;
 };
 
-static inline u64 ZIP_QUEX_DONE_ACK(u64 param1)
+static u64 ZIP_QUEX_DONE_ACK(u64 param1)
 {
 	if (((param1 <= 7)))
 		return 0x2200ull + (param1 & 7) * 0x8ull;
@@ -948,7 +948,7 @@ union zip_quex_done_ena_w1c {
 	} s;
 };
 
-static inline u64 ZIP_QUEX_DONE_ENA_W1C(u64 param1)
+static u64 ZIP_QUEX_DONE_ENA_W1C(u64 param1)
 {
 	if (((param1 <= 7)))
 		return 0x2600ull + (param1 & 7) * 0x8ull;
@@ -973,7 +973,7 @@ union zip_quex_done_ena_w1s {
 	} s;
 };
 
-static inline u64 ZIP_QUEX_DONE_ENA_W1S(u64 param1)
+static u64 ZIP_QUEX_DONE_ENA_W1S(u64 param1)
 {
 	if (((param1 <= 7)))
 		return 0x2400ull + (param1 & 7) * 0x8ull;
@@ -1002,7 +1002,7 @@ union zip_quex_done_wait {
 	} s;
 };
 
-static inline u64 ZIP_QUEX_DONE_WAIT(u64 param1)
+static u64 ZIP_QUEX_DONE_WAIT(u64 param1)
 {
 	if (((param1 <= 7)))
 		return 0x2800ull + (param1 & 7) * 0x8ull;
@@ -1027,7 +1027,7 @@ union zip_quex_doorbell {
 	} s;
 };
 
-static inline u64 ZIP_QUEX_DOORBELL(u64 param1)
+static u64 ZIP_QUEX_DOORBELL(u64 param1)
 {
 	if (((param1 <= 7)))
 		return 0x4000ull + (param1 & 7) * 0x8ull;
@@ -1056,7 +1056,7 @@ union zip_quex_err_ena_w1c {
 	} s;
 };
 
-static inline u64 ZIP_QUEX_ERR_ENA_W1C(u64 param1)
+static u64 ZIP_QUEX_ERR_ENA_W1C(u64 param1)
 {
 	if (((param1 <= 7)))
 		return 0x3600ull + (param1 & 7) * 0x8ull;
@@ -1085,7 +1085,7 @@ union zip_quex_err_ena_w1s {
 	} s;
 };
 
-static inline u64 ZIP_QUEX_ERR_ENA_W1S(u64 param1)
+static u64 ZIP_QUEX_ERR_ENA_W1S(u64 param1)
 {
 	if (((param1 <= 7)))
 		return 0x3400ull + (param1 & 7) * 0x8ull;
@@ -1118,7 +1118,7 @@ union zip_quex_err_int {
 	} s;
 };
 
-static inline u64 ZIP_QUEX_ERR_INT(u64 param1)
+static u64 ZIP_QUEX_ERR_INT(u64 param1)
 {
 	if (((param1 <= 7)))
 		return 0x3000ull + (param1 & 7) * 0x8ull;
@@ -1148,7 +1148,7 @@ union zip_quex_err_int_w1s {
 	} s;
 };
 
-static inline u64 ZIP_QUEX_ERR_INT_W1S(u64 param1)
+static u64 ZIP_QUEX_ERR_INT_W1S(u64 param1)
 {
 	if (((param1 <= 7)))
 		return 0x3200ull + (param1 & 7) * 0x8ull;
@@ -1177,7 +1177,7 @@ union zip_quex_gcfg {
 	} s;
 };
 
-static inline u64 ZIP_QUEX_GCFG(u64 param1)
+static u64 ZIP_QUEX_GCFG(u64 param1)
 {
 	if (((param1 <= 7)))
 		return 0x1A00ull + (param1 & 7) * 0x8ull;
@@ -1202,7 +1202,7 @@ union zip_quex_map {
 	} s;
 };
 
-static inline u64 ZIP_QUEX_MAP(u64 param1)
+static u64 ZIP_QUEX_MAP(u64 param1)
 {
 	if (((param1 <= 7)))
 		return 0x1400ull + (param1 & 7) * 0x8ull;
@@ -1234,7 +1234,7 @@ union zip_quex_sbuf_addr {
 	} s;
 };
 
-static inline u64 ZIP_QUEX_SBUF_ADDR(u64 param1)
+static u64 ZIP_QUEX_SBUF_ADDR(u64 param1)
 {
 	if (((param1 <= 7)))
 		return 0x1000ull + (param1 & 7) * 0x8ull;
@@ -1274,7 +1274,7 @@ union zip_quex_sbuf_ctl {
 	} s;
 };
 
-static inline u64 ZIP_QUEX_SBUF_CTL(u64 param1)
+static u64 ZIP_QUEX_SBUF_CTL(u64 param1)
 {
 	if (((param1 <= 7)))
 		return 0x1200ull + (param1 & 7) * 0x8ull;

@@ -147,23 +147,23 @@
 
 #define CHANSPEC_STR_LEN    8
 
-static inline int lower_20_sb(int channel)
+static int lower_20_sb(int channel)
 {
 	return channel > CH_10MHZ_APART ? (channel - CH_10MHZ_APART) : 0;
 }
 
-static inline int upper_20_sb(int channel)
+static int upper_20_sb(int channel)
 {
 	return (channel < (MAXCHANNEL - CH_10MHZ_APART)) ?
 	       channel + CH_10MHZ_APART : 0;
 }
 
-static inline int chspec_bandunit(u16 chspec)
+static int chspec_bandunit(u16 chspec)
 {
 	return CHSPEC_IS5G(chspec) ? BAND_5G_INDEX : BAND_2G_INDEX;
 }
 
-static inline u16 ch20mhz_chspec(int channel)
+static u16 ch20mhz_chspec(int channel)
 {
 	u16 rc = channel <= CH_MAX_2G_CHANNEL ?
 		 WL_CHANSPEC_BAND_2G : WL_CHANSPEC_BAND_5G;
@@ -172,7 +172,7 @@ static inline u16 ch20mhz_chspec(int channel)
 		      WL_CHANSPEC_CTL_SB_NONE | rc);
 }
 
-static inline int next_20mhz_chan(int channel)
+static int next_20mhz_chan(int channel)
 {
 	return channel < (MAXCHANNEL - CH_20MHZ_APART) ?
 	       channel + CH_20MHZ_APART : 0;
@@ -197,7 +197,7 @@ static inline int next_20mhz_chan(int channel)
 
 #define MCSSET_LEN	16
 
-static inline bool ac_bitmap_tst(u8 bitmap, int prec)
+static bool ac_bitmap_tst(u8 bitmap, int prec)
 {
 	return (bitmap & (1 << (prec))) != 0;
 }

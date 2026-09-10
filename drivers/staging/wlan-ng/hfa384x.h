@@ -1382,7 +1382,7 @@ int hfa384x_drvr_ramdl_write(struct hfa384x *hw, u32 daddr, void *buf, u32 len);
 int hfa384x_drvr_readpda(struct hfa384x *hw, void *buf, unsigned int len);
 int hfa384x_drvr_setconfig(struct hfa384x *hw, u16 rid, void *buf, u16 len);
 
-static inline int hfa384x_drvr_getconfig16(struct hfa384x *hw, u16 rid, void *val)
+static int hfa384x_drvr_getconfig16(struct hfa384x *hw, u16 rid, void *val)
 {
 	int result = 0;
 
@@ -1392,7 +1392,7 @@ static inline int hfa384x_drvr_getconfig16(struct hfa384x *hw, u16 rid, void *va
 	return result;
 }
 
-static inline int hfa384x_drvr_setconfig16(struct hfa384x *hw, u16 rid, u16 val)
+static int hfa384x_drvr_setconfig16(struct hfa384x *hw, u16 rid, u16 val)
 {
 	__le16 value = cpu_to_le16(val);
 
@@ -1405,7 +1405,7 @@ hfa384x_drvr_setconfig_async(struct hfa384x *hw,
 			     void *buf,
 			     u16 len, ctlx_usercb_t usercb, void *usercb_data);
 
-static inline int
+static int
 hfa384x_drvr_setconfig16_async(struct hfa384x *hw, u16 rid, u16 val)
 {
 	__le16 value = cpu_to_le16(val);

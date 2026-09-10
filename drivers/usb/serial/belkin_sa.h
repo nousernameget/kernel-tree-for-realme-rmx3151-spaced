@@ -91,7 +91,7 @@
 #define BELKIN_SA_FLOW_IDTR		0x0008	/* use DTR output for input flow control */
 #define BELKIN_SA_FLOW_IRTS		0x0010	/* use RTS output for input flow control */
 #define BELKIN_SA_FLOW_ORTS		0x0020	/* use RTS to indicate data available to send */
-#define BELKIN_SA_FLOW_ERRSUB		0x0040	/* ???? guess ???? substitute inline errors */
+#define BELKIN_SA_FLOW_ERRSUB		0x0040	/* ???? guess ???? substitute errors */
 #define BELKIN_SA_FLOW_OXON		0x0080	/* use XON/XOFF for output flow control */
 #define BELKIN_SA_FLOW_IXON		0x0100	/* use XON/XOFF for input flow control */
 

@@ -83,12 +83,12 @@ struct spi_mpc8xxx_cs {
 	u32 hw_mode;		/* Holds HW mode register settings */
 };
 
-static inline void mpc8xxx_spi_write_reg(__be32 __iomem *reg, u32 val)
+static void mpc8xxx_spi_write_reg(__be32 __iomem *reg, u32 val)
 {
 	iowrite32be(val, reg);
 }
 
-static inline u32 mpc8xxx_spi_read_reg(__be32 __iomem *reg)
+static u32 mpc8xxx_spi_read_reg(__be32 __iomem *reg)
 {
 	return ioread32be(reg);
 }

@@ -54,12 +54,12 @@ struct pkey_index_qp_list {
 int cma_configfs_init(void);
 void cma_configfs_exit(void);
 #else
-static inline int cma_configfs_init(void)
+static int cma_configfs_init(void)
 {
 	return 0;
 }
 
-static inline void cma_configfs_exit(void)
+static void cma_configfs_exit(void)
 {
 }
 #endif
@@ -156,24 +156,24 @@ void ib_rdmacg_uncharge(struct ib_rdmacg_object *cg_obj,
 			struct ib_device *device,
 			enum rdmacg_resource_type resource_index);
 #else
-static inline int ib_device_register_rdmacg(struct ib_device *device)
+static int ib_device_register_rdmacg(struct ib_device *device)
 { return 0; }
 
-static inline void ib_device_unregister_rdmacg(struct ib_device *device)
+static void ib_device_unregister_rdmacg(struct ib_device *device)
 { }
 
-static inline int ib_rdmacg_try_charge(struct ib_rdmacg_object *cg_obj,
+static int ib_rdmacg_try_charge(struct ib_rdmacg_object *cg_obj,
 				       struct ib_device *device,
 				       enum rdmacg_resource_type resource_index)
 { return 0; }
 
-static inline void ib_rdmacg_uncharge(struct ib_rdmacg_object *cg_obj,
+static void ib_rdmacg_uncharge(struct ib_rdmacg_object *cg_obj,
 				      struct ib_device *device,
 				      enum rdmacg_resource_type resource_index)
 { }
 #endif
 
-static inline bool rdma_is_upper_dev_rcu(struct net_device *dev,
+static bool rdma_is_upper_dev_rcu(struct net_device *dev,
 					 struct net_device *upper)
 {
 	return netdev_has_upper_dev_all_rcu(dev, upper);
@@ -240,7 +240,7 @@ int ib_mad_agent_security_setup(struct ib_mad_agent *agent,
 void ib_mad_agent_security_cleanup(struct ib_mad_agent *agent);
 int ib_mad_enforce_security(struct ib_mad_agent_private *map, u16 pkey_index);
 #else
-static inline int ib_security_pkey_access(struct ib_device *dev,
+static int ib_security_pkey_access(struct ib_device *dev,
 					  u8 port_num,
 					  u16 pkey_index,
 					  void *sec)
@@ -248,17 +248,17 @@ static inline int ib_security_pkey_access(struct ib_device *dev,
 	return 0;
 }
 
-static inline void ib_security_destroy_port_pkey_list(struct ib_device *device)
+static void ib_security_destroy_port_pkey_list(struct ib_device *device)
 {
 }
 
-static inline void ib_security_cache_change(struct ib_device *device,
+static void ib_security_cache_change(struct ib_device *device,
 					    u8 port_num,
 					    u64 subnet_prefix)
 {
 }
 
-static inline int ib_security_modify_qp(struct ib_qp *qp,
+static int ib_security_modify_qp(struct ib_qp *qp,
 					struct ib_qp_attr *qp_attr,
 					int qp_attr_mask,
 					struct ib_udata *udata)
@@ -269,45 +269,45 @@ static inline int ib_security_modify_qp(struct ib_qp *qp,
 				     udata);
 }
 
-static inline int ib_create_qp_security(struct ib_qp *qp,
+static int ib_create_qp_security(struct ib_qp *qp,
 					struct ib_device *dev)
 {
 	return 0;
 }
 
-static inline void ib_destroy_qp_security_begin(struct ib_qp_security *sec)
+static void ib_destroy_qp_security_begin(struct ib_qp_security *sec)
 {
 }
 
-static inline void ib_destroy_qp_security_abort(struct ib_qp_security *sec)
+static void ib_destroy_qp_security_abort(struct ib_qp_security *sec)
 {
 }
 
-static inline void ib_destroy_qp_security_end(struct ib_qp_security *sec)
+static void ib_destroy_qp_security_end(struct ib_qp_security *sec)
 {
 }
 
-static inline int ib_open_shared_qp_security(struct ib_qp *qp,
+static int ib_open_shared_qp_security(struct ib_qp *qp,
 					     struct ib_device *dev)
 {
 	return 0;
 }
 
-static inline void ib_close_shared_qp_security(struct ib_qp_security *sec)
+static void ib_close_shared_qp_security(struct ib_qp_security *sec)
 {
 }
 
-static inline int ib_mad_agent_security_setup(struct ib_mad_agent *agent,
+static int ib_mad_agent_security_setup(struct ib_mad_agent *agent,
 					      enum ib_qp_type qp_type)
 {
 	return 0;
 }
 
-static inline void ib_mad_agent_security_cleanup(struct ib_mad_agent *agent)
+static void ib_mad_agent_security_cleanup(struct ib_mad_agent *agent)
 {
 }
 
-static inline int ib_mad_enforce_security(struct ib_mad_agent_private *map,
+static int ib_mad_enforce_security(struct ib_mad_agent_private *map,
 					  u16 pkey_index)
 {
 	return 0;

@@ -318,7 +318,7 @@ static uint8_t g_dump_cr_buffer[BT_CR_DUMP_BUF_SIZE];
  *     N/A
  *
  */
-static void inline bt_dump_cpupcr(uint32_t times, uint32_t sleep_ms)
+static void bt_dump_cpupcr(uint32_t times, uint32_t sleep_ms)
 {
 	uint32_t i = 0;
 	uint32_t value = 0;
@@ -331,7 +331,7 @@ static void inline bt_dump_cpupcr(uint32_t times, uint32_t sleep_ms)
 	}
 }
 
-static uint32_t inline bt_read_cr(uint32_t addr)
+static uint32_t bt_read_cr(uint32_t addr)
 {
 	uint32_t value = 0;
 	uint8_t *base = ioremap_nocache(addr, 0x10);
@@ -345,7 +345,7 @@ static uint32_t inline bt_read_cr(uint32_t addr)
 	return value;
 }
 
-static void inline bt_write_cr(uint32_t addr, uint32_t value)
+static void bt_write_cr(uint32_t addr, uint32_t value)
 {
 	uint32_t *base = ioremap_nocache(addr, 0x10);
 
@@ -357,7 +357,7 @@ static void inline bt_write_cr(uint32_t addr, uint32_t value)
 	}
 }
 
-static void inline bt_dump_memory8(uint8_t *buf, uint32_t len)
+static void bt_dump_memory8(uint8_t *buf, uint32_t len)
 {
 	uint32_t i = 0;
 	uint8_t *pos = NULL, *end = NULL;
@@ -384,7 +384,7 @@ static void inline bt_dump_memory8(uint8_t *buf, uint32_t len)
 
 }
 
-static inline u_int8_t bt_is_bgf_bus_timeout(void)
+static u_int8_t bt_is_bgf_bus_timeout(void)
 {
 	int32_t mailbox_status = 0;
 
@@ -405,7 +405,7 @@ static inline u_int8_t bt_is_bgf_bus_timeout(void)
 	return FALSE;
 }
 
-static void inline bt_dump_bgfsys_host_csr(void)
+static void bt_dump_bgfsys_host_csr(void)
 {
 	uint32_t value = 0;
 	uint32_t i = 0;
@@ -437,7 +437,7 @@ static void inline bt_dump_bgfsys_host_csr(void)
 }
 
 /* please make sure check bus hang before calling this dump */
-static void inline bt_dump_bgfsys_mcusys_flag(void)
+static void bt_dump_bgfsys_mcusys_flag(void)
 {
 	uint32_t value = 0;
 	uint32_t i = 0, count = 1, cr_count = 56;
@@ -472,7 +472,7 @@ static void inline bt_dump_bgfsys_mcusys_flag(void)
 }
 
 /* please make sure check bus hang before calling this dump */
-static void inline bt_dump_bgfsys_bus_flag(void)
+static void bt_dump_bgfsys_bus_flag(void)
 {
 	uint32_t value = 0;
 	uint32_t i = 0, j = 0, count = 1, cr_count = 20;
@@ -518,7 +518,7 @@ static void inline bt_dump_bgfsys_bus_flag(void)
 	}
 }
 
-static void inline bt_dump_bgfsys_top_common_flag(void)
+static void bt_dump_bgfsys_top_common_flag(void)
 {
 	uint32_t value = 0;
 	uint32_t i = 0, count = 1, cr_count = 20;
@@ -548,7 +548,7 @@ static void inline bt_dump_bgfsys_top_common_flag(void)
 }
 
 /* please make sure check bus hang before calling this dump */
-static void inline bt_dump_bgfsys_mcu_core_flag(void)
+static void bt_dump_bgfsys_mcu_core_flag(void)
 {
 	uint32_t value = 0;
 	uint32_t i = 0, count = 1, cr_count = 38;
@@ -584,7 +584,7 @@ static void inline bt_dump_bgfsys_mcu_core_flag(void)
 	}
 }
 
-static inline void bt_dump_bgfsys_mcu_pc_log(void)
+static void bt_dump_bgfsys_mcu_pc_log(void)
 {
 	uint32_t value = 0;
 	uint32_t i = 0, count = 1, cr_count = 45;
@@ -641,7 +641,7 @@ static void bt_dump_bgfsys_all(void)
  *     N/A
  *
  */
-static inline void bt_dump_bgfsys_debug_cr(void)
+static void bt_dump_bgfsys_debug_cr(void)
 {
 	uint32_t offset = 0x410, value = 0, i = 0;
 	uint8_t *pos = NULL, *end = NULL;
@@ -699,7 +699,7 @@ host_csr_only:
  *     N/A
  *
  */
-static inline void bt_dump_cif_own_cr(void)
+static void bt_dump_cif_own_cr(void)
 {
 	uint32_t value = 0, i = 0;
 	int32_t ret = 0;
@@ -796,7 +796,7 @@ host_csr_only:
  *    N/A
  *
  */
-static inline void bgfsys_power_on_dump_cr(void)
+static void bgfsys_power_on_dump_cr(void)
 {
 	uint32_t i;
 	uint32_t val_w, val_r;

@@ -54,7 +54,7 @@ extern debug_info_t *scm_debug;
 		debug_text_event(scm_debug, imp, txt);		\
 	} while (0)
 
-static inline void SCM_LOG_HEX(int level, void *data, int length)
+static void SCM_LOG_HEX(int level, void *data, int length)
 {
 	if (!debug_level_enabled(scm_debug, level))
 		return;
@@ -65,7 +65,7 @@ static inline void SCM_LOG_HEX(int level, void *data, int length)
 	}
 }
 
-static inline void SCM_LOG_STATE(int level, struct scm_device *scmdev)
+static void SCM_LOG_STATE(int level, struct scm_device *scmdev)
 {
 	struct {
 		u64 address;

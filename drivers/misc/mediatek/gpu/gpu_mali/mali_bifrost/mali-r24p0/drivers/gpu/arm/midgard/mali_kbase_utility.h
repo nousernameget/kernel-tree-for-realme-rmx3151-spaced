@@ -29,7 +29,7 @@
 #error "Don't include this file directly, use mali_kbase.h instead"
 #endif
 
-static inline void kbase_timer_setup(struct timer_list *timer,
+static void kbase_timer_setup(struct timer_list *timer,
 				     void (*callback)(struct timer_list *timer))
 {
 #if LINUX_VERSION_CODE < KERNEL_VERSION(4, 14, 0)

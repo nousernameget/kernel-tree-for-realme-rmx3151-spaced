@@ -155,7 +155,7 @@ struct sdhci_pci_chip {
 	struct sdhci_pci_slot	*slots[MAX_SLOTS]; /* Pointers to host slots */
 };
 
-static inline void *sdhci_pci_priv(struct sdhci_pci_slot *slot)
+static void *sdhci_pci_priv(struct sdhci_pci_slot *slot)
 {
 	return (void *)slot->private;
 }

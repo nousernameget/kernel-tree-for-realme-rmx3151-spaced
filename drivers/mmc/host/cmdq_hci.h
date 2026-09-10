@@ -307,27 +307,27 @@ struct cmdq_host_ops {
 	int (*pre_irq_complete)(struct mmc_host *mmc, unsigned int err);
 };
 
-static inline void cmdq_writel(struct cmdq_host *host, u32 val, int reg)
+static void cmdq_writel(struct cmdq_host *host, u32 val, int reg)
 {
 	writel_relaxed(val, host->mmio + reg);
 }
 
-static inline u32 cmdq_readl(struct cmdq_host *host, int reg)
+static u32 cmdq_readl(struct cmdq_host *host, int reg)
 {
 	return readl_relaxed(host->mmio + reg);
 }
 
-static inline void cmdq_writel_normal(struct cmdq_host *host, u32 val, int reg)
+static void cmdq_writel_normal(struct cmdq_host *host, u32 val, int reg)
 {
 	writel_relaxed(val, host->mmio - 0x800 + reg);
 }
 
-static inline u32 cmdq_readl_normal(struct cmdq_host *host, int reg)
+static u32 cmdq_readl_normal(struct cmdq_host *host, int reg)
 {
 	return readl_relaxed(host->mmio - 0x800 + reg);
 }
 
-static inline void cmdq_clear_normal(struct cmdq_host *host, u32 val, int reg)
+static void cmdq_clear_normal(struct cmdq_host *host, u32 val, int reg)
 {
 	unsigned int tv = cmdq_readl_normal(host, reg);
 
@@ -342,12 +342,12 @@ extern struct cmdq_host *cmdq_pltfm_init(struct platform_device *pdev);
 extern void cmdq_dumpregs(struct cmdq_host *cq_host);
 
 #ifdef CONFIG_MTK_EMMC_HW_CQ
-static inline u8 *get_desc(struct cmdq_host *cq_host, u8 tag)
+static u8 *get_desc(struct cmdq_host *cq_host, u8 tag)
 {
 	return cq_host->desc_base + (tag * cq_host->slot_sz);
 }
 #else
-static inline u8 *get_desc(struct cmdq_host *cq_host, u8 tag)
+static u8 *get_desc(struct cmdq_host *cq_host, u8 tag)
 {
 	return NULL;
 }

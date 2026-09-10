@@ -16,7 +16,7 @@
 #include <linux/rwsem.h>
 #include <linux/leds.h>
 
-static inline int led_get_brightness(struct led_classdev *led_cdev)
+static int led_get_brightness(struct led_classdev *led_cdev)
 {
 	return led_cdev->brightness;
 }

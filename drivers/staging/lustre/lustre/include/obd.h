@@ -64,13 +64,13 @@ struct lov_oinfo {		 /* per-stripe data structure */
 	struct osc_async_rc     loi_ar;
 };
 
-static inline void loi_kms_set(struct lov_oinfo *oinfo, __u64 kms)
+static void loi_kms_set(struct lov_oinfo *oinfo, __u64 kms)
 {
 	oinfo->loi_kms = kms;
 	oinfo->loi_kms_valid = 1;
 }
 
-static inline void loi_init(struct lov_oinfo *loi)
+static void loi_init(struct lov_oinfo *loi)
 {
 }
 
@@ -650,7 +650,7 @@ struct obd_device {
 
 struct lu_context;
 
-static inline int it_to_lock_mode(struct lookup_intent *it)
+static int it_to_lock_mode(struct lookup_intent *it)
 {
 	/* CREAT needs to be tested before open (both could be set) */
 	if (it->it_op & IT_CREAT)
@@ -981,7 +981,7 @@ struct md_ops {
 	 */
 };
 
-static inline struct md_open_data *obd_mod_alloc(void)
+static struct md_open_data *obd_mod_alloc(void)
 {
 	struct md_open_data *mod;
 
@@ -1006,7 +1006,7 @@ void obdo_from_inode(struct obdo *dst, struct inode *src, u32 valid);
 void obdo_set_parent_fid(struct obdo *dst, const struct lu_fid *parent);
 
 /* return 1 if client should be resend request */
-static inline int client_should_resend(int resend, struct client_obd *cli)
+static int client_should_resend(int resend, struct client_obd *cli)
 {
 	return atomic_read(&cli->cl_resends) ?
 	       atomic_read(&cli->cl_resends) > resend : 1;
@@ -1019,12 +1019,12 @@ static inline int client_should_resend(int resend, struct client_obd *cli)
  * back to obd_device in lu_device, so this helper function defines here
  * instead of in lu_object.h
  */
-static inline const char *lu_dev_name(const struct lu_device *lu_dev)
+static const char *lu_dev_name(const struct lu_device *lu_dev)
 {
 	return lu_dev->ld_obd->obd_name;
 }
 
-static inline bool filename_is_volatile(const char *name, size_t namelen,
+static bool filename_is_volatile(const char *name, size_t namelen,
 					int *idx)
 {
 	const char	*start;
@@ -1068,7 +1068,7 @@ bad_format:
 	return false;
 }
 
-static inline int cli_brw_size(struct obd_device *obd)
+static int cli_brw_size(struct obd_device *obd)
 {
 	return obd->u.cli.cl_max_pages_per_rpc << PAGE_SHIFT;
 }
@@ -1079,7 +1079,7 @@ static inline int cli_brw_size(struct obd_device *obd)
  * RPCs over the network when the client runs out of the maximum dirty space
  * when so many RPCs are being generated.
  */
-static inline void client_adjust_max_dirty(struct client_obd *cli)
+static void client_adjust_max_dirty(struct client_obd *cli)
 {
 	/* initializing */
 	if (cli->cl_dirty_max_pages <= 0)

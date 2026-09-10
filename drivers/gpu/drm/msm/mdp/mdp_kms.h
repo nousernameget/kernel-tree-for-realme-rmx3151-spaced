@@ -47,7 +47,7 @@ struct mdp_kms {
 };
 #define to_mdp_kms(x) container_of(x, struct mdp_kms, base)
 
-static inline void mdp_kms_init(struct mdp_kms *mdp_kms,
+static void mdp_kms_init(struct mdp_kms *mdp_kms,
 		const struct mdp_kms_funcs *funcs)
 {
 	mdp_kms->funcs = funcs;
@@ -120,7 +120,7 @@ const struct msm_format *mdp_get_format(struct msm_kms *kms, uint32_t format);
 #define MDP_LM_CAP_WB				BIT(1)
 #define MDP_LM_CAP_PAIR				BIT(2)
 
-static inline bool pipe_supports_yuv(uint32_t pipe_caps)
+static bool pipe_supports_yuv(uint32_t pipe_caps)
 {
 	return (pipe_caps & MDP_PIPE_CAP_SCALE) &&
 		(pipe_caps & MDP_PIPE_CAP_CSC);

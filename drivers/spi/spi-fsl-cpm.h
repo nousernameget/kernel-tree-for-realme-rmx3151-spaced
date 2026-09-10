@@ -31,7 +31,7 @@ extern int fsl_spi_cpm_init(struct mpc8xxx_spi *mspi);
 extern void fsl_spi_cpm_free(struct mpc8xxx_spi *mspi);
 #else
 static inline void fsl_spi_cpm_reinit_txrx(struct mpc8xxx_spi *mspi) { }
-static inline int fsl_spi_cpm_bufs(struct mpc8xxx_spi *mspi,
+static int fsl_spi_cpm_bufs(struct mpc8xxx_spi *mspi,
 				   struct spi_transfer *t,
 				   bool is_dma_mapped) { return 0; }
 static inline void fsl_spi_cpm_bufs_complete(struct mpc8xxx_spi *mspi) { }

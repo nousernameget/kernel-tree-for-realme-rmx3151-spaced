@@ -290,7 +290,7 @@ struct nes_rskb_cb {
 	struct nes_qp          *nesqp;
 };
 
-static inline __le32 get_crc_value(struct nes_v4_quad *nes_quad)
+static __le32 get_crc_value(struct nes_v4_quad *nes_quad)
 {
 	u32 crc_value;
 	crc_value = crc32c(~0, (void *)nes_quad, sizeof (struct nes_v4_quad));
@@ -305,20 +305,20 @@ static inline __le32 get_crc_value(struct nes_v4_quad *nes_quad)
 	return cpu_to_le32(crc_value);
 }
 
-static inline void
+static void
 set_wqe_64bit_value(__le32 *wqe_words, u32 index, u64 value)
 {
 	wqe_words[index]     = cpu_to_le32((u32) value);
 	wqe_words[index + 1] = cpu_to_le32(upper_32_bits(value));
 }
 
-static inline void
+static void
 set_wqe_32bit_value(__le32 *wqe_words, u32 index, u32 value)
 {
 	wqe_words[index] = cpu_to_le32(value);
 }
 
-static inline void
+static void
 nes_fill_init_cqp_wqe(struct nes_hw_cqp_wqe *cqp_wqe, struct nes_device *nesdev)
 {
 	cqp_wqe->wqe_words[NES_CQP_WQE_COMP_CTX_LOW_IDX]       = 0;
@@ -332,7 +332,7 @@ nes_fill_init_cqp_wqe(struct nes_hw_cqp_wqe *cqp_wqe, struct nes_device *nesdev)
 	cqp_wqe->wqe_words[NES_CQP_STAG_WQE_PA_HIGH_IDX]       = 0;
 }
 
-static inline void
+static void
 nes_fill_init_qp_wqe(struct nes_hw_qp_wqe *wqe, struct nes_qp *nesqp, u32 head)
 {
 	u32 value;
@@ -343,7 +343,7 @@ nes_fill_init_qp_wqe(struct nes_hw_qp_wqe *wqe, struct nes_qp *nesqp, u32 head)
 }
 
 /* Read from memory-mapped device */
-static inline u32 nes_read_indexed(struct nes_device *nesdev, u32 reg_index)
+static u32 nes_read_indexed(struct nes_device *nesdev, u32 reg_index)
 {
 	unsigned long flags;
 	void __iomem *addr = nesdev->index_reg;
@@ -358,23 +358,23 @@ static inline u32 nes_read_indexed(struct nes_device *nesdev, u32 reg_index)
 	return value;
 }
 
-static inline u32 nes_read32(const void __iomem *addr)
+static u32 nes_read32(const void __iomem *addr)
 {
 	return readl(addr);
 }
 
-static inline u16 nes_read16(const void __iomem *addr)
+static u16 nes_read16(const void __iomem *addr)
 {
 	return readw(addr);
 }
 
-static inline u8 nes_read8(const void __iomem *addr)
+static u8 nes_read8(const void __iomem *addr)
 {
 	return readb(addr);
 }
 
 /* Write to memory-mapped device */
-static inline void nes_write_indexed(struct nes_device *nesdev, u32 reg_index, u32 val)
+static void nes_write_indexed(struct nes_device *nesdev, u32 reg_index, u32 val)
 {
 	unsigned long flags;
 	void __iomem *addr = nesdev->index_reg;
@@ -387,17 +387,17 @@ static inline void nes_write_indexed(struct nes_device *nesdev, u32 reg_index, u
 	spin_unlock_irqrestore(&nesdev->indexed_regs_lock, flags);
 }
 
-static inline void nes_write32(void __iomem *addr, u32 val)
+static void nes_write32(void __iomem *addr, u32 val)
 {
 	writel(val, addr);
 }
 
-static inline void nes_write16(void __iomem *addr, u16 val)
+static void nes_write16(void __iomem *addr, u16 val)
 {
 	writew(val, addr);
 }
 
-static inline void nes_write8(void __iomem *addr, u8 val)
+static void nes_write8(void __iomem *addr, u8 val)
 {
 	writeb(val, addr);
 }
@@ -413,7 +413,7 @@ enum nes_resource {
 	NES_RESOURCE_ARP
 };
 
-static inline int nes_alloc_resource(struct nes_adapter *nesadapter,
+static int nes_alloc_resource(struct nes_adapter *nesadapter,
 		unsigned long *resource_array, u32 max_resources,
 		u32 *req_resource_num, u32 *next, enum nes_resource resource_type)
 {
@@ -442,7 +442,7 @@ static inline int nes_alloc_resource(struct nes_adapter *nesadapter,
 	return 0;
 }
 
-static inline int nes_is_resource_allocated(struct nes_adapter *nesadapter,
+static int nes_is_resource_allocated(struct nes_adapter *nesadapter,
 		unsigned long *resource_array, u32 resource_num)
 {
 	unsigned long flags;
@@ -458,7 +458,7 @@ static inline int nes_is_resource_allocated(struct nes_adapter *nesadapter,
 	return bit_is_set;
 }
 
-static inline void nes_free_resource(struct nes_adapter *nesadapter,
+static void nes_free_resource(struct nes_adapter *nesadapter,
 		unsigned long *resource_array, u32 resource_num)
 {
 	unsigned long flags;
@@ -468,47 +468,47 @@ static inline void nes_free_resource(struct nes_adapter *nesadapter,
 	spin_unlock_irqrestore(&nesadapter->resource_lock, flags);
 }
 
-static inline struct nes_vnic *to_nesvnic(struct ib_device *ibdev)
+static struct nes_vnic *to_nesvnic(struct ib_device *ibdev)
 {
 	return container_of(ibdev, struct nes_ib_device, ibdev)->nesvnic;
 }
 
-static inline struct nes_pd *to_nespd(struct ib_pd *ibpd)
+static struct nes_pd *to_nespd(struct ib_pd *ibpd)
 {
 	return container_of(ibpd, struct nes_pd, ibpd);
 }
 
-static inline struct nes_ucontext *to_nesucontext(struct ib_ucontext *ibucontext)
+static struct nes_ucontext *to_nesucontext(struct ib_ucontext *ibucontext)
 {
 	return container_of(ibucontext, struct nes_ucontext, ibucontext);
 }
 
-static inline struct nes_mr *to_nesmr(struct ib_mr *ibmr)
+static struct nes_mr *to_nesmr(struct ib_mr *ibmr)
 {
 	return container_of(ibmr, struct nes_mr, ibmr);
 }
 
-static inline struct nes_mr *to_nesmr_from_ibfmr(struct ib_fmr *ibfmr)
+static struct nes_mr *to_nesmr_from_ibfmr(struct ib_fmr *ibfmr)
 {
 	return container_of(ibfmr, struct nes_mr, ibfmr);
 }
 
-static inline struct nes_mr *to_nesmw(struct ib_mw *ibmw)
+static struct nes_mr *to_nesmw(struct ib_mw *ibmw)
 {
 	return container_of(ibmw, struct nes_mr, ibmw);
 }
 
-static inline struct nes_fmr *to_nesfmr(struct nes_mr *nesmr)
+static struct nes_fmr *to_nesfmr(struct nes_mr *nesmr)
 {
 	return container_of(nesmr, struct nes_fmr, nesmr);
 }
 
-static inline struct nes_cq *to_nescq(struct ib_cq *ibcq)
+static struct nes_cq *to_nescq(struct ib_cq *ibcq)
 {
 	return container_of(ibcq, struct nes_cq, ibcq);
 }
 
-static inline struct nes_qp *to_nesqp(struct ib_qp *ibqp)
+static struct nes_qp *to_nesqp(struct ib_qp *ibqp)
 {
 	return container_of(ibqp, struct nes_qp, ibqp);
 }

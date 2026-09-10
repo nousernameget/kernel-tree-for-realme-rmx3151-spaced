@@ -101,7 +101,7 @@ struct tegra_drm_client {
 	const struct tegra_drm_client_ops *ops;
 };
 
-static inline struct tegra_drm_client *
+static struct tegra_drm_client *
 host1x_to_drm_client(struct host1x_client *client)
 {
 	return container_of(client, struct tegra_drm_client, base);
@@ -161,25 +161,25 @@ struct tegra_dc {
 	struct iommu_domain *domain;
 };
 
-static inline struct tegra_dc *
+static struct tegra_dc *
 host1x_client_to_dc(struct host1x_client *client)
 {
 	return container_of(client, struct tegra_dc, client);
 }
 
-static inline struct tegra_dc *to_tegra_dc(struct drm_crtc *crtc)
+static struct tegra_dc *to_tegra_dc(struct drm_crtc *crtc)
 {
 	return crtc ? container_of(crtc, struct tegra_dc, base) : NULL;
 }
 
-static inline void tegra_dc_writel(struct tegra_dc *dc, u32 value,
+static void tegra_dc_writel(struct tegra_dc *dc, u32 value,
 				   unsigned int offset)
 {
 	trace_dc_writel(dc->dev, offset, value);
 	writel(value, dc->regs + (offset << 2));
 }
 
-static inline u32 tegra_dc_readl(struct tegra_dc *dc, unsigned int offset)
+static u32 tegra_dc_readl(struct tegra_dc *dc, unsigned int offset)
 {
 	u32 value = readl(dc->regs + (offset << 2));
 
@@ -233,12 +233,12 @@ struct tegra_output {
 	struct drm_connector connector;
 };
 
-static inline struct tegra_output *encoder_to_output(struct drm_encoder *e)
+static struct tegra_output *encoder_to_output(struct drm_encoder *e)
 {
 	return container_of(e, struct tegra_output, encoder);
 }
 
-static inline struct tegra_output *connector_to_output(struct drm_connector *c)
+static struct tegra_output *connector_to_output(struct drm_connector *c)
 {
 	return container_of(c, struct tegra_output, connector);
 }

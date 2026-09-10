@@ -37,18 +37,18 @@ extern void dm_path_uevent(enum dm_uevent_type event_type,
 
 #else
 
-static inline int dm_uevent_init(void)
+static int dm_uevent_init(void)
 {
 	return 0;
 }
-static inline void dm_uevent_exit(void)
+static void dm_uevent_exit(void)
 {
 }
-static inline void dm_send_uevents(struct list_head *events,
+static void dm_send_uevents(struct list_head *events,
 				   struct kobject *kobj)
 {
 }
-static inline void dm_path_uevent(enum dm_uevent_type event_type,
+static void dm_path_uevent(enum dm_uevent_type event_type,
 				  struct dm_target *ti, const char *path,
 				  unsigned nr_valid_paths)
 {

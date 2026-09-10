@@ -27,12 +27,12 @@ struct bt431_regs {
 	u16 pad3;
 };
 
-static inline u16 bt431_set_value(u8 val)
+static u16 bt431_set_value(u8 val)
 {
 	return ((val << 8) | (val & 0xff)) & 0xffff;
 }
 
-static inline u8 bt431_get_value(u16 val)
+static u8 bt431_get_value(u16 val)
 {
 	return val & 0xff;
 }
@@ -73,7 +73,7 @@ static inline u8 bt431_get_value(u16 val)
 #define BT431_CMD_THICK_5	0x02
 #define BT431_CMD_THICK_7	0x03
 
-static inline void bt431_select_reg(struct bt431_regs *regs, int ir)
+static void bt431_select_reg(struct bt431_regs *regs, int ir)
 {
 	/*
 	 * The compiler splits the write in two bytes without these
@@ -89,7 +89,7 @@ static inline void bt431_select_reg(struct bt431_regs *regs, int ir)
 }
 
 /* Autoincrement read/write. */
-static inline u8 bt431_read_reg_inc(struct bt431_regs *regs)
+static u8 bt431_read_reg_inc(struct bt431_regs *regs)
 {
 	/*
 	 * The compiler splits the write in two bytes without the
@@ -101,7 +101,7 @@ static inline u8 bt431_read_reg_inc(struct bt431_regs *regs)
 	return bt431_get_value(*r);
 }
 
-static inline void bt431_write_reg_inc(struct bt431_regs *regs, u8 value)
+static void bt431_write_reg_inc(struct bt431_regs *regs, u8 value)
 {
 	/*
 	 * The compiler splits the write in two bytes without the
@@ -113,20 +113,20 @@ static inline void bt431_write_reg_inc(struct bt431_regs *regs, u8 value)
 	*r = bt431_set_value(value);
 }
 
-static inline u8 bt431_read_reg(struct bt431_regs *regs, int ir)
+static u8 bt431_read_reg(struct bt431_regs *regs, int ir)
 {
 	bt431_select_reg(regs, ir);
 	return bt431_read_reg_inc(regs);
 }
 
-static inline void bt431_write_reg(struct bt431_regs *regs, int ir, u8 value)
+static void bt431_write_reg(struct bt431_regs *regs, int ir, u8 value)
 {
 	bt431_select_reg(regs, ir);
 	bt431_write_reg_inc(regs, value);
 }
 
 /* Autoincremented read/write for the cursor map. */
-static inline u16 bt431_read_cmap_inc(struct bt431_regs *regs)
+static u16 bt431_read_cmap_inc(struct bt431_regs *regs)
 {
 	/*
 	 * The compiler splits the write in two bytes without the
@@ -138,7 +138,7 @@ static inline u16 bt431_read_cmap_inc(struct bt431_regs *regs)
 	return *r;
 }
 
-static inline void bt431_write_cmap_inc(struct bt431_regs *regs, u16 value)
+static void bt431_write_cmap_inc(struct bt431_regs *regs, u16 value)
 {
 	/*
 	 * The compiler splits the write in two bytes without the
@@ -150,31 +150,31 @@ static inline void bt431_write_cmap_inc(struct bt431_regs *regs, u16 value)
 	*r = value;
 }
 
-static inline u16 bt431_read_cmap(struct bt431_regs *regs, int cr)
+static u16 bt431_read_cmap(struct bt431_regs *regs, int cr)
 {
 	bt431_select_reg(regs, cr);
 	return bt431_read_cmap_inc(regs);
 }
 
-static inline void bt431_write_cmap(struct bt431_regs *regs, int cr, u16 value)
+static void bt431_write_cmap(struct bt431_regs *regs, int cr, u16 value)
 {
 	bt431_select_reg(regs, cr);
 	bt431_write_cmap_inc(regs, value);
 }
 
-static inline void bt431_enable_cursor(struct bt431_regs *regs)
+static void bt431_enable_cursor(struct bt431_regs *regs)
 {
 	bt431_write_reg(regs, BT431_REG_CMD,
 			BT431_CMD_CURS_ENABLE | BT431_CMD_OR_CURSORS
 			| BT431_CMD_4_1_MUX | BT431_CMD_THICK_1);
 }
 
-static inline void bt431_erase_cursor(struct bt431_regs *regs)
+static void bt431_erase_cursor(struct bt431_regs *regs)
 {
 	bt431_write_reg(regs, BT431_REG_CMD, BT431_CMD_4_1_MUX);
 }
 
-static inline void bt431_position_cursor(struct bt431_regs *regs, u16 x, u16 y)
+static void bt431_position_cursor(struct bt431_regs *regs, u16 x, u16 y)
 {
 	/*
 	 * Magic from the MACH sources.
@@ -199,7 +199,7 @@ static inline void bt431_position_cursor(struct bt431_regs *regs, u16 x, u16 y)
 	bt431_write_reg_inc(regs, (y >> 8) & 0x0f); /* BT431_REG_CYHI */
 }
 
-static inline void bt431_set_cursor(struct bt431_regs *regs,
+static void bt431_set_cursor(struct bt431_regs *regs,
 				    const char *data, const char *mask,
 				    u16 rop, u16 width, u16 height)
 {
@@ -225,7 +225,7 @@ static inline void bt431_set_cursor(struct bt431_regs *regs,
 		}
 }
 
-static inline void bt431_init_cursor(struct bt431_regs *regs)
+static void bt431_init_cursor(struct bt431_regs *regs)
 {
 	/* no crosshair window */
 	bt431_select_reg(regs, BT431_REG_WXLO);

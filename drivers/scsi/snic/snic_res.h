@@ -24,7 +24,7 @@
 #include "snic_fwint.h"
 #include "vnic_cq_fw.h"
 
-static inline void
+static void
 snic_icmnd_init(struct snic_host_req *req, u32 cmnd_id, u32 host_id, u64 ctx,
 		u16 flags, u64 tgt_id, u8 *lun, u8 *scsi_cdb, u8 cdb_len,
 		u32 data_len, u16 sg_cnt, ulong sgl_addr,
@@ -45,7 +45,7 @@ snic_icmnd_init(struct snic_host_req *req, u32 cmnd_id, u32 host_id, u64 ctx,
 	req->u.icmnd.sense_addr = cpu_to_le64(sns_addr_pa);
 }
 
-static inline void
+static void
 snic_itmf_init(struct snic_host_req *req, u32 cmnd_id, u32 host_id, ulong ctx,
 	       u16 flags, u32 req_id, u64 tgt_id, u8 *lun, u8 tm_type)
 {
@@ -59,7 +59,7 @@ snic_itmf_init(struct snic_host_req *req, u32 cmnd_id, u32 host_id, ulong ctx,
 	memcpy(&req->u.itmf.lun_id, lun, LUN_ADDR_LEN);
 }
 
-static inline void
+static void
 snic_queue_wq_eth_desc(struct vnic_wq *wq,
 		       void *os_buf,
 		       dma_addr_t dma_addr,

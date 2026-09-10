@@ -208,7 +208,7 @@
 
 #define CLDMA_BM_ALL_QUEUE 0x0F	/* all queues */
 
-static inline void cldma_reg_set_4msb_val(
+static void cldma_reg_set_4msb_val(
 	void *base, unsigned int reg_4msb_offset, int idx, dma_addr_t addr)
 {
 #ifdef CONFIG_ARCH_DMA_ADDR_T_64BIT
@@ -220,7 +220,7 @@ static inline void cldma_reg_set_4msb_val(
 	cldma_write32(base, reg_4msb_offset, val);
 #endif
 }
-static inline unsigned int cldma_reg_get_4msb_val(
+static unsigned int cldma_reg_get_4msb_val(
 	void *base, unsigned int reg_4msb_offset, int idx)
 {
 	unsigned int val = 0;
@@ -232,13 +232,13 @@ static inline unsigned int cldma_reg_get_4msb_val(
 #endif
 	return val;
 }
-static inline void cldma_reg_set_tx_start_addr(
+static void cldma_reg_set_tx_start_addr(
 	void *base, int idx, dma_addr_t addr)
 {
 	cldma_write32(base, CLDMA_AP_TQSAR(idx), (u32)addr);
 	cldma_reg_set_4msb_val(base, CLDMA_AP_UL_START_ADDR_4MSB, idx, addr);
 }
-static inline void cldma_reg_set_tx_start_addr_bk(
+static void cldma_reg_set_tx_start_addr_bk(
 	void *base, int idx, dma_addr_t addr)
 {
 	/*Set start bak address in power on domain*/
@@ -246,7 +246,7 @@ static inline void cldma_reg_set_tx_start_addr_bk(
 	cldma_reg_set_4msb_val(base, CLDMA_AP_UL_START_ADDR_BK_4MSB, idx, addr);
 }
 
-static inline void cldma_reg_set_rx_start_addr(
+static void cldma_reg_set_rx_start_addr(
 	void *base, int idx, dma_addr_t addr)
 {
 	cldma_write32(base, CLDMA_AP_RQSAR(idx), (u32)addr);

@@ -120,7 +120,7 @@ int il4965_send_beacon_cmd(struct il_priv *il);
 #ifdef CONFIG_IWLEGACY_DEBUG
 const char *il4965_get_tx_fail_reason(u32 status);
 #else
-static inline const char *
+static const char *
 il4965_get_tx_fail_reason(u32 status)
 {
 	return "";
@@ -152,7 +152,7 @@ void il4965_sta_modify_sleep_tx_count(struct il_priv *il, int sta_id, int cnt);
 int il4965_update_bcast_stations(struct il_priv *il);
 
 /* rate */
-static inline u8
+static u8
 il4965_hw_get_rate(__le32 rate_n_flags)
 {
 	return le32_to_cpu(rate_n_flags) & 0xFF;
@@ -220,7 +220,7 @@ void il4965_led_enable(struct il_priv *il);
 /* Size of uCode instruction memory in bootstrap state machine */
 #define IL49_MAX_BSM_SIZE BSM_SRAM_SIZE
 
-static inline int
+static int
 il4965_hw_valid_rtc_data_addr(u32 addr)
 {
 	return (addr >= IL49_RTC_DATA_LOWER_BOUND &&

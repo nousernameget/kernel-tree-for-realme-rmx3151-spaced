@@ -19,7 +19,7 @@ struct od_policy_dbs_info {
 	unsigned int sample_type:1;
 };
 
-static inline struct od_policy_dbs_info *to_dbs_info(struct policy_dbs_info *policy_dbs)
+static struct od_policy_dbs_info *to_dbs_info(struct policy_dbs_info *policy_dbs)
 {
 	return container_of(policy_dbs, struct od_policy_dbs_info, policy_dbs);
 }

@@ -48,56 +48,56 @@ extern bool mtk_pe_get_is_enable(struct charger_manager *pinfo);
 
 #else /* NOT CONFIG_MTK_PUMP_EXPRESS_PLUS_SUPPORT */
 
-static inline int mtk_pe_init(struct charger_manager *pinfo)
+static int mtk_pe_init(struct charger_manager *pinfo)
 {
 	return -ENOTSUPP;
 }
-static inline int mtk_pe_reset_ta_vchr(struct charger_manager *pinfo)
+static int mtk_pe_reset_ta_vchr(struct charger_manager *pinfo)
 {
 	return -ENOTSUPP;
 }
-static inline int mtk_pe_check_charger(struct charger_manager *pinfo)
+static int mtk_pe_check_charger(struct charger_manager *pinfo)
 {
 	return -ENOTSUPP;
 }
-static inline int mtk_pe_start_algorithm(struct charger_manager *pinfo)
-{
-	return -ENOTSUPP;
-}
-
-static inline int mtk_pe_plugout_reset(struct charger_manager *pinfo)
+static int mtk_pe_start_algorithm(struct charger_manager *pinfo)
 {
 	return -ENOTSUPP;
 }
 
-static inline int mtk_pe_set_charging_current(struct charger_manager *pinfo,
+static int mtk_pe_plugout_reset(struct charger_manager *pinfo)
+{
+	return -ENOTSUPP;
+}
+
+static int mtk_pe_set_charging_current(struct charger_manager *pinfo,
 	unsigned int *ichg, unsigned int *aicr)
 {
 	return -ENOTSUPP;
 }
 
-static inline void mtk_pe_set_to_check_chr_type(struct charger_manager *pinfo,
+static void mtk_pe_set_to_check_chr_type(struct charger_manager *pinfo,
 						bool check)
 {
 }
-static inline void mtk_pe_set_is_cable_out_occur(struct charger_manager *pinfo,
+static void mtk_pe_set_is_cable_out_occur(struct charger_manager *pinfo,
 						bool out)
 {
 }
-static inline void mtk_pe_set_is_enable(struct charger_manager *pinfo,
+static void mtk_pe_set_is_enable(struct charger_manager *pinfo,
 						bool enable)
 {
 }
 
-static inline bool mtk_pe_get_to_check_chr_type(struct charger_manager *pinfo)
+static bool mtk_pe_get_to_check_chr_type(struct charger_manager *pinfo)
 {
 	return false;
 }
-static inline bool mtk_pe_get_is_connect(struct charger_manager *pinfo)
+static bool mtk_pe_get_is_connect(struct charger_manager *pinfo)
 {
 	return false;
 }
-static inline bool mtk_pe_get_is_enable(struct charger_manager *pinfo)
+static bool mtk_pe_get_is_enable(struct charger_manager *pinfo)
 {
 	return false;
 }

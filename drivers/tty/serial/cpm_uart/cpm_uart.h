@@ -109,7 +109,7 @@ void scc4_lineif(struct uart_cpm_port *pinfo);
 /*
    virtual to phys transtalion
 */
-static inline unsigned long cpu2cpm_addr(void *addr,
+static unsigned long cpu2cpm_addr(void *addr,
                                          struct uart_cpm_port *pinfo)
 {
 	int offset;
@@ -125,7 +125,7 @@ static inline unsigned long cpu2cpm_addr(void *addr,
 	return 0;
 }
 
-static inline void *cpm2cpu_addr(unsigned long addr,
+static void *cpm2cpu_addr(unsigned long addr,
                                  struct uart_cpm_port *pinfo)
 {
 	int offset;

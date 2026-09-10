@@ -96,7 +96,7 @@ int mthca_table_get_range(struct mthca_dev *dev, struct mthca_icm_table *table,
 void mthca_table_put_range(struct mthca_dev *dev, struct mthca_icm_table *table,
 			   int start, int end);
 
-static inline void mthca_icm_first(struct mthca_icm *icm,
+static void mthca_icm_first(struct mthca_icm *icm,
 				   struct mthca_icm_iter *iter)
 {
 	iter->icm      = icm;
@@ -106,12 +106,12 @@ static inline void mthca_icm_first(struct mthca_icm *icm,
 	iter->page_idx = 0;
 }
 
-static inline int mthca_icm_last(struct mthca_icm_iter *iter)
+static int mthca_icm_last(struct mthca_icm_iter *iter)
 {
 	return !iter->chunk;
 }
 
-static inline void mthca_icm_next(struct mthca_icm_iter *iter)
+static void mthca_icm_next(struct mthca_icm_iter *iter)
 {
 	if (++iter->page_idx >= iter->chunk->nsg) {
 		if (iter->chunk->list.next == &iter->icm->chunk_list) {
@@ -125,12 +125,12 @@ static inline void mthca_icm_next(struct mthca_icm_iter *iter)
 	}
 }
 
-static inline dma_addr_t mthca_icm_addr(struct mthca_icm_iter *iter)
+static dma_addr_t mthca_icm_addr(struct mthca_icm_iter *iter)
 {
 	return sg_dma_address(&iter->chunk->mem[iter->page_idx]);
 }
 
-static inline unsigned long mthca_icm_size(struct mthca_icm_iter *iter)
+static unsigned long mthca_icm_size(struct mthca_icm_iter *iter)
 {
 	return sg_dma_len(&iter->chunk->mem[iter->page_idx]);
 }

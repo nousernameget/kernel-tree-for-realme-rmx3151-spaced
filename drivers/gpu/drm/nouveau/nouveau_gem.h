@@ -10,7 +10,7 @@
 #define nouveau_bo_tile_layout(nvbo)				\
 	((nvbo)->tile_flags & NOUVEAU_GEM_TILE_LAYOUT_MASK)
 
-static inline struct nouveau_bo *
+static struct nouveau_bo *
 nouveau_gem_object(struct drm_gem_object *gem)
 {
 	return gem ? container_of(gem, struct nouveau_bo, gem) : NULL;

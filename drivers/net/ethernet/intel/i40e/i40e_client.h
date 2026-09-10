@@ -214,7 +214,7 @@ struct i40e_client {
 	const struct i40e_client_ops *ops; /* client ops provided by the client */
 };
 
-static inline bool i40e_client_is_registered(struct i40e_client *client)
+static bool i40e_client_is_registered(struct i40e_client *client)
 {
 	return test_bit(__I40E_CLIENT_REGISTERED, &client->state);
 }

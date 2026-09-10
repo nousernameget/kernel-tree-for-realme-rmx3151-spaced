@@ -84,32 +84,32 @@ struct pktq {
 
 /* operations on a specific precedence in packet queue */
 
-static inline int pktq_plen(struct pktq *pq, int prec)
+static int pktq_plen(struct pktq *pq, int prec)
 {
 	return pq->q[prec].skblist.qlen;
 }
 
-static inline int pktq_pavail(struct pktq *pq, int prec)
+static int pktq_pavail(struct pktq *pq, int prec)
 {
 	return pq->q[prec].max - pq->q[prec].skblist.qlen;
 }
 
-static inline bool pktq_pfull(struct pktq *pq, int prec)
+static bool pktq_pfull(struct pktq *pq, int prec)
 {
 	return pq->q[prec].skblist.qlen >= pq->q[prec].max;
 }
 
-static inline bool pktq_pempty(struct pktq *pq, int prec)
+static bool pktq_pempty(struct pktq *pq, int prec)
 {
 	return skb_queue_empty(&pq->q[prec].skblist);
 }
 
-static inline struct sk_buff *pktq_ppeek(struct pktq *pq, int prec)
+static struct sk_buff *pktq_ppeek(struct pktq *pq, int prec)
 {
 	return skb_peek(&pq->q[prec].skblist);
 }
 
-static inline struct sk_buff *pktq_ppeek_tail(struct pktq *pq, int prec)
+static struct sk_buff *pktq_ppeek_tail(struct pktq *pq, int prec)
 {
 	return skb_peek_tail(&pq->q[prec].skblist);
 }
@@ -140,27 +140,27 @@ struct sk_buff *brcmu_pktq_mdeq(struct pktq *pq, uint prec_bmp, int *prec_out);
 
 /* operations on packet queue as a whole */
 
-static inline int pktq_len(struct pktq *pq)
+static int pktq_len(struct pktq *pq)
 {
 	return (int)pq->len;
 }
 
-static inline int pktq_max(struct pktq *pq)
+static int pktq_max(struct pktq *pq)
 {
 	return (int)pq->max;
 }
 
-static inline int pktq_avail(struct pktq *pq)
+static int pktq_avail(struct pktq *pq)
 {
 	return (int)(pq->max - pq->len);
 }
 
-static inline bool pktq_full(struct pktq *pq)
+static bool pktq_full(struct pktq *pq)
 {
 	return pq->len >= pq->max;
 }
 
-static inline bool pktq_empty(struct pktq *pq)
+static bool pktq_empty(struct pktq *pq)
 {
 	return pq->len == 0;
 }
@@ -180,21 +180,21 @@ struct ipv4_addr;
  *
  * remark: the mask parameter should be a shifted mask.
  */
-static inline void brcmu_maskset32(u32 *var, u32 mask, u8 shift, u32 value)
+static void brcmu_maskset32(u32 *var, u32 mask, u8 shift, u32 value)
 {
 	value = (value << shift) & mask;
 	*var = (*var & ~mask) | value;
 }
-static inline u32 brcmu_maskget32(u32 var, u32 mask, u8 shift)
+static u32 brcmu_maskget32(u32 var, u32 mask, u8 shift)
 {
 	return (var & mask) >> shift;
 }
-static inline void brcmu_maskset16(u16 *var, u16 mask, u8 shift, u16 value)
+static void brcmu_maskset16(u16 *var, u16 mask, u8 shift, u16 value)
 {
 	value = (value << shift) & mask;
 	*var = (*var & ~mask) | value;
 }
-static inline u16 brcmu_maskget16(u16 var, u16 mask, u8 shift)
+static u16 brcmu_maskget16(u16 var, u16 mask, u8 shift)
 {
 	return (var & mask) >> shift;
 }

@@ -402,7 +402,7 @@ int xen_blkbk_barrier(struct xenbus_transaction xbt,
 struct xenbus_device *xen_blkbk_xenbus(struct backend_info *be);
 void xen_blkbk_unmap_purged_grants(struct work_struct *work);
 
-static inline void blkif_get_x86_32_req(struct blkif_request *dst,
+static void blkif_get_x86_32_req(struct blkif_request *dst,
 					struct blkif_x86_32_request *src)
 {
 	int i, n = BLKIF_MAX_SEGMENTS_PER_REQUEST, j;
@@ -450,7 +450,7 @@ static inline void blkif_get_x86_32_req(struct blkif_request *dst,
 	}
 }
 
-static inline void blkif_get_x86_64_req(struct blkif_request *dst,
+static void blkif_get_x86_64_req(struct blkif_request *dst,
 					struct blkif_x86_64_request *src)
 {
 	int i, n = BLKIF_MAX_SEGMENTS_PER_REQUEST, j;

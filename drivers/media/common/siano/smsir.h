@@ -53,7 +53,7 @@ inline static int sms_ir_init(struct smscore_device_t *coredev) {
 	return 0;
 }
 inline static void sms_ir_exit(struct smscore_device_t *coredev) {};
-inline static void sms_ir_event(struct smscore_device_t *coredev,
+static void sms_ir_event(struct smscore_device_t *coredev,
 			const char *buf, int len) {};
 #endif
 

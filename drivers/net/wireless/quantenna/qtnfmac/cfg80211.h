@@ -28,7 +28,7 @@ void qtnf_band_init_rates(struct ieee80211_supported_band *band);
 void qtnf_band_setup_htvht_caps(struct qtnf_mac_info *macinfo,
 				struct ieee80211_supported_band *band);
 
-static inline void qtnf_scan_done(struct qtnf_wmac *mac, bool aborted)
+static void qtnf_scan_done(struct qtnf_wmac *mac, bool aborted)
 {
 	struct cfg80211_scan_info info = {
 		.aborted = aborted,

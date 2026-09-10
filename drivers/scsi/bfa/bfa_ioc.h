@@ -112,7 +112,7 @@ struct bfa_meminfo_s {
 };
 
 /* BFA memory segment setup helpers */
-static inline void bfa_mem_dma_setup(struct bfa_meminfo_s *meminfo,
+static void bfa_mem_dma_setup(struct bfa_meminfo_s *meminfo,
 				     struct bfa_mem_dma_s *dm_ptr,
 				     size_t seg_sz)
 {
@@ -121,7 +121,7 @@ static inline void bfa_mem_dma_setup(struct bfa_meminfo_s *meminfo,
 		list_add_tail(&dm_ptr->qe, &meminfo->dma_info.qe);
 }
 
-static inline void bfa_mem_kva_setup(struct bfa_meminfo_s *meminfo,
+static void bfa_mem_kva_setup(struct bfa_meminfo_s *meminfo,
 				     struct bfa_mem_kva_s *kva_ptr,
 				     size_t seg_sz)
 {
@@ -182,7 +182,7 @@ struct bfa_dma_s {
 
 #define bfa_dma_be_addr_set(dma_addr, pa)	\
 		__bfa_dma_be_addr_set(&dma_addr, (u64)pa)
-static inline void
+static void
 __bfa_dma_be_addr_set(union bfi_addr_u *dma_addr, u64 pa)
 {
 	dma_addr->a32.addr_lo = cpu_to_be32(pa);
@@ -192,7 +192,7 @@ __bfa_dma_be_addr_set(union bfi_addr_u *dma_addr, u64 pa)
 #define bfa_alen_set(__alen, __len, __pa)	\
 	__bfa_alen_set(__alen, __len, (u64)__pa)
 
-static inline void
+static void
 __bfa_alen_set(struct bfi_alen_s *alen, u32 len, u64 pa)
 {
 	alen->al_len = cpu_to_be32(len);
@@ -982,25 +982,25 @@ extern u32 *bfi_image_cb;
 extern u32 *bfi_image_ct;
 extern u32 *bfi_image_ct2;
 
-static inline u32 *
+static u32 *
 bfi_image_cb_get_chunk(u32 off)
 {
 	return (u32 *)(bfi_image_cb + off);
 }
 
-static inline u32 *
+static u32 *
 bfi_image_ct_get_chunk(u32 off)
 {
 	return (u32 *)(bfi_image_ct + off);
 }
 
-static inline u32 *
+static u32 *
 bfi_image_ct2_get_chunk(u32 off)
 {
 	return (u32 *)(bfi_image_ct2 + off);
 }
 
-static inline u32*
+static u32*
 bfa_cb_image_get_chunk(enum bfi_asic_gen asic_gen, u32 off)
 {
 	switch (asic_gen) {
@@ -1018,7 +1018,7 @@ bfa_cb_image_get_chunk(enum bfi_asic_gen asic_gen, u32 off)
 	}
 }
 
-static inline u32
+static u32
 bfa_cb_image_get_size(enum bfi_asic_gen asic_gen)
 {
 	switch (asic_gen) {

@@ -34,32 +34,32 @@ int pin_config_group_get(const char *dev_name, const char *pin_group,
 
 #else
 
-static inline int pinconf_check_ops(struct pinctrl_dev *pctldev)
+static int pinconf_check_ops(struct pinctrl_dev *pctldev)
 {
 	return 0;
 }
 
-static inline int pinconf_validate_map(const struct pinctrl_map *map, int i)
+static int pinconf_validate_map(const struct pinctrl_map *map, int i)
 {
 	return 0;
 }
 
-static inline int pinconf_map_to_setting(const struct pinctrl_map *map,
+static int pinconf_map_to_setting(const struct pinctrl_map *map,
 			  struct pinctrl_setting *setting)
 {
 	return 0;
 }
 
-static inline void pinconf_free_setting(const struct pinctrl_setting *setting)
+static void pinconf_free_setting(const struct pinctrl_setting *setting)
 {
 }
 
-static inline int pinconf_apply_setting(const struct pinctrl_setting *setting)
+static int pinconf_apply_setting(const struct pinctrl_setting *setting)
 {
 	return 0;
 }
 
-static inline int pinconf_set_config(struct pinctrl_dev *pctldev, unsigned pin,
+static int pinconf_set_config(struct pinctrl_dev *pctldev, unsigned pin,
 				     unsigned long *configs, size_t nconfigs)
 {
 	return -ENOTSUPP;
@@ -77,17 +77,17 @@ void pinconf_init_device_debugfs(struct dentry *devroot,
 
 #else
 
-static inline void pinconf_show_map(struct seq_file *s,
+static void pinconf_show_map(struct seq_file *s,
 				    const struct pinctrl_map *map)
 {
 }
 
-static inline void pinconf_show_setting(struct seq_file *s,
+static void pinconf_show_setting(struct seq_file *s,
 					const struct pinctrl_setting *setting)
 {
 }
 
-static inline void pinconf_init_device_debugfs(struct dentry *devroot,
+static void pinconf_init_device_debugfs(struct dentry *devroot,
 					       struct pinctrl_dev *pctldev)
 {
 }
@@ -109,14 +109,14 @@ void pinconf_generic_dump_config(struct pinctrl_dev *pctldev,
 				 struct seq_file *s, unsigned long config);
 #else
 
-static inline void pinconf_generic_dump_pins(struct pinctrl_dev *pctldev,
+static void pinconf_generic_dump_pins(struct pinctrl_dev *pctldev,
 					     struct seq_file *s,
 					     const char *gname, unsigned pin)
 {
 	return;
 }
 
-static inline void pinconf_generic_dump_config(struct pinctrl_dev *pctldev,
+static void pinconf_generic_dump_config(struct pinctrl_dev *pctldev,
 					       struct seq_file *s,
 					       unsigned long config)
 {

@@ -30,12 +30,12 @@ int vdoa_wait_for_completion(struct vdoa_ctx *ctx);
 
 #else
 
-static inline struct vdoa_ctx *vdoa_context_create(struct vdoa_data *vdoa)
+static struct vdoa_ctx *vdoa_context_create(struct vdoa_data *vdoa)
 {
 	return NULL;
 }
 
-static inline int vdoa_context_configure(struct vdoa_ctx *ctx,
+static int vdoa_context_configure(struct vdoa_ctx *ctx,
 					 unsigned int width,
 					 unsigned int height,
 					 u32 pixelformat)
@@ -45,10 +45,10 @@ static inline int vdoa_context_configure(struct vdoa_ctx *ctx,
 
 static inline void vdoa_context_destroy(struct vdoa_ctx *ctx) { };
 
-static inline void vdoa_device_run(struct vdoa_ctx *ctx,
+static void vdoa_device_run(struct vdoa_ctx *ctx,
 				   dma_addr_t dst, dma_addr_t src) { };
 
-static inline int vdoa_wait_for_completion(struct vdoa_ctx *ctx)
+static int vdoa_wait_for_completion(struct vdoa_ctx *ctx)
 {
 	return 0;
 };

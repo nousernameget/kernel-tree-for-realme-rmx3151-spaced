@@ -92,13 +92,13 @@ struct chip_data {
 	void (*cs_control)(u32 command);
 };
 
-static inline u32 pxa2xx_spi_read(const struct driver_data *drv_data,
+static u32 pxa2xx_spi_read(const struct driver_data *drv_data,
 				  unsigned reg)
 {
 	return __raw_readl(drv_data->ioaddr + reg);
 }
 
-static  inline void pxa2xx_spi_write(const struct driver_data *drv_data,
+static  void pxa2xx_spi_write(const struct driver_data *drv_data,
 				     unsigned reg, u32 val)
 {
 	__raw_writel(val, drv_data->ioaddr + reg);
@@ -111,7 +111,7 @@ static  inline void pxa2xx_spi_write(const struct driver_data *drv_data,
 
 #define DMA_ALIGNMENT		8
 
-static inline int pxa25x_ssp_comp(struct driver_data *drv_data)
+static int pxa25x_ssp_comp(struct driver_data *drv_data)
 {
 	switch (drv_data->ssp_type) {
 	case PXA25x_SSP:
@@ -123,7 +123,7 @@ static inline int pxa25x_ssp_comp(struct driver_data *drv_data)
 	}
 }
 
-static inline void write_SSSR_CS(struct driver_data *drv_data, u32 val)
+static void write_SSSR_CS(struct driver_data *drv_data, u32 val)
 {
 	if (drv_data->ssp_type == CE4100_SSP ||
 	    drv_data->ssp_type == QUARK_X1000_SSP)

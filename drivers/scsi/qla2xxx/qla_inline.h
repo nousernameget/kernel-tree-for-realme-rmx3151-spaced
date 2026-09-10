@@ -14,7 +14,7 @@
  *
  * Returns the number of IOCB entries needed to store @dsds.
  */
-static inline uint16_t
+static uint16_t
 qla24xx_calc_iocbs(scsi_qla_host_t *vha, uint16_t dsds)
 {
 	uint16_t iocbs;
@@ -54,7 +54,7 @@ qla2x00_debounce_register(volatile uint16_t __iomem *addr)
 	return (first);
 }
 
-static inline void
+static void
 qla2x00_poll(struct rsp_que *rsp)
 {
 	unsigned long flags;
@@ -67,7 +67,7 @@ qla2x00_poll(struct rsp_que *rsp)
 	local_irq_restore(flags);
 }
 
-static inline uint8_t *
+static uint8_t *
 host_to_fcp_swap(uint8_t *fcp, uint32_t bsize)
 {
        uint32_t *ifcp = (uint32_t *) fcp;
@@ -80,7 +80,7 @@ host_to_fcp_swap(uint8_t *fcp, uint32_t bsize)
        return fcp;
 }
 
-static inline void
+static void
 host_to_adap(uint8_t *src, uint8_t *dst, uint32_t bsize)
 {
 	uint32_t *isrc = (uint32_t *) src;
@@ -91,7 +91,7 @@ host_to_adap(uint8_t *src, uint8_t *dst, uint32_t bsize)
 		*odest++ = cpu_to_le32(*isrc);
 }
 
-static inline void
+static void
 qla2x00_set_reserved_loop_ids(struct qla_hw_data *ha)
 {
 	int i;
@@ -105,7 +105,7 @@ qla2x00_set_reserved_loop_ids(struct qla_hw_data *ha)
 	set_bit(BROADCAST, ha->loop_id_map);
 }
 
-static inline int
+static int
 qla2x00_is_reserved_id(scsi_qla_host_t *vha, uint16_t loop_id)
 {
 	struct qla_hw_data *ha = vha->hw;
@@ -116,7 +116,7 @@ qla2x00_is_reserved_id(scsi_qla_host_t *vha, uint16_t loop_id)
 	    loop_id == MANAGEMENT_SERVER || loop_id == BROADCAST);
 }
 
-static inline void
+static void
 qla2x00_clear_loop_id(fc_port_t *fcport) {
 	struct qla_hw_data *ha = fcport->vha->hw;
 
@@ -128,7 +128,7 @@ qla2x00_clear_loop_id(fc_port_t *fcport) {
 	fcport->loop_id = FC_NO_LOOP_ID;
 }
 
-static inline void
+static void
 qla2x00_clean_dsd_pool(struct qla_hw_data *ha, struct crc_context *ctx)
 {
 	struct dsd_dma *dsd, *tdsd;
@@ -143,7 +143,7 @@ qla2x00_clean_dsd_pool(struct qla_hw_data *ha, struct crc_context *ctx)
 	INIT_LIST_HEAD(&ctx->dsd_list);
 }
 
-static inline void
+static void
 qla2x00_set_fcport_state(fc_port_t *fcport, int state)
 {
 	int old_state;
@@ -162,7 +162,7 @@ qla2x00_set_fcport_state(fc_port_t *fcport, int state)
 	}
 }
 
-static inline int
+static int
 qla2x00_hba_err_chk_enabled(srb_t *sp)
 {
 	/*
@@ -190,7 +190,7 @@ qla2x00_hba_err_chk_enabled(srb_t *sp)
 	return 0;
 }
 
-static inline int
+static int
 qla2x00_reset_active(scsi_qla_host_t *vha)
 {
 	scsi_qla_host_t *base_vha = pci_get_drvdata(vha->hw->pdev);
@@ -203,7 +203,7 @@ qla2x00_reset_active(scsi_qla_host_t *vha)
 	    test_bit(ABORT_ISP_ACTIVE, &vha->dpc_flags);
 }
 
-static inline srb_t *
+static srb_t *
 qla2xxx_get_qpair_sp(struct qla_qpair *qpair, fc_port_t *fcport, gfp_t flag)
 {
 	srb_t *sp = NULL;
@@ -229,14 +229,14 @@ done:
 	return sp;
 }
 
-static inline void
+static void
 qla2xxx_rel_qpair_sp(struct qla_qpair *qpair, srb_t *sp)
 {
 	mempool_free(sp, qpair->srb_mempool);
 	QLA_QPAIR_MARK_NOT_BUSY(qpair);
 }
 
-static inline srb_t *
+static srb_t *
 qla2x00_get_sp(scsi_qla_host_t *vha, fc_port_t *fcport, gfp_t flag)
 {
 	srb_t *sp = NULL;
@@ -261,14 +261,14 @@ done:
 	return sp;
 }
 
-static inline void
+static void
 qla2x00_rel_sp(srb_t *sp)
 {
 	QLA_VHA_MARK_NOT_BUSY(sp->vha);
 	mempool_free(sp, sp->vha->hw->srb_mempool);
 }
 
-static inline void
+static void
 qla2x00_init_timer(srb_t *sp, unsigned long tmo)
 {
 	init_timer(&sp->u.iocb_cmd.timer);
@@ -283,7 +283,7 @@ qla2x00_init_timer(srb_t *sp, unsigned long tmo)
 		init_completion(&sp->u.iocb_cmd.u.els_logo.comp);
 }
 
-static inline int
+static int
 qla2x00_gid_list_size(struct qla_hw_data *ha)
 {
 	if (IS_QLAFX00(ha))
@@ -292,7 +292,7 @@ qla2x00_gid_list_size(struct qla_hw_data *ha)
 		return sizeof(struct gid_list_info) * ha->max_fibre_devices;
 }
 
-static inline void
+static void
 qla2x00_handle_mbx_completion(struct qla_hw_data *ha, int status)
 {
 	if (test_bit(MBX_INTR_WAIT, &ha->mbx_cmd_flags) &&
@@ -303,7 +303,7 @@ qla2x00_handle_mbx_completion(struct qla_hw_data *ha, int status)
 	}
 }
 
-static inline void
+static void
 qla2x00_set_retry_delay_timestamp(fc_port_t *fcport, uint16_t retry_delay)
 {
 	if (retry_delay)
@@ -311,7 +311,7 @@ qla2x00_set_retry_delay_timestamp(fc_port_t *fcport, uint16_t retry_delay)
 		    (retry_delay * HZ / 10);
 }
 
-static inline bool
+static bool
 qla_is_exch_offld_enabled(struct scsi_qla_host *vha)
 {
 	if (qla_ini_mode_enabled(vha) &&
@@ -327,7 +327,7 @@ qla_is_exch_offld_enabled(struct scsi_qla_host *vha)
 		return false;
 }
 
-static inline void
+static void
 qla_cpu_update(struct qla_qpair *qpair, uint16_t cpuid)
 {
 	qpair->cpuid = cpuid;
@@ -340,7 +340,7 @@ qla_cpu_update(struct qla_qpair *qpair, uint16_t cpuid)
 	}
 }
 
-static inline struct qla_qpair_hint *
+static struct qla_qpair_hint *
 qla_qpair_to_hint(struct qla_tgt *tgt, struct qla_qpair *qpair)
 {
 	struct qla_qpair_hint *h;
@@ -355,7 +355,7 @@ qla_qpair_to_hint(struct qla_tgt *tgt, struct qla_qpair *qpair)
 	return NULL;
 }
 
-static inline void
+static void
 qla_83xx_start_iocbs(struct qla_qpair *qpair)
 {
 	struct req_que *req = qpair->req;

@@ -84,7 +84,7 @@ static char *pin_name[IPI_ID_TOTAL] = {
 	"CM_MGR",
 };
 
-static inline int check_table_tag(int mcnt)
+static int check_table_tag(int mcnt)
 {
 	int i, j = 0, k = 0, n = 0;
 	uint32_t data, check;

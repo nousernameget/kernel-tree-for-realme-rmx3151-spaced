@@ -65,7 +65,7 @@ enum intel_engine_hangcheck_action {
 	ENGINE_DEAD,
 };
 
-static inline const char *
+static const char *
 hangcheck_action_to_str(const enum intel_engine_hangcheck_action a)
 {
 	switch (a) {
@@ -446,32 +446,32 @@ struct intel_engine_cs {
 	u32 (*get_cmd_length_mask)(u32 cmd_header);
 };
 
-static inline bool
+static bool
 intel_engine_using_cmd_parser(const struct intel_engine_cs *engine)
 {
 	return engine->flags & I915_ENGINE_USING_CMD_PARSER;
 }
 
-static inline bool
+static bool
 intel_engine_requires_cmd_parser(const struct intel_engine_cs *engine)
 {
 	return engine->flags & I915_ENGINE_REQUIRES_CMD_PARSER;
 }
 
-static inline unsigned int
+static unsigned int
 intel_engine_flag(const struct intel_engine_cs *engine)
 {
 	return BIT(engine->id);
 }
 
-static inline u32
+static u32
 intel_read_status_page(struct intel_engine_cs *engine, int reg)
 {
 	/* Ensure that the compiler doesn't optimize away the load. */
 	return READ_ONCE(engine->status_page.page_addr[reg]);
 }
 
-static inline void
+static void
 intel_write_status_page(struct intel_engine_cs *engine, int reg, u32 value)
 {
 	/* Writing into the status page should be done sparingly. Since
@@ -531,7 +531,7 @@ int __must_check intel_ring_cacheline_align(struct drm_i915_gem_request *req);
 u32 __must_check *intel_ring_begin(struct drm_i915_gem_request *req,
 				   unsigned int n);
 
-static inline void
+static void
 intel_ring_advance(struct drm_i915_gem_request *req, u32 *cs)
 {
 	/* Dummy function.
@@ -545,13 +545,13 @@ intel_ring_advance(struct drm_i915_gem_request *req, u32 *cs)
 	GEM_BUG_ON((req->ring->vaddr + req->ring->emit) != cs);
 }
 
-static inline u32
+static u32
 intel_ring_wrap(const struct intel_ring *ring, u32 pos)
 {
 	return pos & (ring->size - 1);
 }
 
-static inline u32
+static u32
 intel_ring_offset(const struct drm_i915_gem_request *req, void *addr)
 {
 	/* Don't write ring->size (equivalent to 0) as that hangs some GPUs. */
@@ -560,7 +560,7 @@ intel_ring_offset(const struct drm_i915_gem_request *req, void *addr)
 	return intel_ring_wrap(req->ring, offset);
 }
 
-static inline void
+static void
 assert_ring_tail_valid(const struct intel_ring *ring, unsigned int tail)
 {
 	/* We could combine these into a single tail operation, but keeping
@@ -590,7 +590,7 @@ assert_ring_tail_valid(const struct intel_ring *ring, unsigned int tail)
 #undef cacheline
 }
 
-static inline unsigned int
+static unsigned int
 intel_ring_set_tail(struct intel_ring *ring, unsigned int tail)
 {
 	/* Whilst writes to the tail are strictly order, there is no
@@ -619,12 +619,12 @@ int intel_init_vebox_ring_buffer(struct intel_engine_cs *engine);
 u64 intel_engine_get_active_head(struct intel_engine_cs *engine);
 u64 intel_engine_get_last_batch_head(struct intel_engine_cs *engine);
 
-static inline u32 intel_engine_get_seqno(struct intel_engine_cs *engine)
+static u32 intel_engine_get_seqno(struct intel_engine_cs *engine)
 {
 	return intel_read_status_page(engine, I915_GEM_HWS_INDEX);
 }
 
-static inline u32 intel_engine_last_submit(struct intel_engine_cs *engine)
+static u32 intel_engine_last_submit(struct intel_engine_cs *engine)
 {
 	/* We are only peeking at the tail of the submit queue (and not the
 	 * queue itself) in order to gain a hint as to the current active
@@ -651,7 +651,7 @@ void intel_engine_get_instdone(struct intel_engine_cs *engine,
  */
 #define MIN_SPACE_FOR_ADD_REQUEST 336
 
-static inline u32 intel_hws_seqno_address(struct intel_engine_cs *engine)
+static u32 intel_hws_seqno_address(struct intel_engine_cs *engine)
 {
 	return engine->status_page.ggtt_offset + I915_GEM_HWS_INDEX_ADDR;
 }
@@ -659,52 +659,52 @@ static inline u32 intel_hws_seqno_address(struct intel_engine_cs *engine)
 /* intel_breadcrumbs.c -- user interrupt bottom-half for waiters */
 int intel_engine_init_breadcrumbs(struct intel_engine_cs *engine);
 
-static inline void intel_wait_init(struct intel_wait *wait,
+static void intel_wait_init(struct intel_wait *wait,
 				   struct drm_i915_gem_request *rq)
 {
 	wait->tsk = current;
 	wait->request = rq;
 }
 
-static inline void intel_wait_init_for_seqno(struct intel_wait *wait, u32 seqno)
+static void intel_wait_init_for_seqno(struct intel_wait *wait, u32 seqno)
 {
 	wait->tsk = current;
 	wait->seqno = seqno;
 }
 
-static inline bool intel_wait_has_seqno(const struct intel_wait *wait)
+static bool intel_wait_has_seqno(const struct intel_wait *wait)
 {
 	return wait->seqno;
 }
 
-static inline bool
+static bool
 intel_wait_update_seqno(struct intel_wait *wait, u32 seqno)
 {
 	wait->seqno = seqno;
 	return intel_wait_has_seqno(wait);
 }
 
-static inline bool
+static bool
 intel_wait_update_request(struct intel_wait *wait,
 			  const struct drm_i915_gem_request *rq)
 {
 	return intel_wait_update_seqno(wait, i915_gem_request_global_seqno(rq));
 }
 
-static inline bool
+static bool
 intel_wait_check_seqno(const struct intel_wait *wait, u32 seqno)
 {
 	return wait->seqno == seqno;
 }
 
-static inline bool
+static bool
 intel_wait_check_request(const struct intel_wait *wait,
 			 const struct drm_i915_gem_request *rq)
 {
 	return intel_wait_check_seqno(wait, i915_gem_request_global_seqno(rq));
 }
 
-static inline bool intel_wait_complete(const struct intel_wait *wait)
+static bool intel_wait_complete(const struct intel_wait *wait)
 {
 	return RB_EMPTY_NODE(&wait->node);
 }
@@ -717,7 +717,7 @@ void intel_engine_enable_signaling(struct drm_i915_gem_request *request,
 				   bool wakeup);
 void intel_engine_cancel_signaling(struct drm_i915_gem_request *request);
 
-static inline bool intel_engine_has_waiter(const struct intel_engine_cs *engine)
+static bool intel_engine_has_waiter(const struct intel_engine_cs *engine)
 {
 	return READ_ONCE(engine->breadcrumbs.irq_wait);
 }
@@ -733,7 +733,7 @@ void intel_engine_reset_breadcrumbs(struct intel_engine_cs *engine);
 void intel_engine_fini_breadcrumbs(struct intel_engine_cs *engine);
 bool intel_breadcrumbs_busy(struct intel_engine_cs *engine);
 
-static inline u32 *gen8_emit_pipe_control(u32 *batch, u32 flags, u32 offset)
+static u32 *gen8_emit_pipe_control(u32 *batch, u32 flags, u32 offset)
 {
 	memset(batch, 0, 6 * sizeof(u32));
 
@@ -750,7 +750,7 @@ bool intel_engines_are_idle(struct drm_i915_private *dev_priv);
 void intel_engines_mark_idle(struct drm_i915_private *i915);
 void intel_engines_reset_default_submission(struct drm_i915_private *i915);
 
-static inline bool
+static bool
 __intel_engine_can_store_dword(unsigned int gen, unsigned int class)
 {
 	if (gen <= 2)

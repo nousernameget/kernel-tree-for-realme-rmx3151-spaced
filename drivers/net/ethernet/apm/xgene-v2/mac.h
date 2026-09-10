@@ -69,7 +69,7 @@
 #define MII_READ_CYCLE		BIT(0)
 #define CFG_WAITASYNCRD_EN	BIT(16)
 
-static inline void xgene_set_reg_bits(u32 *var, int pos, int len, u32 val)
+static void xgene_set_reg_bits(u32 *var, int pos, int len, u32 val)
 {
 	u32 mask = GENMASK(pos + len, pos);
 
@@ -77,7 +77,7 @@ static inline void xgene_set_reg_bits(u32 *var, int pos, int len, u32 val)
 	*var |= ((val << pos) & mask);
 }
 
-static inline u32 xgene_get_reg_bits(u32 var, int pos, int len)
+static u32 xgene_get_reg_bits(u32 var, int pos, int len)
 {
 	u32 mask = GENMASK(pos + len, pos);
 

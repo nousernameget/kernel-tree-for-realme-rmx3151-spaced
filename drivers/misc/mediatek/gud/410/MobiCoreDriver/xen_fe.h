@@ -53,12 +53,12 @@ int xen_gp_request_cancellation(u64 slot);
 int xen_fe_init(int (*probe)(void), int (*start)(void));
 void xen_fe_exit(void);
 #else
-static inline int xen_fe_init(int (*probe)(void), int (*start)(void))
+static int xen_fe_init(int (*probe)(void), int (*start)(void))
 {
 	return 0;
 }
 
-static inline void xen_fe_exit(void)
+static void xen_fe_exit(void)
 {
 }
 #endif

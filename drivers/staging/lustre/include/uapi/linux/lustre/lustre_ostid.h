@@ -37,34 +37,34 @@
 #include <linux/errno.h>
 #include <uapi/linux/lustre/lustre_fid.h>
 
-static inline __u64 lmm_oi_id(const struct ost_id *oi)
+static __u64 lmm_oi_id(const struct ost_id *oi)
 {
 	return oi->oi.oi_id;
 }
 
-static inline __u64 lmm_oi_seq(const struct ost_id *oi)
+static __u64 lmm_oi_seq(const struct ost_id *oi)
 {
 	return oi->oi.oi_seq;
 }
 
-static inline void lmm_oi_set_seq(struct ost_id *oi, __u64 seq)
+static void lmm_oi_set_seq(struct ost_id *oi, __u64 seq)
 {
 	oi->oi.oi_seq = seq;
 }
 
-static inline void lmm_oi_set_id(struct ost_id *oi, __u64 oid)
+static void lmm_oi_set_id(struct ost_id *oi, __u64 oid)
 {
 	oi->oi.oi_id = oid;
 }
 
-static inline void lmm_oi_le_to_cpu(struct ost_id *dst_oi,
+static void lmm_oi_le_to_cpu(struct ost_id *dst_oi,
 				    const struct ost_id *src_oi)
 {
 	dst_oi->oi.oi_id = __le64_to_cpu(src_oi->oi.oi_id);
 	dst_oi->oi.oi_seq = __le64_to_cpu(src_oi->oi.oi_seq);
 }
 
-static inline void lmm_oi_cpu_to_le(struct ost_id *dst_oi,
+static void lmm_oi_cpu_to_le(struct ost_id *dst_oi,
 				    const struct ost_id *src_oi)
 {
 	dst_oi->oi.oi_id = __cpu_to_le64(src_oi->oi.oi_id);
@@ -72,7 +72,7 @@ static inline void lmm_oi_cpu_to_le(struct ost_id *dst_oi,
 }
 
 /* extract OST sequence (group) from a wire ost_id (id/seq) pair */
-static inline __u64 ostid_seq(const struct ost_id *ostid)
+static __u64 ostid_seq(const struct ost_id *ostid)
 {
 	if (fid_seq_is_mdt0(ostid->oi.oi_seq))
 		return FID_SEQ_OST_MDT0;
@@ -87,7 +87,7 @@ static inline __u64 ostid_seq(const struct ost_id *ostid)
 }
 
 /* extract OST objid from a wire ost_id (id/seq) pair */
-static inline __u64 ostid_id(const struct ost_id *ostid)
+static __u64 ostid_id(const struct ost_id *ostid)
 {
 	if (fid_seq_is_mdt0(ostid->oi.oi_seq))
 		return ostid->oi.oi_id & IDIF_OID_MASK;
@@ -102,7 +102,7 @@ static inline __u64 ostid_id(const struct ost_id *ostid)
 	return fid_oid(&ostid->oi_fid);
 }
 
-static inline void ostid_set_seq(struct ost_id *oi, __u64 seq)
+static void ostid_set_seq(struct ost_id *oi, __u64 seq)
 {
 	if (fid_seq_is_mdt0(seq) || fid_seq_is_default(seq)) {
 		oi->oi.oi_seq = seq;
@@ -118,22 +118,22 @@ static inline void ostid_set_seq(struct ost_id *oi, __u64 seq)
 	}
 }
 
-static inline void ostid_set_seq_mdt0(struct ost_id *oi)
+static void ostid_set_seq_mdt0(struct ost_id *oi)
 {
 	ostid_set_seq(oi, FID_SEQ_OST_MDT0);
 }
 
-static inline void ostid_set_seq_echo(struct ost_id *oi)
+static void ostid_set_seq_echo(struct ost_id *oi)
 {
 	ostid_set_seq(oi, FID_SEQ_ECHO);
 }
 
-static inline void ostid_set_seq_llog(struct ost_id *oi)
+static void ostid_set_seq_llog(struct ost_id *oi)
 {
 	ostid_set_seq(oi, FID_SEQ_LLOG);
 }
 
-static inline void ostid_cpu_to_le(const struct ost_id *src_oi,
+static void ostid_cpu_to_le(const struct ost_id *src_oi,
 				   struct ost_id *dst_oi)
 {
 	if (fid_seq_is_mdt0(src_oi->oi.oi_seq)) {
@@ -144,7 +144,7 @@ static inline void ostid_cpu_to_le(const struct ost_id *src_oi,
 	}
 }
 
-static inline void ostid_le_to_cpu(const struct ost_id *src_oi,
+static void ostid_le_to_cpu(const struct ost_id *src_oi,
 				   struct ost_id *dst_oi)
 {
 	if (fid_seq_is_mdt0(src_oi->oi.oi_seq)) {
@@ -179,7 +179,7 @@ static inline void ostid_le_to_cpu(const struct ost_id *src_oi,
  * make swab more complicate. So we will keep using id/seq for lmm_oi.
  */
 
-static inline void fid_to_lmm_oi(const struct lu_fid *fid,
+static void fid_to_lmm_oi(const struct lu_fid *fid,
 				 struct ost_id *oi)
 {
 	oi->oi.oi_id = fid_oid(fid);
@@ -194,7 +194,7 @@ static inline void fid_to_lmm_oi(const struct lu_fid *fid,
  * will be mapped into the IDIF namespace so that they can fit into the
  * struct lu_fid fields without loss.
  */
-static inline int ostid_to_fid(struct lu_fid *fid, const struct ost_id *ostid,
+static int ostid_to_fid(struct lu_fid *fid, const struct ost_id *ostid,
 			       __u32 ost_idx)
 {
 	__u64 seq = ostid_seq(ostid);

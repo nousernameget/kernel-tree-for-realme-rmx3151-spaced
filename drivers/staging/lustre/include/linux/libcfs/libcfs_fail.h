@@ -69,14 +69,14 @@ enum {
 
 #define CFS_FAULT	0x02000000 /* match any CFS_FAULT_CHECK */
 
-static inline bool CFS_FAIL_PRECHECK(u32 id)
+static bool CFS_FAIL_PRECHECK(u32 id)
 {
 	return cfs_fail_loc &&
 	       ((cfs_fail_loc & CFS_FAIL_MASK_LOC) == (id & CFS_FAIL_MASK_LOC) ||
 		(cfs_fail_loc & id & CFS_FAULT));
 }
 
-static inline int cfs_fail_check_set(u32 id, u32 value,
+static int cfs_fail_check_set(u32 id, u32 value,
 				     int set, int quiet)
 {
 	int ret = 0;
@@ -130,7 +130,7 @@ static inline int cfs_fail_check_set(u32 id, u32 value,
 #define CFS_FAIL_CHECK_RESET_QUIET(id, value) \
 	cfs_fail_check_set(id, value, CFS_FAIL_LOC_RESET, 1)
 
-static inline int cfs_fail_timeout_set(u32 id, u32 value, int ms, int set)
+static int cfs_fail_timeout_set(u32 id, u32 value, int ms, int set)
 {
 	if (unlikely(CFS_FAIL_PRECHECK(id)))
 		return __cfs_fail_timeout_set(id, value, ms, set);
@@ -166,7 +166,7 @@ static inline int cfs_fail_timeout_set(u32 id, u32 value, int ms, int set)
  * sleep. The next thread that calls with the same fail_loc wakes up
  * the first and continues.
  */
-static inline void cfs_race(u32 id)
+static void cfs_race(u32 id)
 {
 	if (CFS_FAIL_PRECHECK(id)) {
 		if (unlikely(__cfs_fail_check_set(id, 0, CFS_FAIL_LOC_NOSET))) {

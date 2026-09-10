@@ -112,7 +112,7 @@ struct imx_media_video_dev {
 	const struct imx_media_pixfmt *cc;
 };
 
-static inline struct imx_media_buffer *to_imx_media_vb(struct vb2_buffer *vb)
+static struct imx_media_buffer *to_imx_media_vb(struct vb2_buffer *vb)
 {
 	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
 

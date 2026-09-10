@@ -135,7 +135,7 @@ int speed_idx_ep11(int);
  * @ap_dev: AP device pointer
  * @ap_msg: pointer to AP message
  */
-static inline void rng_type6CPRB_msgX(struct ap_message *ap_msg,
+static void rng_type6CPRB_msgX(struct ap_message *ap_msg,
 				      unsigned int random_number_length,
 				      unsigned int *domain)
 {

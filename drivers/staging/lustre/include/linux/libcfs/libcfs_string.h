@@ -81,7 +81,7 @@ int cfs_expr_list_print(char *buffer, int count,
 			struct cfs_expr_list *expr_list);
 int cfs_expr_list_values(struct cfs_expr_list *expr_list,
 			 int max, u32 **values);
-static inline void
+static void
 cfs_expr_list_values_free(u32 *values, int num)
 {
 	/*

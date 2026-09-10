@@ -100,7 +100,7 @@ struct l2t_skb_cb {
 
 #define L2T_SKB_CB(skb) ((struct l2t_skb_cb *)(skb)->cb)
 
-static inline void t4_set_arp_err_handler(struct sk_buff *skb, void *handle,
+static void t4_set_arp_err_handler(struct sk_buff *skb, void *handle,
 					  arp_err_handler_t handler)
 {
 	L2T_SKB_CB(skb)->handle = handle;

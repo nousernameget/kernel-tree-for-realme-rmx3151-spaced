@@ -45,7 +45,7 @@ extern struct dvb_frontend *dvb_pll_attach(struct dvb_frontend *fe,
 					   struct i2c_adapter *i2c,
 					   unsigned int pll_desc_id);
 #else
-static inline struct dvb_frontend *dvb_pll_attach(struct dvb_frontend *fe,
+static struct dvb_frontend *dvb_pll_attach(struct dvb_frontend *fe,
 					   int pll_addr,
 					   struct i2c_adapter *i2c,
 					   unsigned int pll_desc_id)

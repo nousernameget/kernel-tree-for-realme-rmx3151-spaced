@@ -78,7 +78,7 @@ struct rt2800_ops {
 	__le32 *(*drv_get_txwi)(struct queue_entry *entry);
 };
 
-static inline u32 rt2800_register_read(struct rt2x00_dev *rt2x00dev,
+static u32 rt2800_register_read(struct rt2x00_dev *rt2x00dev,
 				       const unsigned int offset)
 {
 	const struct rt2800_ops *rt2800ops = rt2x00dev->ops->drv;
@@ -86,7 +86,7 @@ static inline u32 rt2800_register_read(struct rt2x00_dev *rt2x00dev,
 	return rt2800ops->register_read(rt2x00dev, offset);
 }
 
-static inline u32 rt2800_register_read_lock(struct rt2x00_dev *rt2x00dev,
+static u32 rt2800_register_read_lock(struct rt2x00_dev *rt2x00dev,
 					    const unsigned int offset)
 {
 	const struct rt2800_ops *rt2800ops = rt2x00dev->ops->drv;
@@ -94,7 +94,7 @@ static inline u32 rt2800_register_read_lock(struct rt2x00_dev *rt2x00dev,
 	return rt2800ops->register_read_lock(rt2x00dev, offset);
 }
 
-static inline void rt2800_register_write(struct rt2x00_dev *rt2x00dev,
+static void rt2800_register_write(struct rt2x00_dev *rt2x00dev,
 					 const unsigned int offset,
 					 u32 value)
 {
@@ -103,7 +103,7 @@ static inline void rt2800_register_write(struct rt2x00_dev *rt2x00dev,
 	rt2800ops->register_write(rt2x00dev, offset, value);
 }
 
-static inline void rt2800_register_write_lock(struct rt2x00_dev *rt2x00dev,
+static void rt2800_register_write_lock(struct rt2x00_dev *rt2x00dev,
 					      const unsigned int offset,
 					      u32 value)
 {
@@ -112,7 +112,7 @@ static inline void rt2800_register_write_lock(struct rt2x00_dev *rt2x00dev,
 	rt2800ops->register_write_lock(rt2x00dev, offset, value);
 }
 
-static inline void rt2800_register_multiread(struct rt2x00_dev *rt2x00dev,
+static void rt2800_register_multiread(struct rt2x00_dev *rt2x00dev,
 					     const unsigned int offset,
 					     void *value, const u32 length)
 {
@@ -121,7 +121,7 @@ static inline void rt2800_register_multiread(struct rt2x00_dev *rt2x00dev,
 	rt2800ops->register_multiread(rt2x00dev, offset, value, length);
 }
 
-static inline void rt2800_register_multiwrite(struct rt2x00_dev *rt2x00dev,
+static void rt2800_register_multiwrite(struct rt2x00_dev *rt2x00dev,
 					      const unsigned int offset,
 					      const void *value,
 					      const u32 length)
@@ -131,7 +131,7 @@ static inline void rt2800_register_multiwrite(struct rt2x00_dev *rt2x00dev,
 	rt2800ops->register_multiwrite(rt2x00dev, offset, value, length);
 }
 
-static inline int rt2800_regbusy_read(struct rt2x00_dev *rt2x00dev,
+static int rt2800_regbusy_read(struct rt2x00_dev *rt2x00dev,
 				      const unsigned int offset,
 				      const struct rt2x00_field32 field,
 				      u32 *reg)
@@ -141,21 +141,21 @@ static inline int rt2800_regbusy_read(struct rt2x00_dev *rt2x00dev,
 	return rt2800ops->regbusy_read(rt2x00dev, offset, field, reg);
 }
 
-static inline int rt2800_read_eeprom(struct rt2x00_dev *rt2x00dev)
+static int rt2800_read_eeprom(struct rt2x00_dev *rt2x00dev)
 {
 	const struct rt2800_ops *rt2800ops = rt2x00dev->ops->drv;
 
 	return rt2800ops->read_eeprom(rt2x00dev);
 }
 
-static inline bool rt2800_hwcrypt_disabled(struct rt2x00_dev *rt2x00dev)
+static bool rt2800_hwcrypt_disabled(struct rt2x00_dev *rt2x00dev)
 {
 	const struct rt2800_ops *rt2800ops = rt2x00dev->ops->drv;
 
 	return rt2800ops->hwcrypt_disabled(rt2x00dev);
 }
 
-static inline int rt2800_drv_write_firmware(struct rt2x00_dev *rt2x00dev,
+static int rt2800_drv_write_firmware(struct rt2x00_dev *rt2x00dev,
 					    const u8 *data, const size_t len)
 {
 	const struct rt2800_ops *rt2800ops = rt2x00dev->ops->drv;
@@ -163,14 +163,14 @@ static inline int rt2800_drv_write_firmware(struct rt2x00_dev *rt2x00dev,
 	return rt2800ops->drv_write_firmware(rt2x00dev, data, len);
 }
 
-static inline int rt2800_drv_init_registers(struct rt2x00_dev *rt2x00dev)
+static int rt2800_drv_init_registers(struct rt2x00_dev *rt2x00dev)
 {
 	const struct rt2800_ops *rt2800ops = rt2x00dev->ops->drv;
 
 	return rt2800ops->drv_init_registers(rt2x00dev);
 }
 
-static inline __le32 *rt2800_drv_get_txwi(struct queue_entry *entry)
+static __le32 *rt2800_drv_get_txwi(struct queue_entry *entry)
 {
 	const struct rt2800_ops *rt2800ops = entry->queue->rt2x00dev->ops->drv;
 

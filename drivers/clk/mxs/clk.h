@@ -36,12 +36,12 @@ struct clk *mxs_clk_div(const char *name, const char *parent_name,
 struct clk *mxs_clk_frac(const char *name, const char *parent_name,
 			 void __iomem *reg, u8 shift, u8 width, u8 busy);
 
-static inline struct clk *mxs_clk_fixed(const char *name, int rate)
+static struct clk *mxs_clk_fixed(const char *name, int rate)
 {
 	return clk_register_fixed_rate(NULL, name, NULL, 0, rate);
 }
 
-static inline struct clk *mxs_clk_gate(const char *name,
+static struct clk *mxs_clk_gate(const char *name,
 			const char *parent_name, void __iomem *reg, u8 shift)
 {
 	return clk_register_gate(NULL, name, parent_name, CLK_SET_RATE_PARENT,
@@ -49,7 +49,7 @@ static inline struct clk *mxs_clk_gate(const char *name,
 				 &mxs_lock);
 }
 
-static inline struct clk *mxs_clk_mux(const char *name, void __iomem *reg,
+static struct clk *mxs_clk_mux(const char *name, void __iomem *reg,
 		u8 shift, u8 width, const char *const *parent_names, int num_parents)
 {
 	return clk_register_mux(NULL, name, parent_names, num_parents,
@@ -57,7 +57,7 @@ static inline struct clk *mxs_clk_mux(const char *name, void __iomem *reg,
 				reg, shift, width, 0, &mxs_lock);
 }
 
-static inline struct clk *mxs_clk_fixed_factor(const char *name,
+static struct clk *mxs_clk_fixed_factor(const char *name,
 		const char *parent_name, unsigned int mult, unsigned int div)
 {
 	return clk_register_fixed_factor(NULL, name, parent_name,

@@ -43,7 +43,7 @@ enum cq_exch_status_types {
 	CQ_EXCH_WQ_STATUS_TYPE_TMPL_ERR = 3,
 };
 
-static inline void cq_exch_wq_desc_dec(struct cq_exch_wq_desc *desc_ptr,
+static void cq_exch_wq_desc_dec(struct cq_exch_wq_desc *desc_ptr,
 				       u8  *type,
 				       u8  *color,
 				       u16 *q_number,
@@ -83,7 +83,7 @@ struct cq_fcp_rq_desc {
 #define CQ_FCP_RQ_DESC_FCS_OK_SHIFT		7
 #define CQ_FCP_RQ_DESC_FCS_OK_MASK (1 << CQ_FCP_RQ_DESC_FCS_OK_SHIFT)
 
-static inline void cq_fcp_rq_desc_dec(struct cq_fcp_rq_desc *desc_ptr,
+static void cq_fcp_rq_desc_dec(struct cq_fcp_rq_desc *desc_ptr,
 				      u8  *type,
 				      u8  *color,
 				      u16 *q_number,
@@ -159,7 +159,7 @@ enum cq_sgl_err_types {
 #define CQ_SGL_SGL_ERR_MASK             0x1f
 #define CQ_SGL_TMPL_MASK                0x1f
 
-static inline void cq_sgl_desc_dec(struct cq_sgl_desc *desc_ptr,
+static void cq_sgl_desc_dec(struct cq_sgl_desc *desc_ptr,
 				   u8  *type,
 				   u8  *color,
 				   u16 *q_number,

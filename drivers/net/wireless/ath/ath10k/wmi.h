@@ -82,12 +82,12 @@ struct wmi_cmd_hdr {
  */
 typedef __s32 __bitwise a_sle32;
 
-static inline a_sle32 a_cpu_to_sle32(s32 val)
+static a_sle32 a_cpu_to_sle32(s32 val)
 {
 	return (__force a_sle32)cpu_to_le32(val);
 }
 
-static inline s32 a_sle32_to_cpu(a_sle32 val)
+static s32 a_sle32_to_cpu(a_sle32 val)
 {
 	return le32_to_cpu((__force __le32)val);
 }
@@ -338,7 +338,7 @@ enum wmi_10_4_service {
 	WMI_10_4_SERVICE_TDLS_EXPLICIT_MODE_ONLY,
 };
 
-static inline char *wmi_service_name(int service_id)
+static char *wmi_service_name(int service_id)
 {
 #define SVCSTR(x) case x: return #x
 
@@ -473,7 +473,7 @@ static inline char *wmi_service_name(int service_id)
 			__set_bit(y, out); \
 	} while (0)
 
-static inline void wmi_10x_svc_map(const __le32 *in, unsigned long *out,
+static void wmi_10x_svc_map(const __le32 *in, unsigned long *out,
 				   size_t len)
 {
 	SVCMAP(WMI_10X_SERVICE_BEACON_OFFLOAD,
@@ -536,7 +536,7 @@ static inline void wmi_10x_svc_map(const __le32 *in, unsigned long *out,
 	       WMI_SERVICE_PEER_STATS, len);
 }
 
-static inline void wmi_main_svc_map(const __le32 *in, unsigned long *out,
+static void wmi_main_svc_map(const __le32 *in, unsigned long *out,
 				    size_t len)
 {
 	SVCMAP(WMI_MAIN_SERVICE_BEACON_OFFLOAD,
@@ -605,7 +605,7 @@ static inline void wmi_main_svc_map(const __le32 *in, unsigned long *out,
 	       WMI_SERVICE_TX_ENCAP, len);
 }
 
-static inline void wmi_10_4_svc_map(const __le32 *in, unsigned long *out,
+static void wmi_10_4_svc_map(const __le32 *in, unsigned long *out,
 				    size_t len)
 {
 	SVCMAP(WMI_10_4_SERVICE_BEACON_OFFLOAD,
@@ -1870,7 +1870,7 @@ enum wmi_phy_mode {
 	MODE_MAX        = 16
 };
 
-static inline const char *ath10k_wmi_phymode_str(enum wmi_phy_mode mode)
+static const char *ath10k_wmi_phymode_str(enum wmi_phy_mode mode)
 {
 	switch (mode) {
 	case MODE_11A:
@@ -6607,7 +6607,7 @@ enum wmi_wow_wakeup_event {
 
 #define C2S(x) case x: return #x
 
-static inline const char *wow_wakeup_event(enum wmi_wow_wakeup_event ev)
+static const char *wow_wakeup_event(enum wmi_wow_wakeup_event ev)
 {
 	switch (ev) {
 	C2S(WOW_BMISS_EVENT);
@@ -6673,7 +6673,7 @@ enum wmi_wow_wake_reason {
 	WOW_REASON_DEBUG_TEST = 0xFF,
 };
 
-static inline const char *wow_reason(enum wmi_wow_wake_reason reason)
+static const char *wow_reason(enum wmi_wow_wake_reason reason)
 {
 	switch (reason) {
 	C2S(WOW_REASON_UNSPECIFIED);

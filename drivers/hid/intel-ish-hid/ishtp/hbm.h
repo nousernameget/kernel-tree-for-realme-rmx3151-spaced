@@ -289,7 +289,7 @@ enum ishtp_hbm_state {
 	ISHTP_HBM_STOPPED,
 };
 
-static inline void ishtp_hbm_hdr(struct ishtp_msg_hdr *hdr, size_t length)
+static void ishtp_hbm_hdr(struct ishtp_msg_hdr *hdr, size_t length)
 {
 	hdr->host_addr = 0;
 	hdr->fw_addr = 0;

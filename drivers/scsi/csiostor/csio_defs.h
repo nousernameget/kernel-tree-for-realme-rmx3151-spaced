@@ -51,19 +51,19 @@
 #define CSIO_WORD_TO_BYTE		4
 
 #ifndef readq
-static inline u64 readq(void __iomem *addr)
+static u64 readq(void __iomem *addr)
 {
 	return readl(addr) + ((u64)readl(addr + 4) << 32);
 }
 
-static inline void writeq(u64 val, void __iomem *addr)
+static void writeq(u64 val, void __iomem *addr)
 {
 	writel(val, addr);
 	writel(val >> 32, addr + 4);
 }
 #endif
 
-static inline int
+static int
 csio_list_deleted(struct list_head *list)
 {
 	return ((list->next == list) && (list->prev == list));
@@ -80,31 +80,31 @@ struct csio_sm {
 	csio_sm_state_t		sm_state;
 };
 
-static inline void
+static void
 csio_set_state(void *smp, void *state)
 {
 	((struct csio_sm *)smp)->sm_state = (csio_sm_state_t)state;
 }
 
-static inline void
+static void
 csio_init_state(struct csio_sm *smp, void *state)
 {
 	csio_set_state(smp, state);
 }
 
-static inline void
+static void
 csio_post_event(void *smp, uint32_t evt)
 {
 	((struct csio_sm *)smp)->sm_state(smp, evt);
 }
 
-static inline csio_sm_state_t
+static csio_sm_state_t
 csio_get_state(void *smp)
 {
 	return ((struct csio_sm *)smp)->sm_state;
 }
 
-static inline bool
+static bool
 csio_match_state(void *smp, void *state)
 {
 	return (csio_get_state(smp) == (csio_sm_state_t)state);

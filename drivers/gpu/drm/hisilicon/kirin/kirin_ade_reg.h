@@ -216,7 +216,7 @@ enum qos_generator_mode {
 /*
  * Register Write/Read Helper functions
  */
-static inline void ade_update_bits(void __iomem *addr, u32 bit_start,
+static void ade_update_bits(void __iomem *addr, u32 bit_start,
 				   u32 mask, u32 val)
 {
 	u32 tmp, orig;

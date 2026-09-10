@@ -278,37 +278,37 @@ void ath9k_debug_sync_cause(struct ath_softc *sc, u32 sync_cause);
 
 #else
 
-static inline int ath9k_init_debug(struct ath_hw *ah)
+static int ath9k_init_debug(struct ath_hw *ah)
 {
 	return 0;
 }
 
-static inline void ath9k_deinit_debug(struct ath_softc *sc)
+static void ath9k_deinit_debug(struct ath_softc *sc)
 {
 }
-static inline void ath_debug_stat_interrupt(struct ath_softc *sc,
+static void ath_debug_stat_interrupt(struct ath_softc *sc,
 					    enum ath9k_int status)
 {
 }
-static inline void ath_debug_stat_tx(struct ath_softc *sc,
+static void ath_debug_stat_tx(struct ath_softc *sc,
 				     struct ath_buf *bf,
 				     struct ath_tx_status *ts,
 				     struct ath_txq *txq,
 				     unsigned int flags)
 {
 }
-static inline void ath_debug_stat_rx(struct ath_softc *sc,
+static void ath_debug_stat_rx(struct ath_softc *sc,
 				     struct ath_rx_status *rs)
 {
 }
-static inline void ath9k_debug_stat_ant(struct ath_softc *sc,
+static void ath9k_debug_stat_ant(struct ath_softc *sc,
 					struct ath_hw_antcomb_conf *div_ant_conf,
 					int main_rssi_avg, int alt_rssi_avg)
 {
 
 }
 
-static inline void
+static void
 ath9k_debug_sync_cause(struct ath_softc *sc, u32 sync_cause)
 {
 }
@@ -323,12 +323,12 @@ void ath_debug_airtime(struct ath_softc *sc,
 		       struct ath_node *an,
 		       u32 rx, u32 tx);
 #else
-static inline void ath_debug_rate_stats(struct ath_softc *sc,
+static void ath_debug_rate_stats(struct ath_softc *sc,
 					struct ath_rx_status *rs,
 					struct sk_buff *skb)
 {
 }
-static inline void ath_debug_airtime(struct ath_softc *sc,
+static void ath_debug_airtime(struct ath_softc *sc,
 			      struct ath_node *an,
 			      u32 rx, u32 tx)
 {

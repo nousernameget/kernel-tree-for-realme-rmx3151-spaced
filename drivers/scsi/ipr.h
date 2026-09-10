@@ -1851,7 +1851,7 @@ ipr_err("----------------------------------------------------------\n")
  * Return value:
  * 	1 if IOA / 0 if not IOA
  **/
-static inline int ipr_is_ioa_resource(struct ipr_resource_entry *res)
+static int ipr_is_ioa_resource(struct ipr_resource_entry *res)
 {
 	return res->type == IPR_RES_TYPE_IOAFP;
 }
@@ -1863,7 +1863,7 @@ static inline int ipr_is_ioa_resource(struct ipr_resource_entry *res)
  * Return value:
  * 	1 if AF DASD / 0 if not AF DASD
  **/
-static inline int ipr_is_af_dasd_device(struct ipr_resource_entry *res)
+static int ipr_is_af_dasd_device(struct ipr_resource_entry *res)
 {
 	return res->type == IPR_RES_TYPE_AF_DASD ||
 		res->type == IPR_RES_TYPE_REMOTE_AF_DASD;
@@ -1876,7 +1876,7 @@ static inline int ipr_is_af_dasd_device(struct ipr_resource_entry *res)
  * Return value:
  * 	1 if VSET / 0 if not VSET
  **/
-static inline int ipr_is_vset_device(struct ipr_resource_entry *res)
+static int ipr_is_vset_device(struct ipr_resource_entry *res)
 {
 	return res->type == IPR_RES_TYPE_VOLUME_SET;
 }
@@ -1888,7 +1888,7 @@ static inline int ipr_is_vset_device(struct ipr_resource_entry *res)
  * Return value:
  * 	1 if GSCSI / 0 if not GSCSI
  **/
-static inline int ipr_is_gscsi(struct ipr_resource_entry *res)
+static int ipr_is_gscsi(struct ipr_resource_entry *res)
 {
 	return res->type == IPR_RES_TYPE_GENERIC_SCSI;
 }
@@ -1900,7 +1900,7 @@ static inline int ipr_is_gscsi(struct ipr_resource_entry *res)
  * Return value:
  * 	1 if SCSI disk / 0 if not SCSI disk
  **/
-static inline int ipr_is_scsi_disk(struct ipr_resource_entry *res)
+static int ipr_is_scsi_disk(struct ipr_resource_entry *res)
 {
 	if (ipr_is_af_dasd_device(res) ||
 	    (ipr_is_gscsi(res) && IPR_IS_DASD_DEVICE(res->std_inq_data)))
@@ -1916,7 +1916,7 @@ static inline int ipr_is_scsi_disk(struct ipr_resource_entry *res)
  * Return value:
  * 	1 if GATA / 0 if not GATA
  **/
-static inline int ipr_is_gata(struct ipr_resource_entry *res)
+static int ipr_is_gata(struct ipr_resource_entry *res)
 {
 	return res->type == IPR_RES_TYPE_GENERIC_ATA;
 }
@@ -1928,7 +1928,7 @@ static inline int ipr_is_gata(struct ipr_resource_entry *res)
  * Return value:
  * 	1 if NACA queueing model / 0 if not NACA queueing model
  **/
-static inline int ipr_is_naca_model(struct ipr_resource_entry *res)
+static int ipr_is_naca_model(struct ipr_resource_entry *res)
 {
 	if (ipr_is_gscsi(res) && res->qmodel == IPR_QUEUE_NACA_MODEL)
 		return 1;
@@ -1942,7 +1942,7 @@ static inline int ipr_is_naca_model(struct ipr_resource_entry *res)
  * Return value:
  * 	1 if AF / 0 if not AF
  **/
-static inline int ipr_is_device(struct ipr_hostrcb *hostrcb)
+static int ipr_is_device(struct ipr_hostrcb *hostrcb)
 {
 	struct ipr_res_addr *res_addr;
 	u8 *res_path;
@@ -1969,7 +1969,7 @@ static inline int ipr_is_device(struct ipr_hostrcb *hostrcb)
  * Return value:
  * 	1 if format 2 / 0 if not
  **/
-static inline int ipr_sdt_is_fmt2(u32 sdt_word)
+static int ipr_sdt_is_fmt2(u32 sdt_word)
 {
 	u32 bar_sel = IPR_GET_FMT2_BAR_SEL(sdt_word);
 
@@ -1988,7 +1988,7 @@ static inline int ipr_sdt_is_fmt2(u32 sdt_word)
 }
 
 #ifndef writeq
-static inline void writeq(u64 val, void __iomem *addr)
+static void writeq(u64 val, void __iomem *addr)
 {
         writel(((u32) (val >> 32)), addr);
         writel(((u32) (val)), (addr + 4));

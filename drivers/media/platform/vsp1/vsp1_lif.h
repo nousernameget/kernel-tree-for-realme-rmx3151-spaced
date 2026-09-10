@@ -27,7 +27,7 @@ struct vsp1_lif {
 	struct vsp1_entity entity;
 };
 
-static inline struct vsp1_lif *to_lif(struct v4l2_subdev *subdev)
+static struct vsp1_lif *to_lif(struct v4l2_subdev *subdev)
 {
 	return container_of(subdev, struct vsp1_lif, entity.subdev);
 }

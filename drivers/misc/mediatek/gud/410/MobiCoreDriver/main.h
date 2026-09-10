@@ -93,12 +93,12 @@ int debug_generic_release(struct inode *inode, struct file *file);
 #define TRUSTONIC_XEN_DOMU
 #endif
 
-static inline bool is_xen_dom0(void)
+static bool is_xen_dom0(void)
 {
 	return xen_domain() && xen_initial_domain();
 }
 
-static inline bool is_xen_domu(void)
+static bool is_xen_domu(void)
 {
 #ifdef TRUSTONIC_XEN_DOMU
 	return xen_domain() && !xen_initial_domain();

@@ -244,7 +244,7 @@ struct fifo {
 /*
  * Init an FIFO
  */
-static inline void fifo_init(struct fifo *fifo, int size)
+static void fifo_init(struct fifo *fifo, int size)
 {
 	fifo->r = fifo->w = fifo->count = 0;
 	fifo->size = size;
@@ -254,7 +254,7 @@ static inline void fifo_init(struct fifo *fifo, int size)
 /*
  * Add an entry to the FIFO
  */
-static inline int fifo_add(struct fifo *fifo)
+static int fifo_add(struct fifo *fifo)
 {
 	unsigned long flags;
 	int index;
@@ -279,7 +279,7 @@ static inline int fifo_add(struct fifo *fifo)
 /*
  * Remove an entry from the FIFO with the index returned.
  */
-static inline int fifo_remove(struct fifo *fifo)
+static int fifo_remove(struct fifo *fifo)
 {
 	unsigned long flags;
 	int index;
@@ -419,7 +419,7 @@ struct st5481_adapter {
 /*
  * USB double buffering, return the URB index (0 or 1).
  */
-static inline int get_buf_nr(struct urb *urbs[], struct urb *urb)
+static int get_buf_nr(struct urb *urbs[], struct urb *urb)
 {
 	return (urbs[0] == urb ? 0 : 1);
 }
@@ -498,7 +498,7 @@ dump_iso_packet(const char *name, struct urb *urb)
 	}
 }
 
-static inline const char *ST5481_CMD_string(int evt)
+static const char *ST5481_CMD_string(int evt)
 {
 	static char s[16];
 

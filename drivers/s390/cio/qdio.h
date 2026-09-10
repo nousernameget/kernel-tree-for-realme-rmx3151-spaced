@@ -85,7 +85,7 @@ enum qdio_irq_states {
 #define QDIO_SIGA_WRITEQ	0x04
 #define QDIO_SIGA_QEBSM_FLAG	0x80
 
-static inline int do_sqbs(u64 token, unsigned char state, int queue,
+static int do_sqbs(u64 token, unsigned char state, int queue,
 			  int *start, int *count)
 {
 	register unsigned long _ccq asm ("0") = *count;
@@ -103,7 +103,7 @@ static inline int do_sqbs(u64 token, unsigned char state, int queue,
 	return (_ccq >> 32) & 0xff;
 }
 
-static inline int do_eqbs(u64 token, unsigned char *state, int queue,
+static int do_eqbs(u64 token, unsigned char *state, int queue,
 			  int *start, int *count, int ack)
 {
 	register unsigned long _ccq asm ("0") = *count;
@@ -328,14 +328,14 @@ struct qdio_irq {
 		(qdev->perf_stat.__attr)++;				\
 })
 
-static inline void account_sbals_error(struct qdio_q *q, int count)
+static void account_sbals_error(struct qdio_q *q, int count)
 {
 	q->q_stats.nr_sbal_error += count;
 	q->q_stats.nr_sbal_total += count;
 }
 
 /* the highest iqdio queue is used for multicast */
-static inline int multicast_outbound(struct qdio_q *q)
+static int multicast_outbound(struct qdio_q *q)
 {
 	return (q->irq_ptr->nr_output_qs > 1) &&
 	       (q->nr == q->irq_ptr->nr_output_qs - 1);

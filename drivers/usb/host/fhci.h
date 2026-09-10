@@ -449,7 +449,7 @@ struct fhci_usb {
  * Various helpers and prototypes below.
  */
 
-static inline u16 get_frame_num(struct fhci_hcd *fhci)
+static u16 get_frame_num(struct fhci_hcd *fhci)
 {
 	return in_be16(&fhci->pram->frame_num) & 0x07ff;
 }
@@ -465,38 +465,38 @@ static inline u16 get_frame_num(struct fhci_hcd *fhci)
 #define fhci_warn(fhci, fmt, args...) \
 		dev_warn(fhci_to_hcd(fhci)->self.controller, fmt, ##args)
 
-static inline struct fhci_hcd *hcd_to_fhci(struct usb_hcd *hcd)
+static struct fhci_hcd *hcd_to_fhci(struct usb_hcd *hcd)
 {
 	return (struct fhci_hcd *)hcd->hcd_priv;
 }
 
-static inline struct usb_hcd *fhci_to_hcd(struct fhci_hcd *fhci)
+static struct usb_hcd *fhci_to_hcd(struct fhci_hcd *fhci)
 {
 	return container_of((void *)fhci, struct usb_hcd, hcd_priv);
 }
 
 /* fifo of pointers */
-static inline int cq_new(struct kfifo *fifo, int size)
+static int cq_new(struct kfifo *fifo, int size)
 {
 	return kfifo_alloc(fifo, size * sizeof(void *), GFP_KERNEL);
 }
 
-static inline void cq_delete(struct kfifo *kfifo)
+static void cq_delete(struct kfifo *kfifo)
 {
 	kfifo_free(kfifo);
 }
 
-static inline unsigned int cq_howmany(struct kfifo *kfifo)
+static unsigned int cq_howmany(struct kfifo *kfifo)
 {
 	return kfifo_len(kfifo) / sizeof(void *);
 }
 
-static inline int cq_put(struct kfifo *kfifo, void *p)
+static int cq_put(struct kfifo *kfifo, void *p)
 {
 	return kfifo_in(kfifo, (void *)&p, sizeof(p));
 }
 
-static inline void *cq_get(struct kfifo *kfifo)
+static void *cq_get(struct kfifo *kfifo)
 {
 	unsigned int sz;
 	void *p;

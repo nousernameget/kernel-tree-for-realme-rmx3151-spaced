@@ -193,19 +193,19 @@ struct cxgbi_ppm {
 #define PPOD_PI_REPORT_CTL_MASK		0x3
 #define PPOD_PI_REPORT_CTL(x)		((x) << PPOD_PI_REPORT_CTL_SHIFT)
 
-static inline int cxgbi_ppm_is_ddp_tag(struct cxgbi_ppm *ppm, u32 tag)
+static int cxgbi_ppm_is_ddp_tag(struct cxgbi_ppm *ppm, u32 tag)
 {
 	return !(tag & ppm->tformat.no_ddp_mask);
 }
 
-static inline int cxgbi_ppm_sw_tag_is_usable(struct cxgbi_ppm *ppm,
+static int cxgbi_ppm_sw_tag_is_usable(struct cxgbi_ppm *ppm,
 					     u32 tag)
 {
 	/* the sw tag must be using <= 31 bits */
 	return !(tag & 0x80000000U);
 }
 
-static inline int cxgbi_ppm_make_non_ddp_tag(struct cxgbi_ppm *ppm,
+static int cxgbi_ppm_make_non_ddp_tag(struct cxgbi_ppm *ppm,
 					     u32 sw_tag,
 					     u32 *final_tag)
 {
@@ -228,7 +228,7 @@ static inline int cxgbi_ppm_make_non_ddp_tag(struct cxgbi_ppm *ppm,
 	return 0;
 }
 
-static inline u32 cxgbi_ppm_decode_non_ddp_tag(struct cxgbi_ppm *ppm,
+static u32 cxgbi_ppm_decode_non_ddp_tag(struct cxgbi_ppm *ppm,
 					       u32 tag)
 {
 	struct cxgbi_tag_format *tformat = &ppm->tformat;
@@ -239,7 +239,7 @@ static inline u32 cxgbi_ppm_decode_non_ddp_tag(struct cxgbi_ppm *ppm,
 	return upper | lower;
 }
 
-static inline u32 cxgbi_ppm_ddp_tag_get_idx(struct cxgbi_ppm *ppm,
+static u32 cxgbi_ppm_ddp_tag_get_idx(struct cxgbi_ppm *ppm,
 					    u32 ddp_tag)
 {
 	u32 hw_idx = (ddp_tag >> PPOD_IDX_SHIFT) &
@@ -248,13 +248,13 @@ static inline u32 cxgbi_ppm_ddp_tag_get_idx(struct cxgbi_ppm *ppm,
 	return hw_idx - ppm->base_idx;
 }
 
-static inline u32 cxgbi_ppm_make_ddp_tag(unsigned int hw_idx,
+static u32 cxgbi_ppm_make_ddp_tag(unsigned int hw_idx,
 					 unsigned char color)
 {
 	return (hw_idx << PPOD_IDX_SHIFT) | ((u32)color);
 }
 
-static inline unsigned long
+static unsigned long
 cxgbi_ppm_get_tag_caller_data(struct cxgbi_ppm *ppm,
 			      u32 ddp_tag)
 {
@@ -264,7 +264,7 @@ cxgbi_ppm_get_tag_caller_data(struct cxgbi_ppm *ppm,
 }
 
 /* sw bits are the free bits */
-static inline int cxgbi_ppm_ddp_tag_update_sw_bits(struct cxgbi_ppm *ppm,
+static int cxgbi_ppm_ddp_tag_update_sw_bits(struct cxgbi_ppm *ppm,
 						   u32 val, u32 orig_tag,
 						   u32 *final_tag)
 {
@@ -284,12 +284,12 @@ static inline int cxgbi_ppm_ddp_tag_update_sw_bits(struct cxgbi_ppm *ppm,
 	return 0;
 }
 
-static inline void cxgbi_ppm_ppod_clear(struct cxgbi_pagepod *ppod)
+static void cxgbi_ppm_ppod_clear(struct cxgbi_pagepod *ppod)
 {
 	ppod->hdr.vld_tid = 0U;
 }
 
-static inline void cxgbi_tagmask_check(unsigned int tagmask,
+static void cxgbi_tagmask_check(unsigned int tagmask,
 				       struct cxgbi_tag_format *tformat)
 {
 	unsigned int bits = fls(tagmask);

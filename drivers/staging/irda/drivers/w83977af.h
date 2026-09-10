@@ -9,7 +9,7 @@
 /*
  * Enter extended function mode
  */
-static inline void w977_efm_enter(unsigned int efio)
+static void w977_efm_enter(unsigned int efio)
 {
         outb(0x87, efio);
         outb(0x87, efio);
@@ -19,7 +19,7 @@ static inline void w977_efm_enter(unsigned int efio)
  * Select a device to configure 
  */
 
-static inline void w977_select_device(__u8 devnum, unsigned int efio)
+static void w977_select_device(__u8 devnum, unsigned int efio)
 {
 	outb(0x07, efio);
 	outb(devnum, efio+1);
@@ -28,7 +28,7 @@ static inline void w977_select_device(__u8 devnum, unsigned int efio)
 /* 
  * Write a byte to a register
  */
-static inline void w977_write_reg(__u8 reg, __u8 value, unsigned int efio)
+static void w977_write_reg(__u8 reg, __u8 value, unsigned int efio)
 {
 	outb(reg, efio);
 	outb(value, efio+1);
@@ -37,7 +37,7 @@ static inline void w977_write_reg(__u8 reg, __u8 value, unsigned int efio)
 /*
  * read a byte from a register
  */
-static inline __u8 w977_read_reg(__u8 reg, unsigned int efio)
+static __u8 w977_read_reg(__u8 reg, unsigned int efio)
 {
 	outb(reg, efio);
 	return inb(efio+1);
@@ -46,7 +46,7 @@ static inline __u8 w977_read_reg(__u8 reg, unsigned int efio)
 /*
  * Exit extended function mode
  */
-static inline void w977_efm_exit(unsigned int efio)
+static void w977_efm_exit(unsigned int efio)
 {
 	outb(0xAA, efio);
 }

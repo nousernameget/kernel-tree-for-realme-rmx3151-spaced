@@ -3986,63 +3986,63 @@ struct sli3_bg_fields {
 	uint32_t bgstat;	/* word 15 - BlockGuard Status */
 };
 
-static inline uint32_t
+static uint32_t
 lpfc_bgs_get_bidir_bg_prof(uint32_t bgstat)
 {
 	return (bgstat & BGS_BIDIR_BG_PROF_MASK) >>
 				BGS_BIDIR_BG_PROF_SHIFT;
 }
 
-static inline uint32_t
+static uint32_t
 lpfc_bgs_get_bidir_err_cond(uint32_t bgstat)
 {
 	return (bgstat & BGS_BIDIR_ERR_COND_FLAGS_MASK) >>
 				BGS_BIDIR_ERR_COND_SHIFT;
 }
 
-static inline uint32_t
+static uint32_t
 lpfc_bgs_get_bg_prof(uint32_t bgstat)
 {
 	return (bgstat & BGS_BG_PROFILE_MASK) >>
 				BGS_BG_PROFILE_SHIFT;
 }
 
-static inline uint32_t
+static uint32_t
 lpfc_bgs_get_invalid_prof(uint32_t bgstat)
 {
 	return (bgstat & BGS_INVALID_PROF_MASK) >>
 				BGS_INVALID_PROF_SHIFT;
 }
 
-static inline uint32_t
+static uint32_t
 lpfc_bgs_get_uninit_dif_block(uint32_t bgstat)
 {
 	return (bgstat & BGS_UNINIT_DIF_BLOCK_MASK) >>
 				BGS_UNINIT_DIF_BLOCK_SHIFT;
 }
 
-static inline uint32_t
+static uint32_t
 lpfc_bgs_get_hi_water_mark_present(uint32_t bgstat)
 {
 	return (bgstat & BGS_HI_WATER_MARK_PRESENT_MASK) >>
 				BGS_HI_WATER_MARK_PRESENT_SHIFT;
 }
 
-static inline uint32_t
+static uint32_t
 lpfc_bgs_get_reftag_err(uint32_t bgstat)
 {
 	return (bgstat & BGS_REFTAG_ERR_MASK) >>
 				BGS_REFTAG_ERR_SHIFT;
 }
 
-static inline uint32_t
+static uint32_t
 lpfc_bgs_get_apptag_err(uint32_t bgstat)
 {
 	return (bgstat & BGS_APPTAG_ERR_MASK) >>
 				BGS_APPTAG_ERR_SHIFT;
 }
 
-static inline uint32_t
+static uint32_t
 lpfc_bgs_get_guard_err(uint32_t bgstat)
 {
 	return (bgstat & BGS_GUARD_ERR_MASK) >>
@@ -4232,7 +4232,7 @@ struct lpfc_sli2_slim {
  * return 1 => TRUE
  *        0 => FALSE
  */
-static inline int
+static int
 lpfc_is_LC_HBA(unsigned short device)
 {
 	if ((device == PCI_DEVICE_ID_TFLY) ||
@@ -4254,7 +4254,7 @@ lpfc_is_LC_HBA(unsigned short device)
  * Determine if an IOCB failed because of a link event or firmware reset.
  */
 
-static inline int
+static int
 lpfc_error_lost_link(IOCB_t *iocbp)
 {
 	return (iocbp->ulpStatus == IOSTAT_LOCAL_REJECT &&

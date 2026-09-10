@@ -70,7 +70,7 @@ struct tee_session {
 
 struct tee_session *session_create(struct tee_client *client,
 				   const struct mc_identity *identity);
-static inline void session_get(struct tee_session *session)
+static void session_get(struct tee_session *session)
 {
 	kref_get(&session->kref);
 }

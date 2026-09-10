@@ -454,79 +454,79 @@ struct ocrdma_mm {
 	struct list_head entry;
 };
 
-static inline struct ocrdma_dev *get_ocrdma_dev(struct ib_device *ibdev)
+static struct ocrdma_dev *get_ocrdma_dev(struct ib_device *ibdev)
 {
 	return container_of(ibdev, struct ocrdma_dev, ibdev);
 }
 
-static inline struct ocrdma_ucontext *get_ocrdma_ucontext(struct ib_ucontext
+static struct ocrdma_ucontext *get_ocrdma_ucontext(struct ib_ucontext
 							  *ibucontext)
 {
 	return container_of(ibucontext, struct ocrdma_ucontext, ibucontext);
 }
 
-static inline struct ocrdma_pd *get_ocrdma_pd(struct ib_pd *ibpd)
+static struct ocrdma_pd *get_ocrdma_pd(struct ib_pd *ibpd)
 {
 	return container_of(ibpd, struct ocrdma_pd, ibpd);
 }
 
-static inline struct ocrdma_cq *get_ocrdma_cq(struct ib_cq *ibcq)
+static struct ocrdma_cq *get_ocrdma_cq(struct ib_cq *ibcq)
 {
 	return container_of(ibcq, struct ocrdma_cq, ibcq);
 }
 
-static inline struct ocrdma_qp *get_ocrdma_qp(struct ib_qp *ibqp)
+static struct ocrdma_qp *get_ocrdma_qp(struct ib_qp *ibqp)
 {
 	return container_of(ibqp, struct ocrdma_qp, ibqp);
 }
 
-static inline struct ocrdma_mr *get_ocrdma_mr(struct ib_mr *ibmr)
+static struct ocrdma_mr *get_ocrdma_mr(struct ib_mr *ibmr)
 {
 	return container_of(ibmr, struct ocrdma_mr, ibmr);
 }
 
-static inline struct ocrdma_ah *get_ocrdma_ah(struct ib_ah *ibah)
+static struct ocrdma_ah *get_ocrdma_ah(struct ib_ah *ibah)
 {
 	return container_of(ibah, struct ocrdma_ah, ibah);
 }
 
-static inline struct ocrdma_srq *get_ocrdma_srq(struct ib_srq *ibsrq)
+static struct ocrdma_srq *get_ocrdma_srq(struct ib_srq *ibsrq)
 {
 	return container_of(ibsrq, struct ocrdma_srq, ibsrq);
 }
 
-static inline int is_cqe_valid(struct ocrdma_cq *cq, struct ocrdma_cqe *cqe)
+static int is_cqe_valid(struct ocrdma_cq *cq, struct ocrdma_cqe *cqe)
 {
 	int cqe_valid;
 	cqe_valid = le32_to_cpu(cqe->flags_status_srcqpn) & OCRDMA_CQE_VALID;
 	return (cqe_valid == cq->phase);
 }
 
-static inline int is_cqe_for_sq(struct ocrdma_cqe *cqe)
+static int is_cqe_for_sq(struct ocrdma_cqe *cqe)
 {
 	return (le32_to_cpu(cqe->flags_status_srcqpn) &
 		OCRDMA_CQE_QTYPE) ? 0 : 1;
 }
 
-static inline int is_cqe_invalidated(struct ocrdma_cqe *cqe)
+static int is_cqe_invalidated(struct ocrdma_cqe *cqe)
 {
 	return (le32_to_cpu(cqe->flags_status_srcqpn) &
 		OCRDMA_CQE_INVALIDATE) ? 1 : 0;
 }
 
-static inline int is_cqe_imm(struct ocrdma_cqe *cqe)
+static int is_cqe_imm(struct ocrdma_cqe *cqe)
 {
 	return (le32_to_cpu(cqe->flags_status_srcqpn) &
 		OCRDMA_CQE_IMM) ? 1 : 0;
 }
 
-static inline int is_cqe_wr_imm(struct ocrdma_cqe *cqe)
+static int is_cqe_wr_imm(struct ocrdma_cqe *cqe)
 {
 	return (le32_to_cpu(cqe->flags_status_srcqpn) &
 		OCRDMA_CQE_WRITE_IMM) ? 1 : 0;
 }
 
-static inline int ocrdma_resolve_dmac(struct ocrdma_dev *dev,
+static int ocrdma_resolve_dmac(struct ocrdma_dev *dev,
 		struct rdma_ah_attr *ah_attr, u8 *mac_addr)
 {
 	struct in6_addr in6;
@@ -541,7 +541,7 @@ static inline int ocrdma_resolve_dmac(struct ocrdma_dev *dev,
 	return 0;
 }
 
-static inline char *hca_name(struct ocrdma_dev *dev)
+static char *hca_name(struct ocrdma_dev *dev)
 {
 	switch (dev->nic_info.pdev->device) {
 	case OC_SKH_DEVICE_PF:
@@ -552,7 +552,7 @@ static inline char *hca_name(struct ocrdma_dev *dev)
 	}
 }
 
-static inline int ocrdma_get_eq_table_index(struct ocrdma_dev *dev,
+static int ocrdma_get_eq_table_index(struct ocrdma_dev *dev,
 		int eqid)
 {
 	int indx;
@@ -565,7 +565,7 @@ static inline int ocrdma_get_eq_table_index(struct ocrdma_dev *dev,
 	return -EINVAL;
 }
 
-static inline u8 ocrdma_get_asic_type(struct ocrdma_dev *dev)
+static u8 ocrdma_get_asic_type(struct ocrdma_dev *dev)
 {
 	if (dev->nic_info.dev_family == 0xF && !dev->asic_id) {
 		pci_read_config_dword(
@@ -577,17 +577,17 @@ static inline u8 ocrdma_get_asic_type(struct ocrdma_dev *dev)
 				OCRDMA_SLI_ASIC_GEN_NUM_SHIFT;
 }
 
-static inline u8 ocrdma_get_pfc_prio(u8 *pfc, u8 prio)
+static u8 ocrdma_get_pfc_prio(u8 *pfc, u8 prio)
 {
 	return *(pfc + prio);
 }
 
-static inline u8 ocrdma_get_app_prio(u8 *app_prio, u8 prio)
+static u8 ocrdma_get_app_prio(u8 *app_prio, u8 prio)
 {
 	return *(app_prio + prio);
 }
 
-static inline u8 ocrdma_is_enabled_and_synced(u32 state)
+static u8 ocrdma_is_enabled_and_synced(u32 state)
 {	/* May also be used to interpret TC-state, QCN-state
 	 * Appl-state and Logical-link-state in future.
 	 */
@@ -595,12 +595,12 @@ static inline u8 ocrdma_is_enabled_and_synced(u32 state)
 		(state & OCRDMA_STATE_FLAG_SYNC);
 }
 
-static inline u8 ocrdma_get_ae_link_state(u32 ae_state)
+static u8 ocrdma_get_ae_link_state(u32 ae_state)
 {
 	return ((ae_state & OCRDMA_AE_LSC_LS_MASK) >> OCRDMA_AE_LSC_LS_SHIFT);
 }
 
-static inline bool ocrdma_is_udp_encap_supported(struct ocrdma_dev *dev)
+static bool ocrdma_is_udp_encap_supported(struct ocrdma_dev *dev)
 {
 	return (dev->attr.udp_encap & OCRDMA_L3_TYPE_IPV4) ||
 	       (dev->attr.udp_encap & OCRDMA_L3_TYPE_IPV6);

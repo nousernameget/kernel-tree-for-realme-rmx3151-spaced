@@ -194,28 +194,28 @@ static inline void closure_debug_destroy(struct closure *cl) {}
 
 #endif
 
-static inline void closure_set_ip(struct closure *cl)
+static void closure_set_ip(struct closure *cl)
 {
 #ifdef CONFIG_BCACHE_CLOSURES_DEBUG
 	cl->ip = _THIS_IP_;
 #endif
 }
 
-static inline void closure_set_ret_ip(struct closure *cl)
+static void closure_set_ret_ip(struct closure *cl)
 {
 #ifdef CONFIG_BCACHE_CLOSURES_DEBUG
 	cl->ip = _RET_IP_;
 #endif
 }
 
-static inline void closure_set_waiting(struct closure *cl, unsigned long f)
+static void closure_set_waiting(struct closure *cl, unsigned long f)
 {
 #ifdef CONFIG_BCACHE_CLOSURES_DEBUG
 	cl->waiting_on = f;
 #endif
 }
 
-static inline void __closure_end_sleep(struct closure *cl)
+static void __closure_end_sleep(struct closure *cl)
 {
 	__set_current_state(TASK_RUNNING);
 
@@ -223,7 +223,7 @@ static inline void __closure_end_sleep(struct closure *cl)
 		atomic_sub(CLOSURE_SLEEPING, &cl->remaining);
 }
 
-static inline void __closure_start_sleep(struct closure *cl)
+static void __closure_start_sleep(struct closure *cl)
 {
 	closure_set_ip(cl);
 	cl->task = current;
@@ -233,12 +233,12 @@ static inline void __closure_start_sleep(struct closure *cl)
 		atomic_add(CLOSURE_SLEEPING, &cl->remaining);
 }
 
-static inline void closure_set_stopped(struct closure *cl)
+static void closure_set_stopped(struct closure *cl)
 {
 	atomic_sub(CLOSURE_RUNNING, &cl->remaining);
 }
 
-static inline void set_closure_fn(struct closure *cl, closure_fn *fn,
+static void set_closure_fn(struct closure *cl, closure_fn *fn,
 				  struct workqueue_struct *wq)
 {
 	BUG_ON(object_is_on_stack(cl));
@@ -249,7 +249,7 @@ static inline void set_closure_fn(struct closure *cl, closure_fn *fn,
 	smp_mb__before_atomic();
 }
 
-static inline void closure_queue(struct closure *cl)
+static void closure_queue(struct closure *cl)
 {
 	struct workqueue_struct *wq = cl->wq;
 	if (wq) {
@@ -262,7 +262,7 @@ static inline void closure_queue(struct closure *cl)
 /**
  * closure_get - increment a closure's refcount
  */
-static inline void closure_get(struct closure *cl)
+static void closure_get(struct closure *cl)
 {
 #ifdef CONFIG_BCACHE_CLOSURES_DEBUG
 	BUG_ON((atomic_inc_return(&cl->remaining) &
@@ -278,7 +278,7 @@ static inline void closure_get(struct closure *cl)
  * @parent:	parent of the new closure. cl will take a refcount on it for its
  *		lifetime; may be NULL.
  */
-static inline void closure_init(struct closure *cl, struct closure *parent)
+static void closure_init(struct closure *cl, struct closure *parent)
 {
 	memset(cl, 0, sizeof(struct closure));
 	cl->parent = parent;
@@ -291,7 +291,7 @@ static inline void closure_init(struct closure *cl, struct closure *parent)
 	closure_set_ip(cl);
 }
 
-static inline void closure_init_stack(struct closure *cl)
+static void closure_init_stack(struct closure *cl)
 {
 	memset(cl, 0, sizeof(struct closure));
 	atomic_set(&cl->remaining, CLOSURE_REMAINING_INITIALIZER|CLOSURE_STACK);
@@ -300,7 +300,7 @@ static inline void closure_init_stack(struct closure *cl)
 /**
  * closure_wake_up - wake up all closures on a wait list.
  */
-static inline void closure_wake_up(struct closure_waitlist *list)
+static void closure_wake_up(struct closure_waitlist *list)
 {
 	smp_mb();
 	__closure_wake_up(list);
@@ -371,7 +371,7 @@ do {									\
  * asynchronously out of a new closure - @parent will then wait for @cl to
  * finish.
  */
-static inline void closure_call(struct closure *cl, closure_fn fn,
+static void closure_call(struct closure *cl, closure_fn fn,
 				struct workqueue_struct *wq,
 				struct closure *parent)
 {

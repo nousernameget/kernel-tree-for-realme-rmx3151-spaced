@@ -149,11 +149,11 @@ const struct cpumask *vp_get_vq_affinity(struct virtio_device *vdev, int index);
 int virtio_pci_legacy_probe(struct virtio_pci_device *);
 void virtio_pci_legacy_remove(struct virtio_pci_device *);
 #else
-static inline int virtio_pci_legacy_probe(struct virtio_pci_device *vp_dev)
+static int virtio_pci_legacy_probe(struct virtio_pci_device *vp_dev)
 {
 	return -ENODEV;
 }
-static inline void virtio_pci_legacy_remove(struct virtio_pci_device *vp_dev)
+static void virtio_pci_legacy_remove(struct virtio_pci_device *vp_dev)
 {
 }
 #endif

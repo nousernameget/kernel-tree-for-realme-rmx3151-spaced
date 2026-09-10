@@ -50,7 +50,7 @@ extern void musb_gadget_cleanup(struct musb *);
 extern int musb_gadget_setup(struct musb *);
 
 #else
-static inline irqreturn_t musb_g_ep0_irq(struct musb *musb)
+static irqreturn_t musb_g_ep0_irq(struct musb *musb)
 {
 	return 0;
 }
@@ -63,7 +63,7 @@ static inline void musb_g_resume(struct musb *musb)		{}
 static inline void musb_g_wakeup(struct musb *musb)		{}
 static inline void musb_g_disconnect(struct musb *musb)		{}
 static inline void musb_gadget_cleanup(struct musb *musb)	{}
-static inline int musb_gadget_setup(struct musb *musb)
+static int musb_gadget_setup(struct musb *musb)
 {
 	return 0;
 }
@@ -85,7 +85,7 @@ struct musb_request {
 	enum buffer_map_state map_state;
 };
 
-static inline struct musb_request *to_musb_request(struct usb_request *req)
+static struct musb_request *to_musb_request(struct usb_request *req)
 {
 	return req ? container_of(req, struct musb_request, request) : NULL;
 }
@@ -124,12 +124,12 @@ struct musb_ep {
 	u8				hb_mult;
 };
 
-static inline struct musb_ep *to_musb_ep(struct usb_ep *ep)
+static struct musb_ep *to_musb_ep(struct usb_ep *ep)
 {
 	return ep ? container_of(ep, struct musb_ep, end_point) : NULL;
 }
 
-static inline struct musb_request *next_request(struct musb_ep *ep)
+static struct musb_request *next_request(struct musb_ep *ep)
 {
 	struct list_head	*queue = &ep->req_list;
 

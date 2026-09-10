@@ -85,7 +85,7 @@ struct msc_block_desc {
 #define MSC_HW_TAG_WINWRAP	BIT(2)
 #define MSC_HW_TAG_ENDBIT	BIT(3)
 
-static inline unsigned long msc_data_sz(struct msc_block_desc *bdesc)
+static unsigned long msc_data_sz(struct msc_block_desc *bdesc)
 {
 	if (!bdesc->valid_dw)
 		return 0;
@@ -93,7 +93,7 @@ static inline unsigned long msc_data_sz(struct msc_block_desc *bdesc)
 	return bdesc->valid_dw * 4 - MSC_BDESC;
 }
 
-static inline bool msc_block_wrapped(struct msc_block_desc *bdesc)
+static bool msc_block_wrapped(struct msc_block_desc *bdesc)
 {
 	if (bdesc->hw_tag & MSC_HW_TAG_BLOCKWRAP)
 		return true;
@@ -101,7 +101,7 @@ static inline bool msc_block_wrapped(struct msc_block_desc *bdesc)
 	return false;
 }
 
-static inline bool msc_block_last_written(struct msc_block_desc *bdesc)
+static bool msc_block_last_written(struct msc_block_desc *bdesc)
 {
 	if ((bdesc->hw_tag & MSC_HW_TAG_ENDBIT) ||
 	    (msc_data_sz(bdesc) != DATA_IN_PAGE))

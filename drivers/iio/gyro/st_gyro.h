@@ -41,11 +41,11 @@ void st_gyro_deallocate_ring(struct iio_dev *indio_dev);
 int st_gyro_trig_set_state(struct iio_trigger *trig, bool state);
 #define ST_GYRO_TRIGGER_SET_STATE (&st_gyro_trig_set_state)
 #else /* CONFIG_IIO_BUFFER */
-static inline int st_gyro_allocate_ring(struct iio_dev *indio_dev)
+static int st_gyro_allocate_ring(struct iio_dev *indio_dev)
 {
 	return 0;
 }
-static inline void st_gyro_deallocate_ring(struct iio_dev *indio_dev)
+static void st_gyro_deallocate_ring(struct iio_dev *indio_dev)
 {
 }
 #define ST_GYRO_TRIGGER_SET_STATE NULL

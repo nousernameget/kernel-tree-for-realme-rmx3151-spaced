@@ -226,16 +226,16 @@ void psmouse_smbus_cleanup(struct psmouse *psmouse);
 
 #else /* !CONFIG_MOUSE_PS2_SMBUS */
 
-static inline int psmouse_smbus_module_init(void)
+static int psmouse_smbus_module_init(void)
 {
 	return 0;
 }
 
-static inline void psmouse_smbus_module_exit(void)
+static void psmouse_smbus_module_exit(void)
 {
 }
 
-static inline void psmouse_smbus_cleanup(struct psmouse *psmouse)
+static void psmouse_smbus_cleanup(struct psmouse *psmouse)
 {
 }
 

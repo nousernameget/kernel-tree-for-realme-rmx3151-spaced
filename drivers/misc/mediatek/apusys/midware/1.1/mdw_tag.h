@@ -59,15 +59,15 @@ int mdw_tag_init(void);
 void mdw_tag_exit(void);
 void mdw_tag_show(struct seq_file *s);
 #else
-static inline int mdw_tag_init(void)
+static int mdw_tag_init(void)
 {
 	return 0;
 }
 
-static inline void mdw_tag_exit(void)
+static void mdw_tag_exit(void)
 {
 }
-static inline void mdw_tag_show(struct seq_file *s)
+static void mdw_tag_show(struct seq_file *s)
 {
 }
 #endif

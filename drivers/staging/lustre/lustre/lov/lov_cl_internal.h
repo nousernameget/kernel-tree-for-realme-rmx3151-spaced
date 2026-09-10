@@ -114,7 +114,7 @@ enum lov_layout_type {
 	LLT_NR
 };
 
-static inline char *llt2str(enum lov_layout_type llt)
+static char *llt2str(enum lov_layout_type llt)
 {
 	switch (llt) {
 	case LLT_EMPTY:
@@ -463,7 +463,7 @@ int lov_page_stripe(const struct cl_page *page);
  *
  */
 
-static inline struct lov_session *lov_env_session(const struct lu_env *env)
+static struct lov_session *lov_env_session(const struct lu_env *env)
 {
 	struct lov_session *ses;
 
@@ -472,106 +472,106 @@ static inline struct lov_session *lov_env_session(const struct lu_env *env)
 	return ses;
 }
 
-static inline struct lov_io *lov_env_io(const struct lu_env *env)
+static struct lov_io *lov_env_io(const struct lu_env *env)
 {
 	return &lov_env_session(env)->ls_io;
 }
 
-static inline int lov_is_object(const struct lu_object *obj)
+static int lov_is_object(const struct lu_object *obj)
 {
 	return obj->lo_dev->ld_type == &lov_device_type;
 }
 
-static inline int lovsub_is_object(const struct lu_object *obj)
+static int lovsub_is_object(const struct lu_object *obj)
 {
 	return obj->lo_dev->ld_type == &lovsub_device_type;
 }
 
-static inline struct lu_device *lov2lu_dev(struct lov_device *lov)
+static struct lu_device *lov2lu_dev(struct lov_device *lov)
 {
 	return &lov->ld_cl.cd_lu_dev;
 }
 
-static inline struct lov_device *lu2lov_dev(const struct lu_device *d)
+static struct lov_device *lu2lov_dev(const struct lu_device *d)
 {
 	LINVRNT(d->ld_type == &lov_device_type);
 	return container_of0(d, struct lov_device, ld_cl.cd_lu_dev);
 }
 
-static inline struct cl_device *lovsub2cl_dev(struct lovsub_device *lovsub)
+static struct cl_device *lovsub2cl_dev(struct lovsub_device *lovsub)
 {
 	return &lovsub->acid_cl;
 }
 
-static inline struct lu_device *lovsub2lu_dev(struct lovsub_device *lovsub)
+static struct lu_device *lovsub2lu_dev(struct lovsub_device *lovsub)
 {
 	return &lovsub2cl_dev(lovsub)->cd_lu_dev;
 }
 
-static inline struct lovsub_device *lu2lovsub_dev(const struct lu_device *d)
+static struct lovsub_device *lu2lovsub_dev(const struct lu_device *d)
 {
 	LINVRNT(d->ld_type == &lovsub_device_type);
 	return container_of0(d, struct lovsub_device, acid_cl.cd_lu_dev);
 }
 
-static inline struct lovsub_device *cl2lovsub_dev(const struct cl_device *d)
+static struct lovsub_device *cl2lovsub_dev(const struct cl_device *d)
 {
 	LINVRNT(d->cd_lu_dev.ld_type == &lovsub_device_type);
 	return container_of0(d, struct lovsub_device, acid_cl);
 }
 
-static inline struct lu_object *lov2lu(struct lov_object *lov)
+static struct lu_object *lov2lu(struct lov_object *lov)
 {
 	return &lov->lo_cl.co_lu;
 }
 
-static inline struct cl_object *lov2cl(struct lov_object *lov)
+static struct cl_object *lov2cl(struct lov_object *lov)
 {
 	return &lov->lo_cl;
 }
 
-static inline struct lov_object *lu2lov(const struct lu_object *obj)
+static struct lov_object *lu2lov(const struct lu_object *obj)
 {
 	LINVRNT(lov_is_object(obj));
 	return container_of0(obj, struct lov_object, lo_cl.co_lu);
 }
 
-static inline struct lov_object *cl2lov(const struct cl_object *obj)
+static struct lov_object *cl2lov(const struct cl_object *obj)
 {
 	LINVRNT(lov_is_object(&obj->co_lu));
 	return container_of0(obj, struct lov_object, lo_cl);
 }
 
-static inline struct lu_object *lovsub2lu(struct lovsub_object *los)
+static struct lu_object *lovsub2lu(struct lovsub_object *los)
 {
 	return &los->lso_cl.co_lu;
 }
 
-static inline struct cl_object *lovsub2cl(struct lovsub_object *los)
+static struct cl_object *lovsub2cl(struct lovsub_object *los)
 {
 	return &los->lso_cl;
 }
 
-static inline struct lovsub_object *cl2lovsub(const struct cl_object *obj)
+static struct lovsub_object *cl2lovsub(const struct cl_object *obj)
 {
 	LINVRNT(lovsub_is_object(&obj->co_lu));
 	return container_of0(obj, struct lovsub_object, lso_cl);
 }
 
-static inline struct lovsub_object *lu2lovsub(const struct lu_object *obj)
+static struct lovsub_object *lu2lovsub(const struct lu_object *obj)
 {
 	LINVRNT(lovsub_is_object(obj));
 	return container_of0(obj, struct lovsub_object, lso_cl.co_lu);
 }
 
-static inline struct lovsub_lock *
+static struct lovsub_lock *
 cl2lovsub_lock(const struct cl_lock_slice *slice)
 {
 	LINVRNT(lovsub_is_object(&slice->cls_obj->co_lu));
 	return container_of(slice, struct lovsub_lock, lss_cl);
 }
 
-static inline struct lovsub_lock *cl2sub_lock(const struct cl_lock *lock)
+static struct lovsub_lock *cl2sub_lock(const struct cl_lock *lock)
 {
 	const struct cl_lock_slice *slice;
 
@@ -580,26 +580,26 @@ static inline struct lovsub_lock *cl2sub_lock(const struct cl_lock *lock)
 	return cl2lovsub_lock(slice);
 }
 
-static inline struct lov_lock *cl2lov_lock(const struct cl_lock_slice *slice)
+static struct lov_lock *cl2lov_lock(const struct cl_lock_slice *slice)
 {
 	LINVRNT(lov_is_object(&slice->cls_obj->co_lu));
 	return container_of(slice, struct lov_lock, lls_cl);
 }
 
-static inline struct lov_page *cl2lov_page(const struct cl_page_slice *slice)
+static struct lov_page *cl2lov_page(const struct cl_page_slice *slice)
 {
 	LINVRNT(lov_is_object(&slice->cpl_obj->co_lu));
 	return container_of0(slice, struct lov_page, lps_cl);
 }
 
-static inline struct lovsub_page *
+static struct lovsub_page *
 cl2lovsub_page(const struct cl_page_slice *slice)
 {
 	LINVRNT(lovsub_is_object(&slice->cpl_obj->co_lu));
 	return container_of0(slice, struct lovsub_page, lsb_cl);
 }
 
-static inline struct lov_io *cl2lov_io(const struct lu_env *env,
+static struct lov_io *cl2lov_io(const struct lu_env *env,
 				       const struct cl_io_slice *ios)
 {
 	struct lov_io *lio;
@@ -609,12 +609,12 @@ static inline struct lov_io *cl2lov_io(const struct lu_env *env,
 	return lio;
 }
 
-static inline int lov_targets_nr(const struct lov_device *lov)
+static int lov_targets_nr(const struct lov_device *lov)
 {
 	return lov->ld_lov->desc.ld_tgt_count;
 }
 
-static inline struct lov_thread_info *lov_env_info(const struct lu_env *env)
+static struct lov_thread_info *lov_env_info(const struct lu_env *env)
 {
 	struct lov_thread_info *info;
 
@@ -623,7 +623,7 @@ static inline struct lov_thread_info *lov_env_info(const struct lu_env *env)
 	return info;
 }
 
-static inline struct lov_layout_raid0 *lov_r0(struct lov_object *lov)
+static struct lov_layout_raid0 *lov_r0(struct lov_object *lov)
 {
 	LASSERT(lov->lo_type == LLT_RAID0);
 	LASSERT(lov->lo_lsm->lsm_magic == LOV_MAGIC ||

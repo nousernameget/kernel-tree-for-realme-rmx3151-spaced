@@ -71,7 +71,7 @@ extern bool caam_little_end;
 extern bool caam_imx;
 
 #define caam_to_cpu(len)						\
-static inline u##len caam##len ## _to_cpu(u##len val)			\
+static u##len caam##len ## _to_cpu(u##len val)			\
 {									\
 	if (caam_little_end)						\
 		return le##len ## _to_cpu((__force __le##len)val);	\
@@ -80,7 +80,7 @@ static inline u##len caam##len ## _to_cpu(u##len val)			\
 }
 
 #define cpu_to_caam(len)					\
-static inline u##len cpu_to_caam##len(u##len val)		\
+static u##len cpu_to_caam##len(u##len val)		\
 {								\
 	if (caam_little_end)					\
 		return (__force u##len)cpu_to_le##len(val);	\
@@ -95,7 +95,7 @@ cpu_to_caam(16)
 cpu_to_caam(32)
 cpu_to_caam(64)
 
-static inline void wr_reg32(void __iomem *reg, u32 data)
+static void wr_reg32(void __iomem *reg, u32 data)
 {
 	if (caam_little_end)
 		iowrite32(data, reg);
@@ -103,7 +103,7 @@ static inline void wr_reg32(void __iomem *reg, u32 data)
 		iowrite32be(data, reg);
 }
 
-static inline u32 rd_reg32(void __iomem *reg)
+static u32 rd_reg32(void __iomem *reg)
 {
 	if (caam_little_end)
 		return ioread32(reg);
@@ -111,7 +111,7 @@ static inline u32 rd_reg32(void __iomem *reg)
 	return ioread32be(reg);
 }
 
-static inline void clrsetbits_32(void __iomem *reg, u32 clear, u32 set)
+static void clrsetbits_32(void __iomem *reg, u32 clear, u32 set)
 {
 	if (caam_little_end)
 		iowrite32((ioread32(reg) & ~clear) | set, reg);
@@ -137,7 +137,7 @@ static inline void clrsetbits_32(void __iomem *reg, u32 clear, u32 set)
  *    base + 0x0004 : most-significant 32 bits
  */
 #ifdef CONFIG_64BIT
-static inline void wr_reg64(void __iomem *reg, u64 data)
+static void wr_reg64(void __iomem *reg, u64 data)
 {
 	if (caam_little_end)
 		iowrite64(data, reg);
@@ -145,7 +145,7 @@ static inline void wr_reg64(void __iomem *reg, u64 data)
 		iowrite64be(data, reg);
 }
 
-static inline u64 rd_reg64(void __iomem *reg)
+static u64 rd_reg64(void __iomem *reg)
 {
 	if (caam_little_end)
 		return ioread64(reg);
@@ -154,7 +154,7 @@ static inline u64 rd_reg64(void __iomem *reg)
 }
 
 #else /* CONFIG_64BIT */
-static inline void wr_reg64(void __iomem *reg, u64 data)
+static void wr_reg64(void __iomem *reg, u64 data)
 {
 	if (!caam_imx && caam_little_end) {
 		wr_reg32((u32 __iomem *)(reg) + 1, data >> 32);
@@ -165,7 +165,7 @@ static inline void wr_reg64(void __iomem *reg, u64 data)
 	}
 }
 
-static inline u64 rd_reg64(void __iomem *reg)
+static u64 rd_reg64(void __iomem *reg)
 {
 	if (!caam_imx && caam_little_end)
 		return ((u64)rd_reg32((u32 __iomem *)(reg) + 1) << 32 |
@@ -176,7 +176,7 @@ static inline u64 rd_reg64(void __iomem *reg)
 }
 #endif /* CONFIG_64BIT  */
 
-static inline u64 cpu_to_caam_dma64(dma_addr_t value)
+static u64 cpu_to_caam_dma64(dma_addr_t value)
 {
 	if (caam_imx)
 		return (((u64)cpu_to_caam32(lower_32_bits(value)) << 32) |
@@ -185,7 +185,7 @@ static inline u64 cpu_to_caam_dma64(dma_addr_t value)
 	return cpu_to_caam64(value);
 }
 
-static inline u64 caam_dma64_to_cpu(u64 value)
+static u64 caam_dma64_to_cpu(u64 value)
 {
 	if (caam_imx)
 		return (((u64)caam32_to_cpu(lower_32_bits(value)) << 32) |

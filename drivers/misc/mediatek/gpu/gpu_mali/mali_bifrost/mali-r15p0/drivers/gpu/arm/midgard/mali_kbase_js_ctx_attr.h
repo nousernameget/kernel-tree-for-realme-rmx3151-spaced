@@ -119,7 +119,7 @@ bool kbasep_js_ctx_attr_ctx_release_atom(struct kbase_device *kbdev, struct kbas
  * Requires:
  * - runpool_irq spinlock
  */
-static inline s8 kbasep_js_ctx_attr_count_on_runpool(struct kbase_device *kbdev, enum kbasep_js_ctx_attr attribute)
+static s8 kbasep_js_ctx_attr_count_on_runpool(struct kbase_device *kbdev, enum kbasep_js_ctx_attr attribute)
 {
 	struct kbasep_js_device_data *js_devdata;
 
@@ -134,7 +134,7 @@ static inline s8 kbasep_js_ctx_attr_count_on_runpool(struct kbase_device *kbdev,
  * Requires:
  * - runpool_irq spinlock
  */
-static inline bool kbasep_js_ctx_attr_is_attr_on_runpool(struct kbase_device *kbdev, enum kbasep_js_ctx_attr attribute)
+static bool kbasep_js_ctx_attr_is_attr_on_runpool(struct kbase_device *kbdev, enum kbasep_js_ctx_attr attribute)
 {
 	/* In general, attributes are 'on' when they have a non-zero refcount (note: the refcount will never be < 0) */
 	return (bool) kbasep_js_ctx_attr_count_on_runpool(kbdev, attribute);
@@ -144,7 +144,7 @@ static inline bool kbasep_js_ctx_attr_is_attr_on_runpool(struct kbase_device *kb
  * Requires:
  * - jsctx mutex
  */
-static inline bool kbasep_js_ctx_attr_is_attr_on_ctx(struct kbase_context *kctx, enum kbasep_js_ctx_attr attribute)
+static bool kbasep_js_ctx_attr_is_attr_on_ctx(struct kbase_context *kctx, enum kbasep_js_ctx_attr attribute)
 {
 	struct kbasep_js_kctx_info *js_kctx_info;
 

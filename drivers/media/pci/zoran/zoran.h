@@ -385,7 +385,7 @@ struct zoran {
 	wait_queue_head_t test_q;
 };
 
-static inline struct zoran *to_zoran(struct v4l2_device *v4l2_dev)
+static struct zoran *to_zoran(struct v4l2_device *v4l2_dev)
 {
 	return container_of(v4l2_dev, struct zoran, v4l2_dev);
 }

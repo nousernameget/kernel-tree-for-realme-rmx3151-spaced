@@ -65,7 +65,7 @@ int mwifiex_cmd_amsdu_aggr_ctrl(struct host_cmd_ds_command *cmd,
 void mwifiex_del_tx_ba_stream_tbl_by_ra(struct mwifiex_private *priv, u8 *ra);
 u8 mwifiex_get_sec_chan_offset(int chan);
 
-static inline u8
+static u8
 mwifiex_is_station_ampdu_allowed(struct mwifiex_private *priv,
 				 struct mwifiex_ra_list_tbl *ptr, int tid)
 {
@@ -78,7 +78,7 @@ mwifiex_is_station_ampdu_allowed(struct mwifiex_private *priv,
 }
 
 /* This function checks whether AMPDU is allowed or not for a particular TID. */
-static inline u8
+static u8
 mwifiex_is_ampdu_allowed(struct mwifiex_private *priv,
 			 struct mwifiex_ra_list_tbl *ptr, int tid)
 {
@@ -98,7 +98,7 @@ mwifiex_is_ampdu_allowed(struct mwifiex_private *priv,
 /*
  * This function checks whether AMSDU is allowed or not for a particular TID.
  */
-static inline u8
+static u8
 mwifiex_is_amsdu_allowed(struct mwifiex_private *priv, int tid)
 {
 	return (((priv->aggr_prio_tbl[tid].amsdu != BA_STREAM_NOT_ALLOWED) &&
@@ -109,7 +109,7 @@ mwifiex_is_amsdu_allowed(struct mwifiex_private *priv, int tid)
 /*
  * This function checks whether a space is available for new BA stream or not.
  */
-static inline u8 mwifiex_space_avail_for_new_ba_stream(
+static u8 mwifiex_space_avail_for_new_ba_stream(
 					struct mwifiex_adapter *adapter)
 {
 	struct mwifiex_private *priv;
@@ -140,7 +140,7 @@ static inline u8 mwifiex_space_avail_for_new_ba_stream(
  *
  * Upon successfully locating, both the TID and the RA are returned.
  */
-static inline u8
+static u8
 mwifiex_find_stream_to_delete(struct mwifiex_private *priv, int ptr_tid,
 			      int *ptid, u8 *ra)
 {
@@ -168,7 +168,7 @@ mwifiex_find_stream_to_delete(struct mwifiex_private *priv, int ptr_tid,
 /*
  * This function checks whether associated station is 11n enabled
  */
-static inline int mwifiex_is_sta_11n_enabled(struct mwifiex_private *priv,
+static int mwifiex_is_sta_11n_enabled(struct mwifiex_private *priv,
 					     struct mwifiex_sta_node *node)
 {
 	if (!node || ((priv->bss_role == MWIFIEX_BSS_ROLE_UAP) &&
@@ -180,7 +180,7 @@ static inline int mwifiex_is_sta_11n_enabled(struct mwifiex_private *priv,
 	return node->is_11n_enabled;
 }
 
-static inline u8
+static u8
 mwifiex_tdls_peer_11n_enabled(struct mwifiex_private *priv, const u8 *ra)
 {
 	struct mwifiex_sta_node *node = mwifiex_get_sta_entry(priv, ra);

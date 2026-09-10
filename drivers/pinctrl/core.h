@@ -218,7 +218,7 @@ int pinctrl_generic_add_group(struct pinctrl_dev *pctldev, const char *name,
 int pinctrl_generic_remove_group(struct pinctrl_dev *pctldev,
 				 unsigned int group_selector);
 
-static inline int
+static int
 pinctrl_generic_remove_last_group(struct pinctrl_dev *pctldev)
 {
 	return pinctrl_generic_remove_group(pctldev, pctldev->num_groups - 1);
@@ -233,7 +233,7 @@ const char *pin_get_name(struct pinctrl_dev *pctldev, const unsigned pin);
 int pinctrl_get_group_selector(struct pinctrl_dev *pctldev,
 			       const char *pin_group);
 
-static inline struct pin_desc *pin_desc_get(struct pinctrl_dev *pctldev,
+static struct pin_desc *pin_desc_get(struct pinctrl_dev *pctldev,
 					    unsigned int pin)
 {
 	return radix_tree_lookup(&pctldev->pin_desc_tree, pin);

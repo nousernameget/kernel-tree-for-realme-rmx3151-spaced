@@ -62,7 +62,7 @@ void iio_buffer_wakeup_poll(struct iio_dev *indio_dev);
 #define iio_buffer_poll_addr NULL
 #define iio_buffer_read_first_n_outer_addr NULL
 
-static inline int iio_buffer_alloc_sysfs_and_mask(struct iio_dev *indio_dev)
+static int iio_buffer_alloc_sysfs_and_mask(struct iio_dev *indio_dev)
 {
 	return 0;
 }

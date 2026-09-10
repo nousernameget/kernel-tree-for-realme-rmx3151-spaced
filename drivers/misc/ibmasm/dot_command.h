@@ -50,13 +50,13 @@ struct dot_command_header {
 };
 #pragma pack()
 
-static inline size_t get_dot_command_size(void *buffer)
+static size_t get_dot_command_size(void *buffer)
 {
 	struct dot_command_header *cmd = (struct dot_command_header *)buffer;
 	return sizeof(struct dot_command_header) + cmd->command_size + cmd->data_size;
 }
 
-static inline unsigned int get_dot_command_timeout(void *buffer)
+static unsigned int get_dot_command_timeout(void *buffer)
 {
 	struct dot_command_header *header = (struct dot_command_header *)buffer;
 	unsigned char *cmd = buffer + sizeof(struct dot_command_header);

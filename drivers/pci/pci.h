@@ -15,9 +15,9 @@ bool pcie_cap_has_lnkctl(const struct pci_dev *dev);
 int pci_create_sysfs_dev_files(struct pci_dev *pdev);
 void pci_remove_sysfs_dev_files(struct pci_dev *pdev);
 #if !defined(CONFIG_DMI) && !defined(CONFIG_ACPI)
-static inline void pci_create_firmware_label_files(struct pci_dev *pdev)
+static void pci_create_firmware_label_files(struct pci_dev *pdev)
 { return; }
-static inline void pci_remove_firmware_label_files(struct pci_dev *pdev)
+static void pci_remove_firmware_label_files(struct pci_dev *pdev)
 { return; }
 #else
 void pci_create_firmware_label_files(struct pci_dev *pdev);
@@ -84,18 +84,18 @@ void pci_free_cap_save_buffers(struct pci_dev *dev);
 bool pci_bridge_d3_possible(struct pci_dev *dev);
 void pci_bridge_d3_update(struct pci_dev *dev);
 
-static inline void pci_wakeup_event(struct pci_dev *dev)
+static void pci_wakeup_event(struct pci_dev *dev)
 {
 	/* Wait 100 ms before the system can be put into a sleep state. */
 	pm_wakeup_event(&dev->dev, 100);
 }
 
-static inline bool pci_has_subordinate(struct pci_dev *pci_dev)
+static bool pci_has_subordinate(struct pci_dev *pci_dev)
 {
 	return !!(pci_dev->subordinate);
 }
 
-static inline bool pci_power_manageable(struct pci_dev *pci_dev)
+static bool pci_power_manageable(struct pci_dev *pci_dev)
 {
 	/*
 	 * Currently we allow normal PCI devices and PCI bridges transition
@@ -159,7 +159,7 @@ void pci_no_msi(void);
 static inline void pci_no_msi(void) { }
 #endif
 
-static inline void pci_msi_set_enable(struct pci_dev *dev, int enable)
+static void pci_msi_set_enable(struct pci_dev *dev, int enable)
 {
 	u16 control;
 
@@ -170,7 +170,7 @@ static inline void pci_msi_set_enable(struct pci_dev *dev, int enable)
 	pci_write_config_word(dev, dev->msi_cap + PCI_MSI_FLAGS, control);
 }
 
-static inline void pci_msix_clear_and_set_ctrl(struct pci_dev *dev, u16 clear, u16 set)
+static void pci_msix_clear_and_set_ctrl(struct pci_dev *dev, u16 clear, u16 set)
 {
 	u16 ctrl;
 
@@ -182,7 +182,7 @@ static inline void pci_msix_clear_and_set_ctrl(struct pci_dev *dev, u16 clear, u
 
 void pci_realloc_get_opt(char *);
 
-static inline int pci_no_d1d2(struct pci_dev *dev)
+static int pci_no_d1d2(struct pci_dev *dev)
 {
 	unsigned int parent_dstates = 0;
 
@@ -205,7 +205,7 @@ extern const struct attribute_group *pci_bus_groups[];
  *
  * Returns the matching pci_device_id structure or %NULL if there is no match.
  */
-static inline const struct pci_device_id *
+static const struct pci_device_id *
 pci_match_one_device(const struct pci_device_id *id, const struct pci_dev *dev)
 {
 	if ((id->vendor == PCI_ANY_ID || id->vendor == dev->vendor) &&
@@ -277,13 +277,13 @@ struct pci_sriov {
 /* pci_dev priv_flags */
 #define PCI_DEV_DISCONNECTED 0
 
-static inline int pci_dev_set_disconnected(struct pci_dev *dev, void *unused)
+static int pci_dev_set_disconnected(struct pci_dev *dev, void *unused)
 {
 	set_bit(PCI_DEV_DISCONNECTED, &dev->priv_flags);
 	return 0;
 }
 
-static inline bool pci_dev_is_disconnected(const struct pci_dev *dev)
+static bool pci_dev_is_disconnected(const struct pci_dev *dev)
 {
 	return test_bit(PCI_DEV_DISCONNECTED, &dev->priv_flags);
 }
@@ -291,7 +291,7 @@ static inline bool pci_dev_is_disconnected(const struct pci_dev *dev)
 #ifdef CONFIG_PCI_ATS
 void pci_restore_ats_state(struct pci_dev *dev);
 #else
-static inline void pci_restore_ats_state(struct pci_dev *dev)
+static void pci_restore_ats_state(struct pci_dev *dev)
 {
 }
 #endif /* CONFIG_PCI_ATS */
@@ -305,18 +305,18 @@ void pci_restore_iov_state(struct pci_dev *dev);
 int pci_iov_bus_range(struct pci_bus *bus);
 
 #else
-static inline int pci_iov_init(struct pci_dev *dev)
+static int pci_iov_init(struct pci_dev *dev)
 {
 	return -ENODEV;
 }
-static inline void pci_iov_release(struct pci_dev *dev)
+static void pci_iov_release(struct pci_dev *dev)
 
 {
 }
-static inline void pci_restore_iov_state(struct pci_dev *dev)
+static void pci_restore_iov_state(struct pci_dev *dev)
 {
 }
-static inline int pci_iov_bus_range(struct pci_bus *bus)
+static int pci_iov_bus_range(struct pci_bus *bus)
 {
 	return 0;
 }
@@ -325,7 +325,7 @@ static inline int pci_iov_bus_range(struct pci_bus *bus)
 
 unsigned long pci_cardbus_resource_alignment(struct resource *);
 
-static inline resource_size_t pci_resource_alignment(struct pci_dev *dev,
+static resource_size_t pci_resource_alignment(struct pci_dev *dev,
 						     struct resource *res)
 {
 #ifdef CONFIG_PCI_IOV
@@ -356,7 +356,7 @@ struct pci_dev_reset_methods {
 #ifdef CONFIG_PCI_QUIRKS
 int pci_dev_specific_reset(struct pci_dev *dev, int probe);
 #else
-static inline int pci_dev_specific_reset(struct pci_dev *dev, int probe)
+static int pci_dev_specific_reset(struct pci_dev *dev, int probe)
 {
 	return -ENOTTY;
 }

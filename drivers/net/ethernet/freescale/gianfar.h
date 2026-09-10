@@ -1206,25 +1206,25 @@ struct gfar_private {
 };
 
 
-static inline int gfar_has_errata(struct gfar_private *priv,
+static int gfar_has_errata(struct gfar_private *priv,
 				  enum gfar_errata err)
 {
 	return priv->errata & err;
 }
 
-static inline u32 gfar_read(unsigned __iomem *addr)
+static u32 gfar_read(unsigned __iomem *addr)
 {
 	u32 val;
 	val = ioread32be(addr);
 	return val;
 }
 
-static inline void gfar_write(unsigned __iomem *addr, u32 val)
+static void gfar_write(unsigned __iomem *addr, u32 val)
 {
 	iowrite32be(val, addr);
 }
 
-static inline void gfar_write_filer(struct gfar_private *priv,
+static void gfar_write_filer(struct gfar_private *priv,
 		unsigned int far, unsigned int fcr, unsigned int fpr)
 {
 	struct gfar __iomem *regs = priv->gfargrp[0].regs;
@@ -1234,7 +1234,7 @@ static inline void gfar_write_filer(struct gfar_private *priv,
 	gfar_write(&regs->rqfpr, fpr);
 }
 
-static inline void gfar_read_filer(struct gfar_private *priv,
+static void gfar_read_filer(struct gfar_private *priv,
 		unsigned int far, unsigned int *fcr, unsigned int *fpr)
 {
 	struct gfar __iomem *regs = priv->gfargrp[0].regs;
@@ -1244,7 +1244,7 @@ static inline void gfar_read_filer(struct gfar_private *priv,
 	*fpr = gfar_read(&regs->rqfpr);
 }
 
-static inline void gfar_write_isrg(struct gfar_private *priv)
+static void gfar_write_isrg(struct gfar_private *priv)
 {
 	struct gfar __iomem *regs = priv->gfargrp[0].regs;
 	u32 __iomem *baddr = &regs->isrg0;
@@ -1269,7 +1269,7 @@ static inline void gfar_write_isrg(struct gfar_private *priv)
 	}
 }
 
-static inline int gfar_is_dma_stopped(struct gfar_private *priv)
+static int gfar_is_dma_stopped(struct gfar_private *priv)
 {
 	struct gfar __iomem *regs = priv->gfargrp[0].regs;
 
@@ -1277,14 +1277,14 @@ static inline int gfar_is_dma_stopped(struct gfar_private *priv)
 	       (IEVENT_GRSC | IEVENT_GTSC));
 }
 
-static inline int gfar_is_rx_dma_stopped(struct gfar_private *priv)
+static int gfar_is_rx_dma_stopped(struct gfar_private *priv)
 {
 	struct gfar __iomem *regs = priv->gfargrp[0].regs;
 
 	return gfar_read(&regs->ievent) & IEVENT_GRSC;
 }
 
-static inline void gfar_wmb(void)
+static void gfar_wmb(void)
 {
 #if defined(CONFIG_PPC)
 	/* The powerpc-specific eieio() is used, as wmb() has too strong
@@ -1300,7 +1300,7 @@ static inline void gfar_wmb(void)
 #endif
 }
 
-static inline void gfar_clear_txbd_status(struct txbd8 *bdp)
+static void gfar_clear_txbd_status(struct txbd8 *bdp)
 {
 	u32 lstatus = be32_to_cpu(bdp->lstatus);
 
@@ -1308,7 +1308,7 @@ static inline void gfar_clear_txbd_status(struct txbd8 *bdp)
 	bdp->lstatus = cpu_to_be32(lstatus);
 }
 
-static inline int gfar_rxbd_unused(struct gfar_priv_rx_q *rxq)
+static int gfar_rxbd_unused(struct gfar_priv_rx_q *rxq)
 {
 	if (rxq->next_to_clean > rxq->next_to_use)
 		return rxq->next_to_clean - rxq->next_to_use - 1;
@@ -1316,7 +1316,7 @@ static inline int gfar_rxbd_unused(struct gfar_priv_rx_q *rxq)
 	return rxq->rx_ring_size + rxq->next_to_clean - rxq->next_to_use - 1;
 }
 
-static inline u32 gfar_rxbd_dma_lastfree(struct gfar_priv_rx_q *rxq)
+static u32 gfar_rxbd_dma_lastfree(struct gfar_priv_rx_q *rxq)
 {
 	struct rxbd8 *bdp;
 	u32 bdp_dma;

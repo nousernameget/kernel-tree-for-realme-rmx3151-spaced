@@ -355,19 +355,19 @@ void aed_common_exception_api(const char *assert_type, const int *log, int
 			log_size, const int *phy, int phy_size, const char
 			*detail, const int db_opt);
 
-static inline void  aee_kernel_wdt_kick_Powkey_api(const char *module, int msg)
+static void  aee_kernel_wdt_kick_Powkey_api(const char *module, int msg)
 {
 
 }
-static inline int aee_kernel_wdt_kick_api(int kinterval)
+static int aee_kernel_wdt_kick_api(int kinterval)
 {
 	return 0;
 }
-static inline void aee_powerkey_notify_press(unsigned long pressed)
+static void aee_powerkey_notify_press(unsigned long pressed)
 {
 
 }
-static inline int aee_kernel_Powerkey_is_press(void)
+static int aee_kernel_Powerkey_is_press(void)
 {
 	return 0;
 }
@@ -396,7 +396,7 @@ void mrdump_key_shutdown(struct platform_device *pdev);
 #if defined(CONFIG_MTK_AEE_DRAM_CONSOLE)
 void aee_dram_console_reserve_memory(void);
 #else
-static inline void aee_dram_console_reserve_memory(void)
+static void aee_dram_console_reserve_memory(void)
 {
 }
 #endif

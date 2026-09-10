@@ -30,7 +30,7 @@ struct nouveau_hwmon {
 	struct device *hwmon;
 };
 
-static inline struct nouveau_hwmon *
+static struct nouveau_hwmon *
 nouveau_hwmon(struct drm_device *dev)
 {
 	return nouveau_drm(dev)->hwmon;

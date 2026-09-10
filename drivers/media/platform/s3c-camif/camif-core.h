@@ -337,14 +337,14 @@ int s3c_camif_set_defaults(struct camif_dev *camif);
 int s3c_camif_get_scaler_config(struct camif_vp *vp,
 				struct camif_scaler *scaler);
 
-static inline void camif_active_queue_add(struct camif_vp *vp,
+static void camif_active_queue_add(struct camif_vp *vp,
 					  struct camif_buffer *buf)
 {
 	list_add_tail(&buf->list, &vp->active_buf_q);
 	vp->active_buffers++;
 }
 
-static inline struct camif_buffer *camif_active_queue_pop(
+static struct camif_buffer *camif_active_queue_pop(
 					struct camif_vp *vp)
 {
 	struct camif_buffer *buf = list_first_entry(&vp->active_buf_q,
@@ -354,7 +354,7 @@ static inline struct camif_buffer *camif_active_queue_pop(
 	return buf;
 }
 
-static inline struct camif_buffer *camif_active_queue_peek(
+static struct camif_buffer *camif_active_queue_peek(
 			   struct camif_vp *vp, int index)
 {
 	struct camif_buffer *tmp, *buf;
@@ -373,13 +373,13 @@ static inline struct camif_buffer *camif_active_queue_peek(
 	return NULL;
 }
 
-static inline void camif_pending_queue_add(struct camif_vp *vp,
+static void camif_pending_queue_add(struct camif_vp *vp,
 					   struct camif_buffer *buf)
 {
 	list_add_tail(&buf->list, &vp->pending_buf_q);
 }
 
-static inline struct camif_buffer *camif_pending_queue_pop(
+static struct camif_buffer *camif_pending_queue_pop(
 					struct camif_vp *vp)
 {
 	struct camif_buffer *buf = list_first_entry(&vp->pending_buf_q,

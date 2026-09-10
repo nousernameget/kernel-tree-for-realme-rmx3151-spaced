@@ -79,7 +79,7 @@ struct amdgpu_virt {
 #define amdgpu_passthrough(adev) \
 ((adev)->virt.caps & AMDGPU_PASSTHROUGH_MODE)
 
-static inline bool is_virtual_machine(void)
+static bool is_virtual_machine(void)
 {
 #ifdef CONFIG_X86
 	return boot_cpu_has(X86_FEATURE_HYPERVISOR);

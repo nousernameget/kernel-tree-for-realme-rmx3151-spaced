@@ -225,12 +225,12 @@ extern const struct file_operations scif_anon_fops;
  *
  * Returns true if the SCIF Device passed is the self aka Loopback SCIF device.
  */
-static inline int scifdev_self(struct scif_dev *dev)
+static int scifdev_self(struct scif_dev *dev)
 {
 	return dev->node == scif_info.nodeid;
 }
 
-static inline bool scif_is_mgmt_node(void)
+static bool scif_is_mgmt_node(void)
 {
 	return !scif_info.nodeid;
 }
@@ -241,7 +241,7 @@ static inline bool scif_is_mgmt_node(void)
  *
  * Returns true if the SCIF Device is a MIC Peer to Peer SCIF device.
  */
-static inline bool scifdev_is_p2p(struct scif_dev *dev)
+static bool scifdev_is_p2p(struct scif_dev *dev)
 {
 	if (scif_is_mgmt_node())
 		return false;
@@ -257,7 +257,7 @@ static inline bool scifdev_is_p2p(struct scif_dev *dev)
  * Returns true if the remote SCIF Device is running or sleeping for
  * this endpoint.
  */
-static inline int _scifdev_alive(struct scif_dev *scifdev)
+static int _scifdev_alive(struct scif_dev *scifdev)
 {
 	struct scif_peer_dev *spdev;
 

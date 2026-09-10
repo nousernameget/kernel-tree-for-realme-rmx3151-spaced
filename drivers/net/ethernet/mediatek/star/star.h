@@ -151,13 +151,13 @@ struct eth_phy_ops {
 #define STAR_PR_INFO(fmt...) pr_info("star: " fmt)
 #define STAR_PR_DEBUG(fmt...) pr_debug("star: " fmt)
 
-static inline void star_set_reg(void __iomem *reg, u32 value)
+static void star_set_reg(void __iomem *reg, u32 value)
 {
 	STAR_PR_DEBUG("%s(%p)=%08x\n", __func__, reg, value);
 	iowrite32(value, reg);
 }
 
-static inline u32 star_get_reg(void __iomem *reg)
+static u32 star_get_reg(void __iomem *reg)
 {
 	u32 data = ioread32(reg);
 
@@ -165,7 +165,7 @@ static inline u32 star_get_reg(void __iomem *reg)
 	return data;
 }
 
-static inline void star_set_bit(void __iomem *reg, u32 bit)
+static void star_set_bit(void __iomem *reg, u32 bit)
 {
 	u32 data = ioread32(reg);
 
@@ -175,7 +175,7 @@ static inline void star_set_bit(void __iomem *reg, u32 bit)
 	star_mb();
 }
 
-static inline void star_clear_bit(void __iomem *reg, u32 bit)
+static void star_clear_bit(void __iomem *reg, u32 bit)
 {
 	u32 data = ioread32(reg);
 
@@ -186,7 +186,7 @@ static inline void star_clear_bit(void __iomem *reg, u32 bit)
 	star_mb();
 }
 
-static inline u32 star_get_bit_mask(void __iomem *reg, u32 mask, u32 offset)
+static u32 star_get_bit_mask(void __iomem *reg, u32 mask, u32 offset)
 {
 	u32 data = ioread32(reg);
 
@@ -197,7 +197,7 @@ static inline u32 star_get_bit_mask(void __iomem *reg, u32 mask, u32 offset)
 	return data;
 }
 
-static inline u32 star_is_set_bit(void __iomem *reg, u32 bit)
+static u32 star_is_set_bit(void __iomem *reg, u32 bit)
 {
 	u32 data = ioread32(reg);
 

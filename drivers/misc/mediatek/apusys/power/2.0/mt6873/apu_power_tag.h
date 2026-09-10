@@ -59,16 +59,16 @@ int apupwr_init_drv_tags(void);
 void apupwr_exit_drv_tags(void);
 void apupwr_tags_show(struct seq_file *s);
 #else
-static inline int apupwr_init_drv_tags(void)
+static int apupwr_init_drv_tags(void)
 {
 	return 0;
 }
 
-static inline void apupwr_exit_drv_tags(void)
+static void apupwr_exit_drv_tags(void)
 {
 }
 
-static inline void apupwr_tags_show(struct seq_file *s)
+static void apupwr_tags_show(struct seq_file *s)
 {
 }
 #endif

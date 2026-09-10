@@ -97,7 +97,7 @@ void snic_tgt_del_all(struct snic *);
 #define dev_to_tgt(d) \
 	container_of(d, struct snic_tgt, dev)
 
-static inline int
+static int
 is_snic_target(struct device *dev)
 {
 	return dev->release == snic_tgt_dev_release;
@@ -110,7 +110,7 @@ is_snic_target(struct device *dev)
 #define snic_tgt_to_shost(t)	\
 	dev_to_shost(t->dev.parent)
 
-static inline int
+static int
 snic_tgt_chkready(struct snic_tgt *tgt)
 {
 	if (tgt->state == SNIC_TGT_STAT_ONLINE)

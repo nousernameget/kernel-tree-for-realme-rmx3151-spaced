@@ -57,7 +57,7 @@ struct mei_txe_hw {
 
 #define to_txe_hw(dev) (struct mei_txe_hw *)((dev)->hw)
 
-static inline struct mei_device *hw_txe_to_mei(struct mei_txe_hw *hw)
+static struct mei_device *hw_txe_to_mei(struct mei_txe_hw *hw)
 {
 	return container_of((void *)hw, struct mei_device, hw);
 }

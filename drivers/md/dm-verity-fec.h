@@ -99,12 +99,12 @@ extern int verity_fec_ctr(struct dm_verity *v);
 
 #define DM_VERITY_OPTS_FEC	0
 
-static inline bool verity_fec_is_enabled(struct dm_verity *v)
+static bool verity_fec_is_enabled(struct dm_verity *v)
 {
 	return false;
 }
 
-static inline int verity_fec_decode(struct dm_verity *v,
+static int verity_fec_decode(struct dm_verity *v,
 				    struct dm_verity_io *io,
 				    enum verity_block_type type,
 				    sector_t block, u8 *dest,
@@ -113,27 +113,27 @@ static inline int verity_fec_decode(struct dm_verity *v,
 	return -EOPNOTSUPP;
 }
 
-static inline unsigned verity_fec_status_table(struct dm_verity *v,
+static unsigned verity_fec_status_table(struct dm_verity *v,
 					       unsigned sz, char *result,
 					       unsigned maxlen)
 {
 	return sz;
 }
 
-static inline void verity_fec_finish_io(struct dm_verity_io *io)
+static void verity_fec_finish_io(struct dm_verity_io *io)
 {
 }
 
-static inline void verity_fec_init_io(struct dm_verity_io *io)
+static void verity_fec_init_io(struct dm_verity_io *io)
 {
 }
 
-static inline bool verity_is_fec_opt_arg(const char *arg_name)
+static bool verity_is_fec_opt_arg(const char *arg_name)
 {
 	return false;
 }
 
-static inline int verity_fec_parse_opt_args(struct dm_arg_set *as,
+static int verity_fec_parse_opt_args(struct dm_arg_set *as,
 					    struct dm_verity *v,
 					    unsigned *argc,
 					    const char *arg_name)
@@ -141,16 +141,16 @@ static inline int verity_fec_parse_opt_args(struct dm_arg_set *as,
 	return -EINVAL;
 }
 
-static inline void verity_fec_dtr(struct dm_verity *v)
+static void verity_fec_dtr(struct dm_verity *v)
 {
 }
 
-static inline int verity_fec_ctr_alloc(struct dm_verity *v)
+static int verity_fec_ctr_alloc(struct dm_verity *v)
 {
 	return 0;
 }
 
-static inline int verity_fec_ctr(struct dm_verity *v)
+static int verity_fec_ctr(struct dm_verity *v)
 {
 	return 0;
 }

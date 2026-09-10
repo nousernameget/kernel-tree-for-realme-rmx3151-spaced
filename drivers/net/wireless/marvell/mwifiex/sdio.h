@@ -581,7 +581,7 @@ static const struct mwifiex_sdio_device mwifiex_sdio_sd8801 = {
 /*
  * .cmdrsp_complete handler
  */
-static inline int mwifiex_sdio_cmdrsp_complete(struct mwifiex_adapter *adapter,
+static int mwifiex_sdio_cmdrsp_complete(struct mwifiex_adapter *adapter,
 					       struct sk_buff *skb)
 {
 	dev_kfree_skb_any(skb);
@@ -591,14 +591,14 @@ static inline int mwifiex_sdio_cmdrsp_complete(struct mwifiex_adapter *adapter,
 /*
  * .event_complete handler
  */
-static inline int mwifiex_sdio_event_complete(struct mwifiex_adapter *adapter,
+static int mwifiex_sdio_event_complete(struct mwifiex_adapter *adapter,
 					      struct sk_buff *skb)
 {
 	dev_kfree_skb_any(skb);
 	return 0;
 }
 
-static inline bool
+static bool
 mp_rx_aggr_port_limit_reached(struct sdio_mmc_card *card)
 {
 	u8 tmp;
@@ -624,7 +624,7 @@ mp_rx_aggr_port_limit_reached(struct sdio_mmc_card *card)
 	return false;
 }
 
-static inline bool
+static bool
 mp_tx_aggr_port_limit_reached(struct sdio_mmc_card *card)
 {
 	u16 tmp;
@@ -651,7 +651,7 @@ mp_tx_aggr_port_limit_reached(struct sdio_mmc_card *card)
 }
 
 /* Prepare to copy current packet from card to SDIO Rx aggregation buffer */
-static inline void mp_rx_aggr_setup(struct sdio_mmc_card *card,
+static void mp_rx_aggr_setup(struct sdio_mmc_card *card,
 				    u16 rx_len, u8 port)
 {
 	card->mpa_rx.buf_len += rx_len;

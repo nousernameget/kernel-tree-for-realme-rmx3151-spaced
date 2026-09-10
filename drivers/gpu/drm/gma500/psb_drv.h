@@ -674,7 +674,7 @@ struct psb_ops {
 extern int drm_crtc_probe_output_modes(struct drm_device *dev, int, int);
 extern int drm_pick_crtcs(struct drm_device *dev);
 
-static inline struct drm_psb_private *psb_priv(struct drm_device *dev)
+static struct drm_psb_private *psb_priv(struct drm_device *dev)
 {
 	return (struct drm_psb_private *) dev->dev_private;
 }
@@ -782,7 +782,7 @@ extern const struct psb_ops cdv_chip_ops;
 extern int drm_idle_check_interval;
 
 /* Utilities */
-static inline u32 MRST_MSG_READ32(uint port, uint offset)
+static u32 MRST_MSG_READ32(uint port, uint offset)
 {
 	int mcr = (0xD0<<24) | (port << 16) | (offset << 8);
 	uint32_t ret_val = 0;
@@ -792,7 +792,7 @@ static inline u32 MRST_MSG_READ32(uint port, uint offset)
 	pci_dev_put(pci_root);
 	return ret_val;
 }
-static inline void MRST_MSG_WRITE32(uint port, uint offset, u32 value)
+static void MRST_MSG_WRITE32(uint port, uint offset, u32 value)
 {
 	int mcr = (0xE0<<24) | (port << 16) | (offset << 8) | 0xF0;
 	struct pci_dev *pci_root = pci_get_bus_and_slot(0, 0);
@@ -800,7 +800,7 @@ static inline void MRST_MSG_WRITE32(uint port, uint offset, u32 value)
 	pci_write_config_dword(pci_root, 0xD0, mcr);
 	pci_dev_put(pci_root);
 }
-static inline u32 MDFLD_MSG_READ32(uint port, uint offset)
+static u32 MDFLD_MSG_READ32(uint port, uint offset)
 {
 	int mcr = (0x10<<24) | (port << 16) | (offset << 8);
 	uint32_t ret_val = 0;
@@ -810,7 +810,7 @@ static inline u32 MDFLD_MSG_READ32(uint port, uint offset)
 	pci_dev_put(pci_root);
 	return ret_val;
 }
-static inline void MDFLD_MSG_WRITE32(uint port, uint offset, u32 value)
+static void MDFLD_MSG_WRITE32(uint port, uint offset, u32 value)
 {
 	int mcr = (0x11<<24) | (port << 16) | (offset << 8) | 0xF0;
 	struct pci_dev *pci_root = pci_get_bus_and_slot(0, 0);
@@ -819,13 +819,13 @@ static inline void MDFLD_MSG_WRITE32(uint port, uint offset, u32 value)
 	pci_dev_put(pci_root);
 }
 
-static inline uint32_t REGISTER_READ(struct drm_device *dev, uint32_t reg)
+static uint32_t REGISTER_READ(struct drm_device *dev, uint32_t reg)
 {
 	struct drm_psb_private *dev_priv = dev->dev_private;
 	return ioread32(dev_priv->vdc_reg + reg);
 }
 
-static inline uint32_t REGISTER_READ_AUX(struct drm_device *dev, uint32_t reg)
+static uint32_t REGISTER_READ_AUX(struct drm_device *dev, uint32_t reg)
 {
 	struct drm_psb_private *dev_priv = dev->dev_private;
 	return ioread32(dev_priv->aux_reg + reg);
@@ -835,7 +835,7 @@ static inline uint32_t REGISTER_READ_AUX(struct drm_device *dev, uint32_t reg)
 #define REG_READ_AUX(reg)      REGISTER_READ_AUX(dev, (reg))
 
 /* Useful for post reads */
-static inline uint32_t REGISTER_READ_WITH_AUX(struct drm_device *dev,
+static uint32_t REGISTER_READ_WITH_AUX(struct drm_device *dev,
 					      uint32_t reg, int aux)
 {
 	uint32_t val;
@@ -850,14 +850,14 @@ static inline uint32_t REGISTER_READ_WITH_AUX(struct drm_device *dev,
 
 #define REG_READ_WITH_AUX(reg, aux) REGISTER_READ_WITH_AUX(dev, (reg), (aux))
 
-static inline void REGISTER_WRITE(struct drm_device *dev, uint32_t reg,
+static void REGISTER_WRITE(struct drm_device *dev, uint32_t reg,
 				  uint32_t val)
 {
 	struct drm_psb_private *dev_priv = dev->dev_private;
 	iowrite32((val), dev_priv->vdc_reg + (reg));
 }
 
-static inline void REGISTER_WRITE_AUX(struct drm_device *dev, uint32_t reg,
+static void REGISTER_WRITE_AUX(struct drm_device *dev, uint32_t reg,
 				      uint32_t val)
 {
 	struct drm_psb_private *dev_priv = dev->dev_private;
@@ -867,7 +867,7 @@ static inline void REGISTER_WRITE_AUX(struct drm_device *dev, uint32_t reg,
 #define REG_WRITE(reg, val)	REGISTER_WRITE(dev, (reg), (val))
 #define REG_WRITE_AUX(reg, val)	REGISTER_WRITE_AUX(dev, (reg), (val))
 
-static inline void REGISTER_WRITE_WITH_AUX(struct drm_device *dev, uint32_t reg,
+static void REGISTER_WRITE_WITH_AUX(struct drm_device *dev, uint32_t reg,
 				      uint32_t val, int aux)
 {
 	if (aux)
@@ -878,7 +878,7 @@ static inline void REGISTER_WRITE_WITH_AUX(struct drm_device *dev, uint32_t reg,
 
 #define REG_WRITE_WITH_AUX(reg, val, aux) REGISTER_WRITE_WITH_AUX(dev, (reg), (val), (aux))
 
-static inline void REGISTER_WRITE16(struct drm_device *dev,
+static void REGISTER_WRITE16(struct drm_device *dev,
 					uint32_t reg, uint32_t val)
 {
 	struct drm_psb_private *dev_priv = dev->dev_private;
@@ -887,7 +887,7 @@ static inline void REGISTER_WRITE16(struct drm_device *dev,
 
 #define REG_WRITE16(reg, val)	  REGISTER_WRITE16(dev, (reg), (val))
 
-static inline void REGISTER_WRITE8(struct drm_device *dev,
+static void REGISTER_WRITE8(struct drm_device *dev,
 				       uint32_t reg, uint32_t val)
 {
 	struct drm_psb_private *dev_priv = dev->dev_private;

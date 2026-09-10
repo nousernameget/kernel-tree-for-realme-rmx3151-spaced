@@ -150,7 +150,7 @@ unsigned int __attribute__((weak))
 }
 
 static inline int ppm_get_nr_clusters(void) { return NR_PPM_CLUSTERS; }
-static inline void ppm_get_cl_cpus(struct cpumask *cpu_mask, unsigned int cid)
+static void ppm_get_cl_cpus(struct cpumask *cpu_mask, unsigned int cid)
 {
 	if (cid == 0) {
 		cpumask_setall(cpu_mask);

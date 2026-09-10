@@ -69,7 +69,7 @@ int gdsc_register(struct gdsc_desc *desc, struct reset_controller_dev *,
 		  struct regmap *);
 void gdsc_unregister(struct gdsc_desc *desc);
 #else
-static inline int gdsc_register(struct gdsc_desc *desc,
+static int gdsc_register(struct gdsc_desc *desc,
 				struct reset_controller_dev *rcdev,
 				struct regmap *r)
 {

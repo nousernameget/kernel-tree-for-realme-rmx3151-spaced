@@ -94,29 +94,29 @@ struct vnic_rq {
 	unsigned int pkts_outstanding;
 };
 
-static inline unsigned int vnic_rq_desc_avail(struct vnic_rq *rq)
+static unsigned int vnic_rq_desc_avail(struct vnic_rq *rq)
 {
 	/* how many does SW own? */
 	return rq->ring.desc_avail;
 }
 
-static inline unsigned int vnic_rq_desc_used(struct vnic_rq *rq)
+static unsigned int vnic_rq_desc_used(struct vnic_rq *rq)
 {
 	/* how many does HW own? */
 	return rq->ring.desc_count - rq->ring.desc_avail - 1;
 }
 
-static inline void *vnic_rq_next_desc(struct vnic_rq *rq)
+static void *vnic_rq_next_desc(struct vnic_rq *rq)
 {
 	return rq->to_use->desc;
 }
 
-static inline unsigned int vnic_rq_next_index(struct vnic_rq *rq)
+static unsigned int vnic_rq_next_index(struct vnic_rq *rq)
 {
 	return rq->to_use->index;
 }
 
-static inline void vnic_rq_post(struct vnic_rq *rq,
+static void vnic_rq_post(struct vnic_rq *rq,
 	void *os_buf, unsigned int os_buf_index,
 	dma_addr_t dma_addr, unsigned int len,
 	uint64_t wrid)
@@ -151,7 +151,7 @@ static inline void vnic_rq_post(struct vnic_rq *rq,
 	}
 }
 
-static inline void vnic_rq_return_descs(struct vnic_rq *rq, unsigned int count)
+static void vnic_rq_return_descs(struct vnic_rq *rq, unsigned int count)
 {
 	rq->ring.desc_avail += count;
 }
@@ -161,7 +161,7 @@ enum desc_return_options {
 	VNIC_RQ_DEFER_RETURN_DESC,
 };
 
-static inline void vnic_rq_service(struct vnic_rq *rq,
+static void vnic_rq_service(struct vnic_rq *rq,
 	struct cq_desc *cq_desc, u16 completed_index,
 	int desc_return, void (*buf_service)(struct vnic_rq *rq,
 	struct cq_desc *cq_desc, struct vnic_rq_buf *buf,
@@ -189,7 +189,7 @@ static inline void vnic_rq_service(struct vnic_rq *rq,
 	}
 }
 
-static inline int vnic_rq_fill(struct vnic_rq *rq,
+static int vnic_rq_fill(struct vnic_rq *rq,
 	int (*buf_fill)(struct vnic_rq *rq))
 {
 	int err;

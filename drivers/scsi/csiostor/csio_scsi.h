@@ -188,7 +188,7 @@ struct csio_scsi_level_data {
 	uint64_t		oslun;
 };
 
-static inline struct csio_ioreq *
+static struct csio_ioreq *
 csio_get_scsi_ioreq(struct csio_scsim *scm)
 {
 	struct csio_sm *req;
@@ -203,14 +203,14 @@ csio_get_scsi_ioreq(struct csio_scsim *scm)
 		return NULL;
 }
 
-static inline void
+static void
 csio_put_scsi_ioreq(struct csio_scsim *scm, struct csio_ioreq *ioreq)
 {
 	list_add_tail(&ioreq->sm.sm_list, &scm->ioreq_freelist);
 	CSIO_INC_STATS(scm, n_free_ioreq);
 }
 
-static inline void
+static void
 csio_put_scsi_ioreq_list(struct csio_scsim *scm, struct list_head *reqlist,
 			 int n)
 {
@@ -218,7 +218,7 @@ csio_put_scsi_ioreq_list(struct csio_scsim *scm, struct list_head *reqlist,
 	scm->stats.n_free_ioreq += n;
 }
 
-static inline struct csio_dma_buf *
+static struct csio_dma_buf *
 csio_get_scsi_ddp(struct csio_scsim *scm)
 {
 	struct csio_dma_buf *ddp;
@@ -233,14 +233,14 @@ csio_get_scsi_ddp(struct csio_scsim *scm)
 		return NULL;
 }
 
-static inline void
+static void
 csio_put_scsi_ddp(struct csio_scsim *scm, struct csio_dma_buf *ddp)
 {
 	list_add_tail(&ddp->list, &scm->ddp_freelist);
 	CSIO_INC_STATS(scm, n_free_ddp);
 }
 
-static inline void
+static void
 csio_put_scsi_ddp_list(struct csio_scsim *scm, struct list_head *reqlist,
 			 int n)
 {
@@ -248,7 +248,7 @@ csio_put_scsi_ddp_list(struct csio_scsim *scm, struct list_head *reqlist,
 	scm->stats.n_free_ddp += n;
 }
 
-static inline void
+static void
 csio_scsi_completed(struct csio_ioreq *ioreq, struct list_head *cbfn_q)
 {
 	csio_post_event(&ioreq->sm, CSIO_SCSIE_COMPLETED);
@@ -256,21 +256,21 @@ csio_scsi_completed(struct csio_ioreq *ioreq, struct list_head *cbfn_q)
 		list_add_tail(&ioreq->sm.sm_list, cbfn_q);
 }
 
-static inline void
+static void
 csio_scsi_aborted(struct csio_ioreq *ioreq, struct list_head *cbfn_q)
 {
 	csio_post_event(&ioreq->sm, CSIO_SCSIE_ABORTED);
 	list_add_tail(&ioreq->sm.sm_list, cbfn_q);
 }
 
-static inline void
+static void
 csio_scsi_closed(struct csio_ioreq *ioreq, struct list_head *cbfn_q)
 {
 	csio_post_event(&ioreq->sm, CSIO_SCSIE_CLOSED);
 	list_add_tail(&ioreq->sm.sm_list, cbfn_q);
 }
 
-static inline void
+static void
 csio_scsi_drvcleanup(struct csio_ioreq *ioreq)
 {
 	csio_post_event(&ioreq->sm, CSIO_SCSIE_DRVCLEANUP);
@@ -282,7 +282,7 @@ csio_scsi_drvcleanup(struct csio_ioreq *ioreq)
  *
  * needs to be called with lock held.
  */
-static inline int
+static int
 csio_scsi_start_io(struct csio_ioreq *ioreq)
 {
 	csio_post_event(&ioreq->sm, CSIO_SCSIE_START_IO);
@@ -295,7 +295,7 @@ csio_scsi_start_io(struct csio_ioreq *ioreq)
  *
  * needs to be called with lock held.
  */
-static inline int
+static int
 csio_scsi_start_tm(struct csio_ioreq *ioreq)
 {
 	csio_post_event(&ioreq->sm, CSIO_SCSIE_START_TM);
@@ -308,7 +308,7 @@ csio_scsi_start_tm(struct csio_ioreq *ioreq)
  *
  * needs to be called with lock held.
  */
-static inline int
+static int
 csio_scsi_abort(struct csio_ioreq *ioreq)
 {
 	csio_post_event(&ioreq->sm, CSIO_SCSIE_ABORT);
@@ -321,7 +321,7 @@ csio_scsi_abort(struct csio_ioreq *ioreq)
  *
  * needs to be called with lock held.
  */
-static inline int
+static int
 csio_scsi_close(struct csio_ioreq *ioreq)
 {
 	csio_post_event(&ioreq->sm, CSIO_SCSIE_CLOSE);

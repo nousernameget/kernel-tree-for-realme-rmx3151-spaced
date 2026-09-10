@@ -41,7 +41,7 @@ struct regulator_init_data *regulator_of_get_init_data(struct device *dev,
 				 struct regulator_config *config,
 				 struct device_node **node);
 #else
-static inline struct regulator_init_data *
+static struct regulator_init_data *
 regulator_of_get_init_data(struct device *dev,
 			   const struct regulator_desc *desc,
 			   struct regulator_config *config,

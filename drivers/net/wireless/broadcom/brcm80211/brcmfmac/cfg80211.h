@@ -350,17 +350,17 @@ struct brcmf_tlv {
 	u8 data[1];
 };
 
-static inline struct wiphy *cfg_to_wiphy(struct brcmf_cfg80211_info *cfg)
+static struct wiphy *cfg_to_wiphy(struct brcmf_cfg80211_info *cfg)
 {
 	return cfg->wiphy;
 }
 
-static inline struct brcmf_cfg80211_info *wiphy_to_cfg(struct wiphy *w)
+static struct brcmf_cfg80211_info *wiphy_to_cfg(struct wiphy *w)
 {
 	return (struct brcmf_cfg80211_info *)(wiphy_priv(w));
 }
 
-static inline struct brcmf_cfg80211_info *wdev_to_cfg(struct wireless_dev *wd)
+static struct brcmf_cfg80211_info *wdev_to_cfg(struct wireless_dev *wd)
 {
 	return (struct brcmf_cfg80211_info *)(wdev_priv(wd));
 }
@@ -373,24 +373,24 @@ struct net_device *cfg_to_ndev(struct brcmf_cfg80211_info *cfg)
 	return vif->wdev.netdev;
 }
 
-static inline struct brcmf_cfg80211_info *ndev_to_cfg(struct net_device *ndev)
+static struct brcmf_cfg80211_info *ndev_to_cfg(struct net_device *ndev)
 {
 	return wdev_to_cfg(ndev->ieee80211_ptr);
 }
 
-static inline struct brcmf_cfg80211_profile *ndev_to_prof(struct net_device *nd)
+static struct brcmf_cfg80211_profile *ndev_to_prof(struct net_device *nd)
 {
 	struct brcmf_if *ifp = netdev_priv(nd);
 	return &ifp->vif->profile;
 }
 
-static inline struct brcmf_cfg80211_vif *ndev_to_vif(struct net_device *ndev)
+static struct brcmf_cfg80211_vif *ndev_to_vif(struct net_device *ndev)
 {
 	struct brcmf_if *ifp = netdev_priv(ndev);
 	return ifp->vif;
 }
 
-static inline struct
+static struct
 brcmf_cfg80211_connect_info *cfg_to_conn(struct brcmf_cfg80211_info *cfg)
 {
 	return &cfg->conn_info;

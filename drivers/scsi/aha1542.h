@@ -63,7 +63,7 @@ struct chain {
 };
 
 /* These belong in scsi.h also */
-static inline void any2scsi(u8 *p, u32 v)
+static void any2scsi(u8 *p, u32 v)
 {
 	p[0] = v >> 16;
 	p[1] = v >> 8;

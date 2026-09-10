@@ -22,7 +22,7 @@ struct sun4i_layer {
 	int			id;
 };
 
-static inline struct sun4i_layer *
+static struct sun4i_layer *
 plane_to_sun4i_layer(struct drm_plane *plane)
 {
 	return container_of(plane, struct sun4i_layer, plane);

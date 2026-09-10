@@ -110,7 +110,7 @@ void dma_walk_packets(struct dma_pub *dmah, void (*callback_fnc)
  * Workaround is to hold processor till DMA updates the length, and stay off
  * the bus to allow DMA update the length in buffer
  */
-static inline void dma_spin_for_len(uint len, struct sk_buff *head)
+static void dma_spin_for_len(uint len, struct sk_buff *head)
 {
 #if defined(CONFIG_BCM47XX)
 	if (!len) {

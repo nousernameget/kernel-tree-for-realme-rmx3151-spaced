@@ -7645,7 +7645,7 @@ Theotherbitsarereservedandshouldbezero*/
  *	   Code was translated from Verilog.
  * Return:
  *****************************************************************************/
-static inline u8 calc_crc8(u32 data, u8 crc)
+static u8 calc_crc8(u32 data, u8 crc)
 {
 	u8 D[32];
 	u8 NewCRC[8];

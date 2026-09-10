@@ -142,7 +142,7 @@ int omapfb_get_update_mode(struct fb_info *fbi, enum omapfb_update_mode *mode);
 int omapfb_set_update_mode(struct fb_info *fbi, enum omapfb_update_mode mode);
 
 /* find the display connected to this fb, if any */
-static inline struct omap_dss_device *fb2display(struct fb_info *fbi)
+static struct omap_dss_device *fb2display(struct fb_info *fbi)
 {
 	struct omapfb_info *ofbi = FB2OFB(fbi);
 	struct omap_overlay *ovl;
@@ -157,7 +157,7 @@ static inline struct omap_dss_device *fb2display(struct fb_info *fbi)
 	return ovl->get_device(ovl);
 }
 
-static inline struct omapfb_display_data *get_display_data(
+static struct omapfb_display_data *get_display_data(
 		struct omapfb2_device *fbdev, struct omap_dss_device *dssdev)
 {
 	int i;
@@ -171,17 +171,17 @@ static inline struct omapfb_display_data *get_display_data(
 	return NULL;
 }
 
-static inline void omapfb_lock(struct omapfb2_device *fbdev)
+static void omapfb_lock(struct omapfb2_device *fbdev)
 {
 	mutex_lock(&fbdev->mtx);
 }
 
-static inline void omapfb_unlock(struct omapfb2_device *fbdev)
+static void omapfb_unlock(struct omapfb2_device *fbdev)
 {
 	mutex_unlock(&fbdev->mtx);
 }
 
-static inline int omapfb_overlay_enable(struct omap_overlay *ovl,
+static int omapfb_overlay_enable(struct omap_overlay *ovl,
 		int enable)
 {
 	if (enable)
@@ -190,7 +190,7 @@ static inline int omapfb_overlay_enable(struct omap_overlay *ovl,
 		return ovl->disable(ovl);
 }
 
-static inline struct omapfb2_mem_region *
+static struct omapfb2_mem_region *
 omapfb_get_mem_region(struct omapfb2_mem_region *rg)
 {
 	down_read_nested(&rg->lock, rg->id);
@@ -198,7 +198,7 @@ omapfb_get_mem_region(struct omapfb2_mem_region *rg)
 	return rg;
 }
 
-static inline void omapfb_put_mem_region(struct omapfb2_mem_region *rg)
+static void omapfb_put_mem_region(struct omapfb2_mem_region *rg)
 {
 	atomic_dec(&rg->lock_count);
 	up_read(&rg->lock);

@@ -49,7 +49,7 @@ extern struct dvb_frontend *fc0012_attach(struct dvb_frontend *fe,
 					struct i2c_adapter *i2c,
 					const struct fc0012_config *cfg);
 #else
-static inline struct dvb_frontend *fc0012_attach(struct dvb_frontend *fe,
+static struct dvb_frontend *fc0012_attach(struct dvb_frontend *fe,
 					struct i2c_adapter *i2c,
 					const struct fc0012_config *cfg)
 {

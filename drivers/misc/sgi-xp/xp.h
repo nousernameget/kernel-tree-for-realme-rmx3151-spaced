@@ -305,7 +305,7 @@ extern enum xp_retval xpc_connect(int, xpc_channel_func, void *, u16,
 				   u16, u32, u32);
 extern void xpc_disconnect(int);
 
-static inline enum xp_retval
+static enum xp_retval
 xpc_send(short partid, int ch_number, u32 flags, void *payload,
 	 u16 payload_size)
 {
@@ -316,7 +316,7 @@ xpc_send(short partid, int ch_number, u32 flags, void *payload,
 				  payload_size);
 }
 
-static inline enum xp_retval
+static enum xp_retval
 xpc_send_notify(short partid, int ch_number, u32 flags, void *payload,
 		u16 payload_size, xpc_notify_func func, void *key)
 {
@@ -327,14 +327,14 @@ xpc_send_notify(short partid, int ch_number, u32 flags, void *payload,
 					 payload_size, func, key);
 }
 
-static inline void
+static void
 xpc_received(short partid, int ch_number, void *payload)
 {
 	if (xpc_interface.received)
 		xpc_interface.received(partid, ch_number, payload);
 }
 
-static inline enum xp_retval
+static enum xp_retval
 xpc_partid_to_nasids(short partid, void *nasids)
 {
 	if (!xpc_interface.partid_to_nasids)

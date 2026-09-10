@@ -124,17 +124,17 @@ typedef struct {
 
 #define INVALID_MMIO_REG _MMIO(0)
 
-static inline uint32_t i915_mmio_reg_offset(i915_reg_t reg)
+static uint32_t i915_mmio_reg_offset(i915_reg_t reg)
 {
 	return reg.reg;
 }
 
-static inline bool i915_mmio_reg_equal(i915_reg_t a, i915_reg_t b)
+static bool i915_mmio_reg_equal(i915_reg_t a, i915_reg_t b)
 {
 	return i915_mmio_reg_offset(a) == i915_mmio_reg_offset(b);
 }
 
-static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+static bool i915_mmio_reg_valid(i915_reg_t reg)
 {
 	return !i915_mmio_reg_equal(reg, INVALID_MMIO_REG);
 }

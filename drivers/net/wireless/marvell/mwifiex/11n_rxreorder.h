@@ -48,7 +48,7 @@ enum mwifiex_rxreor_flags {
 	RXREOR_INIT_WINDOW_SHIFT	= 1<<1,
 };
 
-static inline void mwifiex_reset_11n_rx_seq_num(struct mwifiex_private *priv)
+static void mwifiex_reset_11n_rx_seq_num(struct mwifiex_private *priv)
 {
 	memset(priv->rx_seq, 0xff, sizeof(priv->rx_seq));
 }

@@ -133,13 +133,13 @@ struct pair_page_ops *get_pair_page_ops(u32 mode_type);
 struct slc_mode_ops *get_slc_mode_ops(u32 mode_type);
 int nandx_chip_auto_calibration(struct nandx_chip *chip, int count);
 
-static inline void slc_mode_entry(struct nandx_chip *chip, bool start)
+static void slc_mode_entry(struct nandx_chip *chip, bool start)
 {
 	if (chip->slc_ops && (start || !chip->slc_ops->exit))
 		chip->slc_ops->entry(chip);
 }
 
-static inline void slc_mode_exit(struct nandx_chip *chip)
+static void slc_mode_exit(struct nandx_chip *chip)
 {
 	if (chip->slc_ops && chip->slc_ops->exit)
 		chip->slc_ops->exit(chip);

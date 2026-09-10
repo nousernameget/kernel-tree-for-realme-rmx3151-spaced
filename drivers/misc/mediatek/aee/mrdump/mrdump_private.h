@@ -24,7 +24,7 @@ extern int kernel_addr_valid(unsigned long addr);
 #define mrdump_virt_addr_valid(kaddr) \
 	kernel_addr_valid((unsigned long)kaddr)
 
-static inline int get_HW_cpuid(void)
+static int get_HW_cpuid(void)
 {
 	u64 mpidr;
 	u32 id;
@@ -67,7 +67,7 @@ int aee_dump_stack_top_binary(char *buf, int buf_len, unsigned long bottom,
 extern void aee_rr_rec_kaslr_offset(uint64_t offset);
 #endif
 #if defined(CONFIG_RANDOMIZE_BASE) && defined(CONFIG_ARM64)
-static inline void show_kaslr(bool flag)
+static void show_kaslr(bool flag)
 {
 	u64 const kaslr_offset = kimage_vaddr - KIMAGE_VADDR;
 
@@ -81,7 +81,7 @@ static inline void show_kaslr(bool flag)
 #endif
 }
 #else
-static inline void show_kaslr(bool flag)
+static void show_kaslr(bool flag)
 {
 	if (flag)
 		pr_notice("Kernel Offset: disabled\n");
@@ -114,7 +114,7 @@ extern void wq_debug_dump(void);
 #endif
 
 #if defined(__arm__)
-static inline void crash_setup_regs(struct pt_regs *newregs,
+static void crash_setup_regs(struct pt_regs *newregs,
 				    struct pt_regs *oldregs)
 {
 	if (oldregs) {

@@ -207,7 +207,7 @@ struct at_desc {
 	int				*memset_vaddr;
 };
 
-static inline struct at_desc *
+static struct at_desc *
 txd_to_at_desc(struct dma_async_tx_descriptor *txd)
 {
 	return container_of(txd, struct at_desc, txd);
@@ -277,7 +277,7 @@ struct at_dma_chan {
 #define	channel_writel(atchan, name, val) \
 	__raw_writel((val), (atchan)->ch_regs + ATC_##name##_OFFSET)
 
-static inline struct at_dma_chan *to_at_dma_chan(struct dma_chan *dchan)
+static struct at_dma_chan *to_at_dma_chan(struct dma_chan *dchan)
 {
 	return container_of(dchan, struct at_dma_chan, chan_common);
 }
@@ -288,7 +288,7 @@ static inline struct at_dma_chan *to_at_dma_chan(struct dma_chan *dchan)
  *
  * This can be done by finding most significant bit set.
  */
-static inline void convert_burst(u32 *maxburst)
+static void convert_burst(u32 *maxburst)
 {
 	if (*maxburst > 1)
 		*maxburst = fls(*maxburst) - 2;
@@ -300,7 +300,7 @@ static inline void convert_burst(u32 *maxburst)
  * Fix sconfig's bus width according to at_hdmac.
  * 1 byte -> 0, 2 bytes -> 1, 4 bytes -> 2.
  */
-static inline u8 convert_buswidth(enum dma_slave_buswidth addr_width)
+static u8 convert_buswidth(enum dma_slave_buswidth addr_width)
 {
 	switch (addr_width) {
 	case DMA_SLAVE_BUSWIDTH_2_BYTES:
@@ -345,7 +345,7 @@ struct at_dma {
 #define	dma_writel(atdma, name, val) \
 	__raw_writel((val), (atdma)->regs + AT_DMA_##name)
 
-static inline struct at_dma *to_at_dma(struct dma_device *ddev)
+static struct at_dma *to_at_dma(struct dma_device *ddev)
 {
 	return container_of(ddev, struct at_dma, dma_common);
 }
@@ -419,7 +419,7 @@ static void atc_disable_chan_irq(struct at_dma *atdma, int chan_id)
  * atc_chan_is_enabled - test if given channel is enabled
  * @atchan: channel we want to test status
  */
-static inline int atc_chan_is_enabled(struct at_dma_chan *atchan)
+static int atc_chan_is_enabled(struct at_dma_chan *atchan)
 {
 	struct at_dma	*atdma = to_at_dma(atchan->chan_common.device);
 
@@ -430,7 +430,7 @@ static inline int atc_chan_is_enabled(struct at_dma_chan *atchan)
  * atc_chan_is_paused - test channel pause/resume status
  * @atchan: channel we want to test status
  */
-static inline int atc_chan_is_paused(struct at_dma_chan *atchan)
+static int atc_chan_is_paused(struct at_dma_chan *atchan)
 {
 	return test_bit(ATC_IS_PAUSED, &atchan->status);
 }
@@ -439,7 +439,7 @@ static inline int atc_chan_is_paused(struct at_dma_chan *atchan)
  * atc_chan_is_cyclic - test if given channel has cyclic property set
  * @atchan: channel we want to test status
  */
-static inline int atc_chan_is_cyclic(struct at_dma_chan *atchan)
+static int atc_chan_is_cyclic(struct at_dma_chan *atchan)
 {
 	return test_bit(ATC_IS_CYCLIC, &atchan->status);
 }

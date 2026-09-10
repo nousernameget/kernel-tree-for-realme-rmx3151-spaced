@@ -47,23 +47,23 @@ struct msm_dsi_pll {
 
 #define hw_clk_to_pll(x) container_of(x, struct msm_dsi_pll, clk_hw)
 
-static inline void pll_write(void __iomem *reg, u32 data)
+static void pll_write(void __iomem *reg, u32 data)
 {
 	msm_writel(data, reg);
 }
 
-static inline u32 pll_read(const void __iomem *reg)
+static u32 pll_read(const void __iomem *reg)
 {
 	return msm_readl(reg);
 }
 
-static inline void pll_write_udelay(void __iomem *reg, u32 data, u32 delay_us)
+static void pll_write_udelay(void __iomem *reg, u32 data, u32 delay_us)
 {
 	pll_write(reg, data);
 	udelay(delay_us);
 }
 
-static inline void pll_write_ndelay(void __iomem *reg, u32 data, u32 delay_ns)
+static void pll_write_ndelay(void __iomem *reg, u32 data, u32 delay_ns)
 {
 	pll_write((reg), data);
 	ndelay(delay_ns);
@@ -89,7 +89,7 @@ void msm_dsi_pll_helper_unregister_clks(struct platform_device *pdev,
 struct msm_dsi_pll *msm_dsi_pll_28nm_init(struct platform_device *pdev,
 					enum msm_dsi_phy_type type, int id);
 #else
-static inline struct msm_dsi_pll *msm_dsi_pll_28nm_init(
+static struct msm_dsi_pll *msm_dsi_pll_28nm_init(
 	struct platform_device *pdev, enum msm_dsi_phy_type type, int id)
 {
 	return ERR_PTR(-ENODEV);
@@ -99,7 +99,7 @@ static inline struct msm_dsi_pll *msm_dsi_pll_28nm_init(
 struct msm_dsi_pll *msm_dsi_pll_28nm_8960_init(struct platform_device *pdev,
 					       int id);
 #else
-static inline struct msm_dsi_pll *msm_dsi_pll_28nm_8960_init(
+static struct msm_dsi_pll *msm_dsi_pll_28nm_8960_init(
 	struct platform_device *pdev, int id)
 {
 	return ERR_PTR(-ENODEV);
@@ -109,7 +109,7 @@ static inline struct msm_dsi_pll *msm_dsi_pll_28nm_8960_init(
 #ifdef CONFIG_DRM_MSM_DSI_14NM_PHY
 struct msm_dsi_pll *msm_dsi_pll_14nm_init(struct platform_device *pdev, int id);
 #else
-static inline struct msm_dsi_pll *
+static struct msm_dsi_pll *
 msm_dsi_pll_14nm_init(struct platform_device *pdev, int id)
 {
 	return ERR_PTR(-ENODEV);

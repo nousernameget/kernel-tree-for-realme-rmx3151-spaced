@@ -59,12 +59,12 @@ int efx_siena_sriov_get_vf_config(struct efx_nic *efx, int vf,
 
 #ifdef CONFIG_SFC_SRIOV
 
-static inline bool efx_siena_sriov_enabled(struct efx_nic *efx)
+static bool efx_siena_sriov_enabled(struct efx_nic *efx)
 {
 	return efx->vf_init_count != 0;
 }
 #else /* !CONFIG_SFC_SRIOV */
-static inline bool efx_siena_sriov_enabled(struct efx_nic *efx)
+static bool efx_siena_sriov_enabled(struct efx_nic *efx)
 {
 	return false;
 }

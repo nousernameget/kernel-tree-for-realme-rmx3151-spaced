@@ -369,12 +369,12 @@ void b43_tx_resume(struct b43_wldev *dev);
 /* Helper functions for converting the key-table index from "firmware-format"
  * to "raw-format" and back. The firmware API changed for this at some revision.
  * We need to account for that here. */
-static inline int b43_new_kidx_api(struct b43_wldev *dev)
+static int b43_new_kidx_api(struct b43_wldev *dev)
 {
 	/* FIXME: Not sure the change was at rev 351 */
 	return (dev->fw.rev >= 351);
 }
-static inline u8 b43_kidx_to_fw(struct b43_wldev *dev, u8 raw_kidx)
+static u8 b43_kidx_to_fw(struct b43_wldev *dev, u8 raw_kidx)
 {
 	u8 firmware_kidx;
 	if (b43_new_kidx_api(dev)) {
@@ -387,7 +387,7 @@ static inline u8 b43_kidx_to_fw(struct b43_wldev *dev, u8 raw_kidx)
 	}
 	return firmware_kidx;
 }
-static inline u8 b43_kidx_to_raw(struct b43_wldev *dev, u8 firmware_kidx)
+static u8 b43_kidx_to_raw(struct b43_wldev *dev, u8 firmware_kidx)
 {
 	u8 raw_kidx;
 	if (b43_new_kidx_api(dev))
@@ -406,7 +406,7 @@ struct b43_private_tx_info {
 	void *bouncebuffer;
 };
 
-static inline struct b43_private_tx_info *
+static struct b43_private_tx_info *
 b43_get_priv_tx_info(struct ieee80211_tx_info *info)
 {
 	BUILD_BUG_ON(sizeof(struct b43_private_tx_info) >

@@ -81,7 +81,7 @@ struct aer_broadcast_data {
 	enum pci_ers_result result;
 };
 
-static inline pci_ers_result_t merge_result(enum pci_ers_result orig,
+static pci_ers_result_t merge_result(enum pci_ers_result orig,
 		enum pci_ers_result new)
 {
 	if (new == PCI_ERS_RESULT_NO_AER_DRIVER)
@@ -115,7 +115,7 @@ irqreturn_t aer_irq(int irq, void *context);
 #ifdef CONFIG_ACPI_APEI
 int pcie_aer_get_firmware_first(struct pci_dev *pci_dev);
 #else
-static inline int pcie_aer_get_firmware_first(struct pci_dev *pci_dev)
+static int pcie_aer_get_firmware_first(struct pci_dev *pci_dev)
 {
 	if (pci_dev->__aer_firmware_first_valid)
 		return pci_dev->__aer_firmware_first;

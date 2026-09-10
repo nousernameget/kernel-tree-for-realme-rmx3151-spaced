@@ -121,7 +121,7 @@ static inline int ata_acpi_on_suspend(struct ata_port *ap) { return 0; }
 static inline void ata_acpi_on_resume(struct ata_port *ap) { }
 static inline int ata_acpi_on_devcfg(struct ata_device *dev) { return 0; }
 static inline void ata_acpi_on_disable(struct ata_device *dev) { }
-static inline void ata_acpi_set_state(struct ata_port *ap,
+static void ata_acpi_set_state(struct ata_port *ap,
 				      pm_message_t state) { }
 static inline void ata_acpi_bind_port(struct ata_port *ap) {}
 static inline void ata_acpi_bind_dev(struct ata_device *dev) {}
@@ -189,23 +189,23 @@ extern int sata_pmp_set_lpm(struct ata_link *link, enum ata_lpm_policy policy,
 			    unsigned hints);
 extern int sata_pmp_attach(struct ata_device *dev);
 #else /* CONFIG_SATA_PMP */
-static inline int sata_pmp_scr_read(struct ata_link *link, int reg, u32 *val)
+static int sata_pmp_scr_read(struct ata_link *link, int reg, u32 *val)
 {
 	return -EINVAL;
 }
 
-static inline int sata_pmp_scr_write(struct ata_link *link, int reg, u32 val)
+static int sata_pmp_scr_write(struct ata_link *link, int reg, u32 val)
 {
 	return -EINVAL;
 }
 
-static inline int sata_pmp_set_lpm(struct ata_link *link,
+static int sata_pmp_set_lpm(struct ata_link *link,
 				   enum ata_lpm_policy policy, unsigned hints)
 {
 	return -EINVAL;
 }
 
-static inline int sata_pmp_attach(struct ata_device *dev)
+static int sata_pmp_attach(struct ata_device *dev)
 {
 	return -EINVAL;
 }
@@ -218,13 +218,13 @@ extern void ata_sff_port_init(struct ata_port *ap);
 extern int ata_sff_init(void);
 extern void ata_sff_exit(void);
 #else /* CONFIG_ATA_SFF */
-static inline void ata_sff_flush_pio_task(struct ata_port *ap)
+static void ata_sff_flush_pio_task(struct ata_port *ap)
 { }
-static inline void ata_sff_port_init(struct ata_port *ap)
+static void ata_sff_port_init(struct ata_port *ap)
 { }
-static inline int ata_sff_init(void)
+static int ata_sff_init(void)
 { return 0; }
-static inline void ata_sff_exit(void)
+static void ata_sff_exit(void)
 { }
 #endif /* CONFIG_ATA_SFF */
 
@@ -232,7 +232,7 @@ static inline void ata_sff_exit(void)
 #ifdef CONFIG_SATA_ZPODD
 void zpodd_init(struct ata_device *dev);
 void zpodd_exit(struct ata_device *dev);
-static inline bool zpodd_dev_enabled(struct ata_device *dev)
+static bool zpodd_dev_enabled(struct ata_device *dev)
 {
 	return dev->zpodd != NULL;
 }

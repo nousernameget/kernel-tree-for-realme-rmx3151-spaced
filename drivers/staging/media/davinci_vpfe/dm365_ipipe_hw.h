@@ -491,29 +491,29 @@
 #define RSZ_RGB_TYP_SHIFT		0
 #define RSZ_RGB_ALPHA_MASK		0xff
 
-static inline u32 regr_ip(void __iomem *addr, u32 offset)
+static u32 regr_ip(void __iomem *addr, u32 offset)
 {
 	return readl(addr + offset);
 }
 
-static inline void regw_ip(void __iomem *addr, u32 val, u32 offset)
+static void regw_ip(void __iomem *addr, u32 val, u32 offset)
 {
 	writel(val, addr + offset);
 }
 
-static inline u32 w_ip_table(void __iomem *addr, u32 val, u32 offset)
+static u32 w_ip_table(void __iomem *addr, u32 val, u32 offset)
 {
 	writel(val, addr + offset);
 
 	return val;
 }
 
-static inline u32 regr_rsz(void __iomem *addr, u32 offset)
+static u32 regr_rsz(void __iomem *addr, u32 offset)
 {
 	return readl(addr + offset);
 }
 
-static inline u32 regw_rsz(void __iomem *addr, u32 val, u32 offset)
+static u32 regw_rsz(void __iomem *addr, u32 val, u32 offset)
 {
 	writel(val, addr + offset);
 

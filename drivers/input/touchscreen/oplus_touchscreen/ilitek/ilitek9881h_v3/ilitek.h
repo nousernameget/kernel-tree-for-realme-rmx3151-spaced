@@ -613,7 +613,7 @@ int katoi(char *str);
 bool ilitek_check_wake_up_state(u32 msecs);
 
 
-static inline void ipio_kfree(void **mem)
+static void ipio_kfree(void **mem)
 {
     if (*mem != NULL) {
         kfree(*mem);
@@ -621,7 +621,7 @@ static inline void ipio_kfree(void **mem)
     }
 }
 
-static inline void ipio_vfree(void **mem)
+static void ipio_vfree(void **mem)
 {
     if (*mem != NULL) {
         vfree(*mem);
@@ -629,7 +629,7 @@ static inline void ipio_vfree(void **mem)
     }
 }
 
-static inline void *ipio_memcpy(void *dest, const void *src, int n, int dest_size)
+static void *ipio_memcpy(void *dest, const void *src, int n, int dest_size)
 {
     if (n > dest_size)
         n = dest_size;
@@ -637,23 +637,23 @@ static inline void *ipio_memcpy(void *dest, const void *src, int n, int dest_siz
     return memcpy(dest, src, n);
 }
 
-static inline s32 open_sp_formula_ili9881(int dac, int raw)
+static s32 open_sp_formula_ili9881(int dac, int raw)
 {
     return (int)((int)(dac * 2 * 10000 * 161 / 100) - (int)(16384 / 2 - (int)raw) * 20000 * 7 / 16384 * 36 / 10) / 31 / 2;
 }
 
-static inline s32 open_sp_formula_ili7807(int dac, int raw)
+static s32 open_sp_formula_ili7807(int dac, int raw)
 {
     return (int)((int)(dac * 2 * 10000 * 131 / 100) - (int)(16384 / 2 - (int)raw) * 20000 * 7 / 16384 * 36 / 10) / 31 / 2;
 }
 
-static inline s32 open_c_formula(int dac, int raw, int tvch, int gain)
+static s32 open_c_formula(int dac, int raw, int tvch, int gain)
 {
     return (int)((int)(dac * 414 * 39 / 2) + (int)(((int)raw - 8192) * 36 * (7 * 100 - 22) * 10 / 16384)) /
            tvch / 100 / gain;
 }
 
-static inline void firmware_hd_dma_crc_off_ili9881(void)
+static void firmware_hd_dma_crc_off_ili9881(void)
 {
     /* crc off */
     ilitek_ice_mode_write(0x041016, 0x00, 1);
@@ -661,7 +661,7 @@ static inline void firmware_hd_dma_crc_off_ili9881(void)
     ilitek_ice_mode_write(0x041048, 0x00000001, 4);
 }
 
-static inline void firmware_hd_dma_crc_off_ili7807(void)
+static void firmware_hd_dma_crc_off_ili7807(void)
 {
     /* crc off */
     ilitek_ice_mode_write(0x041016, 0x00, 1);

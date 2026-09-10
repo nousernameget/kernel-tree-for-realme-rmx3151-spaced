@@ -311,25 +311,25 @@ enum cp_blit_cmd {
 #define REG_CP_LOAD_STATE_0					0x00000000
 #define CP_LOAD_STATE_0_DST_OFF__MASK				0x0000ffff
 #define CP_LOAD_STATE_0_DST_OFF__SHIFT				0
-static inline uint32_t CP_LOAD_STATE_0_DST_OFF(uint32_t val)
+static uint32_t CP_LOAD_STATE_0_DST_OFF(uint32_t val)
 {
 	return ((val) << CP_LOAD_STATE_0_DST_OFF__SHIFT) & CP_LOAD_STATE_0_DST_OFF__MASK;
 }
 #define CP_LOAD_STATE_0_STATE_SRC__MASK				0x00070000
 #define CP_LOAD_STATE_0_STATE_SRC__SHIFT			16
-static inline uint32_t CP_LOAD_STATE_0_STATE_SRC(enum adreno_state_src val)
+static uint32_t CP_LOAD_STATE_0_STATE_SRC(enum adreno_state_src val)
 {
 	return ((val) << CP_LOAD_STATE_0_STATE_SRC__SHIFT) & CP_LOAD_STATE_0_STATE_SRC__MASK;
 }
 #define CP_LOAD_STATE_0_STATE_BLOCK__MASK			0x00380000
 #define CP_LOAD_STATE_0_STATE_BLOCK__SHIFT			19
-static inline uint32_t CP_LOAD_STATE_0_STATE_BLOCK(enum adreno_state_block val)
+static uint32_t CP_LOAD_STATE_0_STATE_BLOCK(enum adreno_state_block val)
 {
 	return ((val) << CP_LOAD_STATE_0_STATE_BLOCK__SHIFT) & CP_LOAD_STATE_0_STATE_BLOCK__MASK;
 }
 #define CP_LOAD_STATE_0_NUM_UNIT__MASK				0xffc00000
 #define CP_LOAD_STATE_0_NUM_UNIT__SHIFT				22
-static inline uint32_t CP_LOAD_STATE_0_NUM_UNIT(uint32_t val)
+static uint32_t CP_LOAD_STATE_0_NUM_UNIT(uint32_t val)
 {
 	return ((val) << CP_LOAD_STATE_0_NUM_UNIT__SHIFT) & CP_LOAD_STATE_0_NUM_UNIT__MASK;
 }
@@ -337,13 +337,13 @@ static inline uint32_t CP_LOAD_STATE_0_NUM_UNIT(uint32_t val)
 #define REG_CP_LOAD_STATE_1					0x00000001
 #define CP_LOAD_STATE_1_STATE_TYPE__MASK			0x00000003
 #define CP_LOAD_STATE_1_STATE_TYPE__SHIFT			0
-static inline uint32_t CP_LOAD_STATE_1_STATE_TYPE(enum adreno_state_type val)
+static uint32_t CP_LOAD_STATE_1_STATE_TYPE(enum adreno_state_type val)
 {
 	return ((val) << CP_LOAD_STATE_1_STATE_TYPE__SHIFT) & CP_LOAD_STATE_1_STATE_TYPE__MASK;
 }
 #define CP_LOAD_STATE_1_EXT_SRC_ADDR__MASK			0xfffffffc
 #define CP_LOAD_STATE_1_EXT_SRC_ADDR__SHIFT			2
-static inline uint32_t CP_LOAD_STATE_1_EXT_SRC_ADDR(uint32_t val)
+static uint32_t CP_LOAD_STATE_1_EXT_SRC_ADDR(uint32_t val)
 {
 	return ((val >> 2) << CP_LOAD_STATE_1_EXT_SRC_ADDR__SHIFT) & CP_LOAD_STATE_1_EXT_SRC_ADDR__MASK;
 }
@@ -351,25 +351,25 @@ static inline uint32_t CP_LOAD_STATE_1_EXT_SRC_ADDR(uint32_t val)
 #define REG_CP_LOAD_STATE4_0					0x00000000
 #define CP_LOAD_STATE4_0_DST_OFF__MASK				0x0000ffff
 #define CP_LOAD_STATE4_0_DST_OFF__SHIFT				0
-static inline uint32_t CP_LOAD_STATE4_0_DST_OFF(uint32_t val)
+static uint32_t CP_LOAD_STATE4_0_DST_OFF(uint32_t val)
 {
 	return ((val) << CP_LOAD_STATE4_0_DST_OFF__SHIFT) & CP_LOAD_STATE4_0_DST_OFF__MASK;
 }
 #define CP_LOAD_STATE4_0_STATE_SRC__MASK			0x00030000
 #define CP_LOAD_STATE4_0_STATE_SRC__SHIFT			16
-static inline uint32_t CP_LOAD_STATE4_0_STATE_SRC(enum a4xx_state_src val)
+static uint32_t CP_LOAD_STATE4_0_STATE_SRC(enum a4xx_state_src val)
 {
 	return ((val) << CP_LOAD_STATE4_0_STATE_SRC__SHIFT) & CP_LOAD_STATE4_0_STATE_SRC__MASK;
 }
 #define CP_LOAD_STATE4_0_STATE_BLOCK__MASK			0x003c0000
 #define CP_LOAD_STATE4_0_STATE_BLOCK__SHIFT			18
-static inline uint32_t CP_LOAD_STATE4_0_STATE_BLOCK(enum a4xx_state_block val)
+static uint32_t CP_LOAD_STATE4_0_STATE_BLOCK(enum a4xx_state_block val)
 {
 	return ((val) << CP_LOAD_STATE4_0_STATE_BLOCK__SHIFT) & CP_LOAD_STATE4_0_STATE_BLOCK__MASK;
 }
 #define CP_LOAD_STATE4_0_NUM_UNIT__MASK				0xffc00000
 #define CP_LOAD_STATE4_0_NUM_UNIT__SHIFT			22
-static inline uint32_t CP_LOAD_STATE4_0_NUM_UNIT(uint32_t val)
+static uint32_t CP_LOAD_STATE4_0_NUM_UNIT(uint32_t val)
 {
 	return ((val) << CP_LOAD_STATE4_0_NUM_UNIT__SHIFT) & CP_LOAD_STATE4_0_NUM_UNIT__MASK;
 }
@@ -377,13 +377,13 @@ static inline uint32_t CP_LOAD_STATE4_0_NUM_UNIT(uint32_t val)
 #define REG_CP_LOAD_STATE4_1					0x00000001
 #define CP_LOAD_STATE4_1_STATE_TYPE__MASK			0x00000003
 #define CP_LOAD_STATE4_1_STATE_TYPE__SHIFT			0
-static inline uint32_t CP_LOAD_STATE4_1_STATE_TYPE(enum a4xx_state_type val)
+static uint32_t CP_LOAD_STATE4_1_STATE_TYPE(enum a4xx_state_type val)
 {
 	return ((val) << CP_LOAD_STATE4_1_STATE_TYPE__SHIFT) & CP_LOAD_STATE4_1_STATE_TYPE__MASK;
 }
 #define CP_LOAD_STATE4_1_EXT_SRC_ADDR__MASK			0xfffffffc
 #define CP_LOAD_STATE4_1_EXT_SRC_ADDR__SHIFT			2
-static inline uint32_t CP_LOAD_STATE4_1_EXT_SRC_ADDR(uint32_t val)
+static uint32_t CP_LOAD_STATE4_1_EXT_SRC_ADDR(uint32_t val)
 {
 	return ((val >> 2) << CP_LOAD_STATE4_1_EXT_SRC_ADDR__SHIFT) & CP_LOAD_STATE4_1_EXT_SRC_ADDR__MASK;
 }
@@ -391,7 +391,7 @@ static inline uint32_t CP_LOAD_STATE4_1_EXT_SRC_ADDR(uint32_t val)
 #define REG_CP_LOAD_STATE4_2					0x00000002
 #define CP_LOAD_STATE4_2_EXT_SRC_ADDR_HI__MASK			0xffffffff
 #define CP_LOAD_STATE4_2_EXT_SRC_ADDR_HI__SHIFT			0
-static inline uint32_t CP_LOAD_STATE4_2_EXT_SRC_ADDR_HI(uint32_t val)
+static uint32_t CP_LOAD_STATE4_2_EXT_SRC_ADDR_HI(uint32_t val)
 {
 	return ((val) << CP_LOAD_STATE4_2_EXT_SRC_ADDR_HI__SHIFT) & CP_LOAD_STATE4_2_EXT_SRC_ADDR_HI__MASK;
 }
@@ -399,7 +399,7 @@ static inline uint32_t CP_LOAD_STATE4_2_EXT_SRC_ADDR_HI(uint32_t val)
 #define REG_CP_DRAW_INDX_0					0x00000000
 #define CP_DRAW_INDX_0_VIZ_QUERY__MASK				0xffffffff
 #define CP_DRAW_INDX_0_VIZ_QUERY__SHIFT				0
-static inline uint32_t CP_DRAW_INDX_0_VIZ_QUERY(uint32_t val)
+static uint32_t CP_DRAW_INDX_0_VIZ_QUERY(uint32_t val)
 {
 	return ((val) << CP_DRAW_INDX_0_VIZ_QUERY__SHIFT) & CP_DRAW_INDX_0_VIZ_QUERY__MASK;
 }
@@ -407,25 +407,25 @@ static inline uint32_t CP_DRAW_INDX_0_VIZ_QUERY(uint32_t val)
 #define REG_CP_DRAW_INDX_1					0x00000001
 #define CP_DRAW_INDX_1_PRIM_TYPE__MASK				0x0000003f
 #define CP_DRAW_INDX_1_PRIM_TYPE__SHIFT				0
-static inline uint32_t CP_DRAW_INDX_1_PRIM_TYPE(enum pc_di_primtype val)
+static uint32_t CP_DRAW_INDX_1_PRIM_TYPE(enum pc_di_primtype val)
 {
 	return ((val) << CP_DRAW_INDX_1_PRIM_TYPE__SHIFT) & CP_DRAW_INDX_1_PRIM_TYPE__MASK;
 }
 #define CP_DRAW_INDX_1_SOURCE_SELECT__MASK			0x000000c0
 #define CP_DRAW_INDX_1_SOURCE_SELECT__SHIFT			6
-static inline uint32_t CP_DRAW_INDX_1_SOURCE_SELECT(enum pc_di_src_sel val)
+static uint32_t CP_DRAW_INDX_1_SOURCE_SELECT(enum pc_di_src_sel val)
 {
 	return ((val) << CP_DRAW_INDX_1_SOURCE_SELECT__SHIFT) & CP_DRAW_INDX_1_SOURCE_SELECT__MASK;
 }
 #define CP_DRAW_INDX_1_VIS_CULL__MASK				0x00000600
 #define CP_DRAW_INDX_1_VIS_CULL__SHIFT				9
-static inline uint32_t CP_DRAW_INDX_1_VIS_CULL(enum pc_di_vis_cull_mode val)
+static uint32_t CP_DRAW_INDX_1_VIS_CULL(enum pc_di_vis_cull_mode val)
 {
 	return ((val) << CP_DRAW_INDX_1_VIS_CULL__SHIFT) & CP_DRAW_INDX_1_VIS_CULL__MASK;
 }
 #define CP_DRAW_INDX_1_INDEX_SIZE__MASK				0x00000800
 #define CP_DRAW_INDX_1_INDEX_SIZE__SHIFT			11
-static inline uint32_t CP_DRAW_INDX_1_INDEX_SIZE(enum pc_di_index_size val)
+static uint32_t CP_DRAW_INDX_1_INDEX_SIZE(enum pc_di_index_size val)
 {
 	return ((val) << CP_DRAW_INDX_1_INDEX_SIZE__SHIFT) & CP_DRAW_INDX_1_INDEX_SIZE__MASK;
 }
@@ -434,7 +434,7 @@ static inline uint32_t CP_DRAW_INDX_1_INDEX_SIZE(enum pc_di_index_size val)
 #define CP_DRAW_INDX_1_PRE_DRAW_INITIATOR_ENABLE		0x00004000
 #define CP_DRAW_INDX_1_NUM_INSTANCES__MASK			0xff000000
 #define CP_DRAW_INDX_1_NUM_INSTANCES__SHIFT			24
-static inline uint32_t CP_DRAW_INDX_1_NUM_INSTANCES(uint32_t val)
+static uint32_t CP_DRAW_INDX_1_NUM_INSTANCES(uint32_t val)
 {
 	return ((val) << CP_DRAW_INDX_1_NUM_INSTANCES__SHIFT) & CP_DRAW_INDX_1_NUM_INSTANCES__MASK;
 }
@@ -442,7 +442,7 @@ static inline uint32_t CP_DRAW_INDX_1_NUM_INSTANCES(uint32_t val)
 #define REG_CP_DRAW_INDX_2					0x00000002
 #define CP_DRAW_INDX_2_NUM_INDICES__MASK			0xffffffff
 #define CP_DRAW_INDX_2_NUM_INDICES__SHIFT			0
-static inline uint32_t CP_DRAW_INDX_2_NUM_INDICES(uint32_t val)
+static uint32_t CP_DRAW_INDX_2_NUM_INDICES(uint32_t val)
 {
 	return ((val) << CP_DRAW_INDX_2_NUM_INDICES__SHIFT) & CP_DRAW_INDX_2_NUM_INDICES__MASK;
 }
@@ -450,7 +450,7 @@ static inline uint32_t CP_DRAW_INDX_2_NUM_INDICES(uint32_t val)
 #define REG_CP_DRAW_INDX_3					0x00000003
 #define CP_DRAW_INDX_3_INDX_BASE__MASK				0xffffffff
 #define CP_DRAW_INDX_3_INDX_BASE__SHIFT				0
-static inline uint32_t CP_DRAW_INDX_3_INDX_BASE(uint32_t val)
+static uint32_t CP_DRAW_INDX_3_INDX_BASE(uint32_t val)
 {
 	return ((val) << CP_DRAW_INDX_3_INDX_BASE__SHIFT) & CP_DRAW_INDX_3_INDX_BASE__MASK;
 }
@@ -458,7 +458,7 @@ static inline uint32_t CP_DRAW_INDX_3_INDX_BASE(uint32_t val)
 #define REG_CP_DRAW_INDX_4					0x00000004
 #define CP_DRAW_INDX_4_INDX_SIZE__MASK				0xffffffff
 #define CP_DRAW_INDX_4_INDX_SIZE__SHIFT				0
-static inline uint32_t CP_DRAW_INDX_4_INDX_SIZE(uint32_t val)
+static uint32_t CP_DRAW_INDX_4_INDX_SIZE(uint32_t val)
 {
 	return ((val) << CP_DRAW_INDX_4_INDX_SIZE__SHIFT) & CP_DRAW_INDX_4_INDX_SIZE__MASK;
 }
@@ -466,7 +466,7 @@ static inline uint32_t CP_DRAW_INDX_4_INDX_SIZE(uint32_t val)
 #define REG_CP_DRAW_INDX_2_0					0x00000000
 #define CP_DRAW_INDX_2_0_VIZ_QUERY__MASK			0xffffffff
 #define CP_DRAW_INDX_2_0_VIZ_QUERY__SHIFT			0
-static inline uint32_t CP_DRAW_INDX_2_0_VIZ_QUERY(uint32_t val)
+static uint32_t CP_DRAW_INDX_2_0_VIZ_QUERY(uint32_t val)
 {
 	return ((val) << CP_DRAW_INDX_2_0_VIZ_QUERY__SHIFT) & CP_DRAW_INDX_2_0_VIZ_QUERY__MASK;
 }
@@ -474,25 +474,25 @@ static inline uint32_t CP_DRAW_INDX_2_0_VIZ_QUERY(uint32_t val)
 #define REG_CP_DRAW_INDX_2_1					0x00000001
 #define CP_DRAW_INDX_2_1_PRIM_TYPE__MASK			0x0000003f
 #define CP_DRAW_INDX_2_1_PRIM_TYPE__SHIFT			0
-static inline uint32_t CP_DRAW_INDX_2_1_PRIM_TYPE(enum pc_di_primtype val)
+static uint32_t CP_DRAW_INDX_2_1_PRIM_TYPE(enum pc_di_primtype val)
 {
 	return ((val) << CP_DRAW_INDX_2_1_PRIM_TYPE__SHIFT) & CP_DRAW_INDX_2_1_PRIM_TYPE__MASK;
 }
 #define CP_DRAW_INDX_2_1_SOURCE_SELECT__MASK			0x000000c0
 #define CP_DRAW_INDX_2_1_SOURCE_SELECT__SHIFT			6
-static inline uint32_t CP_DRAW_INDX_2_1_SOURCE_SELECT(enum pc_di_src_sel val)
+static uint32_t CP_DRAW_INDX_2_1_SOURCE_SELECT(enum pc_di_src_sel val)
 {
 	return ((val) << CP_DRAW_INDX_2_1_SOURCE_SELECT__SHIFT) & CP_DRAW_INDX_2_1_SOURCE_SELECT__MASK;
 }
 #define CP_DRAW_INDX_2_1_VIS_CULL__MASK				0x00000600
 #define CP_DRAW_INDX_2_1_VIS_CULL__SHIFT			9
-static inline uint32_t CP_DRAW_INDX_2_1_VIS_CULL(enum pc_di_vis_cull_mode val)
+static uint32_t CP_DRAW_INDX_2_1_VIS_CULL(enum pc_di_vis_cull_mode val)
 {
 	return ((val) << CP_DRAW_INDX_2_1_VIS_CULL__SHIFT) & CP_DRAW_INDX_2_1_VIS_CULL__MASK;
 }
 #define CP_DRAW_INDX_2_1_INDEX_SIZE__MASK			0x00000800
 #define CP_DRAW_INDX_2_1_INDEX_SIZE__SHIFT			11
-static inline uint32_t CP_DRAW_INDX_2_1_INDEX_SIZE(enum pc_di_index_size val)
+static uint32_t CP_DRAW_INDX_2_1_INDEX_SIZE(enum pc_di_index_size val)
 {
 	return ((val) << CP_DRAW_INDX_2_1_INDEX_SIZE__SHIFT) & CP_DRAW_INDX_2_1_INDEX_SIZE__MASK;
 }
@@ -501,7 +501,7 @@ static inline uint32_t CP_DRAW_INDX_2_1_INDEX_SIZE(enum pc_di_index_size val)
 #define CP_DRAW_INDX_2_1_PRE_DRAW_INITIATOR_ENABLE		0x00004000
 #define CP_DRAW_INDX_2_1_NUM_INSTANCES__MASK			0xff000000
 #define CP_DRAW_INDX_2_1_NUM_INSTANCES__SHIFT			24
-static inline uint32_t CP_DRAW_INDX_2_1_NUM_INSTANCES(uint32_t val)
+static uint32_t CP_DRAW_INDX_2_1_NUM_INSTANCES(uint32_t val)
 {
 	return ((val) << CP_DRAW_INDX_2_1_NUM_INSTANCES__SHIFT) & CP_DRAW_INDX_2_1_NUM_INSTANCES__MASK;
 }
@@ -509,7 +509,7 @@ static inline uint32_t CP_DRAW_INDX_2_1_NUM_INSTANCES(uint32_t val)
 #define REG_CP_DRAW_INDX_2_2					0x00000002
 #define CP_DRAW_INDX_2_2_NUM_INDICES__MASK			0xffffffff
 #define CP_DRAW_INDX_2_2_NUM_INDICES__SHIFT			0
-static inline uint32_t CP_DRAW_INDX_2_2_NUM_INDICES(uint32_t val)
+static uint32_t CP_DRAW_INDX_2_2_NUM_INDICES(uint32_t val)
 {
 	return ((val) << CP_DRAW_INDX_2_2_NUM_INDICES__SHIFT) & CP_DRAW_INDX_2_2_NUM_INDICES__MASK;
 }
@@ -517,31 +517,31 @@ static inline uint32_t CP_DRAW_INDX_2_2_NUM_INDICES(uint32_t val)
 #define REG_CP_DRAW_INDX_OFFSET_0				0x00000000
 #define CP_DRAW_INDX_OFFSET_0_PRIM_TYPE__MASK			0x0000003f
 #define CP_DRAW_INDX_OFFSET_0_PRIM_TYPE__SHIFT			0
-static inline uint32_t CP_DRAW_INDX_OFFSET_0_PRIM_TYPE(enum pc_di_primtype val)
+static uint32_t CP_DRAW_INDX_OFFSET_0_PRIM_TYPE(enum pc_di_primtype val)
 {
 	return ((val) << CP_DRAW_INDX_OFFSET_0_PRIM_TYPE__SHIFT) & CP_DRAW_INDX_OFFSET_0_PRIM_TYPE__MASK;
 }
 #define CP_DRAW_INDX_OFFSET_0_SOURCE_SELECT__MASK		0x000000c0
 #define CP_DRAW_INDX_OFFSET_0_SOURCE_SELECT__SHIFT		6
-static inline uint32_t CP_DRAW_INDX_OFFSET_0_SOURCE_SELECT(enum pc_di_src_sel val)
+static uint32_t CP_DRAW_INDX_OFFSET_0_SOURCE_SELECT(enum pc_di_src_sel val)
 {
 	return ((val) << CP_DRAW_INDX_OFFSET_0_SOURCE_SELECT__SHIFT) & CP_DRAW_INDX_OFFSET_0_SOURCE_SELECT__MASK;
 }
 #define CP_DRAW_INDX_OFFSET_0_VIS_CULL__MASK			0x00000300
 #define CP_DRAW_INDX_OFFSET_0_VIS_CULL__SHIFT			8
-static inline uint32_t CP_DRAW_INDX_OFFSET_0_VIS_CULL(enum pc_di_vis_cull_mode val)
+static uint32_t CP_DRAW_INDX_OFFSET_0_VIS_CULL(enum pc_di_vis_cull_mode val)
 {
 	return ((val) << CP_DRAW_INDX_OFFSET_0_VIS_CULL__SHIFT) & CP_DRAW_INDX_OFFSET_0_VIS_CULL__MASK;
 }
 #define CP_DRAW_INDX_OFFSET_0_INDEX_SIZE__MASK			0x00000c00
 #define CP_DRAW_INDX_OFFSET_0_INDEX_SIZE__SHIFT			10
-static inline uint32_t CP_DRAW_INDX_OFFSET_0_INDEX_SIZE(enum a4xx_index_size val)
+static uint32_t CP_DRAW_INDX_OFFSET_0_INDEX_SIZE(enum a4xx_index_size val)
 {
 	return ((val) << CP_DRAW_INDX_OFFSET_0_INDEX_SIZE__SHIFT) & CP_DRAW_INDX_OFFSET_0_INDEX_SIZE__MASK;
 }
 #define CP_DRAW_INDX_OFFSET_0_TESS_MODE__MASK			0x01f00000
 #define CP_DRAW_INDX_OFFSET_0_TESS_MODE__SHIFT			20
-static inline uint32_t CP_DRAW_INDX_OFFSET_0_TESS_MODE(uint32_t val)
+static uint32_t CP_DRAW_INDX_OFFSET_0_TESS_MODE(uint32_t val)
 {
 	return ((val) << CP_DRAW_INDX_OFFSET_0_TESS_MODE__SHIFT) & CP_DRAW_INDX_OFFSET_0_TESS_MODE__MASK;
 }
@@ -549,7 +549,7 @@ static inline uint32_t CP_DRAW_INDX_OFFSET_0_TESS_MODE(uint32_t val)
 #define REG_CP_DRAW_INDX_OFFSET_1				0x00000001
 #define CP_DRAW_INDX_OFFSET_1_NUM_INSTANCES__MASK		0xffffffff
 #define CP_DRAW_INDX_OFFSET_1_NUM_INSTANCES__SHIFT		0
-static inline uint32_t CP_DRAW_INDX_OFFSET_1_NUM_INSTANCES(uint32_t val)
+static uint32_t CP_DRAW_INDX_OFFSET_1_NUM_INSTANCES(uint32_t val)
 {
 	return ((val) << CP_DRAW_INDX_OFFSET_1_NUM_INSTANCES__SHIFT) & CP_DRAW_INDX_OFFSET_1_NUM_INSTANCES__MASK;
 }
@@ -557,7 +557,7 @@ static inline uint32_t CP_DRAW_INDX_OFFSET_1_NUM_INSTANCES(uint32_t val)
 #define REG_CP_DRAW_INDX_OFFSET_2				0x00000002
 #define CP_DRAW_INDX_OFFSET_2_NUM_INDICES__MASK			0xffffffff
 #define CP_DRAW_INDX_OFFSET_2_NUM_INDICES__SHIFT		0
-static inline uint32_t CP_DRAW_INDX_OFFSET_2_NUM_INDICES(uint32_t val)
+static uint32_t CP_DRAW_INDX_OFFSET_2_NUM_INDICES(uint32_t val)
 {
 	return ((val) << CP_DRAW_INDX_OFFSET_2_NUM_INDICES__SHIFT) & CP_DRAW_INDX_OFFSET_2_NUM_INDICES__MASK;
 }
@@ -567,7 +567,7 @@ static inline uint32_t CP_DRAW_INDX_OFFSET_2_NUM_INDICES(uint32_t val)
 #define REG_CP_DRAW_INDX_OFFSET_4				0x00000004
 #define CP_DRAW_INDX_OFFSET_4_INDX_BASE__MASK			0xffffffff
 #define CP_DRAW_INDX_OFFSET_4_INDX_BASE__SHIFT			0
-static inline uint32_t CP_DRAW_INDX_OFFSET_4_INDX_BASE(uint32_t val)
+static uint32_t CP_DRAW_INDX_OFFSET_4_INDX_BASE(uint32_t val)
 {
 	return ((val) << CP_DRAW_INDX_OFFSET_4_INDX_BASE__SHIFT) & CP_DRAW_INDX_OFFSET_4_INDX_BASE__MASK;
 }
@@ -575,7 +575,7 @@ static inline uint32_t CP_DRAW_INDX_OFFSET_4_INDX_BASE(uint32_t val)
 #define REG_CP_DRAW_INDX_OFFSET_5				0x00000005
 #define CP_DRAW_INDX_OFFSET_5_INDX_SIZE__MASK			0xffffffff
 #define CP_DRAW_INDX_OFFSET_5_INDX_SIZE__SHIFT			0
-static inline uint32_t CP_DRAW_INDX_OFFSET_5_INDX_SIZE(uint32_t val)
+static uint32_t CP_DRAW_INDX_OFFSET_5_INDX_SIZE(uint32_t val)
 {
 	return ((val) << CP_DRAW_INDX_OFFSET_5_INDX_SIZE__SHIFT) & CP_DRAW_INDX_OFFSET_5_INDX_SIZE__MASK;
 }
@@ -585,7 +585,7 @@ static inline uint32_t REG_CP_SET_DRAW_STATE_(uint32_t i0) { return 0x00000000 +
 static inline uint32_t REG_CP_SET_DRAW_STATE__0(uint32_t i0) { return 0x00000000 + 0x3*i0; }
 #define CP_SET_DRAW_STATE__0_COUNT__MASK			0x0000ffff
 #define CP_SET_DRAW_STATE__0_COUNT__SHIFT			0
-static inline uint32_t CP_SET_DRAW_STATE__0_COUNT(uint32_t val)
+static uint32_t CP_SET_DRAW_STATE__0_COUNT(uint32_t val)
 {
 	return ((val) << CP_SET_DRAW_STATE__0_COUNT__SHIFT) & CP_SET_DRAW_STATE__0_COUNT__MASK;
 }
@@ -595,7 +595,7 @@ static inline uint32_t CP_SET_DRAW_STATE__0_COUNT(uint32_t val)
 #define CP_SET_DRAW_STATE__0_LOAD_IMMED				0x00080000
 #define CP_SET_DRAW_STATE__0_GROUP_ID__MASK			0x1f000000
 #define CP_SET_DRAW_STATE__0_GROUP_ID__SHIFT			24
-static inline uint32_t CP_SET_DRAW_STATE__0_GROUP_ID(uint32_t val)
+static uint32_t CP_SET_DRAW_STATE__0_GROUP_ID(uint32_t val)
 {
 	return ((val) << CP_SET_DRAW_STATE__0_GROUP_ID__SHIFT) & CP_SET_DRAW_STATE__0_GROUP_ID__MASK;
 }
@@ -603,7 +603,7 @@ static inline uint32_t CP_SET_DRAW_STATE__0_GROUP_ID(uint32_t val)
 static inline uint32_t REG_CP_SET_DRAW_STATE__1(uint32_t i0) { return 0x00000001 + 0x3*i0; }
 #define CP_SET_DRAW_STATE__1_ADDR_LO__MASK			0xffffffff
 #define CP_SET_DRAW_STATE__1_ADDR_LO__SHIFT			0
-static inline uint32_t CP_SET_DRAW_STATE__1_ADDR_LO(uint32_t val)
+static uint32_t CP_SET_DRAW_STATE__1_ADDR_LO(uint32_t val)
 {
 	return ((val) << CP_SET_DRAW_STATE__1_ADDR_LO__SHIFT) & CP_SET_DRAW_STATE__1_ADDR_LO__MASK;
 }
@@ -611,7 +611,7 @@ static inline uint32_t CP_SET_DRAW_STATE__1_ADDR_LO(uint32_t val)
 static inline uint32_t REG_CP_SET_DRAW_STATE__2(uint32_t i0) { return 0x00000002 + 0x3*i0; }
 #define CP_SET_DRAW_STATE__2_ADDR_HI__MASK			0xffffffff
 #define CP_SET_DRAW_STATE__2_ADDR_HI__SHIFT			0
-static inline uint32_t CP_SET_DRAW_STATE__2_ADDR_HI(uint32_t val)
+static uint32_t CP_SET_DRAW_STATE__2_ADDR_HI(uint32_t val)
 {
 	return ((val) << CP_SET_DRAW_STATE__2_ADDR_HI__SHIFT) & CP_SET_DRAW_STATE__2_ADDR_HI__MASK;
 }
@@ -621,13 +621,13 @@ static inline uint32_t CP_SET_DRAW_STATE__2_ADDR_HI(uint32_t val)
 #define REG_CP_SET_BIN_1					0x00000001
 #define CP_SET_BIN_1_X1__MASK					0x0000ffff
 #define CP_SET_BIN_1_X1__SHIFT					0
-static inline uint32_t CP_SET_BIN_1_X1(uint32_t val)
+static uint32_t CP_SET_BIN_1_X1(uint32_t val)
 {
 	return ((val) << CP_SET_BIN_1_X1__SHIFT) & CP_SET_BIN_1_X1__MASK;
 }
 #define CP_SET_BIN_1_Y1__MASK					0xffff0000
 #define CP_SET_BIN_1_Y1__SHIFT					16
-static inline uint32_t CP_SET_BIN_1_Y1(uint32_t val)
+static uint32_t CP_SET_BIN_1_Y1(uint32_t val)
 {
 	return ((val) << CP_SET_BIN_1_Y1__SHIFT) & CP_SET_BIN_1_Y1__MASK;
 }
@@ -635,13 +635,13 @@ static inline uint32_t CP_SET_BIN_1_Y1(uint32_t val)
 #define REG_CP_SET_BIN_2					0x00000002
 #define CP_SET_BIN_2_X2__MASK					0x0000ffff
 #define CP_SET_BIN_2_X2__SHIFT					0
-static inline uint32_t CP_SET_BIN_2_X2(uint32_t val)
+static uint32_t CP_SET_BIN_2_X2(uint32_t val)
 {
 	return ((val) << CP_SET_BIN_2_X2__SHIFT) & CP_SET_BIN_2_X2__MASK;
 }
 #define CP_SET_BIN_2_Y2__MASK					0xffff0000
 #define CP_SET_BIN_2_Y2__SHIFT					16
-static inline uint32_t CP_SET_BIN_2_Y2(uint32_t val)
+static uint32_t CP_SET_BIN_2_Y2(uint32_t val)
 {
 	return ((val) << CP_SET_BIN_2_Y2__SHIFT) & CP_SET_BIN_2_Y2__MASK;
 }
@@ -649,7 +649,7 @@ static inline uint32_t CP_SET_BIN_2_Y2(uint32_t val)
 #define REG_CP_SET_BIN_DATA_0					0x00000000
 #define CP_SET_BIN_DATA_0_BIN_DATA_ADDR__MASK			0xffffffff
 #define CP_SET_BIN_DATA_0_BIN_DATA_ADDR__SHIFT			0
-static inline uint32_t CP_SET_BIN_DATA_0_BIN_DATA_ADDR(uint32_t val)
+static uint32_t CP_SET_BIN_DATA_0_BIN_DATA_ADDR(uint32_t val)
 {
 	return ((val) << CP_SET_BIN_DATA_0_BIN_DATA_ADDR__SHIFT) & CP_SET_BIN_DATA_0_BIN_DATA_ADDR__MASK;
 }
@@ -657,7 +657,7 @@ static inline uint32_t CP_SET_BIN_DATA_0_BIN_DATA_ADDR(uint32_t val)
 #define REG_CP_SET_BIN_DATA_1					0x00000001
 #define CP_SET_BIN_DATA_1_BIN_SIZE_ADDRESS__MASK		0xffffffff
 #define CP_SET_BIN_DATA_1_BIN_SIZE_ADDRESS__SHIFT		0
-static inline uint32_t CP_SET_BIN_DATA_1_BIN_SIZE_ADDRESS(uint32_t val)
+static uint32_t CP_SET_BIN_DATA_1_BIN_SIZE_ADDRESS(uint32_t val)
 {
 	return ((val) << CP_SET_BIN_DATA_1_BIN_SIZE_ADDRESS__SHIFT) & CP_SET_BIN_DATA_1_BIN_SIZE_ADDRESS__MASK;
 }
@@ -665,13 +665,13 @@ static inline uint32_t CP_SET_BIN_DATA_1_BIN_SIZE_ADDRESS(uint32_t val)
 #define REG_CP_SET_BIN_DATA5_0					0x00000000
 #define CP_SET_BIN_DATA5_0_VSC_SIZE__MASK			0x003f0000
 #define CP_SET_BIN_DATA5_0_VSC_SIZE__SHIFT			16
-static inline uint32_t CP_SET_BIN_DATA5_0_VSC_SIZE(uint32_t val)
+static uint32_t CP_SET_BIN_DATA5_0_VSC_SIZE(uint32_t val)
 {
 	return ((val) << CP_SET_BIN_DATA5_0_VSC_SIZE__SHIFT) & CP_SET_BIN_DATA5_0_VSC_SIZE__MASK;
 }
 #define CP_SET_BIN_DATA5_0_VSC_N__MASK				0x07c00000
 #define CP_SET_BIN_DATA5_0_VSC_N__SHIFT				22
-static inline uint32_t CP_SET_BIN_DATA5_0_VSC_N(uint32_t val)
+static uint32_t CP_SET_BIN_DATA5_0_VSC_N(uint32_t val)
 {
 	return ((val) << CP_SET_BIN_DATA5_0_VSC_N__SHIFT) & CP_SET_BIN_DATA5_0_VSC_N__MASK;
 }
@@ -679,7 +679,7 @@ static inline uint32_t CP_SET_BIN_DATA5_0_VSC_N(uint32_t val)
 #define REG_CP_SET_BIN_DATA5_1					0x00000001
 #define CP_SET_BIN_DATA5_1_BIN_DATA_ADDR_LO__MASK		0xffffffff
 #define CP_SET_BIN_DATA5_1_BIN_DATA_ADDR_LO__SHIFT		0
-static inline uint32_t CP_SET_BIN_DATA5_1_BIN_DATA_ADDR_LO(uint32_t val)
+static uint32_t CP_SET_BIN_DATA5_1_BIN_DATA_ADDR_LO(uint32_t val)
 {
 	return ((val) << CP_SET_BIN_DATA5_1_BIN_DATA_ADDR_LO__SHIFT) & CP_SET_BIN_DATA5_1_BIN_DATA_ADDR_LO__MASK;
 }
@@ -687,7 +687,7 @@ static inline uint32_t CP_SET_BIN_DATA5_1_BIN_DATA_ADDR_LO(uint32_t val)
 #define REG_CP_SET_BIN_DATA5_2					0x00000002
 #define CP_SET_BIN_DATA5_2_BIN_DATA_ADDR_HI__MASK		0xffffffff
 #define CP_SET_BIN_DATA5_2_BIN_DATA_ADDR_HI__SHIFT		0
-static inline uint32_t CP_SET_BIN_DATA5_2_BIN_DATA_ADDR_HI(uint32_t val)
+static uint32_t CP_SET_BIN_DATA5_2_BIN_DATA_ADDR_HI(uint32_t val)
 {
 	return ((val) << CP_SET_BIN_DATA5_2_BIN_DATA_ADDR_HI__SHIFT) & CP_SET_BIN_DATA5_2_BIN_DATA_ADDR_HI__MASK;
 }
@@ -695,7 +695,7 @@ static inline uint32_t CP_SET_BIN_DATA5_2_BIN_DATA_ADDR_HI(uint32_t val)
 #define REG_CP_SET_BIN_DATA5_3					0x00000003
 #define CP_SET_BIN_DATA5_3_BIN_SIZE_ADDRESS_LO__MASK		0xffffffff
 #define CP_SET_BIN_DATA5_3_BIN_SIZE_ADDRESS_LO__SHIFT		0
-static inline uint32_t CP_SET_BIN_DATA5_3_BIN_SIZE_ADDRESS_LO(uint32_t val)
+static uint32_t CP_SET_BIN_DATA5_3_BIN_SIZE_ADDRESS_LO(uint32_t val)
 {
 	return ((val) << CP_SET_BIN_DATA5_3_BIN_SIZE_ADDRESS_LO__SHIFT) & CP_SET_BIN_DATA5_3_BIN_SIZE_ADDRESS_LO__MASK;
 }
@@ -703,7 +703,7 @@ static inline uint32_t CP_SET_BIN_DATA5_3_BIN_SIZE_ADDRESS_LO(uint32_t val)
 #define REG_CP_SET_BIN_DATA5_4					0x00000004
 #define CP_SET_BIN_DATA5_4_BIN_SIZE_ADDRESS_HI__MASK		0xffffffff
 #define CP_SET_BIN_DATA5_4_BIN_SIZE_ADDRESS_HI__SHIFT		0
-static inline uint32_t CP_SET_BIN_DATA5_4_BIN_SIZE_ADDRESS_HI(uint32_t val)
+static uint32_t CP_SET_BIN_DATA5_4_BIN_SIZE_ADDRESS_HI(uint32_t val)
 {
 	return ((val) << CP_SET_BIN_DATA5_4_BIN_SIZE_ADDRESS_HI__SHIFT) & CP_SET_BIN_DATA5_4_BIN_SIZE_ADDRESS_HI__MASK;
 }
@@ -711,13 +711,13 @@ static inline uint32_t CP_SET_BIN_DATA5_4_BIN_SIZE_ADDRESS_HI(uint32_t val)
 #define REG_CP_REG_TO_MEM_0					0x00000000
 #define CP_REG_TO_MEM_0_REG__MASK				0x0000ffff
 #define CP_REG_TO_MEM_0_REG__SHIFT				0
-static inline uint32_t CP_REG_TO_MEM_0_REG(uint32_t val)
+static uint32_t CP_REG_TO_MEM_0_REG(uint32_t val)
 {
 	return ((val) << CP_REG_TO_MEM_0_REG__SHIFT) & CP_REG_TO_MEM_0_REG__MASK;
 }
 #define CP_REG_TO_MEM_0_CNT__MASK				0x3ff80000
 #define CP_REG_TO_MEM_0_CNT__SHIFT				19
-static inline uint32_t CP_REG_TO_MEM_0_CNT(uint32_t val)
+static uint32_t CP_REG_TO_MEM_0_CNT(uint32_t val)
 {
 	return ((val) << CP_REG_TO_MEM_0_CNT__SHIFT) & CP_REG_TO_MEM_0_CNT__MASK;
 }
@@ -727,7 +727,7 @@ static inline uint32_t CP_REG_TO_MEM_0_CNT(uint32_t val)
 #define REG_CP_REG_TO_MEM_1					0x00000001
 #define CP_REG_TO_MEM_1_DEST__MASK				0xffffffff
 #define CP_REG_TO_MEM_1_DEST__SHIFT				0
-static inline uint32_t CP_REG_TO_MEM_1_DEST(uint32_t val)
+static uint32_t CP_REG_TO_MEM_1_DEST(uint32_t val)
 {
 	return ((val) << CP_REG_TO_MEM_1_DEST__SHIFT) & CP_REG_TO_MEM_1_DEST__MASK;
 }
@@ -741,7 +741,7 @@ static inline uint32_t CP_REG_TO_MEM_1_DEST(uint32_t val)
 #define REG_CP_COND_WRITE_0					0x00000000
 #define CP_COND_WRITE_0_FUNCTION__MASK				0x00000007
 #define CP_COND_WRITE_0_FUNCTION__SHIFT				0
-static inline uint32_t CP_COND_WRITE_0_FUNCTION(enum cp_cond_function val)
+static uint32_t CP_COND_WRITE_0_FUNCTION(enum cp_cond_function val)
 {
 	return ((val) << CP_COND_WRITE_0_FUNCTION__SHIFT) & CP_COND_WRITE_0_FUNCTION__MASK;
 }
@@ -751,7 +751,7 @@ static inline uint32_t CP_COND_WRITE_0_FUNCTION(enum cp_cond_function val)
 #define REG_CP_COND_WRITE_1					0x00000001
 #define CP_COND_WRITE_1_POLL_ADDR__MASK				0xffffffff
 #define CP_COND_WRITE_1_POLL_ADDR__SHIFT			0
-static inline uint32_t CP_COND_WRITE_1_POLL_ADDR(uint32_t val)
+static uint32_t CP_COND_WRITE_1_POLL_ADDR(uint32_t val)
 {
 	return ((val) << CP_COND_WRITE_1_POLL_ADDR__SHIFT) & CP_COND_WRITE_1_POLL_ADDR__MASK;
 }
@@ -759,7 +759,7 @@ static inline uint32_t CP_COND_WRITE_1_POLL_ADDR(uint32_t val)
 #define REG_CP_COND_WRITE_2					0x00000002
 #define CP_COND_WRITE_2_REF__MASK				0xffffffff
 #define CP_COND_WRITE_2_REF__SHIFT				0
-static inline uint32_t CP_COND_WRITE_2_REF(uint32_t val)
+static uint32_t CP_COND_WRITE_2_REF(uint32_t val)
 {
 	return ((val) << CP_COND_WRITE_2_REF__SHIFT) & CP_COND_WRITE_2_REF__MASK;
 }
@@ -767,7 +767,7 @@ static inline uint32_t CP_COND_WRITE_2_REF(uint32_t val)
 #define REG_CP_COND_WRITE_3					0x00000003
 #define CP_COND_WRITE_3_MASK__MASK				0xffffffff
 #define CP_COND_WRITE_3_MASK__SHIFT				0
-static inline uint32_t CP_COND_WRITE_3_MASK(uint32_t val)
+static uint32_t CP_COND_WRITE_3_MASK(uint32_t val)
 {
 	return ((val) << CP_COND_WRITE_3_MASK__SHIFT) & CP_COND_WRITE_3_MASK__MASK;
 }
@@ -775,7 +775,7 @@ static inline uint32_t CP_COND_WRITE_3_MASK(uint32_t val)
 #define REG_CP_COND_WRITE_4					0x00000004
 #define CP_COND_WRITE_4_WRITE_ADDR__MASK			0xffffffff
 #define CP_COND_WRITE_4_WRITE_ADDR__SHIFT			0
-static inline uint32_t CP_COND_WRITE_4_WRITE_ADDR(uint32_t val)
+static uint32_t CP_COND_WRITE_4_WRITE_ADDR(uint32_t val)
 {
 	return ((val) << CP_COND_WRITE_4_WRITE_ADDR__SHIFT) & CP_COND_WRITE_4_WRITE_ADDR__MASK;
 }
@@ -783,7 +783,7 @@ static inline uint32_t CP_COND_WRITE_4_WRITE_ADDR(uint32_t val)
 #define REG_CP_COND_WRITE_5					0x00000005
 #define CP_COND_WRITE_5_WRITE_DATA__MASK			0xffffffff
 #define CP_COND_WRITE_5_WRITE_DATA__SHIFT			0
-static inline uint32_t CP_COND_WRITE_5_WRITE_DATA(uint32_t val)
+static uint32_t CP_COND_WRITE_5_WRITE_DATA(uint32_t val)
 {
 	return ((val) << CP_COND_WRITE_5_WRITE_DATA__SHIFT) & CP_COND_WRITE_5_WRITE_DATA__MASK;
 }
@@ -791,7 +791,7 @@ static inline uint32_t CP_COND_WRITE_5_WRITE_DATA(uint32_t val)
 #define REG_CP_COND_WRITE5_0					0x00000000
 #define CP_COND_WRITE5_0_FUNCTION__MASK				0x00000007
 #define CP_COND_WRITE5_0_FUNCTION__SHIFT			0
-static inline uint32_t CP_COND_WRITE5_0_FUNCTION(enum cp_cond_function val)
+static uint32_t CP_COND_WRITE5_0_FUNCTION(enum cp_cond_function val)
 {
 	return ((val) << CP_COND_WRITE5_0_FUNCTION__SHIFT) & CP_COND_WRITE5_0_FUNCTION__MASK;
 }
@@ -801,7 +801,7 @@ static inline uint32_t CP_COND_WRITE5_0_FUNCTION(enum cp_cond_function val)
 #define REG_CP_COND_WRITE5_1					0x00000001
 #define CP_COND_WRITE5_1_POLL_ADDR_LO__MASK			0xffffffff
 #define CP_COND_WRITE5_1_POLL_ADDR_LO__SHIFT			0
-static inline uint32_t CP_COND_WRITE5_1_POLL_ADDR_LO(uint32_t val)
+static uint32_t CP_COND_WRITE5_1_POLL_ADDR_LO(uint32_t val)
 {
 	return ((val) << CP_COND_WRITE5_1_POLL_ADDR_LO__SHIFT) & CP_COND_WRITE5_1_POLL_ADDR_LO__MASK;
 }
@@ -809,7 +809,7 @@ static inline uint32_t CP_COND_WRITE5_1_POLL_ADDR_LO(uint32_t val)
 #define REG_CP_COND_WRITE5_2					0x00000002
 #define CP_COND_WRITE5_2_POLL_ADDR_HI__MASK			0xffffffff
 #define CP_COND_WRITE5_2_POLL_ADDR_HI__SHIFT			0
-static inline uint32_t CP_COND_WRITE5_2_POLL_ADDR_HI(uint32_t val)
+static uint32_t CP_COND_WRITE5_2_POLL_ADDR_HI(uint32_t val)
 {
 	return ((val) << CP_COND_WRITE5_2_POLL_ADDR_HI__SHIFT) & CP_COND_WRITE5_2_POLL_ADDR_HI__MASK;
 }
@@ -817,7 +817,7 @@ static inline uint32_t CP_COND_WRITE5_2_POLL_ADDR_HI(uint32_t val)
 #define REG_CP_COND_WRITE5_3					0x00000003
 #define CP_COND_WRITE5_3_REF__MASK				0xffffffff
 #define CP_COND_WRITE5_3_REF__SHIFT				0
-static inline uint32_t CP_COND_WRITE5_3_REF(uint32_t val)
+static uint32_t CP_COND_WRITE5_3_REF(uint32_t val)
 {
 	return ((val) << CP_COND_WRITE5_3_REF__SHIFT) & CP_COND_WRITE5_3_REF__MASK;
 }
@@ -825,7 +825,7 @@ static inline uint32_t CP_COND_WRITE5_3_REF(uint32_t val)
 #define REG_CP_COND_WRITE5_4					0x00000004
 #define CP_COND_WRITE5_4_MASK__MASK				0xffffffff
 #define CP_COND_WRITE5_4_MASK__SHIFT				0
-static inline uint32_t CP_COND_WRITE5_4_MASK(uint32_t val)
+static uint32_t CP_COND_WRITE5_4_MASK(uint32_t val)
 {
 	return ((val) << CP_COND_WRITE5_4_MASK__SHIFT) & CP_COND_WRITE5_4_MASK__MASK;
 }
@@ -833,7 +833,7 @@ static inline uint32_t CP_COND_WRITE5_4_MASK(uint32_t val)
 #define REG_CP_COND_WRITE5_5					0x00000005
 #define CP_COND_WRITE5_5_WRITE_ADDR_LO__MASK			0xffffffff
 #define CP_COND_WRITE5_5_WRITE_ADDR_LO__SHIFT			0
-static inline uint32_t CP_COND_WRITE5_5_WRITE_ADDR_LO(uint32_t val)
+static uint32_t CP_COND_WRITE5_5_WRITE_ADDR_LO(uint32_t val)
 {
 	return ((val) << CP_COND_WRITE5_5_WRITE_ADDR_LO__SHIFT) & CP_COND_WRITE5_5_WRITE_ADDR_LO__MASK;
 }
@@ -841,7 +841,7 @@ static inline uint32_t CP_COND_WRITE5_5_WRITE_ADDR_LO(uint32_t val)
 #define REG_CP_COND_WRITE5_6					0x00000006
 #define CP_COND_WRITE5_6_WRITE_ADDR_HI__MASK			0xffffffff
 #define CP_COND_WRITE5_6_WRITE_ADDR_HI__SHIFT			0
-static inline uint32_t CP_COND_WRITE5_6_WRITE_ADDR_HI(uint32_t val)
+static uint32_t CP_COND_WRITE5_6_WRITE_ADDR_HI(uint32_t val)
 {
 	return ((val) << CP_COND_WRITE5_6_WRITE_ADDR_HI__SHIFT) & CP_COND_WRITE5_6_WRITE_ADDR_HI__MASK;
 }
@@ -849,7 +849,7 @@ static inline uint32_t CP_COND_WRITE5_6_WRITE_ADDR_HI(uint32_t val)
 #define REG_CP_COND_WRITE5_7					0x00000007
 #define CP_COND_WRITE5_7_WRITE_DATA__MASK			0xffffffff
 #define CP_COND_WRITE5_7_WRITE_DATA__SHIFT			0
-static inline uint32_t CP_COND_WRITE5_7_WRITE_DATA(uint32_t val)
+static uint32_t CP_COND_WRITE5_7_WRITE_DATA(uint32_t val)
 {
 	return ((val) << CP_COND_WRITE5_7_WRITE_DATA__SHIFT) & CP_COND_WRITE5_7_WRITE_DATA__MASK;
 }
@@ -859,7 +859,7 @@ static inline uint32_t CP_COND_WRITE5_7_WRITE_DATA(uint32_t val)
 #define REG_CP_DISPATCH_COMPUTE_1				0x00000001
 #define CP_DISPATCH_COMPUTE_1_X__MASK				0xffffffff
 #define CP_DISPATCH_COMPUTE_1_X__SHIFT				0
-static inline uint32_t CP_DISPATCH_COMPUTE_1_X(uint32_t val)
+static uint32_t CP_DISPATCH_COMPUTE_1_X(uint32_t val)
 {
 	return ((val) << CP_DISPATCH_COMPUTE_1_X__SHIFT) & CP_DISPATCH_COMPUTE_1_X__MASK;
 }
@@ -867,7 +867,7 @@ static inline uint32_t CP_DISPATCH_COMPUTE_1_X(uint32_t val)
 #define REG_CP_DISPATCH_COMPUTE_2				0x00000002
 #define CP_DISPATCH_COMPUTE_2_Y__MASK				0xffffffff
 #define CP_DISPATCH_COMPUTE_2_Y__SHIFT				0
-static inline uint32_t CP_DISPATCH_COMPUTE_2_Y(uint32_t val)
+static uint32_t CP_DISPATCH_COMPUTE_2_Y(uint32_t val)
 {
 	return ((val) << CP_DISPATCH_COMPUTE_2_Y__SHIFT) & CP_DISPATCH_COMPUTE_2_Y__MASK;
 }
@@ -875,7 +875,7 @@ static inline uint32_t CP_DISPATCH_COMPUTE_2_Y(uint32_t val)
 #define REG_CP_DISPATCH_COMPUTE_3				0x00000003
 #define CP_DISPATCH_COMPUTE_3_Z__MASK				0xffffffff
 #define CP_DISPATCH_COMPUTE_3_Z__SHIFT				0
-static inline uint32_t CP_DISPATCH_COMPUTE_3_Z(uint32_t val)
+static uint32_t CP_DISPATCH_COMPUTE_3_Z(uint32_t val)
 {
 	return ((val) << CP_DISPATCH_COMPUTE_3_Z__SHIFT) & CP_DISPATCH_COMPUTE_3_Z__MASK;
 }
@@ -883,7 +883,7 @@ static inline uint32_t CP_DISPATCH_COMPUTE_3_Z(uint32_t val)
 #define REG_CP_SET_RENDER_MODE_0				0x00000000
 #define CP_SET_RENDER_MODE_0_MODE__MASK				0x000001ff
 #define CP_SET_RENDER_MODE_0_MODE__SHIFT			0
-static inline uint32_t CP_SET_RENDER_MODE_0_MODE(enum render_mode_cmd val)
+static uint32_t CP_SET_RENDER_MODE_0_MODE(enum render_mode_cmd val)
 {
 	return ((val) << CP_SET_RENDER_MODE_0_MODE__SHIFT) & CP_SET_RENDER_MODE_0_MODE__MASK;
 }
@@ -891,7 +891,7 @@ static inline uint32_t CP_SET_RENDER_MODE_0_MODE(enum render_mode_cmd val)
 #define REG_CP_SET_RENDER_MODE_1				0x00000001
 #define CP_SET_RENDER_MODE_1_ADDR_0_LO__MASK			0xffffffff
 #define CP_SET_RENDER_MODE_1_ADDR_0_LO__SHIFT			0
-static inline uint32_t CP_SET_RENDER_MODE_1_ADDR_0_LO(uint32_t val)
+static uint32_t CP_SET_RENDER_MODE_1_ADDR_0_LO(uint32_t val)
 {
 	return ((val) << CP_SET_RENDER_MODE_1_ADDR_0_LO__SHIFT) & CP_SET_RENDER_MODE_1_ADDR_0_LO__MASK;
 }
@@ -899,7 +899,7 @@ static inline uint32_t CP_SET_RENDER_MODE_1_ADDR_0_LO(uint32_t val)
 #define REG_CP_SET_RENDER_MODE_2				0x00000002
 #define CP_SET_RENDER_MODE_2_ADDR_0_HI__MASK			0xffffffff
 #define CP_SET_RENDER_MODE_2_ADDR_0_HI__SHIFT			0
-static inline uint32_t CP_SET_RENDER_MODE_2_ADDR_0_HI(uint32_t val)
+static uint32_t CP_SET_RENDER_MODE_2_ADDR_0_HI(uint32_t val)
 {
 	return ((val) << CP_SET_RENDER_MODE_2_ADDR_0_HI__SHIFT) & CP_SET_RENDER_MODE_2_ADDR_0_HI__MASK;
 }
@@ -913,7 +913,7 @@ static inline uint32_t CP_SET_RENDER_MODE_2_ADDR_0_HI(uint32_t val)
 #define REG_CP_SET_RENDER_MODE_5				0x00000005
 #define CP_SET_RENDER_MODE_5_ADDR_1_LEN__MASK			0xffffffff
 #define CP_SET_RENDER_MODE_5_ADDR_1_LEN__SHIFT			0
-static inline uint32_t CP_SET_RENDER_MODE_5_ADDR_1_LEN(uint32_t val)
+static uint32_t CP_SET_RENDER_MODE_5_ADDR_1_LEN(uint32_t val)
 {
 	return ((val) << CP_SET_RENDER_MODE_5_ADDR_1_LEN__SHIFT) & CP_SET_RENDER_MODE_5_ADDR_1_LEN__MASK;
 }
@@ -921,7 +921,7 @@ static inline uint32_t CP_SET_RENDER_MODE_5_ADDR_1_LEN(uint32_t val)
 #define REG_CP_SET_RENDER_MODE_6				0x00000006
 #define CP_SET_RENDER_MODE_6_ADDR_1_LO__MASK			0xffffffff
 #define CP_SET_RENDER_MODE_6_ADDR_1_LO__SHIFT			0
-static inline uint32_t CP_SET_RENDER_MODE_6_ADDR_1_LO(uint32_t val)
+static uint32_t CP_SET_RENDER_MODE_6_ADDR_1_LO(uint32_t val)
 {
 	return ((val) << CP_SET_RENDER_MODE_6_ADDR_1_LO__SHIFT) & CP_SET_RENDER_MODE_6_ADDR_1_LO__MASK;
 }
@@ -929,7 +929,7 @@ static inline uint32_t CP_SET_RENDER_MODE_6_ADDR_1_LO(uint32_t val)
 #define REG_CP_SET_RENDER_MODE_7				0x00000007
 #define CP_SET_RENDER_MODE_7_ADDR_1_HI__MASK			0xffffffff
 #define CP_SET_RENDER_MODE_7_ADDR_1_HI__SHIFT			0
-static inline uint32_t CP_SET_RENDER_MODE_7_ADDR_1_HI(uint32_t val)
+static uint32_t CP_SET_RENDER_MODE_7_ADDR_1_HI(uint32_t val)
 {
 	return ((val) << CP_SET_RENDER_MODE_7_ADDR_1_HI__SHIFT) & CP_SET_RENDER_MODE_7_ADDR_1_HI__MASK;
 }
@@ -937,7 +937,7 @@ static inline uint32_t CP_SET_RENDER_MODE_7_ADDR_1_HI(uint32_t val)
 #define REG_CP_COMPUTE_CHECKPOINT_0				0x00000000
 #define CP_COMPUTE_CHECKPOINT_0_ADDR_0_LO__MASK			0xffffffff
 #define CP_COMPUTE_CHECKPOINT_0_ADDR_0_LO__SHIFT		0
-static inline uint32_t CP_COMPUTE_CHECKPOINT_0_ADDR_0_LO(uint32_t val)
+static uint32_t CP_COMPUTE_CHECKPOINT_0_ADDR_0_LO(uint32_t val)
 {
 	return ((val) << CP_COMPUTE_CHECKPOINT_0_ADDR_0_LO__SHIFT) & CP_COMPUTE_CHECKPOINT_0_ADDR_0_LO__MASK;
 }
@@ -945,7 +945,7 @@ static inline uint32_t CP_COMPUTE_CHECKPOINT_0_ADDR_0_LO(uint32_t val)
 #define REG_CP_COMPUTE_CHECKPOINT_1				0x00000001
 #define CP_COMPUTE_CHECKPOINT_1_ADDR_0_HI__MASK			0xffffffff
 #define CP_COMPUTE_CHECKPOINT_1_ADDR_0_HI__SHIFT		0
-static inline uint32_t CP_COMPUTE_CHECKPOINT_1_ADDR_0_HI(uint32_t val)
+static uint32_t CP_COMPUTE_CHECKPOINT_1_ADDR_0_HI(uint32_t val)
 {
 	return ((val) << CP_COMPUTE_CHECKPOINT_1_ADDR_0_HI__SHIFT) & CP_COMPUTE_CHECKPOINT_1_ADDR_0_HI__MASK;
 }
@@ -957,7 +957,7 @@ static inline uint32_t CP_COMPUTE_CHECKPOINT_1_ADDR_0_HI(uint32_t val)
 #define REG_CP_COMPUTE_CHECKPOINT_4				0x00000004
 #define CP_COMPUTE_CHECKPOINT_4_ADDR_1_LEN__MASK		0xffffffff
 #define CP_COMPUTE_CHECKPOINT_4_ADDR_1_LEN__SHIFT		0
-static inline uint32_t CP_COMPUTE_CHECKPOINT_4_ADDR_1_LEN(uint32_t val)
+static uint32_t CP_COMPUTE_CHECKPOINT_4_ADDR_1_LEN(uint32_t val)
 {
 	return ((val) << CP_COMPUTE_CHECKPOINT_4_ADDR_1_LEN__SHIFT) & CP_COMPUTE_CHECKPOINT_4_ADDR_1_LEN__MASK;
 }
@@ -965,7 +965,7 @@ static inline uint32_t CP_COMPUTE_CHECKPOINT_4_ADDR_1_LEN(uint32_t val)
 #define REG_CP_COMPUTE_CHECKPOINT_5				0x00000005
 #define CP_COMPUTE_CHECKPOINT_5_ADDR_1_LO__MASK			0xffffffff
 #define CP_COMPUTE_CHECKPOINT_5_ADDR_1_LO__SHIFT		0
-static inline uint32_t CP_COMPUTE_CHECKPOINT_5_ADDR_1_LO(uint32_t val)
+static uint32_t CP_COMPUTE_CHECKPOINT_5_ADDR_1_LO(uint32_t val)
 {
 	return ((val) << CP_COMPUTE_CHECKPOINT_5_ADDR_1_LO__SHIFT) & CP_COMPUTE_CHECKPOINT_5_ADDR_1_LO__MASK;
 }
@@ -973,7 +973,7 @@ static inline uint32_t CP_COMPUTE_CHECKPOINT_5_ADDR_1_LO(uint32_t val)
 #define REG_CP_COMPUTE_CHECKPOINT_6				0x00000006
 #define CP_COMPUTE_CHECKPOINT_6_ADDR_1_HI__MASK			0xffffffff
 #define CP_COMPUTE_CHECKPOINT_6_ADDR_1_HI__SHIFT		0
-static inline uint32_t CP_COMPUTE_CHECKPOINT_6_ADDR_1_HI(uint32_t val)
+static uint32_t CP_COMPUTE_CHECKPOINT_6_ADDR_1_HI(uint32_t val)
 {
 	return ((val) << CP_COMPUTE_CHECKPOINT_6_ADDR_1_HI__SHIFT) & CP_COMPUTE_CHECKPOINT_6_ADDR_1_HI__MASK;
 }
@@ -983,7 +983,7 @@ static inline uint32_t CP_COMPUTE_CHECKPOINT_6_ADDR_1_HI(uint32_t val)
 #define REG_CP_PERFCOUNTER_ACTION_1				0x00000001
 #define CP_PERFCOUNTER_ACTION_1_ADDR_0_LO__MASK			0xffffffff
 #define CP_PERFCOUNTER_ACTION_1_ADDR_0_LO__SHIFT		0
-static inline uint32_t CP_PERFCOUNTER_ACTION_1_ADDR_0_LO(uint32_t val)
+static uint32_t CP_PERFCOUNTER_ACTION_1_ADDR_0_LO(uint32_t val)
 {
 	return ((val) << CP_PERFCOUNTER_ACTION_1_ADDR_0_LO__SHIFT) & CP_PERFCOUNTER_ACTION_1_ADDR_0_LO__MASK;
 }
@@ -991,7 +991,7 @@ static inline uint32_t CP_PERFCOUNTER_ACTION_1_ADDR_0_LO(uint32_t val)
 #define REG_CP_PERFCOUNTER_ACTION_2				0x00000002
 #define CP_PERFCOUNTER_ACTION_2_ADDR_0_HI__MASK			0xffffffff
 #define CP_PERFCOUNTER_ACTION_2_ADDR_0_HI__SHIFT		0
-static inline uint32_t CP_PERFCOUNTER_ACTION_2_ADDR_0_HI(uint32_t val)
+static uint32_t CP_PERFCOUNTER_ACTION_2_ADDR_0_HI(uint32_t val)
 {
 	return ((val) << CP_PERFCOUNTER_ACTION_2_ADDR_0_HI__SHIFT) & CP_PERFCOUNTER_ACTION_2_ADDR_0_HI__MASK;
 }
@@ -999,7 +999,7 @@ static inline uint32_t CP_PERFCOUNTER_ACTION_2_ADDR_0_HI(uint32_t val)
 #define REG_CP_EVENT_WRITE_0					0x00000000
 #define CP_EVENT_WRITE_0_EVENT__MASK				0x000000ff
 #define CP_EVENT_WRITE_0_EVENT__SHIFT				0
-static inline uint32_t CP_EVENT_WRITE_0_EVENT(enum vgt_event_type val)
+static uint32_t CP_EVENT_WRITE_0_EVENT(enum vgt_event_type val)
 {
 	return ((val) << CP_EVENT_WRITE_0_EVENT__SHIFT) & CP_EVENT_WRITE_0_EVENT__MASK;
 }
@@ -1008,7 +1008,7 @@ static inline uint32_t CP_EVENT_WRITE_0_EVENT(enum vgt_event_type val)
 #define REG_CP_EVENT_WRITE_1					0x00000001
 #define CP_EVENT_WRITE_1_ADDR_0_LO__MASK			0xffffffff
 #define CP_EVENT_WRITE_1_ADDR_0_LO__SHIFT			0
-static inline uint32_t CP_EVENT_WRITE_1_ADDR_0_LO(uint32_t val)
+static uint32_t CP_EVENT_WRITE_1_ADDR_0_LO(uint32_t val)
 {
 	return ((val) << CP_EVENT_WRITE_1_ADDR_0_LO__SHIFT) & CP_EVENT_WRITE_1_ADDR_0_LO__MASK;
 }
@@ -1016,7 +1016,7 @@ static inline uint32_t CP_EVENT_WRITE_1_ADDR_0_LO(uint32_t val)
 #define REG_CP_EVENT_WRITE_2					0x00000002
 #define CP_EVENT_WRITE_2_ADDR_0_HI__MASK			0xffffffff
 #define CP_EVENT_WRITE_2_ADDR_0_HI__SHIFT			0
-static inline uint32_t CP_EVENT_WRITE_2_ADDR_0_HI(uint32_t val)
+static uint32_t CP_EVENT_WRITE_2_ADDR_0_HI(uint32_t val)
 {
 	return ((val) << CP_EVENT_WRITE_2_ADDR_0_HI__SHIFT) & CP_EVENT_WRITE_2_ADDR_0_HI__MASK;
 }
@@ -1026,7 +1026,7 @@ static inline uint32_t CP_EVENT_WRITE_2_ADDR_0_HI(uint32_t val)
 #define REG_CP_BLIT_0						0x00000000
 #define CP_BLIT_0_OP__MASK					0x0000000f
 #define CP_BLIT_0_OP__SHIFT					0
-static inline uint32_t CP_BLIT_0_OP(enum cp_blit_cmd val)
+static uint32_t CP_BLIT_0_OP(enum cp_blit_cmd val)
 {
 	return ((val) << CP_BLIT_0_OP__SHIFT) & CP_BLIT_0_OP__MASK;
 }
@@ -1034,13 +1034,13 @@ static inline uint32_t CP_BLIT_0_OP(enum cp_blit_cmd val)
 #define REG_CP_BLIT_1						0x00000001
 #define CP_BLIT_1_SRC_X1__MASK					0x0000ffff
 #define CP_BLIT_1_SRC_X1__SHIFT					0
-static inline uint32_t CP_BLIT_1_SRC_X1(uint32_t val)
+static uint32_t CP_BLIT_1_SRC_X1(uint32_t val)
 {
 	return ((val) << CP_BLIT_1_SRC_X1__SHIFT) & CP_BLIT_1_SRC_X1__MASK;
 }
 #define CP_BLIT_1_SRC_Y1__MASK					0xffff0000
 #define CP_BLIT_1_SRC_Y1__SHIFT					16
-static inline uint32_t CP_BLIT_1_SRC_Y1(uint32_t val)
+static uint32_t CP_BLIT_1_SRC_Y1(uint32_t val)
 {
 	return ((val) << CP_BLIT_1_SRC_Y1__SHIFT) & CP_BLIT_1_SRC_Y1__MASK;
 }
@@ -1048,13 +1048,13 @@ static inline uint32_t CP_BLIT_1_SRC_Y1(uint32_t val)
 #define REG_CP_BLIT_2						0x00000002
 #define CP_BLIT_2_SRC_X2__MASK					0x0000ffff
 #define CP_BLIT_2_SRC_X2__SHIFT					0
-static inline uint32_t CP_BLIT_2_SRC_X2(uint32_t val)
+static uint32_t CP_BLIT_2_SRC_X2(uint32_t val)
 {
 	return ((val) << CP_BLIT_2_SRC_X2__SHIFT) & CP_BLIT_2_SRC_X2__MASK;
 }
 #define CP_BLIT_2_SRC_Y2__MASK					0xffff0000
 #define CP_BLIT_2_SRC_Y2__SHIFT					16
-static inline uint32_t CP_BLIT_2_SRC_Y2(uint32_t val)
+static uint32_t CP_BLIT_2_SRC_Y2(uint32_t val)
 {
 	return ((val) << CP_BLIT_2_SRC_Y2__SHIFT) & CP_BLIT_2_SRC_Y2__MASK;
 }
@@ -1062,13 +1062,13 @@ static inline uint32_t CP_BLIT_2_SRC_Y2(uint32_t val)
 #define REG_CP_BLIT_3						0x00000003
 #define CP_BLIT_3_DST_X1__MASK					0x0000ffff
 #define CP_BLIT_3_DST_X1__SHIFT					0
-static inline uint32_t CP_BLIT_3_DST_X1(uint32_t val)
+static uint32_t CP_BLIT_3_DST_X1(uint32_t val)
 {
 	return ((val) << CP_BLIT_3_DST_X1__SHIFT) & CP_BLIT_3_DST_X1__MASK;
 }
 #define CP_BLIT_3_DST_Y1__MASK					0xffff0000
 #define CP_BLIT_3_DST_Y1__SHIFT					16
-static inline uint32_t CP_BLIT_3_DST_Y1(uint32_t val)
+static uint32_t CP_BLIT_3_DST_Y1(uint32_t val)
 {
 	return ((val) << CP_BLIT_3_DST_Y1__SHIFT) & CP_BLIT_3_DST_Y1__MASK;
 }
@@ -1076,13 +1076,13 @@ static inline uint32_t CP_BLIT_3_DST_Y1(uint32_t val)
 #define REG_CP_BLIT_4						0x00000004
 #define CP_BLIT_4_DST_X2__MASK					0x0000ffff
 #define CP_BLIT_4_DST_X2__SHIFT					0
-static inline uint32_t CP_BLIT_4_DST_X2(uint32_t val)
+static uint32_t CP_BLIT_4_DST_X2(uint32_t val)
 {
 	return ((val) << CP_BLIT_4_DST_X2__SHIFT) & CP_BLIT_4_DST_X2__MASK;
 }
 #define CP_BLIT_4_DST_Y2__MASK					0xffff0000
 #define CP_BLIT_4_DST_Y2__SHIFT					16
-static inline uint32_t CP_BLIT_4_DST_Y2(uint32_t val)
+static uint32_t CP_BLIT_4_DST_Y2(uint32_t val)
 {
 	return ((val) << CP_BLIT_4_DST_Y2__SHIFT) & CP_BLIT_4_DST_Y2__MASK;
 }
@@ -1092,7 +1092,7 @@ static inline uint32_t CP_BLIT_4_DST_Y2(uint32_t val)
 #define REG_CP_EXEC_CS_1					0x00000001
 #define CP_EXEC_CS_1_NGROUPS_X__MASK				0xffffffff
 #define CP_EXEC_CS_1_NGROUPS_X__SHIFT				0
-static inline uint32_t CP_EXEC_CS_1_NGROUPS_X(uint32_t val)
+static uint32_t CP_EXEC_CS_1_NGROUPS_X(uint32_t val)
 {
 	return ((val) << CP_EXEC_CS_1_NGROUPS_X__SHIFT) & CP_EXEC_CS_1_NGROUPS_X__MASK;
 }
@@ -1100,7 +1100,7 @@ static inline uint32_t CP_EXEC_CS_1_NGROUPS_X(uint32_t val)
 #define REG_CP_EXEC_CS_2					0x00000002
 #define CP_EXEC_CS_2_NGROUPS_Y__MASK				0xffffffff
 #define CP_EXEC_CS_2_NGROUPS_Y__SHIFT				0
-static inline uint32_t CP_EXEC_CS_2_NGROUPS_Y(uint32_t val)
+static uint32_t CP_EXEC_CS_2_NGROUPS_Y(uint32_t val)
 {
 	return ((val) << CP_EXEC_CS_2_NGROUPS_Y__SHIFT) & CP_EXEC_CS_2_NGROUPS_Y__MASK;
 }
@@ -1108,7 +1108,7 @@ static inline uint32_t CP_EXEC_CS_2_NGROUPS_Y(uint32_t val)
 #define REG_CP_EXEC_CS_3					0x00000003
 #define CP_EXEC_CS_3_NGROUPS_Z__MASK				0xffffffff
 #define CP_EXEC_CS_3_NGROUPS_Z__SHIFT				0
-static inline uint32_t CP_EXEC_CS_3_NGROUPS_Z(uint32_t val)
+static uint32_t CP_EXEC_CS_3_NGROUPS_Z(uint32_t val)
 {
 	return ((val) << CP_EXEC_CS_3_NGROUPS_Z__SHIFT) & CP_EXEC_CS_3_NGROUPS_Z__MASK;
 }

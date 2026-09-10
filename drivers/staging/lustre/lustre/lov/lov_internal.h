@@ -63,12 +63,12 @@ struct lov_stripe_md {
 	struct lov_oinfo	*lsm_oinfo[0];
 };
 
-static inline bool lsm_is_released(struct lov_stripe_md *lsm)
+static bool lsm_is_released(struct lov_stripe_md *lsm)
 {
 	return !!(lsm->lsm_pattern & LOV_PATTERN_F_RELEASED);
 }
 
-static inline bool lsm_has_objects(struct lov_stripe_md *lsm)
+static bool lsm_has_objects(struct lov_stripe_md *lsm)
 {
 	if (!lsm)
 		return false;
@@ -94,7 +94,7 @@ struct lsm_operations {
 extern const struct lsm_operations lsm_v1_ops;
 extern const struct lsm_operations lsm_v3_ops;
 
-static inline const struct lsm_operations *lsm_op_find(int magic)
+static const struct lsm_operations *lsm_op_find(int magic)
 {
 	switch (magic) {
 	case LOV_MAGIC_V1:
@@ -256,14 +256,14 @@ int lov_pool_add(struct obd_device *obd, char *poolname, char *ostname);
 int lov_pool_remove(struct obd_device *obd, char *poolname, char *ostname);
 void lov_pool_putref(struct pool_desc *pool);
 
-static inline struct lov_stripe_md *lsm_addref(struct lov_stripe_md *lsm)
+static struct lov_stripe_md *lsm_addref(struct lov_stripe_md *lsm)
 {
 	LASSERT(atomic_read(&lsm->lsm_refc) > 0);
 	atomic_inc(&lsm->lsm_refc);
 	return lsm;
 }
 
-static inline bool lov_oinfo_is_dummy(const struct lov_oinfo *loi)
+static bool lov_oinfo_is_dummy(const struct lov_oinfo *loi)
 {
 	if (unlikely(loi->loi_oi.oi.oi_id == 0 &&
 		     loi->loi_oi.oi.oi_seq == 0 &&
@@ -274,7 +274,7 @@ static inline bool lov_oinfo_is_dummy(const struct lov_oinfo *loi)
 	return false;
 }
 
-static inline struct obd_device *lov2obd(const struct lov_obd *lov)
+static struct obd_device *lov2obd(const struct lov_obd *lov)
 {
 	return container_of0(lov, struct obd_device, u.lov);
 }

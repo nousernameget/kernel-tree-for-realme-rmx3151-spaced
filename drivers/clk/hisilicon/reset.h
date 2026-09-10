@@ -30,7 +30,7 @@ struct hisi_reset_controller *hisi_reset_init(struct platform_device *pdev)
 {
 	return 0;
 }
-static inline void hisi_reset_exit(struct hisi_reset_controller *rstc)
+static void hisi_reset_exit(struct hisi_reset_controller *rstc)
 {}
 #endif
 

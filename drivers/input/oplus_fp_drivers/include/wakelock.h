@@ -23,7 +23,7 @@ struct wake_lock {
 	struct wakeup_source ws;
 };
 
-static inline void wake_lock_init(struct wake_lock *lock, int type,
+static void wake_lock_init(struct wake_lock *lock, int type,
 				  const char *name)
 {
 	if (lock) {
@@ -33,7 +33,7 @@ static inline void wake_lock_init(struct wake_lock *lock, int type,
 	wakeup_source_add(&lock->ws);
 }
 
-static inline void wake_lock_destroy(struct wake_lock *lock)
+static void wake_lock_destroy(struct wake_lock *lock)
 {
 	wakeup_source_remove(&lock->ws);
 	if (!lock) {
@@ -42,22 +42,22 @@ static inline void wake_lock_destroy(struct wake_lock *lock)
     __pm_relax(&lock->ws);
 }
 
-static inline void wake_lock(struct wake_lock *lock)
+static void wake_lock(struct wake_lock *lock)
 {
 	__pm_stay_awake(&lock->ws);
 }
 
-static inline void wake_lock_timeout(struct wake_lock *lock, long timeout)
+static void wake_lock_timeout(struct wake_lock *lock, long timeout)
 {
 	__pm_wakeup_event(&lock->ws, jiffies_to_msecs(timeout));
 }
 
-static inline void wake_unlock(struct wake_lock *lock)
+static void wake_unlock(struct wake_lock *lock)
 {
 	__pm_relax(&lock->ws);
 }
 
-static inline int wake_lock_active(struct wake_lock *lock)
+static int wake_lock_active(struct wake_lock *lock)
 {
 	return lock->ws.active;
 }

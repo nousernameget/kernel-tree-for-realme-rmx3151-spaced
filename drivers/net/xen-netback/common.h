@@ -302,7 +302,7 @@ struct xenvif_rx_cb {
 
 #define XENVIF_RX_CB(skb) ((struct xenvif_rx_cb *)(skb)->cb)
 
-static inline struct xenbus_device *xenvif_to_xenbus_device(struct xenvif *vif)
+static struct xenbus_device *xenvif_to_xenbus_device(struct xenvif *vif)
 {
 	return to_xenbus_device(vif->dev->dev.parent);
 }
@@ -367,7 +367,7 @@ void xenvif_zerocopy_callback(struct ubuf_info *ubuf, bool zerocopy_success);
 /* Unmap a pending page and release it back to the guest */
 void xenvif_idx_unmap(struct xenvif_queue *queue, u16 pending_idx);
 
-static inline pending_ring_idx_t nr_pending_reqs(struct xenvif_queue *queue)
+static pending_ring_idx_t nr_pending_reqs(struct xenvif_queue *queue)
 {
 	return MAX_PENDING_REQS -
 		queue->pending_prod + queue->pending_cons;

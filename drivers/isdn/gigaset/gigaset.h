@@ -763,7 +763,7 @@ struct event_t *gigaset_add_event(struct cardstate *cs,
 int gigaset_enterconfigmode(struct cardstate *cs);
 
 /* cs->lock must not be locked */
-static inline void gigaset_schedule_event(struct cardstate *cs)
+static void gigaset_schedule_event(struct cardstate *cs)
 {
 	unsigned long flags;
 	spin_lock_irqsave(&cs->lock, flags);
@@ -774,7 +774,7 @@ static inline void gigaset_schedule_event(struct cardstate *cs)
 
 /* Tell common.c that B channel has been closed. */
 /* cs->lock must not be locked */
-static inline void gigaset_bchannel_down(struct bc_state *bcs)
+static void gigaset_bchannel_down(struct bc_state *bcs)
 {
 	gigaset_add_event(bcs->cs, &bcs->at_state, EV_BC_CLOSED, NULL, 0, NULL);
 	gigaset_schedule_event(bcs->cs);
@@ -782,14 +782,14 @@ static inline void gigaset_bchannel_down(struct bc_state *bcs)
 
 /* Tell common.c that B channel has been opened. */
 /* cs->lock must not be locked */
-static inline void gigaset_bchannel_up(struct bc_state *bcs)
+static void gigaset_bchannel_up(struct bc_state *bcs)
 {
 	gigaset_add_event(bcs->cs, &bcs->at_state, EV_BC_OPEN, NULL, 0, NULL);
 	gigaset_schedule_event(bcs->cs);
 }
 
 /* set up next receive skb for data mode */
-static inline struct sk_buff *gigaset_new_rx_skb(struct bc_state *bcs)
+static struct sk_buff *gigaset_new_rx_skb(struct bc_state *bcs)
 {
 	struct cardstate *cs = bcs->cs;
 	unsigned short hw_hdr_len = cs->hw_hdr_len;

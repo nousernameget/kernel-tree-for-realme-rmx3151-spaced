@@ -39,13 +39,13 @@ extern struct list_head ldlm_srv_namespace_list;
 extern struct mutex ldlm_cli_namespace_lock;
 extern struct list_head ldlm_cli_active_namespace_list;
 
-static inline int ldlm_namespace_nr_read(enum ldlm_side client)
+static int ldlm_namespace_nr_read(enum ldlm_side client)
 {
 	return client == LDLM_NAMESPACE_SERVER ?
 		ldlm_srv_namespace_nr : ldlm_cli_namespace_nr;
 }
 
-static inline void ldlm_namespace_nr_inc(enum ldlm_side client)
+static void ldlm_namespace_nr_inc(enum ldlm_side client)
 {
 	if (client == LDLM_NAMESPACE_SERVER)
 		ldlm_srv_namespace_nr++;
@@ -53,7 +53,7 @@ static inline void ldlm_namespace_nr_inc(enum ldlm_side client)
 		ldlm_cli_namespace_nr++;
 }
 
-static inline void ldlm_namespace_nr_dec(enum ldlm_side client)
+static void ldlm_namespace_nr_dec(enum ldlm_side client)
 {
 	if (client == LDLM_NAMESPACE_SERVER)
 		ldlm_srv_namespace_nr--;
@@ -61,20 +61,20 @@ static inline void ldlm_namespace_nr_dec(enum ldlm_side client)
 		ldlm_cli_namespace_nr--;
 }
 
-static inline struct list_head *ldlm_namespace_list(enum ldlm_side client)
+static struct list_head *ldlm_namespace_list(enum ldlm_side client)
 {
 	return client == LDLM_NAMESPACE_SERVER ?
 		&ldlm_srv_namespace_list : &ldlm_cli_active_namespace_list;
 }
 
-static inline struct mutex *ldlm_namespace_lock(enum ldlm_side client)
+static struct mutex *ldlm_namespace_lock(enum ldlm_side client)
 {
 	return client == LDLM_NAMESPACE_SERVER ?
 		&ldlm_srv_namespace_lock : &ldlm_cli_namespace_lock;
 }
 
 /* ns_bref is the number of resources in this namespace */
-static inline int ldlm_ns_empty(struct ldlm_namespace *ns)
+static int ldlm_ns_empty(struct ldlm_namespace *ns)
 {
 	return atomic_read(&ns->ns_bref) == 0;
 }
@@ -194,7 +194,7 @@ struct ldlm_interval *ldlm_interval_detach(struct ldlm_lock *l);
 struct ldlm_interval *ldlm_interval_alloc(struct ldlm_lock *lock);
 void ldlm_interval_free(struct ldlm_interval *node);
 /* this function must be called with res lock held */
-static inline struct ldlm_extent *
+static struct ldlm_extent *
 ldlm_interval_extent(struct ldlm_interval *node)
 {
 	struct ldlm_lock *lock;
@@ -296,7 +296,7 @@ enum ldlm_policy_res {
 	}								    \
 	struct __##var##__dummy_write {; } /* semicolon catcher */
 
-static inline int is_granted_or_cancelled(struct ldlm_lock *lock)
+static int is_granted_or_cancelled(struct ldlm_lock *lock)
 {
 	int ret = 0;
 
@@ -334,7 +334,7 @@ void ldlm_flock_policy_wire_to_local(const union ldlm_wire_policy_data *wpolicy,
 void ldlm_flock_policy_local_to_wire(const union ldlm_policy_data *lpolicy,
 				     union ldlm_wire_policy_data *wpolicy);
 
-static inline bool ldlm_res_eq(const struct ldlm_res_id *res0,
+static bool ldlm_res_eq(const struct ldlm_res_id *res0,
 			       const struct ldlm_res_id *res1)
 {
 	return memcmp(res0, res1, sizeof(*res0)) == 0;

@@ -186,7 +186,7 @@ struct sci_port_properties {
 enum sci_port_states PORT_STATES;
 #undef C
 
-static inline void sci_port_decrement_request_count(struct isci_port *iport)
+static void sci_port_decrement_request_count(struct isci_port *iport)
 {
 	if (WARN_ONCE(iport->started_request_count == 0,
 		       "%s: tried to decrement started_request_count past 0!?",

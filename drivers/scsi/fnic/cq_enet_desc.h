@@ -28,7 +28,7 @@ struct cq_enet_wq_desc {
 	u8 type_color;
 };
 
-static inline void cq_enet_wq_desc_dec(struct cq_enet_wq_desc *desc,
+static void cq_enet_wq_desc_dec(struct cq_enet_wq_desc *desc,
 	u8 *type, u8 *color, u16 *q_number, u16 *completed_index)
 {
 	cq_desc_dec((struct cq_desc *)desc, type,
@@ -90,7 +90,7 @@ struct cq_enet_rq_desc {
 #define CQ_ENET_RQ_DESC_FLAGS_IPV4_FRAGMENT         (0x1 << 6)
 #define CQ_ENET_RQ_DESC_FLAGS_FCS_OK                (0x1 << 7)
 
-static inline void cq_enet_rq_desc_dec(struct cq_enet_rq_desc *desc,
+static void cq_enet_rq_desc_dec(struct cq_enet_rq_desc *desc,
 	u8 *type, u8 *color, u16 *q_number, u16 *completed_index,
 	u8 *ingress_port, u8 *fcoe, u8 *eop, u8 *sop, u8 *rss_type,
 	u8 *csum_not_calc, u32 *rss_hash, u16 *bytes_written, u8 *packet_error,

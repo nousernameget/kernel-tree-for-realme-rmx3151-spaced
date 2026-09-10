@@ -592,14 +592,14 @@ void write_csr(const struct hfi1_devdata *dd, u32 offset, u64 value);
  * per-context or per-SDMA CSRs that are not mappable to user-space.
  * Their spacing is not a PAGE_SIZE multiple.
  */
-static inline u64 read_kctxt_csr(const struct hfi1_devdata *dd, int ctxt,
+static u64 read_kctxt_csr(const struct hfi1_devdata *dd, int ctxt,
 				 u32 offset0)
 {
 	/* kernel per-context CSRs are separated by 0x100 */
 	return read_csr(dd, offset0 + (0x100 * ctxt));
 }
 
-static inline void write_kctxt_csr(struct hfi1_devdata *dd, int ctxt,
+static void write_kctxt_csr(struct hfi1_devdata *dd, int ctxt,
 				   u32 offset0, u64 value)
 {
 	/* kernel per-context CSRs are separated by 0x100 */
@@ -613,7 +613,7 @@ void __iomem *get_csr_addr(
 	const struct hfi1_devdata *dd,
 	u32 offset);
 
-static inline void __iomem *get_kctxt_csr_addr(
+static void __iomem *get_kctxt_csr_addr(
 	const struct hfi1_devdata *dd,
 	int ctxt,
 	u32 offset0)
@@ -627,14 +627,14 @@ static inline void __iomem *get_kctxt_csr_addr(
  * are spaced by a PAGE_SIZE multiple in order to be mappable to
  * different processes without exposing other contexts' CSRs
  */
-static inline u64 read_uctxt_csr(const struct hfi1_devdata *dd, int ctxt,
+static u64 read_uctxt_csr(const struct hfi1_devdata *dd, int ctxt,
 				 u32 offset0)
 {
 	/* user per-context CSRs are separated by 0x1000 */
 	return read_csr(dd, offset0 + (0x1000 * ctxt));
 }
 
-static inline void write_uctxt_csr(struct hfi1_devdata *dd, int ctxt,
+static void write_uctxt_csr(struct hfi1_devdata *dd, int ctxt,
 				   u32 offset0, u64 value)
 {
 	/* user per-context CSRs are separated by 0x1000 */
@@ -757,7 +757,7 @@ int acquire_lcb_access(struct hfi1_devdata *dd, int sleep_ok);
 int release_lcb_access(struct hfi1_devdata *dd, int sleep_ok);
 #define LCB_START DC_LCB_CSRS
 #define LCB_END   DC_8051_CSRS /* next block is 8051 */
-static inline int is_lcb_offset(u32 offset)
+static int is_lcb_offset(u32 offset)
 {
 	return (offset >= LCB_START && offset < LCB_END);
 }
@@ -786,12 +786,12 @@ enum {
 	C_VL_COUNT
 };
 
-static inline int vl_from_idx(int idx)
+static int vl_from_idx(int idx)
 {
 	return (idx == C_VL_15 ? 15 : idx);
 }
 
-static inline int idx_from_vl(int vl)
+static int idx_from_vl(int vl)
 {
 	return (vl == 15 ? C_VL_15 : vl);
 }

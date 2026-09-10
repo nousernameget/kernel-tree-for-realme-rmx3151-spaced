@@ -60,7 +60,7 @@ extern const struct stv6110x_devctl *stv6110x_attach(struct dvb_frontend *fe,
 					       struct i2c_adapter *i2c);
 
 #else
-static inline const struct stv6110x_devctl *stv6110x_attach(struct dvb_frontend *fe,
+static const struct stv6110x_devctl *stv6110x_attach(struct dvb_frontend *fe,
 						      const struct stv6110x_config *config,
 						      struct i2c_adapter *i2c)
 {

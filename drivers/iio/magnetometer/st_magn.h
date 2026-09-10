@@ -30,19 +30,19 @@ void st_magn_deallocate_ring(struct iio_dev *indio_dev);
 int st_magn_trig_set_state(struct iio_trigger *trig, bool state);
 #define ST_MAGN_TRIGGER_SET_STATE (&st_magn_trig_set_state)
 #else /* CONFIG_IIO_BUFFER */
-static inline int st_magn_probe_trigger(struct iio_dev *indio_dev, int irq)
+static int st_magn_probe_trigger(struct iio_dev *indio_dev, int irq)
 {
 	return 0;
 }
-static inline void st_magn_remove_trigger(struct iio_dev *indio_dev, int irq)
+static void st_magn_remove_trigger(struct iio_dev *indio_dev, int irq)
 {
 	return;
 }
-static inline int st_magn_allocate_ring(struct iio_dev *indio_dev)
+static int st_magn_allocate_ring(struct iio_dev *indio_dev)
 {
 	return 0;
 }
-static inline void st_magn_deallocate_ring(struct iio_dev *indio_dev)
+static void st_magn_deallocate_ring(struct iio_dev *indio_dev)
 {
 }
 #define ST_MAGN_TRIGGER_SET_STATE NULL

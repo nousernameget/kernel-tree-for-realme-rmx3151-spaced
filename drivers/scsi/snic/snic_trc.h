@@ -61,7 +61,7 @@ int snic_get_trc_data(char *buf, int buf_sz);
 int snic_debugfs_init(void);
 void snic_debugfs_term(void);
 
-static inline void
+static void
 snic_trace(char *fn, u16 hno, u32 tag, u64 d1, u64 d2, u64 d3, u64 d4, u64 d5)
 {
 	struct snic_trc_data *tr_rec = snic_get_trc_buf();

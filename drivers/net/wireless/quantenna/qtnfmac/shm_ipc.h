@@ -72,7 +72,7 @@ int qtnf_shm_ipc_init(struct qtnf_shm_ipc *ipc,
 void qtnf_shm_ipc_free(struct qtnf_shm_ipc *ipc);
 int qtnf_shm_ipc_send(struct qtnf_shm_ipc *ipc, const u8 *buf, size_t size);
 
-static inline void qtnf_shm_ipc_irq_handler(struct qtnf_shm_ipc *ipc)
+static void qtnf_shm_ipc_irq_handler(struct qtnf_shm_ipc *ipc)
 {
 	ipc->irq_handler(ipc);
 }

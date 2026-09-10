@@ -16,7 +16,7 @@
  * wait.h cannot include linux/shed/signal.h , so workaround as hung_long_and_fatal_signal_pending
  * return fatal_signal_pending(p) && (p->flags & PF_KILLING)
  */
-static inline int hung_long_and_fatal_signal_pending(struct task_struct *p)
+static int hung_long_and_fatal_signal_pending(struct task_struct *p)
 {
 #ifdef CONFIG_DETECT_HUNG_TASK
 	return (unlikely(test_tsk_thread_flag(p,TIF_SIGPENDING))) 

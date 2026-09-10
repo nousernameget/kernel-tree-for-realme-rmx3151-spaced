@@ -45,14 +45,14 @@ int ux500_regulator_debug_init(struct platform_device *pdev,
 int ux500_regulator_debug_exit(void);
 #else
 
-static inline int ux500_regulator_debug_init(struct platform_device *pdev,
+static int ux500_regulator_debug_init(struct platform_device *pdev,
 			     struct dbx500_regulator_info *regulator_info,
 			     int num_regulators)
 {
 	return 0;
 }
 
-static inline int ux500_regulator_debug_exit(void)
+static int ux500_regulator_debug_exit(void)
 {
 	return 0;
 }

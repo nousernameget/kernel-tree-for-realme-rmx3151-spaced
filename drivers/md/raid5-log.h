@@ -43,17 +43,17 @@ extern void ppl_write_stripe_run(struct r5conf *conf);
 extern void ppl_stripe_write_finished(struct stripe_head *sh);
 extern int ppl_modify_log(struct r5conf *conf, struct md_rdev *rdev, bool add);
 
-static inline bool raid5_has_log(struct r5conf *conf)
+static bool raid5_has_log(struct r5conf *conf)
 {
 	return test_bit(MD_HAS_JOURNAL, &conf->mddev->flags);
 }
 
-static inline bool raid5_has_ppl(struct r5conf *conf)
+static bool raid5_has_ppl(struct r5conf *conf)
 {
 	return test_bit(MD_HAS_PPL, &conf->mddev->flags);
 }
 
-static inline int log_stripe(struct stripe_head *sh, struct stripe_head_state *s)
+static int log_stripe(struct stripe_head *sh, struct stripe_head_state *s)
 {
 	struct r5conf *conf = sh->raid_conf;
 
@@ -74,7 +74,7 @@ static inline int log_stripe(struct stripe_head *sh, struct stripe_head_state *s
 	return -EAGAIN;
 }
 
-static inline void log_stripe_write_finished(struct stripe_head *sh)
+static void log_stripe_write_finished(struct stripe_head *sh)
 {
 	struct r5conf *conf = sh->raid_conf;
 
@@ -84,7 +84,7 @@ static inline void log_stripe_write_finished(struct stripe_head *sh)
 		ppl_stripe_write_finished(sh);
 }
 
-static inline void log_write_stripe_run(struct r5conf *conf)
+static void log_write_stripe_run(struct r5conf *conf)
 {
 	if (conf->log)
 		r5l_write_stripe_run(conf->log);
@@ -92,7 +92,7 @@ static inline void log_write_stripe_run(struct r5conf *conf)
 		ppl_write_stripe_run(conf);
 }
 
-static inline void log_exit(struct r5conf *conf)
+static void log_exit(struct r5conf *conf)
 {
 	if (conf->log)
 		r5l_exit_log(conf);
@@ -100,7 +100,7 @@ static inline void log_exit(struct r5conf *conf)
 		ppl_exit_log(conf);
 }
 
-static inline int log_init(struct r5conf *conf, struct md_rdev *journal_dev,
+static int log_init(struct r5conf *conf, struct md_rdev *journal_dev,
 			   bool ppl)
 {
 	if (journal_dev)
@@ -111,7 +111,7 @@ static inline int log_init(struct r5conf *conf, struct md_rdev *journal_dev,
 	return 0;
 }
 
-static inline int log_modify(struct r5conf *conf, struct md_rdev *rdev, bool add)
+static int log_modify(struct r5conf *conf, struct md_rdev *rdev, bool add)
 {
 	if (raid5_has_ppl(conf))
 		return ppl_modify_log(conf, rdev, add);

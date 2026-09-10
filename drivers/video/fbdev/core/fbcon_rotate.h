@@ -20,7 +20,7 @@
         (i)->var.xres : (i)->var.xres_virtual; })
 
 
-static inline int pattern_test_bit(u32 x, u32 y, u32 pitch, const char *pat)
+static int pattern_test_bit(u32 x, u32 y, u32 pitch, const char *pat)
 {
 	u32 tmp = (y * pitch) + x, index = tmp / 8,  bit = tmp % 8;
 
@@ -28,7 +28,7 @@ static inline int pattern_test_bit(u32 x, u32 y, u32 pitch, const char *pat)
 	return (*pat) & (0x80 >> bit);
 }
 
-static inline void pattern_set_bit(u32 x, u32 y, u32 pitch, char *pat)
+static void pattern_set_bit(u32 x, u32 y, u32 pitch, char *pat)
 {
 	u32 tmp = (y * pitch) + x, index = tmp / 8, bit = tmp % 8;
 
@@ -37,7 +37,7 @@ static inline void pattern_set_bit(u32 x, u32 y, u32 pitch, char *pat)
 	(*pat) |= 0x80 >> bit;
 }
 
-static inline void rotate_ud(const char *in, char *out, u32 width, u32 height)
+static void rotate_ud(const char *in, char *out, u32 width, u32 height)
 {
 	int i, j;
 	int shift = (8 - (width % 8)) & 7;
@@ -55,7 +55,7 @@ static inline void rotate_ud(const char *in, char *out, u32 width, u32 height)
 	}
 }
 
-static inline void rotate_cw(const char *in, char *out, u32 width, u32 height)
+static void rotate_cw(const char *in, char *out, u32 width, u32 height)
 {
 	int i, j, h = height, w = width;
 	int shift = (8 - (height % 8)) & 7;
@@ -73,7 +73,7 @@ static inline void rotate_cw(const char *in, char *out, u32 width, u32 height)
 	}
 }
 
-static inline void rotate_ccw(const char *in, char *out, u32 width, u32 height)
+static void rotate_ccw(const char *in, char *out, u32 width, u32 height)
 {
 	int i, j, h = height, w = width;
 	int shift = (8 - (width % 8)) & 7;

@@ -113,7 +113,7 @@ struct wusb_dev {
 
 #define WUSB_DEV_ADDR_UNAUTH 0x80
 
-static inline void wusb_dev_init(struct wusb_dev *wusb_dev)
+static void wusb_dev_init(struct wusb_dev *wusb_dev)
 {
 	kref_init(&wusb_dev->refcnt);
 	/* no need to init the cack_node */
@@ -121,13 +121,13 @@ static inline void wusb_dev_init(struct wusb_dev *wusb_dev)
 
 extern void wusb_dev_destroy(struct kref *_wusb_dev);
 
-static inline struct wusb_dev *wusb_dev_get(struct wusb_dev *wusb_dev)
+static struct wusb_dev *wusb_dev_get(struct wusb_dev *wusb_dev)
 {
 	kref_get(&wusb_dev->refcnt);
 	return wusb_dev;
 }
 
-static inline void wusb_dev_put(struct wusb_dev *wusb_dev)
+static void wusb_dev_put(struct wusb_dev *wusb_dev)
 {
 	kref_put(&wusb_dev->refcnt, wusb_dev_destroy);
 }
@@ -345,7 +345,7 @@ struct usb_hcd *usb_hcd_get_by_usb_dev(struct usb_device *usb_dev)
  *
  * @wusbhc's life cycle is identical to that of the underlying usb_hcd.
  */
-static inline struct wusbhc *wusbhc_get(struct wusbhc *wusbhc)
+static struct wusbhc *wusbhc_get(struct wusbhc *wusbhc)
 {
 	return usb_get_hcd(&wusbhc->usb_hcd) ? wusbhc : NULL;
 }
@@ -360,7 +360,7 @@ static inline struct wusbhc *wusbhc_get(struct wusbhc *wusbhc)
  *
  * FIXME: move offline
  */
-static inline struct wusbhc *wusbhc_get_by_usb_dev(struct usb_device *usb_dev)
+static struct wusbhc *wusbhc_get_by_usb_dev(struct usb_device *usb_dev)
 {
 	struct wusbhc *wusbhc = NULL;
 	struct usb_hcd *usb_hcd;
@@ -378,7 +378,7 @@ static inline struct wusbhc *wusbhc_get_by_usb_dev(struct usb_device *usb_dev)
 }
 
 
-static inline void wusbhc_put(struct wusbhc *wusbhc)
+static void wusbhc_put(struct wusbhc *wusbhc)
 {
 	usb_put_hcd(&wusbhc->usb_hcd);
 }
@@ -451,7 +451,7 @@ extern void wusb_cluster_id_put(u8);
  *       number of ports doesn't change). The data pointed to has to
  *       be verified though :)
  */
-static inline struct wusb_port *wusb_port_by_idx(struct wusbhc *wusbhc,
+static struct wusb_port *wusb_port_by_idx(struct wusbhc *wusbhc,
 						 u8 port_idx)
 {
 	return &wusbhc->port[port_idx];
@@ -465,7 +465,7 @@ static inline struct wusb_port *wusb_port_by_idx(struct wusbhc *wusbhc,
  *
  * NOTE: only valid for WUSB devices!!!
  */
-static inline u8 wusb_port_no_to_idx(u8 port_no)
+static u8 wusb_port_no_to_idx(u8 port_no)
 {
 	return port_no - 1;
 }

@@ -504,7 +504,7 @@ struct fimc_ctx {
 
 #define fh_to_ctx(__fh) container_of(__fh, struct fimc_ctx, fh)
 
-static inline void set_frame_bounds(struct fimc_frame *f, u32 width, u32 height)
+static void set_frame_bounds(struct fimc_frame *f, u32 width, u32 height)
 {
 	f->o_width  = width;
 	f->o_height = height;
@@ -512,7 +512,7 @@ static inline void set_frame_bounds(struct fimc_frame *f, u32 width, u32 height)
 	f->f_height = height;
 }
 
-static inline void set_frame_crop(struct fimc_frame *f,
+static void set_frame_crop(struct fimc_frame *f,
 				  u32 left, u32 top, u32 width, u32 height)
 {
 	f->offs_h = left;
@@ -521,7 +521,7 @@ static inline void set_frame_crop(struct fimc_frame *f,
 	f->height = height;
 }
 
-static inline u32 fimc_get_format_depth(struct fimc_fmt *ff)
+static u32 fimc_get_format_depth(struct fimc_fmt *ff)
 {
 	u32 i, depth = 0;
 
@@ -531,7 +531,7 @@ static inline u32 fimc_get_format_depth(struct fimc_fmt *ff)
 	return depth;
 }
 
-static inline bool fimc_capture_active(struct fimc_dev *fimc)
+static bool fimc_capture_active(struct fimc_dev *fimc)
 {
 	unsigned long flags;
 	bool ret;
@@ -543,7 +543,7 @@ static inline bool fimc_capture_active(struct fimc_dev *fimc)
 	return ret;
 }
 
-static inline void fimc_ctx_state_set(u32 state, struct fimc_ctx *ctx)
+static void fimc_ctx_state_set(u32 state, struct fimc_ctx *ctx)
 {
 	unsigned long flags;
 
@@ -552,7 +552,7 @@ static inline void fimc_ctx_state_set(u32 state, struct fimc_ctx *ctx)
 	spin_unlock_irqrestore(&ctx->fimc_dev->slock, flags);
 }
 
-static inline bool fimc_ctx_state_is_set(u32 mask, struct fimc_ctx *ctx)
+static bool fimc_ctx_state_is_set(u32 mask, struct fimc_ctx *ctx)
 {
 	unsigned long flags;
 	bool ret;
@@ -563,25 +563,25 @@ static inline bool fimc_ctx_state_is_set(u32 mask, struct fimc_ctx *ctx)
 	return ret;
 }
 
-static inline int tiled_fmt(struct fimc_fmt *fmt)
+static int tiled_fmt(struct fimc_fmt *fmt)
 {
 	return fmt->fourcc == V4L2_PIX_FMT_NV12MT;
 }
 
-static inline bool fimc_jpeg_fourcc(u32 pixelformat)
+static bool fimc_jpeg_fourcc(u32 pixelformat)
 {
 	return (pixelformat == V4L2_PIX_FMT_JPEG ||
 		pixelformat == V4L2_PIX_FMT_S5C_UYVY_JPG);
 }
 
-static inline bool fimc_user_defined_mbus_fmt(u32 code)
+static bool fimc_user_defined_mbus_fmt(u32 code)
 {
 	return (code == MEDIA_BUS_FMT_JPEG_1X8 ||
 		code == MEDIA_BUS_FMT_S5C_UYVY_JPEG_1X8);
 }
 
 /* Return the alpha component bit mask */
-static inline int fimc_get_alpha_mask(struct fimc_fmt *fmt)
+static int fimc_get_alpha_mask(struct fimc_fmt *fmt)
 {
 	switch (fmt->color) {
 	case FIMC_FMT_RGB444:	return 0x0f;
@@ -591,7 +591,7 @@ static inline int fimc_get_alpha_mask(struct fimc_fmt *fmt)
 	};
 }
 
-static inline struct fimc_frame *ctx_get_frame(struct fimc_ctx *ctx,
+static struct fimc_frame *ctx_get_frame(struct fimc_ctx *ctx,
 					       enum v4l2_buf_type type)
 {
 	struct fimc_frame *frame;
@@ -644,7 +644,7 @@ int fimc_register_driver(void);
 void fimc_unregister_driver(void);
 
 #ifdef CONFIG_MFD_SYSCON
-static inline struct regmap * fimc_get_sysreg_regmap(struct device_node *node)
+static struct regmap * fimc_get_sysreg_regmap(struct device_node *node)
 {
 	return syscon_regmap_lookup_by_phandle(node, "samsung,sysreg");
 }
@@ -674,7 +674,7 @@ int fimc_capture_resume(struct fimc_dev *fimc);
  * fimc_active_queue_add - add buffer to the capture active buffers queue
  * @buf: buffer to add to the active buffers list
  */
-static inline void fimc_active_queue_add(struct fimc_vid_cap *vid_cap,
+static void fimc_active_queue_add(struct fimc_vid_cap *vid_cap,
 					 struct fimc_vid_buffer *buf)
 {
 	list_add_tail(&buf->list, &vid_cap->active_buf_q);
@@ -686,7 +686,7 @@ static inline void fimc_active_queue_add(struct fimc_vid_cap *vid_cap,
  *
  * The caller must assure the active_buf_q list is not empty.
  */
-static inline struct fimc_vid_buffer *fimc_active_queue_pop(
+static struct fimc_vid_buffer *fimc_active_queue_pop(
 				    struct fimc_vid_cap *vid_cap)
 {
 	struct fimc_vid_buffer *buf;
@@ -701,7 +701,7 @@ static inline struct fimc_vid_buffer *fimc_active_queue_pop(
  * fimc_pending_queue_add - add buffer to the capture pending buffers queue
  * @buf: buffer to add to the pending buffers list
  */
-static inline void fimc_pending_queue_add(struct fimc_vid_cap *vid_cap,
+static void fimc_pending_queue_add(struct fimc_vid_cap *vid_cap,
 					  struct fimc_vid_buffer *buf)
 {
 	list_add_tail(&buf->list, &vid_cap->pending_buf_q);
@@ -712,7 +712,7 @@ static inline void fimc_pending_queue_add(struct fimc_vid_cap *vid_cap,
  *
  * The caller must assure the pending_buf_q list is not empty.
  */
-static inline struct fimc_vid_buffer *fimc_pending_queue_pop(
+static struct fimc_vid_buffer *fimc_pending_queue_pop(
 				     struct fimc_vid_cap *vid_cap)
 {
 	struct fimc_vid_buffer *buf;

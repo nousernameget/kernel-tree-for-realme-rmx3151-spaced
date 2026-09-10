@@ -95,7 +95,7 @@ struct i2400m_endpoint_cfg {
 	unsigned char bulk_in;
 };
 
-static inline void edc_init(struct edc *edc)
+static void edc_init(struct edc *edc)
 {
 	edc->timestart = jiffies;
 }
@@ -126,7 +126,7 @@ static inline void edc_init(struct edc *edc)
  *                 Retry or ignore, depending on whatever
  * }
  */
-static inline int edc_inc(struct edc *edc, u16 max_err, u16 timeframe)
+static int edc_inc(struct edc *edc, u16 max_err, u16 timeframe)
 {
 	unsigned long now;
 

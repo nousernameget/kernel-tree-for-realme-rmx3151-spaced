@@ -124,7 +124,7 @@ enum ldlm_mode mdc_lock_match(struct obd_export *exp, __u64 flags,
 			      enum ldlm_mode mode,
 			      struct lustre_handle *lockh);
 
-static inline int mdc_prep_elc_req(struct obd_export *exp,
+static int mdc_prep_elc_req(struct obd_export *exp,
 				   struct ptlrpc_request *req, int opc,
 				   struct list_head *cancels, int count)
 {
@@ -132,7 +132,7 @@ static inline int mdc_prep_elc_req(struct obd_export *exp,
 				 count);
 }
 
-static inline unsigned long hash_x_index(__u64 hash, int hash64)
+static unsigned long hash_x_index(__u64 hash, int hash64)
 {
 	if (BITS_PER_LONG == 32 && hash64)
 		hash >>= 32;

@@ -41,7 +41,7 @@ struct pd_ta_stat {
 	unsigned char ping_chk_fail:1;
 };
 
-static inline bool mtk_check_pe_ready_snk(void)
+static bool mtk_check_pe_ready_snk(void)
 {
 	return false;
 }
@@ -58,23 +58,23 @@ bool mtk_is_pd_chg_ready(void);
 bool mtk_is_ta_typec_only(void);
 bool mtk_is_pep30_en_unlock(void);
 #else
-static inline int tcpc_is_usb_connect(void)
+static int tcpc_is_usb_connect(void)
 {
 	return PD_USB_NOT_SUPPORT;
 }
 
-static inline int mtk_is_ta_typec_only(void)
+static int mtk_is_ta_typec_only(void)
 {
 	return true;
 }
 
 #if CONFIG_MTK_GAUGE_VERSION == 20
-static inline bool mtk_is_pd_chg_ready(void)
+static bool mtk_is_pd_chg_ready(void)
 {
 	return false;
 }
 
-static inline bool mtk_is_pep30_en_unlock(void)
+static bool mtk_is_pep30_en_unlock(void)
 {
 	return false;
 }
@@ -172,110 +172,110 @@ extern int mtk_clr_ta_pingcheck_fault(struct tcpc_device *tcpc);
 
 #else /* not config RT7027 PD adapter */
 
-static inline int mtk_direct_charge_vdm_init(void)
+static int mtk_direct_charge_vdm_init(void)
 {
 	return -1;
 }
 
-static inline int mtk_get_ta_id(void *tcpc)
+static int mtk_get_ta_id(void *tcpc)
 {
 	return -1;
 }
 
-static inline int mtk_set_ta_cap(
+static int mtk_set_ta_cap(
 		void *tcpc, struct mtk_vdm_ta_cap *cap)
 {
 	cap->cur = cap->vol = cap->temp = 0;
 	return -1;
 }
 
-static inline int mtk_get_ta_cap(
+static int mtk_get_ta_cap(
 		void *tcpc, struct mtk_vdm_ta_cap *cap)
 {
 	cap->cur = cap->vol = cap->temp = 0;
 	return -1;
 }
 
-static inline int mtk_get_ta_charger_status(
+static int mtk_get_ta_charger_status(
 			void *tcpc, struct pd_ta_stat *ta)
 {
 	return -1;
 }
 
-static inline int mtk_get_ta_current_cap(
+static int mtk_get_ta_current_cap(
 		void *tcpc, struct mtk_vdm_ta_cap *cap)
 {
 	cap->cur = cap->vol = cap->temp = 0;
 	return -1;
 }
 
-static inline int mtk_get_ta_temperature(void *tcpc, int *temp)
+static int mtk_get_ta_temperature(void *tcpc, int *temp)
 {
 	return -1;
 }
 
-static inline int mtk_update_ta_info(void *tcpc)
+static int mtk_update_ta_info(void *tcpc)
 {
 	return -1;
 }
 
-static inline int mtk_set_ta_boundary_cap(
+static int mtk_set_ta_boundary_cap(
 		void *tcpc, struct mtk_vdm_ta_cap *cap)
 {
 	cap->cur = cap->vol = cap->temp = 0;
 	return -1;
 }
 
-static inline int mtk_rqst_ta_cap(
+static int mtk_rqst_ta_cap(
 		void *tcpc, struct mtk_vdm_ta_cap *cap)
 {
 	cap->cur = cap->vol = cap->temp = 0;
 	return -1;
 }
 
-static inline int mtk_set_ta_uvlo(void *tcpc, int mv)
+static int mtk_set_ta_uvlo(void *tcpc, int mv)
 {
 	return -1;
 }
 
-static inline int mtk_show_ta_info(void *tcpc)
+static int mtk_show_ta_info(void *tcpc)
 {
 	return -1;
 }
 
-static inline int mtk_get_ta_setting_dac(
+static int mtk_get_ta_setting_dac(
 			void *tcpc, struct mtk_vdm_ta_cap *cap)
 {
 	cap->cur = cap->vol = cap->temp = 0;
 	return -1;
 }
 
-static inline int mtk_get_ta_boundary_cap(
+static int mtk_get_ta_boundary_cap(
 			void *tcpc, struct mtk_vdm_ta_cap *cap)
 {
 	cap->cur = cap->vol = cap->temp = 0;
 	return -1;
 }
 
-static inline int mtk_enable_direct_charge(void *tcpc, bool en)
+static int mtk_enable_direct_charge(void *tcpc, bool en)
 {
 	return -1;
 }
 
-static inline int mtk_enable_ta_dplus_dect(
+static int mtk_enable_ta_dplus_dect(
 			void *tcpc, bool en, int time)
 {
 	return -1;
 }
 
 #if CONFIG_MTK_GAUGE_VERSION == 20
-static inline int mtk_clr_ta_pingcheck_fault(struct tcpc_device *tcpc)
+static int mtk_clr_ta_pingcheck_fault(struct tcpc_device *tcpc)
 {
 	return -1;
 }
 #endif
 
-static inline int mtk_monitor_ta_inform(void *tcpc,
+static int mtk_monitor_ta_inform(void *tcpc,
 					struct mtk_vdm_ta_cap *cap)
 {
 	cap->cur = cap->vol = cap->temp = 0;

@@ -644,13 +644,13 @@ u32 bfa_fcxp_get_reqbufsz(struct bfa_fcxp_s *fcxp);
 u32 bfa_fcxp_get_maxrsp(struct bfa_s *bfa);
 void bfa_fcxp_res_recfg(struct bfa_s *bfa, u16 num_fcxp_fw);
 
-static inline void *
+static void *
 bfa_uf_get_frmbuf(struct bfa_uf_s *uf)
 {
 	return uf->data_ptr;
 }
 
-static inline   u16
+static u16
 bfa_uf_get_frmlen(struct bfa_uf_s *uf)
 {
 	return uf->data_len;

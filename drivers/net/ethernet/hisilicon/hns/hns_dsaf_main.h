@@ -354,7 +354,7 @@ struct dsaf_device {
 	spinlock_t tcam_lock;
 };
 
-static inline void *hns_dsaf_dev_priv(const struct dsaf_device *dsaf_dev)
+static void *hns_dsaf_dev_priv(const struct dsaf_device *dsaf_dev)
 {
 	return (void *)((u8 *)dsaf_dev + sizeof(*dsaf_dev));
 }
@@ -396,7 +396,7 @@ struct dsaf_drv_priv {
 	struct dsaf_drv_soft_mac_tbl *soft_mac_tbl;
 };
 
-static inline void hns_dsaf_tbl_tcam_addr_cfg(struct dsaf_device *dsaf_dev,
+static void hns_dsaf_tbl_tcam_addr_cfg(struct dsaf_device *dsaf_dev,
 					      u32 tab_tcam_addr)
 {
 	dsaf_set_dev_field(dsaf_dev, DSAF_TBL_TCAM_ADDR_0_REG,
@@ -404,7 +404,7 @@ static inline void hns_dsaf_tbl_tcam_addr_cfg(struct dsaf_device *dsaf_dev,
 			   tab_tcam_addr);
 }
 
-static inline void hns_dsaf_tbl_tcam_load_pul(struct dsaf_device *dsaf_dev)
+static void hns_dsaf_tbl_tcam_load_pul(struct dsaf_device *dsaf_dev)
 {
 	u32 o_tbl_pul;
 
@@ -415,7 +415,7 @@ static inline void hns_dsaf_tbl_tcam_load_pul(struct dsaf_device *dsaf_dev)
 	dsaf_write_dev(dsaf_dev, DSAF_TBL_PUL_0_REG, o_tbl_pul);
 }
 
-static inline void hns_dsaf_tbl_line_addr_cfg(struct dsaf_device *dsaf_dev,
+static void hns_dsaf_tbl_line_addr_cfg(struct dsaf_device *dsaf_dev,
 					      u32 tab_line_addr)
 {
 	dsaf_set_dev_field(dsaf_dev, DSAF_TBL_LINE_ADDR_0_REG,
@@ -423,7 +423,7 @@ static inline void hns_dsaf_tbl_line_addr_cfg(struct dsaf_device *dsaf_dev,
 			   tab_line_addr);
 }
 
-static inline struct hnae_vf_cb *hns_ae_get_vf_cb(
+static struct hnae_vf_cb *hns_ae_get_vf_cb(
 	struct hnae_handle *handle)
 {
 	return container_of(handle, struct hnae_vf_cb, ae_handle);

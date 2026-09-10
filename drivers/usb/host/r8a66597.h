@@ -134,17 +134,17 @@ struct r8a66597 {
 	unsigned irq_sense_low:1;
 };
 
-static inline struct r8a66597 *hcd_to_r8a66597(struct usb_hcd *hcd)
+static struct r8a66597 *hcd_to_r8a66597(struct usb_hcd *hcd)
 {
 	return (struct r8a66597 *)(hcd->hcd_priv);
 }
 
-static inline struct usb_hcd *r8a66597_to_hcd(struct r8a66597 *r8a66597)
+static struct usb_hcd *r8a66597_to_hcd(struct r8a66597 *r8a66597)
 {
 	return container_of((void *)r8a66597, struct usb_hcd, hcd_priv);
 }
 
-static inline struct r8a66597_td *r8a66597_get_td(struct r8a66597 *r8a66597,
+static struct r8a66597_td *r8a66597_get_td(struct r8a66597 *r8a66597,
 						  u16 pipenum)
 {
 	if (unlikely(list_empty(&r8a66597->pipe_queue[pipenum])))
@@ -154,7 +154,7 @@ static inline struct r8a66597_td *r8a66597_get_td(struct r8a66597 *r8a66597,
 			  struct r8a66597_td, queue);
 }
 
-static inline struct urb *r8a66597_get_urb(struct r8a66597 *r8a66597,
+static struct urb *r8a66597_get_urb(struct r8a66597 *r8a66597,
 					   u16 pipenum)
 {
 	struct r8a66597_td *td;
@@ -163,12 +163,12 @@ static inline struct urb *r8a66597_get_urb(struct r8a66597 *r8a66597,
 	return (td ? td->urb : NULL);
 }
 
-static inline u16 r8a66597_read(struct r8a66597 *r8a66597, unsigned long offset)
+static u16 r8a66597_read(struct r8a66597 *r8a66597, unsigned long offset)
 {
 	return ioread16(r8a66597->reg + offset);
 }
 
-static inline void r8a66597_read_fifo(struct r8a66597 *r8a66597,
+static void r8a66597_read_fifo(struct r8a66597 *r8a66597,
 				      unsigned long offset, u16 *buf,
 				      int len)
 {
@@ -190,13 +190,13 @@ static inline void r8a66597_read_fifo(struct r8a66597 *r8a66597,
 	}
 }
 
-static inline void r8a66597_write(struct r8a66597 *r8a66597, u16 val,
+static void r8a66597_write(struct r8a66597 *r8a66597, u16 val,
 				  unsigned long offset)
 {
 	iowrite16(val, r8a66597->reg + offset);
 }
 
-static inline void r8a66597_mdfy(struct r8a66597 *r8a66597,
+static void r8a66597_mdfy(struct r8a66597 *r8a66597,
 				 u16 val, u16 pat, unsigned long offset)
 {
 	u16 tmp;
@@ -211,7 +211,7 @@ static inline void r8a66597_mdfy(struct r8a66597 *r8a66597,
 #define r8a66597_bset(r8a66597, val, offset)	\
 			r8a66597_mdfy(r8a66597, val, 0, offset)
 
-static inline void r8a66597_write_fifo(struct r8a66597 *r8a66597,
+static void r8a66597_write_fifo(struct r8a66597 *r8a66597,
 				       struct r8a66597_pipe *pipe, u16 *buf,
 				       int len)
 {
@@ -249,44 +249,44 @@ static inline void r8a66597_write_fifo(struct r8a66597 *r8a66597,
 	}
 }
 
-static inline unsigned long get_syscfg_reg(int port)
+static unsigned long get_syscfg_reg(int port)
 {
 	return port == 0 ? SYSCFG0 : SYSCFG1;
 }
 
-static inline unsigned long get_syssts_reg(int port)
+static unsigned long get_syssts_reg(int port)
 {
 	return port == 0 ? SYSSTS0 : SYSSTS1;
 }
 
-static inline unsigned long get_dvstctr_reg(int port)
+static unsigned long get_dvstctr_reg(int port)
 {
 	return port == 0 ? DVSTCTR0 : DVSTCTR1;
 }
 
-static inline unsigned long get_dmacfg_reg(int port)
+static unsigned long get_dmacfg_reg(int port)
 {
 	return port == 0 ? DMA0CFG : DMA1CFG;
 }
 
-static inline unsigned long get_intenb_reg(int port)
+static unsigned long get_intenb_reg(int port)
 {
 	return port == 0 ? INTENB1 : INTENB2;
 }
 
-static inline unsigned long get_intsts_reg(int port)
+static unsigned long get_intsts_reg(int port)
 {
 	return port == 0 ? INTSTS1 : INTSTS2;
 }
 
-static inline u16 get_rh_usb_speed(struct r8a66597 *r8a66597, int port)
+static u16 get_rh_usb_speed(struct r8a66597 *r8a66597, int port)
 {
 	unsigned long dvstctr_reg = get_dvstctr_reg(port);
 
 	return r8a66597_read(r8a66597, dvstctr_reg) & RHST;
 }
 
-static inline void r8a66597_port_power(struct r8a66597 *r8a66597, int port,
+static void r8a66597_port_power(struct r8a66597 *r8a66597, int port,
 				       int power)
 {
 	unsigned long dvstctr_reg = get_dvstctr_reg(port);
@@ -301,7 +301,7 @@ static inline void r8a66597_port_power(struct r8a66597 *r8a66597, int port,
 	}
 }
 
-static inline u16 get_xtal_from_pdata(struct r8a66597_platdata *pdata)
+static u16 get_xtal_from_pdata(struct r8a66597_platdata *pdata)
 {
 	u16 clock = 0;
 

@@ -59,7 +59,7 @@ struct nvmet_ns {
 	struct completion	disable_done;
 };
 
-static inline struct nvmet_ns *to_nvmet_ns(struct config_item *item)
+static struct nvmet_ns *to_nvmet_ns(struct config_item *item)
 {
 	return container_of(to_config_group(item), struct nvmet_ns, group);
 }
@@ -100,7 +100,7 @@ struct nvmet_port {
 	bool				enabled;
 };
 
-static inline struct nvmet_port *to_nvmet_port(struct config_item *item)
+static struct nvmet_port *to_nvmet_port(struct config_item *item)
 {
 	return container_of(to_config_group(item), struct nvmet_port,
 			group);
@@ -162,12 +162,12 @@ struct nvmet_subsys {
 	struct config_group	allowed_hosts_group;
 };
 
-static inline struct nvmet_subsys *to_subsys(struct config_item *item)
+static struct nvmet_subsys *to_subsys(struct config_item *item)
 {
 	return container_of(to_config_group(item), struct nvmet_subsys, group);
 }
 
-static inline struct nvmet_subsys *namespaces_to_subsys(
+static struct nvmet_subsys *namespaces_to_subsys(
 		struct config_item *item)
 {
 	return container_of(to_config_group(item), struct nvmet_subsys,
@@ -178,12 +178,12 @@ struct nvmet_host {
 	struct config_group	group;
 };
 
-static inline struct nvmet_host *to_host(struct config_item *item)
+static struct nvmet_host *to_host(struct config_item *item)
 {
 	return container_of(to_config_group(item), struct nvmet_host, group);
 }
 
-static inline char *nvmet_host_name(struct nvmet_host *host)
+static char *nvmet_host_name(struct nvmet_host *host)
 {
 	return config_item_name(&host->group.cg_item);
 }
@@ -231,12 +231,12 @@ struct nvmet_req {
 	struct nvmet_fabrics_ops *ops;
 };
 
-static inline void nvmet_set_status(struct nvmet_req *req, u16 status)
+static void nvmet_set_status(struct nvmet_req *req, u16 status)
 {
 	req->rsp->status = cpu_to_le16(status << 1);
 }
 
-static inline void nvmet_set_result(struct nvmet_req *req, u32 result)
+static void nvmet_set_result(struct nvmet_req *req, u32 result)
 {
 	req->rsp->result.u32 = cpu_to_le32(result);
 }
@@ -244,7 +244,7 @@ static inline void nvmet_set_result(struct nvmet_req *req, u32 result)
 /*
  * NVMe command writes actually are DMA reads for us on the target side.
  */
-static inline enum dma_data_direction
+static enum dma_data_direction
 nvmet_data_dir(struct nvmet_req *req)
 {
 	return nvme_is_write(req->cmd) ? DMA_FROM_DEVICE : DMA_TO_DEVICE;

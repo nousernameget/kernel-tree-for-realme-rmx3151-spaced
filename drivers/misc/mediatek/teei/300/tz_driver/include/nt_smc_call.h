@@ -134,7 +134,7 @@
 		MAKE_SMC_CALL_ID(ID_FIELD_F_STANDARD_SMC_CALL, \
 		ID_FIELD_W_32, ID_FIELD_T_TRUSTED_OS_SERVICE3, 9)
 
-static inline void get_t_device_id(uint64_t *p0)
+static void get_t_device_id(uint64_t *p0)
 {
 	struct arm_smccc_res res;
 

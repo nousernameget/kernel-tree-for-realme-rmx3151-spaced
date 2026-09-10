@@ -123,7 +123,7 @@ struct skb_frame_desc {
  * get_skb_frame_desc - Obtain the rt2x00 frame descriptor from a sk_buff.
  * @skb: &struct sk_buff from where we obtain the &struct skb_frame_desc
  */
-static inline struct skb_frame_desc* get_skb_frame_desc(struct sk_buff *skb)
+static struct skb_frame_desc* get_skb_frame_desc(struct sk_buff *skb)
 {
 	BUILD_BUG_ON(sizeof(struct skb_frame_desc) >
 		     IEEE80211_TX_INFO_DRIVER_DATA_SIZE);
@@ -596,7 +596,7 @@ bool rt2x00queue_for_each_entry(struct data_queue *queue,
  * rt2x00queue_empty - Check if the queue is empty.
  * @queue: Queue to check if empty.
  */
-static inline int rt2x00queue_empty(struct data_queue *queue)
+static int rt2x00queue_empty(struct data_queue *queue)
 {
 	return queue->length == 0;
 }
@@ -605,7 +605,7 @@ static inline int rt2x00queue_empty(struct data_queue *queue)
  * rt2x00queue_full - Check if the queue is full.
  * @queue: Queue to check if full.
  */
-static inline int rt2x00queue_full(struct data_queue *queue)
+static int rt2x00queue_full(struct data_queue *queue)
 {
 	return queue->length == queue->limit;
 }
@@ -614,7 +614,7 @@ static inline int rt2x00queue_full(struct data_queue *queue)
  * rt2x00queue_free - Check the number of available entries in queue.
  * @queue: Queue to check.
  */
-static inline int rt2x00queue_available(struct data_queue *queue)
+static int rt2x00queue_available(struct data_queue *queue)
 {
 	return queue->limit - queue->length;
 }
@@ -623,7 +623,7 @@ static inline int rt2x00queue_available(struct data_queue *queue)
  * rt2x00queue_threshold - Check if the queue is below threshold
  * @queue: Queue to check.
  */
-static inline int rt2x00queue_threshold(struct data_queue *queue)
+static int rt2x00queue_threshold(struct data_queue *queue)
 {
 	return rt2x00queue_available(queue) < queue->threshold;
 }
@@ -631,7 +631,7 @@ static inline int rt2x00queue_threshold(struct data_queue *queue)
  * rt2x00queue_dma_timeout - Check if a timeout occurred for DMA transfers
  * @entry: Queue entry to check.
  */
-static inline int rt2x00queue_dma_timeout(struct queue_entry *entry)
+static int rt2x00queue_dma_timeout(struct queue_entry *entry)
 {
 	if (!test_bit(ENTRY_OWNER_DEVICE_DATA, &entry->flags))
 		return false;
@@ -643,7 +643,7 @@ static inline int rt2x00queue_dma_timeout(struct queue_entry *entry)
  * @desc: Base descriptor address
  * @word: Word index from where the descriptor should be read.
  */
-static inline __le32 _rt2x00_desc_read(__le32 *desc, const u8 word)
+static __le32 _rt2x00_desc_read(__le32 *desc, const u8 word)
 {
 	return desc[word];
 }
@@ -654,7 +654,7 @@ static inline __le32 _rt2x00_desc_read(__le32 *desc, const u8 word)
  * @desc: Base descriptor address
  * @word: Word index from where the descriptor should be read.
  */
-static inline u32 rt2x00_desc_read(__le32 *desc, const u8 word)
+static u32 rt2x00_desc_read(__le32 *desc, const u8 word)
 {
 	return le32_to_cpu(_rt2x00_desc_read(desc, word));
 }
@@ -666,7 +666,7 @@ static inline u32 rt2x00_desc_read(__le32 *desc, const u8 word)
  * @word: Word index from where the descriptor should be written.
  * @value: Value that should be written into the descriptor.
  */
-static inline void _rt2x00_desc_write(__le32 *desc, const u8 word, __le32 value)
+static void _rt2x00_desc_write(__le32 *desc, const u8 word, __le32 value)
 {
 	desc[word] = value;
 }
@@ -677,7 +677,7 @@ static inline void _rt2x00_desc_write(__le32 *desc, const u8 word, __le32 value)
  * @word: Word index from where the descriptor should be written.
  * @value: Value that should be written into the descriptor.
  */
-static inline void rt2x00_desc_write(__le32 *desc, const u8 word, u32 value)
+static void rt2x00_desc_write(__le32 *desc, const u8 word, u32 value)
 {
 	_rt2x00_desc_write(desc, word, cpu_to_le32(value));
 }

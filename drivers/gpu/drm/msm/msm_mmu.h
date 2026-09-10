@@ -37,7 +37,7 @@ struct msm_mmu {
 	void *arg;
 };
 
-static inline void msm_mmu_init(struct msm_mmu *mmu, struct device *dev,
+static void msm_mmu_init(struct msm_mmu *mmu, struct device *dev,
 		const struct msm_mmu_funcs *funcs)
 {
 	mmu->dev = dev;
@@ -47,7 +47,7 @@ static inline void msm_mmu_init(struct msm_mmu *mmu, struct device *dev,
 struct msm_mmu *msm_iommu_new(struct device *dev, struct iommu_domain *domain);
 struct msm_mmu *msm_gpummu_new(struct device *dev, struct msm_gpu *gpu);
 
-static inline void msm_mmu_set_fault_handler(struct msm_mmu *mmu, void *arg,
+static void msm_mmu_set_fault_handler(struct msm_mmu *mmu, void *arg,
 		int (*handler)(void *arg, unsigned long iova, int flags))
 {
 	mmu->arg = arg;

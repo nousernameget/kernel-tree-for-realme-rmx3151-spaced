@@ -144,53 +144,53 @@ struct adreno_platform_config {
 })
 
 
-static inline bool adreno_is_a3xx(struct adreno_gpu *gpu)
+static bool adreno_is_a3xx(struct adreno_gpu *gpu)
 {
 	return (gpu->revn >= 300) && (gpu->revn < 400);
 }
 
-static inline bool adreno_is_a305(struct adreno_gpu *gpu)
+static bool adreno_is_a305(struct adreno_gpu *gpu)
 {
 	return gpu->revn == 305;
 }
 
-static inline bool adreno_is_a306(struct adreno_gpu *gpu)
+static bool adreno_is_a306(struct adreno_gpu *gpu)
 {
 	/* yes, 307, because a305c is 306 */
 	return gpu->revn == 307;
 }
 
-static inline bool adreno_is_a320(struct adreno_gpu *gpu)
+static bool adreno_is_a320(struct adreno_gpu *gpu)
 {
 	return gpu->revn == 320;
 }
 
-static inline bool adreno_is_a330(struct adreno_gpu *gpu)
+static bool adreno_is_a330(struct adreno_gpu *gpu)
 {
 	return gpu->revn == 330;
 }
 
-static inline bool adreno_is_a330v2(struct adreno_gpu *gpu)
+static bool adreno_is_a330v2(struct adreno_gpu *gpu)
 {
 	return adreno_is_a330(gpu) && (gpu->rev.patchid > 0);
 }
 
-static inline bool adreno_is_a4xx(struct adreno_gpu *gpu)
+static bool adreno_is_a4xx(struct adreno_gpu *gpu)
 {
 	return (gpu->revn >= 400) && (gpu->revn < 500);
 }
 
-static inline int adreno_is_a420(struct adreno_gpu *gpu)
+static int adreno_is_a420(struct adreno_gpu *gpu)
 {
 	return gpu->revn == 420;
 }
 
-static inline int adreno_is_a430(struct adreno_gpu *gpu)
+static int adreno_is_a430(struct adreno_gpu *gpu)
 {
        return gpu->revn == 430;
 }
 
-static inline int adreno_is_a530(struct adreno_gpu *gpu)
+static int adreno_is_a530(struct adreno_gpu *gpu)
 {
 	return gpu->revn == 530;
 }
@@ -217,7 +217,7 @@ void adreno_gpu_cleanup(struct adreno_gpu *gpu);
 
 /* ringbuffer helpers (the parts that are adreno specific) */
 
-static inline void
+static void
 OUT_PKT0(struct msm_ringbuffer *ring, uint16_t regindx, uint16_t cnt)
 {
 	adreno_wait_ring(ring->gpu, cnt+1);
@@ -225,21 +225,21 @@ OUT_PKT0(struct msm_ringbuffer *ring, uint16_t regindx, uint16_t cnt)
 }
 
 /* no-op packet: */
-static inline void
+static void
 OUT_PKT2(struct msm_ringbuffer *ring)
 {
 	adreno_wait_ring(ring->gpu, 1);
 	OUT_RING(ring, CP_TYPE2_PKT);
 }
 
-static inline void
+static void
 OUT_PKT3(struct msm_ringbuffer *ring, uint8_t opcode, uint16_t cnt)
 {
 	adreno_wait_ring(ring->gpu, cnt+1);
 	OUT_RING(ring, CP_TYPE3_PKT | ((cnt-1) << 16) | ((opcode & 0xFF) << 8));
 }
 
-static inline u32 PM4_PARITY(u32 val)
+static u32 PM4_PARITY(u32 val)
 {
 	return (0x9669 >> (0xF & (val ^
 		(val >> 4) ^ (val >> 8) ^ (val >> 12) ^
@@ -254,14 +254,14 @@ static inline u32 PM4_PARITY(u32 val)
 	(CP_TYPE4_PKT | ((_cnt) << 0) | (PM4_PARITY((_cnt)) << 7) | \
 	 (((_reg) & 0x3FFFF) << 8) | (PM4_PARITY((_reg)) << 27))
 
-static inline void
+static void
 OUT_PKT4(struct msm_ringbuffer *ring, uint16_t regindx, uint16_t cnt)
 {
 	adreno_wait_ring(ring->gpu, cnt + 1);
 	OUT_RING(ring, PKT4(regindx, cnt));
 }
 
-static inline void
+static void
 OUT_PKT7(struct msm_ringbuffer *ring, uint8_t opcode, uint16_t cnt)
 {
 	adreno_wait_ring(ring->gpu, cnt + 1);
@@ -274,7 +274,7 @@ OUT_PKT7(struct msm_ringbuffer *ring, uint8_t opcode, uint16_t cnt)
  * @gpu:		Pointer to struct adreno_gpu
  * @offset_name:	The register enum that is checked
  */
-static inline bool adreno_reg_check(struct adreno_gpu *gpu,
+static bool adreno_reg_check(struct adreno_gpu *gpu,
 		enum adreno_regs offset_name)
 {
 	if (offset_name >= REG_ADRENO_REGISTER_MAX ||
@@ -294,7 +294,7 @@ static inline bool adreno_reg_check(struct adreno_gpu *gpu,
 	return true;
 }
 
-static inline u32 adreno_gpu_read(struct adreno_gpu *gpu,
+static u32 adreno_gpu_read(struct adreno_gpu *gpu,
 		enum adreno_regs offset_name)
 {
 	u32 reg = gpu->reg_offsets[offset_name];
@@ -304,7 +304,7 @@ static inline u32 adreno_gpu_read(struct adreno_gpu *gpu,
 	return val;
 }
 
-static inline void adreno_gpu_write(struct adreno_gpu *gpu,
+static void adreno_gpu_write(struct adreno_gpu *gpu,
 		enum adreno_regs offset_name, u32 data)
 {
 	u32 reg = gpu->reg_offsets[offset_name];
@@ -316,7 +316,7 @@ struct msm_gpu *a3xx_gpu_init(struct drm_device *dev);
 struct msm_gpu *a4xx_gpu_init(struct drm_device *dev);
 struct msm_gpu *a5xx_gpu_init(struct drm_device *dev);
 
-static inline void adreno_gpu_write64(struct adreno_gpu *gpu,
+static void adreno_gpu_write64(struct adreno_gpu *gpu,
 		enum adreno_regs lo, enum adreno_regs hi, u64 data)
 {
 	adreno_gpu_write(gpu, lo, lower_32_bits(data));

@@ -106,14 +106,14 @@ struct cs_buffers {
 	void			**data_pages;
 };
 
-static inline void coresight_insert_barrier_packet(void *buf)
+static void coresight_insert_barrier_packet(void *buf)
 {
 	if (buf)
 		memcpy(buf, barrier_pkt, CORESIGHT_BARRIER_PKT_SIZE);
 }
 
 
-static inline void CS_LOCK(void __iomem *addr)
+static void CS_LOCK(void __iomem *addr)
 {
 	do {
 		/* Wait for things to settle */
@@ -122,7 +122,7 @@ static inline void CS_LOCK(void __iomem *addr)
 	} while (0);
 }
 
-static inline void CS_UNLOCK(void __iomem *addr)
+static void CS_UNLOCK(void __iomem *addr)
 {
 	do {
 		writel_relaxed(CORESIGHT_UNLOCK, addr + CORESIGHT_LAR);
@@ -131,7 +131,7 @@ static inline void CS_UNLOCK(void __iomem *addr)
 	} while (0);
 }
 
-static inline u64
+static u64
 coresight_read_reg_pair(void __iomem *addr, s32 lo_offset, s32 hi_offset)
 {
 	u64 val;
@@ -142,7 +142,7 @@ coresight_read_reg_pair(void __iomem *addr, s32 lo_offset, s32 hi_offset)
 	return val;
 }
 
-static inline void coresight_write_reg_pair(void __iomem *addr, u64 val,
+static void coresight_write_reg_pair(void __iomem *addr, u64 val,
 						 s32 lo_offset, s32 hi_offset)
 {
 	writel_relaxed((u32)val, addr + lo_offset);

@@ -522,7 +522,7 @@ void wlcore_regdomain_config(struct wl1271 *wl);
 void wlcore_update_inconn_sta(struct wl1271 *wl, struct wl12xx_vif *wlvif,
 			      struct wl1271_station *wl_sta, bool in_conn);
 
-static inline void
+static void
 wlcore_set_ht_cap(struct wl1271 *wl, enum nl80211_band band,
 		  struct ieee80211_sta_ht_cap *ht_cap)
 {
@@ -532,7 +532,7 @@ wlcore_set_ht_cap(struct wl1271 *wl, enum nl80211_band band,
 /* Tell wlcore not to care about this element when checking the version */
 #define WLCORE_FW_VER_IGNORE	-1
 
-static inline void
+static void
 wlcore_set_min_fw_ver(struct wl1271 *wl, unsigned int chip,
 		      unsigned int iftype_sr, unsigned int major_sr,
 		      unsigned int subtype_sr, unsigned int minor_sr,

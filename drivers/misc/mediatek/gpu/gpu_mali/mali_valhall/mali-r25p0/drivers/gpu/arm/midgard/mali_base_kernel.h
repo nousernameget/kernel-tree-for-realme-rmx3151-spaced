@@ -703,12 +703,12 @@ struct base_gpu_props {
  * base_mem_group_id_get() - Get group ID from flags
  * @flags: Flags to pass to base_mem_alloc
  *
- * This inline function extracts the encoded group ID from flags
+ * This function extracts the encoded group ID from flags
  * and converts it into numeric value (0~15).
  *
  * Return: group ID(0~15) extracted from the parameter
  */
-static inline int base_mem_group_id_get(base_mem_alloc_flags flags)
+static int base_mem_group_id_get(base_mem_alloc_flags flags)
 {
 	LOCAL_ASSERT((flags & ~BASE_MEM_FLAGS_INPUT_MASK) == 0);
 	return (int)((flags & BASE_MEM_GROUP_ID_MASK) >>
@@ -719,7 +719,7 @@ static inline int base_mem_group_id_get(base_mem_alloc_flags flags)
  * base_mem_group_id_set() - Set group ID into base_mem_alloc_flags
  * @id: group ID(0~15) you want to encode
  *
- * This inline function encodes specific group ID into base_mem_alloc_flags.
+ * This function encodes specific group ID into base_mem_alloc_flags.
  * Parameter 'id' should lie in-between 0 to 15.
  *
  * Return: base_mem_alloc_flags with the group ID (id) encoded
@@ -727,7 +727,7 @@ static inline int base_mem_group_id_get(base_mem_alloc_flags flags)
  * The return value can be combined with other flags against base_mem_alloc
  * to identify a specific memory group.
  */
-static inline base_mem_alloc_flags base_mem_group_id_set(int id)
+static base_mem_alloc_flags base_mem_group_id_set(int id)
 {
 	LOCAL_ASSERT(id >= 0);
 	LOCAL_ASSERT(id < BASE_MEM_GROUP_COUNT);
@@ -746,7 +746,7 @@ static inline base_mem_alloc_flags base_mem_group_id_set(int id)
  *
  * Return: Bitmask of flags to pass to base_context_init.
  */
-static inline base_context_create_flags base_context_mmu_group_id_set(
+static base_context_create_flags base_context_mmu_group_id_set(
 	int const group_id)
 {
 	LOCAL_ASSERT(group_id >= 0);
@@ -766,7 +766,7 @@ static inline base_context_create_flags base_context_mmu_group_id_set(
  *
  * Return: Physical memory group ID. Valid range is 0..(BASE_MEM_GROUP_COUNT-1).
  */
-static inline int base_context_mmu_group_id_get(
+static int base_context_mmu_group_id_get(
 	base_context_create_flags const flags)
 {
 	LOCAL_ASSERT(flags == (flags & BASEP_CONTEXT_CREATE_ALLOWED_FLAGS));

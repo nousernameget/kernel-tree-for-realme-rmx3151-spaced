@@ -32,7 +32,7 @@ extern struct dvb_frontend* mt2131_attach(struct dvb_frontend *fe,
 					  struct mt2131_config *cfg,
 					  u16 if1);
 #else
-static inline struct dvb_frontend* mt2131_attach(struct dvb_frontend *fe,
+static struct dvb_frontend* mt2131_attach(struct dvb_frontend *fe,
 						 struct i2c_adapter *i2c,
 						 struct mt2131_config *cfg,
 						 u16 if1)

@@ -232,7 +232,7 @@ int regcache_sync_block(struct regmap *map, void *block,
 			unsigned int block_base, unsigned int start,
 			unsigned int end);
 
-static inline const void *regcache_get_val_addr(struct regmap *map,
+static const void *regcache_get_val_addr(struct regmap *map,
 						const void *base,
 						unsigned int idx)
 {
@@ -258,7 +258,7 @@ extern struct regcache_ops regcache_rbtree_ops;
 extern struct regcache_ops regcache_lzo_ops;
 extern struct regcache_ops regcache_flat_ops;
 
-static inline const char *regmap_name(const struct regmap *map)
+static const char *regmap_name(const struct regmap *map)
 {
 	if (map->dev)
 		return dev_name(map->dev);
@@ -266,7 +266,7 @@ static inline const char *regmap_name(const struct regmap *map)
 	return map->name;
 }
 
-static inline unsigned int regmap_get_offset(const struct regmap *map,
+static unsigned int regmap_get_offset(const struct regmap *map,
 					     unsigned int index)
 {
 	if (map->reg_stride_order >= 0)
@@ -275,7 +275,7 @@ static inline unsigned int regmap_get_offset(const struct regmap *map,
 		return index * map->reg_stride;
 }
 
-static inline unsigned int regcache_get_index_by_order(const struct regmap *map,
+static unsigned int regcache_get_index_by_order(const struct regmap *map,
 						       unsigned int reg)
 {
 	return reg >> map->reg_stride_order;

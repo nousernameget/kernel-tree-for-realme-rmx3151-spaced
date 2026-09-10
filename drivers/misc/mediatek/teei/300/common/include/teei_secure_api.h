@@ -31,7 +31,7 @@
 #define TEEI_FC_CPU_DORMANT_CANCEL	(0xb4000083)
 #define TEEI_FC_CPU_ERRATA_802022	(0xb4000084)
 
-static inline long teei_secure_call(u64 function_id,
+static long teei_secure_call(u64 function_id,
 		u64 arg0, u64 arg1, u64 arg2)
 {
 	struct arm_smccc_res res;

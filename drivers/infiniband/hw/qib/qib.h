@@ -1202,27 +1202,27 @@ int qib_set_uevent_bits(struct qib_pportdata *, const int);
 #define user_sdma_queue_fp(fp) \
 	(((struct qib_filedata *)(fp)->private_data)->pq)
 
-static inline struct qib_devdata *dd_from_ppd(struct qib_pportdata *ppd)
+static struct qib_devdata *dd_from_ppd(struct qib_pportdata *ppd)
 {
 	return ppd->dd;
 }
 
-static inline struct qib_devdata *dd_from_dev(struct qib_ibdev *dev)
+static struct qib_devdata *dd_from_dev(struct qib_ibdev *dev)
 {
 	return container_of(dev, struct qib_devdata, verbs_dev);
 }
 
-static inline struct qib_devdata *dd_from_ibdev(struct ib_device *ibdev)
+static struct qib_devdata *dd_from_ibdev(struct ib_device *ibdev)
 {
 	return dd_from_dev(to_idev(ibdev));
 }
 
-static inline struct qib_pportdata *ppd_from_ibp(struct qib_ibport *ibp)
+static struct qib_pportdata *ppd_from_ibp(struct qib_ibport *ibp)
 {
 	return container_of(ibp, struct qib_pportdata, ibport_data);
 }
 
-static inline struct qib_ibport *to_iport(struct ib_device *ibdev, u8 port)
+static struct qib_ibport *to_iport(struct ib_device *ibdev, u8 port)
 {
 	struct qib_devdata *dd = dd_from_ibdev(ibdev);
 	unsigned pidx = port - 1; /* IB number port from 1, hdw from 0 */
@@ -1326,19 +1326,19 @@ int qib_sdma_verbs_send(struct qib_pportdata *, struct rvt_sge_state *,
 /* ppd->sdma_lock should be locked before calling this. */
 int qib_sdma_make_progress(struct qib_pportdata *dd);
 
-static inline int qib_sdma_empty(const struct qib_pportdata *ppd)
+static int qib_sdma_empty(const struct qib_pportdata *ppd)
 {
 	return ppd->sdma_descq_added == ppd->sdma_descq_removed;
 }
 
 /* must be called under qib_sdma_lock */
-static inline u16 qib_sdma_descq_freecnt(const struct qib_pportdata *ppd)
+static u16 qib_sdma_descq_freecnt(const struct qib_pportdata *ppd)
 {
 	return ppd->sdma_descq_cnt -
 		(ppd->sdma_descq_added - ppd->sdma_descq_removed) - 1;
 }
 
-static inline int __qib_sdma_running(struct qib_pportdata *ppd)
+static int __qib_sdma_running(struct qib_pportdata *ppd)
 {
 	return ppd->sdma_state.current_state == qib_sdma_state_s99_running;
 }
@@ -1372,12 +1372,12 @@ int qib_eeprom_write(struct qib_devdata *, u8, const void *, int);
 u32 __iomem *qib_getsendbuf_range(struct qib_devdata *, u32 *, u32, u32);
 void qib_sendbuf_done(struct qib_devdata *, unsigned);
 
-static inline void qib_clear_rcvhdrtail(const struct qib_ctxtdata *rcd)
+static void qib_clear_rcvhdrtail(const struct qib_ctxtdata *rcd)
 {
 	*((u64 *) rcd->rcvhdrtail_kvaddr) = 0ULL;
 }
 
-static inline u32 qib_get_rcvhdrtail(const struct qib_ctxtdata *rcd)
+static u32 qib_get_rcvhdrtail(const struct qib_ctxtdata *rcd)
 {
 	/*
 	 * volatile because it's a DMA target from the chip, routine is
@@ -1387,7 +1387,7 @@ static inline u32 qib_get_rcvhdrtail(const struct qib_ctxtdata *rcd)
 		*((volatile __le64 *)rcd->rcvhdrtail_kvaddr)); /* DMA'ed */
 }
 
-static inline u32 qib_get_hdrqtail(const struct qib_ctxtdata *rcd)
+static u32 qib_get_hdrqtail(const struct qib_ctxtdata *rcd)
 {
 	const struct qib_devdata *dd = rcd->dd;
 	u32 hdrqtail;
@@ -1458,7 +1458,7 @@ struct pci_dev *qib_get_pci_dev(struct rvt_dev_info *rdi);
  * Flush write combining store buffers (if present) and perform a write
  * barrier.
  */
-static inline void qib_flush_wc(void)
+static void qib_flush_wc(void)
 {
 #if defined(CONFIG_X86_64)
 	asm volatile("sfence" : : : "memory");

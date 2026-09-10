@@ -17,13 +17,13 @@
 extern const struct dev_pm_ops stmpe_dev_pm_ops;
 
 #ifdef STMPE_DUMP_BYTES
-static inline void stmpe_dump_bytes(const char *str, const void *buf,
+static void stmpe_dump_bytes(const char *str, const void *buf,
 				    size_t len)
 {
 	print_hex_dump_bytes(str, DUMP_PREFIX_OFFSET, buf, len);
 }
 #else
-static inline void stmpe_dump_bytes(const char *str, const void *buf,
+static void stmpe_dump_bytes(const char *str, const void *buf,
 				    size_t len)
 {
 }

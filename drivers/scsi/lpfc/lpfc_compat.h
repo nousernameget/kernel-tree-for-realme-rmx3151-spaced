@@ -36,7 +36,7 @@ using writel() and readl().
 
 #ifdef __BIG_ENDIAN
 
-static inline void
+static void
 lpfc_memcpy_to_slim(void __iomem *dest, void *src, unsigned int bytes)
 {
 	uint32_t __iomem *dest32;
@@ -58,7 +58,7 @@ lpfc_memcpy_to_slim(void __iomem *dest, void *src, unsigned int bytes)
 	return;
 }
 
-static inline void
+static void
 lpfc_memcpy_from_slim( void *dest, void __iomem *src, unsigned int bytes)
 {
 	uint32_t *dest32;
@@ -81,14 +81,14 @@ lpfc_memcpy_from_slim( void *dest, void __iomem *src, unsigned int bytes)
 
 #else
 
-static inline void
+static void
 lpfc_memcpy_to_slim( void __iomem *dest, void *src, unsigned int bytes)
 {
 	/* convert bytes in argument list to word count for copy function */
 	__iowrite32_copy(dest, src, bytes / sizeof(uint32_t));
 }
 
-static inline void
+static void
 lpfc_memcpy_from_slim( void *dest, void __iomem *src, unsigned int bytes)
 {
 	/* actually returns 1 byte past dest */

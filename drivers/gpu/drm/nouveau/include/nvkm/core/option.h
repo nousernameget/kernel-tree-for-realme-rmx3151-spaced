@@ -9,7 +9,7 @@ long nvkm_longopt(const char *optstr, const char *opt, long value);
 int  nvkm_dbgopt(const char *optstr, const char *sub);
 
 /* compares unterminated string 'str' with zero-terminated string 'cmp' */
-static inline int
+static int
 strncasecmpz(const char *str, const char *cmp, size_t len)
 {
 	if (strlen(cmp) != len)

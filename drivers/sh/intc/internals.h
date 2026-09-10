@@ -88,7 +88,7 @@ enum {	MODE_ENABLE_REG = 0, /* Bit(s) set -> interrupt enabled */
 	MODE_PCLR_REG,       /* Above plus all bits set to disable interrupt */
 };
 
-static inline struct intc_desc_int *get_intc_desc(unsigned int irq)
+static struct intc_desc_int *get_intc_desc(unsigned int irq)
 {
 	struct irq_chip *chip = irq_get_chip(irq);
 
@@ -98,12 +98,12 @@ static inline struct intc_desc_int *get_intc_desc(unsigned int irq)
 /*
  * Grumble.
  */
-static inline void activate_irq(int irq)
+static void activate_irq(int irq)
 {
 	irq_modify_status(irq, IRQ_NOREQUEST, IRQ_NOPROBE);
 }
 
-static inline int intc_handle_int_cmp(const void *a, const void *b)
+static int intc_handle_int_cmp(const void *a, const void *b)
 {
 	const struct intc_handle_int *_a = a;
 	const struct intc_handle_int *_b = b;
@@ -148,7 +148,7 @@ void intc_set_dist_handle(unsigned int irq, struct intc_desc *desc,
 #else
 static inline void intc_balancing_enable(unsigned int irq) { }
 static inline void intc_balancing_disable(unsigned int irq) { }
-static inline void
+static void
 intc_set_dist_handle(unsigned int irq, struct intc_desc *desc,
 		     struct intc_desc_int *d, intc_enum id) { }
 #endif

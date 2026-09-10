@@ -87,7 +87,7 @@ __u32 irlap_max_line_capacity(__u32 speed, __u32 max_turn_time);
 
 void irda_qos_bits_to_value(struct qos_info *qos);
 
-/* So simple, how could we not inline those two ?
+/* So simple, how could we not those two ?
  * Note : one byte is 10 bits if you include start and stop bits
  * Jean II */
 #define irlap_min_turn_time_in_bytes(speed, min_turn_time) (	\

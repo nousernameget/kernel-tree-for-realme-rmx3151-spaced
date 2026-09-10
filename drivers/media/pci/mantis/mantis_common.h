@@ -183,7 +183,7 @@ struct mantis_pci {
 
 #define MANTIS_HIF_STATUS	(mantis->gpio_status)
 
-static inline void mantis_mask_ints(struct mantis_pci *mantis, u32 mask)
+static void mantis_mask_ints(struct mantis_pci *mantis, u32 mask)
 {
 	unsigned long flags;
 
@@ -192,7 +192,7 @@ static inline void mantis_mask_ints(struct mantis_pci *mantis, u32 mask)
 	spin_unlock_irqrestore(&mantis->intmask_lock, flags);
 }
 
-static inline void mantis_unmask_ints(struct mantis_pci *mantis, u32 mask)
+static void mantis_unmask_ints(struct mantis_pci *mantis, u32 mask)
 {
 	unsigned long flags;
 

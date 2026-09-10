@@ -41,7 +41,7 @@
  *
  * Assumes the input response length does not include the crc, eof, etc.
  */
-static inline   u32
+static u32
 fc_get_ctresp_pyld_len(u32 resp_len)
 {
 	return resp_len - sizeof(struct ct_hdr_s);
@@ -50,7 +50,7 @@ fc_get_ctresp_pyld_len(u32 resp_len)
 /*
  * Convert bfa speed to rpsc speed value.
  */
-static inline  enum bfa_port_speed
+static enum bfa_port_speed
 fc_rpsc_operspeed_to_bfa_speed(enum fc_rpsc_op_speed speed)
 {
 	switch (speed) {
@@ -81,7 +81,7 @@ fc_rpsc_operspeed_to_bfa_speed(enum fc_rpsc_op_speed speed)
 /*
  * Convert RPSC speed to bfa speed value.
  */
-static inline   enum fc_rpsc_op_speed
+static enum fc_rpsc_op_speed
 fc_bfa_speed_to_rpsc_operspeed(enum bfa_port_speed op_speed)
 {
 	switch (op_speed) {

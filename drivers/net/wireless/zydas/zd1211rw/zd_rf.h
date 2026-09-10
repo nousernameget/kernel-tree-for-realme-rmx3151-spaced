@@ -87,12 +87,12 @@ int zd_switch_radio_off(struct zd_rf *rf);
 int zd_rf_patch_6m_band_edge(struct zd_rf *rf, u8 channel);
 int zd_rf_generic_patch_6m(struct zd_rf *rf, u8 channel);
 
-static inline int zd_rf_should_update_pwr_int(struct zd_rf *rf)
+static int zd_rf_should_update_pwr_int(struct zd_rf *rf)
 {
 	return rf->update_channel_int;
 }
 
-static inline int zd_rf_should_patch_cck_gain(struct zd_rf *rf)
+static int zd_rf_should_patch_cck_gain(struct zd_rf *rf)
 {
 	return rf->patch_cck_gain;
 }

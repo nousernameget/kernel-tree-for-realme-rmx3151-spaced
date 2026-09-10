@@ -120,7 +120,7 @@ iwl_parse_nvm_mcc_info(struct device *dev, const struct iwl_cfg *cfg,
  */
 int iwl_get_bios_mcc(struct device *dev, char *mcc);
 #else
-static inline int iwl_get_bios_mcc(struct device *dev, char *mcc)
+static int iwl_get_bios_mcc(struct device *dev, char *mcc)
 {
 	return -ENOENT;
 }

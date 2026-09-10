@@ -126,7 +126,7 @@ struct gru_instruction_bits {
 
 /*
  * Generic instruction with friendlier names. This format is used
- * for inline instructions.
+ * for instructions.
  */
 struct gru_instruction {
     /* DW 0 */
@@ -309,7 +309,7 @@ union gru_mesqhead {
 
 
 /* Generate the low word of a GRU instruction */
-static inline unsigned long
+static unsigned long
 __opdword(unsigned char opcode, unsigned char exopc, unsigned char xtype,
        unsigned char iaa0, unsigned char iaa1,
        unsigned long idef2, unsigned char ima)
@@ -328,7 +328,7 @@ __opdword(unsigned char opcode, unsigned char exopc, unsigned char xtype,
 /*
  * Architecture specific intrinsics
  */
-static inline void gru_flush_cache(void *p)
+static void gru_flush_cache(void *p)
 {
 	__flush_cache(p);
 }
@@ -337,7 +337,7 @@ static inline void gru_flush_cache(void *p)
  * Store the lower 64 bits of the command including the "start" bit. Then
  * start the instruction executing.
  */
-static inline void gru_start_instruction(struct gru_instruction *ins, unsigned long op64)
+static void gru_start_instruction(struct gru_instruction *ins, unsigned long op64)
 {
 	gru_ordered_store_ulong(ins, op64);
 	mb();
@@ -356,7 +356,7 @@ static inline void gru_start_instruction(struct gru_instruction *ins, unsigned l
  *     	- nelem and stride are in elements
  *     	- tri0/tri1 is in bytes for the beginning of the data segment.
  */
-static inline void gru_vload_phys(void *cb, unsigned long gpa,
+static void gru_vload_phys(void *cb, unsigned long gpa,
 		unsigned int tri0, int iaa, unsigned long hints)
 {
 	struct gru_instruction *ins = (struct gru_instruction *)cb;
@@ -368,7 +368,7 @@ static inline void gru_vload_phys(void *cb, unsigned long gpa,
 					(unsigned long)tri0, CB_IMA(hints)));
 }
 
-static inline void gru_vstore_phys(void *cb, unsigned long gpa,
+static void gru_vstore_phys(void *cb, unsigned long gpa,
 		unsigned int tri0, int iaa, unsigned long hints)
 {
 	struct gru_instruction *ins = (struct gru_instruction *)cb;
@@ -380,7 +380,7 @@ static inline void gru_vstore_phys(void *cb, unsigned long gpa,
 					(unsigned long)tri0, CB_IMA(hints)));
 }
 
-static inline void gru_vload(void *cb, unsigned long mem_addr,
+static void gru_vload(void *cb, unsigned long mem_addr,
 		unsigned int tri0, unsigned char xtype, unsigned long nelem,
 		unsigned long stride, unsigned long hints)
 {
@@ -393,7 +393,7 @@ static inline void gru_vload(void *cb, unsigned long mem_addr,
 					(unsigned long)tri0, CB_IMA(hints)));
 }
 
-static inline void gru_vstore(void *cb, unsigned long mem_addr,
+static void gru_vstore(void *cb, unsigned long mem_addr,
 		unsigned int tri0, unsigned char xtype, unsigned long nelem,
 		unsigned long stride, unsigned long hints)
 {
@@ -406,7 +406,7 @@ static inline void gru_vstore(void *cb, unsigned long mem_addr,
 					tri0, CB_IMA(hints)));
 }
 
-static inline void gru_ivload(void *cb, unsigned long mem_addr,
+static void gru_ivload(void *cb, unsigned long mem_addr,
 		unsigned int tri0, unsigned int tri1, unsigned char xtype,
 		unsigned long nelem, unsigned long hints)
 {
@@ -419,7 +419,7 @@ static inline void gru_ivload(void *cb, unsigned long mem_addr,
 					tri0, CB_IMA(hints)));
 }
 
-static inline void gru_ivstore(void *cb, unsigned long mem_addr,
+static void gru_ivstore(void *cb, unsigned long mem_addr,
 		unsigned int tri0, unsigned int tri1,
 		unsigned char xtype, unsigned long nelem, unsigned long hints)
 {
@@ -432,7 +432,7 @@ static inline void gru_ivstore(void *cb, unsigned long mem_addr,
 					tri0, CB_IMA(hints)));
 }
 
-static inline void gru_vset(void *cb, unsigned long mem_addr,
+static void gru_vset(void *cb, unsigned long mem_addr,
 		unsigned long value, unsigned char xtype, unsigned long nelem,
 		unsigned long stride, unsigned long hints)
 {
@@ -446,7 +446,7 @@ static inline void gru_vset(void *cb, unsigned long mem_addr,
 					 0, CB_IMA(hints)));
 }
 
-static inline void gru_ivset(void *cb, unsigned long mem_addr,
+static void gru_ivset(void *cb, unsigned long mem_addr,
 		unsigned int tri1, unsigned long value, unsigned char xtype,
 		unsigned long nelem, unsigned long hints)
 {
@@ -460,7 +460,7 @@ static inline void gru_ivset(void *cb, unsigned long mem_addr,
 					0, CB_IMA(hints)));
 }
 
-static inline void gru_vflush(void *cb, unsigned long mem_addr,
+static void gru_vflush(void *cb, unsigned long mem_addr,
 		unsigned long nelem, unsigned char xtype, unsigned long stride,
 		unsigned long hints)
 {
@@ -473,7 +473,7 @@ static inline void gru_vflush(void *cb, unsigned long mem_addr,
 					0, CB_IMA(hints)));
 }
 
-static inline void gru_nop(void *cb, int hints)
+static void gru_nop(void *cb, int hints)
 {
 	struct gru_instruction *ins = (void *)cb;
 
@@ -481,7 +481,7 @@ static inline void gru_nop(void *cb, int hints)
 }
 
 
-static inline void gru_bcopy(void *cb, const unsigned long src,
+static void gru_bcopy(void *cb, const unsigned long src,
 		unsigned long dest,
 		unsigned int tri0, unsigned int xtype, unsigned long nelem,
 		unsigned int bufsize, unsigned long hints)
@@ -496,7 +496,7 @@ static inline void gru_bcopy(void *cb, const unsigned long src,
 					IAA_RAM, tri0, CB_IMA(hints)));
 }
 
-static inline void gru_bstore(void *cb, const unsigned long src,
+static void gru_bstore(void *cb, const unsigned long src,
 		unsigned long dest, unsigned int tri0, unsigned int xtype,
 		unsigned long nelem, unsigned long hints)
 {
@@ -509,7 +509,7 @@ static inline void gru_bstore(void *cb, const unsigned long src,
 					tri0, CB_IMA(hints)));
 }
 
-static inline void gru_gamir(void *cb, int exopc, unsigned long src,
+static void gru_gamir(void *cb, int exopc, unsigned long src,
 		unsigned int xtype, unsigned long hints)
 {
 	struct gru_instruction *ins = (void *)cb;
@@ -519,7 +519,7 @@ static inline void gru_gamir(void *cb, int exopc, unsigned long src,
 					0, CB_IMA(hints)));
 }
 
-static inline void gru_gamirr(void *cb, int exopc, unsigned long src,
+static void gru_gamirr(void *cb, int exopc, unsigned long src,
 		unsigned int xtype, unsigned long hints)
 {
 	struct gru_instruction *ins = (void *)cb;
@@ -529,7 +529,7 @@ static inline void gru_gamirr(void *cb, int exopc, unsigned long src,
 					0, CB_IMA(hints)));
 }
 
-static inline void gru_gamer(void *cb, int exopc, unsigned long src,
+static void gru_gamer(void *cb, int exopc, unsigned long src,
 		unsigned int xtype,
 		unsigned long operand1, unsigned long operand2,
 		unsigned long hints)
@@ -543,7 +543,7 @@ static inline void gru_gamer(void *cb, int exopc, unsigned long src,
 					0, CB_IMA(hints)));
 }
 
-static inline void gru_gamerr(void *cb, int exopc, unsigned long src,
+static void gru_gamerr(void *cb, int exopc, unsigned long src,
 		unsigned int xtype, unsigned long operand1,
 		unsigned long operand2, unsigned long hints)
 {
@@ -556,7 +556,7 @@ static inline void gru_gamerr(void *cb, int exopc, unsigned long src,
 					0, CB_IMA(hints)));
 }
 
-static inline void gru_gamxr(void *cb, unsigned long src,
+static void gru_gamxr(void *cb, unsigned long src,
 		unsigned int tri0, unsigned long hints)
 {
 	struct gru_instruction *ins = (void *)cb;
@@ -567,7 +567,7 @@ static inline void gru_gamxr(void *cb, unsigned long src,
 				 IAA_RAM, 0, 0, CB_IMA(hints)));
 }
 
-static inline void gru_mesq(void *cb, unsigned long queue,
+static void gru_mesq(void *cb, unsigned long queue,
 		unsigned long tri0, unsigned long nelem,
 		unsigned long hints)
 {
@@ -579,28 +579,28 @@ static inline void gru_mesq(void *cb, unsigned long queue,
 					tri0, CB_IMA(hints)));
 }
 
-static inline unsigned long gru_get_amo_value(void *cb)
+static unsigned long gru_get_amo_value(void *cb)
 {
 	struct gru_instruction *ins = (void *)cb;
 
 	return ins->avalue;
 }
 
-static inline int gru_get_amo_value_head(void *cb)
+static int gru_get_amo_value_head(void *cb)
 {
 	struct gru_instruction *ins = (void *)cb;
 
 	return ins->avalue & 0xffffffff;
 }
 
-static inline int gru_get_amo_value_limit(void *cb)
+static int gru_get_amo_value_limit(void *cb)
 {
 	struct gru_instruction *ins = (void *)cb;
 
 	return ins->avalue >> 32;
 }
 
-static inline union gru_mesqhead  gru_mesq_head(int head, int limit)
+static union gru_mesqhead  gru_mesq_head(int head, int limit)
 {
 	union gru_mesqhead mqh;
 
@@ -633,7 +633,7 @@ struct gru_control_block_status {
 };
 
 /* Get CB status */
-static inline int gru_get_cb_status(void *cb)
+static int gru_get_cb_status(void *cb)
 {
 	struct gru_control_block_status *cbs = (void *)cb;
 
@@ -641,7 +641,7 @@ static inline int gru_get_cb_status(void *cb)
 }
 
 /* Get CB message queue substatus */
-static inline int gru_get_cb_message_queue_substatus(void *cb)
+static int gru_get_cb_message_queue_substatus(void *cb)
 {
 	struct gru_control_block_status *cbs = (void *)cb;
 
@@ -649,7 +649,7 @@ static inline int gru_get_cb_message_queue_substatus(void *cb)
 }
 
 /* Get CB substatus */
-static inline int gru_get_cb_substatus(void *cb)
+static int gru_get_cb_substatus(void *cb)
 {
 	struct gru_control_block_status *cbs = (void *)cb;
 
@@ -662,7 +662,7 @@ static inline int gru_get_cb_substatus(void *cb)
  * for an active instruction to complete.
  *
  */
-static inline int gru_check_status(void *cb)
+static int gru_check_status(void *cb)
 {
 	struct gru_control_block_status *cbs = (void *)cb;
 	int ret;
@@ -674,13 +674,13 @@ static inline int gru_check_status(void *cb)
 }
 
 /*
- * User interface (via inline function) to wait for an instruction
+ * User interface (via function) to wait for an instruction
  * to complete. Completion status (IDLE or EXCEPTION is returned
  * to the user. Exception due to hardware errors are automatically
  * retried before returning an exception.
  *
  */
-static inline int gru_wait(void *cb)
+static int gru_wait(void *cb)
 {
 	return gru_wait_proc(cb);
 }
@@ -690,7 +690,7 @@ static inline int gru_wait(void *cb)
  * mean TLB mis - only fatal errors such as memory parity error or user
  * bugs will cause termination.
  */
-static inline void gru_wait_abort(void *cb)
+static void gru_wait_abort(void *cb)
 {
 	gru_wait_abort_proc(cb);
 }
@@ -699,7 +699,7 @@ static inline void gru_wait_abort(void *cb)
  * Get a pointer to the start of a gseg
  * 	p	- Any valid pointer within the gseg
  */
-static inline void *gru_get_gseg_pointer (void *p)
+static void *gru_get_gseg_pointer (void *p)
 {
 	return (void *)((unsigned long)p & ~(GRU_GSEG_PAGESIZE - 1));
 }
@@ -709,7 +709,7 @@ static inline void *gru_get_gseg_pointer (void *p)
  * 	gseg	- GSeg address returned from gru_get_thread_gru_segment()
  * 	index	- index of desired CB
  */
-static inline void *gru_get_cb_pointer(void *gseg,
+static void *gru_get_cb_pointer(void *gseg,
 						      int index)
 {
 	return gseg + GRU_CB_BASE + index * GRU_HANDLE_STRIDE;
@@ -720,7 +720,7 @@ static inline void *gru_get_cb_pointer(void *gseg,
  * 	gseg	- GSeg address returned from gru_get_thread_gru_segment()
  * 	index	- index of desired cache line
  */
-static inline void *gru_get_data_pointer(void *gseg, int index)
+static void *gru_get_data_pointer(void *gseg, int index)
 {
 	return gseg + GRU_DS_BASE + index * GRU_CACHE_LINE_BYTES;
 }
@@ -729,7 +729,7 @@ static inline void *gru_get_data_pointer(void *gseg, int index)
  * Convert a vaddr into the tri index within the GSEG
  * 	vaddr		- virtual address of within gseg
  */
-static inline int gru_get_tri(void *vaddr)
+static int gru_get_tri(void *vaddr)
 {
 	return ((unsigned long)vaddr & (GRU_GSEG_PAGESIZE - 1)) - GRU_DS_BASE;
 }

@@ -300,12 +300,12 @@ void cw1200_core_release(struct cw1200_common *self);
 
 #define FWLOAD_BLOCK_SIZE (1024)
 
-static inline int cw1200_is_ht(const struct cw1200_ht_info *ht_info)
+static int cw1200_is_ht(const struct cw1200_ht_info *ht_info)
 {
 	return ht_info->channel_type != NL80211_CHAN_NO_HT;
 }
 
-static inline int cw1200_ht_greenfield(const struct cw1200_ht_info *ht_info)
+static int cw1200_ht_greenfield(const struct cw1200_ht_info *ht_info)
 {
 	return cw1200_is_ht(ht_info) &&
 		(ht_info->ht_cap.cap & IEEE80211_HT_CAP_GRN_FLD) &&
@@ -313,7 +313,7 @@ static inline int cw1200_ht_greenfield(const struct cw1200_ht_info *ht_info)
 		  IEEE80211_HT_OP_MODE_NON_GF_STA_PRSNT);
 }
 
-static inline int cw1200_ht_ampdu_density(const struct cw1200_ht_info *ht_info)
+static int cw1200_ht_ampdu_density(const struct cw1200_ht_info *ht_info)
 {
 	if (!cw1200_is_ht(ht_info))
 		return 0;

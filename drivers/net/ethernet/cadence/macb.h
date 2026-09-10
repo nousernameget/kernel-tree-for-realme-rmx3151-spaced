@@ -1079,7 +1079,7 @@ void gem_ptp_init(struct net_device *ndev);
 void gem_ptp_remove(struct net_device *ndev);
 int gem_ptp_txstamp(struct macb_queue *queue, struct sk_buff *skb, struct macb_dma_desc *des);
 void gem_ptp_rxstamp(struct macb *bp, struct sk_buff *skb, struct macb_dma_desc *desc);
-static inline int gem_ptp_do_txstamp(struct macb_queue *queue, struct sk_buff *skb, struct macb_dma_desc *desc)
+static int gem_ptp_do_txstamp(struct macb_queue *queue, struct sk_buff *skb, struct macb_dma_desc *desc)
 {
 	if (queue->bp->tstamp_config.tx_type == TSTAMP_DISABLED)
 		return -ENOTSUPP;
@@ -1087,7 +1087,7 @@ static inline int gem_ptp_do_txstamp(struct macb_queue *queue, struct sk_buff *s
 	return gem_ptp_txstamp(queue, skb, desc);
 }
 
-static inline void gem_ptp_do_rxstamp(struct macb *bp, struct sk_buff *skb, struct macb_dma_desc *desc)
+static void gem_ptp_do_rxstamp(struct macb *bp, struct sk_buff *skb, struct macb_dma_desc *desc)
 {
 	if (bp->tstamp_config.rx_filter == TSTAMP_DISABLED)
 		return;
@@ -1100,7 +1100,7 @@ int gem_set_hwtst(struct net_device *dev, struct ifreq *ifr, int cmd);
 static inline void gem_ptp_init(struct net_device *ndev) { }
 static inline void gem_ptp_remove(struct net_device *ndev) { }
 
-static inline int gem_ptp_do_txstamp(struct macb_queue *queue, struct sk_buff *skb, struct macb_dma_desc *desc)
+static int gem_ptp_do_txstamp(struct macb_queue *queue, struct sk_buff *skb, struct macb_dma_desc *desc)
 {
 	return -1;
 }
@@ -1108,12 +1108,12 @@ static inline int gem_ptp_do_txstamp(struct macb_queue *queue, struct sk_buff *s
 static inline void gem_ptp_do_rxstamp(struct macb *bp, struct sk_buff *skb, struct macb_dma_desc *desc) { }
 #endif
 
-static inline bool macb_is_gem(struct macb *bp)
+static bool macb_is_gem(struct macb *bp)
 {
 	return !!(bp->caps & MACB_CAPS_MACB_IS_GEM);
 }
 
-static inline bool gem_has_ptp(struct macb *bp)
+static bool gem_has_ptp(struct macb *bp)
 {
 	return !!(bp->caps & MACB_CAPS_GEM_HAS_PTP);
 }

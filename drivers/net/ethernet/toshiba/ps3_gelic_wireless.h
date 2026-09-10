@@ -294,11 +294,11 @@ struct gelic_wl_info {
 
 #define GELIC_WL_BSS_MAX_ENT 32
 #define GELIC_WL_ASSOC_RETRY 50
-static inline struct gelic_port *wl_port(struct gelic_wl_info *wl)
+static struct gelic_port *wl_port(struct gelic_wl_info *wl)
 {
 	return container_of((void *)wl, struct gelic_port, priv);
 }
-static inline struct gelic_wl_info *port_wl(struct gelic_port *port)
+static struct gelic_wl_info *port_wl(struct gelic_port *port)
 {
 	return port_priv(port);
 }

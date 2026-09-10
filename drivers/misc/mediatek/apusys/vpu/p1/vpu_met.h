@@ -35,11 +35,11 @@ void vpu_met_isr(struct vpu_device *vd);
 void vpu_met_pm_get(struct vpu_device *vd);
 void vpu_met_pm_put(struct vpu_device *vd);
 #else
-static inline int vpu_init_drv_met(void)
+static int vpu_init_drv_met(void)
 {
 	return 0;
 }
-static inline int vpu_exit_drv_met(void)
+static int vpu_exit_drv_met(void)
 {
 	return 0;
 }

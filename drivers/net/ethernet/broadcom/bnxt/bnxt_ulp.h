@@ -77,7 +77,7 @@ struct bnxt_en_ops {
 					     unsigned long *, u16);
 };
 
-static inline bool bnxt_ulp_registered(struct bnxt_en_dev *edev, int ulp_id)
+static bool bnxt_ulp_registered(struct bnxt_en_dev *edev, int ulp_id)
 {
 	if (edev && rcu_access_pointer(edev->ulp_tbl[ulp_id].ulp_ops))
 		return true;

@@ -28,7 +28,7 @@ struct cq_enet_wq_desc {
 	u8 type_color;
 };
 
-static inline void cq_enet_wq_desc_dec(struct cq_enet_wq_desc *desc,
+static void cq_enet_wq_desc_dec(struct cq_enet_wq_desc *desc,
 	u8 *type, u8 *color, u16 *q_number, u16 *completed_index)
 {
 	cq_desc_dec((struct cq_desc *)desc, type,

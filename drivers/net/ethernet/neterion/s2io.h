@@ -972,7 +972,7 @@ struct s2io_nic {
 
 /*  OS related system calls */
 #ifndef readq
-static inline u64 readq(void __iomem *addr)
+static u64 readq(void __iomem *addr)
 {
 	u64 ret = 0;
 	ret = readl(addr + 4);
@@ -984,7 +984,7 @@ static inline u64 readq(void __iomem *addr)
 #endif
 
 #ifndef writeq
-static inline void writeq(u64 val, void __iomem *addr)
+static void writeq(u64 val, void __iomem *addr)
 {
 	writel((u32) (val), addr);
 	writel((u32) (val >> 32), (addr + 4));
@@ -999,7 +999,7 @@ static inline void writeq(u64 val, void __iomem *addr)
  */
 #define UF	1
 #define LF	2
-static inline void SPECIAL_REG_WRITE(u64 val, void __iomem *addr, int order)
+static void SPECIAL_REG_WRITE(u64 val, void __iomem *addr, int order)
 {
 	if (order == LF) {
 		writel((u32) (val), addr);

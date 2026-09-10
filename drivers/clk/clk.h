@@ -22,7 +22,7 @@ struct clk *__clk_create_clk(struct clk_hw *hw, const char *dev_id,
 void __clk_free_clk(struct clk *clk);
 #else
 /* All these casts to avoid ifdefs in clkdev... */
-static inline struct clk *
+static struct clk *
 __clk_create_clk(struct clk_hw *hw, const char *dev_id, const char *con_id)
 {
 	return (struct clk *)hw;

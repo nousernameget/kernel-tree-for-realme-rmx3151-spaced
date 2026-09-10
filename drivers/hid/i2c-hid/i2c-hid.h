@@ -9,10 +9,10 @@ struct i2c_hid_desc *i2c_hid_get_dmi_i2c_hid_desc_override(uint8_t *i2c_name);
 char *i2c_hid_get_dmi_hid_report_desc_override(uint8_t *i2c_name,
 					       unsigned int *size);
 #else
-static inline struct i2c_hid_desc
+static struct i2c_hid_desc
 		   *i2c_hid_get_dmi_i2c_hid_desc_override(uint8_t *i2c_name)
 { return NULL; }
-static inline char *i2c_hid_get_dmi_hid_report_desc_override(uint8_t *i2c_name,
+static char *i2c_hid_get_dmi_hid_report_desc_override(uint8_t *i2c_name,
 							     unsigned int *size)
 { return NULL; }
 #endif

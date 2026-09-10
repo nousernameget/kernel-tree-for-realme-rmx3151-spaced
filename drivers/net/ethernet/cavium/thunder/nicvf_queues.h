@@ -318,7 +318,7 @@ struct queue_set {
 
 #define	CQ_ERR_MASK	(CQ_WR_FULL | CQ_WR_DISABLE | CQ_WR_FAULT)
 
-static inline u64 nicvf_iova_to_phys(struct nicvf *nic, dma_addr_t dma_addr)
+static u64 nicvf_iova_to_phys(struct nicvf *nic, dma_addr_t dma_addr)
 {
 	/* Translation is installed only when IOMMU is present */
 	if (nic->iommu_domain)

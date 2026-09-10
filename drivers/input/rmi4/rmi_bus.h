@@ -96,7 +96,7 @@ void rmi_unregister_function_handler(struct rmi_function_handler *);
 
 #define to_rmi_device(d) container_of(d, struct rmi_device, dev)
 
-static inline struct rmi_device_platform_data *
+static struct rmi_device_platform_data *
 rmi_get_platform_data(struct rmi_device *d)
 {
 	return &d->xport->pdata;
@@ -111,7 +111,7 @@ bool rmi_is_physical_device(struct device *dev);
  * Calls for a reset of each function implemented by a specific device.
  * Returns 0 on success or a negative error code.
  */
-static inline int rmi_reset(struct rmi_device *d)
+static int rmi_reset(struct rmi_device *d)
 {
 	return d->driver->reset_handler(d);
 }
@@ -126,7 +126,7 @@ static inline int rmi_reset(struct rmi_device *d)
  * into memory pointed by @buf. It returns 0 on success or a negative
  * error code.
  */
-static inline int rmi_read(struct rmi_device *d, u16 addr, u8 *buf)
+static int rmi_read(struct rmi_device *d, u16 addr, u8 *buf)
 {
 	return d->xport->ops->read_block(d->xport, addr, buf, 1);
 }
@@ -142,7 +142,7 @@ static inline int rmi_read(struct rmi_device *d, u16 addr, u8 *buf)
  * into memory pointed by @buf. It returns 0 on success or a negative
  * error code.
  */
-static inline int rmi_read_block(struct rmi_device *d, u16 addr,
+static int rmi_read_block(struct rmi_device *d, u16 addr,
 				 void *buf, size_t len)
 {
 	return d->xport->ops->read_block(d->xport, addr, buf, len);
@@ -157,7 +157,7 @@ static inline int rmi_read_block(struct rmi_device *d, u16 addr,
  * Writes a single byte using the underlying transport protocol. It
  * returns zero on success or a negative error code.
  */
-static inline int rmi_write(struct rmi_device *d, u16 addr, u8 data)
+static int rmi_write(struct rmi_device *d, u16 addr, u8 data)
 {
 	return d->xport->ops->write_block(d->xport, addr, &data, 1);
 }
@@ -172,7 +172,7 @@ static inline int rmi_write(struct rmi_device *d, u16 addr, u8 data)
  * Writes a block of byte data from buf using the underlaying transport
  * protocol.  It returns the amount of bytes written or a negative error code.
  */
-static inline int rmi_write_block(struct rmi_device *d, u16 addr,
+static int rmi_write_block(struct rmi_device *d, u16 addr,
 				  const void *buf, size_t len)
 {
 	return d->xport->ops->write_block(d->xport, addr, buf, len);

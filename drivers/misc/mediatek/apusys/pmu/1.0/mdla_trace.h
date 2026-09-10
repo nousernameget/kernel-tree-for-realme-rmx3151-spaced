@@ -59,7 +59,7 @@ void mdla_met_event_enter(int core, int vmdla_opp,
 void mdla_met_event_leave(int core);
 #else
 
-static inline int mdla_profile_init(void)
+static int mdla_profile_init(void)
 {
 	return 0;
 }
@@ -67,15 +67,15 @@ static int mdla_profile_exit(u32 mdlaid)
 {
 	return 0;
 }
-static inline int mdla_profile_reset(int core_id, const char *str)
+static int mdla_profile_reset(int core_id, const char *str)
 {
 	return 0;
 }
-static inline int mdla_profile_start(u32 mdlaid)
+static int mdla_profile_start(u32 mdlaid)
 {
 	return 0;
 }
-static inline int mdla_profile_stop(u32 mdlaid, int wait)
+static int mdla_profile_stop(u32 mdlaid, int wait)
 {
 	return 0;
 }
@@ -84,24 +84,24 @@ int mdla_profile_power_mode(u32 *stat)
 {
 	return 1;
 }
-static inline void mdla_dump_prof(int coreid, struct seq_file *s)
+static void mdla_dump_prof(int coreid, struct seq_file *s)
 {
 }
-static inline void mdla_trace_begin(int core, struct command_entry *ce)
+static void mdla_trace_begin(int core, struct command_entry *ce)
 {
 }
 void mdla_trace_iter(unsigned int core_id)
 {
 }
-static inline void mdla_trace_end(int core, long status,
+static void mdla_trace_end(int core, long status,
 				  struct command_entry *ce)
 {
 }
-static inline void mdla_met_event_enter(int core, int vmdla_opp,
+static void mdla_met_event_enter(int core, int vmdla_opp,
 	int dsp_freq, int ipu_if_freq, int mdla_freq)
 {
 }
-static inline void mdla_met_event_leave(int core)
+static void mdla_met_event_leave(int core)
 {
 }
 #endif

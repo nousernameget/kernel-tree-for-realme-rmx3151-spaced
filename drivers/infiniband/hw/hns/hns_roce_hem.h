@@ -98,7 +98,7 @@ void hns_roce_cleanup_hem_table(struct hns_roce_dev *hr_dev,
 				struct hns_roce_hem_table *table);
 void hns_roce_cleanup_hem(struct hns_roce_dev *hr_dev);
 
-static inline void hns_roce_hem_first(struct hns_roce_hem *hem,
+static void hns_roce_hem_first(struct hns_roce_hem *hem,
 				      struct hns_roce_hem_iter *iter)
 {
 	iter->hem = hem;
@@ -108,12 +108,12 @@ static inline void hns_roce_hem_first(struct hns_roce_hem *hem,
 	 iter->page_idx = 0;
 }
 
-static inline int hns_roce_hem_last(struct hns_roce_hem_iter *iter)
+static int hns_roce_hem_last(struct hns_roce_hem_iter *iter)
 {
 	return !iter->chunk;
 }
 
-static inline void hns_roce_hem_next(struct hns_roce_hem_iter *iter)
+static void hns_roce_hem_next(struct hns_roce_hem_iter *iter)
 {
 	if (++iter->page_idx >= iter->chunk->nsg) {
 		if (iter->chunk->list.next == &iter->hem->chunk_list) {
@@ -127,7 +127,7 @@ static inline void hns_roce_hem_next(struct hns_roce_hem_iter *iter)
 	}
 }
 
-static inline dma_addr_t hns_roce_hem_addr(struct hns_roce_hem_iter *iter)
+static dma_addr_t hns_roce_hem_addr(struct hns_roce_hem_iter *iter)
 {
 	return sg_dma_address(&iter->chunk->mem[iter->page_idx]);
 }

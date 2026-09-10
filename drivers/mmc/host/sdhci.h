@@ -596,7 +596,7 @@ struct sdhci_ops {
 
 #ifdef CONFIG_MMC_SDHCI_IO_ACCESSORS
 
-static inline void sdhci_writel(struct sdhci_host *host, u32 val, int reg)
+static void sdhci_writel(struct sdhci_host *host, u32 val, int reg)
 {
 	if (unlikely(host->ops->write_l))
 		host->ops->write_l(host, val, reg);
@@ -604,7 +604,7 @@ static inline void sdhci_writel(struct sdhci_host *host, u32 val, int reg)
 		writel(val, host->ioaddr + reg);
 }
 
-static inline void sdhci_writew(struct sdhci_host *host, u16 val, int reg)
+static void sdhci_writew(struct sdhci_host *host, u16 val, int reg)
 {
 	if (unlikely(host->ops->write_w))
 		host->ops->write_w(host, val, reg);
@@ -612,7 +612,7 @@ static inline void sdhci_writew(struct sdhci_host *host, u16 val, int reg)
 		writew(val, host->ioaddr + reg);
 }
 
-static inline void sdhci_writeb(struct sdhci_host *host, u8 val, int reg)
+static void sdhci_writeb(struct sdhci_host *host, u8 val, int reg)
 {
 	if (unlikely(host->ops->write_b))
 		host->ops->write_b(host, val, reg);
@@ -620,7 +620,7 @@ static inline void sdhci_writeb(struct sdhci_host *host, u8 val, int reg)
 		writeb(val, host->ioaddr + reg);
 }
 
-static inline u32 sdhci_readl(struct sdhci_host *host, int reg)
+static u32 sdhci_readl(struct sdhci_host *host, int reg)
 {
 	if (unlikely(host->ops->read_l))
 		return host->ops->read_l(host, reg);
@@ -628,7 +628,7 @@ static inline u32 sdhci_readl(struct sdhci_host *host, int reg)
 		return readl(host->ioaddr + reg);
 }
 
-static inline u16 sdhci_readw(struct sdhci_host *host, int reg)
+static u16 sdhci_readw(struct sdhci_host *host, int reg)
 {
 	if (unlikely(host->ops->read_w))
 		return host->ops->read_w(host, reg);
@@ -636,7 +636,7 @@ static inline u16 sdhci_readw(struct sdhci_host *host, int reg)
 		return readw(host->ioaddr + reg);
 }
 
-static inline u8 sdhci_readb(struct sdhci_host *host, int reg)
+static u8 sdhci_readb(struct sdhci_host *host, int reg)
 {
 	if (unlikely(host->ops->read_b))
 		return host->ops->read_b(host, reg);
@@ -646,32 +646,32 @@ static inline u8 sdhci_readb(struct sdhci_host *host, int reg)
 
 #else
 
-static inline void sdhci_writel(struct sdhci_host *host, u32 val, int reg)
+static void sdhci_writel(struct sdhci_host *host, u32 val, int reg)
 {
 	writel(val, host->ioaddr + reg);
 }
 
-static inline void sdhci_writew(struct sdhci_host *host, u16 val, int reg)
+static void sdhci_writew(struct sdhci_host *host, u16 val, int reg)
 {
 	writew(val, host->ioaddr + reg);
 }
 
-static inline void sdhci_writeb(struct sdhci_host *host, u8 val, int reg)
+static void sdhci_writeb(struct sdhci_host *host, u8 val, int reg)
 {
 	writeb(val, host->ioaddr + reg);
 }
 
-static inline u32 sdhci_readl(struct sdhci_host *host, int reg)
+static u32 sdhci_readl(struct sdhci_host *host, int reg)
 {
 	return readl(host->ioaddr + reg);
 }
 
-static inline u16 sdhci_readw(struct sdhci_host *host, int reg)
+static u16 sdhci_readw(struct sdhci_host *host, int reg)
 {
 	return readw(host->ioaddr + reg);
 }
 
-static inline u8 sdhci_readb(struct sdhci_host *host, int reg)
+static u8 sdhci_readb(struct sdhci_host *host, int reg)
 {
 	return readb(host->ioaddr + reg);
 }
@@ -681,7 +681,7 @@ static inline u8 sdhci_readb(struct sdhci_host *host, int reg)
 struct sdhci_host *sdhci_alloc_host(struct device *dev, size_t priv_size);
 void sdhci_free_host(struct sdhci_host *host);
 
-static inline void *sdhci_priv(struct sdhci_host *host)
+static void *sdhci_priv(struct sdhci_host *host)
 {
 	return host->private;
 }
@@ -696,12 +696,12 @@ int sdhci_add_host(struct sdhci_host *host);
 void sdhci_remove_host(struct sdhci_host *host, int dead);
 void sdhci_send_command(struct sdhci_host *host, struct mmc_command *cmd);
 
-static inline void sdhci_read_caps(struct sdhci_host *host)
+static void sdhci_read_caps(struct sdhci_host *host)
 {
 	__sdhci_read_caps(host, NULL, NULL, NULL);
 }
 
-static inline bool sdhci_sdio_irq_enabled(struct sdhci_host *host)
+static bool sdhci_sdio_irq_enabled(struct sdhci_host *host)
 {
 	return !!(host->flags & SDHCI_SDIO_IRQ_ENABLED);
 }

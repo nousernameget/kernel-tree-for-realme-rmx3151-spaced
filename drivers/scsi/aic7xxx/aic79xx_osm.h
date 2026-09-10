@@ -375,19 +375,19 @@ int		ahd_linux_register_host(struct ahd_softc *,
 					struct scsi_host_template *);
 
 /******************************** Locking *************************************/
-static inline void
+static void
 ahd_lockinit(struct ahd_softc *ahd)
 {
 	spin_lock_init(&ahd->platform_data->spin_lock);
 }
 
-static inline void
+static void
 ahd_lock(struct ahd_softc *ahd, unsigned long *flags)
 {
 	spin_lock_irqsave(&ahd->platform_data->spin_lock, *flags);
 }
 
-static inline void
+static void
 ahd_unlock(struct ahd_softc *ahd, unsigned long *flags)
 {
 	spin_unlock_irqrestore(&ahd->platform_data->spin_lock, *flags);
@@ -470,29 +470,29 @@ void			 ahd_pci_write_config(ahd_dev_softc_t pci,
 					  int reg, uint32_t value,
 					  int width);
 
-static inline int ahd_get_pci_function(ahd_dev_softc_t);
-static inline int
+static int ahd_get_pci_function(ahd_dev_softc_t);
+static int
 ahd_get_pci_function(ahd_dev_softc_t pci)
 {
 	return (PCI_FUNC(pci->devfn));
 }
 
-static inline int ahd_get_pci_slot(ahd_dev_softc_t);
-static inline int
+static int ahd_get_pci_slot(ahd_dev_softc_t);
+static int
 ahd_get_pci_slot(ahd_dev_softc_t pci)
 {
 	return (PCI_SLOT(pci->devfn));
 }
 
-static inline int ahd_get_pci_bus(ahd_dev_softc_t);
-static inline int
+static int ahd_get_pci_bus(ahd_dev_softc_t);
+static int
 ahd_get_pci_bus(ahd_dev_softc_t pci)
 {
 	return (pci->bus->number);
 }
 
-static inline void ahd_flush_device_writes(struct ahd_softc *);
-static inline void
+static void ahd_flush_device_writes(struct ahd_softc *);
+static void
 ahd_flush_device_writes(struct ahd_softc *ahd)
 {
 	/* XXX Is this sufficient for all architectures??? */
@@ -504,29 +504,29 @@ int	ahd_proc_write_seeprom(struct Scsi_Host *, char *, int);
 int	ahd_linux_show_info(struct seq_file *,struct Scsi_Host *);
 
 /*********************** Transaction Access Wrappers **************************/
-static inline void ahd_cmd_set_transaction_status(struct scsi_cmnd *, uint32_t);
-static inline void ahd_set_transaction_status(struct scb *, uint32_t);
-static inline void ahd_cmd_set_scsi_status(struct scsi_cmnd *, uint32_t);
-static inline void ahd_set_scsi_status(struct scb *, uint32_t);
-static inline uint32_t ahd_cmd_get_transaction_status(struct scsi_cmnd *cmd);
-static inline uint32_t ahd_get_transaction_status(struct scb *);
-static inline uint32_t ahd_cmd_get_scsi_status(struct scsi_cmnd *cmd);
-static inline uint32_t ahd_get_scsi_status(struct scb *);
-static inline void ahd_set_transaction_tag(struct scb *, int, u_int);
-static inline u_long ahd_get_transfer_length(struct scb *);
-static inline int ahd_get_transfer_dir(struct scb *);
-static inline void ahd_set_residual(struct scb *, u_long);
-static inline void ahd_set_sense_residual(struct scb *scb, u_long resid);
-static inline u_long ahd_get_residual(struct scb *);
-static inline u_long ahd_get_sense_residual(struct scb *);
-static inline int ahd_perform_autosense(struct scb *);
-static inline uint32_t ahd_get_sense_bufsize(struct ahd_softc *,
+static void ahd_cmd_set_transaction_status(struct scsi_cmnd *, uint32_t);
+static void ahd_set_transaction_status(struct scb *, uint32_t);
+static void ahd_cmd_set_scsi_status(struct scsi_cmnd *, uint32_t);
+static void ahd_set_scsi_status(struct scb *, uint32_t);
+static uint32_t ahd_cmd_get_transaction_status(struct scsi_cmnd *cmd);
+static uint32_t ahd_get_transaction_status(struct scb *);
+static uint32_t ahd_cmd_get_scsi_status(struct scsi_cmnd *cmd);
+static uint32_t ahd_get_scsi_status(struct scb *);
+static void ahd_set_transaction_tag(struct scb *, int, u_int);
+static u_long ahd_get_transfer_length(struct scb *);
+static int ahd_get_transfer_dir(struct scb *);
+static void ahd_set_residual(struct scb *, u_long);
+static void ahd_set_sense_residual(struct scb *scb, u_long resid);
+static u_long ahd_get_residual(struct scb *);
+static u_long ahd_get_sense_residual(struct scb *);
+static int ahd_perform_autosense(struct scb *);
+static uint32_t ahd_get_sense_bufsize(struct ahd_softc *,
 					       struct scb *);
-static inline void ahd_notify_xfer_settings_change(struct ahd_softc *,
+static void ahd_notify_xfer_settings_change(struct ahd_softc *,
 						     struct ahd_devinfo *);
-static inline void ahd_platform_scb_free(struct ahd_softc *ahd,
+static void ahd_platform_scb_free(struct ahd_softc *ahd,
 					   struct scb *scb);
-static inline void ahd_freeze_scb(struct scb *scb);
+static void ahd_freeze_scb(struct scb *scb);
 
 static inline
 void ahd_cmd_set_transaction_status(struct scsi_cmnd *cmd, uint32_t status)
@@ -634,20 +634,20 @@ int ahd_perform_autosense(struct scb *scb)
 	return (1);
 }
 
-static inline uint32_t
+static uint32_t
 ahd_get_sense_bufsize(struct ahd_softc *ahd, struct scb *scb)
 {
 	return (sizeof(struct scsi_sense_data));
 }
 
-static inline void
+static void
 ahd_notify_xfer_settings_change(struct ahd_softc *ahd,
 				struct ahd_devinfo *devinfo)
 {
 	/* Nothing to do here for linux */
 }
 
-static inline void
+static void
 ahd_platform_scb_free(struct ahd_softc *ahd, struct scb *scb)
 {
 	ahd->flags &= ~AHD_RESOURCE_SHORTAGE;
@@ -658,7 +658,7 @@ void	ahd_platform_free(struct ahd_softc *ahd);
 void	ahd_platform_init(struct ahd_softc *ahd);
 void	ahd_platform_freeze_devq(struct ahd_softc *ahd, struct scb *scb);
 
-static inline void
+static void
 ahd_freeze_scb(struct scb *scb)
 {
 	if ((scb->io_ctx->result & (CAM_DEV_QFRZN << 16)) == 0) {

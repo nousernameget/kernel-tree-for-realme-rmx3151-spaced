@@ -38,7 +38,7 @@ struct tpm_atmel_priv {
 #define atmel_request_region request_mem_region
 #define atmel_release_region release_mem_region
 
-static inline void atmel_put_base_addr(void __iomem *iobase)
+static void atmel_put_base_addr(void __iomem *iobase)
 {
 	iounmap(iobase);
 }
@@ -96,7 +96,7 @@ enum tpm_atmel_addr {
 	TPM_ATMEL_BASE_ADDR_HI = 0x09
 };
 
-static inline int tpm_read_index(int base, int index)
+static int tpm_read_index(int base, int index)
 {
 	outb(index, base);
 	return inb(base+1) & 0xFF;
@@ -122,7 +122,7 @@ static int atmel_verify_tpm11(void)
 	return 0;
 }
 
-static inline void atmel_put_base_addr(void __iomem *iobase)
+static void atmel_put_base_addr(void __iomem *iobase)
 {
 }
 

@@ -123,22 +123,22 @@ struct ir_raw_event_ctrl {
 };
 
 /* macros for IR decoders */
-static inline bool geq_margin(unsigned d1, unsigned d2, unsigned margin)
+static bool geq_margin(unsigned d1, unsigned d2, unsigned margin)
 {
 	return d1 > (d2 - margin);
 }
 
-static inline bool eq_margin(unsigned d1, unsigned d2, unsigned margin)
+static bool eq_margin(unsigned d1, unsigned d2, unsigned margin)
 {
 	return ((d1 > (d2 - margin)) && (d1 < (d2 + margin)));
 }
 
-static inline bool is_transition(struct ir_raw_event *x, struct ir_raw_event *y)
+static bool is_transition(struct ir_raw_event *x, struct ir_raw_event *y)
 {
 	return x->pulse != y->pulse;
 }
 
-static inline void decrease_duration(struct ir_raw_event *ev, unsigned duration)
+static void decrease_duration(struct ir_raw_event *ev, unsigned duration)
 {
 	if (duration > ev->duration)
 		ev->duration = 0;
@@ -147,7 +147,7 @@ static inline void decrease_duration(struct ir_raw_event *ev, unsigned duration)
 }
 
 /* Returns true if event is normal pulse/space event */
-static inline bool is_timing_event(struct ir_raw_event ev)
+static bool is_timing_event(struct ir_raw_event ev)
 {
 	return !ev.carrier_report && !ev.reset;
 }
@@ -157,7 +157,7 @@ static inline bool is_timing_event(struct ir_raw_event ev)
 
 /* functions for IR encoders */
 
-static inline void init_ir_raw_event_duration(struct ir_raw_event *ev,
+static void init_ir_raw_event_duration(struct ir_raw_event *ev,
 					      unsigned int pulse,
 					      u32 duration)
 {
@@ -201,7 +201,7 @@ int ir_raw_gen_manchester(struct ir_raw_event **ev, unsigned int max,
  *		-ENOBUFS if there isn't enough buffer space to write both raw
  *		events. In this case @max events will have been written.
  */
-static inline int ir_raw_gen_pulse_space(struct ir_raw_event **ev,
+static int ir_raw_gen_pulse_space(struct ir_raw_event **ev,
 					 unsigned int *max,
 					 unsigned int pulse_width,
 					 unsigned int space_width)

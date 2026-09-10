@@ -119,13 +119,13 @@ bool iwl_notification_wait(struct iwl_notif_wait_data *notif_data,
 			   struct iwl_rx_packet *pkt);
 void iwl_abort_notification_waits(struct iwl_notif_wait_data *notif_data);
 
-static inline void
+static void
 iwl_notification_notify(struct iwl_notif_wait_data *notif_data)
 {
 	wake_up_all(&notif_data->notif_waitq);
 }
 
-static inline void
+static void
 iwl_notification_wait_notify(struct iwl_notif_wait_data *notif_data,
 			     struct iwl_rx_packet *pkt)
 {

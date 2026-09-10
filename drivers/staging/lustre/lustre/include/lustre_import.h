@@ -97,7 +97,7 @@ enum lustre_imp_state {
 };
 
 /** Returns test string representation of numeric import state \a state */
-static inline char *ptlrpc_import_state_name(enum lustre_imp_state state)
+static char *ptlrpc_import_state_name(enum lustre_imp_state state)
 {
 	static char *import_state_names[] = {
 		"<UNKNOWN>", "CLOSED",  "NEW", "DISCONN",
@@ -315,20 +315,20 @@ struct obd_import {
 };
 
 /* import.c */
-static inline unsigned int at_est2timeout(unsigned int val)
+static unsigned int at_est2timeout(unsigned int val)
 {
 	/* add an arbitrary minimum: 125% +5 sec */
 	return (val + (val >> 2) + 5);
 }
 
-static inline unsigned int at_timeout2est(unsigned int val)
+static unsigned int at_timeout2est(unsigned int val)
 {
 	/* restore estimate value from timeout: e=4/5(t-5) */
 	LASSERT(val);
 	return (max((val << 2) / 5, 5U) - 4);
 }
 
-static inline void at_reset(struct adaptive_timeout *at, int val)
+static void at_reset(struct adaptive_timeout *at, int val)
 {
 	spin_lock(&at->at_lock);
 	at->at_current = val;
@@ -337,7 +337,7 @@ static inline void at_reset(struct adaptive_timeout *at, int val)
 	spin_unlock(&at->at_lock);
 }
 
-static inline void at_init(struct adaptive_timeout *at, int val, int flags)
+static void at_init(struct adaptive_timeout *at, int val, int flags)
 {
 	memset(at, 0, sizeof(*at));
 	spin_lock_init(&at->at_lock);
@@ -346,7 +346,7 @@ static inline void at_init(struct adaptive_timeout *at, int val, int flags)
 }
 
 extern unsigned int at_min;
-static inline int at_get(struct adaptive_timeout *at)
+static int at_get(struct adaptive_timeout *at)
 {
 	return (at->at_current > at_min) ? at->at_current : at_min;
 }

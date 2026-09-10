@@ -46,7 +46,7 @@ void rts524a_init_params(struct rtsx_pcr *pcr);
 void rts525a_init_params(struct rtsx_pcr *pcr);
 void rtl8411b_init_params(struct rtsx_pcr *pcr);
 
-static inline u8 map_sd_drive(int idx)
+static u8 map_sd_drive(int idx)
 {
 	u8 sd_drive[4] = {
 		0x01,	/* Type D */

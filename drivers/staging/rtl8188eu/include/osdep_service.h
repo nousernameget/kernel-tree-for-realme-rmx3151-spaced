@@ -56,12 +56,12 @@ struct	__queue	{
 	spinlock_t lock;
 };
 
-static inline struct list_head *get_list_head(struct __queue *queue)
+static struct list_head *get_list_head(struct __queue *queue)
 {
 	return &(queue->queue);
 }
 
-static inline int rtw_netif_queue_stopped(struct net_device *pnetdev)
+static int rtw_netif_queue_stopped(struct net_device *pnetdev)
 {
 	return  netif_tx_queue_stopped(netdev_get_tx_queue(pnetdev, 0)) &&
 		netif_tx_queue_stopped(netdev_get_tx_queue(pnetdev, 1)) &&

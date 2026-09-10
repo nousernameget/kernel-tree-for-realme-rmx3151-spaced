@@ -232,7 +232,7 @@ struct mgag200_bo {
 };
 #define gem_to_mga_bo(gobj) container_of((gobj), struct mgag200_bo, gem)
 
-static inline struct mgag200_bo *
+static struct mgag200_bo *
 mgag200_bo(struct ttm_buffer_object *bo)
 {
 	return container_of(bo, struct mgag200_bo, bo);
@@ -274,7 +274,7 @@ void mgag200_i2c_destroy(struct mga_i2c_chan *i2c);
 #define DRM_FILE_PAGE_OFFSET (0x100000000ULL >> PAGE_SHIFT)
 void mgag200_ttm_placement(struct mgag200_bo *bo, int domain);
 
-static inline int mgag200_bo_reserve(struct mgag200_bo *bo, bool no_wait)
+static int mgag200_bo_reserve(struct mgag200_bo *bo, bool no_wait)
 {
 	int ret;
 
@@ -287,7 +287,7 @@ static inline int mgag200_bo_reserve(struct mgag200_bo *bo, bool no_wait)
 	return 0;
 }
 
-static inline void mgag200_bo_unreserve(struct mgag200_bo *bo)
+static void mgag200_bo_unreserve(struct mgag200_bo *bo)
 {
 	ttm_bo_unreserve(&bo->bo);
 }

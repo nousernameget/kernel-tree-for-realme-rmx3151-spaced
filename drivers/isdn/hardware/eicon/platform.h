@@ -271,13 +271,13 @@ void diva_os_get_time(dword *sec, dword *usec);
 **  atomic operation, fake because we use threads
 */
 typedef int diva_os_atomic_t;
-static inline diva_os_atomic_t
+static diva_os_atomic_t
 diva_os_atomic_increment(diva_os_atomic_t *pv)
 {
 	*pv += 1;
 	return (*pv);
 }
-static inline diva_os_atomic_t
+static diva_os_atomic_t
 diva_os_atomic_decrement(diva_os_atomic_t *pv)
 {
 	*pv -= 1;
@@ -320,19 +320,19 @@ diva_os_atomic_decrement(diva_os_atomic_t *pv)
 #define WRITE_WORD(addr, v)  writew(v, addr)
 #define WRITE_DWORD(addr, v) writel(v, addr)
 
-static inline __u16 GET_WORD(void *addr)
+static __u16 GET_WORD(void *addr)
 {
 	return le16_to_cpu(*(__le16 *)addr);
 }
-static inline __u32 GET_DWORD(void *addr)
+static __u32 GET_DWORD(void *addr)
 {
 	return le32_to_cpu(*(__le32 *)addr);
 }
-static inline void PUT_WORD(void *addr, __u16 v)
+static void PUT_WORD(void *addr, __u16 v)
 {
 	*(__le16 *)addr = cpu_to_le16(v);
 }
-static inline void PUT_DWORD(void *addr, __u32 v)
+static void PUT_DWORD(void *addr, __u32 v)
 {
 	*(__le32 *)addr = cpu_to_le32(v);
 }

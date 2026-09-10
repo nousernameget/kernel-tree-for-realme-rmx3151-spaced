@@ -387,7 +387,7 @@ struct lu_device_type_operations {
 	void (*ldto_stop)(struct lu_device_type *t);
 };
 
-static inline int lu_device_is_md(const struct lu_device *d)
+static int lu_device_is_md(const struct lu_device *d)
 {
 	return ergo(d, d->ld_type->ldt_tags & LU_DEVICE_MD);
 }
@@ -641,7 +641,7 @@ struct lu_site {
 	struct percpu_counter	 ls_lru_len_counter;
 };
 
-static inline struct lu_site_bkt_data *
+static struct lu_site_bkt_data *
 lu_site_bkt_from_fid(struct lu_site *site, struct lu_fid *fid)
 {
 	struct cfs_hash_bd bd;
@@ -650,7 +650,7 @@ lu_site_bkt_from_fid(struct lu_site *site, struct lu_fid *fid)
 	return cfs_hash_bd_extra_get(site->ls_obj_hash, &bd);
 }
 
-static inline struct seq_server_site *lu_site2seq(const struct lu_site *s)
+static struct seq_server_site *lu_site2seq(const struct lu_site *s)
 {
 	return s->ld_seq_site;
 }
@@ -695,7 +695,7 @@ void lu_device_type_fini(struct lu_device_type *ldt);
  * attain additional reference. To acquire initial reference use
  * lu_object_find().
  */
-static inline void lu_object_get(struct lu_object *o)
+static void lu_object_get(struct lu_object *o)
 {
 	LASSERT(atomic_read(&o->lo_header->loh_ref) > 0);
 	atomic_inc(&o->lo_header->loh_ref);
@@ -705,7 +705,7 @@ static inline void lu_object_get(struct lu_object *o)
  * Return true of object will not be cached after last reference to it is
  * released.
  */
-static inline int lu_object_is_dying(const struct lu_object_header *h)
+static int lu_object_is_dying(const struct lu_object_header *h)
 {
 	return test_bit(LU_OBJECT_HEARD_BANSHEE, &h->loh_flags);
 }
@@ -715,7 +715,7 @@ void lu_object_unhash(const struct lu_env *env, struct lu_object *o);
 int lu_site_purge_objects(const struct lu_env *env, struct lu_site *s, int nr,
 			  bool canblock);
 
-static inline int lu_site_purge(const struct lu_env *env, struct lu_site *s,
+static int lu_site_purge(const struct lu_env *env, struct lu_site *s,
 				int nr)
 {
 	return lu_site_purge_objects(env, s, nr, true);
@@ -741,7 +741,7 @@ struct lu_object *lu_object_find_slice(const struct lu_env *env,
 /**
  * First (topmost) sub-object of given compound object
  */
-static inline struct lu_object *lu_object_top(struct lu_object_header *h)
+static struct lu_object *lu_object_top(struct lu_object_header *h)
 {
 	LASSERT(!list_empty(&h->loh_layers));
 	return container_of0(h->loh_layers.next, struct lu_object, lo_linkage);
@@ -750,7 +750,7 @@ static inline struct lu_object *lu_object_top(struct lu_object_header *h)
 /**
  * Next sub-object in the layering
  */
-static inline struct lu_object *lu_object_next(const struct lu_object *o)
+static struct lu_object *lu_object_next(const struct lu_object *o)
 {
 	return container_of0(o->lo_linkage.next, struct lu_object, lo_linkage);
 }
@@ -758,7 +758,7 @@ static inline struct lu_object *lu_object_next(const struct lu_object *o)
 /**
  * Pointer to the fid of this object.
  */
-static inline const struct lu_fid *lu_object_fid(const struct lu_object *o)
+static const struct lu_fid *lu_object_fid(const struct lu_object *o)
 {
 	return &o->lo_header->loh_fid;
 }
@@ -766,7 +766,7 @@ static inline const struct lu_fid *lu_object_fid(const struct lu_object *o)
 /**
  * return device operations vector for this object
  */
-static inline const struct lu_device_operations *
+static const struct lu_device_operations *
 lu_object_ops(const struct lu_object *o)
 {
 	return o->lo_dev->ld_ops;
@@ -834,12 +834,12 @@ int lu_object_invariant(const struct lu_object *o);
  */
 #define lu_object_remote(o) unlikely((o)->lo_header->loh_attr & LOHA_REMOTE)
 
-static inline int lu_object_assert_exists(const struct lu_object *o)
+static int lu_object_assert_exists(const struct lu_object *o)
 {
 	return lu_object_exists(o);
 }
 
-static inline int lu_object_assert_not_exists(const struct lu_object *o)
+static int lu_object_assert_not_exists(const struct lu_object *o)
 {
 	return !lu_object_exists(o);
 }
@@ -847,20 +847,20 @@ static inline int lu_object_assert_not_exists(const struct lu_object *o)
 /**
  * Attr of this object.
  */
-static inline __u32 lu_object_attr(const struct lu_object *o)
+static __u32 lu_object_attr(const struct lu_object *o)
 {
 	LASSERT(lu_object_exists(o) != 0);
 	return o->lo_header->loh_attr;
 }
 
-static inline void lu_object_ref_add(struct lu_object *o,
+static void lu_object_ref_add(struct lu_object *o,
 				     const char *scope,
 				     const void *source)
 {
 	lu_ref_add(&o->lo_header->loh_reference, scope, source);
 }
 
-static inline void lu_object_ref_add_at(struct lu_object *o,
+static void lu_object_ref_add_at(struct lu_object *o,
 					struct lu_ref_link *link,
 					const char *scope,
 					const void *source)
@@ -868,13 +868,13 @@ static inline void lu_object_ref_add_at(struct lu_object *o,
 	lu_ref_add_at(&o->lo_header->loh_reference, link, scope, source);
 }
 
-static inline void lu_object_ref_del(struct lu_object *o,
+static void lu_object_ref_del(struct lu_object *o,
 				     const char *scope, const void *source)
 {
 	lu_ref_del(&o->lo_header->loh_reference, scope, source);
 }
 
-static inline void lu_object_ref_del_at(struct lu_object *o,
+static void lu_object_ref_del_at(struct lu_object *o,
 					struct lu_ref_link *link,
 					const char *scope, const void *source)
 {
@@ -1287,7 +1287,7 @@ struct lu_name {
  * and the server. We only check for something insane coming from bad
  * integer handling here.
  */
-static inline bool lu_name_is_valid_2(const char *name, size_t name_len)
+static bool lu_name_is_valid_2(const char *name, size_t name_len)
 {
 	return name && name_len > 0 && name_len < INT_MAX &&
 	       name[name_len] == '\0' && strlen(name) == name_len &&

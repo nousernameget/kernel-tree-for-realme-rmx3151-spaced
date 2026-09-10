@@ -125,12 +125,12 @@ struct b53_device {
 		if (dev->enabled_ports & BIT(i))
 
 
-static inline int is5325(struct b53_device *dev)
+static int is5325(struct b53_device *dev)
 {
 	return dev->chip_id == BCM5325_DEVICE_ID;
 }
 
-static inline int is5365(struct b53_device *dev)
+static int is5365(struct b53_device *dev)
 {
 #ifdef CONFIG_BCM47XX
 	return dev->chip_id == BCM5365_DEVICE_ID;
@@ -139,27 +139,27 @@ static inline int is5365(struct b53_device *dev)
 #endif
 }
 
-static inline int is5397_98(struct b53_device *dev)
+static int is5397_98(struct b53_device *dev)
 {
 	return dev->chip_id == BCM5397_DEVICE_ID ||
 		dev->chip_id == BCM5398_DEVICE_ID;
 }
 
-static inline int is539x(struct b53_device *dev)
+static int is539x(struct b53_device *dev)
 {
 	return dev->chip_id == BCM5395_DEVICE_ID ||
 		dev->chip_id == BCM5397_DEVICE_ID ||
 		dev->chip_id == BCM5398_DEVICE_ID;
 }
 
-static inline int is531x5(struct b53_device *dev)
+static int is531x5(struct b53_device *dev)
 {
 	return dev->chip_id == BCM53115_DEVICE_ID ||
 		dev->chip_id == BCM53125_DEVICE_ID ||
 		dev->chip_id == BCM53128_DEVICE_ID;
 }
 
-static inline int is63xx(struct b53_device *dev)
+static int is63xx(struct b53_device *dev)
 {
 #ifdef CONFIG_BCM63XX
 	return dev->chip_id == BCM63XX_DEVICE_ID;
@@ -168,7 +168,7 @@ static inline int is63xx(struct b53_device *dev)
 #endif
 }
 
-static inline int is5301x(struct b53_device *dev)
+static int is5301x(struct b53_device *dev)
 {
 	return dev->chip_id == BCM53010_DEVICE_ID ||
 		dev->chip_id == BCM53011_DEVICE_ID ||
@@ -177,7 +177,7 @@ static inline int is5301x(struct b53_device *dev)
 		dev->chip_id == BCM53019_DEVICE_ID;
 }
 
-static inline int is58xx(struct b53_device *dev)
+static int is58xx(struct b53_device *dev)
 {
 	return dev->chip_id == BCM58XX_DEVICE_ID ||
 		dev->chip_id == BCM7445_DEVICE_ID ||
@@ -187,7 +187,7 @@ static inline int is58xx(struct b53_device *dev)
 #define B53_CPU_PORT_25	5
 #define B53_CPU_PORT	8
 
-static inline int is_cpu_port(struct b53_device *dev, int port)
+static int is_cpu_port(struct b53_device *dev, int port)
 {
 	return dev->cpu_port;
 }
@@ -200,12 +200,12 @@ int b53_switch_detect(struct b53_device *dev);
 
 int b53_switch_register(struct b53_device *dev);
 
-static inline void b53_switch_remove(struct b53_device *dev)
+static void b53_switch_remove(struct b53_device *dev)
 {
 	dsa_unregister_switch(dev->ds);
 }
 
-static inline int b53_read8(struct b53_device *dev, u8 page, u8 reg, u8 *val)
+static int b53_read8(struct b53_device *dev, u8 page, u8 reg, u8 *val)
 {
 	int ret;
 
@@ -216,7 +216,7 @@ static inline int b53_read8(struct b53_device *dev, u8 page, u8 reg, u8 *val)
 	return ret;
 }
 
-static inline int b53_read16(struct b53_device *dev, u8 page, u8 reg, u16 *val)
+static int b53_read16(struct b53_device *dev, u8 page, u8 reg, u16 *val)
 {
 	int ret;
 
@@ -227,7 +227,7 @@ static inline int b53_read16(struct b53_device *dev, u8 page, u8 reg, u16 *val)
 	return ret;
 }
 
-static inline int b53_read32(struct b53_device *dev, u8 page, u8 reg, u32 *val)
+static int b53_read32(struct b53_device *dev, u8 page, u8 reg, u32 *val)
 {
 	int ret;
 
@@ -238,7 +238,7 @@ static inline int b53_read32(struct b53_device *dev, u8 page, u8 reg, u32 *val)
 	return ret;
 }
 
-static inline int b53_read48(struct b53_device *dev, u8 page, u8 reg, u64 *val)
+static int b53_read48(struct b53_device *dev, u8 page, u8 reg, u64 *val)
 {
 	int ret;
 
@@ -249,7 +249,7 @@ static inline int b53_read48(struct b53_device *dev, u8 page, u8 reg, u64 *val)
 	return ret;
 }
 
-static inline int b53_read64(struct b53_device *dev, u8 page, u8 reg, u64 *val)
+static int b53_read64(struct b53_device *dev, u8 page, u8 reg, u64 *val)
 {
 	int ret;
 
@@ -260,7 +260,7 @@ static inline int b53_read64(struct b53_device *dev, u8 page, u8 reg, u64 *val)
 	return ret;
 }
 
-static inline int b53_write8(struct b53_device *dev, u8 page, u8 reg, u8 value)
+static int b53_write8(struct b53_device *dev, u8 page, u8 reg, u8 value)
 {
 	int ret;
 
@@ -271,7 +271,7 @@ static inline int b53_write8(struct b53_device *dev, u8 page, u8 reg, u8 value)
 	return ret;
 }
 
-static inline int b53_write16(struct b53_device *dev, u8 page, u8 reg,
+static int b53_write16(struct b53_device *dev, u8 page, u8 reg,
 			      u16 value)
 {
 	int ret;
@@ -283,7 +283,7 @@ static inline int b53_write16(struct b53_device *dev, u8 page, u8 reg,
 	return ret;
 }
 
-static inline int b53_write32(struct b53_device *dev, u8 page, u8 reg,
+static int b53_write32(struct b53_device *dev, u8 page, u8 reg,
 			      u32 value)
 {
 	int ret;
@@ -295,7 +295,7 @@ static inline int b53_write32(struct b53_device *dev, u8 page, u8 reg,
 	return ret;
 }
 
-static inline int b53_write48(struct b53_device *dev, u8 page, u8 reg,
+static int b53_write48(struct b53_device *dev, u8 page, u8 reg,
 			      u64 value)
 {
 	int ret;
@@ -307,7 +307,7 @@ static inline int b53_write48(struct b53_device *dev, u8 page, u8 reg,
 	return ret;
 }
 
-static inline int b53_write64(struct b53_device *dev, u8 page, u8 reg,
+static int b53_write64(struct b53_device *dev, u8 page, u8 reg,
 			       u64 value)
 {
 	int ret;
@@ -328,7 +328,7 @@ struct b53_arl_entry {
 	u8 is_static:1;
 };
 
-static inline void b53_arl_to_entry(struct b53_arl_entry *ent,
+static void b53_arl_to_entry(struct b53_arl_entry *ent,
 				    u64 mac_vid, u32 fwd_entry)
 {
 	memset(ent, 0, sizeof(*ent));
@@ -340,7 +340,7 @@ static inline void b53_arl_to_entry(struct b53_arl_entry *ent,
 	ent->vid = mac_vid >> ARLTBL_VID_S;
 }
 
-static inline void b53_arl_from_entry(u64 *mac_vid, u32 *fwd_entry,
+static void b53_arl_from_entry(u64 *mac_vid, u32 *fwd_entry,
 				      const struct b53_arl_entry *ent)
 {
 	*mac_vid = ether_addr_to_u64(ent->mac);
@@ -358,7 +358,7 @@ static inline void b53_arl_from_entry(u64 *mac_vid, u32 *fwd_entry,
 
 #include <linux/bcm47xx_nvram.h>
 #include <bcm47xx_board.h>
-static inline int b53_switch_get_reset_gpio(struct b53_device *dev)
+static int b53_switch_get_reset_gpio(struct b53_device *dev)
 {
 	enum bcm47xx_board board = bcm47xx_board_get();
 
@@ -371,7 +371,7 @@ static inline int b53_switch_get_reset_gpio(struct b53_device *dev)
 	}
 }
 #else
-static inline int b53_switch_get_reset_gpio(struct b53_device *dev)
+static int b53_switch_get_reset_gpio(struct b53_device *dev)
 {
 	return -ENOENT;
 }

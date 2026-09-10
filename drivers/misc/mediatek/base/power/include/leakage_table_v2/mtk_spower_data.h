@@ -134,7 +134,7 @@ struct sptab_list {
 #define tsize(tab)		((tab)->tsize)
 #define tab_validate(tab)	(!!(tab) && (tab)->data != NULL)
 
-static inline void spower_tab_construct(struct sptab_s *tab,
+static void spower_tab_construct(struct sptab_s *tab,
 		struct spower_raw_t *raw, unsigned int id)
 {
 	int i;

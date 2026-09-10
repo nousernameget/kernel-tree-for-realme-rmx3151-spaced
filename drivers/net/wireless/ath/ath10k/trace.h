@@ -21,7 +21,7 @@
 #include "core.h"
 
 #if !defined(_TRACE_H_)
-static inline u32 ath10k_frm_hdr_len(const void *buf, size_t len)
+static u32 ath10k_frm_hdr_len(const void *buf, size_t len)
 {
 	const struct ieee80211_hdr *hdr = buf;
 

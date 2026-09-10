@@ -75,7 +75,7 @@
 #define PBL_OFF(rdev_p, a) ((a) - (rdev_p)->lldi.vr->pbl.start)
 #define RQT_OFF(rdev_p, a) ((a) - (rdev_p)->lldi.vr->rq.start)
 
-static inline void *cplhdr(struct sk_buff *skb)
+static void *cplhdr(struct sk_buff *skb)
 {
 	return skb->data;
 }
@@ -191,12 +191,12 @@ struct c4iw_rdev {
 	struct kref pbl_kref;
 };
 
-static inline int c4iw_fatal_error(struct c4iw_rdev *rdev)
+static int c4iw_fatal_error(struct c4iw_rdev *rdev)
 {
 	return rdev->flags & T4_FATAL_ERROR;
 }
 
-static inline int c4iw_num_stags(struct c4iw_rdev *rdev)
+static int c4iw_num_stags(struct c4iw_rdev *rdev)
 {
 	return (int)(rdev->lldi.vr->stag.size >> 5);
 }
@@ -208,19 +208,19 @@ struct c4iw_wr_wait {
 	int ret;
 };
 
-static inline void c4iw_init_wr_wait(struct c4iw_wr_wait *wr_waitp)
+static void c4iw_init_wr_wait(struct c4iw_wr_wait *wr_waitp)
 {
 	wr_waitp->ret = 0;
 	init_completion(&wr_waitp->completion);
 }
 
-static inline void c4iw_wake_up(struct c4iw_wr_wait *wr_waitp, int ret)
+static void c4iw_wake_up(struct c4iw_wr_wait *wr_waitp, int ret)
 {
 	wr_waitp->ret = ret;
 	complete(&wr_waitp->completion);
 }
 
-static inline int c4iw_wait_for_reply(struct c4iw_rdev *rdev,
+static int c4iw_wait_for_reply(struct c4iw_rdev *rdev,
 				 struct c4iw_wr_wait *wr_waitp,
 				 u32 hwtid, u32 qpid,
 				 const char *func)
@@ -272,32 +272,32 @@ struct c4iw_dev {
 	wait_queue_head_t wait;
 };
 
-static inline struct c4iw_dev *to_c4iw_dev(struct ib_device *ibdev)
+static struct c4iw_dev *to_c4iw_dev(struct ib_device *ibdev)
 {
 	return container_of(ibdev, struct c4iw_dev, ibdev);
 }
 
-static inline struct c4iw_dev *rdev_to_c4iw_dev(struct c4iw_rdev *rdev)
+static struct c4iw_dev *rdev_to_c4iw_dev(struct c4iw_rdev *rdev)
 {
 	return container_of(rdev, struct c4iw_dev, rdev);
 }
 
-static inline struct c4iw_cq *get_chp(struct c4iw_dev *rhp, u32 cqid)
+static struct c4iw_cq *get_chp(struct c4iw_dev *rhp, u32 cqid)
 {
 	return idr_find(&rhp->cqidr, cqid);
 }
 
-static inline struct c4iw_qp *get_qhp(struct c4iw_dev *rhp, u32 qpid)
+static struct c4iw_qp *get_qhp(struct c4iw_dev *rhp, u32 qpid)
 {
 	return idr_find(&rhp->qpidr, qpid);
 }
 
-static inline struct c4iw_mr *get_mhp(struct c4iw_dev *rhp, u32 mmid)
+static struct c4iw_mr *get_mhp(struct c4iw_dev *rhp, u32 mmid)
 {
 	return idr_find(&rhp->mmidr, mmid);
 }
 
-static inline int _insert_handle(struct c4iw_dev *rhp, struct idr *idr,
+static int _insert_handle(struct c4iw_dev *rhp, struct idr *idr,
 				 void *handle, u32 id, int lock)
 {
 	int ret;
@@ -318,19 +318,19 @@ static inline int _insert_handle(struct c4iw_dev *rhp, struct idr *idr,
 	return ret < 0 ? ret : 0;
 }
 
-static inline int insert_handle(struct c4iw_dev *rhp, struct idr *idr,
+static int insert_handle(struct c4iw_dev *rhp, struct idr *idr,
 				void *handle, u32 id)
 {
 	return _insert_handle(rhp, idr, handle, id, 1);
 }
 
-static inline int insert_handle_nolock(struct c4iw_dev *rhp, struct idr *idr,
+static int insert_handle_nolock(struct c4iw_dev *rhp, struct idr *idr,
 				       void *handle, u32 id)
 {
 	return _insert_handle(rhp, idr, handle, id, 0);
 }
 
-static inline void _remove_handle(struct c4iw_dev *rhp, struct idr *idr,
+static void _remove_handle(struct c4iw_dev *rhp, struct idr *idr,
 				   u32 id, int lock)
 {
 	if (lock)
@@ -340,12 +340,12 @@ static inline void _remove_handle(struct c4iw_dev *rhp, struct idr *idr,
 		spin_unlock_irq(&rhp->lock);
 }
 
-static inline void remove_handle(struct c4iw_dev *rhp, struct idr *idr, u32 id)
+static void remove_handle(struct c4iw_dev *rhp, struct idr *idr, u32 id)
 {
 	_remove_handle(rhp, idr, id, 1);
 }
 
-static inline void remove_handle_nolock(struct c4iw_dev *rhp,
+static void remove_handle_nolock(struct c4iw_dev *rhp,
 					 struct idr *idr, u32 id)
 {
 	_remove_handle(rhp, idr, id, 0);
@@ -353,7 +353,7 @@ static inline void remove_handle_nolock(struct c4iw_dev *rhp,
 
 extern uint c4iw_max_read_depth;
 
-static inline int cur_max_read_depth(struct c4iw_dev *dev)
+static int cur_max_read_depth(struct c4iw_dev *dev)
 {
 	return min(dev->rdev.lldi.max_ordird_qp, c4iw_max_read_depth);
 }
@@ -364,7 +364,7 @@ struct c4iw_pd {
 	struct c4iw_dev *rhp;
 };
 
-static inline struct c4iw_pd *to_c4iw_pd(struct ib_pd *ibpd)
+static struct c4iw_pd *to_c4iw_pd(struct ib_pd *ibpd)
 {
 	return container_of(ibpd, struct c4iw_pd, ibpd);
 }
@@ -400,7 +400,7 @@ struct c4iw_mr {
 	u32 mpl_len;
 };
 
-static inline struct c4iw_mr *to_c4iw_mr(struct ib_mr *ibmr)
+static struct c4iw_mr *to_c4iw_mr(struct ib_mr *ibmr)
 {
 	return container_of(ibmr, struct c4iw_mr, ibmr);
 }
@@ -413,7 +413,7 @@ struct c4iw_mw {
 	struct tpt_attributes attr;
 };
 
-static inline struct c4iw_mw *to_c4iw_mw(struct ib_mw *ibmw)
+static struct c4iw_mw *to_c4iw_mw(struct ib_mw *ibmw)
 {
 	return container_of(ibmw, struct c4iw_mw, ibmw);
 }
@@ -429,7 +429,7 @@ struct c4iw_cq {
 	wait_queue_head_t wait;
 };
 
-static inline struct c4iw_cq *to_c4iw_cq(struct ib_cq *ibcq)
+static struct c4iw_cq *to_c4iw_cq(struct ib_cq *ibcq)
 {
 	return container_of(ibcq, struct c4iw_cq, ibcq);
 }
@@ -490,7 +490,7 @@ struct c4iw_qp {
 	struct c4iw_ucontext *ucontext;
 };
 
-static inline struct c4iw_qp *to_c4iw_qp(struct ib_qp *ibqp)
+static struct c4iw_qp *to_c4iw_qp(struct ib_qp *ibqp)
 {
 	return container_of(ibqp, struct c4iw_qp, ibqp);
 }
@@ -504,19 +504,19 @@ struct c4iw_ucontext {
 	struct kref kref;
 };
 
-static inline struct c4iw_ucontext *to_c4iw_ucontext(struct ib_ucontext *c)
+static struct c4iw_ucontext *to_c4iw_ucontext(struct ib_ucontext *c)
 {
 	return container_of(c, struct c4iw_ucontext, ibucontext);
 }
 
 void _c4iw_free_ucontext(struct kref *kref);
 
-static inline void c4iw_put_ucontext(struct c4iw_ucontext *ucontext)
+static void c4iw_put_ucontext(struct c4iw_ucontext *ucontext)
 {
 	kref_put(&ucontext->kref, _c4iw_free_ucontext);
 }
 
-static inline void c4iw_get_ucontext(struct c4iw_ucontext *ucontext)
+static void c4iw_get_ucontext(struct c4iw_ucontext *ucontext)
 {
 	kref_get(&ucontext->kref);
 }
@@ -528,7 +528,7 @@ struct c4iw_mm_entry {
 	unsigned len;
 };
 
-static inline struct c4iw_mm_entry *remove_mmap(struct c4iw_ucontext *ucontext,
+static struct c4iw_mm_entry *remove_mmap(struct c4iw_ucontext *ucontext,
 						u32 key, unsigned len)
 {
 	struct list_head *pos, *nxt;
@@ -551,7 +551,7 @@ static inline struct c4iw_mm_entry *remove_mmap(struct c4iw_ucontext *ucontext,
 	return NULL;
 }
 
-static inline void insert_mmap(struct c4iw_ucontext *ucontext,
+static void insert_mmap(struct c4iw_ucontext *ucontext,
 			       struct c4iw_mm_entry *mm)
 {
 	spin_lock(&ucontext->mmap_lock);
@@ -599,7 +599,7 @@ enum c4iw_qp_state {
 	C4IW_QP_STATE_TOT
 };
 
-static inline int c4iw_convert_state(enum ib_qp_state ib_state)
+static int c4iw_convert_state(enum ib_qp_state ib_state)
 {
 	switch (ib_state) {
 	case IB_QPS_RESET:
@@ -618,7 +618,7 @@ static inline int c4iw_convert_state(enum ib_qp_state ib_state)
 	}
 }
 
-static inline int to_ib_qp_state(int c4iw_qp_state)
+static int to_ib_qp_state(int c4iw_qp_state)
 {
 	switch (c4iw_qp_state) {
 	case C4IW_QP_STATE_IDLE:
@@ -635,7 +635,7 @@ static inline int to_ib_qp_state(int c4iw_qp_state)
 	return IB_QPS_ERR;
 }
 
-static inline u32 c4iw_ib_to_tpt_access(int a)
+static u32 c4iw_ib_to_tpt_access(int a)
 {
 	return (a & IB_ACCESS_REMOTE_WRITE ? FW_RI_MEM_ACCESS_REM_WRITE : 0) |
 	       (a & IB_ACCESS_REMOTE_READ ? FW_RI_MEM_ACCESS_REM_READ : 0) |
@@ -643,7 +643,7 @@ static inline u32 c4iw_ib_to_tpt_access(int a)
 	       FW_RI_MEM_ACCESS_LOCAL_READ;
 }
 
-static inline u32 c4iw_ib_to_tpt_bind_access(int acc)
+static u32 c4iw_ib_to_tpt_bind_access(int acc)
 {
 	return (acc & IB_ACCESS_REMOTE_WRITE ? FW_RI_MEM_ACCESS_REM_WRITE : 0) |
 	       (acc & IB_ACCESS_REMOTE_READ ? FW_RI_MEM_ACCESS_REM_READ : 0);
@@ -894,17 +894,17 @@ struct c4iw_ep {
 	struct c4iw_ep_stats stats;
 };
 
-static inline struct c4iw_ep *to_ep(struct iw_cm_id *cm_id)
+static struct c4iw_ep *to_ep(struct iw_cm_id *cm_id)
 {
 	return cm_id->provider_data;
 }
 
-static inline struct c4iw_listen_ep *to_listen_ep(struct iw_cm_id *cm_id)
+static struct c4iw_listen_ep *to_listen_ep(struct iw_cm_id *cm_id)
 {
 	return cm_id->provider_data;
 }
 
-static inline int ocqp_supported(const struct cxgb4_lld_info *infop)
+static int ocqp_supported(const struct cxgb4_lld_info *infop)
 {
 #if defined(__i386__) || defined(__x86_64__) || defined(CONFIG_PPC64)
 	return infop->vr->ocq.size > 0;

@@ -388,7 +388,7 @@ VOID rlmDeactivateNetwork(P_ADAPTER_T prAdapter, ENUM_NETWORK_TYPE_INDEX_T eNetw
 */
 
 #ifndef _lint
-static inline VOID rlmDataTypeCheck(VOID)
+static VOID rlmDataTypeCheck(VOID)
 {
 #if CFG_ENABLE_BT_OVER_WIFI
 	DATA_STRUCT_INSPECTING_ASSERT(NETWORK_TYPE_AIS_INDEX < NETWORK_TYPE_BOW_INDEX);

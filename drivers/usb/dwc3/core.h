@@ -1193,13 +1193,13 @@ void dwc3_set_mode(struct dwc3 *dwc, u32 mode);
 u32 dwc3_core_fifo_space(struct dwc3_ep *dep, u8 type);
 
 /* check whether we are on the DWC_usb3 core */
-static inline bool dwc3_is_usb3(struct dwc3 *dwc)
+static bool dwc3_is_usb3(struct dwc3 *dwc)
 {
 	return !(dwc->revision & DWC3_REVISION_IS_DWC31);
 }
 
 /* check whether we are on the DWC_usb31 core */
-static inline bool dwc3_is_usb31(struct dwc3 *dwc)
+static bool dwc3_is_usb31(struct dwc3 *dwc)
 {
 	return !!(dwc->revision & DWC3_REVISION_IS_DWC31);
 }
@@ -1210,9 +1210,9 @@ bool dwc3_has_imod(struct dwc3 *dwc);
 int dwc3_host_init(struct dwc3 *dwc);
 void dwc3_host_exit(struct dwc3 *dwc);
 #else
-static inline int dwc3_host_init(struct dwc3 *dwc)
+static int dwc3_host_init(struct dwc3 *dwc)
 { return 0; }
-static inline void dwc3_host_exit(struct dwc3 *dwc)
+static void dwc3_host_exit(struct dwc3 *dwc)
 { }
 #endif
 
@@ -1226,22 +1226,22 @@ int dwc3_send_gadget_ep_cmd(struct dwc3_ep *dep, unsigned cmd,
 		struct dwc3_gadget_ep_cmd_params *params);
 int dwc3_send_gadget_generic_command(struct dwc3 *dwc, unsigned cmd, u32 param);
 #else
-static inline int dwc3_gadget_init(struct dwc3 *dwc)
+static int dwc3_gadget_init(struct dwc3 *dwc)
 { return 0; }
-static inline void dwc3_gadget_exit(struct dwc3 *dwc)
+static void dwc3_gadget_exit(struct dwc3 *dwc)
 { }
-static inline int dwc3_gadget_set_test_mode(struct dwc3 *dwc, int mode)
+static int dwc3_gadget_set_test_mode(struct dwc3 *dwc, int mode)
 { return 0; }
-static inline int dwc3_gadget_get_link_state(struct dwc3 *dwc)
+static int dwc3_gadget_get_link_state(struct dwc3 *dwc)
 { return 0; }
-static inline int dwc3_gadget_set_link_state(struct dwc3 *dwc,
+static int dwc3_gadget_set_link_state(struct dwc3 *dwc,
 		enum dwc3_link_state state)
 { return 0; }
 
-static inline int dwc3_send_gadget_ep_cmd(struct dwc3_ep *dep, unsigned cmd,
+static int dwc3_send_gadget_ep_cmd(struct dwc3_ep *dep, unsigned cmd,
 		struct dwc3_gadget_ep_cmd_params *params)
 { return 0; }
-static inline int dwc3_send_gadget_generic_command(struct dwc3 *dwc,
+static int dwc3_send_gadget_generic_command(struct dwc3 *dwc,
 		int cmd, u32 param)
 { return 0; }
 #endif
@@ -1250,9 +1250,9 @@ static inline int dwc3_send_gadget_generic_command(struct dwc3 *dwc,
 int dwc3_drd_init(struct dwc3 *dwc);
 void dwc3_drd_exit(struct dwc3 *dwc);
 #else
-static inline int dwc3_drd_init(struct dwc3 *dwc)
+static int dwc3_drd_init(struct dwc3 *dwc)
 { return 0; }
-static inline void dwc3_drd_exit(struct dwc3 *dwc)
+static void dwc3_drd_exit(struct dwc3 *dwc)
 { }
 #endif
 
@@ -1262,17 +1262,17 @@ int dwc3_gadget_suspend(struct dwc3 *dwc);
 int dwc3_gadget_resume(struct dwc3 *dwc);
 void dwc3_gadget_process_pending_events(struct dwc3 *dwc);
 #else
-static inline int dwc3_gadget_suspend(struct dwc3 *dwc)
+static int dwc3_gadget_suspend(struct dwc3 *dwc)
 {
 	return 0;
 }
 
-static inline int dwc3_gadget_resume(struct dwc3 *dwc)
+static int dwc3_gadget_resume(struct dwc3 *dwc)
 {
 	return 0;
 }
 
-static inline void dwc3_gadget_process_pending_events(struct dwc3 *dwc)
+static void dwc3_gadget_process_pending_events(struct dwc3 *dwc)
 {
 }
 #endif /* !IS_ENABLED(CONFIG_USB_DWC3_HOST) */
@@ -1281,9 +1281,9 @@ static inline void dwc3_gadget_process_pending_events(struct dwc3 *dwc)
 int dwc3_ulpi_init(struct dwc3 *dwc);
 void dwc3_ulpi_exit(struct dwc3 *dwc);
 #else
-static inline int dwc3_ulpi_init(struct dwc3 *dwc)
+static int dwc3_ulpi_init(struct dwc3 *dwc)
 { return 0; }
-static inline void dwc3_ulpi_exit(struct dwc3 *dwc)
+static void dwc3_ulpi_exit(struct dwc3 *dwc)
 { }
 #endif
 

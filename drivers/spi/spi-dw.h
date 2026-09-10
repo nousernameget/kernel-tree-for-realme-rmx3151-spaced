@@ -143,27 +143,27 @@ struct dw_spi {
 #endif
 };
 
-static inline u32 dw_readl(struct dw_spi *dws, u32 offset)
+static u32 dw_readl(struct dw_spi *dws, u32 offset)
 {
 	return __raw_readl(dws->regs + offset);
 }
 
-static inline u16 dw_readw(struct dw_spi *dws, u32 offset)
+static u16 dw_readw(struct dw_spi *dws, u32 offset)
 {
 	return __raw_readw(dws->regs + offset);
 }
 
-static inline void dw_writel(struct dw_spi *dws, u32 offset, u32 val)
+static void dw_writel(struct dw_spi *dws, u32 offset, u32 val)
 {
 	__raw_writel(val, dws->regs + offset);
 }
 
-static inline void dw_writew(struct dw_spi *dws, u32 offset, u16 val)
+static void dw_writew(struct dw_spi *dws, u32 offset, u16 val)
 {
 	__raw_writew(val, dws->regs + offset);
 }
 
-static inline u32 dw_read_io_reg(struct dw_spi *dws, u32 offset)
+static u32 dw_read_io_reg(struct dw_spi *dws, u32 offset)
 {
 	switch (dws->reg_io_width) {
 	case 2:
@@ -174,7 +174,7 @@ static inline u32 dw_read_io_reg(struct dw_spi *dws, u32 offset)
 	}
 }
 
-static inline void dw_write_io_reg(struct dw_spi *dws, u32 offset, u32 val)
+static void dw_write_io_reg(struct dw_spi *dws, u32 offset, u32 val)
 {
 	switch (dws->reg_io_width) {
 	case 2:
@@ -187,18 +187,18 @@ static inline void dw_write_io_reg(struct dw_spi *dws, u32 offset, u32 val)
 	}
 }
 
-static inline void spi_enable_chip(struct dw_spi *dws, int enable)
+static void spi_enable_chip(struct dw_spi *dws, int enable)
 {
 	dw_writel(dws, DW_SPI_SSIENR, (enable ? 1 : 0));
 }
 
-static inline void spi_set_clk(struct dw_spi *dws, u16 div)
+static void spi_set_clk(struct dw_spi *dws, u16 div)
 {
 	dw_writel(dws, DW_SPI_BAUDR, div);
 }
 
 /* Disable IRQ bits */
-static inline void spi_mask_intr(struct dw_spi *dws, u32 mask)
+static void spi_mask_intr(struct dw_spi *dws, u32 mask)
 {
 	u32 new_mask;
 
@@ -207,7 +207,7 @@ static inline void spi_mask_intr(struct dw_spi *dws, u32 mask)
 }
 
 /* Enable IRQ bits */
-static inline void spi_umask_intr(struct dw_spi *dws, u32 mask)
+static void spi_umask_intr(struct dw_spi *dws, u32 mask)
 {
 	u32 new_mask;
 
@@ -220,14 +220,14 @@ static inline void spi_umask_intr(struct dw_spi *dws, u32 mask)
  * controller back. Transmit and receive FIFO buffers are cleared when the
  * device is disabled.
  */
-static inline void spi_reset_chip(struct dw_spi *dws)
+static void spi_reset_chip(struct dw_spi *dws)
 {
 	spi_enable_chip(dws, 0);
 	spi_mask_intr(dws, 0xff);
 	spi_enable_chip(dws, 1);
 }
 
-static inline void spi_shutdown_chip(struct dw_spi *dws)
+static void spi_shutdown_chip(struct dw_spi *dws)
 {
 	spi_enable_chip(dws, 0);
 	spi_set_clk(dws, 0);

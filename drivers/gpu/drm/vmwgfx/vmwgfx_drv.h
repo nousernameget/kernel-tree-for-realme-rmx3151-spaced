@@ -540,22 +540,22 @@ struct vmw_private {
 	DECLARE_BITMAP(irqthread_pending, VMW_IRQTHREAD_MAX);
 };
 
-static inline struct vmw_surface *vmw_res_to_srf(struct vmw_resource *res)
+static struct vmw_surface *vmw_res_to_srf(struct vmw_resource *res)
 {
 	return container_of(res, struct vmw_surface, res);
 }
 
-static inline struct vmw_private *vmw_priv(struct drm_device *dev)
+static struct vmw_private *vmw_priv(struct drm_device *dev)
 {
 	return (struct vmw_private *)dev->dev_private;
 }
 
-static inline struct vmw_fpriv *vmw_fpriv(struct drm_file *file_priv)
+static struct vmw_fpriv *vmw_fpriv(struct drm_file *file_priv)
 {
 	return (struct vmw_fpriv *)file_priv->driver_priv;
 }
 
-static inline struct vmw_master *vmw_master(struct drm_master *master)
+static struct vmw_master *vmw_master(struct drm_master *master)
 {
 	return (struct vmw_master *) master->driver_priv;
 }
@@ -567,7 +567,7 @@ static inline struct vmw_master *vmw_master(struct drm_master *master)
  * Instead we have the extra benefit of being sure that we don't forget
  * the hw lock around register accesses.
  */
-static inline void vmw_write(struct vmw_private *dev_priv,
+static void vmw_write(struct vmw_private *dev_priv,
 			     unsigned int offset, uint32_t value)
 {
 	spin_lock(&dev_priv->hw_lock);
@@ -576,7 +576,7 @@ static inline void vmw_write(struct vmw_private *dev_priv,
 	spin_unlock(&dev_priv->hw_lock);
 }
 
-static inline uint32_t vmw_read(struct vmw_private *dev_priv,
+static uint32_t vmw_read(struct vmw_private *dev_priv,
 				unsigned int offset)
 {
 	u32 val;
@@ -783,7 +783,7 @@ extern void vmw_piter_start(struct vmw_piter *viter,
  *
  * Returns false if past the list of pages, true otherwise.
  */
-static inline bool vmw_piter_next(struct vmw_piter *viter)
+static bool vmw_piter_next(struct vmw_piter *viter)
 {
 	return viter->next(viter);
 }
@@ -795,7 +795,7 @@ static inline bool vmw_piter_next(struct vmw_piter *viter)
  *
  * Returns the DMA address of the page pointed to by @viter.
  */
-static inline dma_addr_t vmw_piter_dma_addr(struct vmw_piter *viter)
+static dma_addr_t vmw_piter_dma_addr(struct vmw_piter *viter)
 {
 	return viter->dma_address(viter);
 }
@@ -807,7 +807,7 @@ static inline dma_addr_t vmw_piter_dma_addr(struct vmw_piter *viter)
  *
  * Returns the DMA address of the page pointed to by @viter.
  */
-static inline struct page *vmw_piter_page(struct vmw_piter *viter)
+static struct page *vmw_piter_page(struct vmw_piter *viter)
 {
 	return viter->page(viter);
 }
@@ -1171,7 +1171,7 @@ extern void vmw_cmdbuf_irqthread(struct vmw_cmdbuf_man *man);
  * Inline helper functions
  */
 
-static inline void vmw_surface_unreference(struct vmw_surface **srf)
+static void vmw_surface_unreference(struct vmw_surface **srf)
 {
 	struct vmw_surface *tmp_srf = *srf;
 	struct vmw_resource *res = &tmp_srf->res;
@@ -1180,13 +1180,13 @@ static inline void vmw_surface_unreference(struct vmw_surface **srf)
 	vmw_resource_unreference(&res);
 }
 
-static inline struct vmw_surface *vmw_surface_reference(struct vmw_surface *srf)
+static struct vmw_surface *vmw_surface_reference(struct vmw_surface *srf)
 {
 	(void) vmw_resource_reference(&srf->res);
 	return srf;
 }
 
-static inline void vmw_dmabuf_unreference(struct vmw_dma_buffer **buf)
+static void vmw_dmabuf_unreference(struct vmw_dma_buffer **buf)
 {
 	struct vmw_dma_buffer *tmp_buf = *buf;
 
@@ -1198,24 +1198,24 @@ static inline void vmw_dmabuf_unreference(struct vmw_dma_buffer **buf)
 	}
 }
 
-static inline struct vmw_dma_buffer *vmw_dmabuf_reference(struct vmw_dma_buffer *buf)
+static struct vmw_dma_buffer *vmw_dmabuf_reference(struct vmw_dma_buffer *buf)
 {
 	if (ttm_bo_reference(&buf->base))
 		return buf;
 	return NULL;
 }
 
-static inline struct ttm_mem_global *vmw_mem_glob(struct vmw_private *dev_priv)
+static struct ttm_mem_global *vmw_mem_glob(struct vmw_private *dev_priv)
 {
 	return (struct ttm_mem_global *) dev_priv->mem_global_ref.object;
 }
 
-static inline void vmw_fifo_resource_inc(struct vmw_private *dev_priv)
+static void vmw_fifo_resource_inc(struct vmw_private *dev_priv)
 {
 	atomic_inc(&dev_priv->num_fifo_resources);
 }
 
-static inline void vmw_fifo_resource_dec(struct vmw_private *dev_priv)
+static void vmw_fifo_resource_dec(struct vmw_private *dev_priv)
 {
 	atomic_dec(&dev_priv->num_fifo_resources);
 }
@@ -1228,7 +1228,7 @@ static inline void vmw_fifo_resource_dec(struct vmw_private *dev_priv)
  * This function is intended to be equivalent to ioread32() on
  * memremap'd memory, but without byteswapping.
  */
-static inline u32 vmw_mmio_read(u32 *addr)
+static u32 vmw_mmio_read(u32 *addr)
 {
 	return READ_ONCE(*addr);
 }
@@ -1241,7 +1241,7 @@ static inline u32 vmw_mmio_read(u32 *addr)
  * This function is intended to be equivalent to iowrite32 on
  * memremap'd memory, but without byteswapping.
  */
-static inline void vmw_mmio_write(u32 value, u32 *addr)
+static void vmw_mmio_write(u32 value, u32 *addr)
 {
 	WRITE_ONCE(*addr, value);
 }

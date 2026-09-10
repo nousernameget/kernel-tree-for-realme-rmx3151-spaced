@@ -440,7 +440,7 @@ struct optee_smc_disable_shm_cache_result {
 #define OPTEE_SMC_RETURN_ENOTAVAIL	0x7
 #define OPTEE_SMC_RETURN_IS_RPC(ret)	__optee_smc_return_is_rpc((ret))
 
-static inline bool __optee_smc_return_is_rpc(u32 ret)
+static bool __optee_smc_return_is_rpc(u32 ret)
 {
 	return ret != OPTEE_SMC_RETURN_UNKNOWN_FUNCTION &&
 	       (ret & OPTEE_SMC_RETURN_RPC_PREFIX_MASK) ==

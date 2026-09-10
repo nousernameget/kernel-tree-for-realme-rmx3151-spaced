@@ -140,7 +140,7 @@ struct vmci_queue {
  * Result:
  * true if the page store is wellformed. false otherwise.
  */
-static inline bool
+static bool
 VMCI_QP_PAGESTORE_IS_WELLFORMED(struct vmci_qp_page_store *page_store)
 {
 	return page_store->len >= 2;

@@ -125,7 +125,7 @@ char *iommu_atf_cmd_name[IOMMU_ATF_CMD_COUNT] = {
 	"IOMMU_ATF_GET_DOM_NUM_FOR_SEC_ID",
 };
 #endif
-inline void iommu_set_field_by_mask(void __iomem *M4UBase,
+void iommu_set_field_by_mask(void __iomem *M4UBase,
 					   unsigned int reg,
 					   unsigned long mask,
 					   unsigned int val)
@@ -137,7 +137,7 @@ inline void iommu_set_field_by_mask(void __iomem *M4UBase,
 	writel_relaxed(regval, M4UBase + reg);
 }
 
-static inline unsigned int iommu_get_field_by_mask(
+static unsigned int iommu_get_field_by_mask(
 		void __iomem *M4UBase, unsigned int reg,
 						   unsigned int mask)
 {

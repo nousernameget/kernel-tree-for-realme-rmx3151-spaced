@@ -67,13 +67,13 @@ extern int unreg_loading_tracking_sp(void (*fn)(int loading),
 
 #define reg_loading_tracking(p_fn, polling_ms) \
 reg_loading_tracking_sp(p_fn, polling_ms, __func__)
-static inline int reg_loading_tracking_sp(void (*fn)(int loading),
+static int reg_loading_tracking_sp(void (*fn)(int loading),
 	unsigned long polling_ms, const char *caller)
 { return -EINVAL; }
 
 #define reg_loading_tracking(p_fn, polling_ms) \
 reg_loading_tracking_sp(p_fn, polling_ms, __func__)
-static inline int unreg_loading_tracking_sp(void (*fn)(int loading),
+static int unreg_loading_tracking_sp(void (*fn)(int loading),
 	const char *caller)
 { return -EINVAL; }
 

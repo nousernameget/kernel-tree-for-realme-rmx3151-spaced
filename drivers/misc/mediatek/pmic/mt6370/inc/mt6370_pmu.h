@@ -264,19 +264,19 @@ extern int mt6370_pmu_reg_write(struct mt6370_pmu_chip *chip,
 extern int mt6370_pmu_reg_update_bits(struct mt6370_pmu_chip *chip, u8 addr,
 	u8 mask, u8 data);
 
-static inline int mt6370_pmu_reg_set_bit(struct mt6370_pmu_chip *chip, u8 addr,
+static int mt6370_pmu_reg_set_bit(struct mt6370_pmu_chip *chip, u8 addr,
 		u8 mask)
 {
 	return mt6370_pmu_reg_update_bits(chip, addr, mask, mask);
 }
 
-static inline int mt6370_pmu_reg_clr_bit(struct mt6370_pmu_chip *chip, u8 addr,
+static int mt6370_pmu_reg_clr_bit(struct mt6370_pmu_chip *chip, u8 addr,
 		u8 mask)
 {
 	return mt6370_pmu_reg_update_bits(chip, addr, mask, 0x00);
 }
 
-static inline int mt6370_pmu_reg_test_bit(
+static int mt6370_pmu_reg_test_bit(
 	struct mt6370_pmu_chip *chip, u8 cmd, u8 shift, bool *is_one)
 {
 	int ret = 0;

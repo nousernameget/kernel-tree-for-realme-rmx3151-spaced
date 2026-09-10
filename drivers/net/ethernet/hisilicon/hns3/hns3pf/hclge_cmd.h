@@ -709,7 +709,7 @@ struct hclge_reset_tqp_queue {
 #define HCLGE_NIC_CMQ_DESC_NUM_S	3
 
 int hclge_cmd_init(struct hclge_dev *hdev);
-static inline void hclge_write_reg(void __iomem *base, u32 reg, u32 value)
+static void hclge_write_reg(void __iomem *base, u32 reg, u32 value)
 {
 	writel(value, base + reg);
 }
@@ -719,7 +719,7 @@ static inline void hclge_write_reg(void __iomem *base, u32 reg, u32 value)
 #define hclge_read_dev(a, reg) \
 	hclge_read_reg((a)->io_base, (reg))
 
-static inline u32 hclge_read_reg(u8 __iomem *base, u32 reg)
+static u32 hclge_read_reg(u8 __iomem *base, u32 reg)
 {
 	u8 __iomem *reg_addr = READ_ONCE(base);
 

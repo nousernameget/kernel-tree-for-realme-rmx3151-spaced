@@ -634,7 +634,7 @@ extern const struct stmmac_desc_ops dwmac4_desc_ops;
  * Description: this simple function is to decode and return the SYINID
  * starting from the HW core register.
  */
-static inline u32 stmmac_get_synopsys_id(u32 hwid)
+static u32 stmmac_get_synopsys_id(u32 hwid)
 {
 	/* Check Synopsys Id (not available on old chips) */
 	if (likely(hwid)) {

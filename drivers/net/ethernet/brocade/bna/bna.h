@@ -243,7 +243,7 @@ do {									\
 
 /*  Inline functions  */
 
-static inline struct bna_mac *bna_mac_find(struct list_head *q, const u8 *addr)
+static struct bna_mac *bna_mac_find(struct list_head *q, const u8 *addr)
 {
 	struct bna_mac *mac;
 

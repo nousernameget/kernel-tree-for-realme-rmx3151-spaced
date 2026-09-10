@@ -103,7 +103,7 @@
 #define SCU_IO_REQUEST_MAX_SGE_SIZE         (0x00FFFFFF)
 #define SCU_IO_REQUEST_MAX_TRANSFER_LENGTH  (0x00FFFFFF)
 
-static inline void check_sizes(void)
+static void check_sizes(void)
 {
 	BUILD_BUG_ON_NOT_POWER_OF_2(SCU_MAX_EVENTS);
 	BUILD_BUG_ON(SCU_MAX_UNSOLICITED_FRAMES <= 8);
@@ -465,7 +465,7 @@ enum sci_task_status {
  * i.e. single byte fields swapped and multi-byte fields in little-
  * endian
  */
-static inline void sci_swab32_cpy(void *_dest, void *_src, ssize_t word_cnt)
+static void sci_swab32_cpy(void *_dest, void *_src, ssize_t word_cnt)
 {
 	u32 *dest = _dest, *src = _src;
 
@@ -506,13 +506,13 @@ void sci_init_timer(struct sci_timer *tmr, void (*fn)(unsigned long))
 	init_timer(&tmr->timer);
 }
 
-static inline void sci_mod_timer(struct sci_timer *tmr, unsigned long msec)
+static void sci_mod_timer(struct sci_timer *tmr, unsigned long msec)
 {
 	tmr->cancel = 0;
 	mod_timer(&tmr->timer, jiffies + msecs_to_jiffies(msec));
 }
 
-static inline void sci_del_timer(struct sci_timer *tmr)
+static void sci_del_timer(struct sci_timer *tmr)
 {
 	tmr->cancel = 1;
 	del_timer(&tmr->timer);

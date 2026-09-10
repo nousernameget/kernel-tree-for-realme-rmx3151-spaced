@@ -92,13 +92,13 @@ int isp1760_udc_register(struct isp1760_device *isp, int irq,
 			 unsigned long irqflags);
 void isp1760_udc_unregister(struct isp1760_device *isp);
 #else
-static inline int isp1760_udc_register(struct isp1760_device *isp, int irq,
+static int isp1760_udc_register(struct isp1760_device *isp, int irq,
 				       unsigned long irqflags)
 {
 	return 0;
 }
 
-static inline void isp1760_udc_unregister(struct isp1760_device *isp)
+static void isp1760_udc_unregister(struct isp1760_device *isp)
 {
 }
 #endif

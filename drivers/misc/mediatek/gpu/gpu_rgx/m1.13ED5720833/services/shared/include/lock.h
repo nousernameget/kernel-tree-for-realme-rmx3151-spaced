@@ -96,7 +96,7 @@ typedef unsigned long OS_SPINLOCK_FLAGS;
 #define OSAtomicCompareExchange(pCounter, oldv, newv) atomic_cmpxchg(pCounter,oldv,newv)
 #define OSAtomicExchange(pCounter, iNewVal) atomic_xchg(pCounter, iNewVal)
 
-static inline IMG_INT OSAtomicOr(ATOMIC_T *pCounter, IMG_INT iVal)
+static IMG_INT OSAtomicOr(ATOMIC_T *pCounter, IMG_INT iVal)
 {
 	IMG_INT iOldVal, iLastVal, iNewVal;
 
@@ -222,7 +222,7 @@ IMG_BOOL OSLockIsLocked(POS_LOCK hLock);
 	__sync_val_compare_and_swap((&(pCounter)->counter), oldv, newv)
 #define OSAtomicOr(pCounter, iVal) __sync_or_and_fetch((&(pCounter)->counter), iVal)
 
-static inline IMG_UINT32 OSAtomicExchange(ATOMIC_T *pCounter, IMG_UINT32 iNewVal)
+static IMG_UINT32 OSAtomicExchange(ATOMIC_T *pCounter, IMG_UINT32 iNewVal)
 {
 	IMG_UINT32 iOldVal;
 	IMG_UINT32 iLastVal;

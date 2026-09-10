@@ -178,7 +178,7 @@ extern struct dvb_frontend *m88ds3103_attach(
 		struct i2c_adapter **tuner_i2c);
 extern int m88ds3103_get_agc_pwm(struct dvb_frontend *fe, u8 *_agc_pwm);
 #else
-static inline struct dvb_frontend *m88ds3103_attach(
+static struct dvb_frontend *m88ds3103_attach(
 		const struct m88ds3103_config *config,
 		struct i2c_adapter *i2c,
 		struct i2c_adapter **tuner_i2c)

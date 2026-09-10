@@ -100,7 +100,7 @@ struct nouveau_cli {
 	char name[32];
 };
 
-static inline struct nouveau_cli *
+static struct nouveau_cli *
 nouveau_cli(struct drm_file *fpriv)
 {
 	return fpriv ? fpriv->driver_priv : NULL;
@@ -186,7 +186,7 @@ struct nouveau_drm {
 	struct pci_dev *hdmi_device;
 };
 
-static inline struct nouveau_drm *
+static struct nouveau_drm *
 nouveau_drm(struct drm_device *dev)
 {
 	return dev->dev_private;

@@ -440,18 +440,18 @@ struct qedr_mr {
 #define QEDR_RESP_INV	(RDMA_CQE_RESPONDER_INV_FLG_MASK << \
 			 RDMA_CQE_RESPONDER_INV_FLG_SHIFT)
 
-static inline void qedr_inc_sw_cons(struct qedr_qp_hwq_info *info)
+static void qedr_inc_sw_cons(struct qedr_qp_hwq_info *info)
 {
 	info->cons = (info->cons + 1) % info->max_wr;
 	info->wqe_cons++;
 }
 
-static inline void qedr_inc_sw_prod(struct qedr_qp_hwq_info *info)
+static void qedr_inc_sw_prod(struct qedr_qp_hwq_info *info)
 {
 	info->prod = (info->prod + 1) % info->max_wr;
 }
 
-static inline int qedr_get_dmac(struct qedr_dev *dev,
+static int qedr_get_dmac(struct qedr_dev *dev,
 				struct rdma_ah_attr *ah_attr, u8 *mac_addr)
 {
 	union ib_gid zero_sgid = { { 0 } };
@@ -480,32 +480,32 @@ struct qedr_ucontext *get_qedr_ucontext(struct ib_ucontext *ibucontext)
 	return container_of(ibucontext, struct qedr_ucontext, ibucontext);
 }
 
-static inline struct qedr_dev *get_qedr_dev(struct ib_device *ibdev)
+static struct qedr_dev *get_qedr_dev(struct ib_device *ibdev)
 {
 	return container_of(ibdev, struct qedr_dev, ibdev);
 }
 
-static inline struct qedr_pd *get_qedr_pd(struct ib_pd *ibpd)
+static struct qedr_pd *get_qedr_pd(struct ib_pd *ibpd)
 {
 	return container_of(ibpd, struct qedr_pd, ibpd);
 }
 
-static inline struct qedr_cq *get_qedr_cq(struct ib_cq *ibcq)
+static struct qedr_cq *get_qedr_cq(struct ib_cq *ibcq)
 {
 	return container_of(ibcq, struct qedr_cq, ibcq);
 }
 
-static inline struct qedr_qp *get_qedr_qp(struct ib_qp *ibqp)
+static struct qedr_qp *get_qedr_qp(struct ib_qp *ibqp)
 {
 	return container_of(ibqp, struct qedr_qp, ibqp);
 }
 
-static inline struct qedr_ah *get_qedr_ah(struct ib_ah *ibah)
+static struct qedr_ah *get_qedr_ah(struct ib_ah *ibah)
 {
 	return container_of(ibah, struct qedr_ah, ibah);
 }
 
-static inline struct qedr_mr *get_qedr_mr(struct ib_mr *ibmr)
+static struct qedr_mr *get_qedr_mr(struct ib_mr *ibmr)
 {
 	return container_of(ibmr, struct qedr_mr, ibmr);
 }

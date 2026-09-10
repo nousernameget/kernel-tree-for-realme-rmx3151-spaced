@@ -113,7 +113,7 @@ int virtio_crypto_ablkcipher_crypt_req(
 void
 virtcrypto_clear_request(struct virtio_crypto_request *vc_req);
 
-static inline int virtio_crypto_get_current_node(void)
+static int virtio_crypto_get_current_node(void)
 {
 	int cpu, node;
 

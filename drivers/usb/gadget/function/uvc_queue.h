@@ -52,7 +52,7 @@ struct uvc_video_queue {
 	struct list_head irqqueue;
 };
 
-static inline int uvc_queue_streaming(struct uvc_video_queue *queue)
+static int uvc_queue_streaming(struct uvc_video_queue *queue)
 {
 	return vb2_is_streaming(&queue->queue);
 }

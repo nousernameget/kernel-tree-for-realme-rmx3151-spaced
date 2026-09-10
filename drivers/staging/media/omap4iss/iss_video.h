@@ -100,7 +100,7 @@ struct iss_pipeline {
 #define to_iss_pipeline(__e) \
 	container_of((__e)->pipe, struct iss_pipeline, pipe)
 
-static inline int iss_pipeline_ready(struct iss_pipeline *pipe)
+static int iss_pipeline_ready(struct iss_pipeline *pipe)
 {
 	return pipe->state == (ISS_PIPELINE_STREAM_INPUT |
 			       ISS_PIPELINE_STREAM_OUTPUT |

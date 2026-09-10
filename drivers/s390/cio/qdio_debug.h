@@ -32,7 +32,7 @@ extern debug_info_t *qdio_dbf_error;
 		debug_text_event(qdio_dbf_setup, DBF_ERR, debug_buffer); \
 	} while (0)
 
-static inline void DBF_HEX(void *addr, int len)
+static void DBF_HEX(void *addr, int len)
 {
 	while (len > 0) {
 		debug_event(qdio_dbf_setup, DBF_ERR, addr, len);
@@ -48,7 +48,7 @@ static inline void DBF_HEX(void *addr, int len)
 		debug_text_event(qdio_dbf_error, DBF_ERR, debug_buffer); \
 	} while (0)
 
-static inline void DBF_ERROR_HEX(void *addr, int len)
+static void DBF_ERROR_HEX(void *addr, int len)
 {
 	while (len > 0) {
 		debug_event(qdio_dbf_error, DBF_ERR, addr, len);
@@ -66,7 +66,7 @@ static inline void DBF_ERROR_HEX(void *addr, int len)
 		} \
 	} while (0)
 
-static inline void DBF_DEV_HEX(struct qdio_irq *dev, void *addr,
+static void DBF_DEV_HEX(struct qdio_irq *dev, void *addr,
 			       int len, int level)
 {
 	while (len > 0) {

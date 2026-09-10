@@ -31,7 +31,7 @@ extern struct semaphore keymaster_api_lock;
 int teei_forward_call(unsigned long long cmd, unsigned long long cmd_addr,
 				unsigned long long size);
 
-static inline int soter_do_call_with_arg(struct tee_context *ctx,
+static int soter_do_call_with_arg(struct tee_context *ctx,
 					phys_addr_t parg)
 {
 	if (strncmp(ctx->hostname, "bta_loader", TEE_MAX_HOSTNAME_SIZE) == 0)
@@ -47,7 +47,7 @@ static inline int soter_do_call_with_arg(struct tee_context *ctx,
 	return -EINVAL;
 }
 
-static inline int soter_register_shm_pool(phys_addr_t shm_pa, int shm_size)
+static int soter_register_shm_pool(phys_addr_t shm_pa, int shm_size)
 {
 	int retVal = 0;
 

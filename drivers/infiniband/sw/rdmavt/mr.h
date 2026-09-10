@@ -60,12 +60,12 @@ struct rvt_mr {
 	struct rvt_mregion mr;  /* must be last */
 };
 
-static inline struct rvt_fmr *to_ifmr(struct ib_fmr *ibfmr)
+static struct rvt_fmr *to_ifmr(struct ib_fmr *ibfmr)
 {
 	return container_of(ibfmr, struct rvt_fmr, ibfmr);
 }
 
-static inline struct rvt_mr *to_imr(struct ib_mr *ibmr)
+static struct rvt_mr *to_imr(struct ib_mr *ibmr)
 {
 	return container_of(ibmr, struct rvt_mr, ibmr);
 }

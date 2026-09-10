@@ -18,7 +18,7 @@ int enic_rx_flow_steer(struct net_device *dev, const struct sk_buff *skb,
 		       u16 rxq_index, u32 flow_id);
 void enic_flow_may_expire(unsigned long data);
 
-static inline void enic_rfs_timer_start(struct enic *enic)
+static void enic_rfs_timer_start(struct enic *enic)
 {
 	init_timer(&enic->rfs_h.rfs_may_expire);
 	enic->rfs_h.rfs_may_expire.function = enic_flow_may_expire;
@@ -26,7 +26,7 @@ static inline void enic_rfs_timer_start(struct enic *enic)
 	mod_timer(&enic->rfs_h.rfs_may_expire, jiffies + HZ/4);
 }
 
-static inline void enic_rfs_timer_stop(struct enic *enic)
+static void enic_rfs_timer_stop(struct enic *enic)
 {
 	del_timer_sync(&enic->rfs_h.rfs_may_expire);
 }

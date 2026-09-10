@@ -240,7 +240,7 @@ enum mc_cmd_status {
 /* Command completion flag */
 #define MC_CMD_FLAG_INTR_DIS	0x01
 
-static inline u64 mc_encode_cmd_header(u16 cmd_id,
+static u64 mc_encode_cmd_header(u16 cmd_id,
 				       u32 cmd_flags,
 				       u16 token)
 {
@@ -258,7 +258,7 @@ static inline u64 mc_encode_cmd_header(u16 cmd_id,
 	return header;
 }
 
-static inline u16 mc_cmd_hdr_read_token(struct mc_command *cmd)
+static u16 mc_cmd_hdr_read_token(struct mc_command *cmd)
 {
 	struct mc_cmd_header *hdr = (struct mc_cmd_header *)&cmd->header;
 	u16 token = le16_to_cpu(hdr->token);
@@ -275,7 +275,7 @@ struct mc_rsp_api_ver {
 	__le16 minor_ver;
 };
 
-static inline u32 mc_cmd_read_object_id(struct mc_command *cmd)
+static u32 mc_cmd_read_object_id(struct mc_command *cmd)
 {
 	struct mc_rsp_create *rsp_params;
 
@@ -283,7 +283,7 @@ static inline u32 mc_cmd_read_object_id(struct mc_command *cmd)
 	return le32_to_cpu(rsp_params->object_id);
 }
 
-static inline void mc_cmd_read_api_version(struct mc_command *cmd,
+static void mc_cmd_read_api_version(struct mc_command *cmd,
 					   u16 *major_ver,
 					   u16 *minor_ver)
 {

@@ -51,7 +51,7 @@
 #define Q_COUNT(rptr,wptr) ((wptr)-(rptr))
 #define Q_PTR2IDX(ptr,size_log2) (ptr & ((1UL<<size_log2)-1))
 
-static inline void ring_doorbell(void __iomem *doorbell, u32 qpid)
+static void ring_doorbell(void __iomem *doorbell, u32 qpid)
 {
 	writel(((1<<31) | qpid), doorbell);
 }
@@ -97,7 +97,7 @@ enum t3_rdma_opcode {
 	T3_RDMA_READ_REQ_WITH_INV,
 } __attribute__ ((packed));
 
-static inline enum t3_rdma_opcode wr2opcode(enum t3_wr_opcode wrop)
+static enum t3_rdma_opcode wr2opcode(enum t3_wr_opcode wrop)
 {
 	switch (wrop) {
 		case T3_WR_BP: return T3_BYPASS;
@@ -413,7 +413,7 @@ union t3_wr {
 #define T3_RQ_COOKIE_FLIT 13
 #define T3_RQ_CQE_FLIT	  14
 
-static inline enum t3_wr_opcode fw_riwrh_opcode(struct fw_riwrh *wqe)
+static enum t3_wr_opcode fw_riwrh_opcode(struct fw_riwrh *wqe)
 {
 	return G_FW_RIWR_OP(be32_to_cpu(wqe->op_seop_flags));
 }
@@ -424,7 +424,7 @@ enum t3_wr_hdr_bits {
 	T3_SOPEOP = T3_EOP|T3_SOP,
 };
 
-static inline void build_fw_riwrh(struct fw_riwrh *wqe, enum t3_wr_opcode op,
+static void build_fw_riwrh(struct fw_riwrh *wqe, enum t3_wr_opcode op,
 				  enum t3_wr_flags flags, u8 genbit, u32 tid,
 				  u8 len, u8 sopeop)
 {
@@ -732,39 +732,39 @@ struct t3_cq_status_page {
 	u32 cq_err;
 };
 
-static inline int cxio_cq_in_error(struct t3_cq *cq)
+static int cxio_cq_in_error(struct t3_cq *cq)
 {
 	return ((struct t3_cq_status_page *)
 		&cq->queue[1 << cq->size_log2])->cq_err;
 }
 
-static inline void cxio_set_cq_in_error(struct t3_cq *cq)
+static void cxio_set_cq_in_error(struct t3_cq *cq)
 {
 	((struct t3_cq_status_page *)
 	 &cq->queue[1 << cq->size_log2])->cq_err = 1;
 }
 
-static inline void cxio_set_wq_in_error(struct t3_wq *wq)
+static void cxio_set_wq_in_error(struct t3_wq *wq)
 {
 	wq->queue->wq_in_err.err |= 1;
 }
 
-static inline void cxio_disable_wq_db(struct t3_wq *wq)
+static void cxio_disable_wq_db(struct t3_wq *wq)
 {
 	wq->queue->wq_in_err.err |= 2;
 }
 
-static inline void cxio_enable_wq_db(struct t3_wq *wq)
+static void cxio_enable_wq_db(struct t3_wq *wq)
 {
 	wq->queue->wq_in_err.err &= ~2;
 }
 
-static inline int cxio_wq_db_enabled(struct t3_wq *wq)
+static int cxio_wq_db_enabled(struct t3_wq *wq)
 {
 	return !(wq->queue->wq_in_err.err & 2);
 }
 
-static inline struct t3_cqe *cxio_next_hw_cqe(struct t3_cq *cq)
+static struct t3_cqe *cxio_next_hw_cqe(struct t3_cq *cq)
 {
 	struct t3_cqe *cqe;
 
@@ -774,7 +774,7 @@ static inline struct t3_cqe *cxio_next_hw_cqe(struct t3_cq *cq)
 	return NULL;
 }
 
-static inline struct t3_cqe *cxio_next_sw_cqe(struct t3_cq *cq)
+static struct t3_cqe *cxio_next_sw_cqe(struct t3_cq *cq)
 {
 	struct t3_cqe *cqe;
 
@@ -785,7 +785,7 @@ static inline struct t3_cqe *cxio_next_sw_cqe(struct t3_cq *cq)
 	return NULL;
 }
 
-static inline struct t3_cqe *cxio_next_cqe(struct t3_cq *cq)
+static struct t3_cqe *cxio_next_cqe(struct t3_cq *cq)
 {
 	struct t3_cqe *cqe;
 

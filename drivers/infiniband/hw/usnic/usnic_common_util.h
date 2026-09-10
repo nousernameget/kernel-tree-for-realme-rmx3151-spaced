@@ -36,7 +36,7 @@
 
 #include <net/addrconf.h>
 
-static inline void
+static void
 usnic_mac_ip_to_gid(const char *const mac, const __be32 inaddr, char *raw_gid)
 {
 	raw_gid[0] = 0xfe;

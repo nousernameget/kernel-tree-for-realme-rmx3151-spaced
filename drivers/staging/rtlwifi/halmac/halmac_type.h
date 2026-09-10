@@ -1902,7 +1902,7 @@ struct halmac_api {
 #define HALMAC_GET_API(phalmac_adapter)                                        \
 	((struct halmac_api *)phalmac_adapter->halmac_api)
 
-static inline enum halmac_ret_status
+static enum halmac_ret_status
 halmac_adapter_validate(struct halmac_adapter *halmac_adapter)
 {
 	if ((!halmac_adapter) ||
@@ -1912,7 +1912,7 @@ halmac_adapter_validate(struct halmac_adapter *halmac_adapter)
 	return HALMAC_RET_SUCCESS;
 }
 
-static inline enum halmac_ret_status
+static enum halmac_ret_status
 halmac_api_validate(struct halmac_adapter *halmac_adapter)
 {
 	if (halmac_adapter->halmac_state.api_state != HALMAC_API_STATE_INIT)
@@ -1921,7 +1921,7 @@ halmac_api_validate(struct halmac_adapter *halmac_adapter)
 	return HALMAC_RET_SUCCESS;
 }
 
-static inline enum halmac_ret_status
+static enum halmac_ret_status
 halmac_fw_validate(struct halmac_adapter *halmac_adapter)
 {
 	if (halmac_adapter->halmac_state.dlfw_state != HALMAC_DLFW_DONE &&

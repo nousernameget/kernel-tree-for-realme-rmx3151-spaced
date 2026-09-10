@@ -110,12 +110,12 @@ struct msp_state {
 #endif
 };
 
-static inline struct msp_state *to_state(struct v4l2_subdev *sd)
+static struct msp_state *to_state(struct v4l2_subdev *sd)
 {
 	return container_of(sd, struct msp_state, sd);
 }
 
-static inline struct msp_state *ctrl_to_state(struct v4l2_ctrl *ctrl)
+static struct msp_state *ctrl_to_state(struct v4l2_ctrl *ctrl)
 {
 	return container_of(ctrl->handler, struct msp_state, hdl);
 }

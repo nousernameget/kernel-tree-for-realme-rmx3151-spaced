@@ -272,11 +272,11 @@ struct ehci_hcd {			/* one per controller */
 };
 
 /* convert between an HCD pointer and the corresponding EHCI_HCD */
-static inline struct ehci_hcd *hcd_to_ehci(struct usb_hcd *hcd)
+static struct ehci_hcd *hcd_to_ehci(struct usb_hcd *hcd)
 {
 	return (struct ehci_hcd *) (hcd->hcd_priv);
 }
-static inline struct usb_hcd *ehci_to_hcd(struct ehci_hcd *ehci)
+static struct usb_hcd *ehci_to_hcd(struct ehci_hcd *ehci)
 {
 	return container_of((void *) ehci, struct usb_hcd, hcd_priv);
 }
@@ -657,14 +657,14 @@ struct ehci_tt {
 /*
  * Some EHCI controllers have a Transaction Translator built into the
  * root hub. This is a non-standard feature.  Each controller will need
- * to add code to the following inline functions, and call them as
+ * to add code to the following functions, and call them as
  * needed (mostly in root hub code).
  */
 
 #define	ehci_is_TDI(e)			(ehci_to_hcd(e)->has_tt)
 
 /* Returns the speed of a device attached to a port on the root hub. */
-static inline unsigned int
+static unsigned int
 ehci_port_speed(struct ehci_hcd *ehci, unsigned int portsc)
 {
 	if (ehci_is_TDI(ehci)) {
@@ -748,7 +748,7 @@ ehci_port_speed(struct ehci_hcd *ehci, unsigned int portsc)
 #define writel_be(val, addr)	__raw_writel(val, (__force unsigned *)addr)
 #endif
 
-static inline unsigned int ehci_readl(const struct ehci_hcd *ehci,
+static unsigned int ehci_readl(const struct ehci_hcd *ehci,
 		__u32 __iomem *regs)
 {
 #ifdef CONFIG_USB_EHCI_BIG_ENDIAN_MMIO
@@ -761,18 +761,18 @@ static inline unsigned int ehci_readl(const struct ehci_hcd *ehci,
 }
 
 #ifdef CONFIG_SOC_IMX28
-static inline void imx28_ehci_writel(const unsigned int val,
+static void imx28_ehci_writel(const unsigned int val,
 		volatile __u32 __iomem *addr)
 {
 	__asm__ ("swp %0, %0, [%1]" : : "r"(val), "r"(addr));
 }
 #else
-static inline void imx28_ehci_writel(const unsigned int val,
+static void imx28_ehci_writel(const unsigned int val,
 		volatile __u32 __iomem *addr)
 {
 }
 #endif
-static inline void ehci_writel(const struct ehci_hcd *ehci,
+static void ehci_writel(const struct ehci_hcd *ehci,
 		const unsigned int val, __u32 __iomem *regs)
 {
 #ifdef CONFIG_USB_EHCI_BIG_ENDIAN_MMIO
@@ -793,7 +793,7 @@ static inline void ehci_writel(const struct ehci_hcd *ehci,
  * Other common bits are dependent on has_amcc_usb23 quirk flag.
  */
 #ifdef CONFIG_44x
-static inline void set_ohci_hcfs(struct ehci_hcd *ehci, int operational)
+static void set_ohci_hcfs(struct ehci_hcd *ehci, int operational)
 {
 	u32 hc_control;
 
@@ -807,7 +807,7 @@ static inline void set_ohci_hcfs(struct ehci_hcd *ehci, int operational)
 	(void) readl_be(ehci->ohci_hcctrl_reg);
 }
 #else
-static inline void set_ohci_hcfs(struct ehci_hcd *ehci, int operational)
+static void set_ohci_hcfs(struct ehci_hcd *ehci, int operational)
 { }
 #endif
 
@@ -824,7 +824,7 @@ static inline void set_ohci_hcfs(struct ehci_hcd *ehci, int operational)
 #define ehci_big_endian_desc(e)		((e)->big_endian_desc)
 
 /* cpu to ehci */
-static inline __hc32 cpu_to_hc32(const struct ehci_hcd *ehci, const u32 x)
+static __hc32 cpu_to_hc32(const struct ehci_hcd *ehci, const u32 x)
 {
 	return ehci_big_endian_desc(ehci)
 		? (__force __hc32)cpu_to_be32(x)
@@ -832,14 +832,14 @@ static inline __hc32 cpu_to_hc32(const struct ehci_hcd *ehci, const u32 x)
 }
 
 /* ehci to cpu */
-static inline u32 hc32_to_cpu(const struct ehci_hcd *ehci, const __hc32 x)
+static u32 hc32_to_cpu(const struct ehci_hcd *ehci, const __hc32 x)
 {
 	return ehci_big_endian_desc(ehci)
 		? be32_to_cpu((__force __be32)x)
 		: le32_to_cpu((__force __le32)x);
 }
 
-static inline u32 hc32_to_cpup(const struct ehci_hcd *ehci, const __hc32 *x)
+static u32 hc32_to_cpup(const struct ehci_hcd *ehci, const __hc32 *x)
 {
 	return ehci_big_endian_desc(ehci)
 		? be32_to_cpup((__force __be32 *)x)
@@ -849,18 +849,18 @@ static inline u32 hc32_to_cpup(const struct ehci_hcd *ehci, const __hc32 *x)
 #else
 
 /* cpu to ehci */
-static inline __hc32 cpu_to_hc32(const struct ehci_hcd *ehci, const u32 x)
+static __hc32 cpu_to_hc32(const struct ehci_hcd *ehci, const u32 x)
 {
 	return cpu_to_le32(x);
 }
 
 /* ehci to cpu */
-static inline u32 hc32_to_cpu(const struct ehci_hcd *ehci, const __hc32 x)
+static u32 hc32_to_cpu(const struct ehci_hcd *ehci, const __hc32 x)
 {
 	return le32_to_cpu(x);
 }
 
-static inline u32 hc32_to_cpup(const struct ehci_hcd *ehci, const __hc32 *x)
+static u32 hc32_to_cpup(const struct ehci_hcd *ehci, const __hc32 *x)
 {
 	return le32_to_cpup(x);
 }

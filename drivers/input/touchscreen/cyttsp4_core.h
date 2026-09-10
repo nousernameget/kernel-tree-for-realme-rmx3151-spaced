@@ -448,13 +448,13 @@ enum cyttsp4_event_id {
 /* y-axis, 0:origin is on top side of panel, 1: bottom */
 #define CY_PCFG_ORIGIN_Y_MASK		0x80
 
-static inline int cyttsp4_adap_read(struct cyttsp4 *ts, u16 addr, int size,
+static int cyttsp4_adap_read(struct cyttsp4 *ts, u16 addr, int size,
 		void *buf)
 {
 	return ts->bus_ops->read(ts->dev, ts->xfer_buf, addr, size, buf);
 }
 
-static inline int cyttsp4_adap_write(struct cyttsp4 *ts, u16 addr, int size,
+static int cyttsp4_adap_write(struct cyttsp4 *ts, u16 addr, int size,
 		const void *buf)
 {
 	return ts->bus_ops->write(ts->dev, ts->xfer_buf, addr, size, buf);

@@ -201,7 +201,7 @@ struct config_registers {
  * be sent through the icap device, and a return packet received with
  * the information.
  */
-static inline u32 hwicap_type_1_read(u32 reg)
+static u32 hwicap_type_1_read(u32 reg)
 {
 	return (XHI_TYPE_1 << XHI_TYPE_SHIFT) |
 		(reg << XHI_REGISTER_SHIFT) |
@@ -214,7 +214,7 @@ static inline u32 hwicap_type_1_read(u32 reg)
  *
  * Return: Type 1 write packet header
  */
-static inline u32 hwicap_type_1_write(u32 reg)
+static u32 hwicap_type_1_write(u32 reg)
 {
 	return (XHI_TYPE_1 << XHI_TYPE_SHIFT) |
 		(reg << XHI_REGISTER_SHIFT) |

@@ -129,7 +129,7 @@ int gk20a_pllg_calc_mnp(struct gk20a_clk *, unsigned long, struct gk20a_pll *);
 void gk20a_pllg_read_mnp(struct gk20a_clk *, struct gk20a_pll *);
 void gk20a_pllg_write_mnp(struct gk20a_clk *, const struct gk20a_pll *);
 
-static inline bool
+static bool
 gk20a_pllg_is_enabled(struct gk20a_clk *clk)
 {
 	struct nvkm_device *device = clk->base.subdev.device;
@@ -139,7 +139,7 @@ gk20a_pllg_is_enabled(struct gk20a_clk *clk)
 	return val & GPCPLL_CFG_ENABLE;
 }
 
-static inline u32
+static u32
 gk20a_pllg_n_lo(struct gk20a_clk *clk, struct gk20a_pll *pll)
 {
 	return DIV_ROUND_UP(pll->m * clk->params->min_vco,

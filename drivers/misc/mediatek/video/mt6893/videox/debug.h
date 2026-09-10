@@ -54,7 +54,7 @@ extern unsigned int dump_output;
 extern unsigned int dump_output_comp;
 extern void *composed_buf;
 
-static inline void dbg_print(int level, const char *fmt, ...)
+static void dbg_print(int level, const char *fmt, ...)
 {
 	if (level <= MTKFB_DBG) {
 		if (!MAX_DBG_MESSAGES || dbg_cnt < MAX_DBG_MESSAGES) {

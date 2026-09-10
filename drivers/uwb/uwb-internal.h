@@ -47,13 +47,13 @@ void uwb_notify(struct uwb_rc *rc, struct uwb_dev *uwb_dev, enum uwb_notifs even
 
 /* General UWB Radio Controller Internal API */
 extern struct uwb_rc *__uwb_rc_try_get(struct uwb_rc *);
-static inline struct uwb_rc *__uwb_rc_get(struct uwb_rc *rc)
+static struct uwb_rc *__uwb_rc_get(struct uwb_rc *rc)
 {
 	uwb_dev_get(&rc->uwb_dev);
 	return rc;
 }
 
-static inline void __uwb_rc_put(struct uwb_rc *rc)
+static void __uwb_rc_put(struct uwb_rc *rc)
 {
 	if (rc)
 		uwb_dev_put(&rc->uwb_dev);
@@ -291,11 +291,11 @@ extern ssize_t uwb_bce_print_IEs(struct uwb_dev *, struct uwb_beca_e *,
 				 char *, size_t);
 
 extern void uwb_bce_kfree(struct kref *_bce);
-static inline void uwb_bce_get(struct uwb_beca_e *bce)
+static void uwb_bce_get(struct uwb_beca_e *bce)
 {
 	kref_get(&bce->refcnt);
 }
-static inline void uwb_bce_put(struct uwb_beca_e *bce)
+static void uwb_bce_put(struct uwb_beca_e *bce)
 {
 	kref_put(&bce->refcnt, uwb_bce_kfree);
 }
@@ -366,12 +366,12 @@ void uwb_dbg_add_rc(struct uwb_rc *rc);
 void uwb_dbg_del_rc(struct uwb_rc *rc);
 struct dentry *uwb_dbg_create_pal_dir(struct uwb_pal *pal);
 
-static inline void uwb_dev_lock(struct uwb_dev *uwb_dev)
+static void uwb_dev_lock(struct uwb_dev *uwb_dev)
 {
 	device_lock(&uwb_dev->dev);
 }
 
-static inline void uwb_dev_unlock(struct uwb_dev *uwb_dev)
+static void uwb_dev_unlock(struct uwb_dev *uwb_dev)
 {
 	device_unlock(&uwb_dev->dev);
 }

@@ -41,7 +41,7 @@
 #include "rxe_task.h"
 #include "rxe_hw_counters.h"
 
-static inline int pkey_match(u16 key1, u16 key2)
+static int pkey_match(u16 key1, u16 key2)
 {
 	return (((key1 & 0x7fff) != 0) &&
 		((key1 & 0x7fff) == (key2 & 0x7fff)) &&
@@ -52,7 +52,7 @@ static inline int pkey_match(u16 key1, u16 key2)
  *	   0 if psn_a == psn_b
  *	  <0 if psn_a < psn_b
  */
-static inline int psn_compare(u32 psn_a, u32 psn_b)
+static int psn_compare(u32 psn_a, u32 psn_b)
 {
 	s32 diff;
 
@@ -417,52 +417,52 @@ struct rxe_dev {
 	struct crypto_shash	*tfm;
 };
 
-static inline void rxe_counter_inc(struct rxe_dev *rxe, enum rxe_counters index)
+static void rxe_counter_inc(struct rxe_dev *rxe, enum rxe_counters index)
 {
 	atomic64_inc(&rxe->stats_counters[index]);
 }
 
-static inline struct rxe_dev *to_rdev(struct ib_device *dev)
+static struct rxe_dev *to_rdev(struct ib_device *dev)
 {
 	return dev ? container_of(dev, struct rxe_dev, ib_dev) : NULL;
 }
 
-static inline struct rxe_ucontext *to_ruc(struct ib_ucontext *uc)
+static struct rxe_ucontext *to_ruc(struct ib_ucontext *uc)
 {
 	return uc ? container_of(uc, struct rxe_ucontext, ibuc) : NULL;
 }
 
-static inline struct rxe_pd *to_rpd(struct ib_pd *pd)
+static struct rxe_pd *to_rpd(struct ib_pd *pd)
 {
 	return pd ? container_of(pd, struct rxe_pd, ibpd) : NULL;
 }
 
-static inline struct rxe_ah *to_rah(struct ib_ah *ah)
+static struct rxe_ah *to_rah(struct ib_ah *ah)
 {
 	return ah ? container_of(ah, struct rxe_ah, ibah) : NULL;
 }
 
-static inline struct rxe_srq *to_rsrq(struct ib_srq *srq)
+static struct rxe_srq *to_rsrq(struct ib_srq *srq)
 {
 	return srq ? container_of(srq, struct rxe_srq, ibsrq) : NULL;
 }
 
-static inline struct rxe_qp *to_rqp(struct ib_qp *qp)
+static struct rxe_qp *to_rqp(struct ib_qp *qp)
 {
 	return qp ? container_of(qp, struct rxe_qp, ibqp) : NULL;
 }
 
-static inline struct rxe_cq *to_rcq(struct ib_cq *cq)
+static struct rxe_cq *to_rcq(struct ib_cq *cq)
 {
 	return cq ? container_of(cq, struct rxe_cq, ibcq) : NULL;
 }
 
-static inline struct rxe_mem *to_rmr(struct ib_mr *mr)
+static struct rxe_mem *to_rmr(struct ib_mr *mr)
 {
 	return mr ? container_of(mr, struct rxe_mem, ibmr) : NULL;
 }
 
-static inline struct rxe_mem *to_rmw(struct ib_mw *mw)
+static struct rxe_mem *to_rmw(struct ib_mw *mw)
 {
 	return mw ? container_of(mw, struct rxe_mem, ibmw) : NULL;
 }

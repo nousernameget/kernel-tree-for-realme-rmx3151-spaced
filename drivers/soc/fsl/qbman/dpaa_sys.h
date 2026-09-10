@@ -53,7 +53,7 @@
 #error "Unsupported Cacheline Size"
 #endif
 
-static inline void dpaa_flush(void *p)
+static void dpaa_flush(void *p)
 {
 #ifdef CONFIG_PPC
 	flush_dcache_range((unsigned long)p, (unsigned long)p+64);
@@ -68,7 +68,7 @@ static inline void dpaa_flush(void *p)
 
 #define dpaa_zero(p) memset(p, 0, 64)
 
-static inline void dpaa_touch_ro(void *p)
+static void dpaa_touch_ro(void *p)
 {
 #if (L1_CACHE_BYTES == 32)
 	prefetch(p+32);
@@ -77,7 +77,7 @@ static inline void dpaa_touch_ro(void *p)
 }
 
 /* Commonly used combo */
-static inline void dpaa_invalidate_touch_ro(void *p)
+static void dpaa_invalidate_touch_ro(void *p)
 {
 	dpaa_invalidate(p);
 	dpaa_touch_ro(p);
@@ -91,7 +91,7 @@ static inline void dpaa_invalidate_touch_ro(void *p)
 #endif
 
 /* cyclic helper for rings */
-static inline u8 dpaa_cyc_diff(u8 ringsize, u8 first, u8 last)
+static u8 dpaa_cyc_diff(u8 ringsize, u8 first, u8 last)
 {
 	/* 'first' is included, 'last' is excluded */
 	if (first <= last)

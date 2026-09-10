@@ -255,13 +255,13 @@ void dvb_unregister_device(struct dvb_device *dvbdev);
 __must_check int dvb_create_media_graph(struct dvb_adapter *adap,
 					bool create_rf_connector);
 
-static inline void dvb_register_media_controller(struct dvb_adapter *adap,
+static void dvb_register_media_controller(struct dvb_adapter *adap,
 						 struct media_device *mdev)
 {
 	adap->mdev = mdev;
 }
 
-static inline struct media_device
+static struct media_device
 *dvb_get_media_controller(struct dvb_adapter *adap)
 {
 	return adap->mdev;

@@ -60,13 +60,13 @@ struct pvrdma_ring_state {
 	struct pvrdma_ring rx;	/* Rx ring. */
 };
 
-static inline int pvrdma_idx_valid(__u32 idx, __u32 max_elems)
+static int pvrdma_idx_valid(__u32 idx, __u32 max_elems)
 {
 	/* Generates fewer instructions than a less-than. */
 	return (idx & ~((max_elems << 1) - 1)) == 0;
 }
 
-static inline __s32 pvrdma_idx(atomic_t *var, __u32 max_elems)
+static __s32 pvrdma_idx(atomic_t *var, __u32 max_elems)
 {
 	const unsigned int idx = atomic_read(var);
 
@@ -75,7 +75,7 @@ static inline __s32 pvrdma_idx(atomic_t *var, __u32 max_elems)
 	return PVRDMA_INVALID_IDX;
 }
 
-static inline void pvrdma_idx_ring_inc(atomic_t *var, __u32 max_elems)
+static void pvrdma_idx_ring_inc(atomic_t *var, __u32 max_elems)
 {
 	__u32 idx = atomic_read(var) + 1;	/* Increment. */
 
@@ -83,7 +83,7 @@ static inline void pvrdma_idx_ring_inc(atomic_t *var, __u32 max_elems)
 	atomic_set(var, idx);
 }
 
-static inline __s32 pvrdma_idx_ring_has_space(const struct pvrdma_ring *r,
+static __s32 pvrdma_idx_ring_has_space(const struct pvrdma_ring *r,
 					      __u32 max_elems, __u32 *out_tail)
 {
 	const __u32 tail = atomic_read(&r->prod_tail);
@@ -97,7 +97,7 @@ static inline __s32 pvrdma_idx_ring_has_space(const struct pvrdma_ring *r,
 	return PVRDMA_INVALID_IDX;
 }
 
-static inline __s32 pvrdma_idx_ring_has_data(const struct pvrdma_ring *r,
+static __s32 pvrdma_idx_ring_has_data(const struct pvrdma_ring *r,
 					     __u32 max_elems, __u32 *out_head)
 {
 	const __u32 tail = atomic_read(&r->prod_tail);

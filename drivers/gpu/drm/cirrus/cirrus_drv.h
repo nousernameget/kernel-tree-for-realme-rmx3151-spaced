@@ -169,7 +169,7 @@ struct cirrus_bo {
 };
 #define gem_to_cirrus_bo(gobj) container_of((gobj), struct cirrus_bo, gem)
 
-static inline struct cirrus_bo *
+static struct cirrus_bo *
 cirrus_bo(struct ttm_buffer_object *bo)
 {
 	return container_of(bo, struct cirrus_bo, bo);
@@ -234,7 +234,7 @@ int cirrus_bo_create(struct drm_device *dev, int size, int align,
 		     uint32_t flags, struct cirrus_bo **pcirrusbo);
 int cirrus_mmap(struct file *filp, struct vm_area_struct *vma);
 
-static inline int cirrus_bo_reserve(struct cirrus_bo *bo, bool no_wait)
+static int cirrus_bo_reserve(struct cirrus_bo *bo, bool no_wait)
 {
 	int ret;
 
@@ -247,7 +247,7 @@ static inline int cirrus_bo_reserve(struct cirrus_bo *bo, bool no_wait)
 	return 0;
 }
 
-static inline void cirrus_bo_unreserve(struct cirrus_bo *bo)
+static void cirrus_bo_unreserve(struct cirrus_bo *bo)
 {
 	ttm_bo_unreserve(&bo->bo);
 }

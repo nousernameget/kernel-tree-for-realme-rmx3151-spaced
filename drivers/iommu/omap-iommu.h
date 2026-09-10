@@ -101,7 +101,7 @@ struct iotlb_lock {
  * dev_to_omap_iommu() - retrieves an omap iommu object from a user device
  * @dev: iommu client device
  */
-static inline struct omap_iommu *dev_to_omap_iommu(struct device *dev)
+static struct omap_iommu *dev_to_omap_iommu(struct device *dev)
 {
 	struct omap_iommu_arch_data *arch_data = dev->archdata.iommu;
 
@@ -251,17 +251,17 @@ static inline void omap_iommu_debugfs_remove(struct omap_iommu *obj) { }
 /*
  * register accessors
  */
-static inline u32 iommu_read_reg(struct omap_iommu *obj, size_t offs)
+static u32 iommu_read_reg(struct omap_iommu *obj, size_t offs)
 {
 	return __raw_readl(obj->regbase + offs);
 }
 
-static inline void iommu_write_reg(struct omap_iommu *obj, u32 val, size_t offs)
+static void iommu_write_reg(struct omap_iommu *obj, u32 val, size_t offs)
 {
 	__raw_writel(val, obj->regbase + offs);
 }
 
-static inline int iotlb_cr_valid(struct cr_regs *cr)
+static int iotlb_cr_valid(struct cr_regs *cr)
 {
 	if (!cr)
 		return -EINVAL;

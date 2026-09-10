@@ -37,7 +37,7 @@
 
 #include <net/pkt_cls.h>
 
-static inline bool can_tc_u32_offload(struct net_device *dev)
+static bool can_tc_u32_offload(struct net_device *dev)
 {
 	struct adapter *adap = netdev2adap(dev);
 

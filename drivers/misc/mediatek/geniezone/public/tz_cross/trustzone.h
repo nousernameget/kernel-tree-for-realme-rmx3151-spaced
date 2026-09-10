@@ -131,7 +131,7 @@ enum TZ_PARAM_TYPES {
  * @param t4 types for param[3]
  * @return value for paramTypes.
  */
-static inline uint32_t TZ_ParamTypes(enum TZ_PARAM_TYPES t1,
+static uint32_t TZ_ParamTypes(enum TZ_PARAM_TYPES t1,
 				     enum TZ_PARAM_TYPES t2,
 				     enum TZ_PARAM_TYPES t3,
 				     enum TZ_PARAM_TYPES t4)
@@ -145,7 +145,7 @@ static inline uint32_t TZ_ParamTypes(enum TZ_PARAM_TYPES t1,
  * @param paramTypes paramTypes packed by TZ_ParamTypes.
  * @param num Which parameter types to get.
  */
-static inline enum TZ_PARAM_TYPES TZ_GetParamTypes(uint32_t paramTypes, int num)
+static enum TZ_PARAM_TYPES TZ_GetParamTypes(uint32_t paramTypes, int num)
 {
 	return (enum TZ_PARAM_TYPES)((paramTypes >> (8 * num)) & 0xff);
 }

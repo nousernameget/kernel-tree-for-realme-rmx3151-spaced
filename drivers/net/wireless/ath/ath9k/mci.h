@@ -162,14 +162,14 @@ void ath9k_mci_update_wlan_channels(struct ath_softc *sc, bool allow_all);
 void ath9k_mci_set_txpower(struct ath_softc *sc, bool setchannel,
 			   bool concur_tx);
 #else
-static inline void ath_mci_enable(struct ath_softc *sc)
+static void ath_mci_enable(struct ath_softc *sc)
 {
 }
-static inline void ath9k_mci_update_wlan_channels(struct ath_softc *sc,
+static void ath9k_mci_update_wlan_channels(struct ath_softc *sc,
 						  bool allow_all)
 {
 }
-static inline void ath9k_mci_set_txpower(struct ath_softc *sc, bool setchannel,
+static void ath9k_mci_set_txpower(struct ath_softc *sc, bool setchannel,
 					 bool concur_tx)
 {
 }

@@ -50,19 +50,19 @@ struct vnic_intr {
 	struct vnic_intr_ctrl __iomem *ctrl;	/* memory-mapped */
 };
 
-static inline void
+static void
 svnic_intr_unmask(struct vnic_intr *intr)
 {
 	iowrite32(0, &intr->ctrl->mask);
 }
 
-static inline void
+static void
 svnic_intr_mask(struct vnic_intr *intr)
 {
 	iowrite32(1, &intr->ctrl->mask);
 }
 
-static inline void
+static void
 svnic_intr_return_credits(struct vnic_intr *intr,
 			  unsigned int credits,
 			  int unmask,
@@ -78,13 +78,13 @@ svnic_intr_return_credits(struct vnic_intr *intr,
 	iowrite32(int_credit_return, &intr->ctrl->int_credit_return);
 }
 
-static inline unsigned int
+static unsigned int
 svnic_intr_credits(struct vnic_intr *intr)
 {
 	return ioread32(&intr->ctrl->int_credits);
 }
 
-static inline void
+static void
 svnic_intr_return_all_credits(struct vnic_intr *intr)
 {
 	unsigned int credits = svnic_intr_credits(intr);

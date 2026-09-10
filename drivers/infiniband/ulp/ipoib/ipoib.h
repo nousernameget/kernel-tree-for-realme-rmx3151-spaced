@@ -139,7 +139,7 @@ struct ipoib_pseudo_header {
 	u8	hwaddr[INFINIBAND_ALEN];
 };
 
-static inline void skb_add_pseudo_hdr(struct sk_buff *skb)
+static void skb_add_pseudo_hdr(struct sk_buff *skb)
 {
 	char *data = skb_push(skb, IPOIB_PSEUDO_LEN);
 
@@ -152,7 +152,7 @@ static inline void skb_add_pseudo_hdr(struct sk_buff *skb)
 	skb_pull(skb, IPOIB_HARD_LEN);
 }
 
-static inline struct ipoib_dev_priv *ipoib_priv(const struct net_device *dev)
+static struct ipoib_dev_priv *ipoib_priv(const struct net_device *dev)
 {
 	struct rdma_netdev *rn = netdev_priv(dev);
 
@@ -461,7 +461,7 @@ struct ipoib_neigh {
 #define IPOIB_UD_BUF_SIZE(ib_mtu)	(ib_mtu + IB_GRH_BYTES)
 
 void ipoib_neigh_dtor(struct ipoib_neigh *neigh);
-static inline void ipoib_neigh_put(struct ipoib_neigh *neigh)
+static void ipoib_neigh_put(struct ipoib_neigh *neigh)
 {
 	if (atomic_dec_and_test(&neigh->refcnt))
 		ipoib_neigh_dtor(neigh);
@@ -483,7 +483,7 @@ void ipoib_send_comp_handler(struct ib_cq *cq, void *dev_ptr);
 struct ipoib_ah *ipoib_create_ah(struct net_device *dev,
 				 struct ib_pd *pd, struct rdma_ah_attr *attr);
 void ipoib_free_ah(struct kref *kref);
-static inline void ipoib_put_ah(struct ipoib_ah *ah)
+static void ipoib_put_ah(struct ipoib_ah *ah)
 {
 	kref_put(&ah->ref, ipoib_free_ah);
 }
@@ -533,7 +533,7 @@ int ipoib_dma_map_tx(struct ib_device *ca, struct ipoib_tx_buf *tx_req);
 void ipoib_dma_unmap_tx(struct ipoib_dev_priv *priv,
 			struct ipoib_tx_buf *tx_req);
 
-static inline void ipoib_build_sge(struct ipoib_dev_priv *priv,
+static void ipoib_build_sge(struct ipoib_dev_priv *priv,
 				   struct ipoib_tx_buf *tx_req)
 {
 	int i, off;
@@ -617,43 +617,43 @@ void ipoib_set_dev_features(struct ipoib_dev_priv *priv, struct ib_device *hca);
 
 extern int ipoib_max_conn_qp;
 
-static inline int ipoib_cm_admin_enabled(struct net_device *dev)
+static int ipoib_cm_admin_enabled(struct net_device *dev)
 {
 	struct ipoib_dev_priv *priv = ipoib_priv(dev);
 	return IPOIB_CM_SUPPORTED(dev->dev_addr) &&
 		test_bit(IPOIB_FLAG_ADMIN_CM, &priv->flags);
 }
 
-static inline int ipoib_cm_enabled(struct net_device *dev, u8 *hwaddr)
+static int ipoib_cm_enabled(struct net_device *dev, u8 *hwaddr)
 {
 	struct ipoib_dev_priv *priv = ipoib_priv(dev);
 	return IPOIB_CM_SUPPORTED(hwaddr) &&
 		test_bit(IPOIB_FLAG_ADMIN_CM, &priv->flags);
 }
 
-static inline int ipoib_cm_up(struct ipoib_neigh *neigh)
+static int ipoib_cm_up(struct ipoib_neigh *neigh)
 
 {
 	return test_bit(IPOIB_FLAG_OPER_UP, &neigh->cm->flags);
 }
 
-static inline struct ipoib_cm_tx *ipoib_cm_get(struct ipoib_neigh *neigh)
+static struct ipoib_cm_tx *ipoib_cm_get(struct ipoib_neigh *neigh)
 {
 	return neigh->cm;
 }
 
-static inline void ipoib_cm_set(struct ipoib_neigh *neigh, struct ipoib_cm_tx *tx)
+static void ipoib_cm_set(struct ipoib_neigh *neigh, struct ipoib_cm_tx *tx)
 {
 	neigh->cm = tx;
 }
 
-static inline int ipoib_cm_has_srq(struct net_device *dev)
+static int ipoib_cm_has_srq(struct net_device *dev)
 {
 	struct ipoib_dev_priv *priv = ipoib_priv(dev);
 	return !!priv->cm.srq;
 }
 
-static inline unsigned int ipoib_cm_max_mtu(struct net_device *dev)
+static unsigned int ipoib_cm_max_mtu(struct net_device *dev)
 {
 	struct ipoib_dev_priv *priv = ipoib_priv(dev);
 	return priv->cm.max_cm_mtu;
@@ -678,37 +678,37 @@ struct ipoib_cm_tx;
 
 #define ipoib_max_conn_qp 0
 
-static inline int ipoib_cm_admin_enabled(struct net_device *dev)
+static int ipoib_cm_admin_enabled(struct net_device *dev)
 {
 	return 0;
 }
-static inline int ipoib_cm_enabled(struct net_device *dev, u8 *hwaddr)
-
-{
-	return 0;
-}
-
-static inline int ipoib_cm_up(struct ipoib_neigh *neigh)
+static int ipoib_cm_enabled(struct net_device *dev, u8 *hwaddr)
 
 {
 	return 0;
 }
 
-static inline struct ipoib_cm_tx *ipoib_cm_get(struct ipoib_neigh *neigh)
+static int ipoib_cm_up(struct ipoib_neigh *neigh)
+
+{
+	return 0;
+}
+
+static struct ipoib_cm_tx *ipoib_cm_get(struct ipoib_neigh *neigh)
 {
 	return NULL;
 }
 
-static inline void ipoib_cm_set(struct ipoib_neigh *neigh, struct ipoib_cm_tx *tx)
+static void ipoib_cm_set(struct ipoib_neigh *neigh, struct ipoib_cm_tx *tx)
 {
 }
 
-static inline int ipoib_cm_has_srq(struct net_device *dev)
+static int ipoib_cm_has_srq(struct net_device *dev)
 {
 	return 0;
 }
 
-static inline unsigned int ipoib_cm_max_mtu(struct net_device *dev)
+static unsigned int ipoib_cm_max_mtu(struct net_device *dev)
 {
 	return 0;
 }
@@ -762,17 +762,17 @@ int ipoib_cm_add_mode_attr(struct net_device *dev)
 	return 0;
 }
 
-static inline void ipoib_cm_skb_too_long(struct net_device *dev, struct sk_buff *skb,
+static void ipoib_cm_skb_too_long(struct net_device *dev, struct sk_buff *skb,
 					 unsigned int mtu)
 {
 	dev_kfree_skb_any(skb);
 }
 
-static inline void ipoib_cm_handle_rx_wc(struct net_device *dev, struct ib_wc *wc)
+static void ipoib_cm_handle_rx_wc(struct net_device *dev, struct ib_wc *wc)
 {
 }
 
-static inline void ipoib_cm_handle_tx_wc(struct net_device *dev, struct ib_wc *wc)
+static void ipoib_cm_handle_tx_wc(struct net_device *dev, struct ib_wc *wc)
 {
 }
 #endif

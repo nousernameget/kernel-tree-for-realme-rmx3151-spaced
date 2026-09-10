@@ -122,7 +122,7 @@ struct fsg_lun {
 	char		inquiry_string[INQUIRY_STRING_LEN];
 };
 
-static inline bool fsg_lun_is_open(struct fsg_lun *curlun)
+static bool fsg_lun_is_open(struct fsg_lun *curlun)
 {
 	return curlun->filp != NULL;
 }
@@ -173,12 +173,12 @@ enum data_direction {
 	DATA_DIR_NONE
 };
 
-static inline u32 get_unaligned_be24(u8 *buf)
+static u32 get_unaligned_be24(u8 *buf)
 {
 	return 0xffffff & (u32) get_unaligned_be32(buf - 1);
 }
 
-static inline struct fsg_lun *fsg_lun_from_dev(struct device *dev)
+static struct fsg_lun *fsg_lun_from_dev(struct device *dev)
 {
 	return container_of(dev, struct fsg_lun, dev);
 }

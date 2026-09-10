@@ -333,7 +333,7 @@ void brcmf_fweh_process_event(struct brcmf_pub *drvr,
 			      u32 packet_len);
 void brcmf_fweh_p2pdev_setup(struct brcmf_if *ifp, bool ongoing);
 
-static inline void brcmf_fweh_process_skb(struct brcmf_pub *drvr,
+static void brcmf_fweh_process_skb(struct brcmf_pub *drvr,
 					  struct sk_buff *skb, u16 stype)
 {
 	struct brcmf_event *event_packet;

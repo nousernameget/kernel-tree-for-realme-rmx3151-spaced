@@ -131,22 +131,22 @@ struct nfp_insn_meta {
 
 #define BPF_SIZE_MASK	0x18
 
-static inline u8 mbpf_class(const struct nfp_insn_meta *meta)
+static u8 mbpf_class(const struct nfp_insn_meta *meta)
 {
 	return BPF_CLASS(meta->insn.code);
 }
 
-static inline u8 mbpf_src(const struct nfp_insn_meta *meta)
+static u8 mbpf_src(const struct nfp_insn_meta *meta)
 {
 	return BPF_SRC(meta->insn.code);
 }
 
-static inline u8 mbpf_op(const struct nfp_insn_meta *meta)
+static u8 mbpf_op(const struct nfp_insn_meta *meta)
 {
 	return BPF_OP(meta->insn.code);
 }
 
-static inline u8 mbpf_mode(const struct nfp_insn_meta *meta)
+static u8 mbpf_mode(const struct nfp_insn_meta *meta)
 {
 	return BPF_MODE(meta->insn.code);
 }

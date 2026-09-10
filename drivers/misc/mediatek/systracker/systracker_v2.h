@@ -83,7 +83,7 @@
 
 #define BUS_DBG_MAX_TIMEOUT_VAL	    (0xffffffff)
 
-static inline unsigned int extract_n2mbits(unsigned int input, int n, int m)
+static unsigned int extract_n2mbits(unsigned int input, int n, int m)
 {
 /*
  * 1. ~0 = 1111 1111 1111 1111 1111 1111 1111 1111

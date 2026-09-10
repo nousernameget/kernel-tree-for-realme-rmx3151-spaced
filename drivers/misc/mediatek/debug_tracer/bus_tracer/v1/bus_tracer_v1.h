@@ -114,7 +114,7 @@
 #define CORESIGHT_LAR		0xfb0
 #define CORESIGHT_UNLOCK        0xc5acce55
 
-static inline void CS_LOCK(void __iomem *addr)
+static void CS_LOCK(void __iomem *addr)
 {
 	do {
 		/* Wait for things to settle */
@@ -123,7 +123,7 @@ static inline void CS_LOCK(void __iomem *addr)
 	} while (0);
 }
 
-static inline void CS_UNLOCK(void __iomem *addr)
+static void CS_UNLOCK(void __iomem *addr)
 {
 	do {
 		writel_relaxed(CORESIGHT_UNLOCK, addr + CORESIGHT_LAR);

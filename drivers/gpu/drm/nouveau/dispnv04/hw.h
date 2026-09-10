@@ -57,7 +57,7 @@ void nouveau_hw_load_state_palette(struct drm_device *, int head,
 extern void nouveau_calc_arb(struct drm_device *, int vclk, int bpp,
 			     int *burst, int *lwm);
 
-static inline uint32_t NVReadCRTC(struct drm_device *dev,
+static uint32_t NVReadCRTC(struct drm_device *dev,
 					int head, uint32_t reg)
 {
 	struct nvif_object *device = &nouveau_drm(dev)->client.device.object;
@@ -68,7 +68,7 @@ static inline uint32_t NVReadCRTC(struct drm_device *dev,
 	return val;
 }
 
-static inline void NVWriteCRTC(struct drm_device *dev,
+static void NVWriteCRTC(struct drm_device *dev,
 					int head, uint32_t reg, uint32_t val)
 {
 	struct nvif_object *device = &nouveau_drm(dev)->client.device.object;
@@ -77,7 +77,7 @@ static inline void NVWriteCRTC(struct drm_device *dev,
 	nvif_wr32(device, reg, val);
 }
 
-static inline uint32_t NVReadRAMDAC(struct drm_device *dev,
+static uint32_t NVReadRAMDAC(struct drm_device *dev,
 					int head, uint32_t reg)
 {
 	struct nvif_object *device = &nouveau_drm(dev)->client.device.object;
@@ -88,7 +88,7 @@ static inline uint32_t NVReadRAMDAC(struct drm_device *dev,
 	return val;
 }
 
-static inline void NVWriteRAMDAC(struct drm_device *dev,
+static void NVWriteRAMDAC(struct drm_device *dev,
 					int head, uint32_t reg, uint32_t val)
 {
 	struct nvif_object *device = &nouveau_drm(dev)->client.device.object;
@@ -97,7 +97,7 @@ static inline void NVWriteRAMDAC(struct drm_device *dev,
 	nvif_wr32(device, reg, val);
 }
 
-static inline uint8_t nv_read_tmds(struct drm_device *dev,
+static uint8_t nv_read_tmds(struct drm_device *dev,
 					int or, int dl, uint8_t address)
 {
 	int ramdac = (or & DCB_OUTPUT_C) >> 2;
@@ -107,7 +107,7 @@ static inline uint8_t nv_read_tmds(struct drm_device *dev,
 	return NVReadRAMDAC(dev, ramdac, NV_PRAMDAC_FP_TMDS_DATA + dl * 8);
 }
 
-static inline void nv_write_tmds(struct drm_device *dev,
+static void nv_write_tmds(struct drm_device *dev,
 					int or, int dl, uint8_t address,
 					uint8_t data)
 {
@@ -117,7 +117,7 @@ static inline void nv_write_tmds(struct drm_device *dev,
 	NVWriteRAMDAC(dev, ramdac, NV_PRAMDAC_FP_TMDS_CONTROL + dl * 8, address);
 }
 
-static inline void NVWriteVgaCrtc(struct drm_device *dev,
+static void NVWriteVgaCrtc(struct drm_device *dev,
 					int head, uint8_t index, uint8_t value)
 {
 	struct nvif_object *device = &nouveau_drm(dev)->client.device.object;
@@ -125,7 +125,7 @@ static inline void NVWriteVgaCrtc(struct drm_device *dev,
 	nvif_wr08(device, NV_PRMCIO_CR__COLOR + head * NV_PRMCIO_SIZE, value);
 }
 
-static inline uint8_t NVReadVgaCrtc(struct drm_device *dev,
+static uint8_t NVReadVgaCrtc(struct drm_device *dev,
 					int head, uint8_t index)
 {
 	struct nvif_object *device = &nouveau_drm(dev)->client.device.object;
@@ -149,20 +149,20 @@ static inline uint8_t NVReadVgaCrtc(struct drm_device *dev,
  * 					high nibble for xlat strap value
  */
 
-static inline void
+static void
 NVWriteVgaCrtc5758(struct drm_device *dev, int head, uint8_t index, uint8_t value)
 {
 	NVWriteVgaCrtc(dev, head, NV_CIO_CRE_57, index);
 	NVWriteVgaCrtc(dev, head, NV_CIO_CRE_58, value);
 }
 
-static inline uint8_t NVReadVgaCrtc5758(struct drm_device *dev, int head, uint8_t index)
+static uint8_t NVReadVgaCrtc5758(struct drm_device *dev, int head, uint8_t index)
 {
 	NVWriteVgaCrtc(dev, head, NV_CIO_CRE_57, index);
 	return NVReadVgaCrtc(dev, head, NV_CIO_CRE_58);
 }
 
-static inline uint8_t NVReadPRMVIO(struct drm_device *dev,
+static uint8_t NVReadPRMVIO(struct drm_device *dev,
 					int head, uint32_t reg)
 {
 	struct nvif_object *device = &nouveau_drm(dev)->client.device.object;
@@ -178,7 +178,7 @@ static inline uint8_t NVReadPRMVIO(struct drm_device *dev,
 	return val;
 }
 
-static inline void NVWritePRMVIO(struct drm_device *dev,
+static void NVWritePRMVIO(struct drm_device *dev,
 					int head, uint32_t reg, uint8_t value)
 {
 	struct nvif_object *device = &nouveau_drm(dev)->client.device.object;
@@ -192,21 +192,21 @@ static inline void NVWritePRMVIO(struct drm_device *dev,
 	nvif_wr08(device, reg, value);
 }
 
-static inline void NVSetEnablePalette(struct drm_device *dev, int head, bool enable)
+static void NVSetEnablePalette(struct drm_device *dev, int head, bool enable)
 {
 	struct nvif_object *device = &nouveau_drm(dev)->client.device.object;
 	nvif_rd08(device, NV_PRMCIO_INP0__COLOR + head * NV_PRMCIO_SIZE);
 	nvif_wr08(device, NV_PRMCIO_ARX + head * NV_PRMCIO_SIZE, enable ? 0 : 0x20);
 }
 
-static inline bool NVGetEnablePalette(struct drm_device *dev, int head)
+static bool NVGetEnablePalette(struct drm_device *dev, int head)
 {
 	struct nvif_object *device = &nouveau_drm(dev)->client.device.object;
 	nvif_rd08(device, NV_PRMCIO_INP0__COLOR + head * NV_PRMCIO_SIZE);
 	return !(nvif_rd08(device, NV_PRMCIO_ARX + head * NV_PRMCIO_SIZE) & 0x20);
 }
 
-static inline void NVWriteVgaAttr(struct drm_device *dev,
+static void NVWriteVgaAttr(struct drm_device *dev,
 					int head, uint8_t index, uint8_t value)
 {
 	struct nvif_object *device = &nouveau_drm(dev)->client.device.object;
@@ -220,7 +220,7 @@ static inline void NVWriteVgaAttr(struct drm_device *dev,
 	nvif_wr08(device, NV_PRMCIO_AR__WRITE + head * NV_PRMCIO_SIZE, value);
 }
 
-static inline uint8_t NVReadVgaAttr(struct drm_device *dev,
+static uint8_t NVReadVgaAttr(struct drm_device *dev,
 					int head, uint8_t index)
 {
 	struct nvif_object *device = &nouveau_drm(dev)->client.device.object;
@@ -236,12 +236,12 @@ static inline uint8_t NVReadVgaAttr(struct drm_device *dev,
 	return val;
 }
 
-static inline void NVVgaSeqReset(struct drm_device *dev, int head, bool start)
+static void NVVgaSeqReset(struct drm_device *dev, int head, bool start)
 {
 	NVWriteVgaSeq(dev, head, NV_VIO_SR_RESET_INDEX, start ? 0x1 : 0x3);
 }
 
-static inline void NVVgaProtect(struct drm_device *dev, int head, bool protect)
+static void NVVgaProtect(struct drm_device *dev, int head, bool protect)
 {
 	uint8_t seq1 = NVReadVgaSeq(dev, head, NV_VIO_SR_CLOCK_INDEX);
 
@@ -256,7 +256,7 @@ static inline void NVVgaProtect(struct drm_device *dev, int head, bool protect)
 	NVSetEnablePalette(dev, head, protect);
 }
 
-static inline bool
+static bool
 nv_heads_tied(struct drm_device *dev)
 {
 	struct nvif_object *device = &nouveau_drm(dev)->client.device.object;
@@ -269,7 +269,7 @@ nv_heads_tied(struct drm_device *dev)
 }
 
 /* makes cr0-7 on the specified head read-only */
-static inline bool
+static bool
 nv_lock_vga_crtc_base(struct drm_device *dev, int head, bool lock)
 {
 	uint8_t cr11 = NVReadVgaCrtc(dev, head, NV_CIO_CR_VRE_INDEX);
@@ -284,7 +284,7 @@ nv_lock_vga_crtc_base(struct drm_device *dev, int head, bool lock)
 	return waslocked;
 }
 
-static inline void
+static void
 nv_lock_vga_crtc_shadow(struct drm_device *dev, int head, int lock)
 {
 	/* shadow lock: connects 0x60?3d? regs to "real" 0x3d? regs
@@ -309,7 +309,7 @@ nv_lock_vga_crtc_shadow(struct drm_device *dev, int head, int lock)
 /* renders the extended crtc regs (cr19+) on all crtcs impervious:
  * immutable and unreadable
  */
-static inline bool
+static bool
 NVLockVgaCrtcs(struct drm_device *dev, bool lock)
 {
 	struct nouveau_drm *drm = nouveau_drm(dev);
@@ -331,14 +331,14 @@ NVLockVgaCrtcs(struct drm_device *dev, bool lock)
 /* limit nv10 cursors to 64x64 (ARGB8) (we could go to 64x255) */
 #define NV10_CURSOR_SIZE 64
 
-static inline int nv_cursor_width(struct drm_device *dev)
+static int nv_cursor_width(struct drm_device *dev)
 {
 	struct nouveau_drm *drm = nouveau_drm(dev);
 
 	return drm->client.device.info.family >= NV_DEVICE_INFO_V0_CELSIUS ? NV10_CURSOR_SIZE : NV04_CURSOR_SIZE;
 }
 
-static inline void
+static void
 nv_fix_nv40_hw_cursor(struct drm_device *dev, int head)
 {
 	/* on some nv40 (such as the "true" (in the NV_PFB_BOOT_0 sense) nv40,
@@ -350,7 +350,7 @@ nv_fix_nv40_hw_cursor(struct drm_device *dev, int head)
 	NVWriteRAMDAC(dev, head, NV_PRAMDAC_CU_START_POS, curpos);
 }
 
-static inline void
+static void
 nv_set_crtc_base(struct drm_device *dev, int head, uint32_t offset)
 {
 	struct nouveau_drm *drm = nouveau_drm(dev);
@@ -369,7 +369,7 @@ nv_set_crtc_base(struct drm_device *dev, int head, uint32_t offset)
 	}
 }
 
-static inline void
+static void
 nv_show_cursor(struct drm_device *dev, int head, bool show)
 {
 	struct nouveau_drm *drm = nouveau_drm(dev);
@@ -386,7 +386,7 @@ nv_show_cursor(struct drm_device *dev, int head, bool show)
 		nv_fix_nv40_hw_cursor(dev, head);
 }
 
-static inline uint32_t
+static uint32_t
 nv_pitch_align(struct drm_device *dev, uint32_t width, int bpp)
 {
 	struct nouveau_drm *drm = nouveau_drm(dev);

@@ -32,9 +32,9 @@ perf_update_tcp_rtt(struct sock *sk, long seq_rtt_us);
 extern void
 perf_net_pkt_trace(struct sock *sk, struct sk_buff *skb, int copied);
 #else
-static inline void
+static void
 perf_update_tcp_rtt(struct sock *sk, long seq_rtt_us) {}
-static inline void
+static void
 perf_net_pkt_trace(struct sock *sk, struct sk_buff *skb, int copied) {}
 #endif
 

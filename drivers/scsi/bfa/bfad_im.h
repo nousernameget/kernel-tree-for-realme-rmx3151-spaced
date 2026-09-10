@@ -73,7 +73,7 @@ struct bfad_im_port_pointer {
 	struct bfad_im_port_s *p;
 };
 
-static inline struct bfad_im_port_s *bfad_get_im_port(struct Scsi_Host *host)
+static struct bfad_im_port_s *bfad_get_im_port(struct Scsi_Host *host)
 {
 	struct bfad_im_port_pointer *im_portp = shost_priv(host);
 	return im_portp->p;

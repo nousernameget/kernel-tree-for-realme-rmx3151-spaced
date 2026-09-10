@@ -71,12 +71,12 @@ struct vsp1_rwpf {
 	struct vsp1_dl_manager *dlm;
 };
 
-static inline struct vsp1_rwpf *to_rwpf(struct v4l2_subdev *subdev)
+static struct vsp1_rwpf *to_rwpf(struct v4l2_subdev *subdev)
 {
 	return container_of(subdev, struct vsp1_rwpf, entity.subdev);
 }
 
-static inline struct vsp1_rwpf *entity_to_rwpf(struct vsp1_entity *entity)
+static struct vsp1_rwpf *entity_to_rwpf(struct vsp1_entity *entity)
 {
 	return container_of(entity, struct vsp1_rwpf, entity);
 }

@@ -50,7 +50,7 @@ u32 __attribute__((weak)) aee_rr_curr_sodi3_val(void)
 }
 #endif
 
-static inline void spm_sodi3_footprint(enum spm_sodi3_step step)
+static void spm_sodi3_footprint(enum spm_sodi3_step step)
 {
 #if SPM_AEE_RR_REC
 	aee_rr_rec_sodi3_val(aee_rr_curr_sodi3_val() |
@@ -59,7 +59,7 @@ static inline void spm_sodi3_footprint(enum spm_sodi3_step step)
 #endif
 }
 
-static inline void spm_sodi3_footprint_val(u32 val)
+static void spm_sodi3_footprint_val(u32 val)
 {
 #if SPM_AEE_RR_REC
 	aee_rr_rec_sodi3_val(aee_rr_curr_sodi3_val() |
@@ -68,7 +68,7 @@ static inline void spm_sodi3_footprint_val(u32 val)
 #endif
 }
 
-static inline void spm_sodi3_aee_init(void)
+static void spm_sodi3_aee_init(void)
 {
 #if SPM_AEE_RR_REC
 	aee_rr_rec_sodi3_val(0);

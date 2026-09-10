@@ -75,7 +75,7 @@ void asd_write_reg_string(struct asd_ha_struct *asd_ha, void *src,
 			  u32 offs, int count);
 
 #define ASD_READ_OCM(type, ord, S)                                    \
-static inline type asd_read_ocm_##ord (struct asd_ha_struct *asd_ha,  \
+static type asd_read_ocm_##ord (struct asd_ha_struct *asd_ha,  \
 					 u32 offs)                    \
 {                                                                     \
 	struct asd_ha_addrspace *io_handle = &asd_ha->io_handle[1];   \
@@ -89,7 +89,7 @@ ASD_READ_OCM(u16,word, w);
 ASD_READ_OCM(u32,dword,l);
 
 #define ASD_WRITE_OCM(type, ord, S)                                    \
-static inline void asd_write_ocm_##ord (struct asd_ha_struct *asd_ha,  \
+static void asd_write_ocm_##ord (struct asd_ha_struct *asd_ha,  \
 					 u32 offs, type val)          \
 {                                                                     \
 	struct asd_ha_addrspace *io_handle = &asd_ha->io_handle[1];   \
@@ -102,7 +102,7 @@ ASD_WRITE_OCM(u16,word, w);
 ASD_WRITE_OCM(u32,dword,l);
 
 #define ASD_DDBSITE_READ(type, ord)                                        \
-static inline type asd_ddbsite_read_##ord (struct asd_ha_struct *asd_ha,   \
+static type asd_ddbsite_read_##ord (struct asd_ha_struct *asd_ha,   \
 					   u16 ddb_site_no,                \
 					   u16 offs)                       \
 {                                                                          \
@@ -114,7 +114,7 @@ static inline type asd_ddbsite_read_##ord (struct asd_ha_struct *asd_ha,   \
 ASD_DDBSITE_READ(u32, dword);
 ASD_DDBSITE_READ(u16, word);
 
-static inline u8 asd_ddbsite_read_byte(struct asd_ha_struct *asd_ha,
+static u8 asd_ddbsite_read_byte(struct asd_ha_struct *asd_ha,
 				       u16 ddb_site_no,
 				       u16 offs)
 {
@@ -128,7 +128,7 @@ static inline u8 asd_ddbsite_read_byte(struct asd_ha_struct *asd_ha,
 
 
 #define ASD_DDBSITE_WRITE(type, ord)                                       \
-static inline void asd_ddbsite_write_##ord (struct asd_ha_struct *asd_ha,  \
+static void asd_ddbsite_write_##ord (struct asd_ha_struct *asd_ha,  \
 					u16 ddb_site_no,                   \
 					u16 offs, type val)                \
 {                                                                          \
@@ -140,7 +140,7 @@ static inline void asd_ddbsite_write_##ord (struct asd_ha_struct *asd_ha,  \
 ASD_DDBSITE_WRITE(u32, dword);
 ASD_DDBSITE_WRITE(u16, word);
 
-static inline void asd_ddbsite_write_byte(struct asd_ha_struct *asd_ha,
+static void asd_ddbsite_write_byte(struct asd_ha_struct *asd_ha,
 					  u16 ddb_site_no,
 					  u16 offs, u8 val)
 {
@@ -155,7 +155,7 @@ static inline void asd_ddbsite_write_byte(struct asd_ha_struct *asd_ha,
 
 
 #define ASD_SCBSITE_READ(type, ord)                                        \
-static inline type asd_scbsite_read_##ord (struct asd_ha_struct *asd_ha,   \
+static type asd_scbsite_read_##ord (struct asd_ha_struct *asd_ha,   \
 					   u16 scb_site_no,                \
 					   u16 offs)                       \
 {                                                                          \
@@ -167,7 +167,7 @@ static inline type asd_scbsite_read_##ord (struct asd_ha_struct *asd_ha,   \
 ASD_SCBSITE_READ(u32, dword);
 ASD_SCBSITE_READ(u16, word);
 
-static inline u8 asd_scbsite_read_byte(struct asd_ha_struct *asd_ha,
+static u8 asd_scbsite_read_byte(struct asd_ha_struct *asd_ha,
 				       u16 scb_site_no,
 				       u16 offs)
 {
@@ -181,7 +181,7 @@ static inline u8 asd_scbsite_read_byte(struct asd_ha_struct *asd_ha,
 
 
 #define ASD_SCBSITE_WRITE(type, ord)                                       \
-static inline void asd_scbsite_write_##ord (struct asd_ha_struct *asd_ha,  \
+static void asd_scbsite_write_##ord (struct asd_ha_struct *asd_ha,  \
 					u16 scb_site_no,                   \
 					u16 offs, type val)                \
 {                                                                          \
@@ -193,7 +193,7 @@ static inline void asd_scbsite_write_##ord (struct asd_ha_struct *asd_ha,  \
 ASD_SCBSITE_WRITE(u32, dword);
 ASD_SCBSITE_WRITE(u16, word);
 
-static inline void asd_scbsite_write_byte(struct asd_ha_struct *asd_ha,
+static void asd_scbsite_write_byte(struct asd_ha_struct *asd_ha,
 					  u16 scb_site_no,
 					  u16 offs, u8 val)
 {
@@ -221,7 +221,7 @@ static inline void asd_scbsite_write_byte(struct asd_ha_struct *asd_ha,
  * Return 0 on success; -EFAULT on parity error; -EAGAIN if the old value
  * is different than the current value at that offset.
  */
-static inline int asd_ddbsite_update_word(struct asd_ha_struct *asd_ha,
+static int asd_ddbsite_update_word(struct asd_ha_struct *asd_ha,
 					  u16 ddb_site_no, u16 offs,
 					  u16 oldval, u16 newval)
 {
@@ -242,7 +242,7 @@ static inline int asd_ddbsite_update_word(struct asd_ha_struct *asd_ha,
 		return -EAGAIN;	  /* oldval different than current value */
 }
 
-static inline int asd_ddbsite_update_byte(struct asd_ha_struct *asd_ha,
+static int asd_ddbsite_update_byte(struct asd_ha_struct *asd_ha,
 					  u16 ddb_site_no, u16 offs,
 					  u8 _oldval, u8 _newval)
 {
@@ -263,32 +263,32 @@ static inline int asd_ddbsite_update_byte(struct asd_ha_struct *asd_ha,
 	return asd_ddbsite_update_word(asd_ha, ddb_site_no, base, oval, nval);
 }
 
-static inline void asd_write_reg_addr(struct asd_ha_struct *asd_ha, u32 reg,
+static void asd_write_reg_addr(struct asd_ha_struct *asd_ha, u32 reg,
 				      dma_addr_t dma_handle)
 {
 	asd_write_reg_dword(asd_ha, reg,   ASD_BUSADDR_LO(dma_handle));
 	asd_write_reg_dword(asd_ha, reg+4, ASD_BUSADDR_HI(dma_handle));
 }
 
-static inline u32 asd_get_cmdctx_size(struct asd_ha_struct *asd_ha)
+static u32 asd_get_cmdctx_size(struct asd_ha_struct *asd_ha)
 {
 	/* DCHREVISION returns 0, possibly broken */
 	u32 ctxmemsize = asd_read_reg_dword(asd_ha, LmMnINT(0,0)) & CTXMEMSIZE;
 	return ctxmemsize ? 65536 : 32768;
 }
 
-static inline u32 asd_get_devctx_size(struct asd_ha_struct *asd_ha)
+static u32 asd_get_devctx_size(struct asd_ha_struct *asd_ha)
 {
 	u32 ctxmemsize = asd_read_reg_dword(asd_ha, LmMnINT(0,0)) & CTXMEMSIZE;
 	return ctxmemsize ? 8192 : 4096;
 }
 
-static inline void asd_disable_ints(struct asd_ha_struct *asd_ha)
+static void asd_disable_ints(struct asd_ha_struct *asd_ha)
 {
 	asd_write_reg_dword(asd_ha, CHIMINTEN, RST_CHIMINTEN);
 }
 
-static inline void asd_enable_ints(struct asd_ha_struct *asd_ha)
+static void asd_enable_ints(struct asd_ha_struct *asd_ha)
 {
 	/* Enable COM SAS interrupt on errors, COMSTAT */
 	asd_write_reg_dword(asd_ha, COMSTATEN,

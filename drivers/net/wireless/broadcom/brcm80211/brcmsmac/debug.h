@@ -38,7 +38,7 @@ __printf(4, 5)
 void __brcms_dbg(struct device *dev, u32 level, const char *func,
 		 const char *fmt, ...);
 #else
-static inline __printf(4, 5)
+static __printf(4, 5)
 void __brcms_dbg(struct device *dev, u32 level, const char *func,
 		 const char *fmt, ...)
 {

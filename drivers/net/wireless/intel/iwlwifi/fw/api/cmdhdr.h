@@ -82,22 +82,22 @@
  * the command id, the group id and the version of the command
  * and vice versa
 */
-static inline u8 iwl_cmd_opcode(u32 cmdid)
+static u8 iwl_cmd_opcode(u32 cmdid)
 {
 	return cmdid & 0xFF;
 }
 
-static inline u8 iwl_cmd_groupid(u32 cmdid)
+static u8 iwl_cmd_groupid(u32 cmdid)
 {
 	return ((cmdid & 0xFF00) >> 8);
 }
 
-static inline u8 iwl_cmd_version(u32 cmdid)
+static u8 iwl_cmd_version(u32 cmdid)
 {
 	return ((cmdid & 0xFF0000) >> 16);
 }
 
-static inline u32 iwl_cmd_id(u8 opcode, u8 groupid, u8 version)
+static u32 iwl_cmd_id(u8 opcode, u8 groupid, u8 version)
 {
 	return opcode + (groupid << 8) + (version << 16);
 }

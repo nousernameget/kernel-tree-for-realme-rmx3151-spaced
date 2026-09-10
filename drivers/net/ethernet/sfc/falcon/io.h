@@ -67,29 +67,29 @@
 #endif
 
 #ifdef EF4_USE_QWORD_IO
-static inline void _ef4_writeq(struct ef4_nic *efx, __le64 value,
+static void _ef4_writeq(struct ef4_nic *efx, __le64 value,
 				  unsigned int reg)
 {
 	__raw_writeq((__force u64)value, efx->membase + reg);
 }
-static inline __le64 _ef4_readq(struct ef4_nic *efx, unsigned int reg)
+static __le64 _ef4_readq(struct ef4_nic *efx, unsigned int reg)
 {
 	return (__force __le64)__raw_readq(efx->membase + reg);
 }
 #endif
 
-static inline void _ef4_writed(struct ef4_nic *efx, __le32 value,
+static void _ef4_writed(struct ef4_nic *efx, __le32 value,
 				  unsigned int reg)
 {
 	__raw_writel((__force u32)value, efx->membase + reg);
 }
-static inline __le32 _ef4_readd(struct ef4_nic *efx, unsigned int reg)
+static __le32 _ef4_readd(struct ef4_nic *efx, unsigned int reg)
 {
 	return (__force __le32)__raw_readl(efx->membase + reg);
 }
 
 /* Write a normal 128-bit CSR, locking as appropriate. */
-static inline void ef4_writeo(struct ef4_nic *efx, const ef4_oword_t *value,
+static void ef4_writeo(struct ef4_nic *efx, const ef4_oword_t *value,
 			      unsigned int reg)
 {
 	unsigned long flags __attribute__ ((unused));
@@ -113,7 +113,7 @@ static inline void ef4_writeo(struct ef4_nic *efx, const ef4_oword_t *value,
 }
 
 /* Write 64-bit SRAM through the supplied mapping, locking as appropriate. */
-static inline void ef4_sram_writeq(struct ef4_nic *efx, void __iomem *membase,
+static void ef4_sram_writeq(struct ef4_nic *efx, void __iomem *membase,
 				   const ef4_qword_t *value, unsigned int index)
 {
 	unsigned int addr = index * sizeof(*value);
@@ -135,7 +135,7 @@ static inline void ef4_sram_writeq(struct ef4_nic *efx, void __iomem *membase,
 }
 
 /* Write a 32-bit CSR or the last dword of a special 128-bit CSR */
-static inline void ef4_writed(struct ef4_nic *efx, const ef4_dword_t *value,
+static void ef4_writed(struct ef4_nic *efx, const ef4_dword_t *value,
 			      unsigned int reg)
 {
 	netif_vdbg(efx, hw, efx->net_dev,
@@ -147,7 +147,7 @@ static inline void ef4_writed(struct ef4_nic *efx, const ef4_dword_t *value,
 }
 
 /* Read a 128-bit CSR, locking as appropriate. */
-static inline void ef4_reado(struct ef4_nic *efx, ef4_oword_t *value,
+static void ef4_reado(struct ef4_nic *efx, ef4_oword_t *value,
 			     unsigned int reg)
 {
 	unsigned long flags __attribute__ ((unused));
@@ -165,7 +165,7 @@ static inline void ef4_reado(struct ef4_nic *efx, ef4_oword_t *value,
 }
 
 /* Read 64-bit SRAM through the supplied mapping, locking as appropriate. */
-static inline void ef4_sram_readq(struct ef4_nic *efx, void __iomem *membase,
+static void ef4_sram_readq(struct ef4_nic *efx, void __iomem *membase,
 				  ef4_qword_t *value, unsigned int index)
 {
 	unsigned int addr = index * sizeof(*value);
@@ -186,7 +186,7 @@ static inline void ef4_sram_readq(struct ef4_nic *efx, void __iomem *membase,
 }
 
 /* Read a 32-bit CSR or SRAM */
-static inline void ef4_readd(struct ef4_nic *efx, ef4_dword_t *value,
+static void ef4_readd(struct ef4_nic *efx, ef4_dword_t *value,
 				unsigned int reg)
 {
 	value->u32[0] = _ef4_readd(efx, reg);
@@ -196,7 +196,7 @@ static inline void ef4_readd(struct ef4_nic *efx, ef4_dword_t *value,
 }
 
 /* Write a 128-bit CSR forming part of a table */
-static inline void
+static void
 ef4_writeo_table(struct ef4_nic *efx, const ef4_oword_t *value,
 		 unsigned int reg, unsigned int index)
 {
@@ -204,7 +204,7 @@ ef4_writeo_table(struct ef4_nic *efx, const ef4_oword_t *value,
 }
 
 /* Read a 128-bit CSR forming part of a table */
-static inline void ef4_reado_table(struct ef4_nic *efx, ef4_oword_t *value,
+static void ef4_reado_table(struct ef4_nic *efx, ef4_oword_t *value,
 				     unsigned int reg, unsigned int index)
 {
 	ef4_reado(efx, value, reg + index * sizeof(ef4_oword_t));
@@ -218,7 +218,7 @@ static inline void ef4_reado_table(struct ef4_nic *efx, ef4_oword_t *value,
 	((page) * EF4_VI_PAGE_SIZE + (reg))
 
 /* Write the whole of RX_DESC_UPD or TX_DESC_UPD */
-static inline void _ef4_writeo_page(struct ef4_nic *efx, ef4_oword_t *value,
+static void _ef4_writeo_page(struct ef4_nic *efx, ef4_oword_t *value,
 				    unsigned int reg, unsigned int page)
 {
 	reg = EF4_PAGED_REG(page, reg);
@@ -246,7 +246,7 @@ static inline void _ef4_writeo_page(struct ef4_nic *efx, ef4_oword_t *value,
 /* Write a page-mapped 32-bit CSR (EVQ_RPTR, EVQ_TMR (EF10), or the
  * high bits of RX_DESC_UPD or TX_DESC_UPD)
  */
-static inline void
+static void
 _ef4_writed_page(struct ef4_nic *efx, const ef4_dword_t *value,
 		 unsigned int reg, unsigned int page)
 {
@@ -267,7 +267,7 @@ _ef4_writed_page(struct ef4_nic *efx, const ef4_dword_t *value,
  * in the BIU means that writes to TIMER_COMMAND[0] invalidate the
  * collector register.
  */
-static inline void _ef4_writed_page_locked(struct ef4_nic *efx,
+static void _ef4_writed_page_locked(struct ef4_nic *efx,
 					   const ef4_dword_t *value,
 					   unsigned int reg,
 					   unsigned int page)

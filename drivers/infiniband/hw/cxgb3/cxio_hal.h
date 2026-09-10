@@ -116,12 +116,12 @@ struct cxio_rdev {
 #define	CXIO_ERROR_FATAL	1
 };
 
-static inline int cxio_fatal_error(struct cxio_rdev *rdev_p)
+static int cxio_fatal_error(struct cxio_rdev *rdev_p)
 {
 	return rdev_p->flags & CXIO_ERROR_FATAL;
 }
 
-static inline int cxio_num_stags(struct cxio_rdev *rdev_p)
+static int cxio_num_stags(struct cxio_rdev *rdev_p)
 {
 	return min((int)T3_MAX_NUM_STAG, (int)((rdev_p->rnic_info.tpt_top - rdev_p->rnic_info.tpt_base) >> 5));
 }

@@ -49,7 +49,7 @@
  * Returns:
  * Zero on success, negative error code if failed
  */
-static inline int intel_gvt_hypervisor_host_init(struct device *dev,
+static int intel_gvt_hypervisor_host_init(struct device *dev,
 			void *gvt, const void *ops)
 {
 	/* optional to provide */
@@ -62,7 +62,7 @@ static inline int intel_gvt_hypervisor_host_init(struct device *dev,
 /**
  * intel_gvt_hypervisor_host_exit - exit GVT-g host side
  */
-static inline void intel_gvt_hypervisor_host_exit(struct device *dev,
+static void intel_gvt_hypervisor_host_exit(struct device *dev,
 			void *gvt)
 {
 	/* optional to provide */
@@ -79,7 +79,7 @@ static inline void intel_gvt_hypervisor_host_exit(struct device *dev,
  * Returns:
  * Zero on success, negative error code if failed.
  */
-static inline int intel_gvt_hypervisor_attach_vgpu(struct intel_vgpu *vgpu)
+static int intel_gvt_hypervisor_attach_vgpu(struct intel_vgpu *vgpu)
 {
 	/* optional to provide */
 	if (!intel_gvt_host.mpt->attach_vgpu)
@@ -95,7 +95,7 @@ static inline int intel_gvt_hypervisor_attach_vgpu(struct intel_vgpu *vgpu)
  * Returns:
  * Zero on success, negative error code if failed.
  */
-static inline void intel_gvt_hypervisor_detach_vgpu(struct intel_vgpu *vgpu)
+static void intel_gvt_hypervisor_detach_vgpu(struct intel_vgpu *vgpu)
 {
 	/* optional to provide */
 	if (!intel_gvt_host.mpt->detach_vgpu)
@@ -115,7 +115,7 @@ static inline void intel_gvt_hypervisor_detach_vgpu(struct intel_vgpu *vgpu)
  * Returns:
  * Zero on success, negative error code if failed.
  */
-static inline int intel_gvt_hypervisor_inject_msi(struct intel_vgpu *vgpu)
+static int intel_gvt_hypervisor_inject_msi(struct intel_vgpu *vgpu)
 {
 	unsigned long offset = vgpu->gvt->device_info.msi_cap_offset;
 	u16 control, data;
@@ -148,7 +148,7 @@ static inline int intel_gvt_hypervisor_inject_msi(struct intel_vgpu *vgpu)
  * Returns:
  * MFN on success, INTEL_GVT_INVALID_ADDR if failed.
  */
-static inline unsigned long intel_gvt_hypervisor_virt_to_mfn(void *p)
+static unsigned long intel_gvt_hypervisor_virt_to_mfn(void *p)
 {
 	return intel_gvt_host.mpt->from_virt_to_mfn(p);
 }
@@ -161,7 +161,7 @@ static inline unsigned long intel_gvt_hypervisor_virt_to_mfn(void *p)
  * Returns:
  * Zero on success, negative error code if failed.
  */
-static inline int intel_gvt_hypervisor_set_wp_page(struct intel_vgpu *vgpu,
+static int intel_gvt_hypervisor_set_wp_page(struct intel_vgpu *vgpu,
 		struct intel_vgpu_guest_page *p)
 {
 	int ret;
@@ -186,7 +186,7 @@ static inline int intel_gvt_hypervisor_set_wp_page(struct intel_vgpu *vgpu,
  * Returns:
  * Zero on success, negative error code if failed.
  */
-static inline int intel_gvt_hypervisor_unset_wp_page(struct intel_vgpu *vgpu,
+static int intel_gvt_hypervisor_unset_wp_page(struct intel_vgpu *vgpu,
 		struct intel_vgpu_guest_page *p)
 {
 	int ret;
@@ -212,7 +212,7 @@ static inline int intel_gvt_hypervisor_unset_wp_page(struct intel_vgpu *vgpu,
  * Returns:
  * Zero on success, negative error code if failed.
  */
-static inline int intel_gvt_hypervisor_read_gpa(struct intel_vgpu *vgpu,
+static int intel_gvt_hypervisor_read_gpa(struct intel_vgpu *vgpu,
 		unsigned long gpa, void *buf, unsigned long len)
 {
 	return intel_gvt_host.mpt->read_gpa(vgpu->handle, gpa, buf, len);
@@ -228,7 +228,7 @@ static inline int intel_gvt_hypervisor_read_gpa(struct intel_vgpu *vgpu,
  * Returns:
  * Zero on success, negative error code if failed.
  */
-static inline int intel_gvt_hypervisor_write_gpa(struct intel_vgpu *vgpu,
+static int intel_gvt_hypervisor_write_gpa(struct intel_vgpu *vgpu,
 		unsigned long gpa, void *buf, unsigned long len)
 {
 	return intel_gvt_host.mpt->write_gpa(vgpu->handle, gpa, buf, len);
@@ -242,7 +242,7 @@ static inline int intel_gvt_hypervisor_write_gpa(struct intel_vgpu *vgpu,
  * Returns:
  * MFN on success, INTEL_GVT_INVALID_ADDR if failed.
  */
-static inline unsigned long intel_gvt_hypervisor_gfn_to_mfn(
+static unsigned long intel_gvt_hypervisor_gfn_to_mfn(
 		struct intel_vgpu *vgpu, unsigned long gfn)
 {
 	return intel_gvt_host.mpt->gfn_to_mfn(vgpu->handle, gfn);
@@ -259,7 +259,7 @@ static inline unsigned long intel_gvt_hypervisor_gfn_to_mfn(
  * Returns:
  * Zero on success, negative error code if failed.
  */
-static inline int intel_gvt_hypervisor_map_gfn_to_mfn(
+static int intel_gvt_hypervisor_map_gfn_to_mfn(
 		struct intel_vgpu *vgpu, unsigned long gfn,
 		unsigned long mfn, unsigned int nr,
 		bool map)
@@ -282,7 +282,7 @@ static inline int intel_gvt_hypervisor_map_gfn_to_mfn(
  * Returns:
  * Zero on success, negative error code if failed.
  */
-static inline int intel_gvt_hypervisor_set_trap_area(
+static int intel_gvt_hypervisor_set_trap_area(
 		struct intel_vgpu *vgpu, u64 start, u64 end, bool map)
 {
 	/* a MPT implementation could have MMIO trapped elsewhere */

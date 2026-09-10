@@ -174,11 +174,11 @@ struct cytp_data {
 int cypress_detect(struct psmouse *psmouse, bool set_properties);
 int cypress_init(struct psmouse *psmouse);
 #else
-inline int cypress_detect(struct psmouse *psmouse, bool set_properties)
+int cypress_detect(struct psmouse *psmouse, bool set_properties)
 {
 	return -ENOSYS;
 }
-inline int cypress_init(struct psmouse *psmouse)
+int cypress_init(struct psmouse *psmouse)
 {
 	return -ENOSYS;
 }

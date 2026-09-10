@@ -1109,7 +1109,7 @@ struct xhci_transfer_event {
 #define COMP_SECONDARY_BANDWIDTH_ERROR		35
 #define COMP_SPLIT_TRANSACTION_ERROR		36
 
-static inline const char *xhci_trb_comp_code_string(u8 status)
+static const char *xhci_trb_comp_code_string(u8 status)
 {
 	switch (status) {
 	case COMP_INVALID:
@@ -1402,7 +1402,7 @@ union xhci_trb {
 /* Get NEC firmware revision. */
 #define	TRB_NEC_GET_FW		49
 
-static inline const char *xhci_trb_type_string(u8 type)
+static const char *xhci_trb_type_string(u8 type)
 {
 	switch (type) {
 	case TRB_NORMAL:
@@ -1556,7 +1556,7 @@ enum xhci_ring_type {
 	TYPE_EVENT,
 };
 
-static inline const char *xhci_ring_type_string(enum xhci_ring_type type)
+static const char *xhci_ring_type_string(enum xhci_ring_type type)
 {
 	switch (type) {
 	case TYPE_CTRL:
@@ -1689,7 +1689,7 @@ struct xhci_bus_state {
  */
 #define	XHCI_MAX_REXIT_TIMEOUT_MS	20
 
-static inline unsigned int hcd_index(struct usb_hcd *hcd)
+static unsigned int hcd_index(struct usb_hcd *hcd)
 {
 	if (hcd->speed >= HCD_USB3)
 		return 0;
@@ -1892,7 +1892,7 @@ struct xhci_driver_overrides {
 #define	XHCI_CFC_DELAY		10
 
 /* convert between an HCD pointer and the corresponding EHCI_HCD */
-static inline struct xhci_hcd *hcd_to_xhci(struct usb_hcd *hcd)
+static struct xhci_hcd *hcd_to_xhci(struct usb_hcd *hcd)
 {
 	struct usb_hcd *primary_hcd;
 
@@ -1904,7 +1904,7 @@ static inline struct xhci_hcd *hcd_to_xhci(struct usb_hcd *hcd)
 	return (struct xhci_hcd *) (primary_hcd->hcd_priv);
 }
 
-static inline struct usb_hcd *xhci_to_hcd(struct xhci_hcd *xhci)
+static struct usb_hcd *xhci_to_hcd(struct xhci_hcd *xhci)
 {
 	return xhci->main_hcd;
 }
@@ -1929,18 +1929,18 @@ static inline struct usb_hcd *xhci_to_hcd(struct xhci_hcd *xhci)
  * xHCI implementations that do not support 64-bit address pointers will ignore
  * the high dword, and write order is irrelevant.
  */
-static inline u64 xhci_read_64(const struct xhci_hcd *xhci,
+static u64 xhci_read_64(const struct xhci_hcd *xhci,
 		__le64 __iomem *regs)
 {
 	return lo_hi_readq(regs);
 }
-static inline void xhci_write_64(struct xhci_hcd *xhci,
+static void xhci_write_64(struct xhci_hcd *xhci,
 				 const u64 val, __le64 __iomem *regs)
 {
 	lo_hi_writeq(val, regs);
 }
 
-static inline int xhci_link_trb_quirk(struct xhci_hcd *xhci)
+static int xhci_link_trb_quirk(struct xhci_hcd *xhci)
 {
 	return xhci->quirks & XHCI_LINK_TRB_QUIRK;
 }
@@ -2128,7 +2128,7 @@ struct xhci_ep_ctx *xhci_get_ep_ctx(struct xhci_hcd *xhci, struct xhci_container
 struct xhci_ring *xhci_triad_to_transfer_ring(struct xhci_hcd *xhci,
 		unsigned int slot_id, unsigned int ep_index,
 		unsigned int stream_id);
-static inline struct xhci_ring *xhci_urb_to_transfer_ring(struct xhci_hcd *xhci,
+static struct xhci_ring *xhci_urb_to_transfer_ring(struct xhci_hcd *xhci,
 								struct urb *urb)
 {
 	return xhci_triad_to_transfer_ring(xhci, urb->dev->slot_id,
@@ -2136,7 +2136,7 @@ static inline struct xhci_ring *xhci_urb_to_transfer_ring(struct xhci_hcd *xhci,
 					urb->stream_id);
 }
 
-static inline char *xhci_slot_state_string(u32 state)
+static char *xhci_slot_state_string(u32 state)
 {
 	switch (state) {
 	case SLOT_STATE_ENABLED:
@@ -2152,7 +2152,7 @@ static inline char *xhci_slot_state_string(u32 state)
 	}
 }
 
-static inline const char *xhci_decode_trb(u32 field0, u32 field1, u32 field2,
+static const char *xhci_decode_trb(u32 field0, u32 field1, u32 field2,
 		u32 field3)
 {
 	static char str[256];
@@ -2371,7 +2371,7 @@ static inline const char *xhci_decode_trb(u32 field0, u32 field1, u32 field2,
 	return str;
 }
 
-static inline const char *xhci_decode_slot_context(u32 info, u32 info2,
+static const char *xhci_decode_slot_context(u32 info, u32 info2,
 		u32 tt_info, u32 state)
 {
 	static char str[1024];
@@ -2423,7 +2423,7 @@ static inline const char *xhci_decode_slot_context(u32 info, u32 info2,
 }
 
 
-static inline const char *xhci_portsc_link_state_string(u32 portsc)
+static const char *xhci_portsc_link_state_string(u32 portsc)
 {
 	switch (portsc & PORT_PLS_MASK) {
 	case XDEV_U0:
@@ -2458,7 +2458,7 @@ static inline const char *xhci_portsc_link_state_string(u32 portsc)
 	return "Unknown";
 }
 
-static inline const char *xhci_decode_portsc(u32 portsc)
+static const char *xhci_decode_portsc(u32 portsc)
 {
 	static char str[256];
 	int ret;
@@ -2503,7 +2503,7 @@ static inline const char *xhci_decode_portsc(u32 portsc)
 	return str;
 }
 
-static inline const char *xhci_ep_state_string(u8 state)
+static const char *xhci_ep_state_string(u8 state)
 {
 	switch (state) {
 	case EP_STATE_DISABLED:
@@ -2521,7 +2521,7 @@ static inline const char *xhci_ep_state_string(u8 state)
 	}
 }
 
-static inline const char *xhci_ep_type_string(u8 type)
+static const char *xhci_ep_type_string(u8 type)
 {
 	switch (type) {
 	case ISOC_OUT_EP:
@@ -2543,7 +2543,7 @@ static inline const char *xhci_ep_type_string(u8 type)
 	}
 }
 
-static inline const char *xhci_decode_ep_context(u32 info, u32 info2, u64 deq,
+static const char *xhci_decode_ep_context(u32 info, u32 info2, u64 deq,
 		u32 tx_info)
 {
 	static char str[1024];

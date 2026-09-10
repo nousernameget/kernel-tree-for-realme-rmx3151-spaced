@@ -150,7 +150,7 @@ static const struct mmc_fixup sdio_fixup_methods[] = {
 	END_FIXUP
 };
 
-static inline void mmc_fixup_device(struct mmc_card *card,
+static void mmc_fixup_device(struct mmc_card *card,
 				    const struct mmc_fixup *table)
 {
 	const struct mmc_fixup *f;

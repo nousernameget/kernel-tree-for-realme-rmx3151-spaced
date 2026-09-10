@@ -109,7 +109,7 @@ struct isci_remote_device {
 #define ISCI_REMOTE_DEVICE_START_TIMEOUT 5000
 
 /* device reference routines must be called under sci_lock */
-static inline struct isci_remote_device *isci_get_device(
+static struct isci_remote_device *isci_get_device(
 	struct isci_remote_device *idev)
 {
 	if (idev)
@@ -117,7 +117,7 @@ static inline struct isci_remote_device *isci_get_device(
 	return idev;
 }
 
-static inline struct isci_remote_device *isci_lookup_device(struct domain_device *dev)
+static struct isci_remote_device *isci_lookup_device(struct domain_device *dev)
 {
 	struct isci_remote_device *idev = dev->lldd_dev;
 
@@ -130,7 +130,7 @@ static inline struct isci_remote_device *isci_lookup_device(struct domain_device
 }
 
 void isci_remote_device_release(struct kref *kref);
-static inline void isci_put_device(struct isci_remote_device *idev)
+static void isci_put_device(struct isci_remote_device *idev)
 {
 	if (idev)
 		kref_put(&idev->kref, isci_remote_device_release);
@@ -286,7 +286,7 @@ enum sci_remote_device_states REMOTE_DEV_STATES;
 #undef C
 const char *dev_state_name(enum sci_remote_device_states state);
 
-static inline struct isci_remote_device *rnc_to_dev(struct sci_remote_node_context *rnc)
+static struct isci_remote_device *rnc_to_dev(struct sci_remote_node_context *rnc)
 {
 	struct isci_remote_device *idev;
 
@@ -295,12 +295,12 @@ static inline struct isci_remote_device *rnc_to_dev(struct sci_remote_node_conte
 	return idev;
 }
 
-static inline bool dev_is_expander(struct domain_device *dev)
+static bool dev_is_expander(struct domain_device *dev)
 {
 	return dev->dev_type == SAS_EDGE_EXPANDER_DEVICE || dev->dev_type == SAS_FANOUT_EXPANDER_DEVICE;
 }
 
-static inline void sci_remote_device_decrement_request_count(struct isci_remote_device *idev)
+static void sci_remote_device_decrement_request_count(struct isci_remote_device *idev)
 {
 	/* XXX delete this voodoo when converting to the top-level device
 	 * reference count

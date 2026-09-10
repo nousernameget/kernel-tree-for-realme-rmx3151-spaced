@@ -154,91 +154,91 @@ struct lstcon_trans_stat {
 	void	*trs_fwk_private;	/* private framework stat */
 };
 
-static inline int
+static int
 lstcon_rpc_stat_total(struct lstcon_trans_stat *stat, int inc)
 {
 	return inc ? ++stat->trs_rpc_stat[0] : stat->trs_rpc_stat[0];
 }
 
-static inline int
+static int
 lstcon_rpc_stat_success(struct lstcon_trans_stat *stat, int inc)
 {
 	return inc ? ++stat->trs_rpc_stat[1] : stat->trs_rpc_stat[1];
 }
 
-static inline int
+static int
 lstcon_rpc_stat_failure(struct lstcon_trans_stat *stat, int inc)
 {
 	return inc ? ++stat->trs_rpc_stat[2] : stat->trs_rpc_stat[2];
 }
 
-static inline int
+static int
 lstcon_sesop_stat_success(struct lstcon_trans_stat *stat, int inc)
 {
 	return inc ? ++stat->trs_fwk_stat[0] : stat->trs_fwk_stat[0];
 }
 
-static inline int
+static int
 lstcon_sesop_stat_failure(struct lstcon_trans_stat *stat, int inc)
 {
 	return inc ? ++stat->trs_fwk_stat[1] : stat->trs_fwk_stat[1];
 }
 
-static inline int
+static int
 lstcon_sesqry_stat_active(struct lstcon_trans_stat *stat, int inc)
 {
 	return inc ? ++stat->trs_fwk_stat[0] : stat->trs_fwk_stat[0];
 }
 
-static inline int
+static int
 lstcon_sesqry_stat_busy(struct lstcon_trans_stat *stat, int inc)
 {
 	return inc ? ++stat->trs_fwk_stat[1] : stat->trs_fwk_stat[1];
 }
 
-static inline int
+static int
 lstcon_sesqry_stat_unknown(struct lstcon_trans_stat *stat, int inc)
 {
 	return inc ? ++stat->trs_fwk_stat[2] : stat->trs_fwk_stat[2];
 }
 
-static inline int
+static int
 lstcon_tsbop_stat_success(struct lstcon_trans_stat *stat, int inc)
 {
 	return inc ? ++stat->trs_fwk_stat[0] : stat->trs_fwk_stat[0];
 }
 
-static inline int
+static int
 lstcon_tsbop_stat_failure(struct lstcon_trans_stat *stat, int inc)
 {
 	return inc ? ++stat->trs_fwk_stat[1] : stat->trs_fwk_stat[1];
 }
 
-static inline int
+static int
 lstcon_tsbqry_stat_idle(struct lstcon_trans_stat *stat, int inc)
 {
 	return inc ? ++stat->trs_fwk_stat[0] : stat->trs_fwk_stat[0];
 }
 
-static inline int
+static int
 lstcon_tsbqry_stat_run(struct lstcon_trans_stat *stat, int inc)
 {
 	return inc ? ++stat->trs_fwk_stat[1] : stat->trs_fwk_stat[1];
 }
 
-static inline int
+static int
 lstcon_tsbqry_stat_failure(struct lstcon_trans_stat *stat, int inc)
 {
 	return inc ? ++stat->trs_fwk_stat[2] : stat->trs_fwk_stat[2];
 }
 
-static inline int
+static int
 lstcon_statqry_stat_success(struct lstcon_trans_stat *stat, int inc)
 {
 	return inc ? ++stat->trs_fwk_stat[0] : stat->trs_fwk_stat[0];
 }
 
-static inline int
+static int
 lstcon_statqry_stat_failure(struct lstcon_trans_stat *stat, int inc)
 {
 	return inc ? ++stat->trs_fwk_stat[1] : stat->trs_fwk_stat[1];

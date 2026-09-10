@@ -102,7 +102,7 @@ enum rf_content {
 	radiod_txt = 3
 };
 
-static inline void rtl92d_acquire_cckandrw_pagea_ctl(struct ieee80211_hw *hw,
+static void rtl92d_acquire_cckandrw_pagea_ctl(struct ieee80211_hw *hw,
 						     unsigned long *flag)
 {
 	struct rtl_priv *rtlpriv = rtl_priv(hw);
@@ -111,7 +111,7 @@ static inline void rtl92d_acquire_cckandrw_pagea_ctl(struct ieee80211_hw *hw,
 		spin_lock_irqsave(&rtlpriv->locks.cck_and_rw_pagea_lock, *flag);
 }
 
-static inline void rtl92d_release_cckandrw_pagea_ctl(struct ieee80211_hw *hw,
+static void rtl92d_release_cckandrw_pagea_ctl(struct ieee80211_hw *hw,
 						     unsigned long *flag)
 {
 	struct rtl_priv *rtlpriv = rtl_priv(hw);

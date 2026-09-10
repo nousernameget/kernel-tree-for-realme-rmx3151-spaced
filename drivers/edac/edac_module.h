@@ -87,15 +87,15 @@ static inline int edac_debugfs_init(void)					{ return -ENODEV; }
 static inline void edac_debugfs_exit(void)					{ }
 static inline int edac_create_debugfs_nodes(struct mem_ctl_info *mci)		{ return 0; }
 static inline struct dentry *edac_debugfs_create_dir(const char *dirname)	{ return NULL; }
-static inline struct dentry *
+static struct dentry *
 edac_debugfs_create_dir_at(const char *dirname, struct dentry *parent)		{ return NULL; }
-static inline struct dentry *
+static struct dentry *
 edac_debugfs_create_file(const char *name, umode_t mode, struct dentry *parent,
 			 void *data, const struct file_operations *fops)	{ return NULL; }
-static inline struct dentry *
+static struct dentry *
 edac_debugfs_create_x8(const char *name, umode_t mode,
 		       struct dentry *parent, u8 *value)			{ return NULL; }
-static inline struct dentry *
+static struct dentry *
 edac_debugfs_create_x16(const char *name, umode_t mode,
 		       struct dentry *parent, u16 *value)			{ return NULL; }
 #endif

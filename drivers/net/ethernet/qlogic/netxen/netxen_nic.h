@@ -1852,7 +1852,7 @@ static const struct netxen_brdinfo netxen_boards[] = {
 
 #define NUM_SUPPORTED_BOARDS ARRAY_SIZE(netxen_boards)
 
-static inline int netxen_nic_get_brd_name_by_type(u32 type, char *name)
+static int netxen_nic_get_brd_name_by_type(u32 type, char *name)
 {
 	int i, found = 0;
 	for (i = 0; i < NUM_SUPPORTED_BOARDS; ++i) {
@@ -1871,7 +1871,7 @@ static inline int netxen_nic_get_brd_name_by_type(u32 type, char *name)
 	return 0;
 }
 
-static inline u32 netxen_tx_avail(struct nx_host_tx_ring *tx_ring)
+static u32 netxen_tx_avail(struct nx_host_tx_ring *tx_ring)
 {
 	smp_mb();
 	return find_diff_among(tx_ring->producer,

@@ -418,7 +418,7 @@ struct mac_stats_string {
 #define MAC_SPEED_FROM_MODE(mode) (enum mac_speed)((mode) & 0x0000FFFF)
 #define MAC_STATS_FIELD_OFF(field) (offsetof(struct mac_hw_stats, field))
 
-static inline struct mac_driver *hns_mac_get_drv(
+static struct mac_driver *hns_mac_get_drv(
 	const struct hns_mac_cb *mac_cb)
 {
 	return (struct mac_driver *)(mac_cb->priv.mac);

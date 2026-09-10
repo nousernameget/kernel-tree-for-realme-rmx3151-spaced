@@ -47,7 +47,7 @@ static spinlock_t dbg_spinlock = SPIN_LOCK_UNLOCKED;
 extern char *debug_buffer;
 extern bool is_buffer_init;
 
-static inline void dbg_print(int level, const char *fmt, ...)
+static void dbg_print(int level, const char *fmt, ...)
 {
 	if (level <= MTKFB_DBG) {
 		if (!MAX_DBG_MESSAGES || dbg_cnt < MAX_DBG_MESSAGES) {

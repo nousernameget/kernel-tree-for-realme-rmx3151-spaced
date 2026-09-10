@@ -64,7 +64,7 @@ struct range_lock {
 	__u64			rl_sequence;
 };
 
-static inline struct range_lock *node2rangelock(const struct interval_node *n)
+static struct range_lock *node2rangelock(const struct interval_node *n)
 {
 	return container_of(n, struct range_lock, rl_node);
 }

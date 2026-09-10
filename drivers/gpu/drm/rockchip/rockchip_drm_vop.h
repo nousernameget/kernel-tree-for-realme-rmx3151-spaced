@@ -278,12 +278,12 @@ enum vop_pol {
 #define SCL_MAX_VSKIPLINES		4
 #define MIN_SCL_FT_AFTER_VSKIP		1
 
-static inline uint16_t scl_cal_scale(int src, int dst, int shift)
+static uint16_t scl_cal_scale(int src, int dst, int shift)
 {
 	return ((src * 2 - 3) << (shift - 1)) / (dst - 1);
 }
 
-static inline uint16_t scl_cal_scale2(int src, int dst)
+static uint16_t scl_cal_scale2(int src, int dst)
 {
 	return ((src - 1) << 12) / (dst - 1);
 }
@@ -292,7 +292,7 @@ static inline uint16_t scl_cal_scale2(int src, int dst)
 #define GET_SCL_FT_BILI_UP(src, dst)	scl_cal_scale(src, dst, 16)
 #define GET_SCL_FT_BIC(src, dst)	scl_cal_scale(src, dst, 16)
 
-static inline uint16_t scl_get_bili_dn_vskip(int src_h, int dst_h,
+static uint16_t scl_get_bili_dn_vskip(int src_h, int dst_h,
 					     int vskiplines)
 {
 	int act_height;
@@ -305,7 +305,7 @@ static inline uint16_t scl_get_bili_dn_vskip(int src_h, int dst_h,
 	return GET_SCL_FT_BILI_DN(act_height, dst_h);
 }
 
-static inline enum scale_mode scl_get_scl_mode(int src, int dst)
+static enum scale_mode scl_get_scl_mode(int src, int dst)
 {
 	if (src < dst)
 		return SCALE_UP;
@@ -315,7 +315,7 @@ static inline enum scale_mode scl_get_scl_mode(int src, int dst)
 	return SCALE_NONE;
 }
 
-static inline int scl_get_vskiplines(uint32_t srch, uint32_t dsth)
+static int scl_get_vskiplines(uint32_t srch, uint32_t dsth)
 {
 	uint32_t vskiplines;
 
@@ -326,7 +326,7 @@ static inline int scl_get_vskiplines(uint32_t srch, uint32_t dsth)
 	return vskiplines;
 }
 
-static inline int scl_vop_cal_lb_mode(int width, bool is_yuv)
+static int scl_vop_cal_lb_mode(int width, bool is_yuv)
 {
 	int lb_mode;
 

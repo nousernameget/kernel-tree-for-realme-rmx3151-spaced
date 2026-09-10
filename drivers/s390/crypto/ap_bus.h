@@ -41,7 +41,7 @@ extern int ap_domain_index;
 extern spinlock_t ap_list_lock;
 extern struct list_head ap_card_list;
 
-static inline int ap_test_bit(unsigned int *ptr, unsigned int nr)
+static int ap_test_bit(unsigned int *ptr, unsigned int nr)
 {
 	return (*ptr & (0x80000000u >> nr)) != 0;
 }
@@ -209,7 +209,7 @@ struct ap_message {
  * Initialize a message before using. Otherwise this might result in
  * unexpected behaviour.
  */
-static inline void ap_init_message(struct ap_message *ap_msg)
+static void ap_init_message(struct ap_message *ap_msg)
 {
 	ap_msg->psmid = 0;
 	ap_msg->length = 0;

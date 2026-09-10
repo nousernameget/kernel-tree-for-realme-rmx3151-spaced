@@ -287,12 +287,12 @@ ssize_t tmc_etr_get_sysfs_trace(struct tmc_drvdata *drvdata,
 
 
 #define TMC_REG_PAIR(name, lo_off, hi_off)				\
-static inline u64							\
+static u64							\
 tmc_read_##name(struct tmc_drvdata *drvdata)				\
 {									\
 	return coresight_read_reg_pair(drvdata->base, lo_off, hi_off);	\
 }									\
-static inline void							\
+static void							\
 tmc_write_##name(struct tmc_drvdata *drvdata, u64 val)			\
 {									\
 	coresight_write_reg_pair(drvdata->base, val, lo_off, hi_off);	\
@@ -303,18 +303,18 @@ TMC_REG_PAIR(rwp, TMC_RWP, TMC_RWPHI)
 TMC_REG_PAIR(dba, TMC_DBALO, TMC_DBAHI)
 
 /* Initialise the caps from unadvertised static capabilities of the device */
-static inline void tmc_etr_init_caps(struct tmc_drvdata *drvdata, u32 dev_caps)
+static void tmc_etr_init_caps(struct tmc_drvdata *drvdata, u32 dev_caps)
 {
 	WARN_ON(drvdata->etr_caps);
 	drvdata->etr_caps = dev_caps;
 }
 
-static inline void tmc_etr_set_cap(struct tmc_drvdata *drvdata, u32 cap)
+static void tmc_etr_set_cap(struct tmc_drvdata *drvdata, u32 cap)
 {
 	drvdata->etr_caps |= cap;
 }
 
-static inline bool tmc_etr_has_cap(struct tmc_drvdata *drvdata, u32 cap)
+static bool tmc_etr_has_cap(struct tmc_drvdata *drvdata, u32 cap)
 {
 	return !!(drvdata->etr_caps & cap);
 }
@@ -330,7 +330,7 @@ void tmc_sg_table_sync_data_range(struct tmc_sg_table *table,
 				  u64 offset, u64 size);
 ssize_t tmc_sg_table_get_data(struct tmc_sg_table *sg_table,
 			      u64 offset, size_t len, char **bufpp);
-static inline unsigned long
+static unsigned long
 tmc_sg_table_buf_size(struct tmc_sg_table *sg_table)
 {
 	return sg_table->data_pages.nr_pages << PAGE_SHIFT;

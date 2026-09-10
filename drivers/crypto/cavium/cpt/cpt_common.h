@@ -143,13 +143,13 @@ struct cpt_mbox {
 };
 
 /* Register read/write APIs */
-static inline void cpt_write_csr64(u8 __iomem *hw_addr, u64 offset,
+static void cpt_write_csr64(u8 __iomem *hw_addr, u64 offset,
 				   u64 val)
 {
 	writeq(val, hw_addr + offset);
 }
 
-static inline u64 cpt_read_csr64(u8 __iomem *hw_addr, u64 offset)
+static u64 cpt_read_csr64(u8 __iomem *hw_addr, u64 offset)
 {
 	return readq(hw_addr + offset);
 }

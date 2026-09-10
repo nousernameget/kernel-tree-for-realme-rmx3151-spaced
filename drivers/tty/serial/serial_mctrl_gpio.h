@@ -114,7 +114,7 @@ unsigned int mctrl_gpio_get(struct mctrl_gpios *gpios, unsigned int *mctrl)
 	return *mctrl;
 }
 
-static inline unsigned int
+static unsigned int
 mctrl_gpio_get_outputs(struct mctrl_gpios *gpios, unsigned int *mctrl)
 {
 	return *mctrl;
@@ -144,11 +144,11 @@ void mctrl_gpio_free(struct device *dev, struct mctrl_gpios *gpios)
 {
 }
 
-static inline void mctrl_gpio_enable_ms(struct mctrl_gpios *gpios)
+static void mctrl_gpio_enable_ms(struct mctrl_gpios *gpios)
 {
 }
 
-static inline void mctrl_gpio_disable_ms(struct mctrl_gpios *gpios)
+static void mctrl_gpio_disable_ms(struct mctrl_gpios *gpios)
 {
 }
 

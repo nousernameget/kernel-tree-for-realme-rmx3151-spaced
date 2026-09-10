@@ -105,17 +105,17 @@ int shadow_root(struct shadow_spine *s);
 /*
  * Some inlines.
  */
-static inline __le64 *key_ptr(struct btree_node *n, uint32_t index)
+static __le64 *key_ptr(struct btree_node *n, uint32_t index)
 {
 	return n->keys + index;
 }
 
-static inline void *value_base(struct btree_node *n)
+static void *value_base(struct btree_node *n)
 {
 	return &n->keys[le32_to_cpu(n->header.max_entries)];
 }
 
-static inline void *value_ptr(struct btree_node *n, uint32_t index)
+static void *value_ptr(struct btree_node *n, uint32_t index)
 {
 	uint32_t value_size = le32_to_cpu(n->header.value_size);
 	return value_base(n) + (value_size * index);
@@ -124,7 +124,7 @@ static inline void *value_ptr(struct btree_node *n, uint32_t index)
 /*
  * Assumes the values are suitably-aligned and converts to core format.
  */
-static inline uint64_t value64(struct btree_node *n, uint32_t index)
+static uint64_t value64(struct btree_node *n, uint32_t index)
 {
 	__le64 *values_le = value_base(n);
 

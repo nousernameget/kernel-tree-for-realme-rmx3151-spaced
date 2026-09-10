@@ -42,7 +42,7 @@
  *
  * Return: updated position in the buffer
  */
-static inline size_t kbasep_serialize_bytes(
+static size_t kbasep_serialize_bytes(
 		char       *buffer,
 		size_t     pos,
 		const void *bytes,
@@ -69,7 +69,7 @@ static inline size_t kbasep_serialize_bytes(
  *
  * Return: updated position in the buffer
  */
-static inline size_t kbasep_serialize_string(
+static size_t kbasep_serialize_string(
 		char       *buffer,
 		size_t     pos,
 		const char *string,
@@ -111,7 +111,7 @@ static inline size_t kbasep_serialize_string(
  *
  * Return: updated position in the buffer
  */
-static inline size_t kbasep_serialize_timestamp(void *buffer, size_t pos)
+static size_t kbasep_serialize_timestamp(void *buffer, size_t pos)
 {
 	struct timespec ts;
 	u64             timestamp;

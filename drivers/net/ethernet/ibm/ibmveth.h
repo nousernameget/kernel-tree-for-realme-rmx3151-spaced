@@ -58,7 +58,7 @@
 #define h_add_logical_lan_buffer(ua, buf) \
   plpar_hcall_norets(H_ADD_LOGICAL_LAN_BUFFER, ua, buf)
 
-static inline long h_send_logical_lan(unsigned long unit_address,
+static long h_send_logical_lan(unsigned long unit_address,
 		unsigned long desc1, unsigned long desc2, unsigned long desc3,
 		unsigned long desc4, unsigned long desc5, unsigned long desc6,
 		unsigned long corellator_in, unsigned long *corellator_out,
@@ -81,7 +81,7 @@ static inline long h_send_logical_lan(unsigned long unit_address,
 	return rc;
 }
 
-static inline long h_illan_attributes(unsigned long unit_address,
+static long h_illan_attributes(unsigned long unit_address,
 				      unsigned long reset_mask, unsigned long set_mask,
 				      unsigned long *ret_attributes)
 {

@@ -54,13 +54,13 @@ struct rsi_91x_usbdev {
 	u8 write_fail;
 };
 
-static inline int rsi_usb_check_queue_status(struct rsi_hw *adapter, u8 q_num)
+static int rsi_usb_check_queue_status(struct rsi_hw *adapter, u8 q_num)
 {
 	/* In USB, there isn't any need to check the queue status */
 	return QUEUE_NOT_FULL;
 }
 
-static inline int rsi_usb_event_timeout(struct rsi_hw *adapter)
+static int rsi_usb_event_timeout(struct rsi_hw *adapter)
 {
 	return EVENT_WAIT_FOREVER;
 }

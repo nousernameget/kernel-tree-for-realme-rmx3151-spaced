@@ -7,7 +7,7 @@
 /* also for modules */
 int matroxfb_PLL_calcclock(const struct matrox_pll_features* pll, unsigned int freq, unsigned int fmax,
 	unsigned int* in, unsigned int* feed, unsigned int* post);
-static inline int PLL_calcclock(const struct matrox_fb_info *minfo,
+static int PLL_calcclock(const struct matrox_fb_info *minfo,
 				unsigned int freq, unsigned int fmax,
 				unsigned int *in, unsigned int *feed,
 				unsigned int *post)

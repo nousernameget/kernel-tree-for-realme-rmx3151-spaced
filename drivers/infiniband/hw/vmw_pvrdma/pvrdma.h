@@ -235,177 +235,177 @@ struct pvrdma_netdevice_work {
 	unsigned long event;
 };
 
-static inline struct pvrdma_dev *to_vdev(struct ib_device *ibdev)
+static struct pvrdma_dev *to_vdev(struct ib_device *ibdev)
 {
 	return container_of(ibdev, struct pvrdma_dev, ib_dev);
 }
 
-static inline struct
+static struct
 pvrdma_ucontext *to_vucontext(struct ib_ucontext *ibucontext)
 {
 	return container_of(ibucontext, struct pvrdma_ucontext, ibucontext);
 }
 
-static inline struct pvrdma_pd *to_vpd(struct ib_pd *ibpd)
+static struct pvrdma_pd *to_vpd(struct ib_pd *ibpd)
 {
 	return container_of(ibpd, struct pvrdma_pd, ibpd);
 }
 
-static inline struct pvrdma_cq *to_vcq(struct ib_cq *ibcq)
+static struct pvrdma_cq *to_vcq(struct ib_cq *ibcq)
 {
 	return container_of(ibcq, struct pvrdma_cq, ibcq);
 }
 
-static inline struct pvrdma_user_mr *to_vmr(struct ib_mr *ibmr)
+static struct pvrdma_user_mr *to_vmr(struct ib_mr *ibmr)
 {
 	return container_of(ibmr, struct pvrdma_user_mr, ibmr);
 }
 
-static inline struct pvrdma_qp *to_vqp(struct ib_qp *ibqp)
+static struct pvrdma_qp *to_vqp(struct ib_qp *ibqp)
 {
 	return container_of(ibqp, struct pvrdma_qp, ibqp);
 }
 
-static inline struct pvrdma_ah *to_vah(struct ib_ah *ibah)
+static struct pvrdma_ah *to_vah(struct ib_ah *ibah)
 {
 	return container_of(ibah, struct pvrdma_ah, ibah);
 }
 
-static inline void pvrdma_write_reg(struct pvrdma_dev *dev, u32 reg, u32 val)
+static void pvrdma_write_reg(struct pvrdma_dev *dev, u32 reg, u32 val)
 {
 	writel(cpu_to_le32(val), dev->regs + reg);
 }
 
-static inline u32 pvrdma_read_reg(struct pvrdma_dev *dev, u32 reg)
+static u32 pvrdma_read_reg(struct pvrdma_dev *dev, u32 reg)
 {
 	return le32_to_cpu(readl(dev->regs + reg));
 }
 
-static inline void pvrdma_write_uar_cq(struct pvrdma_dev *dev, u32 val)
+static void pvrdma_write_uar_cq(struct pvrdma_dev *dev, u32 val)
 {
 	writel(cpu_to_le32(val), dev->driver_uar.map + PVRDMA_UAR_CQ_OFFSET);
 }
 
-static inline void pvrdma_write_uar_qp(struct pvrdma_dev *dev, u32 val)
+static void pvrdma_write_uar_qp(struct pvrdma_dev *dev, u32 val)
 {
 	writel(cpu_to_le32(val), dev->driver_uar.map + PVRDMA_UAR_QP_OFFSET);
 }
 
-static inline void *pvrdma_page_dir_get_ptr(struct pvrdma_page_dir *pdir,
+static void *pvrdma_page_dir_get_ptr(struct pvrdma_page_dir *pdir,
 					    u64 offset)
 {
 	return pdir->pages[offset / PAGE_SIZE] + (offset % PAGE_SIZE);
 }
 
-static inline enum pvrdma_mtu ib_mtu_to_pvrdma(enum ib_mtu mtu)
+static enum pvrdma_mtu ib_mtu_to_pvrdma(enum ib_mtu mtu)
 {
 	return (enum pvrdma_mtu)mtu;
 }
 
-static inline enum ib_mtu pvrdma_mtu_to_ib(enum pvrdma_mtu mtu)
+static enum ib_mtu pvrdma_mtu_to_ib(enum pvrdma_mtu mtu)
 {
 	return (enum ib_mtu)mtu;
 }
 
-static inline enum pvrdma_port_state ib_port_state_to_pvrdma(
+static enum pvrdma_port_state ib_port_state_to_pvrdma(
 					enum ib_port_state state)
 {
 	return (enum pvrdma_port_state)state;
 }
 
-static inline enum ib_port_state pvrdma_port_state_to_ib(
+static enum ib_port_state pvrdma_port_state_to_ib(
 					enum pvrdma_port_state state)
 {
 	return (enum ib_port_state)state;
 }
 
-static inline int ib_port_cap_flags_to_pvrdma(int flags)
+static int ib_port_cap_flags_to_pvrdma(int flags)
 {
 	return flags & PVRDMA_MASK(PVRDMA_PORT_CAP_FLAGS_MAX);
 }
 
-static inline int pvrdma_port_cap_flags_to_ib(int flags)
+static int pvrdma_port_cap_flags_to_ib(int flags)
 {
 	return flags;
 }
 
-static inline enum pvrdma_port_width ib_port_width_to_pvrdma(
+static enum pvrdma_port_width ib_port_width_to_pvrdma(
 					enum ib_port_width width)
 {
 	return (enum pvrdma_port_width)width;
 }
 
-static inline enum ib_port_width pvrdma_port_width_to_ib(
+static enum ib_port_width pvrdma_port_width_to_ib(
 					enum pvrdma_port_width width)
 {
 	return (enum ib_port_width)width;
 }
 
-static inline enum pvrdma_port_speed ib_port_speed_to_pvrdma(
+static enum pvrdma_port_speed ib_port_speed_to_pvrdma(
 					enum ib_port_speed speed)
 {
 	return (enum pvrdma_port_speed)speed;
 }
 
-static inline enum ib_port_speed pvrdma_port_speed_to_ib(
+static enum ib_port_speed pvrdma_port_speed_to_ib(
 					enum pvrdma_port_speed speed)
 {
 	return (enum ib_port_speed)speed;
 }
 
-static inline int pvrdma_qp_attr_mask_to_ib(int attr_mask)
+static int pvrdma_qp_attr_mask_to_ib(int attr_mask)
 {
 	return attr_mask;
 }
 
-static inline int ib_qp_attr_mask_to_pvrdma(int attr_mask)
+static int ib_qp_attr_mask_to_pvrdma(int attr_mask)
 {
 	return attr_mask & PVRDMA_MASK(PVRDMA_QP_ATTR_MASK_MAX);
 }
 
-static inline enum pvrdma_mig_state ib_mig_state_to_pvrdma(
+static enum pvrdma_mig_state ib_mig_state_to_pvrdma(
 					enum ib_mig_state state)
 {
 	return (enum pvrdma_mig_state)state;
 }
 
-static inline enum ib_mig_state pvrdma_mig_state_to_ib(
+static enum ib_mig_state pvrdma_mig_state_to_ib(
 					enum pvrdma_mig_state state)
 {
 	return (enum ib_mig_state)state;
 }
 
-static inline int ib_access_flags_to_pvrdma(int flags)
+static int ib_access_flags_to_pvrdma(int flags)
 {
 	return flags;
 }
 
-static inline int pvrdma_access_flags_to_ib(int flags)
+static int pvrdma_access_flags_to_ib(int flags)
 {
 	return flags & PVRDMA_MASK(PVRDMA_ACCESS_FLAGS_MAX);
 }
 
-static inline enum pvrdma_qp_type ib_qp_type_to_pvrdma(enum ib_qp_type type)
+static enum pvrdma_qp_type ib_qp_type_to_pvrdma(enum ib_qp_type type)
 {
 	return (enum pvrdma_qp_type)type;
 }
 
-static inline enum ib_qp_type pvrdma_qp_type_to_ib(enum pvrdma_qp_type type)
+static enum ib_qp_type pvrdma_qp_type_to_ib(enum pvrdma_qp_type type)
 {
 	return (enum ib_qp_type)type;
 }
 
-static inline enum pvrdma_qp_state ib_qp_state_to_pvrdma(enum ib_qp_state state)
+static enum pvrdma_qp_state ib_qp_state_to_pvrdma(enum ib_qp_state state)
 {
 	return (enum pvrdma_qp_state)state;
 }
 
-static inline enum ib_qp_state pvrdma_qp_state_to_ib(enum pvrdma_qp_state state)
+static enum ib_qp_state pvrdma_qp_state_to_ib(enum pvrdma_qp_state state)
 {
 	return (enum ib_qp_state)state;
 }
 
-static inline enum pvrdma_wr_opcode ib_wr_opcode_to_pvrdma(enum ib_wr_opcode op)
+static enum pvrdma_wr_opcode ib_wr_opcode_to_pvrdma(enum ib_wr_opcode op)
 {
 	switch (op) {
 	case IB_WR_RDMA_WRITE:
@@ -443,13 +443,13 @@ static inline enum pvrdma_wr_opcode ib_wr_opcode_to_pvrdma(enum ib_wr_opcode op)
 	}
 }
 
-static inline enum ib_wc_status pvrdma_wc_status_to_ib(
+static enum ib_wc_status pvrdma_wc_status_to_ib(
 					enum pvrdma_wc_status status)
 {
 	return (enum ib_wc_status)status;
 }
 
-static inline int pvrdma_wc_opcode_to_ib(unsigned int opcode)
+static int pvrdma_wc_opcode_to_ib(unsigned int opcode)
 {
 	switch (opcode) {
 	case PVRDMA_WC_SEND:
@@ -479,12 +479,12 @@ static inline int pvrdma_wc_opcode_to_ib(unsigned int opcode)
 	}
 }
 
-static inline int pvrdma_wc_flags_to_ib(int flags)
+static int pvrdma_wc_flags_to_ib(int flags)
 {
 	return flags;
 }
 
-static inline int ib_send_flags_to_pvrdma(int flags)
+static int ib_send_flags_to_pvrdma(int flags)
 {
 	return flags & PVRDMA_MASK(PVRDMA_SEND_FLAGS_MAX);
 }

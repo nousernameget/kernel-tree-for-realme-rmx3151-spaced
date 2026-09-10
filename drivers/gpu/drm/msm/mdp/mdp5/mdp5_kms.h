@@ -167,19 +167,19 @@ struct mdp5_encoder {
 };
 #define to_mdp5_encoder(x) container_of(x, struct mdp5_encoder, base)
 
-static inline void mdp5_write(struct mdp5_kms *mdp5_kms, u32 reg, u32 data)
+static void mdp5_write(struct mdp5_kms *mdp5_kms, u32 reg, u32 data)
 {
 	WARN_ON(mdp5_kms->enable_count <= 0);
 	msm_writel(data, mdp5_kms->mmio + reg);
 }
 
-static inline u32 mdp5_read(struct mdp5_kms *mdp5_kms, u32 reg)
+static u32 mdp5_read(struct mdp5_kms *mdp5_kms, u32 reg)
 {
 	WARN_ON(mdp5_kms->enable_count <= 0);
 	return msm_readl(mdp5_kms->mmio + reg);
 }
 
-static inline const char *stage2name(enum mdp_mixer_stage_id stage)
+static const char *stage2name(enum mdp_mixer_stage_id stage)
 {
 	static const char *names[] = {
 #define NAME(n) [n] = #n
@@ -191,7 +191,7 @@ static inline const char *stage2name(enum mdp_mixer_stage_id stage)
 	return names[stage];
 }
 
-static inline const char *pipe2name(enum mdp5_pipe pipe)
+static const char *pipe2name(enum mdp5_pipe pipe)
 {
 	static const char *names[] = {
 #define NAME(n) [SSPP_ ## n] = #n
@@ -205,7 +205,7 @@ static inline const char *pipe2name(enum mdp5_pipe pipe)
 	return names[pipe];
 }
 
-static inline int pipe2nclients(enum mdp5_pipe pipe)
+static int pipe2nclients(enum mdp5_pipe pipe)
 {
 	switch (pipe) {
 	case SSPP_RGB0:
@@ -218,7 +218,7 @@ static inline int pipe2nclients(enum mdp5_pipe pipe)
 	}
 }
 
-static inline uint32_t intf2err(int intf_num)
+static uint32_t intf2err(int intf_num)
 {
 	switch (intf_num) {
 	case 0:  return MDP5_IRQ_INTF0_UNDER_RUN;
@@ -229,7 +229,7 @@ static inline uint32_t intf2err(int intf_num)
 	}
 }
 
-static inline uint32_t intf2vblank(struct mdp5_hw_mixer *mixer,
+static uint32_t intf2vblank(struct mdp5_hw_mixer *mixer,
 				   struct mdp5_interface *intf)
 {
 	/*
@@ -254,7 +254,7 @@ static inline uint32_t intf2vblank(struct mdp5_hw_mixer *mixer,
 	}
 }
 
-static inline uint32_t lm2ppdone(struct mdp5_hw_mixer *mixer)
+static uint32_t lm2ppdone(struct mdp5_hw_mixer *mixer)
 {
 	return MDP5_IRQ_PING_PONG_0_DONE << mixer->pp;
 }
@@ -304,18 +304,18 @@ void mdp5_cmd_encoder_enable(struct drm_encoder *encoder);
 int mdp5_cmd_encoder_set_split_display(struct drm_encoder *encoder,
 				       struct drm_encoder *slave_encoder);
 #else
-static inline void mdp5_cmd_encoder_mode_set(struct drm_encoder *encoder,
+static void mdp5_cmd_encoder_mode_set(struct drm_encoder *encoder,
 					     struct drm_display_mode *mode,
 					     struct drm_display_mode *adjusted_mode)
 {
 }
-static inline void mdp5_cmd_encoder_disable(struct drm_encoder *encoder)
+static void mdp5_cmd_encoder_disable(struct drm_encoder *encoder)
 {
 }
-static inline void mdp5_cmd_encoder_enable(struct drm_encoder *encoder)
+static void mdp5_cmd_encoder_enable(struct drm_encoder *encoder)
 {
 }
-static inline int mdp5_cmd_encoder_set_split_display(
+static int mdp5_cmd_encoder_set_split_display(
 	struct drm_encoder *encoder, struct drm_encoder *slave_encoder)
 {
 	return -EINVAL;

@@ -101,7 +101,7 @@ int msm_dsi_manager_register(struct msm_dsi *msm_dsi);
 void msm_dsi_manager_unregister(struct msm_dsi *msm_dsi);
 
 /* msm dsi */
-static inline bool msm_dsi_device_connected(struct msm_dsi *msm_dsi)
+static bool msm_dsi_device_connected(struct msm_dsi *msm_dsi)
 {
 	return msm_dsi->panel || msm_dsi->external_bridge;
 }
@@ -121,26 +121,26 @@ int msm_dsi_pll_restore_state(struct msm_dsi_pll *pll);
 int msm_dsi_pll_set_usecase(struct msm_dsi_pll *pll,
 			    enum msm_dsi_phy_usecase uc);
 #else
-static inline struct msm_dsi_pll *msm_dsi_pll_init(struct platform_device *pdev,
+static struct msm_dsi_pll *msm_dsi_pll_init(struct platform_device *pdev,
 			 enum msm_dsi_phy_type type, int id) {
 	return ERR_PTR(-ENODEV);
 }
-static inline void msm_dsi_pll_destroy(struct msm_dsi_pll *pll)
+static void msm_dsi_pll_destroy(struct msm_dsi_pll *pll)
 {
 }
-static inline int msm_dsi_pll_get_clk_provider(struct msm_dsi_pll *pll,
+static int msm_dsi_pll_get_clk_provider(struct msm_dsi_pll *pll,
 	struct clk **byte_clk_provider, struct clk **pixel_clk_provider)
 {
 	return -ENODEV;
 }
-static inline void msm_dsi_pll_save_state(struct msm_dsi_pll *pll)
+static void msm_dsi_pll_save_state(struct msm_dsi_pll *pll)
 {
 }
-static inline int msm_dsi_pll_restore_state(struct msm_dsi_pll *pll)
+static int msm_dsi_pll_restore_state(struct msm_dsi_pll *pll)
 {
 	return 0;
 }
-static inline int msm_dsi_pll_set_usecase(struct msm_dsi_pll *pll,
+static int msm_dsi_pll_set_usecase(struct msm_dsi_pll *pll,
 					  enum msm_dsi_phy_usecase uc)
 {
 	return -ENODEV;

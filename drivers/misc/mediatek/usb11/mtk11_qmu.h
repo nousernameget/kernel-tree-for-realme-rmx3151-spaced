@@ -87,7 +87,7 @@ struct _GPD_RANGE {
 
 #define QMU_DBG_ON
 #ifdef QMU_DBG_ON
-static inline int mtk11_dbg_level(unsigned int level)
+static int mtk11_dbg_level(unsigned int level)
 {
 	return mtk11_qmu_dbg_level >= level;
 }

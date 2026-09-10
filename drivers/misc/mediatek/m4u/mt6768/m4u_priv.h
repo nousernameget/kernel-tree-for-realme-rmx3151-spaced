@@ -279,7 +279,7 @@ int m4u_query_mva_info(unsigned int mva, unsigned int size,
 /* ==== define in m4u_debug.c ===== */
 int m4u_debug_init(struct m4u_device *m4u_dev);
 
-static inline dma_addr_t get_sg_phys(struct scatterlist *sg)
+static dma_addr_t get_sg_phys(struct scatterlist *sg)
 {
 	dma_addr_t pa;
 

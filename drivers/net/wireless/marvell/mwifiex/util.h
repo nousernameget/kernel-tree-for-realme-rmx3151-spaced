@@ -50,7 +50,7 @@ struct mwifiex_debug_data {
 	int num;		/* number of variables in an array */
 };
 
-static inline struct mwifiex_rxinfo *MWIFIEX_SKB_RXCB(struct sk_buff *skb)
+static struct mwifiex_rxinfo *MWIFIEX_SKB_RXCB(struct sk_buff *skb)
 {
 	struct mwifiex_cb *cb = (struct mwifiex_cb *)skb->cb;
 
@@ -58,14 +58,14 @@ static inline struct mwifiex_rxinfo *MWIFIEX_SKB_RXCB(struct sk_buff *skb)
 	return &cb->rx_info;
 }
 
-static inline struct mwifiex_txinfo *MWIFIEX_SKB_TXCB(struct sk_buff *skb)
+static struct mwifiex_txinfo *MWIFIEX_SKB_TXCB(struct sk_buff *skb)
 {
 	struct mwifiex_cb *cb = (struct mwifiex_cb *)skb->cb;
 
 	return &cb->tx_info;
 }
 
-static inline void mwifiex_store_mapping(struct sk_buff *skb,
+static void mwifiex_store_mapping(struct sk_buff *skb,
 					 struct mwifiex_dma_mapping *mapping)
 {
 	struct mwifiex_cb *cb = (struct mwifiex_cb *)skb->cb;
@@ -73,7 +73,7 @@ static inline void mwifiex_store_mapping(struct sk_buff *skb,
 	memcpy(&cb->dma_mapping, mapping, sizeof(*mapping));
 }
 
-static inline void mwifiex_get_mapping(struct sk_buff *skb,
+static void mwifiex_get_mapping(struct sk_buff *skb,
 				       struct mwifiex_dma_mapping *mapping)
 {
 	struct mwifiex_cb *cb = (struct mwifiex_cb *)skb->cb;
@@ -81,7 +81,7 @@ static inline void mwifiex_get_mapping(struct sk_buff *skb,
 	memcpy(mapping, &cb->dma_mapping, sizeof(*mapping));
 }
 
-static inline dma_addr_t MWIFIEX_SKB_DMA_ADDR(struct sk_buff *skb)
+static dma_addr_t MWIFIEX_SKB_DMA_ADDR(struct sk_buff *skb)
 {
 	struct mwifiex_dma_mapping mapping;
 
@@ -93,7 +93,7 @@ static inline dma_addr_t MWIFIEX_SKB_DMA_ADDR(struct sk_buff *skb)
 int mwifiex_debug_info_to_buffer(struct mwifiex_private *priv, char *buf,
 				 struct mwifiex_debug_info *info);
 
-static inline void le16_unaligned_add_cpu(__le16 *var, u16 val)
+static void le16_unaligned_add_cpu(__le16 *var, u16 val)
 {
 	put_unaligned_le16(get_unaligned_le16(var) + val, var);
 }

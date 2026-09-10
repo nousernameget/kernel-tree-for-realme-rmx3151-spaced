@@ -123,7 +123,7 @@ struct vmci_ctx_notify_recv_info {
  * to interact. If one of them is restricted, the other one must
  * be trusted.
  */
-static inline bool vmci_deny_interaction(u32 part_one, u32 part_two)
+static bool vmci_deny_interaction(u32 part_one, u32 part_two)
 {
 	return ((part_one & VMCI_PRIVILEGE_FLAG_RESTRICTED) &&
 		!(part_two & VMCI_PRIVILEGE_FLAG_TRUSTED)) ||
@@ -172,7 +172,7 @@ void vmci_ctx_rcv_notifications_release(u32 context_id, struct vmci_handle_arr
 					*db_handle_array, struct vmci_handle_arr
 					*qp_handle_array, bool success);
 
-static inline u32 vmci_ctx_get_id(struct vmci_ctx *context)
+static u32 vmci_ctx_get_id(struct vmci_ctx *context)
 {
 	if (!context)
 		return VMCI_INVALID_ID;

@@ -642,7 +642,7 @@ union xpc_channel_ctl_flags {
 			 XPC_CHCTL_OPENCOMPLETE)
 #define XPC_MSG_CHCTL_FLAGS	XPC_CHCTL_MSGREQUEST
 
-static inline int
+static int
 xpc_any_openclose_chctl_flags_set(union xpc_channel_ctl_flags *chctl)
 {
 	int ch_number;
@@ -654,7 +654,7 @@ xpc_any_openclose_chctl_flags_set(union xpc_channel_ctl_flags *chctl)
 	return 0;
 }
 
-static inline int
+static int
 xpc_any_msg_chctl_flags_set(union xpc_channel_ctl_flags *chctl)
 {
 	int ch_number;
@@ -933,7 +933,7 @@ extern void xpc_disconnect_channel(const int, struct xpc_channel *,
 extern void xpc_disconnect_callout(struct xpc_channel *, enum xp_retval);
 extern void xpc_partition_going_down(struct xpc_partition *, enum xp_retval);
 
-static inline void
+static void
 xpc_wakeup_channel_mgr(struct xpc_partition *part)
 {
 	if (atomic_inc_return(&part->channel_mgr_requests) == 1)
@@ -944,13 +944,13 @@ xpc_wakeup_channel_mgr(struct xpc_partition *part)
  * These next two inlines are used to keep us from tearing down a channel's
  * msg queues while a thread may be referencing them.
  */
-static inline void
+static void
 xpc_msgqueue_ref(struct xpc_channel *ch)
 {
 	atomic_inc(&ch->references);
 }
 
-static inline void
+static void
 xpc_msgqueue_deref(struct xpc_channel *ch)
 {
 	s32 refs = atomic_dec_return(&ch->references);
@@ -967,7 +967,7 @@ xpc_msgqueue_deref(struct xpc_channel *ch)
  * These two inlines are used to keep us from tearing down a partition's
  * setup infrastructure while a thread may be referencing it.
  */
-static inline void
+static void
 xpc_part_deref(struct xpc_partition *part)
 {
 	s32 refs = atomic_dec_return(&part->references);
@@ -977,7 +977,7 @@ xpc_part_deref(struct xpc_partition *part)
 		wake_up(&part->teardown_wq);
 }
 
-static inline int
+static int
 xpc_part_ref(struct xpc_partition *part)
 {
 	int setup;

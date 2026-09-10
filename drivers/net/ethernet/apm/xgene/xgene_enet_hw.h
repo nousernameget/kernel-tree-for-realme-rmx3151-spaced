@@ -29,7 +29,7 @@ struct xgene_enet_stats;
 struct xgene_enet_desc_ring;
 
 /* clears and then set bits */
-static inline void xgene_set_bits(u32 *dst, u32 val, u32 start, u32 len)
+static void xgene_set_bits(u32 *dst, u32 val, u32 start, u32 len)
 {
 	u32 end = start + len - 1;
 	u32 mask = GENMASK(end, start);
@@ -38,7 +38,7 @@ static inline void xgene_set_bits(u32 *dst, u32 val, u32 start, u32 len)
 	*dst |= (val << start) & mask;
 }
 
-static inline u32 xgene_get_bits(u32 val, u32 start, u32 end)
+static u32 xgene_get_bits(u32 val, u32 start, u32 end)
 {
 	return (val & GENMASK(end, start)) >> start;
 }
@@ -343,14 +343,14 @@ struct xgene_enet_raw_desc16 {
 	__le64 m1;
 };
 
-static inline void xgene_enet_mark_desc_slot_empty(void *desc_slot_ptr)
+static void xgene_enet_mark_desc_slot_empty(void *desc_slot_ptr)
 {
 	__le64 *desc_slot = desc_slot_ptr;
 
 	desc_slot[EMPTY_SLOT_INDEX] = cpu_to_le64(EMPTY_SLOT);
 }
 
-static inline bool xgene_enet_is_desc_slot_empty(void *desc_slot_ptr)
+static bool xgene_enet_is_desc_slot_empty(void *desc_slot_ptr)
 {
 	__le64 *desc_slot = desc_slot_ptr;
 
@@ -400,22 +400,22 @@ enum xgene_enet_err_code {
 	ERR_CODE_INVALID
 };
 
-static inline enum xgene_ring_owner xgene_enet_ring_owner(u16 id)
+static enum xgene_ring_owner xgene_enet_ring_owner(u16 id)
 {
 	return (id & RING_OWNER_MASK) >> 6;
 }
 
-static inline u8 xgene_enet_ring_bufnum(u16 id)
+static u8 xgene_enet_ring_bufnum(u16 id)
 {
 	return id & RING_BUFNUM_MASK;
 }
 
-static inline bool xgene_enet_is_bufpool(u16 id)
+static bool xgene_enet_is_bufpool(u16 id)
 {
 	return ((id & RING_BUFNUM_MASK) >= 0x20) ? true : false;
 }
 
-static inline u8 xgene_enet_get_fpsel(u16 id)
+static u8 xgene_enet_get_fpsel(u16 id)
 {
 	if (xgene_enet_is_bufpool(id))
 		return xgene_enet_ring_bufnum(id) - RING_BUFNUM_BUFPOOL;
@@ -423,7 +423,7 @@ static inline u8 xgene_enet_get_fpsel(u16 id)
 	return 0;
 }
 
-static inline u16 xgene_enet_get_numslots(u16 id, u32 size)
+static u16 xgene_enet_get_numslots(u16 id, u32 size)
 {
 	bool is_bufpool = xgene_enet_is_bufpool(id);
 

@@ -37,7 +37,7 @@ struct vsp1_bru {
 	u32 bgcolor;
 };
 
-static inline struct vsp1_bru *to_bru(struct v4l2_subdev *subdev)
+static struct vsp1_bru *to_bru(struct v4l2_subdev *subdev)
 {
 	return container_of(subdev, struct vsp1_bru, entity.subdev);
 }

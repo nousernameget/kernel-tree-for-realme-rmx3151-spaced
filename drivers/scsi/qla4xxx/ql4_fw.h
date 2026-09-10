@@ -197,13 +197,13 @@ struct isp_reg {
 #define PROT_STAT_PAGE				3	/* 4022 */
 
 /* Register Mask - sets corresponding mask bits in the upper word */
-static inline uint32_t set_rmask(uint32_t val)
+static uint32_t set_rmask(uint32_t val)
 {
 	return (val & 0xffff) | (val << 16);
 }
 
 
-static inline uint32_t clr_rmask(uint32_t val)
+static uint32_t clr_rmask(uint32_t val)
 {
 	return 0 | (val << 16);
 }

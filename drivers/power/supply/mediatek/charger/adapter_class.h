@@ -108,13 +108,13 @@ struct adapter_ops {
 
 };
 
-static inline void *adapter_dev_get_drvdata(
+static void *adapter_dev_get_drvdata(
 	const struct adapter_device *adapter_dev)
 {
 	return adapter_dev->driver_data;
 }
 
-static inline void adapter_dev_set_drvdata(
+static void adapter_dev_set_drvdata(
 	struct adapter_device *adapter_dev, void *data)
 {
 	adapter_dev->driver_data = data;

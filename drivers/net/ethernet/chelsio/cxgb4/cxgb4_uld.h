@@ -135,17 +135,17 @@ struct tid_info {
 	spinlock_t ftid_lock;
 };
 
-static inline void *lookup_tid(const struct tid_info *t, unsigned int tid)
+static void *lookup_tid(const struct tid_info *t, unsigned int tid)
 {
 	return tid < t->ntids ? t->tid_tab[tid] : NULL;
 }
 
-static inline void *lookup_atid(const struct tid_info *t, unsigned int atid)
+static void *lookup_atid(const struct tid_info *t, unsigned int atid)
 {
 	return atid < t->natids ? t->atid_tab[atid].data : NULL;
 }
 
-static inline void *lookup_stid(const struct tid_info *t, unsigned int stid)
+static void *lookup_stid(const struct tid_info *t, unsigned int stid)
 {
 	/* Is it a server filter TID? */
 	if (t->nsftids && (stid >= t->sftid_base)) {
@@ -158,7 +158,7 @@ static inline void *lookup_stid(const struct tid_info *t, unsigned int stid)
 	return stid < (t->nstids + t->nsftids) ? t->stid_tab[stid].data : NULL;
 }
 
-static inline void cxgb4_insert_tid(struct tid_info *t, void *data,
+static void cxgb4_insert_tid(struct tid_info *t, void *data,
 				    unsigned int tid, unsigned short family)
 {
 	t->tid_tab[tid] = data;
@@ -221,7 +221,7 @@ int cxgb4_set_filter(struct net_device *dev, int filter_id,
 		     struct ch_filter_specification *fs);
 int cxgb4_del_filter(struct net_device *dev, int filter_id);
 
-static inline void set_wr_txq(struct sk_buff *skb, int prio, int queue)
+static void set_wr_txq(struct sk_buff *skb, int prio, int queue)
 {
 	skb_set_queue_mapping(skb, (queue << 1) | prio);
 }

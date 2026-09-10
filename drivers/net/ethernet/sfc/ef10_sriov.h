@@ -31,7 +31,7 @@ struct ef10_vf {
 #define EFX_EF10_NO_VLAN       0
 };
 
-static inline bool efx_ef10_sriov_wanted(struct efx_nic *efx)
+static bool efx_ef10_sriov_wanted(struct efx_nic *efx)
 {
 	return false;
 }

@@ -48,11 +48,11 @@ struct dvb_net {
 	struct dvb_device *dvbdev;
 };
 
-static inline void dvb_net_release(struct dvb_net *dvbnet)
+static void dvb_net_release(struct dvb_net *dvbnet)
 {
 }
 
-static inline int dvb_net_init(struct dvb_adapter *adap,
+static int dvb_net_init(struct dvb_adapter *adap,
 			       struct dvb_net *dvbnet, struct dmx_demux *dmx)
 {
 	return 0;

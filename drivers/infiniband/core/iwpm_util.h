@@ -223,7 +223,7 @@ int iwpm_compare_sockaddr(struct sockaddr_storage *a_sockaddr,
  *
  * Returns error if any of the nla_count attributes is NULL
  */
-static inline int iwpm_validate_nlmsg_attr(struct nlattr *nltb[],
+static int iwpm_validate_nlmsg_attr(struct nlattr *nltb[],
 					   int nla_count)
 {
 	int i;

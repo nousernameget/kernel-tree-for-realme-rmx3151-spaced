@@ -897,7 +897,7 @@ struct ptlrpc_request {
  * Call completion handler for rpc if any, return it's status or original
  * rc if there was no handler defined for this request.
  */
-static inline int ptlrpc_req_interpret(const struct lu_env *env,
+static int ptlrpc_req_interpret(const struct lu_env *env,
 				       struct ptlrpc_request *req, int rc)
 {
 	if (req->rq_interpret_reply) {
@@ -915,7 +915,7 @@ static inline int ptlrpc_req_interpret(const struct lu_env *env,
  *
  * For a reliable result, this should be checked under svcpt->scp_req lock.
  */
-static inline bool ptlrpc_nrs_req_can_move(struct ptlrpc_request *req)
+static bool ptlrpc_nrs_req_can_move(struct ptlrpc_request *req)
 {
 	struct ptlrpc_nrs_request *nrq = &req->rq_nrq;
 
@@ -933,7 +933,7 @@ static inline bool ptlrpc_nrs_req_can_move(struct ptlrpc_request *req)
 /**
  * Returns 1 if request buffer at offset \a index was already swabbed
  */
-static inline int lustre_req_swabbed(struct ptlrpc_request *req, size_t index)
+static int lustre_req_swabbed(struct ptlrpc_request *req, size_t index)
 {
 	LASSERT(index < sizeof(req->rq_req_swab_mask) * 8);
 	return req->rq_req_swab_mask & (1 << index);
@@ -942,7 +942,7 @@ static inline int lustre_req_swabbed(struct ptlrpc_request *req, size_t index)
 /**
  * Returns 1 if request reply buffer at offset \a index was already swabbed
  */
-static inline int lustre_rep_swabbed(struct ptlrpc_request *req, size_t index)
+static int lustre_rep_swabbed(struct ptlrpc_request *req, size_t index)
 {
 	LASSERT(index < sizeof(req->rq_rep_swab_mask) * 8);
 	return req->rq_rep_swab_mask & (1 << index);
@@ -951,7 +951,7 @@ static inline int lustre_rep_swabbed(struct ptlrpc_request *req, size_t index)
 /**
  * Returns 1 if request needs to be swabbed into local cpu byteorder
  */
-static inline int ptlrpc_req_need_swab(struct ptlrpc_request *req)
+static int ptlrpc_req_need_swab(struct ptlrpc_request *req)
 {
 	return lustre_req_swabbed(req, MSG_PTLRPC_HEADER_OFF);
 }
@@ -959,7 +959,7 @@ static inline int ptlrpc_req_need_swab(struct ptlrpc_request *req)
 /**
  * Returns 1 if request reply needs to be swabbed into local cpu byteorder
  */
-static inline int ptlrpc_rep_need_swab(struct ptlrpc_request *req)
+static int ptlrpc_rep_need_swab(struct ptlrpc_request *req)
 {
 	return lustre_rep_swabbed(req, MSG_PTLRPC_HEADER_OFF);
 }
@@ -967,7 +967,7 @@ static inline int ptlrpc_rep_need_swab(struct ptlrpc_request *req)
 /**
  * Mark request buffer at offset \a index that it was already swabbed
  */
-static inline void lustre_set_req_swabbed(struct ptlrpc_request *req,
+static void lustre_set_req_swabbed(struct ptlrpc_request *req,
 					  size_t index)
 {
 	LASSERT(index < sizeof(req->rq_req_swab_mask) * 8);
@@ -978,7 +978,7 @@ static inline void lustre_set_req_swabbed(struct ptlrpc_request *req,
 /**
  * Mark request reply buffer at offset \a index that it was already swabbed
  */
-static inline void lustre_set_rep_swabbed(struct ptlrpc_request *req,
+static void lustre_set_rep_swabbed(struct ptlrpc_request *req,
 					  size_t index)
 {
 	LASSERT(index < sizeof(req->rq_rep_swab_mask) * 8);
@@ -989,7 +989,7 @@ static inline void lustre_set_rep_swabbed(struct ptlrpc_request *req,
 /**
  * Convert numerical request phase value \a phase into text string description
  */
-static inline const char *
+static const char *
 ptlrpc_phase2str(enum rq_phase phase)
 {
 	switch (phase) {
@@ -1016,7 +1016,7 @@ ptlrpc_phase2str(enum rq_phase phase)
  * Convert numerical request phase of the request \a req into text stringi
  * description
  */
-static inline const char *
+static const char *
 ptlrpc_rqphase2str(struct ptlrpc_request *req)
 {
 	return ptlrpc_phase2str(req->rq_phase);
@@ -1108,50 +1108,50 @@ enum ptlrpc_bulk_op_type {
 	PTLRPC_BULK_PUT_SOURCE	= PTLRPC_BULK_OP_ACTIVE | PTLRPC_BULK_OP_PUT,
 };
 
-static inline bool ptlrpc_is_bulk_op_get(enum ptlrpc_bulk_op_type type)
+static bool ptlrpc_is_bulk_op_get(enum ptlrpc_bulk_op_type type)
 {
 	return (type & PTLRPC_BULK_OP_GET) == PTLRPC_BULK_OP_GET;
 }
 
-static inline bool ptlrpc_is_bulk_get_source(enum ptlrpc_bulk_op_type type)
+static bool ptlrpc_is_bulk_get_source(enum ptlrpc_bulk_op_type type)
 {
 	return (type & PTLRPC_BULK_GET_SOURCE) == PTLRPC_BULK_GET_SOURCE;
 }
 
-static inline bool ptlrpc_is_bulk_put_sink(enum ptlrpc_bulk_op_type type)
+static bool ptlrpc_is_bulk_put_sink(enum ptlrpc_bulk_op_type type)
 {
 	return (type & PTLRPC_BULK_PUT_SINK) == PTLRPC_BULK_PUT_SINK;
 }
 
-static inline bool ptlrpc_is_bulk_get_sink(enum ptlrpc_bulk_op_type type)
+static bool ptlrpc_is_bulk_get_sink(enum ptlrpc_bulk_op_type type)
 {
 	return (type & PTLRPC_BULK_GET_SINK) == PTLRPC_BULK_GET_SINK;
 }
 
-static inline bool ptlrpc_is_bulk_put_source(enum ptlrpc_bulk_op_type type)
+static bool ptlrpc_is_bulk_put_source(enum ptlrpc_bulk_op_type type)
 {
 	return (type & PTLRPC_BULK_PUT_SOURCE) == PTLRPC_BULK_PUT_SOURCE;
 }
 
-static inline bool ptlrpc_is_bulk_desc_kvec(enum ptlrpc_bulk_op_type type)
+static bool ptlrpc_is_bulk_desc_kvec(enum ptlrpc_bulk_op_type type)
 {
 	return ((type & PTLRPC_BULK_BUF_KVEC) | (type & PTLRPC_BULK_BUF_KIOV))
 		== PTLRPC_BULK_BUF_KVEC;
 }
 
-static inline bool ptlrpc_is_bulk_desc_kiov(enum ptlrpc_bulk_op_type type)
+static bool ptlrpc_is_bulk_desc_kiov(enum ptlrpc_bulk_op_type type)
 {
 	return ((type & PTLRPC_BULK_BUF_KVEC) | (type & PTLRPC_BULK_BUF_KIOV))
 		== PTLRPC_BULK_BUF_KIOV;
 }
 
-static inline bool ptlrpc_is_bulk_op_active(enum ptlrpc_bulk_op_type type)
+static bool ptlrpc_is_bulk_op_active(enum ptlrpc_bulk_op_type type)
 {
 	return ((type & PTLRPC_BULK_OP_ACTIVE) |
 		(type & PTLRPC_BULK_OP_PASSIVE)) == PTLRPC_BULK_OP_ACTIVE;
 }
 
-static inline bool ptlrpc_is_bulk_op_passive(enum ptlrpc_bulk_op_type type)
+static bool ptlrpc_is_bulk_op_passive(enum ptlrpc_bulk_op_type type)
 {
 	return ((type & PTLRPC_BULK_OP_ACTIVE) |
 		(type & PTLRPC_BULK_OP_PASSIVE)) == PTLRPC_BULK_OP_PASSIVE;
@@ -1302,57 +1302,57 @@ struct ptlrpc_thread {
 	char				t_name[PTLRPC_THR_NAME_LEN];
 };
 
-static inline int thread_is_init(struct ptlrpc_thread *thread)
+static int thread_is_init(struct ptlrpc_thread *thread)
 {
 	return thread->t_flags == 0;
 }
 
-static inline int thread_is_stopped(struct ptlrpc_thread *thread)
+static int thread_is_stopped(struct ptlrpc_thread *thread)
 {
 	return !!(thread->t_flags & SVC_STOPPED);
 }
 
-static inline int thread_is_stopping(struct ptlrpc_thread *thread)
+static int thread_is_stopping(struct ptlrpc_thread *thread)
 {
 	return !!(thread->t_flags & SVC_STOPPING);
 }
 
-static inline int thread_is_starting(struct ptlrpc_thread *thread)
+static int thread_is_starting(struct ptlrpc_thread *thread)
 {
 	return !!(thread->t_flags & SVC_STARTING);
 }
 
-static inline int thread_is_running(struct ptlrpc_thread *thread)
+static int thread_is_running(struct ptlrpc_thread *thread)
 {
 	return !!(thread->t_flags & SVC_RUNNING);
 }
 
-static inline int thread_is_event(struct ptlrpc_thread *thread)
+static int thread_is_event(struct ptlrpc_thread *thread)
 {
 	return !!(thread->t_flags & SVC_EVENT);
 }
 
-static inline int thread_is_signal(struct ptlrpc_thread *thread)
+static int thread_is_signal(struct ptlrpc_thread *thread)
 {
 	return !!(thread->t_flags & SVC_SIGNAL);
 }
 
-static inline void thread_clear_flags(struct ptlrpc_thread *thread, __u32 flags)
+static void thread_clear_flags(struct ptlrpc_thread *thread, __u32 flags)
 {
 	thread->t_flags &= ~flags;
 }
 
-static inline void thread_set_flags(struct ptlrpc_thread *thread, __u32 flags)
+static void thread_set_flags(struct ptlrpc_thread *thread, __u32 flags)
 {
 	thread->t_flags = flags;
 }
 
-static inline void thread_add_flags(struct ptlrpc_thread *thread, __u32 flags)
+static void thread_add_flags(struct ptlrpc_thread *thread, __u32 flags)
 {
 	thread->t_flags |= flags;
 }
 
-static inline int thread_test_and_clear_flags(struct ptlrpc_thread *thread,
+static int thread_test_and_clear_flags(struct ptlrpc_thread *thread,
 					      __u32 flags)
 {
 	if (thread->t_flags & flags) {
@@ -1722,7 +1722,7 @@ enum ptlrpcd_ctl_flags {
  *
  * \see ptlrpc_nrs_pol_desc::pd_compat()
  */
-static inline bool nrs_policy_compat_all(const struct ptlrpc_service *svc,
+static bool nrs_policy_compat_all(const struct ptlrpc_service *svc,
 					 const struct ptlrpc_nrs_pol_desc *desc)
 {
 	return true;
@@ -1741,7 +1741,7 @@ static inline bool nrs_policy_compat_all(const struct ptlrpc_service *svc,
  *
  * \see ptlrpc_nrs_pol_desc::pd_compat()
  */
-static inline bool nrs_policy_compat_one(const struct ptlrpc_service *svc,
+static bool nrs_policy_compat_one(const struct ptlrpc_service *svc,
 					 const struct ptlrpc_nrs_pol_desc *desc)
 {
 	return strcmp(svc->srv_name, desc->pd_compat_svc_name) == 0;
@@ -1782,7 +1782,7 @@ void ptlrpc_connection_fini(void);
 
 int ptlrpc_unregister_bulk(struct ptlrpc_request *req, int async);
 
-static inline int ptlrpc_client_bulk_active(struct ptlrpc_request *req)
+static int ptlrpc_client_bulk_active(struct ptlrpc_request *req)
 {
 	struct ptlrpc_bulk_desc *desc;
 	int		      rc;
@@ -1874,14 +1874,14 @@ int ptlrpc_prep_bulk_frag(struct ptlrpc_bulk_desc *desc,
 void __ptlrpc_prep_bulk_page(struct ptlrpc_bulk_desc *desc,
 			     struct page *page, int pageoffset, int len,
 			     int pin);
-static inline void ptlrpc_prep_bulk_page_pin(struct ptlrpc_bulk_desc *desc,
+static void ptlrpc_prep_bulk_page_pin(struct ptlrpc_bulk_desc *desc,
 					     struct page *page, int pageoffset,
 					     int len)
 {
 	__ptlrpc_prep_bulk_page(desc, page, pageoffset, len, 1);
 }
 
-static inline void ptlrpc_prep_bulk_page_nopin(struct ptlrpc_bulk_desc *desc,
+static void ptlrpc_prep_bulk_page_nopin(struct ptlrpc_bulk_desc *desc,
 					       struct page *page, int pageoffset,
 					       int len)
 {
@@ -1890,7 +1890,7 @@ static inline void ptlrpc_prep_bulk_page_nopin(struct ptlrpc_bulk_desc *desc,
 
 void ptlrpc_free_bulk(struct ptlrpc_bulk_desc *bulk);
 
-static inline void ptlrpc_release_bulk_page_pin(struct ptlrpc_bulk_desc *desc)
+static void ptlrpc_release_bulk_page_pin(struct ptlrpc_bulk_desc *desc)
 {
 	int i;
 
@@ -2089,7 +2089,7 @@ void lustre_msg_set_jobid(struct lustre_msg *msg, char *jobid);
 void lustre_msg_set_cksum(struct lustre_msg *msg, __u32 cksum);
 void lustre_msg_set_mbits(struct lustre_msg *msg, u64 mbits);
 
-static inline void
+static void
 lustre_shrink_reply(struct ptlrpc_request *req, int segment,
 		    unsigned int newlen, int move_data)
 {
@@ -2101,7 +2101,7 @@ lustre_shrink_reply(struct ptlrpc_request *req, int segment,
 
 #ifdef CONFIG_LUSTRE_TRANSLATE_ERRNOS
 
-static inline int ptlrpc_status_hton(int h)
+static int ptlrpc_status_hton(int h)
 {
 	/*
 	 * Positive errnos must be network errnos, such as LUSTRE_EDEADLK,
@@ -2113,7 +2113,7 @@ static inline int ptlrpc_status_hton(int h)
 		return h;
 }
 
-static inline int ptlrpc_status_ntoh(int n)
+static int ptlrpc_status_ntoh(int n)
 {
 	/*
 	 * See the comment in ptlrpc_status_hton().
@@ -2133,7 +2133,7 @@ static inline int ptlrpc_status_ntoh(int n)
 /** @} */
 
 /** Change request phase of \a req to \a new_phase */
-static inline void
+static void
 ptlrpc_rqphase_move(struct ptlrpc_request *req, enum rq_phase new_phase)
 {
 	if (req->rq_phase == new_phase)
@@ -2166,7 +2166,7 @@ ptlrpc_rqphase_move(struct ptlrpc_request *req, enum rq_phase new_phase)
 /**
  * Returns true if request \a req got early reply and hard deadline is not met
  */
-static inline int
+static int
 ptlrpc_client_early(struct ptlrpc_request *req)
 {
 	return req->rq_early;
@@ -2175,7 +2175,7 @@ ptlrpc_client_early(struct ptlrpc_request *req)
 /**
  * Returns true if we got real reply from server for this request
  */
-static inline int
+static int
 ptlrpc_client_replied(struct ptlrpc_request *req)
 {
 	if (req->rq_reply_deadline > ktime_get_real_seconds())
@@ -2184,7 +2184,7 @@ ptlrpc_client_replied(struct ptlrpc_request *req)
 }
 
 /** Returns true if request \a req is in process of receiving server reply */
-static inline int
+static int
 ptlrpc_client_recv(struct ptlrpc_request *req)
 {
 	if (req->rq_reply_deadline > ktime_get_real_seconds())
@@ -2192,7 +2192,7 @@ ptlrpc_client_recv(struct ptlrpc_request *req)
 	return req->rq_receiving_reply;
 }
 
-static inline int
+static int
 ptlrpc_client_recv_or_unlink(struct ptlrpc_request *req)
 {
 	int rc;
@@ -2212,7 +2212,7 @@ ptlrpc_client_recv_or_unlink(struct ptlrpc_request *req)
 	return rc;
 }
 
-static inline void
+static void
 ptlrpc_client_wake_req(struct ptlrpc_request *req)
 {
 	if (!req->rq_set)
@@ -2221,14 +2221,14 @@ ptlrpc_client_wake_req(struct ptlrpc_request *req)
 		wake_up(&req->rq_set->set_waitq);
 }
 
-static inline void
+static void
 ptlrpc_rs_addref(struct ptlrpc_reply_state *rs)
 {
 	LASSERT(atomic_read(&rs->rs_refcount) > 0);
 	atomic_inc(&rs->rs_refcount);
 }
 
-static inline void
+static void
 ptlrpc_rs_decref(struct ptlrpc_reply_state *rs)
 {
 	LASSERT(atomic_read(&rs->rs_refcount) > 0);
@@ -2237,7 +2237,7 @@ ptlrpc_rs_decref(struct ptlrpc_reply_state *rs)
 }
 
 /* Should only be called once per req */
-static inline void ptlrpc_req_drop_rs(struct ptlrpc_request *req)
+static void ptlrpc_req_drop_rs(struct ptlrpc_request *req)
 {
 	if (!req->rq_reply_state)
 		return; /* shouldn't occur */
@@ -2246,12 +2246,12 @@ static inline void ptlrpc_req_drop_rs(struct ptlrpc_request *req)
 	req->rq_repmsg = NULL;
 }
 
-static inline __u32 lustre_request_magic(struct ptlrpc_request *req)
+static __u32 lustre_request_magic(struct ptlrpc_request *req)
 {
 	return lustre_msg_get_magic(req->rq_reqmsg);
 }
 
-static inline int ptlrpc_req_get_repsize(struct ptlrpc_request *req)
+static int ptlrpc_req_get_repsize(struct ptlrpc_request *req)
 {
 	switch (req->rq_reqmsg->lm_magic) {
 	case LUSTRE_MSG_MAGIC_V2:
@@ -2263,7 +2263,7 @@ static inline int ptlrpc_req_get_repsize(struct ptlrpc_request *req)
 	}
 }
 
-static inline int ptlrpc_send_limit_expired(struct ptlrpc_request *req)
+static int ptlrpc_send_limit_expired(struct ptlrpc_request *req)
 {
 	if (req->rq_delay_limit != 0 &&
 	    time_before(cfs_time_add(req->rq_queued_time,
@@ -2274,7 +2274,7 @@ static inline int ptlrpc_send_limit_expired(struct ptlrpc_request *req)
 	return 0;
 }
 
-static inline int ptlrpc_no_resend(struct ptlrpc_request *req)
+static int ptlrpc_no_resend(struct ptlrpc_request *req)
 {
 	if (!req->rq_no_resend && ptlrpc_send_limit_expired(req)) {
 		spin_lock(&req->rq_lock);
@@ -2284,7 +2284,7 @@ static inline int ptlrpc_no_resend(struct ptlrpc_request *req)
 	return req->rq_no_resend;
 }
 
-static inline int
+static int
 ptlrpc_server_get_timeout(struct ptlrpc_service_part *svcpt)
 {
 	int at = AT_OFF ? 0 : at_get(&svcpt->scp_at_estimate);
@@ -2293,7 +2293,7 @@ ptlrpc_server_get_timeout(struct ptlrpc_service_part *svcpt)
 	       max_t(int, at, obd_timeout);
 }
 
-static inline struct ptlrpc_service *
+static struct ptlrpc_service *
 ptlrpc_req2svc(struct ptlrpc_request *req)
 {
 	return req->rq_rqbd->rqbd_svcpt->scp_service;

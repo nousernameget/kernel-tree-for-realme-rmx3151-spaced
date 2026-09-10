@@ -50,7 +50,7 @@ void mei_me_cl_rm_all(struct mei_device *dev);
  *
  * Return: true if the me client is active in the firmware
  */
-static inline bool mei_me_cl_is_active(const struct mei_me_client *me_cl)
+static bool mei_me_cl_is_active(const struct mei_me_client *me_cl)
 {
 	return !list_empty_careful(&me_cl->list);
 }
@@ -62,7 +62,7 @@ static inline bool mei_me_cl_is_active(const struct mei_me_client *me_cl)
  *
  * Return: me client protocol name
  */
-static inline const uuid_le *mei_me_cl_uuid(const struct mei_me_client *me_cl)
+static const uuid_le *mei_me_cl_uuid(const struct mei_me_client *me_cl)
 {
 	return &me_cl->props.protocol_name;
 }
@@ -74,7 +74,7 @@ static inline const uuid_le *mei_me_cl_uuid(const struct mei_me_client *me_cl)
  *
  * Return: me client protocol version
  */
-static inline u8 mei_me_cl_ver(const struct mei_me_client *me_cl)
+static u8 mei_me_cl_ver(const struct mei_me_client *me_cl)
 {
 	return me_cl->props.protocol_version;
 }
@@ -116,7 +116,7 @@ int mei_cl_flush_queues(struct mei_cl *cl, const struct file *fp);
  *
  * Return: true if the host client is connected
  */
-static inline bool mei_cl_is_connected(struct mei_cl *cl)
+static bool mei_cl_is_connected(struct mei_cl *cl)
 {
 	return  cl->state == MEI_FILE_CONNECTED;
 }
@@ -128,7 +128,7 @@ static inline bool mei_cl_is_connected(struct mei_cl *cl)
  *
  * Return: me client id or 0 if client is not connected
  */
-static inline u8 mei_cl_me_id(const struct mei_cl *cl)
+static u8 mei_cl_me_id(const struct mei_cl *cl)
 {
 	return cl->me_cl ? cl->me_cl->client_id : 0;
 }
@@ -140,7 +140,7 @@ static inline u8 mei_cl_me_id(const struct mei_cl *cl)
  *
  * Return: mtu
  */
-static inline size_t mei_cl_mtu(const struct mei_cl *cl)
+static size_t mei_cl_mtu(const struct mei_cl *cl)
 {
 	return cl->me_cl->props.max_msg_length;
 }
@@ -152,7 +152,7 @@ static inline size_t mei_cl_mtu(const struct mei_cl *cl)
  *
  * Return: true if the client is connected and it has fixed me address
  */
-static inline bool mei_cl_is_fixed_address(const struct mei_cl *cl)
+static bool mei_cl_is_fixed_address(const struct mei_cl *cl)
 {
 	return cl->me_cl && cl->me_cl->props.fixed_address;
 }
@@ -165,7 +165,7 @@ static inline bool mei_cl_is_fixed_address(const struct mei_cl *cl)
  *
  * Return: true if single_recv_buf == 1; 0 otherwise
  */
-static inline bool mei_cl_is_single_recv_buf(const struct mei_cl *cl)
+static bool mei_cl_is_single_recv_buf(const struct mei_cl *cl)
 {
 	return cl->me_cl->props.single_recv_buf;
 }
@@ -177,7 +177,7 @@ static inline bool mei_cl_is_single_recv_buf(const struct mei_cl *cl)
  *
  * Return: return uuid of connected me client
  */
-static inline const uuid_le *mei_cl_uuid(const struct mei_cl *cl)
+static const uuid_le *mei_cl_uuid(const struct mei_cl *cl)
 {
 	return mei_me_cl_uuid(cl->me_cl);
 }
@@ -189,7 +189,7 @@ static inline const uuid_le *mei_cl_uuid(const struct mei_cl *cl)
  *
  * Return: 0 for fixed address client, host address for dynamic client
  */
-static inline u8 mei_cl_host_addr(const struct mei_cl *cl)
+static u8 mei_cl_host_addr(const struct mei_cl *cl)
 {
 	return  mei_cl_is_fixed_address(cl) ? 0 : cl->host_client_id;
 }

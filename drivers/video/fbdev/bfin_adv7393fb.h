@@ -307,8 +307,8 @@ static void bfin_disable_dma(void);
 static void bfin_enable_ppi(void);
 static void bfin_disable_ppi(void);
 
-static inline int adv7393_write(struct i2c_client *client, u8 reg, u8 value);
-static inline int adv7393_read(struct i2c_client *client, u8 reg);
+static int adv7393_write(struct i2c_client *client, u8 reg, u8 value);
+static int adv7393_read(struct i2c_client *client, u8 reg);
 static int adv7393_write_block(struct i2c_client *client, const u8 *data,
 			       unsigned int len);
 

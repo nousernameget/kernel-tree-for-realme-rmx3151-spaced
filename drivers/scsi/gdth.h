@@ -938,7 +938,7 @@ typedef struct {
     struct scsi_device         *sdev;
 } gdth_ha_str;
 
-static inline struct gdth_cmndinfo *gdth_cmnd_priv(struct scsi_cmnd* cmd)
+static struct gdth_cmndinfo *gdth_cmnd_priv(struct scsi_cmnd* cmd)
 {
 	return (struct gdth_cmndinfo *)cmd->host_scribble;
 }

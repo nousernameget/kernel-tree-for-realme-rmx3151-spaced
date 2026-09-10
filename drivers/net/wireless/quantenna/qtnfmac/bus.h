@@ -68,7 +68,7 @@ struct qtnf_bus {
 	char bus_priv[0] __aligned(sizeof(void *));
 };
 
-static inline void *get_bus_priv(struct qtnf_bus *bus)
+static void *get_bus_priv(struct qtnf_bus *bus)
 {
 	if (WARN(!bus, "qtnfmac: invalid bus pointer"))
 		return NULL;
@@ -78,42 +78,42 @@ static inline void *get_bus_priv(struct qtnf_bus *bus)
 
 /* callback wrappers */
 
-static inline int qtnf_bus_preinit(struct qtnf_bus *bus)
+static int qtnf_bus_preinit(struct qtnf_bus *bus)
 {
 	if (!bus->bus_ops->preinit)
 		return 0;
 	return bus->bus_ops->preinit(bus);
 }
 
-static inline void qtnf_bus_stop(struct qtnf_bus *bus)
+static void qtnf_bus_stop(struct qtnf_bus *bus)
 {
 	if (!bus->bus_ops->stop)
 		return;
 	bus->bus_ops->stop(bus);
 }
 
-static inline int qtnf_bus_data_tx(struct qtnf_bus *bus, struct sk_buff *skb)
+static int qtnf_bus_data_tx(struct qtnf_bus *bus, struct sk_buff *skb)
 {
 	return bus->bus_ops->data_tx(bus, skb);
 }
 
-static inline void
+static void
 qtnf_bus_data_tx_timeout(struct qtnf_bus *bus, struct net_device *ndev)
 {
 	return bus->bus_ops->data_tx_timeout(bus, ndev);
 }
 
-static inline int qtnf_bus_control_tx(struct qtnf_bus *bus, struct sk_buff *skb)
+static int qtnf_bus_control_tx(struct qtnf_bus *bus, struct sk_buff *skb)
 {
 	return bus->bus_ops->control_tx(bus, skb);
 }
 
-static inline void qtnf_bus_data_rx_start(struct qtnf_bus *bus)
+static void qtnf_bus_data_rx_start(struct qtnf_bus *bus)
 {
 	return bus->bus_ops->data_rx_start(bus);
 }
 
-static inline void qtnf_bus_data_rx_stop(struct qtnf_bus *bus)
+static void qtnf_bus_data_rx_stop(struct qtnf_bus *bus)
 {
 	return bus->bus_ops->data_rx_stop(bus);
 }

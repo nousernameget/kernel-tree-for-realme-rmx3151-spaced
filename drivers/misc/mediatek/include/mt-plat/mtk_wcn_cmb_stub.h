@@ -155,7 +155,7 @@ extern int mtk_wcn_cmb_stub_unreg(void);
 extern int mtk_wcn_cmb_stub_aif_ctrl(enum CMB_STUB_AIF_X state,
 		enum CMB_STUB_AIF_CTRL ctrl);
 
-static inline int mtk_wcn_cmb_stub_audio_ctrl(enum CMB_STUB_AIF_X state)
+static int mtk_wcn_cmb_stub_audio_ctrl(enum CMB_STUB_AIF_X state)
 {
 /* return mtk_wcn_cmb_stub_aif_ctrl(state, 1); */
 	return 0;

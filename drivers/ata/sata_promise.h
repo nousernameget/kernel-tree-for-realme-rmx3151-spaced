@@ -1,5 +1,5 @@
 /*
- *  sata_promise.h - Promise SATA common definitions and inline funcs
+ *  sata_promise.h - Promise SATA common definitions and funcs
  *
  *  Copyright 2003-2004 Red Hat, Inc.
  *
@@ -41,7 +41,7 @@ enum pdc_packet_bits {
 	PDC_REG_DEVCTL		= (1 << 3) | (1 << 2) | (1 << 1),
 };
 
-static inline unsigned int pdc_pkt_header(struct ata_taskfile *tf,
+static unsigned int pdc_pkt_header(struct ata_taskfile *tf,
 					  dma_addr_t sg_table,
 					  unsigned int devno, u8 *buf)
 {
@@ -87,7 +87,7 @@ static inline unsigned int pdc_pkt_header(struct ata_taskfile *tf,
 	return 16; 	/* offset of next byte */
 }
 
-static inline unsigned int pdc_pkt_footer(struct ata_taskfile *tf, u8 *buf,
+static unsigned int pdc_pkt_footer(struct ata_taskfile *tf, u8 *buf,
 				  unsigned int i)
 {
 	if (tf->flags & ATA_TFLAG_DEVICE) {
@@ -102,7 +102,7 @@ static inline unsigned int pdc_pkt_footer(struct ata_taskfile *tf, u8 *buf,
 	return i;
 }
 
-static inline unsigned int pdc_prep_lba28(struct ata_taskfile *tf, u8 *buf, unsigned int i)
+static unsigned int pdc_prep_lba28(struct ata_taskfile *tf, u8 *buf, unsigned int i)
 {
 	/* the "(1 << 5)" should be read "(count << 5)" */
 
@@ -125,7 +125,7 @@ static inline unsigned int pdc_prep_lba28(struct ata_taskfile *tf, u8 *buf, unsi
 	return i;
 }
 
-static inline unsigned int pdc_prep_lba48(struct ata_taskfile *tf, u8 *buf, unsigned int i)
+static unsigned int pdc_prep_lba48(struct ata_taskfile *tf, u8 *buf, unsigned int i)
 {
 	/* the "(2 << 5)" should be read "(count << 5)" */
 

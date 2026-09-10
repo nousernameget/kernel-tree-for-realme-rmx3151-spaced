@@ -252,7 +252,7 @@ struct img_ir_priv_hw {
 	u32				quirk_suspend_irq;
 };
 
-static inline bool img_ir_hw_enabled(struct img_ir_priv_hw *hw)
+static bool img_ir_hw_enabled(struct img_ir_priv_hw *hw)
 {
 	return hw->rdev;
 };
@@ -275,21 +275,21 @@ int img_ir_resume(struct device *dev);
 struct img_ir_priv_hw {
 };
 
-static inline bool img_ir_hw_enabled(struct img_ir_priv_hw *hw)
+static bool img_ir_hw_enabled(struct img_ir_priv_hw *hw)
 {
 	return false;
 };
-static inline void img_ir_isr_hw(struct img_ir_priv *priv, u32 irq_status)
+static void img_ir_isr_hw(struct img_ir_priv *priv, u32 irq_status)
 {
 }
-static inline void img_ir_setup_hw(struct img_ir_priv *priv)
+static void img_ir_setup_hw(struct img_ir_priv *priv)
 {
 }
-static inline int img_ir_probe_hw(struct img_ir_priv *priv)
+static int img_ir_probe_hw(struct img_ir_priv *priv)
 {
 	return -ENODEV;
 }
-static inline void img_ir_remove_hw(struct img_ir_priv *priv)
+static void img_ir_remove_hw(struct img_ir_priv *priv)
 {
 }
 

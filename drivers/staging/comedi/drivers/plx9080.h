@@ -621,7 +621,7 @@ struct plx_dma_desc {
  *	%0 on success.
  *	-%ETIMEDOUT if timed out waiting for abort to complete.
  */
-static inline int plx9080_abort_dma(void __iomem *iobase, unsigned int channel)
+static int plx9080_abort_dma(void __iomem *iobase, unsigned int channel)
 {
 	void __iomem *dma_cs_addr;
 	u8 dma_status;

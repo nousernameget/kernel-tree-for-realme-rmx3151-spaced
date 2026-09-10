@@ -96,7 +96,7 @@ struct edac_pci_ctl_info {
 		container_of(w, struct edac_pci_ctl_info,work)
 
 /* write all or some bits in a byte-register*/
-static inline void pci_write_bits8(struct pci_dev *pdev, int offset, u8 value,
+static void pci_write_bits8(struct pci_dev *pdev, int offset, u8 value,
 				   u8 mask)
 {
 	if (mask != 0xff) {
@@ -112,7 +112,7 @@ static inline void pci_write_bits8(struct pci_dev *pdev, int offset, u8 value,
 }
 
 /* write all or some bits in a word-register*/
-static inline void pci_write_bits16(struct pci_dev *pdev, int offset,
+static void pci_write_bits16(struct pci_dev *pdev, int offset,
 				    u16 value, u16 mask)
 {
 	if (mask != 0xffff) {
@@ -136,7 +136,7 @@ static inline void pci_write_bits16(struct pci_dev *pdev, int offset,
  *
  * write all or some bits in a dword-register
  */
-static inline void pci_write_bits32(struct pci_dev *pdev, int offset,
+static void pci_write_bits32(struct pci_dev *pdev, int offset,
 				    u32 value, u32 mask)
 {
 	if (mask != 0xffffffff) {

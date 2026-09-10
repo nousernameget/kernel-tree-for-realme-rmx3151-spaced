@@ -38,7 +38,7 @@ enum rq_enet_type_types {
 #define RQ_ENET_TYPE_BITS		2
 #define RQ_ENET_TYPE_MASK		((1 << RQ_ENET_TYPE_BITS) - 1)
 
-static inline void rq_enet_desc_enc(struct rq_enet_desc *desc,
+static void rq_enet_desc_enc(struct rq_enet_desc *desc,
 	u64 address, u8 type, u16 length)
 {
 	desc->address = cpu_to_le64(address);
@@ -46,7 +46,7 @@ static inline void rq_enet_desc_enc(struct rq_enet_desc *desc,
 		((type & RQ_ENET_TYPE_MASK) << RQ_ENET_LEN_BITS));
 }
 
-static inline void rq_enet_desc_dec(struct rq_enet_desc *desc,
+static void rq_enet_desc_dec(struct rq_enet_desc *desc,
 	u64 *address, u8 *type, u16 *length)
 {
 	*address = le64_to_cpu(desc->address);

@@ -99,14 +99,14 @@ void adf_bank_debugfs_rm(struct adf_etr_bank_data *bank);
 int adf_ring_debugfs_add(struct adf_etr_ring_data *ring, const char *name);
 void adf_ring_debugfs_rm(struct adf_etr_ring_data *ring);
 #else
-static inline int adf_bank_debugfs_add(struct adf_etr_bank_data *bank)
+static int adf_bank_debugfs_add(struct adf_etr_bank_data *bank)
 {
 	return 0;
 }
 
 #define adf_bank_debugfs_rm(bank) do {} while (0)
 
-static inline int adf_ring_debugfs_add(struct adf_etr_ring_data *ring,
+static int adf_ring_debugfs_add(struct adf_etr_ring_data *ring,
 				       const char *name)
 {
 	return 0;

@@ -288,49 +288,49 @@ struct fimc_is {
 	struct dentry			*debugfs_entry;
 };
 
-static inline struct fimc_is *fimc_isp_to_is(struct fimc_isp *isp)
+static struct fimc_is *fimc_isp_to_is(struct fimc_isp *isp)
 {
 	return container_of(isp, struct fimc_is, isp);
 }
 
-static inline struct chain_config *__get_curr_is_config(struct fimc_is *is)
+static struct chain_config *__get_curr_is_config(struct fimc_is *is)
 {
 	return &is->config[is->config_index];
 }
 
-static inline void fimc_is_mem_barrier(void)
+static void fimc_is_mem_barrier(void)
 {
 	mb();
 }
 
-static inline void fimc_is_set_param_bit(struct fimc_is *is, int num)
+static void fimc_is_set_param_bit(struct fimc_is *is, int num)
 {
 	struct chain_config *cfg = &is->config[is->config_index];
 
 	set_bit(num, &cfg->p_region_index[0]);
 }
 
-static inline void fimc_is_set_param_ctrl_cmd(struct fimc_is *is, int cmd)
+static void fimc_is_set_param_ctrl_cmd(struct fimc_is *is, int cmd)
 {
 	is->is_p_region->parameter.isp.control.cmd = cmd;
 }
 
-static inline void mcuctl_write(u32 v, struct fimc_is *is, unsigned int offset)
+static void mcuctl_write(u32 v, struct fimc_is *is, unsigned int offset)
 {
 	writel(v, is->regs + offset);
 }
 
-static inline u32 mcuctl_read(struct fimc_is *is, unsigned int offset)
+static u32 mcuctl_read(struct fimc_is *is, unsigned int offset)
 {
 	return readl(is->regs + offset);
 }
 
-static inline void pmuisp_write(u32 v, struct fimc_is *is, unsigned int offset)
+static void pmuisp_write(u32 v, struct fimc_is *is, unsigned int offset)
 {
 	writel(v, is->pmu_regs + offset);
 }
 
-static inline u32 pmuisp_read(struct fimc_is *is, unsigned int offset)
+static u32 pmuisp_read(struct fimc_is *is, unsigned int offset)
 {
 	return readl(is->pmu_regs + offset);
 }

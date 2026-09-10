@@ -27,7 +27,7 @@ struct dvb_frontend *zl10039_attach(struct dvb_frontend *fe,
 					u8 i2c_addr,
 					struct i2c_adapter *i2c);
 #else
-static inline struct dvb_frontend *zl10039_attach(struct dvb_frontend *fe,
+static struct dvb_frontend *zl10039_attach(struct dvb_frontend *fe,
 					u8 i2c_addr,
 					struct i2c_adapter *i2c)
 {

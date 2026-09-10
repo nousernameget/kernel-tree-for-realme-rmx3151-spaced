@@ -320,7 +320,7 @@ enum hns_desc_type {
 /* the distance between [begin, end) in a ring buffer
  * note: there is a unuse slot between the begin and the end
  */
-static inline int ring_dist(struct hnae_ring *ring, int begin, int end)
+static int ring_dist(struct hnae_ring *ring, int begin, int end)
 {
 	assert_is_ring_idx(ring, begin);
 	assert_is_ring_idx(ring, end);
@@ -328,13 +328,13 @@ static inline int ring_dist(struct hnae_ring *ring, int begin, int end)
 	return (end - begin + ring->desc_num) % ring->desc_num;
 }
 
-static inline int ring_space(struct hnae_ring *ring)
+static int ring_space(struct hnae_ring *ring)
 {
 	return ring->desc_num -
 		ring_dist(ring, ring->next_to_clean, ring->next_to_use) - 1;
 }
 
-static inline int is_ring_empty(struct hnae_ring *ring)
+static int is_ring_empty(struct hnae_ring *ring)
 {
 	assert_is_ring_idx(ring, ring->next_to_use);
 	assert_is_ring_idx(ring, ring->next_to_clean);
@@ -596,7 +596,7 @@ int hnae_reinit_handle(struct hnae_handle *handle);
 #define assert(cond)
 #endif
 
-static inline int hnae_reserve_buffer_map(struct hnae_ring *ring,
+static int hnae_reserve_buffer_map(struct hnae_ring *ring,
 					  struct hnae_desc_cb *cb)
 {
 	struct hnae_buf_ops *bops = ring->q->handle->bops;
@@ -618,7 +618,7 @@ out:
 	return ret;
 }
 
-static inline int hnae_alloc_buffer_attach(struct hnae_ring *ring, int i)
+static int hnae_alloc_buffer_attach(struct hnae_ring *ring, int i)
 {
 	int ret = hnae_reserve_buffer_map(ring, &ring->desc_cb[i]);
 
@@ -630,13 +630,13 @@ static inline int hnae_alloc_buffer_attach(struct hnae_ring *ring, int i)
 	return 0;
 }
 
-static inline void hnae_buffer_detach(struct hnae_ring *ring, int i)
+static void hnae_buffer_detach(struct hnae_ring *ring, int i)
 {
 	ring->q->handle->bops->unmap_buffer(ring, &ring->desc_cb[i]);
 	ring->desc[i].addr = 0;
 }
 
-static inline void hnae_free_buffer_detach(struct hnae_ring *ring, int i)
+static void hnae_free_buffer_detach(struct hnae_ring *ring, int i)
 {
 	struct hnae_buf_ops *bops = ring->q->handle->bops;
 	struct hnae_desc_cb *cb = &ring->desc_cb[i];
@@ -649,7 +649,7 @@ static inline void hnae_free_buffer_detach(struct hnae_ring *ring, int i)
 }
 
 /* detach a in-used buffer and replace with a reserved one  */
-static inline void hnae_replace_buffer(struct hnae_ring *ring, int i,
+static void hnae_replace_buffer(struct hnae_ring *ring, int i,
 				       struct hnae_desc_cb *res_cb)
 {
 	struct hnae_buf_ops *bops = ring->q->handle->bops;
@@ -660,7 +660,7 @@ static inline void hnae_replace_buffer(struct hnae_ring *ring, int i,
 	ring->desc[i].rx.ipoff_bnum_pid_flag = 0;
 }
 
-static inline void hnae_reuse_buffer(struct hnae_ring *ring, int i)
+static void hnae_reuse_buffer(struct hnae_ring *ring, int i)
 {
 	ring->desc_cb[i].reuse_flag = 0;
 	ring->desc[i].addr = cpu_to_le64(ring->desc_cb[i].dma
@@ -669,7 +669,7 @@ static inline void hnae_reuse_buffer(struct hnae_ring *ring, int i)
 }
 
 /* when reinit buffer size, we should reinit buffer description */
-static inline void hnae_reinit_all_ring_desc(struct hnae_handle *h)
+static void hnae_reinit_all_ring_desc(struct hnae_handle *h)
 {
 	int i, j;
 	struct hnae_ring *ring;
@@ -684,7 +684,7 @@ static inline void hnae_reinit_all_ring_desc(struct hnae_handle *h)
 }
 
 /* when reinit buffer size, we should reinit page offset */
-static inline void hnae_reinit_all_ring_page_off(struct hnae_handle *h)
+static void hnae_reinit_all_ring_page_off(struct hnae_handle *h)
 {
 	int i, j;
 	struct hnae_ring *ring;

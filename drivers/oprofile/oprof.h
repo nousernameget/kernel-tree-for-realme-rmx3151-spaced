@@ -37,7 +37,7 @@ int oprofile_timer_init(struct oprofile_operations *ops);
 #ifdef CONFIG_OPROFILE_NMI_TIMER
 int op_nmi_timer_init(struct oprofile_operations *ops);
 #else
-static inline int op_nmi_timer_init(struct oprofile_operations *ops)
+static int op_nmi_timer_init(struct oprofile_operations *ops)
 {
 	return -ENODEV;
 }

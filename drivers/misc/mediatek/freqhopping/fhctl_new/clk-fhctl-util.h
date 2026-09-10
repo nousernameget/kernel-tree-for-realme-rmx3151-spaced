@@ -42,7 +42,7 @@ do { \
 #endif
 
 #ifdef CONFIG_MTK_AEE_FEATURE
-static inline void notify_err(void)
+static void notify_err(void)
 {
 	aee_kernel_warning("fhctl", "check error\n");
 }

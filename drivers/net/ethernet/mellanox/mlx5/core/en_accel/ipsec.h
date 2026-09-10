@@ -98,39 +98,39 @@ struct xfrm_state *mlx5e_ipsec_sadb_rx_lookup(struct mlx5e_ipsec *dev,
 
 #else
 
-static inline void mlx5e_ipsec_build_inverse_table(void)
+static void mlx5e_ipsec_build_inverse_table(void)
 {
 }
 
-static inline int mlx5e_ipsec_init(struct mlx5e_priv *priv)
-{
-	return 0;
-}
-
-static inline void mlx5e_ipsec_cleanup(struct mlx5e_priv *priv)
-{
-}
-
-static inline void mlx5e_ipsec_build_netdev(struct mlx5e_priv *priv)
-{
-}
-
-static inline int mlx5e_ipsec_get_count(struct mlx5e_priv *priv)
+static int mlx5e_ipsec_init(struct mlx5e_priv *priv)
 {
 	return 0;
 }
 
-static inline int mlx5e_ipsec_get_strings(struct mlx5e_priv *priv,
+static void mlx5e_ipsec_cleanup(struct mlx5e_priv *priv)
+{
+}
+
+static void mlx5e_ipsec_build_netdev(struct mlx5e_priv *priv)
+{
+}
+
+static int mlx5e_ipsec_get_count(struct mlx5e_priv *priv)
+{
+	return 0;
+}
+
+static int mlx5e_ipsec_get_strings(struct mlx5e_priv *priv,
 					  uint8_t *data)
 {
 	return 0;
 }
 
-static inline void mlx5e_ipsec_update_stats(struct mlx5e_priv *priv)
+static void mlx5e_ipsec_update_stats(struct mlx5e_priv *priv)
 {
 }
 
-static inline int mlx5e_ipsec_get_stats(struct mlx5e_priv *priv, u64 *data)
+static int mlx5e_ipsec_get_stats(struct mlx5e_priv *priv, u64 *data)
 {
 	return 0;
 }

@@ -134,13 +134,13 @@ enum ccdc_buftype {
 
 
 /* returns the highest bit used for the gamma */
-static inline u8 ccdc_gamma_width_max_bit(enum vpfe_ccdc_gamma_width width)
+static u8 ccdc_gamma_width_max_bit(enum vpfe_ccdc_gamma_width width)
 {
 	return 15 - width;
 }
 
 /* returns the highest bit used for this data size */
-static inline u8 ccdc_data_size_max_bit(enum vpfe_ccdc_data_size sz)
+static u8 ccdc_data_size_max_bit(enum vpfe_ccdc_data_size sz)
 {
 	return sz == VPFE_CCDC_DATA_8BITS ? 7 : 15 - sz;
 }

@@ -421,7 +421,7 @@ enum vlsi_pio_irenable {
 
 #define BAUD_BITS(br)		((115200/(br))-1)
 
-static inline unsigned
+static unsigned
 calc_width_bits(unsigned baudrate, unsigned widthselect, unsigned clockselect)
 {
 	unsigned	tmp;
@@ -591,22 +591,22 @@ struct ring_descr {
  * access to the hw-part of the descriptors must use these.
  */
 
-static inline int rd_is_active(struct ring_descr *rd)
+static int rd_is_active(struct ring_descr *rd)
 {
 	return (rd->hw->rd_status & RD_ACTIVE) != 0;
 }
 
-static inline void rd_activate(struct ring_descr *rd)
+static void rd_activate(struct ring_descr *rd)
 {
 	rd->hw->rd_status |= RD_ACTIVE;
 }
 
-static inline void rd_set_status(struct ring_descr *rd, u8 s)
+static void rd_set_status(struct ring_descr *rd, u8 s)
 {
 	rd->hw->rd_status = s;	 /* may pass ownership to the hardware */
 }
 
-static inline void rd_set_addr_status(struct ring_descr *rd, dma_addr_t a, u8 s)
+static void rd_set_addr_status(struct ring_descr *rd, dma_addr_t a, u8 s)
 {
 	/* order is important for two reasons:
 	 *  - overlayed: writing addr overwrites status
@@ -629,17 +629,17 @@ static inline void rd_set_addr_status(struct ring_descr *rd, dma_addr_t a, u8 s)
 	rd_set_status(rd, s);	 /* may pass ownership to the hardware */
 }
 
-static inline void rd_set_count(struct ring_descr *rd, u16 c)
+static void rd_set_count(struct ring_descr *rd, u16 c)
 {
 	rd->hw->rd_count = cpu_to_le16(c);
 }
 
-static inline u8 rd_get_status(struct ring_descr *rd)
+static u8 rd_get_status(struct ring_descr *rd)
 {
 	return rd->hw->rd_status;
 }
 
-static inline dma_addr_t rd_get_addr(struct ring_descr *rd)
+static dma_addr_t rd_get_addr(struct ring_descr *rd)
 {
 	dma_addr_t	a;
 
@@ -647,7 +647,7 @@ static inline dma_addr_t rd_get_addr(struct ring_descr *rd)
 	return (a & DMA_MASK_MSTRPAGE) | (MSTRPAGE_VALUE << 24);
 }
 
-static inline u16 rd_get_count(struct ring_descr *rd)
+static u16 rd_get_count(struct ring_descr *rd)
 {
 	return le16_to_cpu(rd->hw->rd_count);
 }
@@ -677,7 +677,7 @@ struct vlsi_ring {
 
 /* ring processing helpers */
 
-static inline struct ring_descr *ring_last(struct vlsi_ring *r)
+static struct ring_descr *ring_last(struct vlsi_ring *r)
 {
 	int t;
 
@@ -685,13 +685,13 @@ static inline struct ring_descr *ring_last(struct vlsi_ring *r)
 	return (((t+1) & r->mask) == (atomic_read(&r->head) & r->mask)) ? NULL : &r->rd[t];
 }
 
-static inline struct ring_descr *ring_put(struct vlsi_ring *r)
+static struct ring_descr *ring_put(struct vlsi_ring *r)
 {
 	atomic_inc(&r->tail);
 	return ring_last(r);
 }
 
-static inline struct ring_descr *ring_first(struct vlsi_ring *r)
+static struct ring_descr *ring_first(struct vlsi_ring *r)
 {
 	int h;
 
@@ -699,7 +699,7 @@ static inline struct ring_descr *ring_first(struct vlsi_ring *r)
 	return (h == (atomic_read(&r->tail) & r->mask)) ? NULL : &r->rd[h];
 }
 
-static inline struct ring_descr *ring_get(struct vlsi_ring *r)
+static struct ring_descr *ring_get(struct vlsi_ring *r)
 {
 	atomic_inc(&r->head);
 	return ring_first(r);

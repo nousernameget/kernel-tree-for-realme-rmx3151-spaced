@@ -122,7 +122,7 @@ struct octeon_i2c {
 	struct i2c_client *ara;
 };
 
-static inline void octeon_i2c_writeq_flush(u64 val, void __iomem *addr)
+static void octeon_i2c_writeq_flush(u64 val, void __iomem *addr)
 {
 	__raw_writeq(val, addr);
 	__raw_readq(addr);	/* wait for write to land */
@@ -136,7 +136,7 @@ static inline void octeon_i2c_writeq_flush(u64 val, void __iomem *addr)
  *
  * The I2C core registers are accessed indirectly via the SW_TWSI CSR.
  */
-static inline void octeon_i2c_reg_write(struct octeon_i2c *i2c, u64 eop_reg, u8 data)
+static void octeon_i2c_reg_write(struct octeon_i2c *i2c, u64 eop_reg, u8 data)
 {
 	int tries = 1000;
 	u64 tmp;
@@ -163,7 +163,7 @@ static inline void octeon_i2c_reg_write(struct octeon_i2c *i2c, u64 eop_reg, u8 
  *
  * The I2C core registers are accessed indirectly via the SW_TWSI CSR.
  */
-static inline int octeon_i2c_reg_read(struct octeon_i2c *i2c, u64 eop_reg,
+static int octeon_i2c_reg_read(struct octeon_i2c *i2c, u64 eop_reg,
 				      int *error)
 {
 	int tries = 1000;
@@ -196,7 +196,7 @@ static inline int octeon_i2c_reg_read(struct octeon_i2c *i2c, u64 eop_reg,
  *
  * Returns the value of the register.
  */
-static inline u64 octeon_i2c_read_int(struct octeon_i2c *i2c)
+static u64 octeon_i2c_read_int(struct octeon_i2c *i2c)
 {
 	return __raw_readq(i2c->twsi_base + TWSI_INT(i2c));
 }
@@ -206,7 +206,7 @@ static inline u64 octeon_i2c_read_int(struct octeon_i2c *i2c)
  * @i2c: The struct octeon_i2c
  * @data: Value to be written
  */
-static inline void octeon_i2c_write_int(struct octeon_i2c *i2c, u64 data)
+static void octeon_i2c_write_int(struct octeon_i2c *i2c, u64 data)
 {
 	octeon_i2c_writeq_flush(data, i2c->twsi_base + TWSI_INT(i2c));
 }

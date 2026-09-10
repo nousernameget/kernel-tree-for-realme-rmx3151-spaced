@@ -275,7 +275,7 @@ struct display_primary_path_context {
 	enum lcm_power_state lcm_ps;
 };
 
-static inline char *lcm_power_state_to_string(enum lcm_power_state ps)
+static char *lcm_power_state_to_string(enum lcm_power_state ps)
 {
 	switch (ps) {
 	case LCM_OFF:
@@ -291,7 +291,7 @@ static inline char *lcm_power_state_to_string(enum lcm_power_state ps)
 	return "LCM_POWER_STATE_UNKNOWN";
 }
 
-static inline char *power_mode_to_string(enum mtkfb_power_mode pm)
+static char *power_mode_to_string(enum mtkfb_power_mode pm)
 {
 	switch (pm) {
 	case FB_SUSPEND:

@@ -1286,7 +1286,7 @@ int wsm_map_link(struct cw1200_common *priv, const struct wsm_map_link *arg);
 /* ******************************************************************** */
 /* MIB shortcats							*/
 
-static inline int wsm_set_output_power(struct cw1200_common *priv,
+static int wsm_set_output_power(struct cw1200_common *priv,
 				       int power_level)
 {
 	__le32 val = __cpu_to_le32(power_level);
@@ -1294,7 +1294,7 @@ static inline int wsm_set_output_power(struct cw1200_common *priv,
 			     &val, sizeof(val));
 }
 
-static inline int wsm_set_beacon_wakeup_period(struct cw1200_common *priv,
+static int wsm_set_beacon_wakeup_period(struct cw1200_common *priv,
 					       unsigned dtim_interval,
 					       unsigned listen_interval)
 {
@@ -1320,7 +1320,7 @@ struct wsm_rcpi_rssi_threshold {
 	u8 rollingAverageCount;
 };
 
-static inline int wsm_set_rcpi_rssi_threshold(struct cw1200_common *priv,
+static int wsm_set_rcpi_rssi_threshold(struct cw1200_common *priv,
 					struct wsm_rcpi_rssi_threshold *arg)
 {
 	return wsm_write_mib(priv, WSM_MIB_ID_RCPI_RSSI_THRESHOLD, arg,
@@ -1352,14 +1352,14 @@ struct wsm_mib_counters_table {
 	__le32 rx_mgmt_ccmp_replays;
 } __packed;
 
-static inline int wsm_get_counters_table(struct cw1200_common *priv,
+static int wsm_get_counters_table(struct cw1200_common *priv,
 					 struct wsm_mib_counters_table *arg)
 {
 	return wsm_read_mib(priv, WSM_MIB_ID_COUNTERS_TABLE,
 			    arg, sizeof(*arg));
 }
 
-static inline int wsm_get_station_id(struct cw1200_common *priv, u8 *mac)
+static int wsm_get_station_id(struct cw1200_common *priv, u8 *mac)
 {
 	return wsm_read_mib(priv, WSM_MIB_ID_DOT11_STATION_ID, mac, ETH_ALEN);
 }
@@ -1371,7 +1371,7 @@ struct wsm_rx_filter {
 	bool probeResponder;
 };
 
-static inline int wsm_set_rx_filter(struct cw1200_common *priv,
+static int wsm_set_rx_filter(struct cw1200_common *priv,
 				    const struct wsm_rx_filter *arg)
 {
 	__le32 val = 0;
@@ -1404,7 +1404,7 @@ struct wsm_mib_beacon_filter_table {
 	struct wsm_beacon_filter_table_entry entry[10];
 } __packed;
 
-static inline int wsm_set_beacon_filter_table(struct cw1200_common *priv,
+static int wsm_set_beacon_filter_table(struct cw1200_common *priv,
 					      struct wsm_mib_beacon_filter_table *ft)
 {
 	size_t size = __le32_to_cpu(ft->num) *
@@ -1422,7 +1422,7 @@ struct wsm_beacon_filter_control {
 	int bcn_count;
 };
 
-static inline int wsm_beacon_filter_control(struct cw1200_common *priv,
+static int wsm_beacon_filter_control(struct cw1200_common *priv,
 					struct wsm_beacon_filter_control *arg)
 {
 	struct {
@@ -1447,7 +1447,7 @@ struct wsm_operational_mode {
 	int perform_ant_diversity;
 };
 
-static inline int wsm_set_operational_mode(struct cw1200_common *priv,
+static int wsm_set_operational_mode(struct cw1200_common *priv,
 					const struct wsm_operational_mode *arg)
 {
 	u8 val = arg->power_mode;
@@ -1465,7 +1465,7 @@ struct wsm_template_frame {
 	struct sk_buff *skb;
 };
 
-static inline int wsm_set_template_frame(struct cw1200_common *priv,
+static int wsm_set_template_frame(struct cw1200_common *priv,
 					 struct wsm_template_frame *arg)
 {
 	int ret;
@@ -1485,7 +1485,7 @@ struct wsm_protected_mgmt_policy {
 	bool encryptionForAuthFrame;
 };
 
-static inline int wsm_set_protected_mgmt_policy(struct cw1200_common *priv,
+static int wsm_set_protected_mgmt_policy(struct cw1200_common *priv,
 		struct wsm_protected_mgmt_policy *arg)
 {
 	__le32 val = 0;
@@ -1508,7 +1508,7 @@ struct wsm_mib_block_ack_policy {
 	u8 reserved2;
 } __packed;
 
-static inline int wsm_set_block_ack_policy(struct cw1200_common *priv,
+static int wsm_set_block_ack_policy(struct cw1200_common *priv,
 					   u8 tx_tid_policy,
 					   u8 rx_tid_policy)
 {
@@ -1528,7 +1528,7 @@ struct wsm_mib_association_mode {
 	__le32 basic_rate_set;
 } __packed;
 
-static inline int wsm_set_association_mode(struct cw1200_common *priv,
+static int wsm_set_association_mode(struct cw1200_common *priv,
 					   struct wsm_mib_association_mode *arg)
 {
 	return wsm_write_mib(priv, WSM_MIB_ID_SET_ASSOCIATION_MODE, arg,
@@ -1559,7 +1559,7 @@ struct wsm_set_tx_rate_retry_policy {
 	struct wsm_tx_rate_retry_policy tbl[8];
 } __packed;
 
-static inline int wsm_set_tx_rate_retry_policy(struct cw1200_common *priv,
+static int wsm_set_tx_rate_retry_policy(struct cw1200_common *priv,
 				struct wsm_set_tx_rate_retry_policy *arg)
 {
 	size_t size = 4 + arg->num * sizeof(struct wsm_tx_rate_retry_policy);
@@ -1579,7 +1579,7 @@ struct wsm_ether_type_filter {
 	__le16 type;	/* Type of ethernet frame */
 } __packed;
 
-static inline int wsm_set_ether_type_filter(struct cw1200_common *priv,
+static int wsm_set_ether_type_filter(struct cw1200_common *priv,
 				struct wsm_ether_type_filter_hdr *arg)
 {
 	size_t size = sizeof(struct wsm_ether_type_filter_hdr) +
@@ -1600,7 +1600,7 @@ struct wsm_udp_port_filter {
 	__le16 port;		/* Port number */
 } __packed;
 
-static inline int wsm_set_udp_port_filter(struct cw1200_common *priv,
+static int wsm_set_udp_port_filter(struct cw1200_common *priv,
 				struct wsm_udp_port_filter_hdr *arg)
 {
 	size_t size = sizeof(struct wsm_udp_port_filter_hdr) +
@@ -1680,7 +1680,7 @@ struct wsm_keep_alive_period {
 	u8 reserved[2];
 } __packed;
 
-static inline int wsm_keep_alive_period(struct cw1200_common *priv,
+static int wsm_keep_alive_period(struct cw1200_common *priv,
 					int period)
 {
 	struct wsm_keep_alive_period arg = {
@@ -1696,7 +1696,7 @@ struct wsm_set_bssid_filtering {
 	u8 reserved[3];
 } __packed;
 
-static inline int wsm_set_bssid_filtering(struct cw1200_common *priv,
+static int wsm_set_bssid_filtering(struct cw1200_common *priv,
 					  bool enabled)
 {
 	struct wsm_set_bssid_filtering arg = {
@@ -1713,7 +1713,7 @@ struct wsm_mib_multicast_filter {
 	u8 macaddrs[WSM_MAX_GRP_ADDRTABLE_ENTRIES][ETH_ALEN];
 } __packed;
 
-static inline int wsm_set_multicast_filter(struct cw1200_common *priv,
+static int wsm_set_multicast_filter(struct cw1200_common *priv,
 					   struct wsm_mib_multicast_filter *fp)
 {
 	return wsm_write_mib(priv, WSM_MIB_ID_DOT11_GROUP_ADDRESSES_TABLE,
@@ -1726,7 +1726,7 @@ struct wsm_mib_arp_ipv4_filter {
 	__be32 ipv4addrs[WSM_MAX_ARP_IP_ADDRTABLE_ENTRIES];
 } __packed;
 
-static inline int wsm_set_arp_ipv4_filter(struct cw1200_common *priv,
+static int wsm_set_arp_ipv4_filter(struct cw1200_common *priv,
 					  struct wsm_mib_arp_ipv4_filter *fp)
 {
 	return wsm_write_mib(priv, WSM_MIB_ID_ARP_IP_ADDRESSES_TABLE,
@@ -1744,14 +1744,14 @@ struct wsm_p2p_ps_modeinfo {
 	__le32	start_time;
 } __packed;
 
-static inline int wsm_set_p2p_ps_modeinfo(struct cw1200_common *priv,
+static int wsm_set_p2p_ps_modeinfo(struct cw1200_common *priv,
 					  struct wsm_p2p_ps_modeinfo *mi)
 {
 	return wsm_write_mib(priv, WSM_MIB_ID_P2P_PS_MODE_INFO,
 			     mi, sizeof(*mi));
 }
 
-static inline int wsm_get_p2p_ps_modeinfo(struct cw1200_common *priv,
+static int wsm_get_p2p_ps_modeinfo(struct cw1200_common *priv,
 					  struct wsm_p2p_ps_modeinfo *mi)
 {
 	return wsm_read_mib(priv, WSM_MIB_ID_P2P_PS_MODE_INFO,
@@ -1760,7 +1760,7 @@ static inline int wsm_get_p2p_ps_modeinfo(struct cw1200_common *priv,
 
 /* UseMultiTxConfMessage */
 
-static inline int wsm_use_multi_tx_conf(struct cw1200_common *priv,
+static int wsm_use_multi_tx_conf(struct cw1200_common *priv,
 					bool enabled)
 {
 	__le32 arg = enabled ? __cpu_to_le32(1) : 0;
@@ -1778,7 +1778,7 @@ struct wsm_uapsd_info {
 	__le16 auto_trigger_step;
 };
 
-static inline int wsm_set_uapsd_info(struct cw1200_common *priv,
+static int wsm_set_uapsd_info(struct cw1200_common *priv,
 				     struct wsm_uapsd_info *arg)
 {
 	return wsm_write_mib(priv, WSM_MIB_ID_SET_UAPSD_INFORMATION,
@@ -1792,7 +1792,7 @@ struct wsm_override_internal_txrate {
 	u8 reserved[2];
 } __packed;
 
-static inline int wsm_set_override_internal_txrate(struct cw1200_common *priv,
+static int wsm_set_override_internal_txrate(struct cw1200_common *priv,
 				     struct wsm_override_internal_txrate *arg)
 {
 	return wsm_write_mib(priv, WSM_MIB_ID_OVERRIDE_INTERNAL_TX_RATE,
@@ -1851,7 +1851,7 @@ void wsm_txed(struct cw1200_common *priv, u8 *data);
 /* Linux: VO VI BE BK							*/
 /* WSM:   BE BK VI VO							*/
 
-static inline u8 wsm_queue_id_to_linux(u8 queue_id)
+static u8 wsm_queue_id_to_linux(u8 queue_id)
 {
 	static const u8 queue_mapping[] = {
 		2, 3, 1, 0
@@ -1859,7 +1859,7 @@ static inline u8 wsm_queue_id_to_linux(u8 queue_id)
 	return queue_mapping[queue_id];
 }
 
-static inline u8 wsm_queue_id_to_wsm(u8 queue_id)
+static u8 wsm_queue_id_to_wsm(u8 queue_id)
 {
 	static const u8 queue_mapping[] = {
 		3, 2, 0, 1

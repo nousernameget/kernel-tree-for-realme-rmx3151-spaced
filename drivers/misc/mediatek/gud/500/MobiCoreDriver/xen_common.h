@@ -156,20 +156,20 @@ struct tee_xfe {
 };
 
 struct tee_xfe *tee_xfe_create(struct xenbus_device *xdev);
-static inline void tee_xfe_get(struct tee_xfe *xfe)
+static void tee_xfe_get(struct tee_xfe *xfe)
 {
 	kref_get(&xfe->kref);
 }
 
 void tee_xfe_put(struct tee_xfe *xfe);
 
-static inline void ring_get(struct tee_xfe *xfe)
+static void ring_get(struct tee_xfe *xfe)
 {
 	mutex_lock(&xfe->ring_mutex);
 	xfe->ring_busy = true;
 }
 
-static inline void ring_put(struct tee_xfe *xfe)
+static void ring_put(struct tee_xfe *xfe)
 {
 	xfe->ring_busy = false;
 	mutex_unlock(&xfe->ring_mutex);

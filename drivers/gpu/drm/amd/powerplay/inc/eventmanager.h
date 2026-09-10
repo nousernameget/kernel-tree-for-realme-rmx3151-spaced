@@ -68,19 +68,19 @@ typedef enum PEM_EventDataValid PEM_EventDataValid;
 		((PEM_EventDataValid_Max + PEM_MAX_NUM_EVENTDATAVALID_BITS_PER_FIELD - 1) /  \
 		PEM_MAX_NUM_EVENTDATAVALID_BITS_PER_FIELD)
 
-static inline void pem_set_event_data_valid(unsigned long *fields, PEM_EventDataValid valid_field)
+static void pem_set_event_data_valid(unsigned long *fields, PEM_EventDataValid valid_field)
 {
 	fields[valid_field / PEM_MAX_NUM_EVENTDATAVALID_BITS_PER_FIELD] |=
 		(1UL << (valid_field % PEM_MAX_NUM_EVENTDATAVALID_BITS_PER_FIELD));
 }
 
-static inline void pem_unset_event_data_valid(unsigned long *fields, PEM_EventDataValid valid_field)
+static void pem_unset_event_data_valid(unsigned long *fields, PEM_EventDataValid valid_field)
 {
 	fields[valid_field / PEM_MAX_NUM_EVENTDATAVALID_BITS_PER_FIELD] &=
 		~(1UL << (valid_field % PEM_MAX_NUM_EVENTDATAVALID_BITS_PER_FIELD));
 }
 
-static inline unsigned long pem_is_event_data_valid(const unsigned long *fields, PEM_EventDataValid valid_field)
+static unsigned long pem_is_event_data_valid(const unsigned long *fields, PEM_EventDataValid valid_field)
 {
 	return fields[valid_field / PEM_MAX_NUM_EVENTDATAVALID_BITS_PER_FIELD] &
 		(1UL << (valid_field % PEM_MAX_NUM_EVENTDATAVALID_BITS_PER_FIELD));

@@ -72,7 +72,7 @@ struct s5h1411_config {
 extern struct dvb_frontend *s5h1411_attach(const struct s5h1411_config *config,
 					   struct i2c_adapter *i2c);
 #else
-static inline struct dvb_frontend *s5h1411_attach(
+static struct dvb_frontend *s5h1411_attach(
 	const struct s5h1411_config *config,
 	struct i2c_adapter *i2c)
 {

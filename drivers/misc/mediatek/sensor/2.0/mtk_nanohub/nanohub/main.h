@@ -87,17 +87,17 @@ nanohub_probe(struct device *dev, struct nanohub_device *nano_dev);
 int nanohub_suspend(struct nanohub_device *nano_dev);
 int nanohub_resume(struct nanohub_device *nano_dev);
 
-static inline int request_wakeup_timeout(struct nanohub_data *data, int timeout)
+static int request_wakeup_timeout(struct nanohub_data *data, int timeout)
 {
 	return 0;
 }
 
-static inline int request_wakeup(struct nanohub_data *data)
+static int request_wakeup(struct nanohub_data *data)
 {
 	return 0;
 }
 
-static inline void release_wakeup(struct nanohub_data *data)
+static void release_wakeup(struct nanohub_data *data)
 {
 }
 

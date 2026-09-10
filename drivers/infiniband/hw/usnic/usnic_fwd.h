@@ -94,7 +94,7 @@ int usnic_fwd_dealloc_flow(struct usnic_fwd_flow *flow);
 int usnic_fwd_enable_qp(struct usnic_fwd_dev *ufdev, int vnic_idx, int qp_idx);
 int usnic_fwd_disable_qp(struct usnic_fwd_dev *ufdev, int vnic_idx, int qp_idx);
 
-static inline void usnic_fwd_init_usnic_filter(struct filter *filter,
+static void usnic_fwd_init_usnic_filter(struct filter *filter,
 						uint32_t usnic_id)
 {
 	filter->type = FILTER_USNIC_ID;
@@ -108,7 +108,7 @@ static inline void usnic_fwd_init_usnic_filter(struct filter *filter,
 	filter->u.usnic.usnic_id = usnic_id;
 }
 
-static inline void usnic_fwd_init_udp_filter(struct filter *filter,
+static void usnic_fwd_init_udp_filter(struct filter *filter,
 						uint32_t daddr, uint16_t dport)
 {
 	filter->type = FILTER_IPV4_5TUPLE;

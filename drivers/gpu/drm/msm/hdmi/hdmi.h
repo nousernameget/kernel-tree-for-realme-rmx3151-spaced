@@ -125,17 +125,17 @@ struct hdmi_platform_config {
 
 void msm_hdmi_set_mode(struct hdmi *hdmi, bool power_on);
 
-static inline void hdmi_write(struct hdmi *hdmi, u32 reg, u32 data)
+static void hdmi_write(struct hdmi *hdmi, u32 reg, u32 data)
 {
 	msm_writel(data, hdmi->mmio + reg);
 }
 
-static inline u32 hdmi_read(struct hdmi *hdmi, u32 reg)
+static u32 hdmi_read(struct hdmi *hdmi, u32 reg)
 {
 	return msm_readl(hdmi->mmio + reg);
 }
 
-static inline u32 hdmi_qfprom_read(struct hdmi *hdmi, u32 reg)
+static u32 hdmi_qfprom_read(struct hdmi *hdmi, u32 reg)
 {
 	return msm_readl(hdmi->qfprom_mmio + reg);
 }
@@ -176,12 +176,12 @@ struct hdmi_phy {
 	struct clk **clks;
 };
 
-static inline void hdmi_phy_write(struct hdmi_phy *phy, u32 reg, u32 data)
+static void hdmi_phy_write(struct hdmi_phy *phy, u32 reg, u32 data)
 {
 	msm_writel(data, phy->mmio + reg);
 }
 
-static inline u32 hdmi_phy_read(struct hdmi_phy *phy, u32 reg)
+static u32 hdmi_phy_read(struct hdmi_phy *phy, u32 reg)
 {
 	return msm_readl(phy->mmio + reg);
 }
@@ -197,12 +197,12 @@ void __exit msm_hdmi_phy_driver_unregister(void);
 int msm_hdmi_pll_8960_init(struct platform_device *pdev);
 int msm_hdmi_pll_8996_init(struct platform_device *pdev);
 #else
-static inline int msm_hdmi_pll_8960_init(struct platform_device *pdev)
+static int msm_hdmi_pll_8960_init(struct platform_device *pdev)
 {
 	return -ENODEV;
 }
 
-static inline int msm_hdmi_pll_8996_init(struct platform_device *pdev)
+static int msm_hdmi_pll_8996_init(struct platform_device *pdev)
 {
 	return -ENODEV;
 }
@@ -264,7 +264,7 @@ void msm_hdmi_hdcp_on(struct hdmi_hdcp_ctrl *hdcp_ctrl);
 void msm_hdmi_hdcp_off(struct hdmi_hdcp_ctrl *hdcp_ctrl);
 void msm_hdmi_hdcp_irq(struct hdmi_hdcp_ctrl *hdcp_ctrl);
 #else
-static inline struct hdmi_hdcp_ctrl *msm_hdmi_hdcp_init(struct hdmi *hdmi)
+static struct hdmi_hdcp_ctrl *msm_hdmi_hdcp_init(struct hdmi *hdmi)
 {
 	return ERR_PTR(-ENXIO);
 }

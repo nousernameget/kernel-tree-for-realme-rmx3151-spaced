@@ -924,7 +924,7 @@ struct base_jd_debug_copy_buffer {
  * @param     dep_type     The dep_type to be assigned.
  *
  */
-static inline void base_jd_atom_dep_set(struct base_dependency *dep,
+static void base_jd_atom_dep_set(struct base_dependency *dep,
 		base_atom_id id, base_jd_dep_type dep_type)
 {
 	LOCAL_ASSERT(dep != NULL);
@@ -947,7 +947,7 @@ static inline void base_jd_atom_dep_set(struct base_dependency *dep,
  * @param[in]     from         The dependency to make a copy from.
  *
  */
-static inline void base_jd_atom_dep_copy(struct base_dependency *dep,
+static void base_jd_atom_dep_copy(struct base_dependency *dep,
 		const struct base_dependency *from)
 {
 	LOCAL_ASSERT(dep != NULL);
@@ -981,7 +981,7 @@ static inline void base_jd_atom_dep_copy(struct base_dependency *dep,
  *      by calling @ref base_jd_submit.
  * @post @p atom can be submitted by calling @ref base_jd_submit.
  */
-static inline void base_jd_fence_trigger_setup_v2(struct base_jd_atom_v2 *atom, struct base_fence *fence)
+static void base_jd_fence_trigger_setup_v2(struct base_jd_atom_v2 *atom, struct base_fence *fence)
 {
 	LOCAL_ASSERT(atom);
 	LOCAL_ASSERT(fence);
@@ -1014,7 +1014,7 @@ static inline void base_jd_fence_trigger_setup_v2(struct base_jd_atom_v2 *atom, 
  *      @ref base_jd_submit.
  * @post @p atom can be submitted by calling @ref base_jd_submit.
  */
-static inline void base_jd_fence_wait_setup_v2(struct base_jd_atom_v2 *atom, struct base_fence *fence)
+static void base_jd_fence_wait_setup_v2(struct base_jd_atom_v2 *atom, struct base_fence *fence)
 {
 	LOCAL_ASSERT(atom);
 	LOCAL_ASSERT(fence);
@@ -1034,7 +1034,7 @@ static inline void base_jd_fence_wait_setup_v2(struct base_jd_atom_v2 *atom, str
  *                    obtained by calling @ref base_mem_as_import_handle().
  * @param     access  The type of access requested
  */
-static inline void base_external_resource_init(struct base_external_resource *res, struct base_import_handle handle, base_external_resource_access access)
+static void base_external_resource_init(struct base_external_resource *res, struct base_import_handle handle, base_external_resource_access access)
 {
 	u64 address;
 

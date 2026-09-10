@@ -13,7 +13,7 @@
  * dma_cookie_init - initialize the cookies for a DMA channel
  * @chan: dma channel to initialize
  */
-static inline void dma_cookie_init(struct dma_chan *chan)
+static void dma_cookie_init(struct dma_chan *chan)
 {
 	chan->cookie = DMA_MIN_COOKIE;
 	chan->completed_cookie = DMA_MIN_COOKIE;
@@ -26,7 +26,7 @@ static inline void dma_cookie_init(struct dma_chan *chan)
  * Assign a unique non-zero per-channel cookie to the descriptor.
  * Note: caller is expected to hold a lock to prevent concurrency.
  */
-static inline dma_cookie_t dma_cookie_assign(struct dma_async_tx_descriptor *tx)
+static dma_cookie_t dma_cookie_assign(struct dma_async_tx_descriptor *tx)
 {
 	struct dma_chan *chan = tx->chan;
 	dma_cookie_t cookie;
@@ -49,7 +49,7 @@ static inline dma_cookie_t dma_cookie_assign(struct dma_async_tx_descriptor *tx)
  *
  * Note: caller is expected to hold a lock to prevent concurrency.
  */
-static inline void dma_cookie_complete(struct dma_async_tx_descriptor *tx)
+static void dma_cookie_complete(struct dma_async_tx_descriptor *tx)
 {
 	BUG_ON(tx->cookie < DMA_MIN_COOKIE);
 	tx->chan->completed_cookie = tx->cookie;
@@ -65,7 +65,7 @@ static inline void dma_cookie_complete(struct dma_async_tx_descriptor *tx)
  * Report the status of the cookie, filling in the state structure if
  * non-NULL.  No locking is required.
  */
-static inline enum dma_status dma_cookie_status(struct dma_chan *chan,
+static enum dma_status dma_cookie_status(struct dma_chan *chan,
 	dma_cookie_t cookie, struct dma_tx_state *state)
 {
 	dma_cookie_t used, complete;
@@ -81,7 +81,7 @@ static inline enum dma_status dma_cookie_status(struct dma_chan *chan,
 	return dma_async_is_complete(cookie, complete, used);
 }
 
-static inline void dma_set_residue(struct dma_tx_state *state, u32 residue)
+static void dma_set_residue(struct dma_tx_state *state, u32 residue)
 {
 	if (state)
 		state->residue = residue;
@@ -102,7 +102,7 @@ struct dmaengine_desc_callback {
  * tx descriptor struct
  * No locking is required.
  */
-static inline void
+static void
 dmaengine_desc_get_callback(struct dma_async_tx_descriptor *tx,
 			    struct dmaengine_desc_callback *cb)
 {
@@ -120,7 +120,7 @@ dmaengine_desc_get_callback(struct dma_async_tx_descriptor *tx,
  * in the cb struct.
  * Locking is dependent on the driver.
  */
-static inline void
+static void
 dmaengine_desc_callback_invoke(struct dmaengine_desc_callback *cb,
 			       const struct dmaengine_result *result)
 {
@@ -148,7 +148,7 @@ dmaengine_desc_callback_invoke(struct dmaengine_desc_callback *cb,
  * in a single function since no work is necessary in between for the driver.
  * Locking is dependent on the driver.
  */
-static inline void
+static void
 dmaengine_desc_get_callback_invoke(struct dma_async_tx_descriptor *tx,
 				   const struct dmaengine_result *result)
 {
@@ -165,7 +165,7 @@ dmaengine_desc_get_callback_invoke(struct dma_async_tx_descriptor *tx,
  * Return a bool that verifies whether callback in cb is valid or not.
  * No locking is required.
  */
-static inline bool
+static bool
 dmaengine_desc_callback_valid(struct dmaengine_desc_callback *cb)
 {
 	return (cb->callback) ? true : false;

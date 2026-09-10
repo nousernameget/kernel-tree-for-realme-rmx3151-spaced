@@ -72,7 +72,7 @@ struct pic32_sport {
 #define pic32_get_opt(sport) (&sport->opt)
 #define tx_irq_enabled(sport) (sport->enable_tx_irq)
 
-static inline void pic32_uart_writel(struct pic32_sport *sport,
+static void pic32_uart_writel(struct pic32_sport *sport,
 					u32 reg, u32 val)
 {
 	struct uart_port *port = pic32_get_port(sport);
@@ -80,7 +80,7 @@ static inline void pic32_uart_writel(struct pic32_sport *sport,
 	__raw_writel(val, port->membase + reg);
 }
 
-static inline u32 pic32_uart_readl(struct pic32_sport *sport, u32 reg)
+static u32 pic32_uart_readl(struct pic32_sport *sport, u32 reg)
 {
 	struct uart_port *port = pic32_get_port(sport);
 

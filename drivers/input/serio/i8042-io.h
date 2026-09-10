@@ -46,27 +46,27 @@ extern int of_i8042_aux_irq;
 #define I8042_STATUS_REG	0x64
 #define I8042_DATA_REG		0x60
 
-static inline int i8042_read_data(void)
+static int i8042_read_data(void)
 {
 	return inb(I8042_DATA_REG);
 }
 
-static inline int i8042_read_status(void)
+static int i8042_read_status(void)
 {
 	return inb(I8042_STATUS_REG);
 }
 
-static inline void i8042_write_data(int val)
+static void i8042_write_data(int val)
 {
 	outb(val, I8042_DATA_REG);
 }
 
-static inline void i8042_write_command(int val)
+static void i8042_write_command(int val)
 {
 	outb(val, I8042_COMMAND_REG);
 }
 
-static inline int i8042_platform_init(void)
+static int i8042_platform_init(void)
 {
 /*
  * On some platforms touching the i8042 data register region can do really
@@ -85,7 +85,7 @@ static inline int i8042_platform_init(void)
 	return 0;
 }
 
-static inline void i8042_platform_exit(void)
+static void i8042_platform_exit(void)
 {
 #if !defined(__sh__) && !defined(__alpha__)
 	release_region(I8042_DATA_REG, 16);

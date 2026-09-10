@@ -30,7 +30,7 @@
 #define insw  delayed_insw
 #define outsw  delayed_outsw
 
-static inline void delayed_outsw(unsigned int addr, void *buf, int len)
+static void delayed_outsw(unsigned int addr, void *buf, int len)
 {
 	unsigned short *bp = (unsigned short *)buf;
 	while (len--) {
@@ -39,7 +39,7 @@ static inline void delayed_outsw(unsigned int addr, void *buf, int len)
 	}
 }
 
-static inline void delayed_insw(unsigned int addr, void *buf, int len)
+static void delayed_insw(unsigned int addr, void *buf, int len)
 {
 	unsigned short *bp = (unsigned short *)buf;
 	while (len--) {
@@ -535,7 +535,7 @@ struct isp1362_hcd {
 	int			req_serial;
 };
 
-static inline const char *ISP1362_INT_NAME(int n)
+static const char *ISP1362_INT_NAME(int n)
 {
 	switch (n) {
 	case ISP1362_INT_SOF:    return "SOF";
@@ -552,7 +552,7 @@ static inline const char *ISP1362_INT_NAME(int n)
 	}
 }
 
-static inline void ALIGNSTAT(struct isp1362_hcd *isp1362_hcd, void *ptr)
+static void ALIGNSTAT(struct isp1362_hcd *isp1362_hcd, void *ptr)
 {
 	unsigned long p = (unsigned long)ptr;
 	if (!(p & 0xf))
@@ -567,12 +567,12 @@ static inline void ALIGNSTAT(struct isp1362_hcd *isp1362_hcd, void *ptr)
 		isp1362_hcd->stat1++;
 }
 
-static inline struct isp1362_hcd *hcd_to_isp1362_hcd(struct usb_hcd *hcd)
+static struct isp1362_hcd *hcd_to_isp1362_hcd(struct usb_hcd *hcd)
 {
 	return (struct isp1362_hcd *) (hcd->hcd_priv);
 }
 
-static inline struct usb_hcd *isp1362_hcd_to_hcd(struct isp1362_hcd *isp1362_hcd)
+static struct usb_hcd *isp1362_hcd_to_hcd(struct isp1362_hcd *isp1362_hcd)
 {
 	return container_of((void *)isp1362_hcd, struct usb_hcd, hcd_priv);
 }

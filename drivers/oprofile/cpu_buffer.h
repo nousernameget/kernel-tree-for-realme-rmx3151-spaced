@@ -59,7 +59,7 @@ DECLARE_PER_CPU(struct oprofile_cpu_buffer, op_cpu_buffer);
  * reset these to invalid values; the next sample collected will
  * populate the buffer with proper values to initialize the buffer
  */
-static inline void op_cpu_buffer_reset(int cpu)
+static void op_cpu_buffer_reset(int cpu)
 {
 	struct oprofile_cpu_buffer *cpu_buf = &per_cpu(op_cpu_buffer, cpu);
 

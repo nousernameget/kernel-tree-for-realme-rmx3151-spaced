@@ -200,24 +200,24 @@ prop_chgalgo_dev_get_by_name(const char *name);
 extern const char *
 prop_chgalgo_notify_evt_tostring(enum prop_chgalgo_notify_evt evt);
 
-static inline int prop_chgalgo_get_devtype(struct prop_chgalgo_device *pca)
+static int prop_chgalgo_get_devtype(struct prop_chgalgo_device *pca)
 {
 	return pca->desc->type;
 }
 
-static inline void *prop_chgalgo_get_drvdata(struct prop_chgalgo_device *pca)
+static void *prop_chgalgo_get_drvdata(struct prop_chgalgo_device *pca)
 {
 	return pca->drv_data;
 }
 
-static inline int
+static int
 prop_chgalgo_notifier_register(struct prop_chgalgo_device *pca,
 			       struct notifier_block *nb)
 {
 	return srcu_notifier_chain_register(&pca->desc->nh, nb);
 }
 
-static inline int
+static int
 prop_chgalgo_notifier_unregister(struct prop_chgalgo_device *pca,
 				 struct notifier_block *nb)
 {
@@ -288,50 +288,50 @@ extern int prop_chgalgo_thermal_throttling(struct prop_chgalgo_device *pca,
 extern int prop_chgalgo_set_jeita_vbat_cv(struct prop_chgalgo_device *pca,
 					  int mV);
 #else
-static inline int prop_chgalgo_init_algo(struct prop_chgalgo_device *pca)
+static int prop_chgalgo_init_algo(struct prop_chgalgo_device *pca)
 {
 	return -ENOTSUPP;
 }
 
-static inline bool prop_chgalgo_is_algo_ready(struct prop_chgalgo_device *pca)
+static bool prop_chgalgo_is_algo_ready(struct prop_chgalgo_device *pca)
 {
 	return false;
 }
 
-static inline int prop_chgalgo_start_algo(struct prop_chgalgo_device *pca)
+static int prop_chgalgo_start_algo(struct prop_chgalgo_device *pca)
 {
 	return -ENOTSUPP;
 }
 
-static inline bool prop_chgalgo_is_algo_running(struct prop_chgalgo_device *pca)
+static bool prop_chgalgo_is_algo_running(struct prop_chgalgo_device *pca)
 {
 	return false;
 }
 
-static inline int prop_chgalgo_plugout_reset(struct prop_chgalgo_device *pca)
+static int prop_chgalgo_plugout_reset(struct prop_chgalgo_device *pca)
 {
 	return -ENOTSUPP;
 }
 
-static inline int prop_chgalgo_stop_algo(struct prop_chgalgo_device *pca,
+static int prop_chgalgo_stop_algo(struct prop_chgalgo_device *pca,
 					 bool rerun)
 {
 	return -ENOTSUPP;
 }
 
-static inline int prop_chgalgo_notifier_call(struct prop_chgalgo_device *pca,
+static int prop_chgalgo_notifier_call(struct prop_chgalgo_device *pca,
 					     struct prop_chgalgo_notify *notify)
 {
 	return -ENOTSUPP;
 }
 
-static inline int
+static int
 prop_chgalgo_thermal_throttling(struct prop_chgalgo_device *pca, int mA)
 {
 	return -ENOTSUPP;
 }
 
-static inline int
+static int
 prop_chgalgo_set_jeita_vbat_cv(struct prop_chgalgo_device *pca, int mV)
 {
 	return -ENOTSUPP;

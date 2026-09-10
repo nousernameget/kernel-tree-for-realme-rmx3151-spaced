@@ -66,7 +66,7 @@ void linkea_del_buf(struct linkea_data *ldata, const struct lu_name *lname);
 int linkea_links_find(struct linkea_data *ldata, const struct lu_name *lname,
 		      const struct lu_fid  *pfid);
 
-static inline void linkea_first_entry(struct linkea_data *ldata)
+static void linkea_first_entry(struct linkea_data *ldata)
 {
 	LASSERT(ldata);
 	LASSERT(ldata->ld_leh);
@@ -77,7 +77,7 @@ static inline void linkea_first_entry(struct linkea_data *ldata)
 		ldata->ld_lee = (struct link_ea_entry *)(ldata->ld_leh + 1);
 }
 
-static inline void linkea_next_entry(struct linkea_data *ldata)
+static void linkea_next_entry(struct linkea_data *ldata)
 {
 	LASSERT(ldata);
 	LASSERT(ldata->ld_leh);

@@ -37,7 +37,7 @@ i2c_acpi_match_device(const struct acpi_device_id *matches,
 void i2c_acpi_register_devices(struct i2c_adapter *adap);
 #else /* CONFIG_ACPI */
 static inline void i2c_acpi_register_devices(struct i2c_adapter *adap) { }
-static inline const struct acpi_device_id *
+static const struct acpi_device_id *
 i2c_acpi_match_device(const struct acpi_device_id *matches,
 		      struct i2c_client *client)
 {

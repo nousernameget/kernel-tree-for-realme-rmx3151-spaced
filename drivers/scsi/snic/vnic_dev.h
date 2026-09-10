@@ -26,12 +26,12 @@
 #endif
 
 #ifndef readq
-static inline u64 readq(void __iomem *reg)
+static u64 readq(void __iomem *reg)
 {
 	return ((u64)readl(reg + 0x4UL) << 32) | (u64)readl(reg);
 }
 
-static inline void writeq(u64 val, void __iomem *reg)
+static void writeq(u64 val, void __iomem *reg)
 {
 	writel(lower_32_bits(val), reg);
 	writel(upper_32_bits(val), reg + 0x4UL);

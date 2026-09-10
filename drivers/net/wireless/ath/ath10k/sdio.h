@@ -219,7 +219,7 @@ struct ath10k_sdio {
 	spinlock_t wr_async_lock;
 };
 
-static inline struct ath10k_sdio *ath10k_sdio_priv(struct ath10k *ar)
+static struct ath10k_sdio *ath10k_sdio_priv(struct ath10k *ar)
 {
 	return (struct ath10k_sdio *)ar->drv_priv;
 }

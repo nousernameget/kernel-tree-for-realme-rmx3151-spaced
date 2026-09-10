@@ -47,7 +47,7 @@ struct sunxi_engine {
  * sunxi_engine_commit() - commit all changes of the engine
  * @engine:	pointer to the engine
  */
-static inline void
+static void
 sunxi_engine_commit(struct sunxi_engine *engine)
 {
 	if (engine->ops && engine->ops->commit)
@@ -59,7 +59,7 @@ sunxi_engine_commit(struct sunxi_engine *engine)
  * @drm:	pointer to the drm_device for which planes will be created
  * @engine:	pointer to the engine
  */
-static inline struct drm_plane **
+static struct drm_plane **
 sunxi_engine_layers_init(struct drm_device *drm, struct sunxi_engine *engine)
 {
 	if (engine->ops && engine->ops->layers_init)
@@ -76,7 +76,7 @@ sunxi_engine_layers_init(struct drm_device *drm, struct sunxi_engine *engine)
  * without the color correction, due to TV Encoder expects the engine to
  * output directly YUV signal.
  */
-static inline void
+static void
 sunxi_engine_apply_color_correction(struct sunxi_engine *engine)
 {
 	if (engine->ops && engine->ops->apply_color_correction)
@@ -89,7 +89,7 @@ sunxi_engine_apply_color_correction(struct sunxi_engine *engine)
  *
  * This function is paired with apply_color_correction().
  */
-static inline void
+static void
 sunxi_engine_disable_color_correction(struct sunxi_engine *engine)
 {
 	if (engine->ops && engine->ops->disable_color_correction)

@@ -110,14 +110,14 @@ struct iwl_ucode_capabilities {
 	unsigned long _capa[BITS_TO_LONGS(NUM_IWL_UCODE_TLV_CAPA)];
 };
 
-static inline bool
+static bool
 fw_has_api(const struct iwl_ucode_capabilities *capabilities,
 	   iwl_ucode_tlv_api_t api)
 {
 	return test_bit((__force long)api, capabilities->_api);
 }
 
-static inline bool
+static bool
 fw_has_capa(const struct iwl_ucode_capabilities *capabilities,
 	    iwl_ucode_tlv_capa_t capa)
 {
@@ -303,7 +303,7 @@ struct iwl_fw {
 	struct iwl_gscan_capabilities gscan_capa;
 };
 
-static inline const char *get_fw_dbg_mode_string(int mode)
+static const char *get_fw_dbg_mode_string(int mode)
 {
 	switch (mode) {
 	case SMEM_MODE:
@@ -319,7 +319,7 @@ static inline const char *get_fw_dbg_mode_string(int mode)
 	}
 }
 
-static inline bool
+static bool
 iwl_fw_dbg_conf_usniffer(const struct iwl_fw *fw, u8 id)
 {
 	const struct iwl_fw_dbg_conf_tlv *conf_tlv = fw->dbg_conf_tlv[id];
@@ -330,7 +330,7 @@ iwl_fw_dbg_conf_usniffer(const struct iwl_fw *fw, u8 id)
 	return conf_tlv->usniffer;
 }
 
-static inline const struct fw_img *
+static const struct fw_img *
 iwl_get_ucode_image(const struct iwl_fw *fw, enum iwl_ucode_type ucode_type)
 {
 	if (ucode_type >= IWL_UCODE_TYPE_MAX)

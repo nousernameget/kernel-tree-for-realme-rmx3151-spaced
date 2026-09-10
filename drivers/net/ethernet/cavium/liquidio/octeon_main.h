@@ -71,7 +71,7 @@ void octeon_report_tx_completion_to_bql(void *txq, unsigned int pkts_compl,
 					unsigned int bytes_compl);
 void octeon_pf_changed_vf_macaddr(struct octeon_device *oct, u8 *mac);
 /** Swap 8B blocks */
-static inline void octeon_swap_8B_data(u64 *data, u32 blocks)
+static void octeon_swap_8B_data(u64 *data, u32 blocks)
 {
 	while (blocks) {
 		cpu_to_be64s(data);
@@ -85,7 +85,7 @@ static inline void octeon_swap_8B_data(u64 *data, u32 blocks)
  * @param oct Pointer to Octeon device
  * @param baridx bar index
  */
-static inline void octeon_unmap_pci_barx(struct octeon_device *oct, int baridx)
+static void octeon_unmap_pci_barx(struct octeon_device *oct, int baridx)
 {
 	dev_dbg(&oct->pci_dev->dev, "Freeing PCI mapped regions for Bar%d\n",
 		baridx);
@@ -103,7 +103,7 @@ static inline void octeon_unmap_pci_barx(struct octeon_device *oct, int baridx)
  * @param baridx bar index
  * @param max_map_len maximum length of mapped memory
  */
-static inline int octeon_map_pci_barx(struct octeon_device *oct,
+static int octeon_map_pci_barx(struct octeon_device *oct,
 				      int baridx, int max_map_len)
 {
 	u32 mapped_len = 0;
@@ -146,7 +146,7 @@ err_release_region:
 	return 1;
 }
 
-static inline int
+static int
 sleep_cond(wait_queue_head_t *wait_queue, int *condition)
 {
 	int errno = 0;
@@ -172,7 +172,7 @@ out:
  * Check that the condition is not true before we go to sleep for a
  * timeout period.
  */
-static inline void
+static void
 sleep_timeout_cond(wait_queue_head_t *wait_queue,
 		   int *condition,
 		   int timeout)

@@ -67,34 +67,34 @@ enum pdp_odin_subversion {
 };
 
 /* Register R-W */
-static inline u32 core_rreg32(void __iomem *base, resource_size_t reg)
+static u32 core_rreg32(void __iomem *base, resource_size_t reg)
 {
 	return ioread32(base + reg);
 }
 
-static inline void core_wreg32(void __iomem *base, resource_size_t reg,
+static void core_wreg32(void __iomem *base, resource_size_t reg,
 			       u32 value)
 {
 	iowrite32(value, base + reg);
 }
 
-static inline u32 pdp_rreg32(void __iomem *base, resource_size_t reg)
+static u32 pdp_rreg32(void __iomem *base, resource_size_t reg)
 {
 	return ioread32(base + reg);
 }
 
-static inline void pdp_wreg32(void __iomem *base, resource_size_t reg,
+static void pdp_wreg32(void __iomem *base, resource_size_t reg,
 			      u32 value)
 {
 	iowrite32(value, base + reg);
 }
 
-static inline u32 pll_rreg32(void __iomem *base, resource_size_t reg)
+static u32 pll_rreg32(void __iomem *base, resource_size_t reg)
 {
 	return ioread32(base + reg);
 }
 
-static inline void pll_wreg32(void __iomem *base, resource_size_t reg,
+static void pll_wreg32(void __iomem *base, resource_size_t reg,
 			      u32 value)
 {
 	iowrite32(value, base + reg);

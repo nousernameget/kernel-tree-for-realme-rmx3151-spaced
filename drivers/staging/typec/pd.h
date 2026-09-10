@@ -72,32 +72,32 @@ enum pd_data_msg_type {
 #define PD_HEADER_LE(type, pwr, data, id, cnt) \
 	cpu_to_le16(PD_HEADER((type), (pwr), (data), (id), (cnt)))
 
-static inline unsigned int pd_header_cnt(u16 header)
+static unsigned int pd_header_cnt(u16 header)
 {
 	return (header >> PD_HEADER_CNT_SHIFT) & PD_HEADER_CNT_MASK;
 }
 
-static inline unsigned int pd_header_cnt_le(__le16 header)
+static unsigned int pd_header_cnt_le(__le16 header)
 {
 	return pd_header_cnt(le16_to_cpu(header));
 }
 
-static inline unsigned int pd_header_type(u16 header)
+static unsigned int pd_header_type(u16 header)
 {
 	return (header >> PD_HEADER_TYPE_SHIFT) & PD_HEADER_TYPE_MASK;
 }
 
-static inline unsigned int pd_header_type_le(__le16 header)
+static unsigned int pd_header_type_le(__le16 header)
 {
 	return pd_header_type(le16_to_cpu(header));
 }
 
-static inline unsigned int pd_header_msgid(u16 header)
+static unsigned int pd_header_msgid(u16 header)
 {
 	return (header >> PD_HEADER_ID_SHIFT) & PD_HEADER_ID_MASK;
 }
 
-static inline unsigned int pd_header_msgid_le(__le16 header)
+static unsigned int pd_header_msgid_le(__le16 header)
 {
 	return pd_header_msgid(le16_to_cpu(header));
 }
@@ -167,32 +167,32 @@ enum pd_pdo_type {
 	(PDO_TYPE(PDO_TYPE_VAR) | PDO_VAR_MIN_VOLT(min_mv) |	\
 	 PDO_VAR_MAX_VOLT(max_mv) | PDO_VAR_MAX_CURR(max_ma))
 
-static inline enum pd_pdo_type pdo_type(u32 pdo)
+static enum pd_pdo_type pdo_type(u32 pdo)
 {
 	return (pdo >> PDO_TYPE_SHIFT) & PDO_TYPE_MASK;
 }
 
-static inline unsigned int pdo_fixed_voltage(u32 pdo)
+static unsigned int pdo_fixed_voltage(u32 pdo)
 {
 	return ((pdo >> PDO_FIXED_VOLT_SHIFT) & PDO_VOLT_MASK) * 50;
 }
 
-static inline unsigned int pdo_min_voltage(u32 pdo)
+static unsigned int pdo_min_voltage(u32 pdo)
 {
 	return ((pdo >> PDO_VAR_MIN_VOLT_SHIFT) & PDO_VOLT_MASK) * 50;
 }
 
-static inline unsigned int pdo_max_voltage(u32 pdo)
+static unsigned int pdo_max_voltage(u32 pdo)
 {
 	return ((pdo >> PDO_VAR_MAX_VOLT_SHIFT) & PDO_VOLT_MASK) * 50;
 }
 
-static inline unsigned int pdo_max_current(u32 pdo)
+static unsigned int pdo_max_current(u32 pdo)
 {
 	return ((pdo >> PDO_VAR_MAX_CURR_SHIFT) & PDO_CURR_MASK) * 10;
 }
 
-static inline unsigned int pdo_max_power(u32 pdo)
+static unsigned int pdo_max_power(u32 pdo)
 {
 	return ((pdo >> PDO_BATT_MAX_PWR_SHIFT) & PDO_PWR_MASK) * 250;
 }
@@ -230,28 +230,28 @@ static inline unsigned int pdo_max_power(u32 pdo)
 	(RDO_OBJ(idx) | (flags) |				\
 	 RDO_BATT_OP_PWR(op_mw) | RDO_BATT_MAX_PWR(max_mw))
 
-static inline unsigned int rdo_index(u32 rdo)
+static unsigned int rdo_index(u32 rdo)
 {
 	return (rdo >> RDO_OBJ_POS_SHIFT) & RDO_OBJ_POS_MASK;
 }
 
-static inline unsigned int rdo_op_current(u32 rdo)
+static unsigned int rdo_op_current(u32 rdo)
 {
 	return ((rdo >> RDO_FIXED_OP_CURR_SHIFT) & RDO_CURR_MASK) * 10;
 }
 
-static inline unsigned int rdo_max_current(u32 rdo)
+static unsigned int rdo_max_current(u32 rdo)
 {
 	return ((rdo >> RDO_FIXED_MAX_CURR_SHIFT) &
 		RDO_CURR_MASK) * 10;
 }
 
-static inline unsigned int rdo_op_power(u32 rdo)
+static unsigned int rdo_op_power(u32 rdo)
 {
 	return ((rdo >> RDO_BATT_OP_PWR_SHIFT) & RDO_PWR_MASK) * 250;
 }
 
-static inline unsigned int rdo_max_power(u32 rdo)
+static unsigned int rdo_max_power(u32 rdo)
 {
 	return ((rdo >> RDO_BATT_MAX_PWR_SHIFT) & RDO_PWR_MASK) * 250;
 }

@@ -296,47 +296,47 @@ struct mthca_sqp {
 	dma_addr_t      header_dma;
 };
 
-static inline struct mthca_ucontext *to_mucontext(struct ib_ucontext *ibucontext)
+static struct mthca_ucontext *to_mucontext(struct ib_ucontext *ibucontext)
 {
 	return container_of(ibucontext, struct mthca_ucontext, ibucontext);
 }
 
-static inline struct mthca_fmr *to_mfmr(struct ib_fmr *ibmr)
+static struct mthca_fmr *to_mfmr(struct ib_fmr *ibmr)
 {
 	return container_of(ibmr, struct mthca_fmr, ibmr);
 }
 
-static inline struct mthca_mr *to_mmr(struct ib_mr *ibmr)
+static struct mthca_mr *to_mmr(struct ib_mr *ibmr)
 {
 	return container_of(ibmr, struct mthca_mr, ibmr);
 }
 
-static inline struct mthca_pd *to_mpd(struct ib_pd *ibpd)
+static struct mthca_pd *to_mpd(struct ib_pd *ibpd)
 {
 	return container_of(ibpd, struct mthca_pd, ibpd);
 }
 
-static inline struct mthca_ah *to_mah(struct ib_ah *ibah)
+static struct mthca_ah *to_mah(struct ib_ah *ibah)
 {
 	return container_of(ibah, struct mthca_ah, ibah);
 }
 
-static inline struct mthca_cq *to_mcq(struct ib_cq *ibcq)
+static struct mthca_cq *to_mcq(struct ib_cq *ibcq)
 {
 	return container_of(ibcq, struct mthca_cq, ibcq);
 }
 
-static inline struct mthca_srq *to_msrq(struct ib_srq *ibsrq)
+static struct mthca_srq *to_msrq(struct ib_srq *ibsrq)
 {
 	return container_of(ibsrq, struct mthca_srq, ibsrq);
 }
 
-static inline struct mthca_qp *to_mqp(struct ib_qp *ibqp)
+static struct mthca_qp *to_mqp(struct ib_qp *ibqp)
 {
 	return container_of(ibqp, struct mthca_qp, ibqp);
 }
 
-static inline struct mthca_sqp *to_msqp(struct mthca_qp *qp)
+static struct mthca_sqp *to_msqp(struct mthca_qp *qp)
 {
 	return container_of(qp, struct mthca_sqp, qp);
 }

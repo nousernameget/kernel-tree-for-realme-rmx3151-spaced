@@ -129,17 +129,17 @@ struct rtsx_dev {
 };
 
 /* Convert between rtsx_dev and the corresponding Scsi_Host */
-static inline struct Scsi_Host *rtsx_to_host(struct rtsx_dev *dev)
+static struct Scsi_Host *rtsx_to_host(struct rtsx_dev *dev)
 {
 	return container_of((void *)dev, struct Scsi_Host, hostdata);
 }
 
-static inline struct rtsx_dev *host_to_rtsx(struct Scsi_Host *host)
+static struct rtsx_dev *host_to_rtsx(struct Scsi_Host *host)
 {
 	return (struct rtsx_dev *)host->hostdata;
 }
 
-static inline void get_current_time(u8 *timeval_buf, int buf_len)
+static void get_current_time(u8 *timeval_buf, int buf_len)
 {
 	struct timespec64 ts64;
 	u32 tv_usec;

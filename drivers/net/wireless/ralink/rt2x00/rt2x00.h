@@ -384,7 +384,7 @@ struct rt2x00_intf {
 	atomic_t seqno;
 };
 
-static inline struct rt2x00_intf* vif_to_intf(struct ieee80211_vif *vif)
+static struct rt2x00_intf* vif_to_intf(struct ieee80211_vif *vif)
 {
 	return (struct rt2x00_intf *)vif->drv_priv;
 }
@@ -511,7 +511,7 @@ struct rt2x00_sta {
 	int wcid;
 };
 
-static inline struct rt2x00_sta* sta_to_rt2x00_sta(struct ieee80211_sta *sta)
+static struct rt2x00_sta* sta_to_rt2x00_sta(struct ieee80211_sta *sta)
 {
 	return (struct rt2x00_sta *)sta->drv_priv;
 }
@@ -1048,14 +1048,14 @@ struct rt2x00_bar_list_entry {
  * Generic RF access.
  * The RF is being accessed by word index.
  */
-static inline u32 rt2x00_rf_read(struct rt2x00_dev *rt2x00dev,
+static u32 rt2x00_rf_read(struct rt2x00_dev *rt2x00dev,
 				 const unsigned int word)
 {
 	BUG_ON(word < 1 || word > rt2x00dev->ops->rf_size / sizeof(u32));
 	return rt2x00dev->rf[word - 1];
 }
 
-static inline void rt2x00_rf_write(struct rt2x00_dev *rt2x00dev,
+static void rt2x00_rf_write(struct rt2x00_dev *rt2x00dev,
 				   const unsigned int word, u32 data)
 {
 	BUG_ON(word < 1 || word > rt2x00dev->ops->rf_size / sizeof(u32));
@@ -1065,25 +1065,25 @@ static inline void rt2x00_rf_write(struct rt2x00_dev *rt2x00dev,
 /*
  * Generic EEPROM access. The EEPROM is being accessed by word or byte index.
  */
-static inline void *rt2x00_eeprom_addr(struct rt2x00_dev *rt2x00dev,
+static void *rt2x00_eeprom_addr(struct rt2x00_dev *rt2x00dev,
 				       const unsigned int word)
 {
 	return (void *)&rt2x00dev->eeprom[word];
 }
 
-static inline u16 rt2x00_eeprom_read(struct rt2x00_dev *rt2x00dev,
+static u16 rt2x00_eeprom_read(struct rt2x00_dev *rt2x00dev,
 				     const unsigned int word)
 {
 	return le16_to_cpu(rt2x00dev->eeprom[word]);
 }
 
-static inline void rt2x00_eeprom_write(struct rt2x00_dev *rt2x00dev,
+static void rt2x00_eeprom_write(struct rt2x00_dev *rt2x00dev,
 				       const unsigned int word, u16 data)
 {
 	rt2x00dev->eeprom[word] = cpu_to_le16(data);
 }
 
-static inline u8 rt2x00_eeprom_byte(struct rt2x00_dev *rt2x00dev,
+static u8 rt2x00_eeprom_byte(struct rt2x00_dev *rt2x00dev,
 				    const unsigned int byte)
 {
 	return *(((u8 *)rt2x00dev->eeprom) + byte);
@@ -1092,7 +1092,7 @@ static inline u8 rt2x00_eeprom_byte(struct rt2x00_dev *rt2x00dev,
 /*
  * Chipset handlers
  */
-static inline void rt2x00_set_chip(struct rt2x00_dev *rt2x00dev,
+static void rt2x00_set_chip(struct rt2x00_dev *rt2x00dev,
 				   const u16 rt, const u16 rf, const u16 rev)
 {
 	rt2x00dev->chip.rt = rt;
@@ -1104,7 +1104,7 @@ static inline void rt2x00_set_chip(struct rt2x00_dev *rt2x00dev,
 		    rt2x00dev->chip.rev);
 }
 
-static inline void rt2x00_set_rt(struct rt2x00_dev *rt2x00dev,
+static void rt2x00_set_rt(struct rt2x00_dev *rt2x00dev,
 				 const u16 rt, const u16 rev)
 {
 	rt2x00dev->chip.rt = rt;
@@ -1114,7 +1114,7 @@ static inline void rt2x00_set_rt(struct rt2x00_dev *rt2x00dev,
 		    rt2x00dev->chip.rt, rt2x00dev->chip.rev);
 }
 
-static inline void rt2x00_set_rf(struct rt2x00_dev *rt2x00dev, const u16 rf)
+static void rt2x00_set_rf(struct rt2x00_dev *rt2x00dev, const u16 rf)
 {
 	rt2x00dev->chip.rf = rf;
 
@@ -1122,154 +1122,154 @@ static inline void rt2x00_set_rf(struct rt2x00_dev *rt2x00dev, const u16 rf)
 		    rt2x00dev->chip.rf);
 }
 
-static inline bool rt2x00_rt(struct rt2x00_dev *rt2x00dev, const u16 rt)
+static bool rt2x00_rt(struct rt2x00_dev *rt2x00dev, const u16 rt)
 {
 	return (rt2x00dev->chip.rt == rt);
 }
 
-static inline bool rt2x00_rf(struct rt2x00_dev *rt2x00dev, const u16 rf)
+static bool rt2x00_rf(struct rt2x00_dev *rt2x00dev, const u16 rf)
 {
 	return (rt2x00dev->chip.rf == rf);
 }
 
-static inline u16 rt2x00_rev(struct rt2x00_dev *rt2x00dev)
+static u16 rt2x00_rev(struct rt2x00_dev *rt2x00dev)
 {
 	return rt2x00dev->chip.rev;
 }
 
-static inline bool rt2x00_rt_rev(struct rt2x00_dev *rt2x00dev,
+static bool rt2x00_rt_rev(struct rt2x00_dev *rt2x00dev,
 				 const u16 rt, const u16 rev)
 {
 	return (rt2x00_rt(rt2x00dev, rt) && rt2x00_rev(rt2x00dev) == rev);
 }
 
-static inline bool rt2x00_rt_rev_lt(struct rt2x00_dev *rt2x00dev,
+static bool rt2x00_rt_rev_lt(struct rt2x00_dev *rt2x00dev,
 				    const u16 rt, const u16 rev)
 {
 	return (rt2x00_rt(rt2x00dev, rt) && rt2x00_rev(rt2x00dev) < rev);
 }
 
-static inline bool rt2x00_rt_rev_gte(struct rt2x00_dev *rt2x00dev,
+static bool rt2x00_rt_rev_gte(struct rt2x00_dev *rt2x00dev,
 				     const u16 rt, const u16 rev)
 {
 	return (rt2x00_rt(rt2x00dev, rt) && rt2x00_rev(rt2x00dev) >= rev);
 }
 
-static inline void rt2x00_set_chip_intf(struct rt2x00_dev *rt2x00dev,
+static void rt2x00_set_chip_intf(struct rt2x00_dev *rt2x00dev,
 					enum rt2x00_chip_intf intf)
 {
 	rt2x00dev->chip.intf = intf;
 }
 
-static inline bool rt2x00_intf(struct rt2x00_dev *rt2x00dev,
+static bool rt2x00_intf(struct rt2x00_dev *rt2x00dev,
 			       enum rt2x00_chip_intf intf)
 {
 	return (rt2x00dev->chip.intf == intf);
 }
 
-static inline bool rt2x00_is_pci(struct rt2x00_dev *rt2x00dev)
+static bool rt2x00_is_pci(struct rt2x00_dev *rt2x00dev)
 {
 	return rt2x00_intf(rt2x00dev, RT2X00_CHIP_INTF_PCI) ||
 	       rt2x00_intf(rt2x00dev, RT2X00_CHIP_INTF_PCIE);
 }
 
-static inline bool rt2x00_is_pcie(struct rt2x00_dev *rt2x00dev)
+static bool rt2x00_is_pcie(struct rt2x00_dev *rt2x00dev)
 {
 	return rt2x00_intf(rt2x00dev, RT2X00_CHIP_INTF_PCIE);
 }
 
-static inline bool rt2x00_is_usb(struct rt2x00_dev *rt2x00dev)
+static bool rt2x00_is_usb(struct rt2x00_dev *rt2x00dev)
 {
 	return rt2x00_intf(rt2x00dev, RT2X00_CHIP_INTF_USB);
 }
 
-static inline bool rt2x00_is_soc(struct rt2x00_dev *rt2x00dev)
+static bool rt2x00_is_soc(struct rt2x00_dev *rt2x00dev)
 {
 	return rt2x00_intf(rt2x00dev, RT2X00_CHIP_INTF_SOC);
 }
 
 /* Helpers for capability flags */
 
-static inline bool
+static bool
 rt2x00_has_cap_flag(struct rt2x00_dev *rt2x00dev,
 		    enum rt2x00_capability_flags cap_flag)
 {
 	return test_bit(cap_flag, &rt2x00dev->cap_flags);
 }
 
-static inline bool
+static bool
 rt2x00_has_cap_hw_crypto(struct rt2x00_dev *rt2x00dev)
 {
 	return rt2x00_has_cap_flag(rt2x00dev, CAPABILITY_HW_CRYPTO);
 }
 
-static inline bool
+static bool
 rt2x00_has_cap_power_limit(struct rt2x00_dev *rt2x00dev)
 {
 	return rt2x00_has_cap_flag(rt2x00dev, CAPABILITY_POWER_LIMIT);
 }
 
-static inline bool
+static bool
 rt2x00_has_cap_control_filters(struct rt2x00_dev *rt2x00dev)
 {
 	return rt2x00_has_cap_flag(rt2x00dev, CAPABILITY_CONTROL_FILTERS);
 }
 
-static inline bool
+static bool
 rt2x00_has_cap_control_filter_pspoll(struct rt2x00_dev *rt2x00dev)
 {
 	return rt2x00_has_cap_flag(rt2x00dev, CAPABILITY_CONTROL_FILTER_PSPOLL);
 }
 
-static inline bool
+static bool
 rt2x00_has_cap_pre_tbtt_interrupt(struct rt2x00_dev *rt2x00dev)
 {
 	return rt2x00_has_cap_flag(rt2x00dev, CAPABILITY_PRE_TBTT_INTERRUPT);
 }
 
-static inline bool
+static bool
 rt2x00_has_cap_link_tuning(struct rt2x00_dev *rt2x00dev)
 {
 	return rt2x00_has_cap_flag(rt2x00dev, CAPABILITY_LINK_TUNING);
 }
 
-static inline bool
+static bool
 rt2x00_has_cap_frame_type(struct rt2x00_dev *rt2x00dev)
 {
 	return rt2x00_has_cap_flag(rt2x00dev, CAPABILITY_FRAME_TYPE);
 }
 
-static inline bool
+static bool
 rt2x00_has_cap_rf_sequence(struct rt2x00_dev *rt2x00dev)
 {
 	return rt2x00_has_cap_flag(rt2x00dev, CAPABILITY_RF_SEQUENCE);
 }
 
-static inline bool
+static bool
 rt2x00_has_cap_external_lna_a(struct rt2x00_dev *rt2x00dev)
 {
 	return rt2x00_has_cap_flag(rt2x00dev, CAPABILITY_EXTERNAL_LNA_A);
 }
 
-static inline bool
+static bool
 rt2x00_has_cap_external_lna_bg(struct rt2x00_dev *rt2x00dev)
 {
 	return rt2x00_has_cap_flag(rt2x00dev, CAPABILITY_EXTERNAL_LNA_BG);
 }
 
-static inline bool
+static bool
 rt2x00_has_cap_double_antenna(struct rt2x00_dev *rt2x00dev)
 {
 	return rt2x00_has_cap_flag(rt2x00dev, CAPABILITY_DOUBLE_ANTENNA);
 }
 
-static inline bool
+static bool
 rt2x00_has_cap_bt_coexist(struct rt2x00_dev *rt2x00dev)
 {
 	return rt2x00_has_cap_flag(rt2x00dev, CAPABILITY_BT_COEXIST);
 }
 
-static inline bool
+static bool
 rt2x00_has_cap_vco_recalibration(struct rt2x00_dev *rt2x00dev)
 {
 	return rt2x00_has_cap_flag(rt2x00dev, CAPABILITY_VCO_RECALIBRATION);
@@ -1296,7 +1296,7 @@ void rt2x00queue_unmap_skb(struct queue_entry *entry);
  *
  * Returns NULL for non tx queues.
  */
-static inline struct data_queue *
+static struct data_queue *
 rt2x00queue_get_tx_queue(struct rt2x00_dev *rt2x00dev,
 			 const enum data_queue_qid queue)
 {
@@ -1402,7 +1402,7 @@ void rt2x00queue_flush_queues(struct rt2x00_dev *rt2x00dev, bool drop);
 void rt2x00debug_dump_frame(struct rt2x00_dev *rt2x00dev,
 			    enum rt2x00_dump_type type, struct queue_entry *entry);
 #else
-static inline void rt2x00debug_dump_frame(struct rt2x00_dev *rt2x00dev,
+static void rt2x00debug_dump_frame(struct rt2x00_dev *rt2x00dev,
 					  enum rt2x00_dump_type type,
 					  struct queue_entry *entry)
 {

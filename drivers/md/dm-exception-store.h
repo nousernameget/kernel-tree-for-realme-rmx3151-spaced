@@ -139,24 +139,24 @@ struct dm_dev *dm_snap_cow(struct dm_snapshot *snap);
 #    define DM_CHUNK_CONSECUTIVE_BITS 8
 #    define DM_CHUNK_NUMBER_BITS 56
 
-static inline chunk_t dm_chunk_number(chunk_t chunk)
+static chunk_t dm_chunk_number(chunk_t chunk)
 {
 	return chunk & (chunk_t)((1ULL << DM_CHUNK_NUMBER_BITS) - 1ULL);
 }
 
-static inline unsigned dm_consecutive_chunk_count(struct dm_exception *e)
+static unsigned dm_consecutive_chunk_count(struct dm_exception *e)
 {
 	return e->new_chunk >> DM_CHUNK_NUMBER_BITS;
 }
 
-static inline void dm_consecutive_chunk_count_inc(struct dm_exception *e)
+static void dm_consecutive_chunk_count_inc(struct dm_exception *e)
 {
 	e->new_chunk += (1ULL << DM_CHUNK_NUMBER_BITS);
 
 	BUG_ON(!dm_consecutive_chunk_count(e));
 }
 
-static inline void dm_consecutive_chunk_count_dec(struct dm_exception *e)
+static void dm_consecutive_chunk_count_dec(struct dm_exception *e)
 {
 	BUG_ON(!dm_consecutive_chunk_count(e));
 
@@ -166,21 +166,21 @@ static inline void dm_consecutive_chunk_count_dec(struct dm_exception *e)
 #  else
 #    define DM_CHUNK_CONSECUTIVE_BITS 0
 
-static inline chunk_t dm_chunk_number(chunk_t chunk)
+static chunk_t dm_chunk_number(chunk_t chunk)
 {
 	return chunk;
 }
 
-static inline unsigned dm_consecutive_chunk_count(struct dm_exception *e)
+static unsigned dm_consecutive_chunk_count(struct dm_exception *e)
 {
 	return 0;
 }
 
-static inline void dm_consecutive_chunk_count_inc(struct dm_exception *e)
+static void dm_consecutive_chunk_count_inc(struct dm_exception *e)
 {
 }
 
-static inline void dm_consecutive_chunk_count_dec(struct dm_exception *e)
+static void dm_consecutive_chunk_count_dec(struct dm_exception *e)
 {
 }
 
@@ -189,12 +189,12 @@ static inline void dm_consecutive_chunk_count_dec(struct dm_exception *e)
 /*
  * Return the number of sectors in the device.
  */
-static inline sector_t get_dev_size(struct block_device *bdev)
+static sector_t get_dev_size(struct block_device *bdev)
 {
 	return i_size_read(bdev->bd_inode) >> SECTOR_SHIFT;
 }
 
-static inline chunk_t sector_to_chunk(struct dm_exception_store *store,
+static chunk_t sector_to_chunk(struct dm_exception_store *store,
 				      sector_t sector)
 {
 	return sector >> store->chunk_shift;

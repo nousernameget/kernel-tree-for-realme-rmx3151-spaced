@@ -32,7 +32,7 @@ struct vsp1_sru {
 	unsigned int intensity;
 };
 
-static inline struct vsp1_sru *to_sru(struct v4l2_subdev *subdev)
+static struct vsp1_sru *to_sru(struct v4l2_subdev *subdev)
 {
 	return container_of(subdev, struct vsp1_sru, entity.subdev);
 }

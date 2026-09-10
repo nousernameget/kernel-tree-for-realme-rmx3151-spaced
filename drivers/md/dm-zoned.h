@@ -195,7 +195,7 @@ unsigned int dmz_nr_unmap_rnd_zones(struct dmz_metadata *zmd);
 /*
  * Activate a zone (increment its reference count).
  */
-static inline void dmz_activate_zone(struct dm_zone *zone)
+static void dmz_activate_zone(struct dm_zone *zone)
 {
 	atomic_inc(&zone->refcount);
 }
@@ -204,7 +204,7 @@ static inline void dmz_activate_zone(struct dm_zone *zone)
  * Deactivate a zone. This decrement the zone reference counter
  * indicating that all BIOs to the zone have completed when the count is 0.
  */
-static inline void dmz_deactivate_zone(struct dm_zone *zone)
+static void dmz_deactivate_zone(struct dm_zone *zone)
 {
 	atomic_dec(&zone->refcount);
 }
@@ -212,7 +212,7 @@ static inline void dmz_deactivate_zone(struct dm_zone *zone)
 /*
  * Test if a zone is active, that is, has a refcount > 0.
  */
-static inline bool dmz_is_active(struct dm_zone *zone)
+static bool dmz_is_active(struct dm_zone *zone)
 {
 	return atomic_read(&zone->refcount);
 }

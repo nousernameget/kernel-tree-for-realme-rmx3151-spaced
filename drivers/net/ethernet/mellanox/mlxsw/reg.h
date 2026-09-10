@@ -80,7 +80,7 @@ MLXSW_REG_DEFINE(sgcr, MLXSW_REG_SGCR_ID, MLXSW_REG_SGCR_LEN);
  */
 MLXSW_ITEM32(reg, sgcr, llb, 0x04, 0, 1);
 
-static inline void mlxsw_reg_sgcr_pack(char *payload, bool llb)
+static void mlxsw_reg_sgcr_pack(char *payload, bool llb)
 {
 	MLXSW_REG_ZERO(sgcr, payload);
 	mlxsw_reg_sgcr_llb_set(payload, !!llb);
@@ -139,7 +139,7 @@ MLXSW_ITEM_BIT_ARRAY(reg, smid, port, 0x20, 0x20, 1);
  */
 MLXSW_ITEM_BIT_ARRAY(reg, smid, port_mask, 0x220, 0x20, 1);
 
-static inline void mlxsw_reg_smid_pack(char *payload, u16 mid,
+static void mlxsw_reg_smid_pack(char *payload, u16 mid,
 				       u8 port, bool set)
 {
 	MLXSW_REG_ZERO(smid, payload);
@@ -195,7 +195,7 @@ MLXSW_ITEM32(reg, sspr, sub_port, 0x00, 8, 8);
  */
 MLXSW_ITEM32(reg, sspr, system_port, 0x04, 0, 16);
 
-static inline void mlxsw_reg_sspr_pack(char *payload, u8 local_port)
+static void mlxsw_reg_sspr_pack(char *payload, u8 local_port)
 {
 	MLXSW_REG_ZERO(sspr, payload);
 	mlxsw_reg_sspr_m_set(payload, 1);
@@ -229,7 +229,7 @@ MLXSW_ITEM32(reg, sfdat, swid, 0x00, 24, 8);
  */
 MLXSW_ITEM32(reg, sfdat, age_time, 0x04, 0, 20);
 
-static inline void mlxsw_reg_sfdat_pack(char *payload, u32 age_time)
+static void mlxsw_reg_sfdat_pack(char *payload, u32 age_time)
 {
 	MLXSW_REG_ZERO(sfdat, payload);
 	mlxsw_reg_sfdat_swid_set(payload, 0);
@@ -310,7 +310,7 @@ MLXSW_ITEM32(reg, sfd, record_locator, 0x04, 0, 30);
  */
 MLXSW_ITEM32(reg, sfd, num_rec, 0x08, 0, 8);
 
-static inline void mlxsw_reg_sfd_pack(char *payload, enum mlxsw_reg_sfd_op op,
+static void mlxsw_reg_sfd_pack(char *payload, enum mlxsw_reg_sfd_op op,
 				      u32 record_locator)
 {
 	MLXSW_REG_ZERO(sfd, payload);
@@ -421,7 +421,7 @@ MLXSW_ITEM32_INDEXED(reg, sfd, uc_fid_vid, MLXSW_REG_SFD_BASE_LEN, 0, 16,
 MLXSW_ITEM32_INDEXED(reg, sfd, uc_system_port, MLXSW_REG_SFD_BASE_LEN, 0, 16,
 		     MLXSW_REG_SFD_REC_LEN, 0x0C, false);
 
-static inline void mlxsw_reg_sfd_rec_pack(char *payload, int rec_index,
+static void mlxsw_reg_sfd_rec_pack(char *payload, int rec_index,
 					  enum mlxsw_reg_sfd_rec_type rec_type,
 					  const char *mac,
 					  enum mlxsw_reg_sfd_rec_action action)
@@ -436,7 +436,7 @@ static inline void mlxsw_reg_sfd_rec_pack(char *payload, int rec_index,
 	mlxsw_reg_sfd_rec_action_set(payload, rec_index, action);
 }
 
-static inline void mlxsw_reg_sfd_uc_pack(char *payload, int rec_index,
+static void mlxsw_reg_sfd_uc_pack(char *payload, int rec_index,
 					 enum mlxsw_reg_sfd_rec_policy policy,
 					 const char *mac, u16 fid_vid,
 					 enum mlxsw_reg_sfd_rec_action action,
@@ -450,7 +450,7 @@ static inline void mlxsw_reg_sfd_uc_pack(char *payload, int rec_index,
 	mlxsw_reg_sfd_uc_system_port_set(payload, rec_index, local_port);
 }
 
-static inline void mlxsw_reg_sfd_uc_unpack(char *payload, int rec_index,
+static void mlxsw_reg_sfd_uc_unpack(char *payload, int rec_index,
 					   char *mac, u16 *p_fid_vid,
 					   u8 *p_local_port)
 {
@@ -494,7 +494,7 @@ MLXSW_ITEM32_INDEXED(reg, sfd, uc_lag_lag_vid, MLXSW_REG_SFD_BASE_LEN, 16, 12,
 MLXSW_ITEM32_INDEXED(reg, sfd, uc_lag_lag_id, MLXSW_REG_SFD_BASE_LEN, 0, 10,
 		     MLXSW_REG_SFD_REC_LEN, 0x0C, false);
 
-static inline void
+static void
 mlxsw_reg_sfd_uc_lag_pack(char *payload, int rec_index,
 			  enum mlxsw_reg_sfd_rec_policy policy,
 			  const char *mac, u16 fid_vid,
@@ -511,7 +511,7 @@ mlxsw_reg_sfd_uc_lag_pack(char *payload, int rec_index,
 	mlxsw_reg_sfd_uc_lag_lag_id_set(payload, rec_index, lag_id);
 }
 
-static inline void mlxsw_reg_sfd_uc_lag_unpack(char *payload, int rec_index,
+static void mlxsw_reg_sfd_uc_lag_unpack(char *payload, int rec_index,
 					       char *mac, u16 *p_vid,
 					       u16 *p_lag_id)
 {
@@ -547,7 +547,7 @@ MLXSW_ITEM32_INDEXED(reg, sfd, mc_fid_vid, MLXSW_REG_SFD_BASE_LEN, 0, 16,
 MLXSW_ITEM32_INDEXED(reg, sfd, mc_mid, MLXSW_REG_SFD_BASE_LEN, 0, 16,
 		     MLXSW_REG_SFD_REC_LEN, 0x0C, false);
 
-static inline void
+static void
 mlxsw_reg_sfd_mc_pack(char *payload, int rec_index,
 		      const char *mac, u16 fid_vid,
 		      enum mlxsw_reg_sfd_rec_action action, u16 mid)
@@ -595,7 +595,7 @@ MLXSW_ITEM32(reg, sfn, end, 0x04, 20, 1);
  */
 MLXSW_ITEM32(reg, sfn, num_rec, 0x04, 0, 8);
 
-static inline void mlxsw_reg_sfn_pack(char *payload)
+static void mlxsw_reg_sfn_pack(char *payload)
 {
 	MLXSW_REG_ZERO(sfn, payload);
 	mlxsw_reg_sfn_swid_set(payload, 0);
@@ -657,7 +657,7 @@ MLXSW_ITEM32_INDEXED(reg, sfn, mac_fid, MLXSW_REG_SFN_BASE_LEN, 0, 16,
 MLXSW_ITEM32_INDEXED(reg, sfn, mac_system_port, MLXSW_REG_SFN_BASE_LEN, 0, 16,
 		     MLXSW_REG_SFN_REC_LEN, 0x0C, false);
 
-static inline void mlxsw_reg_sfn_mac_unpack(char *payload, int rec_index,
+static void mlxsw_reg_sfn_mac_unpack(char *payload, int rec_index,
 					    char *mac, u16 *p_vid,
 					    u8 *p_local_port)
 {
@@ -673,7 +673,7 @@ static inline void mlxsw_reg_sfn_mac_unpack(char *payload, int rec_index,
 MLXSW_ITEM32_INDEXED(reg, sfn, mac_lag_lag_id, MLXSW_REG_SFN_BASE_LEN, 0, 10,
 		     MLXSW_REG_SFN_REC_LEN, 0x0C, false);
 
-static inline void mlxsw_reg_sfn_mac_lag_unpack(char *payload, int rec_index,
+static void mlxsw_reg_sfn_mac_lag_unpack(char *payload, int rec_index,
 						char *mac, u16 *p_vid,
 						u16 *p_lag_id)
 {
@@ -714,13 +714,13 @@ enum mlxsw_reg_spms_state {
  */
 MLXSW_ITEM_BIT_ARRAY(reg, spms, state, 0x04, 0x400, 2);
 
-static inline void mlxsw_reg_spms_pack(char *payload, u8 local_port)
+static void mlxsw_reg_spms_pack(char *payload, u8 local_port)
 {
 	MLXSW_REG_ZERO(spms, payload);
 	mlxsw_reg_spms_local_port_set(payload, local_port);
 }
 
-static inline void mlxsw_reg_spms_vid_pack(char *payload, u16 vid,
+static void mlxsw_reg_spms_vid_pack(char *payload, u16 vid,
 					   enum mlxsw_reg_spms_state state)
 {
 	mlxsw_reg_spms_state_set(payload, vid, state);
@@ -754,7 +754,7 @@ MLXSW_ITEM32(reg, spvid, sub_port, 0x00, 8, 8);
  */
 MLXSW_ITEM32(reg, spvid, pvid, 0x04, 0, 12);
 
-static inline void mlxsw_reg_spvid_pack(char *payload, u8 local_port, u16 pvid)
+static void mlxsw_reg_spvid_pack(char *payload, u8 local_port, u16 pvid)
 {
 	MLXSW_REG_ZERO(spvid, payload);
 	mlxsw_reg_spvid_local_port_set(payload, local_port);
@@ -843,7 +843,7 @@ MLXSW_ITEM32_INDEXED(reg, spvm, rec_vid,
 		     MLXSW_REG_SPVM_BASE_LEN, 0, 12,
 		     MLXSW_REG_SPVM_REC_LEN, 0, false);
 
-static inline void mlxsw_reg_spvm_pack(char *payload, u8 local_port,
+static void mlxsw_reg_spvm_pack(char *payload, u8 local_port,
 				       u16 vid_begin, u16 vid_end,
 				       bool is_member, bool untagged)
 {
@@ -905,7 +905,7 @@ MLXSW_ITEM32(reg, spaft, allow_prio_tagged, 0x04, 30, 1);
  */
 MLXSW_ITEM32(reg, spaft, allow_tagged, 0x04, 29, 1);
 
-static inline void mlxsw_reg_spaft_pack(char *payload, u8 local_port,
+static void mlxsw_reg_spaft_pack(char *payload, u8 local_port,
 					bool allow_untagged)
 {
 	MLXSW_REG_ZERO(spaft, payload);
@@ -996,7 +996,7 @@ MLXSW_ITEM32(reg, sfgc, counter_set_type, 0x0C, 24, 8);
  */
 MLXSW_ITEM32(reg, sfgc, counter_index, 0x0C, 0, 24);
 
-static inline void
+static void
 mlxsw_reg_sfgc_pack(char *payload, enum mlxsw_reg_sfgc_type type,
 		    enum mlxsw_reg_sfgc_bridge_type bridge_type,
 		    enum mlxsw_flood_table_type table_type,
@@ -1064,7 +1064,7 @@ MLXSW_ITEM_BIT_ARRAY(reg, sftr, port, 0x20, 0x20, 1);
  */
 MLXSW_ITEM_BIT_ARRAY(reg, sftr, port_mask, 0x220, 0x20, 1);
 
-static inline void mlxsw_reg_sftr_pack(char *payload,
+static void mlxsw_reg_sftr_pack(char *payload,
 				       unsigned int flood_table,
 				       unsigned int index,
 				       enum mlxsw_flood_table_type table_type,
@@ -1125,7 +1125,7 @@ MLXSW_ITEM32(reg, sfdf, flush_type, 0x04, 28, 4);
  */
 MLXSW_ITEM32(reg, sfdf, flush_static, 0x04, 24, 1);
 
-static inline void mlxsw_reg_sfdf_pack(char *payload,
+static void mlxsw_reg_sfdf_pack(char *payload,
 				       enum mlxsw_reg_sfdf_flush_type type)
 {
 	MLXSW_REG_ZERO(sfdf, payload);
@@ -1196,14 +1196,14 @@ MLXSW_ITEM32(reg, sldr, op, 0x00, 29, 3);
  */
 MLXSW_ITEM32(reg, sldr, lag_id, 0x00, 0, 10);
 
-static inline void mlxsw_reg_sldr_lag_create_pack(char *payload, u8 lag_id)
+static void mlxsw_reg_sldr_lag_create_pack(char *payload, u8 lag_id)
 {
 	MLXSW_REG_ZERO(sldr, payload);
 	mlxsw_reg_sldr_op_set(payload, MLXSW_REG_SLDR_OP_LAG_CREATE);
 	mlxsw_reg_sldr_lag_id_set(payload, lag_id);
 }
 
-static inline void mlxsw_reg_sldr_lag_destroy_pack(char *payload, u8 lag_id)
+static void mlxsw_reg_sldr_lag_destroy_pack(char *payload, u8 lag_id)
 {
 	MLXSW_REG_ZERO(sldr, payload);
 	mlxsw_reg_sldr_op_set(payload, MLXSW_REG_SLDR_OP_LAG_DESTROY);
@@ -1224,7 +1224,7 @@ MLXSW_ITEM32(reg, sldr, num_ports, 0x04, 24, 8);
  */
 MLXSW_ITEM32_INDEXED(reg, sldr, system_port, 0x08, 0, 16, 4, 0, false);
 
-static inline void mlxsw_reg_sldr_lag_add_port_pack(char *payload, u8 lag_id,
+static void mlxsw_reg_sldr_lag_add_port_pack(char *payload, u8 lag_id,
 						    u8 local_port)
 {
 	MLXSW_REG_ZERO(sldr, payload);
@@ -1234,7 +1234,7 @@ static inline void mlxsw_reg_sldr_lag_add_port_pack(char *payload, u8 lag_id,
 	mlxsw_reg_sldr_system_port_set(payload, 0, local_port);
 }
 
-static inline void mlxsw_reg_sldr_lag_remove_port_pack(char *payload, u8 lag_id,
+static void mlxsw_reg_sldr_lag_remove_port_pack(char *payload, u8 lag_id,
 						       u8 local_port)
 {
 	MLXSW_REG_ZERO(sldr, payload);
@@ -1349,7 +1349,7 @@ MLXSW_ITEM32(reg, slcr, type, 0x00, 0, 4);
  */
 MLXSW_ITEM32(reg, slcr, lag_hash, 0x04, 0, 20);
 
-static inline void mlxsw_reg_slcr_pack(char *payload, u16 lag_hash)
+static void mlxsw_reg_slcr_pack(char *payload, u16 lag_hash)
 {
 	MLXSW_REG_ZERO(slcr, payload);
 	mlxsw_reg_slcr_pp_set(payload, MLXSW_REG_SLCR_PP_GLOBAL);
@@ -1401,7 +1401,7 @@ MLXSW_ITEM32(reg, slcor, lag_id, 0x00, 0, 10);
  */
 MLXSW_ITEM32(reg, slcor, port_index, 0x04, 0, 10);
 
-static inline void mlxsw_reg_slcor_pack(char *payload,
+static void mlxsw_reg_slcor_pack(char *payload,
 					u8 local_port, u16 lag_id,
 					enum mlxsw_reg_slcor_col col)
 {
@@ -1411,7 +1411,7 @@ static inline void mlxsw_reg_slcor_pack(char *payload,
 	mlxsw_reg_slcor_lag_id_set(payload, lag_id);
 }
 
-static inline void mlxsw_reg_slcor_port_add_pack(char *payload,
+static void mlxsw_reg_slcor_port_add_pack(char *payload,
 						 u8 local_port, u16 lag_id,
 						 u8 port_index)
 {
@@ -1420,21 +1420,21 @@ static inline void mlxsw_reg_slcor_port_add_pack(char *payload,
 	mlxsw_reg_slcor_port_index_set(payload, port_index);
 }
 
-static inline void mlxsw_reg_slcor_port_remove_pack(char *payload,
+static void mlxsw_reg_slcor_port_remove_pack(char *payload,
 						    u8 local_port, u16 lag_id)
 {
 	mlxsw_reg_slcor_pack(payload, local_port, lag_id,
 			     MLXSW_REG_SLCOR_COL_LAG_REMOVE_PORT);
 }
 
-static inline void mlxsw_reg_slcor_col_enable_pack(char *payload,
+static void mlxsw_reg_slcor_col_enable_pack(char *payload,
 						   u8 local_port, u16 lag_id)
 {
 	mlxsw_reg_slcor_pack(payload, local_port, lag_id,
 			     MLXSW_REG_SLCOR_COL_LAG_COLLECTOR_ENABLED);
 }
 
-static inline void mlxsw_reg_slcor_col_disable_pack(char *payload,
+static void mlxsw_reg_slcor_col_disable_pack(char *payload,
 						    u8 local_port, u16 lag_id)
 {
 	mlxsw_reg_slcor_pack(payload, local_port, lag_id,
@@ -1482,7 +1482,7 @@ enum mlxsw_reg_spmlr_learn_mode {
  */
 MLXSW_ITEM32(reg, spmlr, learn_mode, 0x04, 30, 2);
 
-static inline void mlxsw_reg_spmlr_pack(char *payload, u8 local_port,
+static void mlxsw_reg_spmlr_pack(char *payload, u8 local_port,
 					enum mlxsw_reg_spmlr_learn_mode mode)
 {
 	MLXSW_REG_ZERO(spmlr, payload);
@@ -1567,7 +1567,7 @@ MLXSW_ITEM32(reg, svfa, counter_set_type, 0x08, 24, 8);
  */
 MLXSW_ITEM32(reg, svfa, counter_index, 0x08, 0, 24);
 
-static inline void mlxsw_reg_svfa_pack(char *payload, u8 local_port,
+static void mlxsw_reg_svfa_pack(char *payload, u8 local_port,
 				       enum mlxsw_reg_svfa_mt mt, bool valid,
 				       u16 fid, u16 vid)
 {
@@ -1606,7 +1606,7 @@ MLXSW_ITEM32(reg, svpe, local_port, 0x00, 16, 8);
  */
 MLXSW_ITEM32(reg, svpe, vp_en, 0x00, 8, 1);
 
-static inline void mlxsw_reg_svpe_pack(char *payload, u8 local_port,
+static void mlxsw_reg_svpe_pack(char *payload, u8 local_port,
 				       bool enable)
 {
 	MLXSW_REG_ZERO(svpe, payload);
@@ -1684,7 +1684,7 @@ MLXSW_ITEM32(reg, sfmr, vv, 0x10, 31, 1);
  */
 MLXSW_ITEM32(reg, sfmr, vni, 0x10, 0, 24);
 
-static inline void mlxsw_reg_sfmr_pack(char *payload,
+static void mlxsw_reg_sfmr_pack(char *payload,
 				       enum mlxsw_reg_sfmr_op op, u16 fid,
 				       u16 fid_offset)
 {
@@ -1739,7 +1739,7 @@ MLXSW_ITEM32_INDEXED(reg, spvmlr, rec_learn_enable, MLXSW_REG_SPVMLR_BASE_LEN,
 MLXSW_ITEM32_INDEXED(reg, spvmlr, rec_vid, MLXSW_REG_SPVMLR_BASE_LEN, 0, 12,
 		     MLXSW_REG_SPVMLR_REC_LEN, 0x00, false);
 
-static inline void mlxsw_reg_spvmlr_pack(char *payload, u8 local_port,
+static void mlxsw_reg_spvmlr_pack(char *payload, u8 local_port,
 					 u16 vid_begin, u16 vid_end,
 					 bool learn_enable)
 {
@@ -1808,7 +1808,7 @@ MLXSW_ITEM32(reg, ppbt, g, 0x10, 31, 1);
  */
 MLXSW_ITEM32(reg, ppbt, acl_info, 0x10, 0, 16);
 
-static inline void mlxsw_reg_ppbt_pack(char *payload, enum mlxsw_reg_pxbt_e e,
+static void mlxsw_reg_ppbt_pack(char *payload, enum mlxsw_reg_pxbt_e e,
 				       enum mlxsw_reg_pxbt_op op,
 				       u8 local_port, u16 acl_info)
 {
@@ -1853,7 +1853,7 @@ MLXSW_ITEM32(reg, pacl, acl_id, 0x08, 0, 16);
 MLXSW_ITEM_BUF(reg, pacl, tcam_region_info, 0x30,
 	       MLXSW_REG_PXXX_TCAM_REGION_INFO_LEN);
 
-static inline void mlxsw_reg_pacl_pack(char *payload, u16 acl_id,
+static void mlxsw_reg_pacl_pack(char *payload, u16 acl_id,
 				       bool valid, const char *tcam_region_info)
 {
 	MLXSW_REG_ZERO(pacl, payload);
@@ -1899,13 +1899,13 @@ MLXSW_ITEM32(reg, pagt, acl_group_id, 0x08, 0, 16);
  */
 MLXSW_ITEM32_INDEXED(reg, pagt, acl_id, 0x30, 0, 16, 0x04, 0x00, false);
 
-static inline void mlxsw_reg_pagt_pack(char *payload, u16 acl_group_id)
+static void mlxsw_reg_pagt_pack(char *payload, u16 acl_group_id)
 {
 	MLXSW_REG_ZERO(pagt, payload);
 	mlxsw_reg_pagt_acl_group_id_set(payload, acl_group_id);
 }
 
-static inline void mlxsw_reg_pagt_acl_id_pack(char *payload, int index,
+static void mlxsw_reg_pagt_acl_id_pack(char *payload, int index,
 					      u16 acl_id)
 {
 	u8 size = mlxsw_reg_pagt_size_get(payload);
@@ -1996,7 +1996,7 @@ MLXSW_ITEM_BUF(reg, ptar, tcam_region_info, 0x10,
 MLXSW_ITEM8_INDEXED(reg, ptar, flexible_key_id, 0x20, 0, 8,
 		    MLXSW_REG_PTAR_KEY_ID_LEN, 0x00, false);
 
-static inline void mlxsw_reg_ptar_pack(char *payload, enum mlxsw_reg_ptar_op op,
+static void mlxsw_reg_ptar_pack(char *payload, enum mlxsw_reg_ptar_op op,
 				       u16 region_size, u16 region_id,
 				       const char *tcam_region_info)
 {
@@ -2009,13 +2009,13 @@ static inline void mlxsw_reg_ptar_pack(char *payload, enum mlxsw_reg_ptar_op op,
 	mlxsw_reg_ptar_tcam_region_info_memcpy_to(payload, tcam_region_info);
 }
 
-static inline void mlxsw_reg_ptar_key_id_pack(char *payload, int index,
+static void mlxsw_reg_ptar_key_id_pack(char *payload, int index,
 					      u16 key_id)
 {
 	mlxsw_reg_ptar_flexible_key_id_set(payload, index, key_id);
 }
 
-static inline void mlxsw_reg_ptar_unpack(char *payload, char *tcam_region_info)
+static void mlxsw_reg_ptar_unpack(char *payload, char *tcam_region_info)
 {
 	mlxsw_reg_ptar_tcam_region_info_memcpy_from(payload, tcam_region_info);
 }
@@ -2042,7 +2042,7 @@ MLXSW_ITEM32(reg, ppbs, pbs_ptr, 0x08, 0, 24);
  */
 MLXSW_ITEM32(reg, ppbs, system_port, 0x10, 0, 16);
 
-static inline void mlxsw_reg_ppbs_pack(char *payload, u32 pbs_ptr,
+static void mlxsw_reg_ppbs_pack(char *payload, u32 pbs_ptr,
 				       u16 system_port)
 {
 	MLXSW_REG_ZERO(ppbs, payload);
@@ -2109,7 +2109,7 @@ MLXSW_ITEM32(reg, prcr, dest_offset, 0x20, 0, 16);
 MLXSW_ITEM_BUF(reg, prcr, dest_tcam_region_info, 0x30,
 	       MLXSW_REG_PXXX_TCAM_REGION_INFO_LEN);
 
-static inline void mlxsw_reg_prcr_pack(char *payload, enum mlxsw_reg_prcr_op op,
+static void mlxsw_reg_prcr_pack(char *payload, enum mlxsw_reg_prcr_op op,
 				       const char *src_tcam_region_info,
 				       u16 src_offset,
 				       const char *dest_tcam_region_info,
@@ -2152,7 +2152,7 @@ MLXSW_ITEM32(reg, pefa, index, 0x00, 0, 24);
 MLXSW_ITEM_BUF(reg, pefa, flex_action_set, 0x08,
 	       MLXSW_REG_PXXX_FLEX_ACTION_SET_LEN);
 
-static inline void mlxsw_reg_pefa_pack(char *payload, u32 index,
+static void mlxsw_reg_pefa_pack(char *payload, u32 index,
 				       const char *flex_action_set)
 {
 	MLXSW_REG_ZERO(pefa, payload);
@@ -2245,7 +2245,7 @@ MLXSW_ITEM_BUF(reg, ptce2, mask, 0x80,
 MLXSW_ITEM_BUF(reg, ptce2, flex_action_set, 0xE0,
 	       MLXSW_REG_PXXX_FLEX_ACTION_SET_LEN);
 
-static inline void mlxsw_reg_ptce2_pack(char *payload, bool valid,
+static void mlxsw_reg_ptce2_pack(char *payload, bool valid,
 					enum mlxsw_reg_ptce2_op op,
 					const char *tcam_region_info,
 					u16 offset)
@@ -2381,7 +2381,7 @@ enum mlxsw_reg_qpcr_action {
  */
 MLXSW_ITEM32(reg, qpcr, violate_action, 0x18, 0, 4);
 
-static inline void mlxsw_reg_qpcr_pack(char *payload, u16 pid,
+static void mlxsw_reg_qpcr_pack(char *payload, u16 pid,
 				       enum mlxsw_reg_qpcr_ir_units ir_units,
 				       bool bytes, u32 cir, u16 cbs)
 {
@@ -2438,7 +2438,7 @@ MLXSW_ITEM32(reg, qtct, switch_prio, 0x00, 0, 4);
  */
 MLXSW_ITEM32(reg, qtct, tclass, 0x04, 0, 4);
 
-static inline void mlxsw_reg_qtct_pack(char *payload, u8 local_port,
+static void mlxsw_reg_qtct_pack(char *payload, u8 local_port,
 				       u8 switch_prio, u8 tclass)
 {
 	MLXSW_REG_ZERO(qtct, payload);
@@ -2578,7 +2578,7 @@ MLXSW_ITEM32(reg, qeec, dwrr, 0x18, 15, 1);
  */
 MLXSW_ITEM32(reg, qeec, dwrr_weight, 0x18, 0, 8);
 
-static inline void mlxsw_reg_qeec_pack(char *payload, u8 local_port,
+static void mlxsw_reg_qeec_pack(char *payload, u8 local_port,
 				       enum mlxsw_reg_qeec_hr hr, u8 index,
 				       u8 next_index)
 {
@@ -2639,7 +2639,7 @@ MLXSW_ITEM32_INDEXED(reg, pmlp, tx_lane, 0x04, 16, 2, 0x04, 0x00, false);
  */
 MLXSW_ITEM32_INDEXED(reg, pmlp, rx_lane, 0x04, 24, 2, 0x04, 0x00, false);
 
-static inline void mlxsw_reg_pmlp_pack(char *payload, u8 local_port)
+static void mlxsw_reg_pmlp_pack(char *payload, u8 local_port)
 {
 	MLXSW_REG_ZERO(pmlp, payload);
 	mlxsw_reg_pmlp_local_port_set(payload, local_port);
@@ -2686,7 +2686,7 @@ MLXSW_ITEM32(reg, pmtu, admin_mtu, 0x08, 16, 16);
  */
 MLXSW_ITEM32(reg, pmtu, oper_mtu, 0x0C, 16, 16);
 
-static inline void mlxsw_reg_pmtu_pack(char *payload, u8 local_port,
+static void mlxsw_reg_pmtu_pack(char *payload, u8 local_port,
 				       u16 new_mtu)
 {
 	MLXSW_REG_ZERO(pmtu, payload);
@@ -2835,7 +2835,7 @@ MLXSW_ITEM32(reg, ptys, ib_proto_oper, 0x28, 0, 16);
  */
 MLXSW_ITEM32(reg, ptys, eth_proto_lp_advertise, 0x30, 0, 32);
 
-static inline void mlxsw_reg_ptys_eth_pack(char *payload, u8 local_port,
+static void mlxsw_reg_ptys_eth_pack(char *payload, u8 local_port,
 					   u32 proto_admin)
 {
 	MLXSW_REG_ZERO(ptys, payload);
@@ -2844,7 +2844,7 @@ static inline void mlxsw_reg_ptys_eth_pack(char *payload, u8 local_port,
 	mlxsw_reg_ptys_eth_proto_admin_set(payload, proto_admin);
 }
 
-static inline void mlxsw_reg_ptys_eth_unpack(char *payload,
+static void mlxsw_reg_ptys_eth_unpack(char *payload,
 					     u32 *p_eth_proto_cap,
 					     u32 *p_eth_proto_adm,
 					     u32 *p_eth_proto_oper)
@@ -2857,7 +2857,7 @@ static inline void mlxsw_reg_ptys_eth_unpack(char *payload,
 		*p_eth_proto_oper = mlxsw_reg_ptys_eth_proto_oper_get(payload);
 }
 
-static inline void mlxsw_reg_ptys_ib_pack(char *payload, u8 local_port,
+static void mlxsw_reg_ptys_ib_pack(char *payload, u8 local_port,
 					  u16 proto_admin, u16 link_width)
 {
 	MLXSW_REG_ZERO(ptys, payload);
@@ -2867,7 +2867,7 @@ static inline void mlxsw_reg_ptys_ib_pack(char *payload, u8 local_port,
 	mlxsw_reg_ptys_ib_link_width_admin_set(payload, link_width);
 }
 
-static inline void mlxsw_reg_ptys_ib_unpack(char *payload, u16 *p_ib_proto_cap,
+static void mlxsw_reg_ptys_ib_unpack(char *payload, u16 *p_ib_proto_cap,
 					    u16 *p_ib_link_width_cap,
 					    u16 *p_ib_proto_oper,
 					    u16 *p_ib_link_width_oper)
@@ -2914,7 +2914,7 @@ MLXSW_ITEM32(reg, ppad, local_port, 0x00, 16, 8);
  */
 MLXSW_ITEM_BUF(reg, ppad, mac, 0x02, 6);
 
-static inline void mlxsw_reg_ppad_pack(char *payload, bool single_base_mac,
+static void mlxsw_reg_ppad_pack(char *payload, bool single_base_mac,
 				       u8 local_port)
 {
 	MLXSW_REG_ZERO(ppad, payload);
@@ -2989,7 +2989,7 @@ MLXSW_ITEM32(reg, paos, ee, 0x04, 30, 1);
  */
 MLXSW_ITEM32(reg, paos, e, 0x04, 0, 2);
 
-static inline void mlxsw_reg_paos_pack(char *payload, u8 local_port,
+static void mlxsw_reg_paos_pack(char *payload, u8 local_port,
 				       enum mlxsw_port_admin_status status)
 {
 	MLXSW_REG_ZERO(paos, payload);
@@ -3124,7 +3124,7 @@ MLXSW_ITEM32(reg, pfcc, pfcrx, 0x0C, 16, 8);
 
 #define MLXSW_REG_PFCC_ALL_PRIO 0xFF
 
-static inline void mlxsw_reg_pfcc_prio_pack(char *payload, u8 pfc_en)
+static void mlxsw_reg_pfcc_prio_pack(char *payload, u8 pfc_en)
 {
 	mlxsw_reg_pfcc_prio_mask_tx_set(payload, MLXSW_REG_PFCC_ALL_PRIO);
 	mlxsw_reg_pfcc_prio_mask_rx_set(payload, MLXSW_REG_PFCC_ALL_PRIO);
@@ -3132,7 +3132,7 @@ static inline void mlxsw_reg_pfcc_prio_pack(char *payload, u8 pfc_en)
 	mlxsw_reg_pfcc_pfcrx_set(payload, pfc_en);
 }
 
-static inline void mlxsw_reg_pfcc_pack(char *payload, u8 local_port)
+static void mlxsw_reg_pfcc_pack(char *payload, u8 local_port)
 {
 	MLXSW_REG_ZERO(pfcc, payload);
 	mlxsw_reg_pfcc_local_port_set(payload, local_port);
@@ -3395,7 +3395,7 @@ MLXSW_ITEM64(reg, ppcnt, tc_transmit_queue, 0x08 + 0x00, 0, 64);
  */
 MLXSW_ITEM64(reg, ppcnt, tc_no_buffer_discard_uc, 0x08 + 0x08, 0, 64);
 
-static inline void mlxsw_reg_ppcnt_pack(char *payload, u8 local_port,
+static void mlxsw_reg_ppcnt_pack(char *payload, u8 local_port,
 					enum mlxsw_reg_ppcnt_grp grp,
 					u8 prio_tc)
 {
@@ -3506,7 +3506,7 @@ MLXSW_ITEM_BIT_ARRAY(reg, pptb, prio_to_buff_msb, 0x0C, 0x04, 4);
 
 #define MLXSW_REG_PPTB_ALL_PRIO 0xFF
 
-static inline void mlxsw_reg_pptb_pack(char *payload, u8 local_port)
+static void mlxsw_reg_pptb_pack(char *payload, u8 local_port)
 {
 	MLXSW_REG_ZERO(pptb, payload);
 	mlxsw_reg_pptb_mm_set(payload, MLXSW_REG_PPTB_MM_UM);
@@ -3515,7 +3515,7 @@ static inline void mlxsw_reg_pptb_pack(char *payload, u8 local_port)
 	mlxsw_reg_pptb_pm_msb_set(payload, MLXSW_REG_PPTB_ALL_PRIO);
 }
 
-static inline void mlxsw_reg_pptb_prio_to_buff_pack(char *payload, u8 prio,
+static void mlxsw_reg_pptb_prio_to_buff_pack(char *payload, u8 prio,
 						    u8 buff)
 {
 	mlxsw_reg_pptb_prio_to_buff_set(payload, prio, buff);
@@ -3603,7 +3603,7 @@ MLXSW_ITEM32_INDEXED(reg, pbmc, buf_xoff_threshold, 0x0C, 16, 16,
 MLXSW_ITEM32_INDEXED(reg, pbmc, buf_xon_threshold, 0x0C, 0, 16,
 		     0x08, 0x04, false);
 
-static inline void mlxsw_reg_pbmc_pack(char *payload, u8 local_port,
+static void mlxsw_reg_pbmc_pack(char *payload, u8 local_port,
 				       u16 xoff_timer_value, u16 xoff_refresh)
 {
 	MLXSW_REG_ZERO(pbmc, payload);
@@ -3612,7 +3612,7 @@ static inline void mlxsw_reg_pbmc_pack(char *payload, u8 local_port,
 	mlxsw_reg_pbmc_xoff_refresh_set(payload, xoff_refresh);
 }
 
-static inline void mlxsw_reg_pbmc_lossy_buffer_pack(char *payload,
+static void mlxsw_reg_pbmc_lossy_buffer_pack(char *payload,
 						    int buf_index,
 						    u16 size)
 {
@@ -3621,7 +3621,7 @@ static inline void mlxsw_reg_pbmc_lossy_buffer_pack(char *payload,
 	mlxsw_reg_pbmc_buf_size_set(payload, buf_index, size);
 }
 
-static inline void mlxsw_reg_pbmc_lossless_buffer_pack(char *payload,
+static void mlxsw_reg_pbmc_lossless_buffer_pack(char *payload,
 						       int buf_index, u16 size,
 						       u16 threshold)
 {
@@ -3661,7 +3661,7 @@ MLXSW_ITEM32(reg, pspa, local_port, 0x00, 16, 8);
  */
 MLXSW_ITEM32(reg, pspa, sub_port, 0x00, 8, 8);
 
-static inline void mlxsw_reg_pspa_pack(char *payload, u8 swid, u8 local_port)
+static void mlxsw_reg_pspa_pack(char *payload, u8 swid, u8 local_port)
 {
 	MLXSW_REG_ZERO(pspa, payload);
 	mlxsw_reg_pspa_swid_set(payload, swid);
@@ -3794,7 +3794,7 @@ enum mlxsw_reg_htgt_local_path_rdq {
  */
 MLXSW_ITEM32(reg, htgt, local_path_rdq, 0x10, 0, 6);
 
-static inline void mlxsw_reg_htgt_pack(char *payload, u8 group, u8 policer_id,
+static void mlxsw_reg_htgt_pack(char *payload, u8 group, u8 policer_id,
 				       u8 priority, u8 tc)
 {
 	MLXSW_REG_ZERO(htgt, payload);
@@ -3896,7 +3896,7 @@ enum {
  */
 MLXSW_ITEM32(reg, hpkt, ctrl, 0x04, 16, 2);
 
-static inline void mlxsw_reg_hpkt_pack(char *payload, u8 action, u16 trap_id,
+static void mlxsw_reg_hpkt_pack(char *payload, u8 action, u16 trap_id,
 				       enum mlxsw_reg_htgt_trap_group trap_group,
 				       bool is_ctrl)
 {
@@ -3975,7 +3975,7 @@ MLXSW_ITEM32(reg, rgcr, pcp_rw, 0x18, 16, 2);
  */
 MLXSW_ITEM32(reg, rgcr, activity_dis, 0x20, 0, 8);
 
-static inline void mlxsw_reg_rgcr_pack(char *payload, bool ipv4_en,
+static void mlxsw_reg_rgcr_pack(char *payload, bool ipv4_en,
 				       bool ipv6_en)
 {
 	MLXSW_REG_ZERO(rgcr, payload);
@@ -4120,7 +4120,7 @@ MLXSW_ITEM32(reg, ritr, vlan_if_vid, 0x08, 0, 12);
  */
 MLXSW_ITEM32(reg, ritr, fid_if_fid, 0x08, 0, 16);
 
-static inline void mlxsw_reg_ritr_fid_set(char *payload,
+static void mlxsw_reg_ritr_fid_set(char *payload,
 					  enum mlxsw_reg_ritr_if_type rif_type,
 					  u16 fid)
 {
@@ -4250,7 +4250,7 @@ MLXSW_ITEM32(reg, ritr, egress_counter_index, 0x3C, 0, 24);
  */
 MLXSW_ITEM32(reg, ritr, egress_counter_set_type, 0x3C, 24, 8);
 
-static inline void mlxsw_reg_ritr_counter_pack(char *payload, u32 index,
+static void mlxsw_reg_ritr_counter_pack(char *payload, u32 index,
 					       bool enable, bool egress)
 {
 	enum mlxsw_reg_ritr_counter_set_type set_type;
@@ -4267,13 +4267,13 @@ static inline void mlxsw_reg_ritr_counter_pack(char *payload, u32 index,
 		mlxsw_reg_ritr_ingress_counter_index_set(payload, index);
 }
 
-static inline void mlxsw_reg_ritr_rif_pack(char *payload, u16 rif)
+static void mlxsw_reg_ritr_rif_pack(char *payload, u16 rif)
 {
 	MLXSW_REG_ZERO(ritr, payload);
 	mlxsw_reg_ritr_rif_set(payload, rif);
 }
 
-static inline void mlxsw_reg_ritr_sp_if_pack(char *payload, bool lag,
+static void mlxsw_reg_ritr_sp_if_pack(char *payload, bool lag,
 					     u16 system_port, u16 vid)
 {
 	mlxsw_reg_ritr_sp_if_lag_set(payload, lag);
@@ -4281,7 +4281,7 @@ static inline void mlxsw_reg_ritr_sp_if_pack(char *payload, bool lag,
 	mlxsw_reg_ritr_sp_if_vid_set(payload, vid);
 }
 
-static inline void mlxsw_reg_ritr_pack(char *payload, bool enable,
+static void mlxsw_reg_ritr_pack(char *payload, bool enable,
 				       enum mlxsw_reg_ritr_if_type type,
 				       u16 rif, u16 vr_id, u16 mtu)
 {
@@ -4301,12 +4301,12 @@ static inline void mlxsw_reg_ritr_pack(char *payload, bool enable,
 	mlxsw_reg_ritr_mtu_set(payload, mtu);
 }
 
-static inline void mlxsw_reg_ritr_mac_pack(char *payload, const char *mac)
+static void mlxsw_reg_ritr_mac_pack(char *payload, const char *mac)
 {
 	mlxsw_reg_ritr_if_mac_memcpy_to(payload, mac);
 }
 
-static inline void
+static void
 mlxsw_reg_ritr_loopback_ipip_common_pack(char *payload,
 			    enum mlxsw_reg_ritr_loopback_ipip_type ipip_type,
 			    enum mlxsw_reg_ritr_loopback_ipip_options options,
@@ -4318,7 +4318,7 @@ mlxsw_reg_ritr_loopback_ipip_common_pack(char *payload,
 	mlxsw_reg_ritr_loopback_ipip_gre_key_set(payload, gre_key);
 }
 
-static inline void
+static void
 mlxsw_reg_ritr_loopback_ipip4_pack(char *payload,
 			    enum mlxsw_reg_ritr_loopback_ipip_type ipip_type,
 			    enum mlxsw_reg_ritr_loopback_ipip_options options,
@@ -4500,7 +4500,7 @@ MLXSW_ITEM32(reg, ratr, ipip_ipv4_udip, 0x18, 0, 32);
  */
 MLXSW_ITEM32(reg, ratr, ipip_ipv6_ptr, 0x1C, 0, 24);
 
-static inline void
+static void
 mlxsw_reg_ratr_pack(char *payload,
 		    enum mlxsw_reg_ratr_op op, bool valid,
 		    enum mlxsw_reg_ratr_type type,
@@ -4515,13 +4515,13 @@ mlxsw_reg_ratr_pack(char *payload,
 	mlxsw_reg_ratr_egress_router_interface_set(payload, egress_rif);
 }
 
-static inline void mlxsw_reg_ratr_eth_entry_pack(char *payload,
+static void mlxsw_reg_ratr_eth_entry_pack(char *payload,
 						 const char *dest_mac)
 {
 	mlxsw_reg_ratr_eth_destination_mac_memcpy_to(payload, dest_mac);
 }
 
-static inline void mlxsw_reg_ratr_ipip4_entry_pack(char *payload, u32 ipv4_udip)
+static void mlxsw_reg_ratr_ipip4_entry_pack(char *payload, u32 ipv4_udip)
 {
 	mlxsw_reg_ratr_ipip_type_set(payload, MLXSW_REG_RATR_IPIP_TYPE_IPV4);
 	mlxsw_reg_ratr_ipip_ipv4_udip_set(payload, ipv4_udip);
@@ -4640,7 +4640,7 @@ MLXSW_ITEM64(reg, ricnt, error_bytes, 0x48, 0, 64);
  */
 MLXSW_ITEM64(reg, ricnt, discard_bytes, 0x50, 0, 64);
 
-static inline void mlxsw_reg_ricnt_pack(char *payload, u32 index,
+static void mlxsw_reg_ricnt_pack(char *payload, u32 index,
 					enum mlxsw_reg_ricnt_opcode op)
 {
 	MLXSW_REG_ZERO(ricnt, payload);
@@ -4687,7 +4687,7 @@ MLXSW_ITEM32(reg, ralta, protocol, 0x00, 24, 4);
  */
 MLXSW_ITEM32(reg, ralta, tree_id, 0x00, 0, 8);
 
-static inline void mlxsw_reg_ralta_pack(char *payload, bool alloc,
+static void mlxsw_reg_ralta_pack(char *payload, bool alloc,
 					enum mlxsw_reg_ralxx_protocol protocol,
 					u8 tree_id)
 {
@@ -4746,7 +4746,7 @@ MLXSW_ITEM16_INDEXED(reg, ralst, left_child_bin, 0x04, 8, 8, 0x02, 0x00, false);
 MLXSW_ITEM16_INDEXED(reg, ralst, right_child_bin, 0x04, 0, 8, 0x02, 0x00,
 		     false);
 
-static inline void mlxsw_reg_ralst_pack(char *payload, u8 root_bin, u8 tree_id)
+static void mlxsw_reg_ralst_pack(char *payload, u8 root_bin, u8 tree_id)
 {
 	MLXSW_REG_ZERO(ralst, payload);
 
@@ -4758,7 +4758,7 @@ static inline void mlxsw_reg_ralst_pack(char *payload, u8 root_bin, u8 tree_id)
 	mlxsw_reg_ralst_tree_id_set(payload, tree_id);
 }
 
-static inline void mlxsw_reg_ralst_bin_pack(char *payload, u8 bin_number,
+static void mlxsw_reg_ralst_bin_pack(char *payload, u8 bin_number,
 					    u8 left_child_bin,
 					    u8 right_child_bin)
 {
@@ -4799,7 +4799,7 @@ MLXSW_ITEM32(reg, raltb, protocol, 0x00, 12, 4);
  */
 MLXSW_ITEM32(reg, raltb, tree_id, 0x00, 0, 8);
 
-static inline void mlxsw_reg_raltb_pack(char *payload, u16 virtual_router,
+static void mlxsw_reg_raltb_pack(char *payload, u16 virtual_router,
 					enum mlxsw_reg_ralxx_protocol protocol,
 					u8 tree_id)
 {
@@ -5013,7 +5013,7 @@ MLXSW_ITEM32(reg, ralue, ip2me_v, 0x24, 31, 1);
  */
 MLXSW_ITEM32(reg, ralue, ip2me_tunnel_ptr, 0x24, 0, 24);
 
-static inline void mlxsw_reg_ralue_pack(char *payload,
+static void mlxsw_reg_ralue_pack(char *payload,
 					enum mlxsw_reg_ralxx_protocol protocol,
 					enum mlxsw_reg_ralue_op op,
 					u16 virtual_router, u8 prefix_len)
@@ -5028,7 +5028,7 @@ static inline void mlxsw_reg_ralue_pack(char *payload,
 	mlxsw_reg_ralue_bmp_len_set(payload, prefix_len);
 }
 
-static inline void mlxsw_reg_ralue_pack4(char *payload,
+static void mlxsw_reg_ralue_pack4(char *payload,
 					 enum mlxsw_reg_ralxx_protocol protocol,
 					 enum mlxsw_reg_ralue_op op,
 					 u16 virtual_router, u8 prefix_len,
@@ -5038,7 +5038,7 @@ static inline void mlxsw_reg_ralue_pack4(char *payload,
 	mlxsw_reg_ralue_dip4_set(payload, dip);
 }
 
-static inline void mlxsw_reg_ralue_pack6(char *payload,
+static void mlxsw_reg_ralue_pack6(char *payload,
 					 enum mlxsw_reg_ralxx_protocol protocol,
 					 enum mlxsw_reg_ralue_op op,
 					 u16 virtual_router, u8 prefix_len,
@@ -5048,7 +5048,7 @@ static inline void mlxsw_reg_ralue_pack6(char *payload,
 	mlxsw_reg_ralue_dip6_memcpy_to(payload, dip);
 }
 
-static inline void
+static void
 mlxsw_reg_ralue_act_remote_pack(char *payload,
 				enum mlxsw_reg_ralue_trap_action trap_action,
 				u16 trap_id, u32 adjacency_index, u16 ecmp_size)
@@ -5061,7 +5061,7 @@ mlxsw_reg_ralue_act_remote_pack(char *payload,
 	mlxsw_reg_ralue_ecmp_size_set(payload, ecmp_size);
 }
 
-static inline void
+static void
 mlxsw_reg_ralue_act_local_pack(char *payload,
 			       enum mlxsw_reg_ralue_trap_action trap_action,
 			       u16 trap_id, u16 local_erif)
@@ -5073,14 +5073,14 @@ mlxsw_reg_ralue_act_local_pack(char *payload,
 	mlxsw_reg_ralue_local_erif_set(payload, local_erif);
 }
 
-static inline void
+static void
 mlxsw_reg_ralue_act_ip2me_pack(char *payload)
 {
 	mlxsw_reg_ralue_action_type_set(payload,
 					MLXSW_REG_RALUE_ACTION_TYPE_IP2ME);
 }
 
-static inline void
+static void
 mlxsw_reg_ralue_act_ip2me_tun_pack(char *payload, u32 tunnel_ptr)
 {
 	mlxsw_reg_ralue_action_type_set(payload,
@@ -5216,7 +5216,7 @@ MLXSW_ITEM32(reg, rauht, counter_index, 0x68, 0, 24);
  */
 MLXSW_ITEM_BUF(reg, rauht, mac, 0x6E, 6);
 
-static inline void mlxsw_reg_rauht_pack(char *payload,
+static void mlxsw_reg_rauht_pack(char *payload,
 					enum mlxsw_reg_rauht_op op, u16 rif,
 					const char *mac)
 {
@@ -5226,7 +5226,7 @@ static inline void mlxsw_reg_rauht_pack(char *payload,
 	mlxsw_reg_rauht_mac_memcpy_to(payload, mac);
 }
 
-static inline void mlxsw_reg_rauht_pack4(char *payload,
+static void mlxsw_reg_rauht_pack4(char *payload,
 					 enum mlxsw_reg_rauht_op op, u16 rif,
 					 const char *mac, u32 dip)
 {
@@ -5234,7 +5234,7 @@ static inline void mlxsw_reg_rauht_pack4(char *payload,
 	mlxsw_reg_rauht_dip4_set(payload, dip);
 }
 
-static inline void mlxsw_reg_rauht_pack6(char *payload,
+static void mlxsw_reg_rauht_pack6(char *payload,
 					 enum mlxsw_reg_rauht_op op, u16 rif,
 					 const char *mac, const char *dip)
 {
@@ -5243,7 +5243,7 @@ static inline void mlxsw_reg_rauht_pack6(char *payload,
 	mlxsw_reg_rauht_dip6_memcpy_to(payload, dip);
 }
 
-static inline void mlxsw_reg_rauht_pack_counter(char *payload,
+static void mlxsw_reg_rauht_pack_counter(char *payload,
 						u64 counter_index)
 {
 	mlxsw_reg_rauht_counter_index_set(payload, counter_index);
@@ -5299,7 +5299,7 @@ MLXSW_ITEM32(reg, raleu, new_adjacency_index, 0x20, 0, 24);
  */
 MLXSW_ITEM32(reg, raleu, new_ecmp_size, 0x24, 0, 13);
 
-static inline void mlxsw_reg_raleu_pack(char *payload,
+static void mlxsw_reg_raleu_pack(char *payload,
 					enum mlxsw_reg_ralxx_protocol protocol,
 					u16 virtual_router,
 					u32 adjacency_index, u16 ecmp_size,
@@ -5393,7 +5393,7 @@ MLXSW_ITEM32(reg, rauhtd, type, 0x08, 0, 4);
  */
 MLXSW_ITEM32(reg, rauhtd, entry_rif, 0x0C, 0, 16);
 
-static inline void mlxsw_reg_rauhtd_pack(char *payload,
+static void mlxsw_reg_rauhtd_pack(char *payload,
 					 enum mlxsw_reg_rauhtd_type type)
 {
 	MLXSW_REG_ZERO(rauhtd, payload);
@@ -5473,7 +5473,7 @@ MLXSW_ITEM32_INDEXED(reg, rauhtd, ipv6_ent_rif, MLXSW_REG_RAUHTD_BASE_LEN, 0,
 MLXSW_ITEM_BUF_INDEXED(reg, rauhtd, ipv6_ent_dip, MLXSW_REG_RAUHTD_BASE_LEN,
 		       16, MLXSW_REG_RAUHTD_IPV6_ENT_LEN, 0x10);
 
-static inline void mlxsw_reg_rauhtd_ent_ipv4_unpack(char *payload,
+static void mlxsw_reg_rauhtd_ent_ipv4_unpack(char *payload,
 						    int ent_index, u16 *p_rif,
 						    u32 *p_dip)
 {
@@ -5481,7 +5481,7 @@ static inline void mlxsw_reg_rauhtd_ent_ipv4_unpack(char *payload,
 	*p_dip = mlxsw_reg_rauhtd_ipv4_ent_dip_get(payload, ent_index);
 }
 
-static inline void mlxsw_reg_rauhtd_ent_ipv6_unpack(char *payload,
+static void mlxsw_reg_rauhtd_ent_ipv6_unpack(char *payload,
 						    int rec_index, u16 *p_rif,
 						    char *p_dip)
 {
@@ -5593,7 +5593,7 @@ MLXSW_ITEM32(reg, rtdp, ipip_ipv6_usip_ptr, 0x10, 0, 24);
  */
 MLXSW_ITEM32(reg, rtdp, ipip_expected_gre_key, 0x14, 0, 32);
 
-static inline void mlxsw_reg_rtdp_pack(char *payload,
+static void mlxsw_reg_rtdp_pack(char *payload,
 				       enum mlxsw_reg_rtdp_type type,
 				       u32 tunnel_index)
 {
@@ -5602,7 +5602,7 @@ static inline void mlxsw_reg_rtdp_pack(char *payload,
 	mlxsw_reg_rtdp_tunnel_index_set(payload, tunnel_index);
 }
 
-static inline void
+static void
 mlxsw_reg_rtdp_ipip4_pack(char *payload, u16 irif,
 			  enum mlxsw_reg_rtdp_ipip_sip_check sip_check,
 			  unsigned int type_check, bool gre_key_check,
@@ -5658,7 +5658,7 @@ MLXSW_ITEM32(reg, mfcr, tacho_active, 0x04, 16, MLXSW_MFCR_TACHOS_MAX);
  */
 MLXSW_ITEM32(reg, mfcr, pwm_active, 0x04, 0, MLXSW_MFCR_PWMS_MAX);
 
-static inline void
+static void
 mlxsw_reg_mfcr_pack(char *payload,
 		    enum mlxsw_reg_mfcr_pwm_frequency pwm_frequency)
 {
@@ -5666,7 +5666,7 @@ mlxsw_reg_mfcr_pack(char *payload,
 	mlxsw_reg_mfcr_pwm_frequency_set(payload, pwm_frequency);
 }
 
-static inline void
+static void
 mlxsw_reg_mfcr_unpack(char *payload,
 		      enum mlxsw_reg_mfcr_pwm_frequency *p_pwm_frequency,
 		      u16 *p_tacho_active, u8 *p_pwm_active)
@@ -5698,7 +5698,7 @@ MLXSW_ITEM32(reg, mfsc, pwm, 0x00, 24, 3);
  */
 MLXSW_ITEM32(reg, mfsc, pwm_duty_cycle, 0x04, 0, 8);
 
-static inline void mlxsw_reg_mfsc_pack(char *payload, u8 pwm,
+static void mlxsw_reg_mfsc_pack(char *payload, u8 pwm,
 				       u8 pwm_duty_cycle)
 {
 	MLXSW_REG_ZERO(mfsc, payload);
@@ -5728,7 +5728,7 @@ MLXSW_ITEM32(reg, mfsm, tacho, 0x00, 24, 4);
  */
 MLXSW_ITEM32(reg, mfsm, rpm, 0x04, 0, 16);
 
-static inline void mlxsw_reg_mfsm_pack(char *payload, u8 tacho)
+static void mlxsw_reg_mfsm_pack(char *payload, u8 tacho)
 {
 	MLXSW_REG_ZERO(mfsm, payload);
 	mlxsw_reg_mfsm_tacho_set(payload, tacho);
@@ -5763,7 +5763,7 @@ MLXSW_ITEM32(reg, mfsl, tach_min, 0x04, 0, 16);
  */
 MLXSW_ITEM32(reg, mfsl, tach_max, 0x08, 0, 16);
 
-static inline void mlxsw_reg_mfsl_pack(char *payload, u8 tacho,
+static void mlxsw_reg_mfsl_pack(char *payload, u8 tacho,
 				       u16 tach_min, u16 tach_max)
 {
 	MLXSW_REG_ZERO(mfsl, payload);
@@ -5772,7 +5772,7 @@ static inline void mlxsw_reg_mfsl_pack(char *payload, u8 tacho,
 	mlxsw_reg_mfsl_tach_max_set(payload, tach_max);
 }
 
-static inline void mlxsw_reg_mfsl_unpack(char *payload, u8 tacho,
+static void mlxsw_reg_mfsl_unpack(char *payload, u8 tacho,
 					 u16 *p_tach_min, u16 *p_tach_max)
 {
 	if (p_tach_min)
@@ -5878,7 +5878,7 @@ MLXSW_ITEM32(reg, mtmp, temperature_threshold_lo, 0x10, 0, 16);
  */
 MLXSW_ITEM_BUF(reg, mtmp, sensor_name, 0x18, MLXSW_REG_MTMP_SENSOR_NAME_SIZE);
 
-static inline void mlxsw_reg_mtmp_pack(char *payload, u8 sensor_index,
+static void mlxsw_reg_mtmp_pack(char *payload, u8 sensor_index,
 				       bool max_temp_enable,
 				       bool max_temp_reset)
 {
@@ -5890,7 +5890,7 @@ static inline void mlxsw_reg_mtmp_pack(char *payload, u8 sensor_index,
 						    MLXSW_REG_MTMP_THRESH_HI);
 }
 
-static inline void mlxsw_reg_mtmp_unpack(char *payload, unsigned int *p_temp,
+static void mlxsw_reg_mtmp_unpack(char *payload, unsigned int *p_temp,
 					 unsigned int *p_max_temp,
 					 char *sensor_name)
 {
@@ -5970,7 +5970,7 @@ MLXSW_ITEM32(reg, mcia, size, 0x08, 0, 16);
  */
 MLXSW_ITEM_BUF(reg, mcia, eeprom, 0x10, MLXSW_SP_REG_MCIA_EEPROM_SIZE);
 
-static inline void mlxsw_reg_mcia_pack(char *payload, u8 module, u8 lock,
+static void mlxsw_reg_mcia_pack(char *payload, u8 module, u8 lock,
 				       u8 page_number, u16 device_addr,
 				       u8 size, u8 i2c_device_addr)
 {
@@ -6032,7 +6032,7 @@ MLXSW_ITEM32(reg, mpat, qos, 0x04, 26, 1);
  */
 MLXSW_ITEM32(reg, mpat, be, 0x04, 25, 1);
 
-static inline void mlxsw_reg_mpat_pack(char *payload, u8 pa_id,
+static void mlxsw_reg_mpat_pack(char *payload, u8 pa_id,
 				       u16 system_port, bool e)
 {
 	MLXSW_REG_ZERO(mpat, payload);
@@ -6083,7 +6083,7 @@ MLXSW_ITEM32(reg, mpar, enable, 0x04, 31, 1);
  */
 MLXSW_ITEM32(reg, mpar, pa_id, 0x04, 0, 4);
 
-static inline void mlxsw_reg_mpar_pack(char *payload, u8 local_port,
+static void mlxsw_reg_mpar_pack(char *payload, u8 local_port,
 				       enum mlxsw_reg_mpar_i_e i_e,
 				       bool enable, u8 pa_id)
 {
@@ -6126,7 +6126,7 @@ MLXSW_ITEM32(reg, mlcr, beacon_duration, 0x04, 0, 16);
  */
 MLXSW_ITEM32(reg, mlcr, beacon_remain, 0x08, 0, 16);
 
-static inline void mlxsw_reg_mlcr_pack(char *payload, u8 local_port,
+static void mlxsw_reg_mlcr_pack(char *payload, u8 local_port,
 				       bool active)
 {
 	MLXSW_REG_ZERO(mlcr, payload);
@@ -6195,7 +6195,7 @@ MLXSW_ITEM32(reg, mcqi, cap_log_mcda_word_size, 0x24, 28, 4);
  */
 MLXSW_ITEM32(reg, mcqi, cap_mcda_max_write_size, 0x24, 0, 16);
 
-static inline void mlxsw_reg_mcqi_pack(char *payload, u16 component_index)
+static void mlxsw_reg_mcqi_pack(char *payload, u16 component_index)
 {
 	MLXSW_REG_ZERO(mcqi, payload);
 	mlxsw_reg_mcqi_component_index_set(payload, component_index);
@@ -6205,7 +6205,7 @@ static inline void mlxsw_reg_mcqi_pack(char *payload, u16 component_index)
 	mlxsw_reg_mcqi_data_size_set(payload, MLXSW_REG_MCQI_CAP_LEN);
 }
 
-static inline void mlxsw_reg_mcqi_unpack(char *payload,
+static void mlxsw_reg_mcqi_unpack(char *payload,
 					 u32 *p_cap_max_component_size,
 					 u8 *p_cap_log_mcda_word_size,
 					 u16 *p_cap_mcda_max_write_size)
@@ -6277,7 +6277,7 @@ MLXSW_ITEM32(reg, mcc, control_state, 0x0C, 0, 4);
  */
 MLXSW_ITEM32(reg, mcc, component_size, 0x10, 0, 32);
 
-static inline void mlxsw_reg_mcc_pack(char *payload,
+static void mlxsw_reg_mcc_pack(char *payload,
 				      enum mlxsw_reg_mcc_instruction instr,
 				      u16 component_index, u32 update_handle,
 				      u32 component_size)
@@ -6289,7 +6289,7 @@ static inline void mlxsw_reg_mcc_pack(char *payload,
 	mlxsw_reg_mcc_component_size_set(payload, component_size);
 }
 
-static inline void mlxsw_reg_mcc_unpack(char *payload, u32 *p_update_handle,
+static void mlxsw_reg_mcc_unpack(char *payload, u32 *p_update_handle,
 					u8 *p_error_code, u8 *p_control_state)
 {
 	if (p_update_handle)
@@ -6337,7 +6337,7 @@ MLXSW_ITEM32(reg, mcda, size, 0x08, 0, 16);
  */
 MLXSW_ITEM32_INDEXED(reg, mcda, data, 0x10, 0, 32, 4, 0, false);
 
-static inline void mlxsw_reg_mcda_pack(char *payload, u32 update_handle,
+static void mlxsw_reg_mcda_pack(char *payload, u32 update_handle,
 				       u32 offset, u16 size, u8 *data)
 {
 	int i;
@@ -6382,7 +6382,7 @@ MLXSW_ITEM32(reg, mpsc, e, 0x04, 30, 1);
  */
 MLXSW_ITEM32(reg, mpsc, rate, 0x08, 0, 32);
 
-static inline void mlxsw_reg_mpsc_pack(char *payload, u8 local_port, bool e,
+static void mlxsw_reg_mpsc_pack(char *payload, u8 local_port, bool e,
 				       u32 rate)
 {
 	MLXSW_REG_ZERO(mpsc, payload);
@@ -6436,7 +6436,7 @@ MLXSW_ITEM64(reg, mgpc, byte_counter, 0x08, 0, 64);
  */
 MLXSW_ITEM64(reg, mgpc, packet_counter, 0x10, 0, 64);
 
-static inline void mlxsw_reg_mgpc_pack(char *payload, u32 counter_index,
+static void mlxsw_reg_mgpc_pack(char *payload, u32 counter_index,
 				       enum mlxsw_reg_mgpc_opcode opcode,
 				       enum mlxsw_reg_flow_counter_set_type set_type)
 {
@@ -6469,7 +6469,7 @@ MLXSW_ITEM32(reg, tigcr, ttlc, 0x04, 8, 1);
  */
 MLXSW_ITEM32(reg, tigcr, ttl_uc, 0x04, 0, 8);
 
-static inline void mlxsw_reg_tigcr_pack(char *payload, bool ttlc, u8 ttl_uc)
+static void mlxsw_reg_tigcr_pack(char *payload, bool ttlc, u8 ttl_uc)
 {
 	MLXSW_REG_ZERO(tigcr, payload);
 	mlxsw_reg_tigcr_ttlc_set(payload, ttlc);
@@ -6520,7 +6520,7 @@ enum mlxsw_reg_sbpr_mode {
  */
 MLXSW_ITEM32(reg, sbpr, mode, 0x08, 0, 4);
 
-static inline void mlxsw_reg_sbpr_pack(char *payload, u8 pool,
+static void mlxsw_reg_sbpr_pack(char *payload, u8 pool,
 				       enum mlxsw_reg_sbxx_dir dir,
 				       enum mlxsw_reg_sbpr_mode mode, u32 size)
 {
@@ -6595,7 +6595,7 @@ MLXSW_ITEM32(reg, sbcm, max_buff, 0x1C, 0, 24);
  */
 MLXSW_ITEM32(reg, sbcm, pool, 0x24, 0, 4);
 
-static inline void mlxsw_reg_sbcm_pack(char *payload, u8 local_port, u8 pg_buff,
+static void mlxsw_reg_sbcm_pack(char *payload, u8 local_port, u8 pg_buff,
 				       enum mlxsw_reg_sbxx_dir dir,
 				       u32 min_buff, u32 max_buff, u8 pool)
 {
@@ -6679,7 +6679,7 @@ MLXSW_ITEM32(reg, sbpm, min_buff, 0x18, 0, 24);
  */
 MLXSW_ITEM32(reg, sbpm, max_buff, 0x1C, 0, 24);
 
-static inline void mlxsw_reg_sbpm_pack(char *payload, u8 local_port, u8 pool,
+static void mlxsw_reg_sbpm_pack(char *payload, u8 local_port, u8 pool,
 				       enum mlxsw_reg_sbxx_dir dir, bool clr,
 				       u32 min_buff, u32 max_buff)
 {
@@ -6692,7 +6692,7 @@ static inline void mlxsw_reg_sbpm_pack(char *payload, u8 local_port, u8 pool,
 	mlxsw_reg_sbpm_max_buff_set(payload, max_buff);
 }
 
-static inline void mlxsw_reg_sbpm_unpack(char *payload, u32 *p_buff_occupancy,
+static void mlxsw_reg_sbpm_unpack(char *payload, u32 *p_buff_occupancy,
 					 u32 *p_max_buff_occupancy)
 {
 	*p_buff_occupancy = mlxsw_reg_sbpm_buff_occupancy_get(payload);
@@ -6741,7 +6741,7 @@ MLXSW_ITEM32(reg, sbmm, max_buff, 0x1C, 0, 24);
  */
 MLXSW_ITEM32(reg, sbmm, pool, 0x24, 0, 4);
 
-static inline void mlxsw_reg_sbmm_pack(char *payload, u8 prio, u32 min_buff,
+static void mlxsw_reg_sbmm_pack(char *payload, u8 prio, u32 min_buff,
 				       u32 max_buff, u8 pool)
 {
 	MLXSW_REG_ZERO(sbmm, payload);
@@ -6815,7 +6815,7 @@ MLXSW_ITEM_BIT_ARRAY(reg, sbsr, egress_port_mask, 0x34, 0x20, 1);
  */
 MLXSW_ITEM_BIT_ARRAY(reg, sbsr, tclass_mask, 0x54, 0x8, 1);
 
-static inline void mlxsw_reg_sbsr_pack(char *payload, bool clr)
+static void mlxsw_reg_sbsr_pack(char *payload, bool clr)
 {
 	MLXSW_REG_ZERO(sbsr, payload);
 	mlxsw_reg_sbsr_clr_set(payload, clr);
@@ -6836,7 +6836,7 @@ MLXSW_ITEM32_INDEXED(reg, sbsr, rec_buff_occupancy, MLXSW_REG_SBSR_BASE_LEN,
 MLXSW_ITEM32_INDEXED(reg, sbsr, rec_max_buff_occupancy, MLXSW_REG_SBSR_BASE_LEN,
 		     0, 24, MLXSW_REG_SBSR_REC_LEN, 0x04, false);
 
-static inline void mlxsw_reg_sbsr_rec_unpack(char *payload, int rec_index,
+static void mlxsw_reg_sbsr_rec_unpack(char *payload, int rec_index,
 					     u32 *p_buff_occupancy,
 					     u32 *p_max_buff_occupancy)
 {
@@ -6874,7 +6874,7 @@ MLXSW_ITEM32(reg, sbib, local_port, 0x00, 16, 8);
  */
 MLXSW_ITEM32(reg, sbib, buff_size, 0x08, 0, 24);
 
-static inline void mlxsw_reg_sbib_pack(char *payload, u8 local_port,
+static void mlxsw_reg_sbib_pack(char *payload, u8 local_port,
 				       u32 buff_size)
 {
 	MLXSW_REG_ZERO(sbib, payload);
@@ -6965,7 +6965,7 @@ static const struct mlxsw_reg_info *mlxsw_reg_infos[] = {
 	MLXSW_REG(sbib),
 };
 
-static inline const char *mlxsw_reg_id_str(u16 reg_id)
+static const char *mlxsw_reg_id_str(u16 reg_id)
 {
 	const struct mlxsw_reg_info *reg_info;
 	int i;

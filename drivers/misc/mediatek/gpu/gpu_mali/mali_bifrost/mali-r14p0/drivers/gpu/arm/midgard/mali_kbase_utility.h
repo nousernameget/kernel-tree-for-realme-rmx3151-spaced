@@ -40,7 +40,7 @@
 bool kbasep_list_member_of(const struct list_head *base, struct list_head *entry);
 
 
-static inline void kbase_timer_setup(struct timer_list *timer,
+static void kbase_timer_setup(struct timer_list *timer,
 				     void (*callback)(struct timer_list *timer))
 {
 #if LINUX_VERSION_CODE < KERNEL_VERSION(4, 14, 0)

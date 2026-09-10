@@ -72,7 +72,7 @@ void ubi_debugfs_exit_dev(struct ubi_device *ubi);
  * Returns non-zero if the UBI background thread is disabled for testing
  * purposes.
  */
-static inline int ubi_dbg_is_bgt_disabled(const struct ubi_device *ubi)
+static int ubi_dbg_is_bgt_disabled(const struct ubi_device *ubi)
 {
 	return ubi->dbg.disable_bgt;
 }
@@ -83,7 +83,7 @@ static inline int ubi_dbg_is_bgt_disabled(const struct ubi_device *ubi)
  *
  * Returns non-zero if a bit-flip should be emulated, otherwise returns zero.
  */
-static inline int ubi_dbg_is_bitflip(const struct ubi_device *ubi)
+static int ubi_dbg_is_bitflip(const struct ubi_device *ubi)
 {
 	if (ubi->dbg.emulate_bitflips)
 		return !(prandom_u32() % 200);
@@ -97,7 +97,7 @@ static inline int ubi_dbg_is_bitflip(const struct ubi_device *ubi)
  * Returns non-zero if a write failure should be emulated, otherwise returns
  * zero.
  */
-static inline int ubi_dbg_is_write_failure(const struct ubi_device *ubi)
+static int ubi_dbg_is_write_failure(const struct ubi_device *ubi)
 {
 	if (ubi->dbg.emulate_io_failures)
 		return !(prandom_u32() % 500);
@@ -111,29 +111,29 @@ static inline int ubi_dbg_is_write_failure(const struct ubi_device *ubi)
  * Returns non-zero if an erase failure should be emulated, otherwise returns
  * zero.
  */
-static inline int ubi_dbg_is_erase_failure(const struct ubi_device *ubi)
+static int ubi_dbg_is_erase_failure(const struct ubi_device *ubi)
 {
 	if (ubi->dbg.emulate_io_failures)
 		return !(prandom_u32() % 400);
 	return 0;
 }
 
-static inline int ubi_dbg_chk_io(const struct ubi_device *ubi)
+static int ubi_dbg_chk_io(const struct ubi_device *ubi)
 {
 	return ubi->dbg.chk_io;
 }
 
-static inline int ubi_dbg_chk_gen(const struct ubi_device *ubi)
+static int ubi_dbg_chk_gen(const struct ubi_device *ubi)
 {
 	return ubi->dbg.chk_gen;
 }
 
-static inline int ubi_dbg_chk_fastmap(const struct ubi_device *ubi)
+static int ubi_dbg_chk_fastmap(const struct ubi_device *ubi)
 {
 	return ubi->dbg.chk_fastmap;
 }
 
-static inline void ubi_enable_dbg_chk_fastmap(struct ubi_device *ubi)
+static void ubi_enable_dbg_chk_fastmap(struct ubi_device *ubi)
 {
 	ubi->dbg.chk_fastmap = 1;
 }

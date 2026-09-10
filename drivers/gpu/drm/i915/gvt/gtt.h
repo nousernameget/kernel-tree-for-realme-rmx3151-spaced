@@ -280,12 +280,12 @@ int intel_vgpu_sync_oos_pages(struct intel_vgpu *vgpu);
 
 int intel_vgpu_flush_post_shadow(struct intel_vgpu *vgpu);
 
-static inline void intel_gvt_mm_reference(struct intel_vgpu_mm *mm)
+static void intel_gvt_mm_reference(struct intel_vgpu_mm *mm)
 {
 	kref_get(&mm->ref);
 }
 
-static inline void intel_gvt_mm_unreference(struct intel_vgpu_mm *mm)
+static void intel_gvt_mm_unreference(struct intel_vgpu_mm *mm)
 {
 	kref_put(&mm->ref, intel_vgpu_destroy_mm);
 }

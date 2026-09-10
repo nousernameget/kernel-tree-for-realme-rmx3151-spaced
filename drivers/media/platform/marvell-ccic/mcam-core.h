@@ -62,7 +62,7 @@ enum mcam_chip_id {
 /*
  * Is a given buffer mode supported by the current kernel configuration?
  */
-static inline int mcam_buffer_mode_supported(enum mcam_buffer_mode mode)
+static int mcam_buffer_mode_supported(enum mcam_buffer_mode mode)
 {
 	switch (mode) {
 #ifdef MCAM_MODE_VMALLOC
@@ -198,20 +198,20 @@ struct mcam_camera {
 /*
  * Device register I/O
  */
-static inline void mcam_reg_write(struct mcam_camera *cam, unsigned int reg,
+static void mcam_reg_write(struct mcam_camera *cam, unsigned int reg,
 		unsigned int val)
 {
 	iowrite32(val, cam->regs + reg);
 }
 
-static inline unsigned int mcam_reg_read(struct mcam_camera *cam,
+static unsigned int mcam_reg_read(struct mcam_camera *cam,
 		unsigned int reg)
 {
 	return ioread32(cam->regs + reg);
 }
 
 
-static inline void mcam_reg_write_mask(struct mcam_camera *cam, unsigned int reg,
+static void mcam_reg_write_mask(struct mcam_camera *cam, unsigned int reg,
 		unsigned int val, unsigned int mask)
 {
 	unsigned int v = mcam_reg_read(cam, reg);
@@ -220,13 +220,13 @@ static inline void mcam_reg_write_mask(struct mcam_camera *cam, unsigned int reg
 	mcam_reg_write(cam, reg, v);
 }
 
-static inline void mcam_reg_clear_bit(struct mcam_camera *cam,
+static void mcam_reg_clear_bit(struct mcam_camera *cam,
 		unsigned int reg, unsigned int val)
 {
 	mcam_reg_write_mask(cam, reg, 0, val);
 }
 
-static inline void mcam_reg_set_bit(struct mcam_camera *cam,
+static void mcam_reg_set_bit(struct mcam_camera *cam,
 		unsigned int reg, unsigned int val)
 {
 	mcam_reg_write_mask(cam, reg, val, val);

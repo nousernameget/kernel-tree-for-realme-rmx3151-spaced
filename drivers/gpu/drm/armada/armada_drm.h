@@ -18,7 +18,7 @@ struct armada_gem_object;
 struct clk;
 struct drm_fb_helper;
 
-static inline void
+static void
 armada_updatel(uint32_t val, uint32_t mask, void __iomem *ptr)
 {
 	uint32_t ov, v;
@@ -29,7 +29,7 @@ armada_updatel(uint32_t val, uint32_t mask, void __iomem *ptr)
 		writel_relaxed(v, ptr);
 }
 
-static inline uint32_t armada_pitch(uint32_t width, uint32_t bpp)
+static uint32_t armada_pitch(uint32_t width, uint32_t bpp)
 {
 	uint32_t pitch = bpp != 4 ? width * ((bpp + 7) / 8) : width / 2;
 

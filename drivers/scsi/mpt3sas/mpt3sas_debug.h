@@ -143,14 +143,14 @@
 
 
 
-/* inline functions for dumping debug data*/
+/* functions for dumping debug data*/
 
 /**
  * _debug_dump_mf - print message frame contents
  * @mpi_request: pointer to message frame
  * @sz: number of dwords
  */
-static inline void
+static void
 _debug_dump_mf(void *mpi_request, int sz)
 {
 	int i;
@@ -169,7 +169,7 @@ _debug_dump_mf(void *mpi_request, int sz)
  * @mpi_request: pointer to message frame
  * @sz: number of dwords
  */
-static inline void
+static void
 _debug_dump_reply(void *mpi_request, int sz)
 {
 	int i;
@@ -188,7 +188,7 @@ _debug_dump_reply(void *mpi_request, int sz)
  * @mpi_request: pointer to message frame
  * @sz: number of dwords
  */
-static inline void
+static void
 _debug_dump_config(void *mpi_request, int sz)
 {
 	int i;

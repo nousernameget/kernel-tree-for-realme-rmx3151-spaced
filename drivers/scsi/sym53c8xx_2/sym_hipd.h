@@ -1098,7 +1098,7 @@ do {									\
 #elif SYM_CONF_DMA_ADDRESSING_MODE == 2
 #define DMA_DAC_MASK	DMA_BIT_MASK(64)
 int sym_lookup_dmap(struct sym_hcb *np, u32 h, int s);
-static inline void
+static void
 sym_build_sge(struct sym_hcb *np, struct sym_tblmove *data, u64 badd, int len)
 {
 	u32 h = (badd>>32);
@@ -1203,7 +1203,7 @@ dma_addr_t __vtobus(m_pool_ident_t dev_dmat, void *m);
 
 #define sym_m_pool_match(mp_id1, mp_id2)	(mp_id1 == mp_id2)
 
-static inline void *sym_m_get_dma_mem_cluster(m_pool_p mp, m_vtob_p vbp)
+static void *sym_m_get_dma_mem_cluster(m_pool_p mp, m_vtob_p vbp)
 {
 	void *vaddr = NULL;
 	dma_addr_t baddr = 0;
@@ -1217,7 +1217,7 @@ static inline void *sym_m_get_dma_mem_cluster(m_pool_p mp, m_vtob_p vbp)
 	return vaddr;
 }
 
-static inline void sym_m_free_dma_mem_cluster(m_pool_p mp, m_vtob_p vbp)
+static void sym_m_free_dma_mem_cluster(m_pool_p mp, m_vtob_p vbp)
 {
 	dma_free_coherent(mp->dev_dmat, SYM_MEM_CLUSTER_SIZE, vbp->vaddr,
 			vbp->baddr);

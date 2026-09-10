@@ -38,7 +38,7 @@ extern struct dvb_frontend *lnbh24_attach(struct dvb_frontend *fe,
 				struct i2c_adapter *i2c, u8 override_set,
 				u8 override_clear, u8 i2c_addr);
 #else
-static inline struct dvb_frontend *lnbh24_attach(struct dvb_frontend *fe,
+static struct dvb_frontend *lnbh24_attach(struct dvb_frontend *fe,
 				struct i2c_adapter *i2c, u8 override_set,
 				u8 override_clear, u8 i2c_addr)
 {

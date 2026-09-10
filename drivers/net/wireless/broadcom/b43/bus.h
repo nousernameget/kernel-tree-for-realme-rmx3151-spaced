@@ -54,7 +54,7 @@ struct b43_bus_dev {
 	u8 core_rev;
 };
 
-static inline bool b43_bus_host_is_pcmcia(struct b43_bus_dev *dev)
+static bool b43_bus_host_is_pcmcia(struct b43_bus_dev *dev)
 {
 #ifdef CONFIG_B43_SSB
 	return (dev->bus_type == B43_BUS_SSB &&
@@ -64,7 +64,7 @@ static inline bool b43_bus_host_is_pcmcia(struct b43_bus_dev *dev)
 #endif
 };
 
-static inline bool b43_bus_host_is_pci(struct b43_bus_dev *dev)
+static bool b43_bus_host_is_pci(struct b43_bus_dev *dev)
 {
 #ifdef CONFIG_B43_BCMA
 	if (dev->bus_type == B43_BUS_BCMA)
@@ -77,7 +77,7 @@ static inline bool b43_bus_host_is_pci(struct b43_bus_dev *dev)
 	return false;
 }
 
-static inline bool b43_bus_host_is_sdio(struct b43_bus_dev *dev)
+static bool b43_bus_host_is_sdio(struct b43_bus_dev *dev)
 {
 #ifdef CONFIG_B43_SSB
 	return (dev->bus_type == B43_BUS_SSB &&

@@ -122,7 +122,7 @@ int nanohub_comms_tx_rx_retrans(struct nanohub_data *data, u32 cmd,
 #define UPLOAD_REPLY_APP_SEC_INVALID_DATA	11
 #define UPLOAD_REPLY_APP_SEC_BAD		12
 
-static inline int nanohub_comms_write(struct nanohub_data *data,
+static int nanohub_comms_write(struct nanohub_data *data,
 				      const u8 *buffer, size_t buffer_len)
 {
 	u8 ret;

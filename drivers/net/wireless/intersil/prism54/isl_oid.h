@@ -100,7 +100,7 @@ struct obj_attachment {
  * in case everything's ok, the inlined function below will be
  * optimized away by the compiler...
  */
-static inline void
+static void
 __bug_on_wrong_struct_sizes(void)
 {
 	BUILD_BUG_ON(sizeof (struct obj_ssid) != 34);

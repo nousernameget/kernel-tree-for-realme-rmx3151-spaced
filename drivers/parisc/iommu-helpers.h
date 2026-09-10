@@ -11,7 +11,7 @@
  * This function inserts the coalesced scatter/gather list chunks into the
  * I/O Controller's I/O Pdir.
  */ 
-static inline unsigned int
+static unsigned int
 iommu_fill_pdir(struct ioc *ioc, struct scatterlist *startsg, int nents, 
 		unsigned long hint,
 		void (*iommu_io_pdir_entry)(u64 *, space_t, unsigned long,
@@ -97,7 +97,7 @@ iommu_fill_pdir(struct ioc *ioc, struct scatterlist *startsg, int nents,
 ** the sglist do both.
 */
 
-static inline unsigned int
+static unsigned int
 iommu_coalesce_chunks(struct ioc *ioc, struct device *dev,
 		struct scatterlist *startsg, int nents,
 		int (*iommu_alloc_range)(struct ioc *, struct device *, size_t))

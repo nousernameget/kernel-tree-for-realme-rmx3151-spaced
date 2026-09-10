@@ -23,7 +23,7 @@ struct mmp_clk_reset_unit {
 void mmp_clk_reset_register(struct device_node *np,
 			struct mmp_clk_reset_cell *cells, int nr_resets);
 #else
-static inline void mmp_clk_reset_register(struct device_node *np,
+static void mmp_clk_reset_register(struct device_node *np,
 			struct mmp_clk_reset_cell *cells, int nr_resets)
 {
 }

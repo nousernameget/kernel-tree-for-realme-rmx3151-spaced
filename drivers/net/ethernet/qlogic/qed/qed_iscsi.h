@@ -72,7 +72,7 @@ void qed_iscsi_free(struct qed_hwfn *p_hwfn);
 void qed_get_protocol_stats_iscsi(struct qed_dev *cdev,
 				  struct qed_mcp_iscsi_stats *stats);
 #else /* IS_ENABLED(CONFIG_QED_ISCSI) */
-static inline int qed_iscsi_alloc(struct qed_hwfn *p_hwfn)
+static int qed_iscsi_alloc(struct qed_hwfn *p_hwfn)
 {
 	return -EINVAL;
 }
@@ -81,7 +81,7 @@ static inline void qed_iscsi_setup(struct qed_hwfn *p_hwfn) {}
 
 static inline void qed_iscsi_free(struct qed_hwfn *p_hwfn) {}
 
-static inline void
+static void
 qed_get_protocol_stats_iscsi(struct qed_dev *cdev,
 			     struct qed_mcp_iscsi_stats *stats) {}
 #endif /* IS_ENABLED(CONFIG_QED_ISCSI) */

@@ -656,14 +656,14 @@ struct octeon_device *lio_get_device(u32 octeon_id);
  */
 int lio_get_device_id(void *dev);
 
-static inline u16 OCTEON_MAJOR_REV(struct octeon_device *oct)
+static u16 OCTEON_MAJOR_REV(struct octeon_device *oct)
 {
 	u16 rev = (oct->rev_id & 0xC) >> 2;
 
 	return (rev == 0) ? 1 : rev;
 }
 
-static inline u16 OCTEON_MINOR_REV(struct octeon_device *oct)
+static u16 OCTEON_MINOR_REV(struct octeon_device *oct)
 {
 	return oct->rev_id & 0x3;
 }
@@ -851,12 +851,12 @@ enum {
 
 #define OCT_PRIV_FLAG_DEFAULT 0x0
 
-static inline u32 lio_get_priv_flag(struct octeon_device *octdev, u32 flag)
+static u32 lio_get_priv_flag(struct octeon_device *octdev, u32 flag)
 {
 	return !!(octdev->priv_flags & (0x1 << flag));
 }
 
-static inline void lio_set_priv_flag(struct octeon_device *octdev,
+static void lio_set_priv_flag(struct octeon_device *octdev,
 				     u32 flag, u32 val)
 {
 	if (val)

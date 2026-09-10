@@ -141,23 +141,23 @@ ath5k_debug_printtxbuf(struct ath5k_hw *ah, struct ath5k_buf *bf);
 
 #include <linux/compiler.h>
 
-static inline __printf(3, 4) void
+static __printf(3, 4) void
 ATH5K_DBG(struct ath5k_hw *ah, unsigned int m, const char *fmt, ...) {}
 
-static inline __printf(3, 4) void
+static __printf(3, 4) void
 ATH5K_DBG_UNLIMIT(struct ath5k_hw *ah, unsigned int m, const char *fmt, ...)
 {}
 
-static inline void
+static void
 ath5k_debug_init_device(struct ath5k_hw *ah) {}
 
-static inline void
+static void
 ath5k_debug_printrxbuffs(struct ath5k_hw *ah) {}
 
-static inline void
+static void
 ath5k_debug_dump_bands(struct ath5k_hw *ah) {}
 
-static inline void
+static void
 ath5k_debug_printtxbuf(struct ath5k_hw *ah, struct ath5k_buf *bf) {}
 
 #endif /* ifdef CONFIG_ATH5K_DEBUG */

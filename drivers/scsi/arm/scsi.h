@@ -24,7 +24,7 @@
  * entries of uninitialized memory. SCp is from scsi-ml and has a valid
  * (possibly chained) sg-list
  */
-static inline int copy_SCp_to_sg(struct scatterlist *sg, struct scsi_pointer *SCp, int max)
+static int copy_SCp_to_sg(struct scatterlist *sg, struct scsi_pointer *SCp, int max)
 {
 	int bufs = SCp->buffers_residual;
 
@@ -47,7 +47,7 @@ static inline int copy_SCp_to_sg(struct scatterlist *sg, struct scsi_pointer *SC
 	return bufs + 1;
 }
 
-static inline int next_SCp(struct scsi_pointer *SCp)
+static int next_SCp(struct scsi_pointer *SCp)
 {
 	int ret = SCp->buffers_residual;
 	if (ret) {
@@ -62,7 +62,7 @@ static inline int next_SCp(struct scsi_pointer *SCp)
 	return ret;
 }
 
-static inline unsigned char get_next_SCp_byte(struct scsi_pointer *SCp)
+static unsigned char get_next_SCp_byte(struct scsi_pointer *SCp)
 {
 	char c = *SCp->ptr;
 
@@ -72,14 +72,14 @@ static inline unsigned char get_next_SCp_byte(struct scsi_pointer *SCp)
 	return c;
 }
 
-static inline void put_next_SCp_byte(struct scsi_pointer *SCp, unsigned char c)
+static void put_next_SCp_byte(struct scsi_pointer *SCp, unsigned char c)
 {
 	*SCp->ptr = c;
 	SCp->ptr += 1;
 	SCp->this_residual -= 1;
 }
 
-static inline void init_SCp(struct scsi_cmnd *SCpnt)
+static void init_SCp(struct scsi_cmnd *SCpnt)
 {
 	memset(&SCpnt->SCp, 0, sizeof(struct scsi_pointer));
 

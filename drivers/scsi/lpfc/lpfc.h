@@ -1168,13 +1168,13 @@ struct lpfc_hba {
 #endif
 };
 
-static inline struct Scsi_Host *
+static struct Scsi_Host *
 lpfc_shost_from_vport(struct lpfc_vport *vport)
 {
 	return container_of((void *) vport, struct Scsi_Host, hostdata[0]);
 }
 
-static inline void
+static void
 lpfc_set_loopback_flag(struct lpfc_hba *phba)
 {
 	if (phba->cfg_topology == FLAGS_LOCAL_LB)
@@ -1183,7 +1183,7 @@ lpfc_set_loopback_flag(struct lpfc_hba *phba)
 		phba->link_flag &= ~LS_LOOPBACK_MODE;
 }
 
-static inline int
+static int
 lpfc_is_link_up(struct lpfc_hba *phba)
 {
 	return  phba->link_state == LPFC_LINK_UP ||
@@ -1191,7 +1191,7 @@ lpfc_is_link_up(struct lpfc_hba *phba)
 		phba->link_state == LPFC_HBA_READY;
 }
 
-static inline void
+static void
 lpfc_worker_wake_up(struct lpfc_hba *phba)
 {
 	/* Set the lpfc data pending flag */
@@ -1202,7 +1202,7 @@ lpfc_worker_wake_up(struct lpfc_hba *phba)
 	return;
 }
 
-static inline int
+static int
 lpfc_readl(void __iomem *addr, uint32_t *data)
 {
 	uint32_t temp;
@@ -1213,7 +1213,7 @@ lpfc_readl(void __iomem *addr, uint32_t *data)
 	return 0;
 }
 
-static inline int
+static int
 lpfc_sli_read_hs(struct lpfc_hba *phba)
 {
 	/*
@@ -1237,7 +1237,7 @@ lpfc_sli_read_hs(struct lpfc_hba *phba)
 	return 0;
 }
 
-static inline struct lpfc_sli_ring *
+static struct lpfc_sli_ring *
 lpfc_phba_elsring(struct lpfc_hba *phba)
 {
 	/* Return NULL if sli_rev has become invalid due to bad fw */

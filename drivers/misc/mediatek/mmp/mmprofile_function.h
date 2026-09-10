@@ -57,92 +57,92 @@ void mmprofile_get_dump_buffer(unsigned int start, unsigned long *p_addr,
  * Put dummy API implementation here.
  */
 #ifndef CONFIG_MMPROFILE
-static inline mmp_event mmprofile_register_event(mmp_event parent,
+static mmp_event mmprofile_register_event(mmp_event parent,
 	const char *name)
 {
 	return 0;
 }
 
-static inline mmp_event mmprofile_find_event(mmp_event parent, const char *name)
+static mmp_event mmprofile_find_event(mmp_event parent, const char *name)
 {
 	return 0;
 }
 
-static inline void mmprofile_enable_event(mmp_event event, long enable)
+static void mmprofile_enable_event(mmp_event event, long enable)
 {
 }
 
-static inline void mmprofile_enable_event_recursive(mmp_event event,
+static void mmprofile_enable_event_recursive(mmp_event event,
 	long enable)
 {
 }
 
-static inline void mmprofile_enable_ftrace_event(mmp_event event, long enable,
+static void mmprofile_enable_ftrace_event(mmp_event event, long enable,
 	long ftrace)
 {
 }
 
-static inline void mmprofile_enable_ftrace_event_recursive(mmp_event event,
+static void mmprofile_enable_ftrace_event_recursive(mmp_event event,
 	long enable, long ftrace)
 {
 }
 
-static inline long mmprofile_query_enable(mmp_event event)
+static long mmprofile_query_enable(mmp_event event)
 {
 	return 0;
 }
 
-static inline void mmprofile_log_ex(mmp_event event, enum mmp_log_type type,
+static void mmprofile_log_ex(mmp_event event, enum mmp_log_type type,
 	unsigned long data1, unsigned long data2)
 {
 }
 
-static inline void mmprofile_log(mmp_event event, enum mmp_log_type type)
+static void mmprofile_log(mmp_event event, enum mmp_log_type type)
 {
 }
 
-static inline long mmprofile_log_meta(mmp_event event, enum mmp_log_type type,
+static long mmprofile_log_meta(mmp_event event, enum mmp_log_type type,
 	struct mmp_metadata_t *p_meta_data)
 {
 	return 0;
 }
 
-static inline long mmprofile_log_meta_structure(mmp_event event,
+static long mmprofile_log_meta_structure(mmp_event event,
 	enum mmp_log_type type, struct mmp_metadata_structure_t *p_meta_data)
 {
 	return 0;
 }
 
-static inline long mmprofile_log_meta_string_ex(mmp_event event,
+static long mmprofile_log_meta_string_ex(mmp_event event,
 	enum mmp_log_type type, unsigned long data1, unsigned long data2,
 	const char *str)
 {
 	return 0;
 }
 
-static inline long mmprofile_log_meta_string(mmp_event event,
+static long mmprofile_log_meta_string(mmp_event event,
 	enum mmp_log_type type, const char *str)
 {
 	return 0;
 }
 
-static inline long mmprofile_log_meta_bitmap(mmp_event event,
+static long mmprofile_log_meta_bitmap(mmp_event event,
 	enum mmp_log_type type, struct mmp_metadata_bitmap_t *p_meta_data)
 {
 	return 0;
 }
 
-static inline long mmprofile_log_meta_yuv_bitmap(mmp_event event,
+static long mmprofile_log_meta_yuv_bitmap(mmp_event event,
 	enum mmp_log_type type, struct mmp_metadata_bitmap_t *p_meta_data)
 {
 	return 0;
 }
 
-static inline void mmprofile_start(int start)
+static void mmprofile_start(int start)
 {
 }
 
-static inline void mmprofile_enable(int enable)
+static void mmprofile_enable(int enable)
 {
 }
 #endif

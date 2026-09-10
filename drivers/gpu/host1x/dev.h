@@ -145,135 +145,135 @@ u32 host1x_sync_readl(struct host1x *host1x, u32 r);
 void host1x_ch_writel(struct host1x_channel *ch, u32 r, u32 v);
 u32 host1x_ch_readl(struct host1x_channel *ch, u32 r);
 
-static inline void host1x_hw_syncpt_restore(struct host1x *host,
+static void host1x_hw_syncpt_restore(struct host1x *host,
 					    struct host1x_syncpt *sp)
 {
 	host->syncpt_op->restore(sp);
 }
 
-static inline void host1x_hw_syncpt_restore_wait_base(struct host1x *host,
+static void host1x_hw_syncpt_restore_wait_base(struct host1x *host,
 						      struct host1x_syncpt *sp)
 {
 	host->syncpt_op->restore_wait_base(sp);
 }
 
-static inline void host1x_hw_syncpt_load_wait_base(struct host1x *host,
+static void host1x_hw_syncpt_load_wait_base(struct host1x *host,
 						   struct host1x_syncpt *sp)
 {
 	host->syncpt_op->load_wait_base(sp);
 }
 
-static inline u32 host1x_hw_syncpt_load(struct host1x *host,
+static u32 host1x_hw_syncpt_load(struct host1x *host,
 					struct host1x_syncpt *sp)
 {
 	return host->syncpt_op->load(sp);
 }
 
-static inline int host1x_hw_syncpt_cpu_incr(struct host1x *host,
+static int host1x_hw_syncpt_cpu_incr(struct host1x *host,
 					    struct host1x_syncpt *sp)
 {
 	return host->syncpt_op->cpu_incr(sp);
 }
 
-static inline int host1x_hw_syncpt_patch_wait(struct host1x *host,
+static int host1x_hw_syncpt_patch_wait(struct host1x *host,
 					      struct host1x_syncpt *sp,
 					      void *patch_addr)
 {
 	return host->syncpt_op->patch_wait(sp, patch_addr);
 }
 
-static inline int host1x_hw_intr_init_host_sync(struct host1x *host, u32 cpm,
+static int host1x_hw_intr_init_host_sync(struct host1x *host, u32 cpm,
 			void (*syncpt_thresh_work)(struct work_struct *))
 {
 	return host->intr_op->init_host_sync(host, cpm, syncpt_thresh_work);
 }
 
-static inline void host1x_hw_intr_set_syncpt_threshold(struct host1x *host,
+static void host1x_hw_intr_set_syncpt_threshold(struct host1x *host,
 						       unsigned int id,
 						       u32 thresh)
 {
 	host->intr_op->set_syncpt_threshold(host, id, thresh);
 }
 
-static inline void host1x_hw_intr_enable_syncpt_intr(struct host1x *host,
+static void host1x_hw_intr_enable_syncpt_intr(struct host1x *host,
 						     unsigned int id)
 {
 	host->intr_op->enable_syncpt_intr(host, id);
 }
 
-static inline void host1x_hw_intr_disable_syncpt_intr(struct host1x *host,
+static void host1x_hw_intr_disable_syncpt_intr(struct host1x *host,
 						      unsigned int id)
 {
 	host->intr_op->disable_syncpt_intr(host, id);
 }
 
-static inline void host1x_hw_intr_disable_all_syncpt_intrs(struct host1x *host)
+static void host1x_hw_intr_disable_all_syncpt_intrs(struct host1x *host)
 {
 	host->intr_op->disable_all_syncpt_intrs(host);
 }
 
-static inline int host1x_hw_intr_free_syncpt_irq(struct host1x *host)
+static int host1x_hw_intr_free_syncpt_irq(struct host1x *host)
 {
 	return host->intr_op->free_syncpt_irq(host);
 }
 
-static inline int host1x_hw_channel_init(struct host1x *host,
+static int host1x_hw_channel_init(struct host1x *host,
 					 struct host1x_channel *channel,
 					 unsigned int id)
 {
 	return host->channel_op->init(channel, host, id);
 }
 
-static inline int host1x_hw_channel_submit(struct host1x *host,
+static int host1x_hw_channel_submit(struct host1x *host,
 					   struct host1x_job *job)
 {
 	return host->channel_op->submit(job);
 }
 
-static inline void host1x_hw_cdma_start(struct host1x *host,
+static void host1x_hw_cdma_start(struct host1x *host,
 					struct host1x_cdma *cdma)
 {
 	host->cdma_op->start(cdma);
 }
 
-static inline void host1x_hw_cdma_stop(struct host1x *host,
+static void host1x_hw_cdma_stop(struct host1x *host,
 				       struct host1x_cdma *cdma)
 {
 	host->cdma_op->stop(cdma);
 }
 
-static inline void host1x_hw_cdma_flush(struct host1x *host,
+static void host1x_hw_cdma_flush(struct host1x *host,
 					struct host1x_cdma *cdma)
 {
 	host->cdma_op->flush(cdma);
 }
 
-static inline int host1x_hw_cdma_timeout_init(struct host1x *host,
+static int host1x_hw_cdma_timeout_init(struct host1x *host,
 					      struct host1x_cdma *cdma,
 					      unsigned int syncpt)
 {
 	return host->cdma_op->timeout_init(cdma, syncpt);
 }
 
-static inline void host1x_hw_cdma_timeout_destroy(struct host1x *host,
+static void host1x_hw_cdma_timeout_destroy(struct host1x *host,
 						  struct host1x_cdma *cdma)
 {
 	host->cdma_op->timeout_destroy(cdma);
 }
 
-static inline void host1x_hw_cdma_freeze(struct host1x *host,
+static void host1x_hw_cdma_freeze(struct host1x *host,
 					 struct host1x_cdma *cdma)
 {
 	host->cdma_op->freeze(cdma);
 }
 
-static inline void host1x_hw_cdma_resume(struct host1x *host,
+static void host1x_hw_cdma_resume(struct host1x *host,
 					 struct host1x_cdma *cdma, u32 getptr)
 {
 	host->cdma_op->resume(cdma, getptr);
 }
 
-static inline void host1x_hw_cdma_timeout_cpu_incr(struct host1x *host,
+static void host1x_hw_cdma_timeout_cpu_incr(struct host1x *host,
 						   struct host1x_cdma *cdma,
 						   u32 getptr,
 						   u32 syncpt_incrs,
@@ -283,33 +283,33 @@ static inline void host1x_hw_cdma_timeout_cpu_incr(struct host1x *host,
 					nr_slots);
 }
 
-static inline void host1x_hw_pushbuffer_init(struct host1x *host,
+static void host1x_hw_pushbuffer_init(struct host1x *host,
 					     struct push_buffer *pb)
 {
 	host->cdma_pb_op->init(pb);
 }
 
-static inline void host1x_hw_debug_init(struct host1x *host, struct dentry *de)
+static void host1x_hw_debug_init(struct host1x *host, struct dentry *de)
 {
 	if (host->debug_op && host->debug_op->debug_init)
 		host->debug_op->debug_init(de);
 }
 
-static inline void host1x_hw_show_channel_cdma(struct host1x *host,
+static void host1x_hw_show_channel_cdma(struct host1x *host,
 					       struct host1x_channel *channel,
 					       struct output *o)
 {
 	host->debug_op->show_channel_cdma(host, channel, o);
 }
 
-static inline void host1x_hw_show_channel_fifo(struct host1x *host,
+static void host1x_hw_show_channel_fifo(struct host1x *host,
 					       struct host1x_channel *channel,
 					       struct output *o)
 {
 	host->debug_op->show_channel_fifo(host, channel, o);
 }
 
-static inline void host1x_hw_show_mlocks(struct host1x *host, struct output *o)
+static void host1x_hw_show_mlocks(struct host1x *host, struct output *o)
 {
 	host->debug_op->show_mlocks(host, o);
 }

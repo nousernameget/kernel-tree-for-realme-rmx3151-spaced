@@ -121,7 +121,7 @@ struct s3c24xx_uart_port {
 
 /* Byte-order aware bit setting/clearing functions. */
 
-static inline void s3c24xx_set_bit(struct uart_port *port, int idx,
+static void s3c24xx_set_bit(struct uart_port *port, int idx,
 				   unsigned int reg)
 {
 	unsigned long flags;
@@ -134,7 +134,7 @@ static inline void s3c24xx_set_bit(struct uart_port *port, int idx,
 	local_irq_restore(flags);
 }
 
-static inline void s3c24xx_clear_bit(struct uart_port *port, int idx,
+static void s3c24xx_clear_bit(struct uart_port *port, int idx,
 				     unsigned int reg)
 {
 	unsigned long flags;

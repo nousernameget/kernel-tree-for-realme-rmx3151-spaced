@@ -73,12 +73,12 @@ void ath10k_ahb_exit(void);
 
 #else /* CONFIG_ATH10K_AHB */
 
-static inline int ath10k_ahb_init(void)
+static int ath10k_ahb_init(void)
 {
 	return 0;
 }
 
-static inline void ath10k_ahb_exit(void)
+static void ath10k_ahb_exit(void)
 {
 }
 

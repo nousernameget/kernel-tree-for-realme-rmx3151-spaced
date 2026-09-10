@@ -32,38 +32,38 @@ void ssusb_wakeup_disable(struct ssusb_mtk *ssusb);
 
 #else
 
-static inline int ssusb_host_init(struct ssusb_mtk *ssusb,
+static int ssusb_host_init(struct ssusb_mtk *ssusb,
 
 	struct device_node *parent_dn)
 {
 	return 0;
 }
 
-static inline void ssusb_host_exit(struct ssusb_mtk *ssusb)
+static void ssusb_host_exit(struct ssusb_mtk *ssusb)
 {}
 
-static inline int ssusb_wakeup_of_property_parse(
+static int ssusb_wakeup_of_property_parse(
 	struct ssusb_mtk *ssusb, struct device_node *dn)
 {
 	return 0;
 }
 
-static inline int ssusb_host_enable(struct ssusb_mtk *ssusb)
+static int ssusb_host_enable(struct ssusb_mtk *ssusb)
 {
 	return 0;
 }
 
-static inline int ssusb_host_disable(struct ssusb_mtk *ssusb, bool suspend)
+static int ssusb_host_disable(struct ssusb_mtk *ssusb, bool suspend)
 {
 	return 0;
 }
 
-static inline int ssusb_wakeup_enable(struct ssusb_mtk *ssusb)
+static int ssusb_wakeup_enable(struct ssusb_mtk *ssusb)
 {
 	return 0;
 }
 
-static inline void ssusb_wakeup_disable(struct ssusb_mtk *ssusb)
+static void ssusb_wakeup_disable(struct ssusb_mtk *ssusb)
 {}
 
 #endif
@@ -88,12 +88,12 @@ void ssusb_set_mailbox(struct otg_switch_mtk *otg_sx,
 int ssusb_gadget_init(struct ssusb_mtk *ssusb);
 void ssusb_gadget_exit(struct ssusb_mtk *ssusb);
 #else
-static inline int ssusb_gadget_init(struct ssusb_mtk *ssusb)
+static int ssusb_gadget_init(struct ssusb_mtk *ssusb)
 {
 	return 0;
 }
 
-static inline void ssusb_gadget_exit(struct ssusb_mtk *ssusb)
+static void ssusb_gadget_exit(struct ssusb_mtk *ssusb)
 {}
 #endif
 
@@ -112,15 +112,15 @@ extern u32 mtu3_speed;
 
 #else
 
-static inline int ssusb_otg_switch_init(struct ssusb_mtk *ssusb)
+static int ssusb_otg_switch_init(struct ssusb_mtk *ssusb)
 {
 	return 0;
 }
 
-static inline void ssusb_otg_switch_exit(struct ssusb_mtk *ssusb)
+static void ssusb_otg_switch_exit(struct ssusb_mtk *ssusb)
 {}
 
-static inline int ssusb_set_vbus(struct otg_switch_mtk *otg_sx, int is_on)
+static int ssusb_set_vbus(struct otg_switch_mtk *otg_sx, int is_on)
 {
 	return 0;
 }
@@ -138,13 +138,13 @@ void mtu3_drp_to_none(struct mtu3 *mtu3);
 void mtu3_drp_to_device(struct mtu3 *mtu3);
 void mtu3_drp_to_host(struct mtu3 *mtu3);
 #else
-static inline void mtu3_drp_to_none(struct mtu3 *mtu3)
+static void mtu3_drp_to_none(struct mtu3 *mtu3)
 {}
 
-static inline void mtu3_drp_to_device(struct mtu3 *mtu3)
+static void mtu3_drp_to_device(struct mtu3 *mtu3)
 {}
 
-static inline void mtu3_drp_to_host(struct mtu3 *mtu3)
+static void mtu3_drp_to_host(struct mtu3 *mtu3)
 {}
 #endif
 #endif

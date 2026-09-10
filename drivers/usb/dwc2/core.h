@@ -75,7 +75,7 @@
  * writes. This set of operations was added specifically for MIPS and
  * should only be used there.
  */
-static inline u32 dwc2_readl(const void __iomem *addr)
+static u32 dwc2_readl(const void __iomem *addr)
 {
 	u32 value = __raw_readl(addr);
 
@@ -87,7 +87,7 @@ static inline u32 dwc2_readl(const void __iomem *addr)
 	return value;
 }
 
-static inline void dwc2_writel(u32 value, void __iomem *addr)
+static void dwc2_writel(u32 value, void __iomem *addr)
 {
 	__raw_writel(value, addr);
 
@@ -103,12 +103,12 @@ static inline void dwc2_writel(u32 value, void __iomem *addr)
 }
 #else
 /* Normal architectures just use readl/write */
-static inline u32 dwc2_readl(const void __iomem *addr)
+static u32 dwc2_readl(const void __iomem *addr)
 {
 	return readl(addr);
 }
 
-static inline void dwc2_writel(u32 value, void __iomem *addr)
+static void dwc2_writel(u32 value, void __iomem *addr)
 {
 	writel(value, addr);
 
@@ -1078,17 +1078,17 @@ enum dwc2_halt_status {
 };
 
 /* Core version information */
-static inline bool dwc2_is_iot(struct dwc2_hsotg *hsotg)
+static bool dwc2_is_iot(struct dwc2_hsotg *hsotg)
 {
 	return (hsotg->hw_params.snpsid & 0xfff00000) == 0x55300000;
 }
 
-static inline bool dwc2_is_fs_iot(struct dwc2_hsotg *hsotg)
+static bool dwc2_is_fs_iot(struct dwc2_hsotg *hsotg)
 {
 	return (hsotg->hw_params.snpsid & 0xffff0000) == 0x55310000;
 }
 
-static inline bool dwc2_is_hs_iot(struct dwc2_hsotg *hsotg)
+static bool dwc2_is_hs_iot(struct dwc2_hsotg *hsotg)
 {
 	return (hsotg->hw_params.snpsid & 0xffff0000) == 0x55320000;
 }
@@ -1149,12 +1149,12 @@ bool dwc2_hw_is_device(struct dwc2_hsotg *hsotg);
 /*
  * Returns the mode of operation, host or device
  */
-static inline int dwc2_is_host_mode(struct dwc2_hsotg *hsotg)
+static int dwc2_is_host_mode(struct dwc2_hsotg *hsotg)
 {
 	return (dwc2_readl(hsotg->regs + GINTSTS) & GINTSTS_CURMODE_HOST) != 0;
 }
 
-static inline int dwc2_is_device_mode(struct dwc2_hsotg *hsotg)
+static int dwc2_is_device_mode(struct dwc2_hsotg *hsotg)
 {
 	return (dwc2_readl(hsotg->regs + GINTSTS) & GINTSTS_CURMODE_HOST) == 0;
 }
@@ -1185,31 +1185,31 @@ int dwc2_hsotg_tx_fifo_count(struct dwc2_hsotg *hsotg);
 int dwc2_hsotg_tx_fifo_total_depth(struct dwc2_hsotg *hsotg);
 int dwc2_hsotg_tx_fifo_average_depth(struct dwc2_hsotg *hsotg);
 #else
-static inline int dwc2_hsotg_remove(struct dwc2_hsotg *dwc2)
+static int dwc2_hsotg_remove(struct dwc2_hsotg *dwc2)
 { return 0; }
-static inline int dwc2_hsotg_suspend(struct dwc2_hsotg *dwc2)
+static int dwc2_hsotg_suspend(struct dwc2_hsotg *dwc2)
 { return 0; }
-static inline int dwc2_hsotg_resume(struct dwc2_hsotg *dwc2)
+static int dwc2_hsotg_resume(struct dwc2_hsotg *dwc2)
 { return 0; }
-static inline int dwc2_gadget_init(struct dwc2_hsotg *hsotg, int irq)
+static int dwc2_gadget_init(struct dwc2_hsotg *hsotg, int irq)
 { return 0; }
-static inline void dwc2_hsotg_core_init_disconnected(struct dwc2_hsotg *dwc2,
+static void dwc2_hsotg_core_init_disconnected(struct dwc2_hsotg *dwc2,
 						     bool reset) {}
 static inline void dwc2_hsotg_core_connect(struct dwc2_hsotg *hsotg) {}
 static inline void dwc2_hsotg_disconnect(struct dwc2_hsotg *dwc2) {}
-static inline int dwc2_hsotg_set_test_mode(struct dwc2_hsotg *hsotg,
+static int dwc2_hsotg_set_test_mode(struct dwc2_hsotg *hsotg,
 					   int testmode)
 { return 0; }
 #define dwc2_is_device_connected(hsotg) (0)
-static inline int dwc2_backup_device_registers(struct dwc2_hsotg *hsotg)
+static int dwc2_backup_device_registers(struct dwc2_hsotg *hsotg)
 { return 0; }
-static inline int dwc2_restore_device_registers(struct dwc2_hsotg *hsotg)
+static int dwc2_restore_device_registers(struct dwc2_hsotg *hsotg)
 { return 0; }
-static inline int dwc2_hsotg_tx_fifo_count(struct dwc2_hsotg *hsotg)
+static int dwc2_hsotg_tx_fifo_count(struct dwc2_hsotg *hsotg)
 { return 0; }
-static inline int dwc2_hsotg_tx_fifo_total_depth(struct dwc2_hsotg *hsotg)
+static int dwc2_hsotg_tx_fifo_total_depth(struct dwc2_hsotg *hsotg)
 { return 0; }
-static inline int dwc2_hsotg_tx_fifo_average_depth(struct dwc2_hsotg *hsotg)
+static int dwc2_hsotg_tx_fifo_average_depth(struct dwc2_hsotg *hsotg)
 { return 0; }
 #endif
 
@@ -1222,20 +1222,20 @@ void dwc2_hcd_start(struct dwc2_hsotg *hsotg);
 int dwc2_backup_host_registers(struct dwc2_hsotg *hsotg);
 int dwc2_restore_host_registers(struct dwc2_hsotg *hsotg);
 #else
-static inline int dwc2_hcd_get_frame_number(struct dwc2_hsotg *hsotg)
+static int dwc2_hcd_get_frame_number(struct dwc2_hsotg *hsotg)
 { return 0; }
-static inline int dwc2_hcd_get_future_frame_number(struct dwc2_hsotg *hsotg,
+static int dwc2_hcd_get_future_frame_number(struct dwc2_hsotg *hsotg,
 						   int us)
 { return 0; }
 static inline void dwc2_hcd_connect(struct dwc2_hsotg *hsotg) {}
 static inline void dwc2_hcd_disconnect(struct dwc2_hsotg *hsotg, bool force) {}
 static inline void dwc2_hcd_start(struct dwc2_hsotg *hsotg) {}
 static inline void dwc2_hcd_remove(struct dwc2_hsotg *hsotg) {}
-static inline int dwc2_hcd_init(struct dwc2_hsotg *hsotg)
+static int dwc2_hcd_init(struct dwc2_hsotg *hsotg)
 { return 0; }
-static inline int dwc2_backup_host_registers(struct dwc2_hsotg *hsotg)
+static int dwc2_backup_host_registers(struct dwc2_hsotg *hsotg)
 { return 0; }
-static inline int dwc2_restore_host_registers(struct dwc2_hsotg *hsotg)
+static int dwc2_restore_host_registers(struct dwc2_hsotg *hsotg)
 { return 0; }
 
 #endif

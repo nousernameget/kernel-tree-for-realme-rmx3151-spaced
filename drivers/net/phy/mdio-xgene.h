@@ -108,7 +108,7 @@ struct xgene_mdio_pdata {
 /* Set the specified value into a bit-field defined by its starting position
  * and length within a single u64.
  */
-static inline u64 xgene_enet_set_field_value(int pos, int len, u64 val)
+static u64 xgene_enet_set_field_value(int pos, int len, u64 val)
 {
 	return (val & ((1ULL << len) - 1)) << pos;
 }
@@ -122,7 +122,7 @@ static inline u64 xgene_enet_set_field_value(int pos, int len, u64 val)
 /* Get the value from a bit-field defined by its starting position
  * and length within the specified u64.
  */
-static inline u64 xgene_enet_get_field_value(int pos, int len, u64 src)
+static u64 xgene_enet_get_field_value(int pos, int len, u64 src)
 {
 	return (src >> pos) & ((1ULL << len) - 1);
 }

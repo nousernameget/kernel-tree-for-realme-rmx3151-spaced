@@ -96,25 +96,25 @@ struct verity_result {
 	int err;
 };
 
-static inline struct ahash_request *verity_io_hash_req(struct dm_verity *v,
+static struct ahash_request *verity_io_hash_req(struct dm_verity *v,
 						     struct dm_verity_io *io)
 {
 	return (struct ahash_request *)(io + 1);
 }
 
-static inline u8 *verity_io_real_digest(struct dm_verity *v,
+static u8 *verity_io_real_digest(struct dm_verity *v,
 					struct dm_verity_io *io)
 {
 	return (u8 *)(io + 1) + v->ahash_reqsize;
 }
 
-static inline u8 *verity_io_want_digest(struct dm_verity *v,
+static u8 *verity_io_want_digest(struct dm_verity *v,
 					struct dm_verity_io *io)
 {
 	return (u8 *)(io + 1) + v->ahash_reqsize + v->digest_size;
 }
 
-static inline u8 *verity_io_digest_end(struct dm_verity *v,
+static u8 *verity_io_digest_end(struct dm_verity *v,
 				       struct dm_verity_io *io)
 {
 	return verity_io_want_digest(v, io) + v->digest_size;

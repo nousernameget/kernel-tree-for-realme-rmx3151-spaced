@@ -254,7 +254,7 @@ enum rsxx_intr {
 	CR_INTR_ALL	= 0xffffffff,
 };
 
-static inline int CR_INTR_DMA(int N)
+static int CR_INTR_DMA(int N)
 {
 	static const unsigned int _CR_INTR_DMA[] = {
 		CR_INTR_DMA0, CR_INTR_DMA1, CR_INTR_DMA2, CR_INTR_DMA3,
@@ -350,7 +350,7 @@ enum rsxx_dma_finish {
 	COMPLETE_DMA	= 0x1,
 };
 
-static inline unsigned int CREG_DATA(int N)
+static unsigned int CREG_DATA(int N)
 {
 	return CREG_DATA0 + (N << 2);
 }

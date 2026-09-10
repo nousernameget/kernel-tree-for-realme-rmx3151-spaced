@@ -146,11 +146,11 @@ void usbhs_irq_callback_update(struct usbhs_priv *priv, struct usbhs_mod *mod);
 extern int usbhs_mod_host_probe(struct usbhs_priv *priv);
 extern int usbhs_mod_host_remove(struct usbhs_priv *priv);
 #else
-static inline int usbhs_mod_host_probe(struct usbhs_priv *priv)
+static int usbhs_mod_host_probe(struct usbhs_priv *priv)
 {
 	return 0;
 }
-static inline void usbhs_mod_host_remove(struct usbhs_priv *priv)
+static void usbhs_mod_host_remove(struct usbhs_priv *priv)
 {
 }
 #endif
@@ -160,11 +160,11 @@ static inline void usbhs_mod_host_remove(struct usbhs_priv *priv)
 extern int usbhs_mod_gadget_probe(struct usbhs_priv *priv);
 extern void usbhs_mod_gadget_remove(struct usbhs_priv *priv);
 #else
-static inline int usbhs_mod_gadget_probe(struct usbhs_priv *priv)
+static int usbhs_mod_gadget_probe(struct usbhs_priv *priv)
 {
 	return 0;
 }
-static inline void usbhs_mod_gadget_remove(struct usbhs_priv *priv)
+static void usbhs_mod_gadget_remove(struct usbhs_priv *priv)
 {
 }
 #endif

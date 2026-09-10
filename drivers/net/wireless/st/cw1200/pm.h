@@ -36,11 +36,11 @@ int cw1200_wow_resume(struct ieee80211_hw *hw);
 void cw1200_pm_stay_awake(struct cw1200_pm_state *pm,
 			  unsigned long tmo);
 #else
-static inline void cw1200_pm_stay_awake(struct cw1200_pm_state *pm,
+static void cw1200_pm_stay_awake(struct cw1200_pm_state *pm,
 					unsigned long tmo)
 {
 }
-static inline int cw1200_can_suspend(struct cw1200_common *priv)
+static int cw1200_can_suspend(struct cw1200_common *priv)
 {
 	return 0;
 }

@@ -180,7 +180,7 @@ struct _adapter {
 	struct completion rtl8712_fw_ready;
 };
 
-static inline u8 *myid(struct eeprom_priv *peepriv)
+static u8 *myid(struct eeprom_priv *peepriv)
 {
 	return peepriv->mac_addr;
 }

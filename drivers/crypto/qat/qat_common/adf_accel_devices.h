@@ -121,7 +121,7 @@ enum dev_sku_info {
 	DEV_SKU_UNKNOWN,
 };
 
-static inline const char *get_sku_info(enum dev_sku_info info)
+static const char *get_sku_info(enum dev_sku_info info)
 {
 	switch (info) {
 	case DEV_SKU_1:

@@ -133,7 +133,7 @@ extern int vfio_pci_register_dev_region(struct vfio_pci_device *vdev,
 #ifdef CONFIG_VFIO_PCI_IGD
 extern int vfio_pci_igd_init(struct vfio_pci_device *vdev);
 #else
-static inline int vfio_pci_igd_init(struct vfio_pci_device *vdev)
+static int vfio_pci_igd_init(struct vfio_pci_device *vdev)
 {
 	return -ENODEV;
 }

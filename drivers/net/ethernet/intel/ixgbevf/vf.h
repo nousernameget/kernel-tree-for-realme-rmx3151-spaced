@@ -180,7 +180,7 @@ struct ixgbevf_info {
 
 #define IXGBE_REMOVED(a) unlikely(!(a))
 
-static inline void ixgbe_write_reg(struct ixgbe_hw *hw, u32 reg, u32 value)
+static void ixgbe_write_reg(struct ixgbe_hw *hw, u32 reg, u32 value)
 {
 	u8 __iomem *reg_addr = ACCESS_ONCE(hw->hw_addr);
 
@@ -194,7 +194,7 @@ static inline void ixgbe_write_reg(struct ixgbe_hw *hw, u32 reg, u32 value)
 u32 ixgbevf_read_reg(struct ixgbe_hw *hw, u32 reg);
 #define IXGBE_READ_REG(h, r) ixgbevf_read_reg(h, r)
 
-static inline void ixgbe_write_reg_array(struct ixgbe_hw *hw, u32 reg,
+static void ixgbe_write_reg_array(struct ixgbe_hw *hw, u32 reg,
 					 u32 offset, u32 value)
 {
 	ixgbe_write_reg(hw, reg + (offset << 2), value);
@@ -202,7 +202,7 @@ static inline void ixgbe_write_reg_array(struct ixgbe_hw *hw, u32 reg,
 
 #define IXGBE_WRITE_REG_ARRAY(h, r, o, v) ixgbe_write_reg_array(h, r, o, v)
 
-static inline u32 ixgbe_read_reg_array(struct ixgbe_hw *hw, u32 reg,
+static u32 ixgbe_read_reg_array(struct ixgbe_hw *hw, u32 reg,
 				       u32 offset)
 {
 	return ixgbevf_read_reg(hw, reg + (offset << 2));

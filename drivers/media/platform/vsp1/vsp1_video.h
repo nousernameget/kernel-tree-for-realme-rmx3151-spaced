@@ -26,7 +26,7 @@ struct vsp1_vb2_buffer {
 	struct vsp1_rwpf_memory mem;
 };
 
-static inline struct vsp1_vb2_buffer *
+static struct vsp1_vb2_buffer *
 to_vsp1_vb2_buffer(struct vb2_v4l2_buffer *vbuf)
 {
 	return container_of(vbuf, struct vsp1_vb2_buffer, buf);
@@ -50,7 +50,7 @@ struct vsp1_video {
 	struct list_head irqqueue;
 };
 
-static inline struct vsp1_video *to_vsp1_video(struct video_device *vdev)
+static struct vsp1_video *to_vsp1_video(struct video_device *vdev)
 {
 	return container_of(vdev, struct vsp1_video, video);
 }

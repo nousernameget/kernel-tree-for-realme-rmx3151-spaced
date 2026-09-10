@@ -651,7 +651,7 @@ struct mlx4_mac_entry {
 	struct rcu_head rcu;
 };
 
-static inline struct mlx4_cqe *mlx4_en_get_cqe(void *buf, int idx, int cqe_sz)
+static struct mlx4_cqe *mlx4_en_get_cqe(void *buf, int idx, int cqe_sz)
 {
 	return buf + idx * cqe_sz;
 }

@@ -754,22 +754,22 @@ DEFINE_EVENT(i915_gem_request, i915_gem_request_out,
 );
 #else
 #if !defined(TRACE_HEADER_MULTI_READ)
-static inline void
+static void
 trace_i915_gem_request_submit(struct drm_i915_gem_request *req)
 {
 }
 
-static inline void
+static void
 trace_i915_gem_request_execute(struct drm_i915_gem_request *req)
 {
 }
 
-static inline void
+static void
 trace_i915_gem_request_in(struct drm_i915_gem_request *req, unsigned int port)
 {
 }
 
-static inline void
+static void
 trace_i915_gem_request_out(struct drm_i915_gem_request *req)
 {
 }

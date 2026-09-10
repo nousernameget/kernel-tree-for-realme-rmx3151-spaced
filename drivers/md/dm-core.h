@@ -137,14 +137,14 @@ int md_in_flight(struct mapped_device *md);
 void disable_write_same(struct mapped_device *md);
 void disable_write_zeroes(struct mapped_device *md);
 
-static inline struct completion *dm_get_completion_from_kobject(struct kobject *kobj)
+static struct completion *dm_get_completion_from_kobject(struct kobject *kobj)
 {
 	return &container_of(kobj, struct dm_kobject_holder, kobj)->completion;
 }
 
 unsigned __dm_get_module_param(unsigned *module_param, unsigned def, unsigned max);
 
-static inline bool dm_message_test_buffer_overflow(char *result, unsigned maxlen)
+static bool dm_message_test_buffer_overflow(char *result, unsigned maxlen)
 {
 	return !maxlen || strlen(result) + 1 >= maxlen;
 }

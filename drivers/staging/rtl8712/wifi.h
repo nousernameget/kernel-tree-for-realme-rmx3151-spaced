@@ -170,7 +170,7 @@ enum WIFI_REG_DOMAIN {
 	*(__le16 *)(pbuf) &= (~cpu_to_le16(_FROM_DS_)); \
 })
 
-static inline unsigned char get_tofr_ds(unsigned char *pframe)
+static unsigned char get_tofr_ds(unsigned char *pframe)
 {
 	return ((GetToDs(pframe) << 1) | GetFrDs(pframe));
 }
@@ -292,7 +292,7 @@ static inline unsigned char get_tofr_ds(unsigned char *pframe)
 
 
 
-static inline int IS_MCAST(unsigned char *da)
+static int IS_MCAST(unsigned char *da)
 {
 	if ((*da) & 0x01)
 		return true;
@@ -301,7 +301,7 @@ static inline int IS_MCAST(unsigned char *da)
 }
 
 
-static inline unsigned char *get_da(unsigned char *pframe)
+static unsigned char *get_da(unsigned char *pframe)
 {
 	unsigned char	*da;
 	unsigned int	to_fr_ds = (GetToDs(pframe) << 1) | GetFrDs(pframe);
@@ -324,7 +324,7 @@ static inline unsigned char *get_da(unsigned char *pframe)
 }
 
 
-static inline unsigned char *get_sa(unsigned char *pframe)
+static unsigned char *get_sa(unsigned char *pframe)
 {
 	unsigned char	*sa;
 	unsigned int	to_fr_ds = (GetToDs(pframe) << 1) | GetFrDs(pframe);
@@ -347,7 +347,7 @@ static inline unsigned char *get_sa(unsigned char *pframe)
 	return sa;
 }
 
-static inline unsigned char *get_hdr_bssid(unsigned char *pframe)
+static unsigned char *get_hdr_bssid(unsigned char *pframe)
 {
 	unsigned char	*sa;
 	unsigned int	to_fr_ds = (GetToDs(pframe) << 1) | GetFrDs(pframe);

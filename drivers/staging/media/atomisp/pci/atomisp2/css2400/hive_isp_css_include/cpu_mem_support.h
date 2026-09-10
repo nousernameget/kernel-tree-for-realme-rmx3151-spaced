@@ -23,13 +23,13 @@
 
 #include "sh_css_internal.h" /* sh_css_malloc and sh_css_free */
 
-static inline void*
+static void*
 ia_css_cpu_mem_alloc(unsigned int size)
 {
 	return sh_css_malloc(size);
 }
 
-static inline void*
+static void*
 ia_css_cpu_mem_copy(void* dst, const void* src, unsigned int size)
 {
 	if(!src || !dst)
@@ -38,7 +38,7 @@ ia_css_cpu_mem_copy(void* dst, const void* src, unsigned int size)
 	return memcpy(dst, src, size);
 }
 
-static inline void*
+static void*
 ia_css_cpu_mem_set_zero(void* dst, unsigned int size)
 {
 	if(!dst)
@@ -47,7 +47,7 @@ ia_css_cpu_mem_set_zero(void* dst, unsigned int size)
 	return memset(dst, 0, size);
 }
 
-static inline void
+static void
 ia_css_cpu_mem_free(void* ptr)
 {
 	if(!ptr)

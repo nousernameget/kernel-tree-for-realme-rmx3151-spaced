@@ -45,7 +45,7 @@ struct ves1820_config
 extern struct dvb_frontend* ves1820_attach(const struct ves1820_config* config,
 					   struct i2c_adapter* i2c, u8 pwm);
 #else
-static inline struct dvb_frontend* ves1820_attach(const struct ves1820_config* config,
+static struct dvb_frontend* ves1820_attach(const struct ves1820_config* config,
 					   struct i2c_adapter* i2c, u8 pwm)
 {
 	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);

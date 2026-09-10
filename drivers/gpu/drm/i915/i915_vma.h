@@ -130,50 +130,50 @@ i915_vma_instance(struct drm_i915_gem_object *obj,
 
 void i915_vma_unpin_and_release(struct i915_vma **p_vma);
 
-static inline bool i915_vma_is_ggtt(const struct i915_vma *vma)
+static bool i915_vma_is_ggtt(const struct i915_vma *vma)
 {
 	return vma->flags & I915_VMA_GGTT;
 }
 
-static inline bool i915_vma_is_map_and_fenceable(const struct i915_vma *vma)
+static bool i915_vma_is_map_and_fenceable(const struct i915_vma *vma)
 {
 	return vma->flags & I915_VMA_CAN_FENCE;
 }
 
-static inline bool i915_vma_is_closed(const struct i915_vma *vma)
+static bool i915_vma_is_closed(const struct i915_vma *vma)
 {
 	return vma->flags & I915_VMA_CLOSED;
 }
 
-static inline unsigned int i915_vma_get_active(const struct i915_vma *vma)
+static unsigned int i915_vma_get_active(const struct i915_vma *vma)
 {
 	return vma->active;
 }
 
-static inline bool i915_vma_is_active(const struct i915_vma *vma)
+static bool i915_vma_is_active(const struct i915_vma *vma)
 {
 	return i915_vma_get_active(vma);
 }
 
-static inline void i915_vma_set_active(struct i915_vma *vma,
+static void i915_vma_set_active(struct i915_vma *vma,
 				       unsigned int engine)
 {
 	vma->active |= BIT(engine);
 }
 
-static inline void i915_vma_clear_active(struct i915_vma *vma,
+static void i915_vma_clear_active(struct i915_vma *vma,
 					 unsigned int engine)
 {
 	vma->active &= ~BIT(engine);
 }
 
-static inline bool i915_vma_has_active_engine(const struct i915_vma *vma,
+static bool i915_vma_has_active_engine(const struct i915_vma *vma,
 					      unsigned int engine)
 {
 	return vma->active & BIT(engine);
 }
 
-static inline u32 i915_ggtt_offset(const struct i915_vma *vma)
+static u32 i915_ggtt_offset(const struct i915_vma *vma)
 {
 	GEM_BUG_ON(!i915_vma_is_ggtt(vma));
 	GEM_BUG_ON(!vma->node.allocated);
@@ -182,13 +182,13 @@ static inline u32 i915_ggtt_offset(const struct i915_vma *vma)
 	return lower_32_bits(vma->node.start);
 }
 
-static inline struct i915_vma *i915_vma_get(struct i915_vma *vma)
+static struct i915_vma *i915_vma_get(struct i915_vma *vma)
 {
 	i915_gem_object_get(vma->obj);
 	return vma;
 }
 
-static inline void i915_vma_put(struct i915_vma *vma)
+static void i915_vma_put(struct i915_vma *vma)
 {
 	i915_gem_object_put(vma->obj);
 }
@@ -198,7 +198,7 @@ static __always_inline ptrdiff_t ptrdiff(const void *a, const void *b)
 	return a - b;
 }
 
-static inline long
+static long
 i915_vma_compare(struct i915_vma *vma,
 		 struct i915_address_space *vm,
 		 const struct i915_ggtt_view *view)
@@ -249,7 +249,7 @@ void i915_vma_close(struct i915_vma *vma);
 
 int __i915_vma_do_pin(struct i915_vma *vma,
 		      u64 size, u64 alignment, u64 flags);
-static inline int __must_check
+static int __must_check
 i915_vma_pin(struct i915_vma *vma, u64 size, u64 alignment, u64 flags)
 {
 	BUILD_BUG_ON(PIN_MBZ != I915_VMA_PIN_OVERFLOW);
@@ -268,28 +268,28 @@ i915_vma_pin(struct i915_vma *vma, u64 size, u64 alignment, u64 flags)
 	return __i915_vma_do_pin(vma, size, alignment, flags);
 }
 
-static inline int i915_vma_pin_count(const struct i915_vma *vma)
+static int i915_vma_pin_count(const struct i915_vma *vma)
 {
 	return vma->flags & I915_VMA_PIN_MASK;
 }
 
-static inline bool i915_vma_is_pinned(const struct i915_vma *vma)
+static bool i915_vma_is_pinned(const struct i915_vma *vma)
 {
 	return i915_vma_pin_count(vma);
 }
 
-static inline void __i915_vma_pin(struct i915_vma *vma)
+static void __i915_vma_pin(struct i915_vma *vma)
 {
 	vma->flags++;
 	GEM_BUG_ON(vma->flags & I915_VMA_PIN_OVERFLOW);
 }
 
-static inline void __i915_vma_unpin(struct i915_vma *vma)
+static void __i915_vma_unpin(struct i915_vma *vma)
 {
 	vma->flags--;
 }
 
-static inline void i915_vma_unpin(struct i915_vma *vma)
+static void i915_vma_unpin(struct i915_vma *vma)
 {
 	GEM_BUG_ON(!i915_vma_is_pinned(vma));
 	GEM_BUG_ON(!drm_mm_node_allocated(&vma->node));
@@ -321,14 +321,14 @@ void __iomem *i915_vma_pin_iomap(struct i915_vma *vma);
  * Callers must hold the struct_mutex. This function is only valid to be
  * called on a VMA previously iomapped by the caller with i915_vma_pin_iomap().
  */
-static inline void i915_vma_unpin_iomap(struct i915_vma *vma)
+static void i915_vma_unpin_iomap(struct i915_vma *vma)
 {
 	lockdep_assert_held(&vma->obj->base.dev->struct_mutex);
 	GEM_BUG_ON(vma->iomap == NULL);
 	i915_vma_unpin(vma);
 }
 
-static inline struct page *i915_vma_first_page(struct i915_vma *vma)
+static struct page *i915_vma_first_page(struct i915_vma *vma)
 {
 	GEM_BUG_ON(!vma->pages);
 	return sg_page(vma->pages->sgl);
@@ -349,7 +349,7 @@ static inline struct page *i915_vma_first_page(struct i915_vma *vma)
  *
  * True if the vma has a fence, false otherwise.
  */
-static inline bool
+static bool
 i915_vma_pin_fence(struct i915_vma *vma)
 {
 	lockdep_assert_held(&vma->obj->base.dev->struct_mutex);
@@ -368,7 +368,7 @@ i915_vma_pin_fence(struct i915_vma *vma)
  * i915_vma_pin_fence. It will handle both objects with and without an
  * attached fence correctly, callers do not need to distinguish this.
  */
-static inline void
+static void
 i915_vma_unpin_fence(struct i915_vma *vma)
 {
 	lockdep_assert_held(&vma->obj->base.dev->struct_mutex);

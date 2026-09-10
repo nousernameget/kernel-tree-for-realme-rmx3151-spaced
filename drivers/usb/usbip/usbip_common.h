@@ -337,14 +337,14 @@ void usbip_event_add(struct usbip_device *ud, unsigned long event);
 int usbip_event_happened(struct usbip_device *ud);
 int usbip_in_eh(struct task_struct *task);
 
-static inline int interface_to_busnum(struct usb_interface *interface)
+static int interface_to_busnum(struct usb_interface *interface)
 {
 	struct usb_device *udev = interface_to_usbdev(interface);
 
 	return udev->bus->busnum;
 }
 
-static inline int interface_to_devnum(struct usb_interface *interface)
+static int interface_to_devnum(struct usb_interface *interface)
 {
 	struct usb_device *udev = interface_to_usbdev(interface);
 

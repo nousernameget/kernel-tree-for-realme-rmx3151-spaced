@@ -222,7 +222,7 @@ struct atyfb_par {
      *  Register access
      */
 
-static inline u32 aty_ld_le32(int regindex, const struct atyfb_par *par)
+static u32 aty_ld_le32(int regindex, const struct atyfb_par *par)
 {
 	/* Hack for bloc 1, should be cleanly optimized by compiler */
 	if (regindex >= 0x400)
@@ -235,7 +235,7 @@ static inline u32 aty_ld_le32(int regindex, const struct atyfb_par *par)
 #endif
 }
 
-static inline void aty_st_le32(int regindex, u32 val, const struct atyfb_par *par)
+static void aty_st_le32(int regindex, u32 val, const struct atyfb_par *par)
 {
 	/* Hack for bloc 1, should be cleanly optimized by compiler */
 	if (regindex >= 0x400)
@@ -248,7 +248,7 @@ static inline void aty_st_le32(int regindex, u32 val, const struct atyfb_par *pa
 #endif
 }
 
-static inline void aty_st_le16(int regindex, u16 val,
+static void aty_st_le16(int regindex, u16 val,
 			       const struct atyfb_par *par)
 {
 	/* Hack for bloc 1, should be cleanly optimized by compiler */
@@ -261,7 +261,7 @@ static inline void aty_st_le16(int regindex, u16 val,
 #endif
 }
 
-static inline u8 aty_ld_8(int regindex, const struct atyfb_par *par)
+static u8 aty_ld_8(int regindex, const struct atyfb_par *par)
 {
 	/* Hack for bloc 1, should be cleanly optimized by compiler */
 	if (regindex >= 0x400)
@@ -273,7 +273,7 @@ static inline u8 aty_ld_8(int regindex, const struct atyfb_par *par)
 #endif
 }
 
-static inline void aty_st_8(int regindex, u8 val, const struct atyfb_par *par)
+static void aty_st_8(int regindex, u8 val, const struct atyfb_par *par)
 {
 	/* Hack for bloc 1, should be cleanly optimized by compiler */
 	if (regindex >= 0x400)
@@ -346,13 +346,13 @@ extern int aty_init_cursor(struct fb_info *info);
      *  Hardware acceleration
      */
 
-static inline void wait_for_fifo(u16 entries, const struct atyfb_par *par)
+static void wait_for_fifo(u16 entries, const struct atyfb_par *par)
 {
 	while ((aty_ld_le32(FIFO_STAT, par) & 0xffff) >
 	       ((u32) (0x8000 >> entries)));
 }
 
-static inline void wait_for_idle(struct atyfb_par *par)
+static void wait_for_idle(struct atyfb_par *par)
 {
 	wait_for_fifo(16, par);
 	while ((aty_ld_le32(GUI_STAT, par) & 1) != 0);

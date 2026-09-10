@@ -238,13 +238,13 @@ int rtw_set_key(struct adapter *adapter, struct security_priv *psecuritypriv,
 		int keyid, u8 set_tx);
 int rtw_set_auth(struct adapter *adapter, struct security_priv *psecuritypriv);
 
-static inline u8 *get_bssid(struct mlme_priv *pmlmepriv)
+static u8 *get_bssid(struct mlme_priv *pmlmepriv)
 {	/* if sta_mode:pmlmepriv->cur_network.network.MacAddress=> bssid */
 	/*  if adhoc_mode:pmlmepriv->cur_network.network.MacAddress=> ibss mac address */
 	return pmlmepriv->cur_network.network.MacAddress;
 }
 
-static inline int check_fwstate(struct mlme_priv *pmlmepriv, int state)
+static int check_fwstate(struct mlme_priv *pmlmepriv, int state)
 {
 	if (pmlmepriv->fw_state & state)
 		return true;
@@ -252,7 +252,7 @@ static inline int check_fwstate(struct mlme_priv *pmlmepriv, int state)
 	return false;
 }
 
-static inline int get_fwstate(struct mlme_priv *pmlmepriv)
+static int get_fwstate(struct mlme_priv *pmlmepriv)
 {
 	return pmlmepriv->fw_state;
 }
@@ -264,7 +264,7 @@ static inline int get_fwstate(struct mlme_priv *pmlmepriv)
  * ### NOTE:#### (!!!!)
  * MUST TAKE CARE THAT BEFORE CALLING THIS FUNC, YOU SHOULD HAVE LOCKED pmlmepriv->lock
  */
-static inline void set_fwstate(struct mlme_priv *pmlmepriv, int state)
+static void set_fwstate(struct mlme_priv *pmlmepriv, int state)
 {
 	pmlmepriv->fw_state |= state;
 	/* FOR HW integration */
@@ -272,7 +272,7 @@ static inline void set_fwstate(struct mlme_priv *pmlmepriv, int state)
 		pmlmepriv->bScanInProcess = true;
 }
 
-static inline void _clr_fwstate_(struct mlme_priv *pmlmepriv, int state)
+static void _clr_fwstate_(struct mlme_priv *pmlmepriv, int state)
 {
 	pmlmepriv->fw_state &= ~state;
 	/* FOR HW integration */
@@ -284,7 +284,7 @@ static inline void _clr_fwstate_(struct mlme_priv *pmlmepriv, int state)
  * No Limit on the calling context,
  * therefore set it to be the critical section...
  */
-static inline void clr_fwstate(struct mlme_priv *pmlmepriv, int state)
+static void clr_fwstate(struct mlme_priv *pmlmepriv, int state)
 {
 	spin_lock_bh(&pmlmepriv->lock);
 	if (check_fwstate(pmlmepriv, state) == true)
@@ -292,7 +292,7 @@ static inline void clr_fwstate(struct mlme_priv *pmlmepriv, int state)
 	spin_unlock_bh(&pmlmepriv->lock);
 }
 
-static inline void clr_fwstate_ex(struct mlme_priv *pmlmepriv, int state)
+static void clr_fwstate_ex(struct mlme_priv *pmlmepriv, int state)
 {
 	spin_lock_bh(&pmlmepriv->lock);
 	_clr_fwstate_(pmlmepriv, state);

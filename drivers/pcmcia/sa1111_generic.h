@@ -8,7 +8,7 @@ struct sa1111_pcmcia_socket {
 	struct sa1111_pcmcia_socket *next;
 };
 
-static inline struct sa1111_pcmcia_socket *to_skt(struct soc_pcmcia_socket *s)
+static struct sa1111_pcmcia_socket *to_skt(struct soc_pcmcia_socket *s)
 {
 	return container_of(s, struct sa1111_pcmcia_socket, soc);
 }

@@ -93,7 +93,7 @@ enum teei_cmd_type {
  *     end   - mva end
  * @return:
  * ***************************************************************/
-static inline void Flush_Dcache_By_Area(unsigned long start, unsigned long end)
+static void Flush_Dcache_By_Area(unsigned long start, unsigned long end)
 {
 	if (boot_soter_flag == START_STATUS) {
 #ifdef CONFIG_ARM64
@@ -115,7 +115,7 @@ static inline void Flush_Dcache_By_Area(unsigned long start, unsigned long end)
  * @return:
  * *****************************************************************/
 
-static inline void __Invalidate_Dcache_By_Area(unsigned long start,
+static void __Invalidate_Dcache_By_Area(unsigned long start,
 						unsigned long end)
 {
 #ifdef CONFIG_ARM64
@@ -166,7 +166,7 @@ static inline void __Invalidate_Dcache_By_Area(unsigned long start,
 }
 
 
-static inline void Invalidate_Dcache_By_Area(unsigned long start,
+static void Invalidate_Dcache_By_Area(unsigned long start,
 						unsigned long end)
 {
 	if (boot_soter_flag == START_STATUS)

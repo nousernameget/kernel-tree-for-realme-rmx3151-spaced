@@ -115,7 +115,7 @@ extern int pi_schedule_claimed(PIA *pi, void (*cont)(void));
 #define r4w()         		(delay_p,inw(pi->port+4)&0xffff)
 #define r4l()         		(delay_p,inl(pi->port+4)&0xffffffff)
 
-static inline u16 pi_swab16( char *b, int k)
+static u16 pi_swab16( char *b, int k)
 
 { 	union { u16 u; char t[2]; } r;
 
@@ -123,7 +123,7 @@ static inline u16 pi_swab16( char *b, int k)
         return r.u;
 }
 
-static inline u32 pi_swab32( char *b, int k)
+static u32 pi_swab32( char *b, int k)
 
 { 	union { u32 u; char f[4]; } r;
 

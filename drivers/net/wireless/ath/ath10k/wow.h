@@ -32,7 +32,7 @@ void ath10k_wow_op_set_wakeup(struct ieee80211_hw *hw, bool enabled);
 
 #else
 
-static inline int ath10k_wow_init(struct ath10k *ar)
+static int ath10k_wow_init(struct ath10k *ar)
 {
 	return 0;
 }

@@ -52,7 +52,7 @@ extern struct dvb_frontend *helene_attach(struct dvb_frontend *fe,
 					const struct helene_config *config,
 					struct i2c_adapter *i2c);
 #else
-static inline struct dvb_frontend *helene_attach(struct dvb_frontend *fe,
+static struct dvb_frontend *helene_attach(struct dvb_frontend *fe,
 					const struct helene_config *config,
 					struct i2c_adapter *i2c)
 {
@@ -66,7 +66,7 @@ extern struct dvb_frontend *helene_attach_s(struct dvb_frontend *fe,
 					const struct helene_config *config,
 					struct i2c_adapter *i2c);
 #else
-static inline struct dvb_frontend *helene_attach_s(struct dvb_frontend *fe,
+static struct dvb_frontend *helene_attach_s(struct dvb_frontend *fe,
 					const struct helene_config *config,
 					struct i2c_adapter *i2c)
 {

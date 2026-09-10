@@ -31,7 +31,7 @@ struct ccu_reset {
 	struct reset_controller_dev	rcdev;
 };
 
-static inline struct ccu_reset *rcdev_to_ccu_reset(struct reset_controller_dev *rcdev)
+static struct ccu_reset *rcdev_to_ccu_reset(struct reset_controller_dev *rcdev)
 {
 	return container_of(rcdev, struct ccu_reset, rcdev);
 }

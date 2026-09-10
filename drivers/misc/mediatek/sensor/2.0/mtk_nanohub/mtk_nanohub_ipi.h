@@ -32,13 +32,13 @@ struct ipi_message {
 	void (*complete)(void *context);
 };
 
-static inline void ipi_message_init(struct ipi_message *m)
+static void ipi_message_init(struct ipi_message *m)
 {
 	memset(m, 0, sizeof(*m));
 	INIT_LIST_HEAD(&m->transfers);
 }
 
-static inline void ipi_message_add_tail(struct ipi_transfer *t,
+static void ipi_message_add_tail(struct ipi_transfer *t,
 		struct ipi_message *m)
 {
 	list_add_tail(&t->transfer_list, &m->transfers);

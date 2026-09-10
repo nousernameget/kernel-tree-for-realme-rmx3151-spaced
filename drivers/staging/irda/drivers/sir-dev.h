@@ -126,24 +126,24 @@ int sirdev_put_dongle(struct sir_dev *self);
 void sirdev_enable_rx(struct sir_dev *dev);
 int sirdev_schedule_request(struct sir_dev *dev, int state, unsigned param);
 
-/* inline helpers */
+/* helpers */
 
-static inline int sirdev_schedule_speed(struct sir_dev *dev, unsigned speed)
+static int sirdev_schedule_speed(struct sir_dev *dev, unsigned speed)
 {
 	return sirdev_schedule_request(dev, SIRDEV_STATE_SET_SPEED, speed);
 }
 
-static inline int sirdev_schedule_dongle_open(struct sir_dev *dev, int dongle_id)
+static int sirdev_schedule_dongle_open(struct sir_dev *dev, int dongle_id)
 {
 	return sirdev_schedule_request(dev, SIRDEV_STATE_DONGLE_OPEN, dongle_id);
 }
 
-static inline int sirdev_schedule_dongle_close(struct sir_dev *dev)
+static int sirdev_schedule_dongle_close(struct sir_dev *dev)
 {
 	return sirdev_schedule_request(dev, SIRDEV_STATE_DONGLE_CLOSE, 0);
 }
 
-static inline int sirdev_schedule_dtr_rts(struct sir_dev *dev, int dtr, int rts)
+static int sirdev_schedule_dtr_rts(struct sir_dev *dev, int dtr, int rts)
 {
 	int	dtrrts;
 
@@ -152,7 +152,7 @@ static inline int sirdev_schedule_dtr_rts(struct sir_dev *dev, int dtr, int rts)
 }
 
 #if 0
-static inline int sirdev_schedule_mode(struct sir_dev *dev, int mode)
+static int sirdev_schedule_mode(struct sir_dev *dev, int mode)
 {
 	return sirdev_schedule_request(dev, SIRDEV_STATE_SET_MODE, mode);
 }

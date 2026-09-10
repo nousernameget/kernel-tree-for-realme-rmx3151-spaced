@@ -121,13 +121,13 @@ struct mt7601u_eeprom_params {
 
 int mt7601u_eeprom_init(struct mt7601u_dev *dev);
 
-static inline u32 s6_validate(u32 reg)
+static u32 s6_validate(u32 reg)
 {
 	WARN_ON(reg & ~GENMASK(5, 0));
 	return reg & GENMASK(5, 0);
 }
 
-static inline int s6_to_int(u32 reg)
+static int s6_to_int(u32 reg)
 {
 	int s6;
 
@@ -138,7 +138,7 @@ static inline int s6_to_int(u32 reg)
 	return s6;
 }
 
-static inline u32 int_to_s6(int val)
+static u32 int_to_s6(int val)
 {
 	if (val < -0x20)
 		return 0x20;

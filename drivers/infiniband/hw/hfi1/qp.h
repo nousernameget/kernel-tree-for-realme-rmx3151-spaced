@@ -59,7 +59,7 @@ extern const struct rvt_operation_params hfi1_post_parms[];
 /*
  * free_ahg - clear ahg from QP
  */
-static inline void clear_ahg(struct rvt_qp *qp)
+static void clear_ahg(struct rvt_qp *qp)
 {
 	struct hfi1_qp_priv *priv = qp->priv;
 

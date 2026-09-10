@@ -15,7 +15,7 @@
 
 #define ENABLE_LOG_PERF 0
 
-static inline uint64_t read_cntvct(void)
+static uint64_t read_cntvct(void)
 {
 	uint64_t val;
 

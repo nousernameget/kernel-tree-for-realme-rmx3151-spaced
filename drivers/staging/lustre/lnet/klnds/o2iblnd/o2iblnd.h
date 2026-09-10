@@ -600,7 +600,7 @@ void kiblnd_hdev_destroy(struct kib_hca_dev *hdev);
 int kiblnd_msg_queue_size(int version, struct lnet_ni *ni);
 
 /* max # of fragments configured by user */
-static inline int
+static int
 kiblnd_cfg_rdma_frags(struct lnet_ni *ni)
 {
 	struct lnet_ioctl_config_o2iblnd_tunables *tunables;
@@ -611,7 +611,7 @@ kiblnd_cfg_rdma_frags(struct lnet_ni *ni)
 	return mod ? mod : IBLND_MAX_RDMA_FRAGS >> IBLND_FRAG_SHIFT;
 }
 
-static inline int
+static int
 kiblnd_rdma_frags(int version, struct lnet_ni *ni)
 {
 	return version == IBLND_MSG_VERSION_1 ?
@@ -619,7 +619,7 @@ kiblnd_rdma_frags(int version, struct lnet_ni *ni)
 			  kiblnd_cfg_rdma_frags(ni);
 }
 
-static inline int
+static int
 kiblnd_concurrent_sends(int version, struct lnet_ni *ni)
 {
 	struct lnet_ioctl_config_o2iblnd_tunables *tunables;
@@ -639,14 +639,14 @@ kiblnd_concurrent_sends(int version, struct lnet_ni *ni)
 	return concurrent_sends;
 }
 
-static inline void
+static void
 kiblnd_hdev_addref_locked(struct kib_hca_dev *hdev)
 {
 	LASSERT(atomic_read(&hdev->ibh_ref) > 0);
 	atomic_inc(&hdev->ibh_ref);
 }
 
-static inline void
+static void
 kiblnd_hdev_decref(struct kib_hca_dev *hdev)
 {
 	LASSERT(atomic_read(&hdev->ibh_ref) > 0);
@@ -654,7 +654,7 @@ kiblnd_hdev_decref(struct kib_hca_dev *hdev)
 		kiblnd_hdev_destroy(hdev);
 }
 
-static inline int
+static int
 kiblnd_dev_can_failover(struct kib_dev *dev)
 {
 	if (!list_empty(&dev->ibd_fail_list)) /* already scheduled */
@@ -710,7 +710,7 @@ do {							    \
 		kiblnd_destroy_peer(peer);		      \
 } while (0)
 
-static inline bool
+static bool
 kiblnd_peer_connecting(struct kib_peer *peer)
 {
 	return peer->ibp_connecting ||
@@ -718,13 +718,13 @@ kiblnd_peer_connecting(struct kib_peer *peer)
 	       peer->ibp_accepting;
 }
 
-static inline bool
+static bool
 kiblnd_peer_idle(struct kib_peer *peer)
 {
 	return !kiblnd_peer_connecting(peer) && list_empty(&peer->ibp_conns);
 }
 
-static inline struct list_head *
+static struct list_head *
 kiblnd_nid2peerlist(lnet_nid_t nid)
 {
 	unsigned int hash =
@@ -733,14 +733,14 @@ kiblnd_nid2peerlist(lnet_nid_t nid)
 	return &kiblnd_data.kib_peers[hash];
 }
 
-static inline int
+static int
 kiblnd_peer_active(struct kib_peer *peer)
 {
 	/* Am I in the peer hash table? */
 	return !list_empty(&peer->ibp_list);
 }
 
-static inline struct kib_conn *
+static struct kib_conn *
 kiblnd_get_conn_locked(struct kib_peer *peer)
 {
 	LASSERT(!list_empty(&peer->ibp_conns));
@@ -749,7 +749,7 @@ kiblnd_get_conn_locked(struct kib_peer *peer)
 	return list_entry(peer->ibp_conns.next, struct kib_conn, ibc_list);
 }
 
-static inline int
+static int
 kiblnd_send_keepalive(struct kib_conn *conn)
 {
 	return (*kiblnd_tunables.kib_keepalive > 0) &&
@@ -758,7 +758,7 @@ kiblnd_send_keepalive(struct kib_conn *conn)
 						MSEC_PER_SEC));
 }
 
-static inline int
+static int
 kiblnd_need_noop(struct kib_conn *conn)
 {
 	struct lnet_ioctl_config_o2iblnd_tunables *tunables;
@@ -794,14 +794,14 @@ kiblnd_need_noop(struct kib_conn *conn)
 	return (list_empty(&conn->ibc_tx_queue) || conn->ibc_credits == 1);
 }
 
-static inline void
+static void
 kiblnd_abort_receives(struct kib_conn *conn)
 {
 	ib_modify_qp(conn->ibc_cmid->qp,
 		     &kiblnd_data.kib_error_qpa, IB_QP_STATE);
 }
 
-static inline const char *
+static const char *
 kiblnd_queue2str(struct kib_conn *conn, struct list_head *q)
 {
 	if (q == &conn->ibc_tx_queue)
@@ -830,7 +830,7 @@ kiblnd_queue2str(struct kib_conn *conn, struct list_head *q)
 #define IBLND_WID_MR	4
 #define IBLND_WID_MASK	7UL
 
-static inline __u64
+static __u64
 kiblnd_ptr2wreqid(void *ptr, int type)
 {
 	unsigned long lptr = (unsigned long)ptr;
@@ -840,33 +840,33 @@ kiblnd_ptr2wreqid(void *ptr, int type)
 	return (__u64)(lptr | type);
 }
 
-static inline void *
+static void *
 kiblnd_wreqid2ptr(__u64 wreqid)
 {
 	return (void *)(((unsigned long)wreqid) & ~IBLND_WID_MASK);
 }
 
-static inline int
+static int
 kiblnd_wreqid2type(__u64 wreqid)
 {
 	return wreqid & IBLND_WID_MASK;
 }
 
-static inline void
+static void
 kiblnd_set_conn_state(struct kib_conn *conn, int state)
 {
 	conn->ibc_state = state;
 	mb();
 }
 
-static inline void
+static void
 kiblnd_init_msg(struct kib_msg *msg, int type, int body_nob)
 {
 	msg->ibm_type = type;
 	msg->ibm_nob  = offsetof(struct kib_msg, ibm_u) + body_nob;
 }
 
-static inline int
+static int
 kiblnd_rd_size(struct kib_rdma_desc *rd)
 {
 	int   i;
@@ -878,25 +878,25 @@ kiblnd_rd_size(struct kib_rdma_desc *rd)
 	return size;
 }
 
-static inline __u64
+static __u64
 kiblnd_rd_frag_addr(struct kib_rdma_desc *rd, int index)
 {
 	return rd->rd_frags[index].rf_addr;
 }
 
-static inline __u32
+static __u32
 kiblnd_rd_frag_size(struct kib_rdma_desc *rd, int index)
 {
 	return rd->rd_frags[index].rf_nob;
 }
 
-static inline __u32
+static __u32
 kiblnd_rd_frag_key(struct kib_rdma_desc *rd, int index)
 {
 	return rd->rd_key;
 }
 
-static inline int
+static int
 kiblnd_rd_consume_frag(struct kib_rdma_desc *rd, int index, __u32 nob)
 {
 	if (nob < rd->rd_frags[index].rf_nob) {
@@ -909,7 +909,7 @@ kiblnd_rd_consume_frag(struct kib_rdma_desc *rd, int index, __u32 nob)
 	return index;
 }
 
-static inline int
+static int
 kiblnd_rd_msg_size(struct kib_rdma_desc *rd, int msgtype, int n)
 {
 	LASSERT(msgtype == IBLND_MSG_GET_REQ ||
@@ -920,20 +920,20 @@ kiblnd_rd_msg_size(struct kib_rdma_desc *rd, int msgtype, int n)
 	       offsetof(struct kib_putack_msg, ibpam_rd.rd_frags[n]);
 }
 
-static inline __u64
+static __u64
 kiblnd_dma_mapping_error(struct ib_device *dev, u64 dma_addr)
 {
 	return ib_dma_mapping_error(dev, dma_addr);
 }
 
-static inline __u64 kiblnd_dma_map_single(struct ib_device *dev,
+static __u64 kiblnd_dma_map_single(struct ib_device *dev,
 					  void *msg, size_t size,
 					  enum dma_data_direction direction)
 {
 	return ib_dma_map_single(dev, msg, size, direction);
 }
 
-static inline void kiblnd_dma_unmap_single(struct ib_device *dev,
+static void kiblnd_dma_unmap_single(struct ib_device *dev,
 					   __u64 addr, size_t size,
 					  enum dma_data_direction direction)
 {
@@ -943,27 +943,27 @@ static inline void kiblnd_dma_unmap_single(struct ib_device *dev,
 #define KIBLND_UNMAP_ADDR_SET(p, m, a)  do {} while (0)
 #define KIBLND_UNMAP_ADDR(p, m, a)      (a)
 
-static inline int kiblnd_dma_map_sg(struct ib_device *dev,
+static int kiblnd_dma_map_sg(struct ib_device *dev,
 				    struct scatterlist *sg, int nents,
 				    enum dma_data_direction direction)
 {
 	return ib_dma_map_sg(dev, sg, nents, direction);
 }
 
-static inline void kiblnd_dma_unmap_sg(struct ib_device *dev,
+static void kiblnd_dma_unmap_sg(struct ib_device *dev,
 				       struct scatterlist *sg, int nents,
 				       enum dma_data_direction direction)
 {
 	ib_dma_unmap_sg(dev, sg, nents, direction);
 }
 
-static inline __u64 kiblnd_sg_dma_address(struct ib_device *dev,
+static __u64 kiblnd_sg_dma_address(struct ib_device *dev,
 					  struct scatterlist *sg)
 {
 	return ib_sg_dma_address(dev, sg);
 }
 
-static inline unsigned int kiblnd_sg_dma_len(struct ib_device *dev,
+static unsigned int kiblnd_sg_dma_len(struct ib_device *dev,
 					     struct scatterlist *sg)
 {
 	return ib_sg_dma_len(dev, sg);

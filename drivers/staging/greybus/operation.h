@@ -107,25 +107,25 @@ struct gb_operation {
 	struct list_head	links;		/* connection->operations */
 };
 
-static inline bool
+static bool
 gb_operation_is_incoming(struct gb_operation *operation)
 {
 	return operation->flags & GB_OPERATION_FLAG_INCOMING;
 }
 
-static inline bool
+static bool
 gb_operation_is_unidirectional(struct gb_operation *operation)
 {
 	return operation->flags & GB_OPERATION_FLAG_UNIDIRECTIONAL;
 }
 
-static inline bool
+static bool
 gb_operation_short_response_allowed(struct gb_operation *operation)
 {
 	return operation->flags & GB_OPERATION_FLAG_SHORT_RESPONSE;
 }
 
-static inline bool gb_operation_is_core(struct gb_operation *operation)
+static bool gb_operation_is_core(struct gb_operation *operation)
 {
 	return operation->flags & GB_OPERATION_FLAG_CORE;
 }
@@ -142,7 +142,7 @@ gb_operation_create_flags(struct gb_connection *connection,
 				size_t response_size, unsigned long flags,
 				gfp_t gfp);
 
-static inline struct gb_operation *
+static struct gb_operation *
 gb_operation_create(struct gb_connection *connection,
 				u8 type, size_t request_size,
 				size_t response_size, gfp_t gfp)
@@ -169,7 +169,7 @@ int gb_operation_request_send(struct gb_operation *operation,
 				gfp_t gfp);
 int gb_operation_request_send_sync_timeout(struct gb_operation *operation,
 						unsigned int timeout);
-static inline int
+static int
 gb_operation_request_send_sync(struct gb_operation *operation)
 {
 	return gb_operation_request_send_sync_timeout(operation,
@@ -190,7 +190,7 @@ int gb_operation_unidirectional_timeout(struct gb_connection *connection,
 				int type, void *request, int request_size,
 				unsigned int timeout);
 
-static inline int gb_operation_sync(struct gb_connection *connection, int type,
+static int gb_operation_sync(struct gb_connection *connection, int type,
 		      void *request, int request_size,
 		      void *response, int response_size)
 {
@@ -199,7 +199,7 @@ static inline int gb_operation_sync(struct gb_connection *connection, int type,
 			GB_OPERATION_TIMEOUT_DEFAULT);
 }
 
-static inline int gb_operation_unidirectional(struct gb_connection *connection,
+static int gb_operation_unidirectional(struct gb_connection *connection,
 				int type, void *request, int request_size)
 {
 	return gb_operation_unidirectional_timeout(connection, type,

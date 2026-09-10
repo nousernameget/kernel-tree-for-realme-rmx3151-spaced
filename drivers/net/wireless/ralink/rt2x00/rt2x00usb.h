@@ -157,7 +157,7 @@ int rt2x00usb_vendor_req_buff_lock(struct rt2x00_dev *rt2x00dev,
  * command to the device. Since we don't use the buffer argument we
  * don't have to worry about kmalloc here.
  */
-static inline int rt2x00usb_vendor_request_sw(struct rt2x00_dev *rt2x00dev,
+static int rt2x00usb_vendor_request_sw(struct rt2x00_dev *rt2x00dev,
 					      const u8 request,
 					      const u16 offset,
 					      const u16 value,
@@ -178,7 +178,7 @@ static inline int rt2x00usb_vendor_request_sw(struct rt2x00_dev *rt2x00dev,
  * from the device. Note that the eeprom argument _must_ be allocated using
  * kmalloc for correct handling inside the kernel USB layer.
  */
-static inline int rt2x00usb_eeprom_read(struct rt2x00_dev *rt2x00dev,
+static int rt2x00usb_eeprom_read(struct rt2x00_dev *rt2x00dev,
 					__le16 *eeprom, const u16 length)
 {
 	return rt2x00usb_vendor_request(rt2x00dev, USB_EEPROM_READ,
@@ -194,7 +194,7 @@ static inline int rt2x00usb_eeprom_read(struct rt2x00_dev *rt2x00dev,
  * This function is a simple wrapper for 32bit register access
  * through rt2x00usb_vendor_request_buff().
  */
-static inline u32 rt2x00usb_register_read(struct rt2x00_dev *rt2x00dev,
+static u32 rt2x00usb_register_read(struct rt2x00_dev *rt2x00dev,
 					  const unsigned int offset)
 {
 	__le32 reg = 0;
@@ -212,7 +212,7 @@ static inline u32 rt2x00usb_register_read(struct rt2x00_dev *rt2x00dev,
  * This function is a simple wrapper for 32bit register access
  * through rt2x00usb_vendor_req_buff_lock().
  */
-static inline u32 rt2x00usb_register_read_lock(struct rt2x00_dev *rt2x00dev,
+static u32 rt2x00usb_register_read_lock(struct rt2x00_dev *rt2x00dev,
 					       const unsigned int offset)
 {
 	__le32 reg = 0;
@@ -232,7 +232,7 @@ static inline u32 rt2x00usb_register_read_lock(struct rt2x00_dev *rt2x00dev,
  * This function is a simple wrapper for 32bit register access
  * through rt2x00usb_vendor_request_buff().
  */
-static inline void rt2x00usb_register_multiread(struct rt2x00_dev *rt2x00dev,
+static void rt2x00usb_register_multiread(struct rt2x00_dev *rt2x00dev,
 						const unsigned int offset,
 						void *value, const u32 length)
 {
@@ -250,7 +250,7 @@ static inline void rt2x00usb_register_multiread(struct rt2x00_dev *rt2x00dev,
  * This function is a simple wrapper for 32bit register access
  * through rt2x00usb_vendor_request_buff().
  */
-static inline void rt2x00usb_register_write(struct rt2x00_dev *rt2x00dev,
+static void rt2x00usb_register_write(struct rt2x00_dev *rt2x00dev,
 					    const unsigned int offset,
 					    u32 value)
 {
@@ -269,7 +269,7 @@ static inline void rt2x00usb_register_write(struct rt2x00_dev *rt2x00dev,
  * This function is a simple wrapper for 32bit register access
  * through rt2x00usb_vendor_req_buff_lock().
  */
-static inline void rt2x00usb_register_write_lock(struct rt2x00_dev *rt2x00dev,
+static void rt2x00usb_register_write_lock(struct rt2x00_dev *rt2x00dev,
 						 const unsigned int offset,
 						 u32 value)
 {
@@ -289,7 +289,7 @@ static inline void rt2x00usb_register_write_lock(struct rt2x00_dev *rt2x00dev,
  * This function is a simple wrapper for 32bit register access
  * through rt2x00usb_vendor_request_buff().
  */
-static inline void rt2x00usb_register_multiwrite(struct rt2x00_dev *rt2x00dev,
+static void rt2x00usb_register_multiwrite(struct rt2x00_dev *rt2x00dev,
 						 const unsigned int offset,
 						 const void *value,
 						 const u32 length)

@@ -54,7 +54,7 @@ enum sfpb_ahb_arb_master_port_en {
 #define REG_SFPB_GPREG						0x00000058
 #define SFPB_GPREG_MASTER_PORT_EN__MASK				0x00001800
 #define SFPB_GPREG_MASTER_PORT_EN__SHIFT			11
-static inline uint32_t SFPB_GPREG_MASTER_PORT_EN(enum sfpb_ahb_arb_master_port_en val)
+static uint32_t SFPB_GPREG_MASTER_PORT_EN(enum sfpb_ahb_arb_master_port_en val)
 {
 	return ((val) << SFPB_GPREG_MASTER_PORT_EN__SHIFT) & SFPB_GPREG_MASTER_PORT_EN__MASK;
 }

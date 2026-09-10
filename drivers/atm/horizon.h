@@ -25,7 +25,7 @@
   supported by this driver and makes no commitment to maintain it.
 */
 
-/* too many macros - change to inline functions */
+/* too many macros - change to functions */
 
 #ifndef DRIVER_ATM_HORIZON_H
 #define DRIVER_ATM_HORIZON_H

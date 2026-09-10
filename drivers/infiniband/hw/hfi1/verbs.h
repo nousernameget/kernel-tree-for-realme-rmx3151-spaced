@@ -179,7 +179,7 @@ struct hfi1_opcode_stats_perctx {
 	struct hfi1_opcode_stats stats[256];
 };
 
-static inline void inc_opstats(
+static void inc_opstats(
 	u32 tlen,
 	struct hfi1_opcode_stats *stats)
 {
@@ -229,7 +229,7 @@ struct hfi1_ibdev {
 #endif
 };
 
-static inline struct hfi1_ibdev *to_idev(struct ib_device *ibdev)
+static struct hfi1_ibdev *to_idev(struct ib_device *ibdev)
 {
 	struct rvt_dev_info *rdi;
 
@@ -237,7 +237,7 @@ static inline struct hfi1_ibdev *to_idev(struct ib_device *ibdev)
 	return container_of(rdi, struct hfi1_ibdev, rdi);
 }
 
-static inline struct rvt_qp *iowait_to_qp(struct  iowait *s_iowait)
+static struct rvt_qp *iowait_to_qp(struct  iowait *s_iowait)
 {
 	struct hfi1_qp_priv *priv;
 
@@ -249,7 +249,7 @@ static inline struct rvt_qp *iowait_to_qp(struct  iowait *s_iowait)
  * Send if not busy or waiting for I/O and either
  * a RC response is pending or we can process send work requests.
  */
-static inline int hfi1_send_ok(struct rvt_qp *qp)
+static int hfi1_send_ok(struct rvt_qp *qp)
 {
 	return !(qp->s_flags & (RVT_S_BUSY | RVT_S_ANY_WAIT_IO)) &&
 		(qp->s_hdrwords || (qp->s_flags & RVT_S_RESP_PENDING) ||
@@ -288,7 +288,7 @@ int hfi1_process_mad(struct ib_device *ibdev, int mad_flags, u8 port,
  * Compare two PSNs
  * Returns an integer <, ==, or > than zero.
  */
-static inline int cmp_psn(u32 a, u32 b)
+static int cmp_psn(u32 a, u32 b)
 {
 	return (((int)a) - ((int)b)) << PSN_SHIFT;
 }
@@ -296,7 +296,7 @@ static inline int cmp_psn(u32 a, u32 b)
 /*
  * Return masked PSN
  */
-static inline u32 mask_psn(u32 a)
+static u32 mask_psn(u32 a)
 {
 	return a & PSN_MASK;
 }
@@ -304,7 +304,7 @@ static inline u32 mask_psn(u32 a)
 /*
  * Return delta between two PSNs
  */
-static inline u32 delta_psn(u32 a, u32 b)
+static u32 delta_psn(u32 a, u32 b)
 {
 	return (((int)a - (int)b) << PSN_SHIFT) >> PSN_SHIFT;
 }
@@ -398,14 +398,14 @@ int hfi1_wss_init(void);
 void hfi1_wss_exit(void);
 
 /* platform specific: return the lowest level cache (llc) size, in KiB */
-static inline int wss_llc_size(void)
+static int wss_llc_size(void)
 {
 	/* assume that the boot CPU value is universal for all CPUs */
 	return boot_cpu_data.x86_cache_size;
 }
 
 /* platform specific: cacheless copy */
-static inline void cacheless_memcpy(void *dst, void *src, size_t n)
+static void cacheless_memcpy(void *dst, void *src, size_t n)
 {
 	/*
 	 * Use the only available X64 cacheless copy.  Add a __user cast

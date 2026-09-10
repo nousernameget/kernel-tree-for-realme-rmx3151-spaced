@@ -54,7 +54,7 @@ struct ccw_device;
 typedef void (fsm_func_t)(struct ccw_device *, enum dev_event);
 extern fsm_func_t *dev_jumptable[NR_DEV_STATES][NR_DEV_EVENTS];
 
-static inline void
+static void
 dev_fsm_event(struct ccw_device *cdev, enum dev_event dev_event)
 {
 	int state = cdev->private->state;
@@ -72,7 +72,7 @@ dev_fsm_event(struct ccw_device *cdev, enum dev_event dev_event)
 /*
  * Delivers 1 if the device state is final.
  */
-static inline int
+static int
 dev_fsm_final_state(struct ccw_device *cdev)
 {
 	return (cdev->private->state == DEV_STATE_NOT_OPER ||

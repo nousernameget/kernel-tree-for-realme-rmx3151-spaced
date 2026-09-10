@@ -48,12 +48,12 @@ enum mt_usb_ep_out {
 	__MT_EP_OUT_MAX,
 };
 
-static inline struct usb_device *mt7601u_to_usb_dev(struct mt7601u_dev *mt7601u)
+static struct usb_device *mt7601u_to_usb_dev(struct mt7601u_dev *mt7601u)
 {
 	return interface_to_usbdev(to_usb_interface(mt7601u->dev));
 }
 
-static inline bool mt7601u_urb_has_error(struct urb *urb)
+static bool mt7601u_urb_has_error(struct urb *urb)
 {
 	return urb->status &&
 		urb->status != -ENOENT &&

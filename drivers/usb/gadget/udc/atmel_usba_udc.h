@@ -352,17 +352,17 @@ struct usba_udc {
 	struct regmap *pmc;
 };
 
-static inline struct usba_ep *to_usba_ep(struct usb_ep *ep)
+static struct usba_ep *to_usba_ep(struct usb_ep *ep)
 {
 	return container_of(ep, struct usba_ep, ep);
 }
 
-static inline struct usba_request *to_usba_req(struct usb_request *req)
+static struct usba_request *to_usba_req(struct usb_request *req)
 {
 	return container_of(req, struct usba_request, req);
 }
 
-static inline struct usba_udc *to_usba_udc(struct usb_gadget *gadget)
+static struct usba_udc *to_usba_udc(struct usb_gadget *gadget)
 {
 	return container_of(gadget, struct usba_udc, gadget);
 }

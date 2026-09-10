@@ -22,13 +22,13 @@
 
 #include "qlink.h"
 
-static inline void
+static void
 qtnf_cmd_skb_put_buffer(struct sk_buff *skb, const u8 *buf_src, size_t len)
 {
 	skb_put_data(skb, buf_src, len);
 }
 
-static inline void qtnf_cmd_skb_put_tlv_arr(struct sk_buff *skb,
+static void qtnf_cmd_skb_put_tlv_arr(struct sk_buff *skb,
 					    u16 tlv_id, const u8 arr[],
 					    size_t arr_len)
 {
@@ -39,7 +39,7 @@ static inline void qtnf_cmd_skb_put_tlv_arr(struct sk_buff *skb,
 	memcpy(hdr->val, arr, arr_len);
 }
 
-static inline void qtnf_cmd_skb_put_tlv_u8(struct sk_buff *skb, u16 tlv_id,
+static void qtnf_cmd_skb_put_tlv_u8(struct sk_buff *skb, u16 tlv_id,
 					   u8 value)
 {
 	struct qlink_tlv_hdr *hdr = skb_put(skb, sizeof(*hdr) + sizeof(value));
@@ -49,7 +49,7 @@ static inline void qtnf_cmd_skb_put_tlv_u8(struct sk_buff *skb, u16 tlv_id,
 	*hdr->val = value;
 }
 
-static inline void qtnf_cmd_skb_put_tlv_u16(struct sk_buff *skb,
+static void qtnf_cmd_skb_put_tlv_u16(struct sk_buff *skb,
 					    u16 tlv_id, u16 value)
 {
 	struct qlink_tlv_hdr *hdr = skb_put(skb, sizeof(*hdr) + sizeof(value));

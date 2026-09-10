@@ -125,7 +125,7 @@ struct dvobj_priv {
 	struct usb_device *pusbdev;
 };
 
-static inline struct device *dvobj_to_dev(struct dvobj_priv *dvobj)
+static struct device *dvobj_to_dev(struct dvobj_priv *dvobj)
 {
 	/* todo: get interface type from dvobj and the return
 	 * the dev accordingly */
@@ -172,7 +172,7 @@ struct adapter {
 
 #define adapter_to_dvobj(adapter) (adapter->dvobj)
 
-static inline u8 *myid(struct eeprom_priv *peepriv)
+static u8 *myid(struct eeprom_priv *peepriv)
 {
 	return peepriv->mac_addr;
 }

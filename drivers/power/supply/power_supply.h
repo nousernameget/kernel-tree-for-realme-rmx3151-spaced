@@ -35,7 +35,7 @@ extern void power_supply_remove_triggers(struct power_supply *psy);
 #else
 
 static inline void power_supply_update_leds(struct power_supply *psy) {}
-static inline int power_supply_create_triggers(struct power_supply *psy)
+static int power_supply_create_triggers(struct power_supply *psy)
 { return 0; }
 static inline void power_supply_remove_triggers(struct power_supply *psy) {}
 

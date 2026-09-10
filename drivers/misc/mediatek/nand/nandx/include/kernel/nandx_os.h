@@ -42,17 +42,17 @@
 extern enum NIRQ_RETURN nfi_irq_handler(void *arg);
 extern enum NIRQ_RETURN ecc_irq_handler(void *arg);
 
-static inline void *mem_alloc(u32 count, u32 size)
+static void *mem_alloc(u32 count, u32 size)
 {
 	return kcalloc(count, size, GFP_KERNEL);
 }
 
-static inline void mem_free(void *mem)
+static void mem_free(void *mem)
 {
 	kfree(mem);
 }
 
-static inline u32 nand_dma_map(void *dev, void *buf, u64 len,
+static u32 nand_dma_map(void *dev, void *buf, u64 len,
 			       enum NDMA_OPERATION op)
 {
 	u32 addr;
@@ -69,7 +69,7 @@ static inline u32 nand_dma_map(void *dev, void *buf, u64 len,
 	return addr;
 }
 
-static inline void nand_dma_unmap(void *dev, void *buf, u32 addr, u64 len,
+static void nand_dma_unmap(void *dev, void *buf, u32 addr, u64 len,
 				  enum NDMA_OPERATION op)
 {
 	enum dma_data_direction dir;
@@ -80,7 +80,7 @@ static inline void nand_dma_unmap(void *dev, void *buf, u32 addr, u64 len,
 	dma_unmap_single(ndev, addr, len, dir);
 }
 
-static inline void *nand_lock_create(void)
+static void *nand_lock_create(void)
 {
 	spinlock_t *lock;
 
@@ -89,22 +89,22 @@ static inline void *nand_lock_create(void)
 	return lock;
 }
 
-static inline void nand_lock_destroy(void *lock)
+static void nand_lock_destroy(void *lock)
 {
 	kfree(lock);
 }
 
-static inline void nand_lock(void *lock)
+static void nand_lock(void *lock)
 {
 	spin_lock((spinlock_t *) lock);
 }
 
-static inline void nand_unlock(void *lock)
+static void nand_unlock(void *lock)
 {
 	spin_unlock((spinlock_t *) lock);
 }
 
-static inline irqreturn_t nfi_interrupt_handler(int irq, void *id)
+static irqreturn_t nfi_interrupt_handler(int irq, void *id)
 {
 	enum NIRQ_RETURN nret;
 
@@ -113,7 +113,7 @@ static inline irqreturn_t nfi_interrupt_handler(int irq, void *id)
 	return (nret == NIRQ_HANDLED) ? IRQ_HANDLED : IRQ_NONE;
 }
 
-static inline irqreturn_t ecc_interrupt_handler(int irq, void *id)
+static irqreturn_t ecc_interrupt_handler(int irq, void *id)
 {
 	enum NIRQ_RETURN nret;
 
@@ -122,7 +122,7 @@ static inline irqreturn_t ecc_interrupt_handler(int irq, void *id)
 	return (nret == NIRQ_HANDLED) ? IRQ_HANDLED : IRQ_NONE;
 }
 
-static inline void *nand_event_create(void)
+static void *nand_event_create(void)
 {
 	struct completion *event;
 
@@ -131,17 +131,17 @@ static inline void *nand_event_create(void)
 	return event;
 }
 
-static inline void nand_event_destroy(void *event)
+static void nand_event_destroy(void *event)
 {
 	kfree(event);
 }
 
-static inline void nand_event_complete(void *event)
+static void nand_event_complete(void *event)
 {
 	complete(event);
 }
 
-static inline void nand_event_init(void *event)
+static void nand_event_init(void *event)
 {
 	init_completion(event);
 }
@@ -150,20 +150,20 @@ static inline void nand_event_init(void *event)
  * timeout value is millisecond
  * return non-zero for complete, else timeout
  */
-static inline int nand_event_wait_complete(void *event, u32 timeout)
+static int nand_event_wait_complete(void *event, u32 timeout)
 {
 	return wait_for_completion_timeout(event, usecs_to_jiffies(timeout));
 }
 
 /* @data for different register function */
-static inline int nand_irq_register(u32 irq_id, void *irq_handler,
+static int nand_irq_register(u32 irq_id, void *irq_handler,
 				    const char *name, void *data)
 {
 	return request_irq(irq_id, irq_handler, IRQF_TRIGGER_NONE, name,
 			   data);
 }
 
-static inline u64 get_current_time_us(void)
+static u64 get_current_time_us(void)
 {
 	struct timespec64 ts;
 	u64 usec;
@@ -175,7 +175,7 @@ static inline u64 get_current_time_us(void)
 	return usec;
 }
 
-static inline bool is_support_mntl(void)
+static bool is_support_mntl(void)
 {
 	return IS_ENABLED(CONFIG_MNTL_SUPPORT);
 }

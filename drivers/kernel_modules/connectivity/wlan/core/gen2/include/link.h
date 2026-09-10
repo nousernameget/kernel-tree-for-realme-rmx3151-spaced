@@ -258,7 +258,7 @@ struct LINK_MGMT {
 * \return (none)
 */
 /*----------------------------------------------------------------------------*/
-static inline VOID __linkAdd(IN P_LINK_ENTRY_T prNew, IN P_LINK_ENTRY_T prPrev, IN P_LINK_ENTRY_T prNext)
+static VOID __linkAdd(IN P_LINK_ENTRY_T prNew, IN P_LINK_ENTRY_T prPrev, IN P_LINK_ENTRY_T prNext)
 {
 	prNext->prPrev = prNew;
 	prNew->prNext = prNext;
@@ -277,7 +277,7 @@ static inline VOID __linkAdd(IN P_LINK_ENTRY_T prNew, IN P_LINK_ENTRY_T prPrev, 
 * \return (none)
 */
 /*----------------------------------------------------------------------------*/
-static inline VOID linkAdd(IN P_LINK_ENTRY_T prNew, IN P_LINK_T prLink)
+static VOID linkAdd(IN P_LINK_ENTRY_T prNew, IN P_LINK_T prLink)
 {
 	__linkAdd(prNew, (P_LINK_ENTRY_T) prLink, prLink->prNext);
 
@@ -293,7 +293,7 @@ static inline VOID linkAdd(IN P_LINK_ENTRY_T prNew, IN P_LINK_T prLink)
 * \return (none)
 */
 /*----------------------------------------------------------------------------*/
-static inline VOID linkAddTail(IN P_LINK_ENTRY_T prNew, IN P_LINK_T prLink)
+static VOID linkAddTail(IN P_LINK_ENTRY_T prNew, IN P_LINK_T prLink)
 {
 	__linkAdd(prNew, prLink->prPrev, (P_LINK_ENTRY_T) prLink);
 
@@ -309,7 +309,7 @@ static inline VOID linkAddTail(IN P_LINK_ENTRY_T prNew, IN P_LINK_T prLink)
 * \return (none)
 */
 /*----------------------------------------------------------------------------*/
-static inline VOID __linkDel(IN P_LINK_ENTRY_T prPrev, IN P_LINK_ENTRY_T prNext)
+static VOID __linkDel(IN P_LINK_ENTRY_T prPrev, IN P_LINK_ENTRY_T prNext)
 {
 	prNext->prPrev = prPrev;
 	prPrev->prNext = prNext;
@@ -326,7 +326,7 @@ static inline VOID __linkDel(IN P_LINK_ENTRY_T prPrev, IN P_LINK_ENTRY_T prNext)
 * \return (none)
 */
 /*----------------------------------------------------------------------------*/
-static inline VOID linkDel(IN P_LINK_ENTRY_T prEntry)
+static VOID linkDel(IN P_LINK_ENTRY_T prEntry)
 {
 	__linkDel(prEntry->prPrev, prEntry->prNext);
 
@@ -345,7 +345,7 @@ static inline VOID linkDel(IN P_LINK_ENTRY_T prEntry)
 * \return (none)
 */
 /*----------------------------------------------------------------------------*/
-static inline VOID linkMove(IN P_LINK_ENTRY_T prEntry, IN P_LINK_T prLink)
+static VOID linkMove(IN P_LINK_ENTRY_T prEntry, IN P_LINK_T prLink)
 {
 	__linkDel(prEntry->prPrev, prEntry->prNext);
 	linkAdd(prEntry, prLink);
@@ -363,7 +363,7 @@ static inline VOID linkMove(IN P_LINK_ENTRY_T prEntry, IN P_LINK_T prLink)
 * \return (none)
 */
 /*----------------------------------------------------------------------------*/
-static inline VOID linkMoveTail(IN P_LINK_ENTRY_T prEntry, IN P_LINK_T prLink)
+static VOID linkMoveTail(IN P_LINK_ENTRY_T prEntry, IN P_LINK_T prLink)
 {
 	__linkDel(prEntry->prPrev, prEntry->prNext);
 	linkAddTail(prEntry, prLink);

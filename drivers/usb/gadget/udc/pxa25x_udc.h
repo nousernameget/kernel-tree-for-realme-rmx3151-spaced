@@ -198,7 +198,7 @@ dump_udccs0(const char *label)
 		(udccs0 & UDCCS0_OPR) ? " opr" : "");
 }
 
-static inline u32 udc_ep_get_UDCCS(struct pxa25x_ep *);
+static u32 udc_ep_get_UDCCS(struct pxa25x_ep *);
 
 static void __maybe_unused
 dump_state(struct pxa25x_udc *dev)

@@ -105,7 +105,7 @@ do {								\
 /**
  * Filters out logging messages based on mask and subsystem.
  */
-static inline int cfs_cdebug_show(unsigned int mask, unsigned int subsystem)
+static int cfs_cdebug_show(unsigned int mask, unsigned int subsystem)
 {
 	return mask & D_CANTMASK ||
 		((libcfs_debug & mask) && (libcfs_subsystem_debug & subsystem));

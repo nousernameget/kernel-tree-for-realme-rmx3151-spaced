@@ -394,7 +394,7 @@ struct ena_admin_aq_get_stats_cmd {
 	struct ena_admin_aq_common_desc aq_common_descriptor;
 
 	union {
-		/* command specific inline data */
+		/* command specific data */
 		u32 inline_data_w1[3];
 
 		struct ena_admin_ctrl_buff_info control_buffer;
@@ -742,7 +742,7 @@ struct ena_admin_feature_rss_ind_table {
 
 	u16 reserved;
 
-	/* index of the inline entry. 0xFFFFFFFF means invalid */
+	/* index of the entry. 0xFFFFFFFF means invalid */
 	u32 inline_index;
 
 	/* used for updating single entry, ignored when setting the entire
@@ -893,7 +893,7 @@ enum ena_admin_aenq_notification_syndrom {
 struct ena_admin_aenq_entry {
 	struct ena_admin_aenq_common_desc aenq_common_desc;
 
-	/* command specific inline data */
+	/* command specific data */
 	u32 inline_data_w4[12];
 };
 

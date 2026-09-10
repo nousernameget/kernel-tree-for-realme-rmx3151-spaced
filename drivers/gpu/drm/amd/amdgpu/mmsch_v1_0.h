@@ -84,7 +84,7 @@ struct mmsch_v1_0_cmd_indirect_write {
 	uint32_t reg_value;
 };
 
-static inline void mmsch_v1_0_insert_direct_wt(struct mmsch_v1_0_cmd_direct_write *direct_wt,
+static void mmsch_v1_0_insert_direct_wt(struct mmsch_v1_0_cmd_direct_write *direct_wt,
 					       uint32_t *init_table,
 					       uint32_t reg_offset,
 					       uint32_t value)
@@ -94,7 +94,7 @@ static inline void mmsch_v1_0_insert_direct_wt(struct mmsch_v1_0_cmd_direct_writ
 	memcpy((void *)init_table, direct_wt, sizeof(struct mmsch_v1_0_cmd_direct_write));
 }
 
-static inline void mmsch_v1_0_insert_direct_rd_mod_wt(struct mmsch_v1_0_cmd_direct_read_modify_write *direct_rd_mod_wt,
+static void mmsch_v1_0_insert_direct_rd_mod_wt(struct mmsch_v1_0_cmd_direct_read_modify_write *direct_rd_mod_wt,
 						      uint32_t *init_table,
 						      uint32_t reg_offset,
 						      uint32_t mask, uint32_t data)
@@ -106,7 +106,7 @@ static inline void mmsch_v1_0_insert_direct_rd_mod_wt(struct mmsch_v1_0_cmd_dire
 	       sizeof(struct mmsch_v1_0_cmd_direct_read_modify_write));
 }
 
-static inline void mmsch_v1_0_insert_direct_poll(struct mmsch_v1_0_cmd_direct_polling *direct_poll,
+static void mmsch_v1_0_insert_direct_poll(struct mmsch_v1_0_cmd_direct_polling *direct_poll,
 						 uint32_t *init_table,
 						 uint32_t reg_offset,
 						 uint32_t mask, uint32_t wait)

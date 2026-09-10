@@ -124,12 +124,12 @@ int cosm_register_driver(struct cosm_driver *drv);
 void cosm_unregister_driver(struct cosm_driver *drv);
 struct cosm_device *cosm_find_cdev_by_id(int id);
 
-static inline struct cosm_device *dev_to_cosm(struct device *dev)
+static struct cosm_device *dev_to_cosm(struct device *dev)
 {
 	return container_of(dev, struct cosm_device, dev);
 }
 
-static inline struct cosm_driver *drv_to_cosm(struct device_driver *drv)
+static struct cosm_driver *drv_to_cosm(struct device_driver *drv)
 {
 	return container_of(drv, struct cosm_driver, driver);
 }

@@ -84,7 +84,7 @@ struct nv04_display {
 	struct nouveau_bo *image[2];
 };
 
-static inline struct nv04_display *
+static struct nv04_display *
 nv04_display(struct drm_device *dev)
 {
 	return nouveau_display(dev)->priv;
@@ -124,7 +124,7 @@ int nv17_tv_create(struct drm_connector *, struct dcb_output *);
 /* overlay.c */
 void nouveau_overlay_init(struct drm_device *dev);
 
-static inline bool
+static bool
 nv_two_heads(struct drm_device *dev)
 {
 	struct nouveau_drm *drm = nouveau_drm(dev);
@@ -137,13 +137,13 @@ nv_two_heads(struct drm_device *dev)
 	return false;
 }
 
-static inline bool
+static bool
 nv_gf4_disp_arch(struct drm_device *dev)
 {
 	return nv_two_heads(dev) && (dev->pdev->device & 0x0ff0) != 0x0110;
 }
 
-static inline bool
+static bool
 nv_two_reg_pll(struct drm_device *dev)
 {
 	struct nouveau_drm *drm = nouveau_drm(dev);
@@ -154,7 +154,7 @@ nv_two_reg_pll(struct drm_device *dev)
 	return false;
 }
 
-static inline bool
+static bool
 nv_match_device(struct drm_device *dev, unsigned device,
 		unsigned sub_vendor, unsigned sub_device)
 {
@@ -166,7 +166,7 @@ nv_match_device(struct drm_device *dev, unsigned device,
 #include <subdev/bios.h>
 #include <subdev/bios/init.h>
 
-static inline void
+static void
 nouveau_bios_run_init_table(struct drm_device *dev, u16 table,
 			    struct dcb_output *outp, int crtc)
 {

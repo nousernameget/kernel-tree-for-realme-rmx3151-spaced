@@ -135,7 +135,7 @@ enum cfg_record_type {
 #define LUSTRE_CFG_BUFLEN(lcfg, idx)					\
 	((lcfg)->lcfg_bufcount <= (idx) ? 0 : (lcfg)->lcfg_buflens[(idx)])
 
-static inline void lustre_cfg_bufs_set(struct lustre_cfg_bufs *bufs,
+static void lustre_cfg_bufs_set(struct lustre_cfg_bufs *bufs,
 				       __u32 index, void *buf, __u32 buflen)
 {
 	if (index >= LUSTRE_CFG_MAX_BUFCOUNT)
@@ -151,13 +151,13 @@ static inline void lustre_cfg_bufs_set(struct lustre_cfg_bufs *bufs,
 	bufs->lcfg_buflen[index] = buflen;
 }
 
-static inline void lustre_cfg_bufs_set_string(struct lustre_cfg_bufs *bufs,
+static void lustre_cfg_bufs_set_string(struct lustre_cfg_bufs *bufs,
 					      __u32 index, char *str)
 {
 	lustre_cfg_bufs_set(bufs, index, str, str ? strlen(str) + 1 : 0);
 }
 
-static inline void lustre_cfg_bufs_reset(struct lustre_cfg_bufs *bufs,
+static void lustre_cfg_bufs_reset(struct lustre_cfg_bufs *bufs,
 					 char *name)
 {
 	memset((bufs), 0, sizeof(*bufs));
@@ -165,7 +165,7 @@ static inline void lustre_cfg_bufs_reset(struct lustre_cfg_bufs *bufs,
 		lustre_cfg_bufs_set_string(bufs, 0, name);
 }
 
-static inline void *lustre_cfg_buf(struct lustre_cfg *lcfg, __u32 index)
+static void *lustre_cfg_buf(struct lustre_cfg *lcfg, __u32 index)
 {
 	__u32 i;
 	size_t offset;
@@ -184,7 +184,7 @@ static inline void *lustre_cfg_buf(struct lustre_cfg *lcfg, __u32 index)
 	return (char *)lcfg + offset;
 }
 
-static inline void lustre_cfg_bufs_init(struct lustre_cfg_bufs *bufs,
+static void lustre_cfg_bufs_init(struct lustre_cfg_bufs *bufs,
 					struct lustre_cfg *lcfg)
 {
 	__u32 i;
@@ -196,7 +196,7 @@ static inline void lustre_cfg_bufs_init(struct lustre_cfg_bufs *bufs,
 	}
 }
 
-static inline __u32 lustre_cfg_len(__u32 bufcount, __u32 *buflens)
+static __u32 lustre_cfg_len(__u32 bufcount, __u32 *buflens)
 {
 	__u32 i;
 	__u32 len;
@@ -208,7 +208,7 @@ static inline __u32 lustre_cfg_len(__u32 bufcount, __u32 *buflens)
 	return __ALIGN_KERNEL(len, 8);
 }
 
-static inline void lustre_cfg_init(struct lustre_cfg *lcfg, int cmd,
+static void lustre_cfg_init(struct lustre_cfg *lcfg, int cmd,
 				   struct lustre_cfg_bufs *bufs)
 {
 	char *ptr;
@@ -228,7 +228,7 @@ static inline void lustre_cfg_init(struct lustre_cfg *lcfg, int cmd,
 	}
 }
 
-static inline int lustre_cfg_sanity_check(void *buf, size_t len)
+static int lustre_cfg_sanity_check(void *buf, size_t len)
 {
 	struct lustre_cfg *lcfg = (struct lustre_cfg *)buf;
 

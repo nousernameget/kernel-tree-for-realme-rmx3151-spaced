@@ -101,7 +101,7 @@ extern struct dvb_frontend *stb6100_attach(struct dvb_frontend *fe,
 
 #else
 
-static inline struct dvb_frontend *stb6100_attach(struct dvb_frontend *fe,
+static struct dvb_frontend *stb6100_attach(struct dvb_frontend *fe,
 						  const struct stb6100_config *config,
 						  struct i2c_adapter *i2c)
 {

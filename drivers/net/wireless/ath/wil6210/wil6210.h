@@ -52,7 +52,7 @@ extern bool disable_ap_sme;
  * extract bits [@b0:@b1] (inclusive) from the value @x
  * it should be @b0 <= @b1, or result is incorrect
  */
-static inline u32 WIL_GET_BITS(u32 x, int b0, int b1)
+static u32 WIL_GET_BITS(u32 x, int b0, int b1)
 {
 	return (x >> b0) & ((1 << (b1 - b0 + 1)) - 1);
 }
@@ -99,7 +99,7 @@ struct wil_suspend_stats {
 /* Calculate MAC buffer size for the firmware. It includes all overhead,
  * as it will go over the air, and need to be 8 byte aligned
  */
-static inline u32 wil_mtu2macbuf(u32 mtu)
+static u32 wil_mtu2macbuf(u32 mtu)
 {
 	return ALIGN(mtu + WIL_MAX_MPDU_OVERHEAD, 8);
 }
@@ -329,7 +329,7 @@ extern const struct fw_map fw_mapping[10];
  *
  * @cidxtid field encoded as bits 0..3 - CID; 4..7 - TID
  */
-static inline u8 mk_cidxtid(u8 cid, u8 tid)
+static u8 mk_cidxtid(u8 cid, u8 tid)
 {
 	return ((tid & 0xf) << 4) | (cid & 0xf);
 }
@@ -341,7 +341,7 @@ static inline u8 mk_cidxtid(u8 cid, u8 tid)
  *
  * @cidxtid field encoded as bits 0..3 - CID; 4..7 - TID
  */
-static inline void parse_cidxtid(u8 cidxtid, u8 *cid, u8 *tid)
+static void parse_cidxtid(u8 cidxtid, u8 *cid, u8 *tid)
 {
 	*cid = cidxtid & 0xf;
 	*tid = (cidxtid >> 4) & 0xf;
@@ -778,26 +778,26 @@ void wil_dbg_ratelimited(const struct wil6210_priv *wil, const char *fmt, ...);
 
 /* target operations */
 /* register read */
-static inline u32 wil_r(struct wil6210_priv *wil, u32 reg)
+static u32 wil_r(struct wil6210_priv *wil, u32 reg)
 {
 	return readl(wil->csr + HOSTADDR(reg));
 }
 
 /* register write. wmb() to make sure it is completed */
-static inline void wil_w(struct wil6210_priv *wil, u32 reg, u32 val)
+static void wil_w(struct wil6210_priv *wil, u32 reg, u32 val)
 {
 	writel(val, wil->csr + HOSTADDR(reg));
 	wmb(); /* wait for write to propagate to the HW */
 }
 
 /* register set = read, OR, write */
-static inline void wil_s(struct wil6210_priv *wil, u32 reg, u32 val)
+static void wil_s(struct wil6210_priv *wil, u32 reg, u32 val)
 {
 	wil_w(wil, reg, wil_r(wil, reg) | val);
 }
 
 /* register clear = read, AND with inverted, write */
-static inline void wil_c(struct wil6210_priv *wil, u32 reg, u32 val)
+static void wil_c(struct wil6210_priv *wil, u32 reg, u32 val)
 {
 	wil_w(wil, reg, wil_r(wil, reg) & ~val);
 }

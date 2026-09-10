@@ -157,7 +157,7 @@ int isp_mmu_map(struct isp_mmu *mmu, unsigned int isp_virt,
 void isp_mmu_unmap(struct isp_mmu *mmu, unsigned int isp_virt,
 		   unsigned int pgnr);
 
-static inline void isp_mmu_flush_tlb_all(struct isp_mmu *mmu)
+static void isp_mmu_flush_tlb_all(struct isp_mmu *mmu)
 {
 	if (mmu->driver && mmu->driver->tlb_flush_all)
 		mmu->driver->tlb_flush_all(mmu);
@@ -165,7 +165,7 @@ static inline void isp_mmu_flush_tlb_all(struct isp_mmu *mmu)
 
 #define isp_mmu_flush_tlb isp_mmu_flush_tlb_all
 
-static inline void isp_mmu_flush_tlb_range(struct isp_mmu *mmu,
+static void isp_mmu_flush_tlb_range(struct isp_mmu *mmu,
 		unsigned int start, unsigned int size)
 {
 	if (mmu->driver && mmu->driver->tlb_flush_range)

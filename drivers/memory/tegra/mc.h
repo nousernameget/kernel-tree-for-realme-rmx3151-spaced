@@ -23,12 +23,12 @@
 #define MC_INT_SECURITY_VIOLATION (1 << 8)
 #define MC_INT_DECERR_EMEM (1 << 6)
 
-static inline u32 mc_readl(struct tegra_mc *mc, unsigned long offset)
+static u32 mc_readl(struct tegra_mc *mc, unsigned long offset)
 {
 	return readl(mc->regs + offset);
 }
 
-static inline void mc_writel(struct tegra_mc *mc, u32 value,
+static void mc_writel(struct tegra_mc *mc, u32 value,
 			     unsigned long offset)
 {
 	writel(value, mc->regs + offset);

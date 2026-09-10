@@ -432,24 +432,24 @@ void hermes_struct_init(struct hermes *hw, void __iomem *address,
 
 /* Inline functions */
 
-static inline int hermes_present(struct hermes *hw)
+static int hermes_present(struct hermes *hw)
 {
 	return hermes_read_regn(hw, SWSUPPORT0) == HERMES_MAGIC;
 }
 
-static inline void hermes_set_irqmask(struct hermes *hw, u16 events)
+static void hermes_set_irqmask(struct hermes *hw, u16 events)
 {
 	hw->inten = events;
 	hermes_write_regn(hw, INTEN, events);
 }
 
-static inline int hermes_enable_port(struct hermes *hw, int port)
+static int hermes_enable_port(struct hermes *hw, int port)
 {
 	return hw->ops->cmd_wait(hw, HERMES_CMD_ENABLE | (port << 8),
 				 0, NULL);
 }
 
-static inline int hermes_disable_port(struct hermes *hw, int port)
+static int hermes_disable_port(struct hermes *hw, int port)
 {
 	return hw->ops->cmd_wait(hw, HERMES_CMD_DISABLE | (port << 8),
 				 0, NULL);
@@ -457,7 +457,7 @@ static inline int hermes_disable_port(struct hermes *hw, int port)
 
 /* Initiate an INQUIRE command (tallies or scan).  The result will come as an
  * information frame in __orinoco_ev_info() */
-static inline int hermes_inquire(struct hermes *hw, u16 rid)
+static int hermes_inquire(struct hermes *hw, u16 rid)
 {
 	return hw->ops->cmd_wait(hw, HERMES_CMD_INQUIRE, rid, NULL);
 }
@@ -466,14 +466,14 @@ static inline int hermes_inquire(struct hermes *hw, u16 rid)
 #define HERMES_RECLEN_TO_BYTES(n) (((n) - 1) * 2)
 
 /* Note that for the next two, the count is in 16-bit words, not bytes */
-static inline void hermes_read_words(struct hermes *hw, int off,
+static void hermes_read_words(struct hermes *hw, int off,
 				     void *buf, unsigned count)
 {
 	off = off << hw->reg_spacing;
 	ioread16_rep(hw->iobase + off, buf, count);
 }
 
-static inline void hermes_write_bytes(struct hermes *hw, int off,
+static void hermes_write_bytes(struct hermes *hw, int off,
 				      const char *buf, unsigned count)
 {
 	off = off << hw->reg_spacing;
@@ -482,7 +482,7 @@ static inline void hermes_write_bytes(struct hermes *hw, int off,
 		iowrite8(buf[count - 1], hw->iobase + off);
 }
 
-static inline void hermes_clear_words(struct hermes *hw, int off,
+static void hermes_clear_words(struct hermes *hw, int off,
 				      unsigned count)
 {
 	unsigned i;
@@ -499,7 +499,7 @@ static inline void hermes_clear_words(struct hermes *hw, int off,
 	(hw->ops->write_ltv((hw), (bap), (rid), \
 			    HERMES_BYTES_TO_RECLEN(sizeof(*buf)), (buf)))
 
-static inline int hermes_read_wordrec(struct hermes *hw, int bap, u16 rid,
+static int hermes_read_wordrec(struct hermes *hw, int bap, u16 rid,
 				      u16 *word)
 {
 	__le16 rec;
@@ -510,7 +510,7 @@ static inline int hermes_read_wordrec(struct hermes *hw, int bap, u16 rid,
 	return err;
 }
 
-static inline int hermes_write_wordrec(struct hermes *hw, int bap, u16 rid,
+static int hermes_write_wordrec(struct hermes *hw, int bap, u16 rid,
 				       u16 word)
 {
 	__le16 rec = cpu_to_le16(word);

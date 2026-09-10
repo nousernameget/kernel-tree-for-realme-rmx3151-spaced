@@ -336,59 +336,59 @@ struct diag_pkt {
 
 #define HFI1_PSM_IOC_BASE_SEQ 0x0
 
-static inline __u64 rhf_to_cpu(const __le32 *rbuf)
+static __u64 rhf_to_cpu(const __le32 *rbuf)
 {
 	return __le64_to_cpu(*((__le64 *)rbuf));
 }
 
-static inline u64 rhf_err_flags(u64 rhf)
+static u64 rhf_err_flags(u64 rhf)
 {
 	return rhf & RHF_ERROR_SMASK;
 }
 
-static inline u32 rhf_rcv_type(u64 rhf)
+static u32 rhf_rcv_type(u64 rhf)
 {
 	return (rhf >> RHF_RCV_TYPE_SHIFT) & RHF_RCV_TYPE_MASK;
 }
 
-static inline u32 rhf_rcv_type_err(u64 rhf)
+static u32 rhf_rcv_type_err(u64 rhf)
 {
 	return (rhf >> RHF_RCV_TYPE_ERR_SHIFT) & RHF_RCV_TYPE_ERR_MASK;
 }
 
 /* return size is in bytes, not DWORDs */
-static inline u32 rhf_pkt_len(u64 rhf)
+static u32 rhf_pkt_len(u64 rhf)
 {
 	return ((rhf & RHF_PKT_LEN_SMASK) >> RHF_PKT_LEN_SHIFT) << 2;
 }
 
-static inline u32 rhf_egr_index(u64 rhf)
+static u32 rhf_egr_index(u64 rhf)
 {
 	return (rhf >> RHF_EGR_INDEX_SHIFT) & RHF_EGR_INDEX_MASK;
 }
 
-static inline u32 rhf_rcv_seq(u64 rhf)
+static u32 rhf_rcv_seq(u64 rhf)
 {
 	return (rhf >> RHF_RCV_SEQ_SHIFT) & RHF_RCV_SEQ_MASK;
 }
 
 /* returned offset is in DWORDS */
-static inline u32 rhf_hdrq_offset(u64 rhf)
+static u32 rhf_hdrq_offset(u64 rhf)
 {
 	return (rhf >> RHF_HDRQ_OFFSET_SHIFT) & RHF_HDRQ_OFFSET_MASK;
 }
 
-static inline u64 rhf_use_egr_bfr(u64 rhf)
+static u64 rhf_use_egr_bfr(u64 rhf)
 {
 	return rhf & RHF_USE_EGR_BFR_SMASK;
 }
 
-static inline u64 rhf_dc_info(u64 rhf)
+static u64 rhf_dc_info(u64 rhf)
 {
 	return rhf & RHF_DC_INFO_SMASK;
 }
 
-static inline u32 rhf_egr_buf_offset(u64 rhf)
+static u32 rhf_egr_buf_offset(u64 rhf)
 {
 	return (rhf >> RHF_EGR_OFFSET_SHIFT) & RHF_EGR_OFFSET_MASK;
 }

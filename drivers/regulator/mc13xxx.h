@@ -40,12 +40,12 @@ extern struct mc13xxx_regulator_init_data *mc13xxx_parse_regulators_dt(
 	struct platform_device *pdev, struct mc13xxx_regulator *regulators,
 	int num_regulators);
 #else
-static inline int mc13xxx_get_num_regulators_dt(struct platform_device *pdev)
+static int mc13xxx_get_num_regulators_dt(struct platform_device *pdev)
 {
 	return -ENODEV;
 }
 
-static inline struct mc13xxx_regulator_init_data *mc13xxx_parse_regulators_dt(
+static struct mc13xxx_regulator_init_data *mc13xxx_parse_regulators_dt(
 	struct platform_device *pdev, struct mc13xxx_regulator *regulators,
 	int num_regulators)
 {

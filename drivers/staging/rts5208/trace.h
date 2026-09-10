@@ -32,7 +32,7 @@ void _rtsx_trace(struct rtsx_chip *chip, const char *file, const char *func,
 #define rtsx_trace(chip)						\
 	_rtsx_trace(chip, __FILE__, __func__, __LINE__)
 #else
-static inline void rtsx_trace(struct rtsx_chip *chip)
+static void rtsx_trace(struct rtsx_chip *chip)
 {
 }
 #endif

@@ -186,20 +186,20 @@ struct iwl_op_mode {
 	char op_mode_specific[0] __aligned(sizeof(void *));
 };
 
-static inline void iwl_op_mode_stop(struct iwl_op_mode *op_mode)
+static void iwl_op_mode_stop(struct iwl_op_mode *op_mode)
 {
 	might_sleep();
 	op_mode->ops->stop(op_mode);
 }
 
-static inline void iwl_op_mode_rx(struct iwl_op_mode *op_mode,
+static void iwl_op_mode_rx(struct iwl_op_mode *op_mode,
 				  struct napi_struct *napi,
 				  struct iwl_rx_cmd_buffer *rxb)
 {
 	return op_mode->ops->rx(op_mode, napi, rxb);
 }
 
-static inline void iwl_op_mode_rx_rss(struct iwl_op_mode *op_mode,
+static void iwl_op_mode_rx_rss(struct iwl_op_mode *op_mode,
 				      struct napi_struct *napi,
 				      struct iwl_rx_cmd_buffer *rxb,
 				      unsigned int queue)
@@ -207,61 +207,61 @@ static inline void iwl_op_mode_rx_rss(struct iwl_op_mode *op_mode,
 	op_mode->ops->rx_rss(op_mode, napi, rxb, queue);
 }
 
-static inline void iwl_op_mode_async_cb(struct iwl_op_mode *op_mode,
+static void iwl_op_mode_async_cb(struct iwl_op_mode *op_mode,
 					const struct iwl_device_cmd *cmd)
 {
 	if (op_mode->ops->async_cb)
 		op_mode->ops->async_cb(op_mode, cmd);
 }
 
-static inline void iwl_op_mode_queue_full(struct iwl_op_mode *op_mode,
+static void iwl_op_mode_queue_full(struct iwl_op_mode *op_mode,
 					  int queue)
 {
 	op_mode->ops->queue_full(op_mode, queue);
 }
 
-static inline void iwl_op_mode_queue_not_full(struct iwl_op_mode *op_mode,
+static void iwl_op_mode_queue_not_full(struct iwl_op_mode *op_mode,
 					      int queue)
 {
 	op_mode->ops->queue_not_full(op_mode, queue);
 }
 
-static inline bool __must_check
+static bool __must_check
 iwl_op_mode_hw_rf_kill(struct iwl_op_mode *op_mode, bool state)
 {
 	might_sleep();
 	return op_mode->ops->hw_rf_kill(op_mode, state);
 }
 
-static inline void iwl_op_mode_free_skb(struct iwl_op_mode *op_mode,
+static void iwl_op_mode_free_skb(struct iwl_op_mode *op_mode,
 					struct sk_buff *skb)
 {
 	op_mode->ops->free_skb(op_mode, skb);
 }
 
-static inline void iwl_op_mode_nic_error(struct iwl_op_mode *op_mode)
+static void iwl_op_mode_nic_error(struct iwl_op_mode *op_mode)
 {
 	op_mode->ops->nic_error(op_mode);
 }
 
-static inline void iwl_op_mode_cmd_queue_full(struct iwl_op_mode *op_mode)
+static void iwl_op_mode_cmd_queue_full(struct iwl_op_mode *op_mode)
 {
 	op_mode->ops->cmd_queue_full(op_mode);
 }
 
-static inline void iwl_op_mode_nic_config(struct iwl_op_mode *op_mode)
+static void iwl_op_mode_nic_config(struct iwl_op_mode *op_mode)
 {
 	might_sleep();
 	op_mode->ops->nic_config(op_mode);
 }
 
-static inline void iwl_op_mode_wimax_active(struct iwl_op_mode *op_mode)
+static void iwl_op_mode_wimax_active(struct iwl_op_mode *op_mode)
 {
 	might_sleep();
 	op_mode->ops->wimax_active(op_mode);
 }
 
-static inline int iwl_op_mode_enter_d0i3(struct iwl_op_mode *op_mode)
+static int iwl_op_mode_enter_d0i3(struct iwl_op_mode *op_mode)
 {
 	might_sleep();
 
@@ -270,7 +270,7 @@ static inline int iwl_op_mode_enter_d0i3(struct iwl_op_mode *op_mode)
 	return op_mode->ops->enter_d0i3(op_mode);
 }
 
-static inline int iwl_op_mode_exit_d0i3(struct iwl_op_mode *op_mode)
+static int iwl_op_mode_exit_d0i3(struct iwl_op_mode *op_mode)
 {
 	might_sleep();
 

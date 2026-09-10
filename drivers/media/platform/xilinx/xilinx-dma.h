@@ -48,7 +48,7 @@ struct xvip_pipeline {
 	struct xvip_dma *output;
 };
 
-static inline struct xvip_pipeline *to_xvip_pipeline(struct media_entity *e)
+static struct xvip_pipeline *to_xvip_pipeline(struct media_entity *e)
 {
 	return container_of(e->pipe, struct xvip_pipeline, pipe);
 }

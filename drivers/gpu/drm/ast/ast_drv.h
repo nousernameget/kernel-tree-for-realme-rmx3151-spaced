@@ -187,7 +187,7 @@ __ast_io_write(8);
 __ast_io_write(16);
 #undef __ast_io_write
 
-static inline void ast_set_index_reg(struct ast_private *ast,
+static void ast_set_index_reg(struct ast_private *ast,
 				     uint32_t base, uint8_t index,
 				     uint8_t val)
 {
@@ -202,7 +202,7 @@ uint8_t ast_get_index_reg(struct ast_private *ast,
 uint8_t ast_get_index_reg_mask(struct ast_private *ast,
 			       uint32_t base, uint8_t index, uint8_t mask);
 
-static inline void ast_open_key(struct ast_private *ast)
+static void ast_open_key(struct ast_private *ast)
 {
 	ast_set_index_reg(ast, AST_IO_CRTC_PORT, 0x80, 0xA8);
 }
@@ -333,7 +333,7 @@ struct ast_bo {
 };
 #define gem_to_ast_bo(gobj) container_of((gobj), struct ast_bo, gem)
 
-static inline struct ast_bo *
+static struct ast_bo *
 ast_bo(struct ttm_buffer_object *bo)
 {
 	return container_of(bo, struct ast_bo, bo);
@@ -370,7 +370,7 @@ int ast_gem_create(struct drm_device *dev,
 int ast_bo_pin(struct ast_bo *bo, u32 pl_flag, u64 *gpu_addr);
 int ast_bo_unpin(struct ast_bo *bo);
 
-static inline int ast_bo_reserve(struct ast_bo *bo, bool no_wait)
+static int ast_bo_reserve(struct ast_bo *bo, bool no_wait)
 {
 	int ret;
 
@@ -383,7 +383,7 @@ static inline int ast_bo_reserve(struct ast_bo *bo, bool no_wait)
 	return 0;
 }
 
-static inline void ast_bo_unreserve(struct ast_bo *bo)
+static void ast_bo_unreserve(struct ast_bo *bo)
 {
 	ttm_bo_unreserve(&bo->bo);
 }

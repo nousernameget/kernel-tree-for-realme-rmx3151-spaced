@@ -70,7 +70,7 @@
 #define INTEL_MODE_PIXEL_MULTIPLIER_SHIFT (0x0)
 #define INTEL_MODE_PIXEL_MULTIPLIER_MASK (0xf << INTEL_MODE_PIXEL_MULTIPLIER_SHIFT)
 
-static inline void
+static void
 psb_intel_mode_set_pixel_multiplier(struct drm_display_mode *mode,
 				int multiplier)
 {
@@ -78,7 +78,7 @@ psb_intel_mode_set_pixel_multiplier(struct drm_display_mode *mode,
 	mode->private_flags |= multiplier;
 }
 
-static inline int
+static int
 psb_intel_mode_get_pixel_multiplier(const struct drm_display_mode *mode)
 {
 	return (mode->private_flags & INTEL_MODE_PIXEL_MULTIPLIER_MASK)
@@ -234,7 +234,7 @@ extern struct drm_encoder *gma_best_encoder(struct drm_connector *connector);
 extern void gma_connector_attach_encoder(struct gma_connector *connector,
 					 struct gma_encoder *encoder);
 
-static inline struct gma_encoder *gma_attached_encoder(
+static struct gma_encoder *gma_attached_encoder(
 						struct drm_connector *connector)
 {
 	return to_gma_connector(connector)->encoder;

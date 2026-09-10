@@ -62,7 +62,7 @@ void kbase_job_done_slot(struct kbase_device *kbdev, int s, u32 completion_code,
 					u64 job_tail, ktime_t *end_timestamp);
 
 #ifdef CONFIG_GPU_TRACEPOINTS
-static inline char *kbasep_make_job_slot_string(int js, char *js_string,
+static char *kbasep_make_job_slot_string(int js, char *js_string,
 						size_t js_size)
 {
 	snprintf(js_string, js_size, "job_slot_%i", js);
@@ -166,13 +166,13 @@ void kbase_job_slot_term(struct kbase_device *kbdev);
  */
 void kbase_gpu_cacheclean(struct kbase_device *kbdev);
 
-static inline bool kbase_atom_needs_tiler(struct kbase_device *kbdev,
+static bool kbase_atom_needs_tiler(struct kbase_device *kbdev,
 		base_jd_core_req core_req)
 {
 	return core_req & BASE_JD_REQ_T;
 }
 
-static inline bool kbase_atom_needs_shaders(struct kbase_device *kbdev,
+static bool kbase_atom_needs_shaders(struct kbase_device *kbdev,
 		base_jd_core_req core_req)
 {
 	if (!kbase_hw_has_feature(kbdev, BASE_HW_FEATURE_XAFFINITY))

@@ -95,14 +95,14 @@ enum {
 #define bfa_trc(_trcp, _data)	\
 	__bfa_trc((_trcp)->trcmod, __trc_fileno, __LINE__, (u64)_data)
 
-static inline void
+static void
 bfa_trc_init(struct bfa_trc_mod_s *trcm)
 {
 	trcm->head = trcm->tail = trcm->stopped = 0;
 	trcm->ntrc = BFA_TRC_MAX;
 }
 
-static inline void
+static void
 bfa_trc_stop(struct bfa_trc_mod_s *trcm)
 {
 	trcm->stopped = 1;
@@ -161,7 +161,7 @@ __bfa_trc32(struct bfa_trc_mod_s *trcm, int fileno, int line, u32 data);
 	}								\
 }
 
-static inline int
+static int
 bfa_q_is_on_q_func(struct list_head *q, struct list_head *qe)
 {
 	struct list_head        *tqe;
@@ -235,7 +235,7 @@ typedef void (*bfa_fsm_t)(void *fsm, int event);
 #define bfa_fsm_cmp_state(_fsm, _state)		\
 	((_fsm)->fsm == (bfa_fsm_t)(_state))
 
-static inline int
+static int
 bfa_sm_to_state(struct bfa_sm_table_s *smt, bfa_sm_t sm)
 {
 	int	i = 0;
@@ -257,13 +257,13 @@ struct bfa_wc_s {
 	int		wc_count;
 };
 
-static inline void
+static void
 bfa_wc_up(struct bfa_wc_s *wc)
 {
 	wc->wc_count++;
 }
 
-static inline void
+static void
 bfa_wc_down(struct bfa_wc_s *wc)
 {
 	wc->wc_count--;
@@ -274,7 +274,7 @@ bfa_wc_down(struct bfa_wc_s *wc)
 /*
  * Initialize a waiting counter.
  */
-static inline void
+static void
 bfa_wc_init(struct bfa_wc_s *wc, bfa_wc_resume_t wc_resume, void *wc_cbarg)
 {
 	wc->wc_resume = wc_resume;
@@ -286,13 +286,13 @@ bfa_wc_init(struct bfa_wc_s *wc, bfa_wc_resume_t wc_resume, void *wc_cbarg)
 /*
  * Wait for counter to reach zero
  */
-static inline void
+static void
 bfa_wc_wait(struct bfa_wc_s *wc)
 {
 	bfa_wc_down(wc);
 }
 
-static inline void
+static void
 wwn2str(char *wwn_str, u64 wwn)
 {
 	union {
@@ -306,7 +306,7 @@ wwn2str(char *wwn_str, u64 wwn)
 		w.byte[6], w.byte[7]);
 }
 
-static inline void
+static void
 fcid2str(char *fcid_str, u32 fcid)
 {
 	union {

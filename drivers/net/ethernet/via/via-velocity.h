@@ -1509,7 +1509,7 @@ struct velocity_info {
  *
  */
 
-static inline int velocity_get_ip(struct velocity_info *vptr)
+static int velocity_get_ip(struct velocity_info *vptr)
 {
 	struct in_device *in_dev;
 	struct in_ifaddr *ifa;
@@ -1539,7 +1539,7 @@ static inline int velocity_get_ip(struct velocity_info *vptr)
  *	space.
  */
 
-static inline void velocity_update_hw_mibs(struct velocity_info *vptr)
+static void velocity_update_hw_mibs(struct velocity_info *vptr)
 {
 	u32 tmp;
 	int i;
@@ -1561,7 +1561,7 @@ static inline void velocity_update_hw_mibs(struct velocity_info *vptr)
  *	Configure the flow control registers for this velocity device.
  */
 
-static inline void init_flow_control_register(struct velocity_info *vptr)
+static void init_flow_control_register(struct velocity_info *vptr)
 {
 	struct mac_regs __iomem * regs = vptr->mac_regs;
 

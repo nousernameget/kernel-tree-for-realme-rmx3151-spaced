@@ -1133,7 +1133,7 @@ struct scsi_inquiry {
   Host Adapter I/O Registers.
 */
 
-static inline void blogic_busreset(struct blogic_adapter *adapter)
+static void blogic_busreset(struct blogic_adapter *adapter)
 {
 	union blogic_cntrl_reg cr;
 	cr.all = 0;
@@ -1141,7 +1141,7 @@ static inline void blogic_busreset(struct blogic_adapter *adapter)
 	outb(cr.all, adapter->io_addr + BLOGIC_CNTRL_REG);
 }
 
-static inline void blogic_intreset(struct blogic_adapter *adapter)
+static void blogic_intreset(struct blogic_adapter *adapter)
 {
 	union blogic_cntrl_reg cr;
 	cr.all = 0;
@@ -1149,7 +1149,7 @@ static inline void blogic_intreset(struct blogic_adapter *adapter)
 	outb(cr.all, adapter->io_addr + BLOGIC_CNTRL_REG);
 }
 
-static inline void blogic_softreset(struct blogic_adapter *adapter)
+static void blogic_softreset(struct blogic_adapter *adapter)
 {
 	union blogic_cntrl_reg cr;
 	cr.all = 0;
@@ -1157,7 +1157,7 @@ static inline void blogic_softreset(struct blogic_adapter *adapter)
 	outb(cr.all, adapter->io_addr + BLOGIC_CNTRL_REG);
 }
 
-static inline void blogic_hardreset(struct blogic_adapter *adapter)
+static void blogic_hardreset(struct blogic_adapter *adapter)
 {
 	union blogic_cntrl_reg cr;
 	cr.all = 0;
@@ -1165,28 +1165,28 @@ static inline void blogic_hardreset(struct blogic_adapter *adapter)
 	outb(cr.all, adapter->io_addr + BLOGIC_CNTRL_REG);
 }
 
-static inline unsigned char blogic_rdstatus(struct blogic_adapter *adapter)
+static unsigned char blogic_rdstatus(struct blogic_adapter *adapter)
 {
 	return inb(adapter->io_addr + BLOGIC_STATUS_REG);
 }
 
-static inline void blogic_setcmdparam(struct blogic_adapter *adapter,
+static void blogic_setcmdparam(struct blogic_adapter *adapter,
 					unsigned char value)
 {
 	outb(value, adapter->io_addr + BLOGIC_CMD_PARM_REG);
 }
 
-static inline unsigned char blogic_rddatain(struct blogic_adapter *adapter)
+static unsigned char blogic_rddatain(struct blogic_adapter *adapter)
 {
 	return inb(adapter->io_addr + BLOGIC_DATAIN_REG);
 }
 
-static inline unsigned char blogic_rdint(struct blogic_adapter *adapter)
+static unsigned char blogic_rdint(struct blogic_adapter *adapter)
 {
 	return inb(adapter->io_addr + BLOGIC_INT_REG);
 }
 
-static inline unsigned char blogic_rdgeom(struct blogic_adapter *adapter)
+static unsigned char blogic_rdgeom(struct blogic_adapter *adapter)
 {
 	return inb(adapter->io_addr + BLOGIC_GEOMETRY_REG);
 }
@@ -1197,7 +1197,7 @@ static inline unsigned char blogic_rdgeom(struct blogic_adapter *adapter)
   Mailbox.
 */
 
-static inline void blogic_execmbox(struct blogic_adapter *adapter)
+static void blogic_execmbox(struct blogic_adapter *adapter)
 {
 	blogic_setcmdparam(adapter, BLOGIC_EXEC_MBOX_CMD);
 }
@@ -1206,7 +1206,7 @@ static inline void blogic_execmbox(struct blogic_adapter *adapter)
   blogic_delay waits for Seconds to elapse.
 */
 
-static inline void blogic_delay(int seconds)
+static void blogic_delay(int seconds)
 {
 	mdelay(1000 * seconds);
 }
@@ -1217,7 +1217,7 @@ static inline void blogic_delay(int seconds)
   on 64 bit architectures.
 */
 
-static inline u32 virt_to_32bit_virt(void *virt_addr)
+static u32 virt_to_32bit_virt(void *virt_addr)
 {
 	return (u32) (unsigned long) virt_addr;
 }
@@ -1227,7 +1227,7 @@ static inline u32 virt_to_32bit_virt(void *virt_addr)
   65535 rather than wrapping around to 0.
 */
 
-static inline void blogic_inc_count(unsigned short *count)
+static void blogic_inc_count(unsigned short *count)
 {
 	if (*count < 65535)
 		(*count)++;
@@ -1237,7 +1237,7 @@ static inline void blogic_inc_count(unsigned short *count)
   blogic_addcount increments Byte Counter by Amount.
 */
 
-static inline void blogic_addcount(struct blogic_byte_count *bytecount,
+static void blogic_addcount(struct blogic_byte_count *bytecount,
 					unsigned int amount)
 {
 	bytecount->units += amount;
@@ -1251,7 +1251,7 @@ static inline void blogic_addcount(struct blogic_byte_count *bytecount,
   blogic_incszbucket increments the Bucket for Amount.
 */
 
-static inline void blogic_incszbucket(unsigned int *cmdsz_buckets,
+static void blogic_incszbucket(unsigned int *cmdsz_buckets,
 					unsigned int amount)
 {
 	int index = 0;

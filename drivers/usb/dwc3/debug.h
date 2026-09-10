@@ -25,7 +25,7 @@
  * dwc3_gadget_ep_cmd_string - returns endpoint command string
  * @cmd: command code
  */
-static inline const char *
+static const char *
 dwc3_gadget_ep_cmd_string(u8 cmd)
 {
 	switch (cmd) {
@@ -56,7 +56,7 @@ dwc3_gadget_ep_cmd_string(u8 cmd)
  * dwc3_gadget_generic_cmd_string - returns generic command string
  * @cmd: command code
  */
-static inline const char *
+static const char *
 dwc3_gadget_generic_cmd_string(u8 cmd)
 {
 	switch (cmd) {
@@ -87,7 +87,7 @@ dwc3_gadget_generic_cmd_string(u8 cmd)
  * dwc3_gadget_link_string - returns link name
  * @link_state: link state code
  */
-static inline const char *
+static const char *
 dwc3_gadget_link_string(enum dwc3_link_state link_state)
 {
 	switch (link_state) {
@@ -128,7 +128,7 @@ dwc3_gadget_link_string(enum dwc3_link_state link_state)
  * dwc3_gadget_hs_link_string - returns highspeed and below link name
  * @link_state: link state code
  */
-static inline const char *
+static const char *
 dwc3_gadget_hs_link_string(enum dwc3_link_state link_state)
 {
 	switch (link_state) {
@@ -157,7 +157,7 @@ dwc3_gadget_hs_link_string(enum dwc3_link_state link_state)
  * dwc3_trb_type_string - returns TRB type as a string
  * @type: the type of the TRB
  */
-static inline const char *dwc3_trb_type_string(unsigned int type)
+static const char *dwc3_trb_type_string(unsigned int type)
 {
 	switch (type) {
 	case DWC3_TRBCTL_NORMAL:
@@ -181,7 +181,7 @@ static inline const char *dwc3_trb_type_string(unsigned int type)
 	}
 }
 
-static inline const char *dwc3_ep0_state_string(enum dwc3_ep0_state state)
+static const char *dwc3_ep0_state_string(enum dwc3_ep0_state state)
 {
 	switch (state) {
 	case EP0_UNCONNECTED:
@@ -201,7 +201,7 @@ static inline const char *dwc3_ep0_state_string(enum dwc3_ep0_state state)
  * dwc3_gadget_event_string - returns event name
  * @event: the event code
  */
-static inline const char *
+static const char *
 dwc3_gadget_event_string(char *str, const struct dwc3_event_devt *event)
 {
 	enum dwc3_link_state state = event->event_info & DWC3_LINK_STATE_MASK;
@@ -251,7 +251,7 @@ dwc3_gadget_event_string(char *str, const struct dwc3_event_devt *event)
 	return str;
 }
 
-static inline void dwc3_decode_get_status(__u8 t, __u16 i, __u16 l, char *str)
+static void dwc3_decode_get_status(__u8 t, __u16 i, __u16 l, char *str)
 {
 	switch (t & USB_RECIP_MASK) {
 	case USB_RECIP_INTERFACE:
@@ -266,7 +266,7 @@ static inline void dwc3_decode_get_status(__u8 t, __u16 i, __u16 l, char *str)
 	}
 }
 
-static inline void dwc3_decode_set_clear_feature(__u8 t, __u8 b, __u16 v,
+static void dwc3_decode_set_clear_feature(__u8 t, __u8 b, __u16 v,
 						 __u16 i, char *str)
 {
 	switch (t & USB_RECIP_MASK) {
@@ -325,12 +325,12 @@ static inline void dwc3_decode_set_clear_feature(__u8 t, __u8 b, __u16 v,
 	}
 }
 
-static inline void dwc3_decode_set_address(__u16 v, char *str)
+static void dwc3_decode_set_address(__u16 v, char *str)
 {
 	sprintf(str, "Set Address(Addr = %02x)", v);
 }
 
-static inline void dwc3_decode_get_set_descriptor(__u8 t, __u8 b, __u16 v,
+static void dwc3_decode_get_set_descriptor(__u8 t, __u8 b, __u16 v,
 						  __u16 i, __u16 l, char *str)
 {
 	sprintf(str, "%s %s Descriptor(Index = %d, Length = %d)",
@@ -392,37 +392,37 @@ static inline void dwc3_decode_get_set_descriptor(__u8 t, __u8 b, __u16 v,
 }
 
 
-static inline void dwc3_decode_get_configuration(__u16 l, char *str)
+static void dwc3_decode_get_configuration(__u16 l, char *str)
 {
 	sprintf(str, "Get Configuration(Length = %d)", l);
 }
 
-static inline void dwc3_decode_set_configuration(__u8 v, char *str)
+static void dwc3_decode_set_configuration(__u8 v, char *str)
 {
 	sprintf(str, "Set Configuration(Config = %d)", v);
 }
 
-static inline void dwc3_decode_get_intf(__u16 i, __u16 l, char *str)
+static void dwc3_decode_get_intf(__u16 i, __u16 l, char *str)
 {
 	sprintf(str, "Get Interface(Intf = %d, Length = %d)", i, l);
 }
 
-static inline void dwc3_decode_set_intf(__u8 v, __u16 i, char *str)
+static void dwc3_decode_set_intf(__u8 v, __u16 i, char *str)
 {
 	sprintf(str, "Set Interface(Intf = %d, Alt.Setting = %d)", i, v);
 }
 
-static inline void dwc3_decode_synch_frame(__u16 i, __u16 l, char *str)
+static void dwc3_decode_synch_frame(__u16 i, __u16 l, char *str)
 {
 	sprintf(str, "Synch Frame(Endpoint = %d, Length = %d)", i, l);
 }
 
-static inline void dwc3_decode_set_sel(__u16 l, char *str)
+static void dwc3_decode_set_sel(__u16 l, char *str)
 {
 	sprintf(str, "Set SEL(Length = %d)", l);
 }
 
-static inline void dwc3_decode_set_isoch_delay(__u8 v, char *str)
+static void dwc3_decode_set_isoch_delay(__u8 v, char *str)
 {
 	sprintf(str, "Set Isochronous Delay(Delay = %d ns)", v);
 }
@@ -430,7 +430,7 @@ static inline void dwc3_decode_set_isoch_delay(__u8 v, char *str)
 /**
  * dwc3_decode_ctrl - returns a string represetion of ctrl request
  */
-static inline const char *dwc3_decode_ctrl(char *str, __u8 bRequestType,
+static const char *dwc3_decode_ctrl(char *str, __u8 bRequestType,
 		__u8 bRequest, __u16 wValue, __u16 wIndex, __u16 wLength)
 {
 	switch (bRequest) {
@@ -489,7 +489,7 @@ static inline const char *dwc3_decode_ctrl(char *str, __u8 bRequestType,
  * dwc3_ep_event_string - returns event name
  * @event: then event code
  */
-static inline const char *
+static const char *
 dwc3_ep_event_string(char *str, const struct dwc3_event_depevt *event,
 		     u32 ep0state)
 {
@@ -564,7 +564,7 @@ dwc3_ep_event_string(char *str, const struct dwc3_event_depevt *event,
  * dwc3_gadget_event_type_string - return event name
  * @event: the event code
  */
-static inline const char *dwc3_gadget_event_type_string(u8 event)
+static const char *dwc3_gadget_event_type_string(u8 event)
 {
 	switch (event) {
 	case DWC3_DEVICE_EVENT_DISCONNECT:
@@ -594,7 +594,7 @@ static inline const char *dwc3_gadget_event_type_string(u8 event)
 	}
 }
 
-static inline const char *dwc3_decode_event(char *str, u32 event, u32 ep0state)
+static const char *dwc3_decode_event(char *str, u32 event, u32 ep0state)
 {
 	const union dwc3_event evt = (union dwc3_event) event;
 
@@ -604,7 +604,7 @@ static inline const char *dwc3_decode_event(char *str, u32 event, u32 ep0state)
 		return dwc3_ep_event_string(str, &evt.depevt, ep0state);
 }
 
-static inline const char *dwc3_ep_cmd_status_string(int status)
+static const char *dwc3_ep_cmd_status_string(int status)
 {
 	switch (status) {
 	case -ETIMEDOUT:
@@ -620,7 +620,7 @@ static inline const char *dwc3_ep_cmd_status_string(int status)
 	}
 }
 
-static inline const char *dwc3_gadget_generic_cmd_status_string(int status)
+static const char *dwc3_gadget_generic_cmd_status_string(int status)
 {
 	switch (status) {
 	case -ETIMEDOUT:
@@ -639,9 +639,9 @@ static inline const char *dwc3_gadget_generic_cmd_status_string(int status)
 extern void dwc3_debugfs_init(struct dwc3 *);
 extern void dwc3_debugfs_exit(struct dwc3 *);
 #else
-static inline void dwc3_debugfs_init(struct dwc3 *d)
+static void dwc3_debugfs_init(struct dwc3 *d)
 {  }
-static inline void dwc3_debugfs_exit(struct dwc3 *d)
+static void dwc3_debugfs_exit(struct dwc3 *d)
 {  }
 #endif
 #endif /* __DWC3_DEBUG_H */

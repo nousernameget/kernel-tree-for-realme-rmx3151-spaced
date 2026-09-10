@@ -50,7 +50,7 @@ struct wq_enet_desc {
 #define WQ_ENET_OFFLOAD_MODE_CSUM_L4	2
 #define WQ_ENET_OFFLOAD_MODE_TSO	3
 
-static inline void wq_enet_desc_enc(struct wq_enet_desc *desc,
+static void wq_enet_desc_enc(struct wq_enet_desc *desc,
 	u64 address, u16 length, u16 mss, u16 header_length,
 	u8 offload_mode, u8 eop, u8 cq_entry, u8 fcoe_encap,
 	u8 vlan_tag_insert, u16 vlan_tag, u8 loopback)
@@ -69,7 +69,7 @@ static inline void wq_enet_desc_enc(struct wq_enet_desc *desc,
 	desc->vlan_tag = cpu_to_le16(vlan_tag);
 }
 
-static inline void wq_enet_desc_dec(struct wq_enet_desc *desc,
+static void wq_enet_desc_dec(struct wq_enet_desc *desc,
 	u64 *address, u16 *length, u16 *mss, u16 *header_length,
 	u8 *offload_mode, u8 *eop, u8 *cq_entry, u8 *fcoe_encap,
 	u8 *vlan_tag_insert, u16 *vlan_tag, u8 *loopback)

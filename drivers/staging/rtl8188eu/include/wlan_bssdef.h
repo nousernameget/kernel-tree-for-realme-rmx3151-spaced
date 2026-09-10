@@ -197,7 +197,7 @@ struct wlan_bssid_ex {
 				 * capability information) */
 } __packed;
 
-static inline uint get_wlan_bssid_ex_sz(struct wlan_bssid_ex *bss)
+static uint get_wlan_bssid_ex_sz(struct wlan_bssid_ex *bss)
 {
 	return sizeof(struct wlan_bssid_ex) - MAX_IE_SZ + bss->IELength;
 }

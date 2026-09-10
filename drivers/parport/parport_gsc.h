@@ -82,7 +82,7 @@ struct parport_gsc_private {
 	struct pci_dev *dev;
 };
 
-static inline void parport_gsc_write_data(struct parport *p, unsigned char d)
+static void parport_gsc_write_data(struct parport *p, unsigned char d)
 {
 #ifdef DEBUG_PARPORT
 	printk (KERN_DEBUG "parport_gsc_write_data(%p,0x%02x)\n", p, d);
@@ -90,7 +90,7 @@ static inline void parport_gsc_write_data(struct parport *p, unsigned char d)
 	parport_writeb(d, DATA(p));
 }
 
-static inline unsigned char parport_gsc_read_data(struct parport *p)
+static unsigned char parport_gsc_read_data(struct parport *p)
 {
 	unsigned char val = parport_readb (DATA (p));
 #ifdef DEBUG_PARPORT
@@ -102,7 +102,7 @@ static inline unsigned char parport_gsc_read_data(struct parport *p)
 
 /* __parport_gsc_frob_control differs from parport_gsc_frob_control in that
  * it doesn't do any extra masking. */
-static inline unsigned char __parport_gsc_frob_control(struct parport *p,
+static unsigned char __parport_gsc_frob_control(struct parport *p,
 							unsigned char mask,
 							unsigned char val)
 {
@@ -120,17 +120,17 @@ static inline unsigned char __parport_gsc_frob_control(struct parport *p,
 	return ctr;
 }
 
-static inline void parport_gsc_data_reverse(struct parport *p)
+static void parport_gsc_data_reverse(struct parport *p)
 {
 	__parport_gsc_frob_control (p, 0x20, 0x20);
 }
 
-static inline void parport_gsc_data_forward(struct parport *p)
+static void parport_gsc_data_forward(struct parport *p)
 {
 	__parport_gsc_frob_control (p, 0x20, 0x00);
 }
 
-static inline void parport_gsc_write_control(struct parport *p,
+static void parport_gsc_write_control(struct parport *p,
 						 unsigned char d)
 {
 	const unsigned char wm = (PARPORT_CONTROL_STROBE |
@@ -148,7 +148,7 @@ static inline void parport_gsc_write_control(struct parport *p,
 	__parport_gsc_frob_control (p, wm, d & wm);
 }
 
-static inline unsigned char parport_gsc_read_control(struct parport *p)
+static unsigned char parport_gsc_read_control(struct parport *p)
 {
 	const unsigned char rm = (PARPORT_CONTROL_STROBE |
 				  PARPORT_CONTROL_AUTOFD |
@@ -158,7 +158,7 @@ static inline unsigned char parport_gsc_read_control(struct parport *p)
 	return priv->ctr & rm; /* Use soft copy */
 }
 
-static inline unsigned char parport_gsc_frob_control(struct parport *p,
+static unsigned char parport_gsc_frob_control(struct parport *p,
 							unsigned char mask,
 							unsigned char val)
 {
@@ -185,17 +185,17 @@ static inline unsigned char parport_gsc_frob_control(struct parport *p,
 	return __parport_gsc_frob_control (p, mask, val);
 }
 
-static inline unsigned char parport_gsc_read_status(struct parport *p)
+static unsigned char parport_gsc_read_status(struct parport *p)
 {
 	return parport_readb (STATUS(p));
 }
 
-static inline void parport_gsc_disable_irq(struct parport *p)
+static void parport_gsc_disable_irq(struct parport *p)
 {
 	__parport_gsc_frob_control (p, 0x10, 0x00);
 }
 
-static inline void parport_gsc_enable_irq(struct parport *p)
+static void parport_gsc_enable_irq(struct parport *p)
 {
 	__parport_gsc_frob_control (p, 0x10, 0x10);
 }

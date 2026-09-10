@@ -643,7 +643,7 @@ struct comedi_lrange {
  *	%true if the range is bipolar.
  *	%false if the range is unipolar.
  */
-static inline bool comedi_range_is_bipolar(struct comedi_subdevice *s,
+static bool comedi_range_is_bipolar(struct comedi_subdevice *s,
 					   unsigned int range)
 {
 	return s->range_table->range[range].min < 0;
@@ -664,7 +664,7 @@ static inline bool comedi_range_is_bipolar(struct comedi_subdevice *s,
  *	%true if the range is unipolar.
  *	%false if the range is bipolar.
  */
-static inline bool comedi_range_is_unipolar(struct comedi_subdevice *s,
+static bool comedi_range_is_unipolar(struct comedi_subdevice *s,
 					    unsigned int range)
 {
 	return s->range_table->range[range].min >= 0;
@@ -685,7 +685,7 @@ static inline bool comedi_range_is_unipolar(struct comedi_subdevice *s,
  *	%true if the range is external.
  *	%false if the range is internal.
  */
-static inline bool comedi_range_is_external(struct comedi_subdevice *s,
+static bool comedi_range_is_external(struct comedi_subdevice *s,
 					    unsigned int range)
 {
 	return !!(s->range_table->range[range].flags & RF_EXTERNAL);
@@ -707,7 +707,7 @@ static inline bool comedi_range_is_external(struct comedi_subdevice *s,
  *	%true if the range is bipolar.
  *	%false if the range is unipolar.
  */
-static inline bool comedi_chan_range_is_bipolar(struct comedi_subdevice *s,
+static bool comedi_chan_range_is_bipolar(struct comedi_subdevice *s,
 						unsigned int chan,
 						unsigned int range)
 {
@@ -730,7 +730,7 @@ static inline bool comedi_chan_range_is_bipolar(struct comedi_subdevice *s,
  *	%true if the range is unipolar.
  *	%false if the range is bipolar.
  */
-static inline bool comedi_chan_range_is_unipolar(struct comedi_subdevice *s,
+static bool comedi_chan_range_is_unipolar(struct comedi_subdevice *s,
 						 unsigned int chan,
 						 unsigned int range)
 {
@@ -753,7 +753,7 @@ static inline bool comedi_chan_range_is_unipolar(struct comedi_subdevice *s,
  *	%true if the range is bipolar.
  *	%false if the range is unipolar.
  */
-static inline bool comedi_chan_range_is_external(struct comedi_subdevice *s,
+static bool comedi_chan_range_is_external(struct comedi_subdevice *s,
 						 unsigned int chan,
 						 unsigned int range)
 {
@@ -770,7 +770,7 @@ static inline bool comedi_chan_range_is_external(struct comedi_subdevice *s,
  *
  * Return: The converted value.
  */
-static inline unsigned int comedi_offset_munge(struct comedi_subdevice *s,
+static unsigned int comedi_offset_munge(struct comedi_subdevice *s,
 					       unsigned int val)
 {
 	return val ^ s->maxdata ^ (s->maxdata >> 1);
@@ -785,7 +785,7 @@ static inline unsigned int comedi_offset_munge(struct comedi_subdevice *s,
  *
  * Return: The subdevice sample size.
  */
-static inline unsigned int comedi_bytes_per_sample(struct comedi_subdevice *s)
+static unsigned int comedi_bytes_per_sample(struct comedi_subdevice *s)
 {
 	return s->subdev_flags & SDF_LSAMPL ? sizeof(int) : sizeof(short);
 }
@@ -801,7 +801,7 @@ static inline unsigned int comedi_bytes_per_sample(struct comedi_subdevice *s)
  *
  * Return: log2 of the subdevice sample size.
  */
-static inline unsigned int comedi_sample_shift(struct comedi_subdevice *s)
+static unsigned int comedi_sample_shift(struct comedi_subdevice *s)
 {
 	return s->subdev_flags & SDF_LSAMPL ? 2 : 1;
 }
@@ -813,7 +813,7 @@ static inline unsigned int comedi_sample_shift(struct comedi_subdevice *s)
  *
  * Return: The number of bytes divided by the subdevice sample size.
  */
-static inline unsigned int comedi_bytes_to_samples(struct comedi_subdevice *s,
+static unsigned int comedi_bytes_to_samples(struct comedi_subdevice *s,
 						   unsigned int nbytes)
 {
 	return nbytes >> comedi_sample_shift(s);
@@ -827,7 +827,7 @@ static inline unsigned int comedi_bytes_to_samples(struct comedi_subdevice *s,
  * Return: The number of samples multiplied by the subdevice sample size.
  * (Does not check for arithmetic overflow.)
  */
-static inline unsigned int comedi_samples_to_bytes(struct comedi_subdevice *s,
+static unsigned int comedi_samples_to_bytes(struct comedi_subdevice *s,
 						   unsigned int nsamples)
 {
 	return nsamples << comedi_sample_shift(s);
@@ -847,7 +847,7 @@ static inline unsigned int comedi_samples_to_bytes(struct comedi_subdevice *s,
  *	0 if trigger sources in *@src are all supported.
  *	-EINVAL if any trigger source in *@src is unsupported.
  */
-static inline int comedi_check_trigger_src(unsigned int *src,
+static int comedi_check_trigger_src(unsigned int *src,
 					   unsigned int flags)
 {
 	unsigned int orig_src = *src;
@@ -866,7 +866,7 @@ static inline int comedi_check_trigger_src(unsigned int *src,
  *	0 if no more than one trigger source is set.
  *	-EINVAL if more than one trigger source is set.
  */
-static inline int comedi_check_trigger_is_unique(unsigned int src)
+static int comedi_check_trigger_is_unique(unsigned int src)
 {
 	/* this test is true if more than one _src bit is set */
 	if ((src & (src - 1)) != 0)
@@ -885,7 +885,7 @@ static inline int comedi_check_trigger_is_unique(unsigned int src)
  *	0 if *@arg was already @val.
  *	-EINVAL if *@arg differed from @val.
  */
-static inline int comedi_check_trigger_arg_is(unsigned int *arg,
+static int comedi_check_trigger_arg_is(unsigned int *arg,
 					      unsigned int val)
 {
 	if (*arg != val) {
@@ -906,7 +906,7 @@ static inline int comedi_check_trigger_arg_is(unsigned int *arg,
  *	0 if *@arg was already at least @val.
  *	-EINVAL if *@arg was less than @val.
  */
-static inline int comedi_check_trigger_arg_min(unsigned int *arg,
+static int comedi_check_trigger_arg_min(unsigned int *arg,
 					       unsigned int val)
 {
 	if (*arg < val) {
@@ -927,7 +927,7 @@ static inline int comedi_check_trigger_arg_min(unsigned int *arg,
  *	0 if*@arg was already no more than @val.
  *	-EINVAL if *@arg was greater than @val.
  */
-static inline int comedi_check_trigger_arg_max(unsigned int *arg,
+static int comedi_check_trigger_arg_max(unsigned int *arg,
 					       unsigned int val)
 {
 	if (*arg > val) {
@@ -955,7 +955,7 @@ int comedi_set_hw_dev(struct comedi_device *dev, struct device *hw_dev);
  *
  * Returns: The amount of unread data in bytes.
  */
-static inline unsigned int comedi_buf_n_bytes_ready(struct comedi_subdevice *s)
+static unsigned int comedi_buf_n_bytes_ready(struct comedi_subdevice *s)
 {
 	return s->async->buf_write_count - s->async->buf_read_count;
 }

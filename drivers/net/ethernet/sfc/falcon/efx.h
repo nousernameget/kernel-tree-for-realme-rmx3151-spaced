@@ -49,7 +49,7 @@ void ef4_rx_slow_fill(unsigned long context);
 void __ef4_rx_packet(struct ef4_channel *channel);
 void ef4_rx_packet(struct ef4_rx_queue *rx_queue, unsigned int index,
 		   unsigned int n_frags, unsigned int len, u16 flags);
-static inline void ef4_rx_flush_packet(struct ef4_channel *channel)
+static void ef4_rx_flush_packet(struct ef4_channel *channel)
 {
 	if (channel->rx_pkt_n_frags)
 		__ef4_rx_packet(channel);
@@ -73,7 +73,7 @@ void ef4_schedule_slow_fill(struct ef4_rx_queue *rx_queue);
 #define EF4_RXQ_MIN_ENT		128U
 #define EF4_TXQ_MIN_ENT(efx)	(2 * ef4_tx_max_skb_descs(efx))
 
-static inline bool ef4_rss_enabled(struct ef4_nic *efx)
+static bool ef4_rss_enabled(struct ef4_nic *efx)
 {
 	return efx->rss_spread > 1;
 }
@@ -107,7 +107,7 @@ void ef4_mac_reconfigure(struct ef4_nic *efx);
  * This implies that filters for multiple multicast recipients must
  * all be inserted with the same priority and @replace_equal = %false.
  */
-static inline s32 ef4_filter_insert_filter(struct ef4_nic *efx,
+static s32 ef4_filter_insert_filter(struct ef4_nic *efx,
 					   struct ef4_filter_spec *spec,
 					   bool replace_equal)
 {
@@ -123,7 +123,7 @@ static inline s32 ef4_filter_insert_filter(struct ef4_nic *efx,
  * This function will range-check @filter_id, so it is safe to call
  * with a value passed from userland.
  */
-static inline int ef4_filter_remove_id_safe(struct ef4_nic *efx,
+static int ef4_filter_remove_id_safe(struct ef4_nic *efx,
 					    enum ef4_filter_priority priority,
 					    u32 filter_id)
 {
@@ -140,7 +140,7 @@ static inline int ef4_filter_remove_id_safe(struct ef4_nic *efx,
  * This function will range-check @filter_id, so it is safe to call
  * with a value passed from userland.
  */
-static inline int
+static int
 ef4_filter_get_filter_safe(struct ef4_nic *efx,
 			   enum ef4_filter_priority priority,
 			   u32 filter_id, struct ef4_filter_spec *spec)
@@ -148,16 +148,16 @@ ef4_filter_get_filter_safe(struct ef4_nic *efx,
 	return efx->type->filter_get_safe(efx, priority, filter_id, spec);
 }
 
-static inline u32 ef4_filter_count_rx_used(struct ef4_nic *efx,
+static u32 ef4_filter_count_rx_used(struct ef4_nic *efx,
 					   enum ef4_filter_priority priority)
 {
 	return efx->type->filter_count_rx_used(efx, priority);
 }
-static inline u32 ef4_filter_get_rx_id_limit(struct ef4_nic *efx)
+static u32 ef4_filter_get_rx_id_limit(struct ef4_nic *efx)
 {
 	return efx->type->filter_get_rx_id_limit(efx);
 }
-static inline s32 ef4_filter_get_rx_ids(struct ef4_nic *efx,
+static s32 ef4_filter_get_rx_ids(struct ef4_nic *efx,
 					enum ef4_filter_priority priority,
 					u32 *buf, u32 size)
 {
@@ -167,7 +167,7 @@ static inline s32 ef4_filter_get_rx_ids(struct ef4_nic *efx,
 int ef4_filter_rfs(struct net_device *net_dev, const struct sk_buff *skb,
 		   u16 rxq_index, u32 flow_id);
 bool __ef4_filter_rfs_expire(struct ef4_nic *efx, unsigned quota);
-static inline void ef4_filter_rfs_expire(struct ef4_channel *channel)
+static void ef4_filter_rfs_expire(struct ef4_channel *channel)
 {
 	if (channel->rfs_filters_added >= 60 &&
 	    __ef4_filter_rfs_expire(channel->efx, 100))
@@ -221,7 +221,7 @@ void ef4_update_sw_stats(struct ef4_nic *efx, u64 *stats);
 #ifdef CONFIG_SFC_FALCON_MTD
 int ef4_mtd_add(struct ef4_nic *efx, struct ef4_mtd_partition *parts,
 		size_t n_parts, size_t sizeof_part);
-static inline int ef4_mtd_probe(struct ef4_nic *efx)
+static int ef4_mtd_probe(struct ef4_nic *efx)
 {
 	return efx->type->mtd_probe(efx);
 }
@@ -233,7 +233,7 @@ static inline void ef4_mtd_rename(struct ef4_nic *efx) {}
 static inline void ef4_mtd_remove(struct ef4_nic *efx) {}
 #endif
 
-static inline void ef4_schedule_channel(struct ef4_channel *channel)
+static void ef4_schedule_channel(struct ef4_channel *channel)
 {
 	netif_vdbg(channel->efx, intr, channel->efx->net_dev,
 		   "channel %d scheduling NAPI poll on CPU%d\n",
@@ -242,7 +242,7 @@ static inline void ef4_schedule_channel(struct ef4_channel *channel)
 	napi_schedule(&channel->napi_str);
 }
 
-static inline void ef4_schedule_channel_irq(struct ef4_channel *channel)
+static void ef4_schedule_channel_irq(struct ef4_channel *channel)
 {
 	channel->event_test_cpu = raw_smp_processor_id();
 	ef4_schedule_channel(channel);
@@ -252,7 +252,7 @@ void ef4_link_status_changed(struct ef4_nic *efx);
 void ef4_link_set_advertising(struct ef4_nic *efx, u32);
 void ef4_link_set_wanted_fc(struct ef4_nic *efx, u8);
 
-static inline void ef4_device_detach_sync(struct ef4_nic *efx)
+static void ef4_device_detach_sync(struct ef4_nic *efx)
 {
 	struct net_device *dev = efx->net_dev;
 
@@ -265,7 +265,7 @@ static inline void ef4_device_detach_sync(struct ef4_nic *efx)
 	netif_tx_unlock_bh(dev);
 }
 
-static inline bool ef4_rwsem_assert_write_locked(struct rw_semaphore *sem)
+static bool ef4_rwsem_assert_write_locked(struct rw_semaphore *sem)
 {
 	if (WARN_ON(down_read_trylock(sem))) {
 		up_read(sem);

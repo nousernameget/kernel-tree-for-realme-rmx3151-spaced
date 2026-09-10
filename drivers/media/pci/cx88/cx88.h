@@ -94,12 +94,12 @@ enum cx8802_board_access {
 /* ----------------------------------------------------------- */
 /* tv norms                                                    */
 
-static inline unsigned int norm_maxw(v4l2_std_id norm)
+static unsigned int norm_maxw(v4l2_std_id norm)
 {
 	return 720;
 }
 
-static inline unsigned int norm_maxh(v4l2_std_id norm)
+static unsigned int norm_maxh(v4l2_std_id norm)
 {
 	return (norm & V4L2_STD_525_60) ? 480 : 576;
 }
@@ -418,7 +418,7 @@ struct cx88_core {
 	int			   active_fe_id;
 };
 
-static inline struct cx88_core *to_core(struct v4l2_device *v4l2_dev)
+static struct cx88_core *to_core(struct v4l2_device *v4l2_dev)
 {
 	return container_of(v4l2_dev, struct cx88_core, v4l2_dev);
 }

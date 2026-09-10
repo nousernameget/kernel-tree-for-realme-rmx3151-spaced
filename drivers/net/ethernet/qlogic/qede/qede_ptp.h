@@ -44,7 +44,7 @@ void qede_ptp_disable(struct qede_dev *edev);
 int qede_ptp_enable(struct qede_dev *edev, bool init_tc);
 int qede_ptp_get_ts_info(struct qede_dev *edev, struct ethtool_ts_info *ts);
 
-static inline void qede_ptp_record_rx_ts(struct qede_dev *edev,
+static void qede_ptp_record_rx_ts(struct qede_dev *edev,
 					 union eth_rx_cqe *cqe,
 					 struct sk_buff *skb)
 {

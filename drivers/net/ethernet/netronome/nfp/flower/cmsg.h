@@ -299,14 +299,14 @@ enum nfp_flower_cmsg_port_vnic_type {
 #define NFP_FLOWER_CMSG_PORT_PCIE_Q		GENMASK(5, 0)
 #define NFP_FLOWER_CMSG_PORT_PHYS_PORT_NUM	GENMASK(7, 0)
 
-static inline u32 nfp_flower_cmsg_phys_port(u8 phys_port)
+static u32 nfp_flower_cmsg_phys_port(u8 phys_port)
 {
 	return FIELD_PREP(NFP_FLOWER_CMSG_PORT_PHYS_PORT_NUM, phys_port) |
 		FIELD_PREP(NFP_FLOWER_CMSG_PORT_TYPE,
 			   NFP_FLOWER_CMSG_PORT_TYPE_PHYS_PORT);
 }
 
-static inline u32
+static u32
 nfp_flower_cmsg_pcie_port(u8 nfp_pcie, enum nfp_flower_cmsg_port_vnic_type type,
 			  u8 vnic, u8 q)
 {
@@ -318,7 +318,7 @@ nfp_flower_cmsg_pcie_port(u8 nfp_pcie, enum nfp_flower_cmsg_port_vnic_type type,
 			   NFP_FLOWER_CMSG_PORT_TYPE_PCIE_PORT);
 }
 
-static inline void *nfp_flower_cmsg_get_data(struct sk_buff *skb)
+static void *nfp_flower_cmsg_get_data(struct sk_buff *skb)
 {
 	return (unsigned char *)skb->data + NFP_FLOWER_CMSG_HLEN;
 }

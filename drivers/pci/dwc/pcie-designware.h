@@ -248,47 +248,47 @@ void dw_pcie_disable_atu(struct dw_pcie *pci, int index,
 			 enum dw_pcie_region_type type);
 void dw_pcie_setup(struct dw_pcie *pci);
 
-static inline void dw_pcie_writel_dbi(struct dw_pcie *pci, u32 reg, u32 val)
+static void dw_pcie_writel_dbi(struct dw_pcie *pci, u32 reg, u32 val)
 {
 	__dw_pcie_write_dbi(pci, pci->dbi_base, reg, 0x4, val);
 }
 
-static inline u32 dw_pcie_readl_dbi(struct dw_pcie *pci, u32 reg)
+static u32 dw_pcie_readl_dbi(struct dw_pcie *pci, u32 reg)
 {
 	return __dw_pcie_read_dbi(pci, pci->dbi_base, reg, 0x4);
 }
 
-static inline void dw_pcie_writew_dbi(struct dw_pcie *pci, u32 reg, u16 val)
+static void dw_pcie_writew_dbi(struct dw_pcie *pci, u32 reg, u16 val)
 {
 	__dw_pcie_write_dbi(pci, pci->dbi_base, reg, 0x2, val);
 }
 
-static inline u16 dw_pcie_readw_dbi(struct dw_pcie *pci, u32 reg)
+static u16 dw_pcie_readw_dbi(struct dw_pcie *pci, u32 reg)
 {
 	return __dw_pcie_read_dbi(pci, pci->dbi_base, reg, 0x2);
 }
 
-static inline void dw_pcie_writeb_dbi(struct dw_pcie *pci, u32 reg, u8 val)
+static void dw_pcie_writeb_dbi(struct dw_pcie *pci, u32 reg, u8 val)
 {
 	__dw_pcie_write_dbi(pci, pci->dbi_base, reg, 0x1, val);
 }
 
-static inline u8 dw_pcie_readb_dbi(struct dw_pcie *pci, u32 reg)
+static u8 dw_pcie_readb_dbi(struct dw_pcie *pci, u32 reg)
 {
 	return __dw_pcie_read_dbi(pci, pci->dbi_base, reg, 0x1);
 }
 
-static inline void dw_pcie_writel_dbi2(struct dw_pcie *pci, u32 reg, u32 val)
+static void dw_pcie_writel_dbi2(struct dw_pcie *pci, u32 reg, u32 val)
 {
 	__dw_pcie_write_dbi(pci, pci->dbi_base2, reg, 0x4, val);
 }
 
-static inline u32 dw_pcie_readl_dbi2(struct dw_pcie *pci, u32 reg)
+static u32 dw_pcie_readl_dbi2(struct dw_pcie *pci, u32 reg)
 {
 	return __dw_pcie_read_dbi(pci, pci->dbi_base2, reg, 0x4);
 }
 
-static inline void dw_pcie_dbi_ro_wr_en(struct dw_pcie *pci)
+static void dw_pcie_dbi_ro_wr_en(struct dw_pcie *pci)
 {
 	u32 reg;
 	u32 val;
@@ -299,7 +299,7 @@ static inline void dw_pcie_dbi_ro_wr_en(struct dw_pcie *pci)
 	dw_pcie_writel_dbi(pci, reg, val);
 }
 
-static inline void dw_pcie_dbi_ro_wr_dis(struct dw_pcie *pci)
+static void dw_pcie_dbi_ro_wr_dis(struct dw_pcie *pci)
 {
 	u32 reg;
 	u32 val;
@@ -316,20 +316,20 @@ void dw_pcie_msi_init(struct pcie_port *pp);
 void dw_pcie_setup_rc(struct pcie_port *pp);
 int dw_pcie_host_init(struct pcie_port *pp);
 #else
-static inline irqreturn_t dw_handle_msi_irq(struct pcie_port *pp)
+static irqreturn_t dw_handle_msi_irq(struct pcie_port *pp)
 {
 	return IRQ_NONE;
 }
 
-static inline void dw_pcie_msi_init(struct pcie_port *pp)
+static void dw_pcie_msi_init(struct pcie_port *pp)
 {
 }
 
-static inline void dw_pcie_setup_rc(struct pcie_port *pp)
+static void dw_pcie_setup_rc(struct pcie_port *pp)
 {
 }
 
-static inline int dw_pcie_host_init(struct pcie_port *pp)
+static int dw_pcie_host_init(struct pcie_port *pp)
 {
 	return 0;
 }
@@ -340,16 +340,16 @@ void dw_pcie_ep_linkup(struct dw_pcie_ep *ep);
 int dw_pcie_ep_init(struct dw_pcie_ep *ep);
 void dw_pcie_ep_exit(struct dw_pcie_ep *ep);
 #else
-static inline void dw_pcie_ep_linkup(struct dw_pcie_ep *ep)
+static void dw_pcie_ep_linkup(struct dw_pcie_ep *ep)
 {
 }
 
-static inline int dw_pcie_ep_init(struct dw_pcie_ep *ep)
+static int dw_pcie_ep_init(struct dw_pcie_ep *ep)
 {
 	return 0;
 }
 
-static inline void dw_pcie_ep_exit(struct dw_pcie_ep *ep)
+static void dw_pcie_ep_exit(struct dw_pcie_ep *ep)
 {
 }
 #endif

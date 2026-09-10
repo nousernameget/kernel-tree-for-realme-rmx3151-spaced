@@ -77,7 +77,7 @@ extern struct dvb_frontend *tda10048_attach(
 	const struct tda10048_config *config,
 	struct i2c_adapter *i2c);
 #else
-static inline struct dvb_frontend *tda10048_attach(
+static struct dvb_frontend *tda10048_attach(
 	const struct tda10048_config *config,
 	struct i2c_adapter *i2c)
 {

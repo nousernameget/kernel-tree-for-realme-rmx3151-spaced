@@ -184,12 +184,12 @@ unsigned int get_queues_num(struct device_queue_manager *dqm);
 unsigned int get_queues_per_pipe(struct device_queue_manager *dqm);
 unsigned int get_pipes_per_mec(struct device_queue_manager *dqm);
 
-static inline unsigned int get_sh_mem_bases_32(struct kfd_process_device *pdd)
+static unsigned int get_sh_mem_bases_32(struct kfd_process_device *pdd)
 {
 	return (pdd->lds_base >> 16) & 0xFF;
 }
 
-static inline unsigned int
+static unsigned int
 get_sh_mem_bases_nybble_64(struct kfd_process_device *pdd)
 {
 	return (pdd->lds_base >> 60) & 0x0E;

@@ -373,7 +373,7 @@ void mlxsw_hwmon_fini(struct mlxsw_hwmon *mlxsw_hwmon);
 
 #else
 
-static inline int mlxsw_hwmon_init(struct mlxsw_core *mlxsw_core,
+static int mlxsw_hwmon_init(struct mlxsw_core *mlxsw_core,
 				   const struct mlxsw_bus_info *mlxsw_bus_info,
 				   struct mlxsw_hwmon **p_hwmon)
 {
@@ -393,14 +393,14 @@ void mlxsw_thermal_fini(struct mlxsw_thermal *thermal);
 
 #else
 
-static inline int mlxsw_thermal_init(struct mlxsw_core *mlxsw_core,
+static int mlxsw_thermal_init(struct mlxsw_core *mlxsw_core,
 				     const struct mlxsw_bus_info *mlxsw_bus_info,
 				     struct mlxsw_thermal **p_thermal)
 {
 	return 0;
 }
 
-static inline void mlxsw_thermal_fini(struct mlxsw_thermal *thermal)
+static void mlxsw_thermal_fini(struct mlxsw_thermal *thermal)
 {
 }
 

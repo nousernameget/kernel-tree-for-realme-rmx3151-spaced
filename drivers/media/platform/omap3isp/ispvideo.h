@@ -105,7 +105,7 @@ struct isp_pipeline {
 #define to_isp_pipeline(__e) \
 	container_of((__e)->pipe, struct isp_pipeline, pipe)
 
-static inline int isp_pipeline_ready(struct isp_pipeline *pipe)
+static int isp_pipeline_ready(struct isp_pipeline *pipe)
 {
 	return pipe->state == (ISP_PIPELINE_STREAM_INPUT |
 			       ISP_PIPELINE_STREAM_OUTPUT |

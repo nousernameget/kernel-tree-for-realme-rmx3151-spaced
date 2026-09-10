@@ -24,11 +24,11 @@ void fimc_isp_video_device_unregister(struct fimc_isp *isp,
 
 void fimc_isp_video_irq_handler(struct fimc_is *is);
 #else
-static inline void fimc_isp_video_irq_handler(struct fimc_is *is)
+static void fimc_isp_video_irq_handler(struct fimc_is *is)
 {
 }
 
-static inline int fimc_isp_video_device_register(struct fimc_isp *isp,
+static int fimc_isp_video_device_register(struct fimc_isp *isp,
 						struct v4l2_device *v4l2_dev,
 						enum v4l2_buf_type type)
 {

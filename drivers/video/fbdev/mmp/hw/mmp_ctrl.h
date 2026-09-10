@@ -1423,33 +1423,33 @@ struct mmphw_ctrl {
 	struct mmphw_path_plat path_plats[0];
 };
 
-static inline int overlay_is_vid(struct mmp_overlay *overlay)
+static int overlay_is_vid(struct mmp_overlay *overlay)
 {
 	return overlay->dmafetch_id & 1;
 }
 
-static inline struct mmphw_path_plat *path_to_path_plat(struct mmp_path *path)
+static struct mmphw_path_plat *path_to_path_plat(struct mmp_path *path)
 {
 	return (struct mmphw_path_plat *)path->plat_data;
 }
 
-static inline struct mmphw_ctrl *path_to_ctrl(struct mmp_path *path)
+static struct mmphw_ctrl *path_to_ctrl(struct mmp_path *path)
 {
 	return path_to_path_plat(path)->ctrl;
 }
 
-static inline struct mmphw_ctrl *overlay_to_ctrl(struct mmp_overlay *overlay)
+static struct mmphw_ctrl *overlay_to_ctrl(struct mmp_overlay *overlay)
 {
 	return path_to_ctrl(overlay->path);
 }
 
-static inline void *ctrl_regs(struct mmp_path *path)
+static void *ctrl_regs(struct mmp_path *path)
 {
 	return path_to_ctrl(path)->reg_base;
 }
 
 /* path regs, for regs symmetrical for both pathes */
-static inline struct lcd_regs *path_regs(struct mmp_path *path)
+static struct lcd_regs *path_regs(struct mmp_path *path)
 {
 	if (path->id == PATH_PN)
 		return (struct lcd_regs *)(ctrl_regs(path) + 0xc0);

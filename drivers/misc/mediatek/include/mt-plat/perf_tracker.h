@@ -28,7 +28,7 @@ extern unsigned int mt_cpufreq_get_cur_freq(int id);
 static inline int mt_cpufreq_get_cur_freq(int id) { return 0; }
 #endif
 #else
-static inline void __perf_tracker(u64 wallclock,
+static void __perf_tracker(u64 wallclock,
 				long mm_available,
 				long mm_free) {}
 #endif /* CONFIG_MTK_PERF_TRACKER */

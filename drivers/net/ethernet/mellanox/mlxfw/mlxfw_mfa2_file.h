@@ -48,7 +48,7 @@ struct mlxfw_mfa2_file {
 	u32 cb_archive_size; /* size of compressed components block */
 };
 
-static inline bool mlxfw_mfa2_valid_ptr(const struct mlxfw_mfa2_file *mfa2_file,
+static bool mlxfw_mfa2_valid_ptr(const struct mlxfw_mfa2_file *mfa2_file,
 					const void *ptr)
 {
 	const void *valid_to = mfa2_file->fw->data + mfa2_file->fw->size;

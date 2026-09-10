@@ -135,7 +135,7 @@ struct ptlrpc_request *
 ptlrpc_nrs_req_get_nolock0(struct ptlrpc_service_part *svcpt, bool hp,
 			   bool peek, bool force);
 
-static inline struct ptlrpc_request *
+static struct ptlrpc_request *
 ptlrpc_nrs_req_get_nolock(struct ptlrpc_service_part *svcpt, bool hp,
 			  bool force)
 {
@@ -151,12 +151,12 @@ int ptlrpc_nrs_policy_control(const struct ptlrpc_service *svc,
 int ptlrpc_nrs_init(void);
 void ptlrpc_nrs_fini(void);
 
-static inline bool nrs_svcpt_has_hp(const struct ptlrpc_service_part *svcpt)
+static bool nrs_svcpt_has_hp(const struct ptlrpc_service_part *svcpt)
 {
 	return svcpt->scp_nrs_hp != NULL;
 }
 
-static inline bool nrs_svc_has_hp(const struct ptlrpc_service *svc)
+static bool nrs_svc_has_hp(const struct ptlrpc_service *svc)
 {
 	/**
 	 * If the first service partition has an HP NRS head, all service
@@ -172,7 +172,7 @@ struct ptlrpc_nrs *nrs_svcpt2nrs(struct ptlrpc_service_part *svcpt, bool hp)
 	return hp ? svcpt->scp_nrs_hp : &svcpt->scp_nrs_reg;
 }
 
-static inline int nrs_pol2cptid(const struct ptlrpc_nrs_policy *policy)
+static int nrs_pol2cptid(const struct ptlrpc_nrs_policy *policy)
 {
 	return policy->pol_nrs->nrs_svcpt->scp_cpt;
 }
@@ -195,7 +195,7 @@ struct cfs_cpt_table *nrs_pol2cptab(struct ptlrpc_nrs_policy *policy)
 	return nrs_pol2svc(policy)->srv_cptable;
 }
 
-static inline struct ptlrpc_nrs_resource *
+static struct ptlrpc_nrs_resource *
 nrs_request_resource(struct ptlrpc_nrs_request *nrq)
 {
 	LASSERT(nrq->nr_initialized);
@@ -283,29 +283,29 @@ void sptlrpc_conf_fini(void);
 int  sptlrpc_init(void);
 void sptlrpc_fini(void);
 
-static inline bool ptlrpc_recoverable_error(int rc)
+static bool ptlrpc_recoverable_error(int rc)
 {
 	return (rc == -ENOTCONN || rc == -ENODEV);
 }
 
-static inline int tgt_mod_init(void)
+static int tgt_mod_init(void)
 {
 	return 0;
 }
 
-static inline void tgt_mod_exit(void)
+static void tgt_mod_exit(void)
 {
 	return;
 }
 
-static inline void ptlrpc_reqset_put(struct ptlrpc_request_set *set)
+static void ptlrpc_reqset_put(struct ptlrpc_request_set *set)
 {
 	if (atomic_dec_and_test(&set->set_refcount))
 		kfree(set);
 }
 
 /** initialise ptlrpc common fields */
-static inline void ptlrpc_req_comm_init(struct ptlrpc_request *req)
+static void ptlrpc_req_comm_init(struct ptlrpc_request *req)
 {
 	spin_lock_init(&req->rq_lock);
 	atomic_set(&req->rq_refcount, 1);
@@ -314,7 +314,7 @@ static inline void ptlrpc_req_comm_init(struct ptlrpc_request *req)
 }
 
 /** initialise client side ptlrpc request */
-static inline void ptlrpc_cli_req_init(struct ptlrpc_request *req)
+static void ptlrpc_cli_req_init(struct ptlrpc_request *req)
 {
 	struct ptlrpc_cli_req *cr = &req->rq_cli;
 
@@ -336,7 +336,7 @@ static inline void ptlrpc_cli_req_init(struct ptlrpc_request *req)
 }
 
 /** initialise server side ptlrpc request */
-static inline void ptlrpc_srv_req_init(struct ptlrpc_request *req)
+static void ptlrpc_srv_req_init(struct ptlrpc_request *req)
 {
 	struct ptlrpc_srv_req *sr = &req->rq_srv;
 
@@ -347,7 +347,7 @@ static inline void ptlrpc_srv_req_init(struct ptlrpc_request *req)
 	INIT_LIST_HEAD(&sr->sr_hist_list);
 }
 
-static inline bool ptlrpc_req_is_connect(struct ptlrpc_request *req)
+static bool ptlrpc_req_is_connect(struct ptlrpc_request *req)
 {
 	if (lustre_msg_get_opc(req->rq_reqmsg) == MDS_CONNECT ||
 	    lustre_msg_get_opc(req->rq_reqmsg) == OST_CONNECT ||
@@ -357,7 +357,7 @@ static inline bool ptlrpc_req_is_connect(struct ptlrpc_request *req)
 		return false;
 }
 
-static inline bool ptlrpc_req_is_disconnect(struct ptlrpc_request *req)
+static bool ptlrpc_req_is_disconnect(struct ptlrpc_request *req)
 {
 	if (lustre_msg_get_opc(req->rq_reqmsg) == MDS_DISCONNECT ||
 	    lustre_msg_get_opc(req->rq_reqmsg) == OST_DISCONNECT ||

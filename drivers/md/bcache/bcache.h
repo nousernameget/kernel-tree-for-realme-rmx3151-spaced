@@ -699,55 +699,55 @@ struct bbio {
 #define prio_buckets(c)					\
 	DIV_ROUND_UP((size_t) (c)->sb.nbuckets, prios_per_bucket(c))
 
-static inline size_t sector_to_bucket(struct cache_set *c, sector_t s)
+static size_t sector_to_bucket(struct cache_set *c, sector_t s)
 {
 	return s >> c->bucket_bits;
 }
 
-static inline sector_t bucket_to_sector(struct cache_set *c, size_t b)
+static sector_t bucket_to_sector(struct cache_set *c, size_t b)
 {
 	return ((sector_t) b) << c->bucket_bits;
 }
 
-static inline sector_t bucket_remainder(struct cache_set *c, sector_t s)
+static sector_t bucket_remainder(struct cache_set *c, sector_t s)
 {
 	return s & (c->sb.bucket_size - 1);
 }
 
-static inline struct cache *PTR_CACHE(struct cache_set *c,
+static struct cache *PTR_CACHE(struct cache_set *c,
 				      const struct bkey *k,
 				      unsigned ptr)
 {
 	return c->cache[PTR_DEV(k, ptr)];
 }
 
-static inline size_t PTR_BUCKET_NR(struct cache_set *c,
+static size_t PTR_BUCKET_NR(struct cache_set *c,
 				   const struct bkey *k,
 				   unsigned ptr)
 {
 	return sector_to_bucket(c, PTR_OFFSET(k, ptr));
 }
 
-static inline struct bucket *PTR_BUCKET(struct cache_set *c,
+static struct bucket *PTR_BUCKET(struct cache_set *c,
 					const struct bkey *k,
 					unsigned ptr)
 {
 	return PTR_CACHE(c, k, ptr)->buckets + PTR_BUCKET_NR(c, k, ptr);
 }
 
-static inline uint8_t gen_after(uint8_t a, uint8_t b)
+static uint8_t gen_after(uint8_t a, uint8_t b)
 {
 	uint8_t r = a - b;
 	return r > 128U ? 0 : r;
 }
 
-static inline uint8_t ptr_stale(struct cache_set *c, const struct bkey *k,
+static uint8_t ptr_stale(struct cache_set *c, const struct bkey *k,
 				unsigned i)
 {
 	return gen_after(PTR_BUCKET(c, k, i)->gen, PTR_GEN(k, i));
 }
 
-static inline bool ptr_available(struct cache_set *c, const struct bkey *k,
+static bool ptr_available(struct cache_set *c, const struct bkey *k,
 				 unsigned i)
 {
 	return (PTR_DEV(k, i) < MAX_CACHES_PER_SET) && PTR_CACHE(c, k, i);
@@ -805,13 +805,13 @@ do {									\
 	for (b = (ca)->buckets + (ca)->sb.first_bucket;			\
 	     b < (ca)->buckets + (ca)->sb.nbuckets; b++)
 
-static inline void cached_dev_put(struct cached_dev *dc)
+static void cached_dev_put(struct cached_dev *dc)
 {
 	if (atomic_dec_and_test(&dc->count))
 		schedule_work(&dc->detach);
 }
 
-static inline bool cached_dev_get(struct cached_dev *dc)
+static bool cached_dev_get(struct cached_dev *dc)
 {
 	if (!atomic_inc_not_zero(&dc->count))
 		return false;
@@ -826,7 +826,7 @@ static inline bool cached_dev_get(struct cached_dev *dc)
  * the oldest gen of any pointer into that bucket in the btree (last_gc).
  */
 
-static inline uint8_t bucket_gc_gen(struct bucket *b)
+static uint8_t bucket_gc_gen(struct bucket *b)
 {
 	return b->gen - b->last_gc;
 }
@@ -840,7 +840,7 @@ static inline uint8_t bucket_gc_gen(struct bucket *b)
 	static struct kobj_attribute ksysfs_##n =			\
 		__ATTR(n, S_IWUSR|S_IRUSR, show, store)
 
-static inline void wake_up_allocators(struct cache_set *c)
+static void wake_up_allocators(struct cache_set *c)
 {
 	struct cache *ca;
 	unsigned i;

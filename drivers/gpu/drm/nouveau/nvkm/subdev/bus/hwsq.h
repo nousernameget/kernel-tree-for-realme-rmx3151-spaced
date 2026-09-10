@@ -18,7 +18,7 @@ struct hwsq_reg {
 	u32 data;
 };
 
-static inline struct hwsq_reg
+static struct hwsq_reg
 hwsq_stride(u32 addr, u32 stride, u32 mask)
 {
 	return (struct hwsq_reg) {
@@ -31,7 +31,7 @@ hwsq_stride(u32 addr, u32 stride, u32 mask)
 	};
 }
 
-static inline struct hwsq_reg
+static struct hwsq_reg
 hwsq_reg2(u32 addr1, u32 addr2)
 {
 	return (struct hwsq_reg) {
@@ -44,7 +44,7 @@ hwsq_reg2(u32 addr1, u32 addr2)
 	};
 }
 
-static inline struct hwsq_reg
+static struct hwsq_reg
 hwsq_reg(u32 addr)
 {
 	return (struct hwsq_reg) {
@@ -57,7 +57,7 @@ hwsq_reg(u32 addr)
 	};
 }
 
-static inline int
+static int
 hwsq_init(struct hwsq *ram, struct nvkm_subdev *subdev)
 {
 	int ret;
@@ -71,7 +71,7 @@ hwsq_init(struct hwsq *ram, struct nvkm_subdev *subdev)
 	return 0;
 }
 
-static inline int
+static int
 hwsq_exec(struct hwsq *ram, bool exec)
 {
 	int ret = 0;
@@ -82,7 +82,7 @@ hwsq_exec(struct hwsq *ram, bool exec)
 	return ret;
 }
 
-static inline u32
+static u32
 hwsq_rd32(struct hwsq *ram, struct hwsq_reg *reg)
 {
 	struct nvkm_device *device = ram->subdev->device;
@@ -91,7 +91,7 @@ hwsq_rd32(struct hwsq *ram, struct hwsq_reg *reg)
 	return reg->data;
 }
 
-static inline void
+static void
 hwsq_wr32(struct hwsq *ram, struct hwsq_reg *reg, u32 data)
 {
 	u32 mask, off = 0;
@@ -107,13 +107,13 @@ hwsq_wr32(struct hwsq *ram, struct hwsq_reg *reg, u32 data)
 	}
 }
 
-static inline void
+static void
 hwsq_nuke(struct hwsq *ram, struct hwsq_reg *reg)
 {
 	reg->force = true;
 }
 
-static inline u32
+static u32
 hwsq_mask(struct hwsq *ram, struct hwsq_reg *reg, u32 mask, u32 data)
 {
 	u32 temp = hwsq_rd32(ram, reg);
@@ -122,25 +122,25 @@ hwsq_mask(struct hwsq *ram, struct hwsq_reg *reg, u32 mask, u32 data)
 	return temp;
 }
 
-static inline void
+static void
 hwsq_setf(struct hwsq *ram, u8 flag, int data)
 {
 	nvkm_hwsq_setf(ram->hwsq, flag, data);
 }
 
-static inline void
+static void
 hwsq_wait(struct hwsq *ram, u8 flag, u8 data)
 {
 	nvkm_hwsq_wait(ram->hwsq, flag, data);
 }
 
-static inline void
+static void
 hwsq_wait_vblank(struct hwsq *ram)
 {
 	nvkm_hwsq_wait_vblank(ram->hwsq);
 }
 
-static inline void
+static void
 hwsq_nsec(struct hwsq *ram, u32 nsec)
 {
 	nvkm_hwsq_nsec(ram->hwsq, nsec);

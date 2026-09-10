@@ -1,5 +1,5 @@
 /*
- * ddbridge-io.h: Digital Devices bridge I/O inline functions
+ * ddbridge-io.h: Digital Devices bridge I/O functions
  *
  * Copyright (C) 2010-2017 Digital Devices GmbH
  *                         Ralph Metzler <rjkm@metzlerbros.de>
@@ -25,37 +25,37 @@
 
 /******************************************************************************/
 
-static inline u32 ddblreadl(struct ddb_link *link, u32 adr)
+static u32 ddblreadl(struct ddb_link *link, u32 adr)
 {
 	return readl(link->dev->regs + adr);
 }
 
-static inline void ddblwritel(struct ddb_link *link, u32 val, u32 adr)
+static void ddblwritel(struct ddb_link *link, u32 val, u32 adr)
 {
 	writel(val, link->dev->regs + adr);
 }
 
-static inline u32 ddbreadl(struct ddb *dev, u32 adr)
+static u32 ddbreadl(struct ddb *dev, u32 adr)
 {
 	return readl(dev->regs + adr);
 }
 
-static inline void ddbwritel(struct ddb *dev, u32 val, u32 adr)
+static void ddbwritel(struct ddb *dev, u32 val, u32 adr)
 {
 	writel(val, dev->regs + adr);
 }
 
-static inline void ddbcpyto(struct ddb *dev, u32 adr, void *src, long count)
+static void ddbcpyto(struct ddb *dev, u32 adr, void *src, long count)
 {
 	return memcpy_toio(dev->regs + adr, src, count);
 }
 
-static inline void ddbcpyfrom(struct ddb *dev, void *dst, u32 adr, long count)
+static void ddbcpyfrom(struct ddb *dev, void *dst, u32 adr, long count)
 {
 	return memcpy_fromio(dst, dev->regs + adr, count);
 }
 
-static inline u32 safe_ddbreadl(struct ddb *dev, u32 adr)
+static u32 safe_ddbreadl(struct ddb *dev, u32 adr)
 {
 	u32 val = ddbreadl(dev, adr);
 

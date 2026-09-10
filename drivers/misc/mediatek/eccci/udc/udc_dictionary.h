@@ -334,7 +334,7 @@ static const char *rfc3485_dictionary_content = {
 	"\x46\x04\x0c\xe1"
 };
 
-static inline char *get_dictionary_content(
+static char *get_dictionary_content(
 	enum udc_dict_opt_e dic_option)
 {
 	char *dictionary_content = NULL;

@@ -845,126 +845,126 @@ struct qla_conn {
 	struct qla_endpoint *qla_ep;
 };
 
-static inline int is_ipv4_enabled(struct scsi_qla_host *ha)
+static int is_ipv4_enabled(struct scsi_qla_host *ha)
 {
 	return ((ha->ip_config.ipv4_options & IPOPT_IPV4_PROTOCOL_ENABLE) != 0);
 }
 
-static inline int is_ipv6_enabled(struct scsi_qla_host *ha)
+static int is_ipv6_enabled(struct scsi_qla_host *ha)
 {
 	return ((ha->ip_config.ipv6_options &
 		IPV6_OPT_IPV6_PROTOCOL_ENABLE) != 0);
 }
 
-static inline int is_qla4010(struct scsi_qla_host *ha)
+static int is_qla4010(struct scsi_qla_host *ha)
 {
 	return ha->pdev->device == PCI_DEVICE_ID_QLOGIC_ISP4010;
 }
 
-static inline int is_qla4022(struct scsi_qla_host *ha)
+static int is_qla4022(struct scsi_qla_host *ha)
 {
 	return ha->pdev->device == PCI_DEVICE_ID_QLOGIC_ISP4022;
 }
 
-static inline int is_qla4032(struct scsi_qla_host *ha)
+static int is_qla4032(struct scsi_qla_host *ha)
 {
 	return ha->pdev->device == PCI_DEVICE_ID_QLOGIC_ISP4032;
 }
 
-static inline int is_qla40XX(struct scsi_qla_host *ha)
+static int is_qla40XX(struct scsi_qla_host *ha)
 {
 	return is_qla4032(ha) || is_qla4022(ha) || is_qla4010(ha);
 }
 
-static inline int is_qla8022(struct scsi_qla_host *ha)
+static int is_qla8022(struct scsi_qla_host *ha)
 {
 	return ha->pdev->device == PCI_DEVICE_ID_QLOGIC_ISP8022;
 }
 
-static inline int is_qla8032(struct scsi_qla_host *ha)
+static int is_qla8032(struct scsi_qla_host *ha)
 {
 	return ha->pdev->device == PCI_DEVICE_ID_QLOGIC_ISP8324;
 }
 
-static inline int is_qla8042(struct scsi_qla_host *ha)
+static int is_qla8042(struct scsi_qla_host *ha)
 {
 	return ha->pdev->device == PCI_DEVICE_ID_QLOGIC_ISP8042;
 }
 
-static inline int is_qla80XX(struct scsi_qla_host *ha)
+static int is_qla80XX(struct scsi_qla_host *ha)
 {
 	return is_qla8022(ha) || is_qla8032(ha) || is_qla8042(ha);
 }
 
-static inline int is_aer_supported(struct scsi_qla_host *ha)
+static int is_aer_supported(struct scsi_qla_host *ha)
 {
 	return ((ha->pdev->device == PCI_DEVICE_ID_QLOGIC_ISP8022) ||
 		(ha->pdev->device == PCI_DEVICE_ID_QLOGIC_ISP8324) ||
 		(ha->pdev->device == PCI_DEVICE_ID_QLOGIC_ISP8042));
 }
 
-static inline int adapter_up(struct scsi_qla_host *ha)
+static int adapter_up(struct scsi_qla_host *ha)
 {
 	return (test_bit(AF_ONLINE, &ha->flags) != 0) &&
 	       (test_bit(AF_LINK_UP, &ha->flags) != 0) &&
 	       (!test_bit(AF_LOOPBACK, &ha->flags));
 }
 
-static inline struct scsi_qla_host* to_qla_host(struct Scsi_Host *shost)
+static struct scsi_qla_host* to_qla_host(struct Scsi_Host *shost)
 {
 	return (struct scsi_qla_host *)iscsi_host_priv(shost);
 }
 
-static inline void __iomem* isp_semaphore(struct scsi_qla_host *ha)
+static void __iomem* isp_semaphore(struct scsi_qla_host *ha)
 {
 	return (is_qla4010(ha) ?
 		&ha->reg->u1.isp4010.nvram :
 		&ha->reg->u1.isp4022.semaphore);
 }
 
-static inline void __iomem* isp_nvram(struct scsi_qla_host *ha)
+static void __iomem* isp_nvram(struct scsi_qla_host *ha)
 {
 	return (is_qla4010(ha) ?
 		&ha->reg->u1.isp4010.nvram :
 		&ha->reg->u1.isp4022.nvram);
 }
 
-static inline void __iomem* isp_ext_hw_conf(struct scsi_qla_host *ha)
+static void __iomem* isp_ext_hw_conf(struct scsi_qla_host *ha)
 {
 	return (is_qla4010(ha) ?
 		&ha->reg->u2.isp4010.ext_hw_conf :
 		&ha->reg->u2.isp4022.p0.ext_hw_conf);
 }
 
-static inline void __iomem* isp_port_status(struct scsi_qla_host *ha)
+static void __iomem* isp_port_status(struct scsi_qla_host *ha)
 {
 	return (is_qla4010(ha) ?
 		&ha->reg->u2.isp4010.port_status :
 		&ha->reg->u2.isp4022.p0.port_status);
 }
 
-static inline void __iomem* isp_port_ctrl(struct scsi_qla_host *ha)
+static void __iomem* isp_port_ctrl(struct scsi_qla_host *ha)
 {
 	return (is_qla4010(ha) ?
 		&ha->reg->u2.isp4010.port_ctrl :
 		&ha->reg->u2.isp4022.p0.port_ctrl);
 }
 
-static inline void __iomem* isp_port_error_status(struct scsi_qla_host *ha)
+static void __iomem* isp_port_error_status(struct scsi_qla_host *ha)
 {
 	return (is_qla4010(ha) ?
 		&ha->reg->u2.isp4010.port_err_status :
 		&ha->reg->u2.isp4022.p0.port_err_status);
 }
 
-static inline void __iomem * isp_gp_out(struct scsi_qla_host *ha)
+static void __iomem * isp_gp_out(struct scsi_qla_host *ha)
 {
 	return (is_qla4010(ha) ?
 		&ha->reg->u2.isp4010.gp_out :
 		&ha->reg->u2.isp4022.p0.gp_out);
 }
 
-static inline int eeprom_ext_hw_conf_offset(struct scsi_qla_host *ha)
+static int eeprom_ext_hw_conf_offset(struct scsi_qla_host *ha)
 {
 	return (is_qla4010(ha) ?
 		offsetof(struct eeprom_data, isp4010.ext_hw_conf) / 2 :
@@ -975,7 +975,7 @@ int ql4xxx_sem_spinlock(struct scsi_qla_host * ha, u32 sem_mask, u32 sem_bits);
 void ql4xxx_sem_unlock(struct scsi_qla_host * ha, u32 sem_mask);
 int ql4xxx_sem_lock(struct scsi_qla_host * ha, u32 sem_mask, u32 sem_bits);
 
-static inline int ql4xxx_lock_flash(struct scsi_qla_host *a)
+static int ql4xxx_lock_flash(struct scsi_qla_host *a)
 {
 	if (is_qla4010(a))
 		return ql4xxx_sem_spinlock(a, QL4010_FLASH_SEM_MASK,
@@ -986,7 +986,7 @@ static inline int ql4xxx_lock_flash(struct scsi_qla_host *a)
 					    (a->mac_index)) << 13);
 }
 
-static inline void ql4xxx_unlock_flash(struct scsi_qla_host *a)
+static void ql4xxx_unlock_flash(struct scsi_qla_host *a)
 {
 	if (is_qla4010(a))
 		ql4xxx_sem_unlock(a, QL4010_FLASH_SEM_MASK);
@@ -994,7 +994,7 @@ static inline void ql4xxx_unlock_flash(struct scsi_qla_host *a)
 		ql4xxx_sem_unlock(a, QL4022_FLASH_SEM_MASK);
 }
 
-static inline int ql4xxx_lock_nvram(struct scsi_qla_host *a)
+static int ql4xxx_lock_nvram(struct scsi_qla_host *a)
 {
 	if (is_qla4010(a))
 		return ql4xxx_sem_spinlock(a, QL4010_NVRAM_SEM_MASK,
@@ -1005,7 +1005,7 @@ static inline int ql4xxx_lock_nvram(struct scsi_qla_host *a)
 					    (a->mac_index)) << 10);
 }
 
-static inline void ql4xxx_unlock_nvram(struct scsi_qla_host *a)
+static void ql4xxx_unlock_nvram(struct scsi_qla_host *a)
 {
 	if (is_qla4010(a))
 		ql4xxx_sem_unlock(a, QL4010_NVRAM_SEM_MASK);
@@ -1013,7 +1013,7 @@ static inline void ql4xxx_unlock_nvram(struct scsi_qla_host *a)
 		ql4xxx_sem_unlock(a, QL4022_NVRAM_SEM_MASK);
 }
 
-static inline int ql4xxx_lock_drvr(struct scsi_qla_host *a)
+static int ql4xxx_lock_drvr(struct scsi_qla_host *a)
 {
 	if (is_qla4010(a))
 		return ql4xxx_sem_lock(a, QL4010_DRVR_SEM_MASK,
@@ -1024,7 +1024,7 @@ static inline int ql4xxx_lock_drvr(struct scsi_qla_host *a)
 					(a->mac_index)) << 1);
 }
 
-static inline void ql4xxx_unlock_drvr(struct scsi_qla_host *a)
+static void ql4xxx_unlock_drvr(struct scsi_qla_host *a)
 {
 	if (is_qla4010(a))
 		ql4xxx_sem_unlock(a, QL4010_DRVR_SEM_MASK);
@@ -1032,7 +1032,7 @@ static inline void ql4xxx_unlock_drvr(struct scsi_qla_host *a)
 		ql4xxx_sem_unlock(a, QL4022_DRVR_SEM_MASK);
 }
 
-static inline int ql4xxx_reset_active(struct scsi_qla_host *ha)
+static int ql4xxx_reset_active(struct scsi_qla_host *ha)
 {
 	return test_bit(DPC_RESET_ACTIVE, &ha->dpc_flags) ||
 	       test_bit(DPC_RESET_HA, &ha->dpc_flags) ||
@@ -1043,13 +1043,13 @@ static inline int ql4xxx_reset_active(struct scsi_qla_host *ha)
 
 }
 
-static inline int qla4_8xxx_rd_direct(struct scsi_qla_host *ha,
+static int qla4_8xxx_rd_direct(struct scsi_qla_host *ha,
 				      const uint32_t crb_reg)
 {
 	return ha->isp_ops->rd_reg_direct(ha, ha->reg_tbl[crb_reg]);
 }
 
-static inline void qla4_8xxx_wr_direct(struct scsi_qla_host *ha,
+static void qla4_8xxx_wr_direct(struct scsi_qla_host *ha,
 				       const uint32_t crb_reg,
 				       const uint32_t value)
 {

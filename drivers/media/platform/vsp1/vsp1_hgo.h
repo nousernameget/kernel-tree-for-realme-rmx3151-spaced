@@ -34,7 +34,7 @@ struct vsp1_hgo {
 	unsigned int num_bins;
 };
 
-static inline struct vsp1_hgo *to_hgo(struct v4l2_subdev *subdev)
+static struct vsp1_hgo *to_hgo(struct v4l2_subdev *subdev)
 {
 	return container_of(subdev, struct vsp1_hgo, histo.entity.subdev);
 }

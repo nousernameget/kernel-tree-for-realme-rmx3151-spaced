@@ -504,7 +504,7 @@ struct wl12xx_vif {
 	};
 };
 
-static inline struct wl12xx_vif *wl12xx_vif_to_data(struct ieee80211_vif *vif)
+static struct wl12xx_vif *wl12xx_vif_to_data(struct ieee80211_vif *vif)
 {
 	WARN_ON(!vif);
 	return (struct wl12xx_vif *)vif->drv_priv;
@@ -516,7 +516,7 @@ struct ieee80211_vif *wl12xx_wlvif_to_vif(struct wl12xx_vif *wlvif)
 	return container_of((void *)wlvif, struct ieee80211_vif, drv_priv);
 }
 
-static inline bool wlcore_is_p2p_mgmt(struct wl12xx_vif *wlvif)
+static bool wlcore_is_p2p_mgmt(struct wl12xx_vif *wlvif)
 {
 	return wl12xx_wlvif_to_vif(wlvif)->type == NL80211_IFTYPE_P2P_DEVICE;
 }

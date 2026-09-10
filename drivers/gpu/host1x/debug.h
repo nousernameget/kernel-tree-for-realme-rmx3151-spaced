@@ -29,12 +29,12 @@ struct output {
 	char buf[256];
 };
 
-static inline void write_to_seqfile(void *ctx, const char *str, size_t len)
+static void write_to_seqfile(void *ctx, const char *str, size_t len)
 {
 	seq_write((struct seq_file *)ctx, str, len);
 }
 
-static inline void write_to_printk(void *ctx, const char *str, size_t len)
+static void write_to_printk(void *ctx, const char *str, size_t len)
 {
 	pr_info("%s", str);
 }

@@ -35,7 +35,7 @@ struct vsp1_lut {
 	struct vsp1_dl_body *lut;
 };
 
-static inline struct vsp1_lut *to_lut(struct v4l2_subdev *subdev)
+static struct vsp1_lut *to_lut(struct v4l2_subdev *subdev)
 {
 	return container_of(subdev, struct vsp1_lut, entity.subdev);
 }

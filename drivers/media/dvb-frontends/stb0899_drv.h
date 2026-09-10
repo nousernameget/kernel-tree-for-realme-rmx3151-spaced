@@ -148,7 +148,7 @@ extern struct dvb_frontend *stb0899_attach(struct stb0899_config *config,
 
 #else
 
-static inline struct dvb_frontend *stb0899_attach(struct stb0899_config *config,
+static struct dvb_frontend *stb0899_attach(struct stb0899_config *config,
 						  struct i2c_adapter *i2c)
 {
 	printk(KERN_WARNING "%s: Driver disabled by Kconfig\n", __func__);

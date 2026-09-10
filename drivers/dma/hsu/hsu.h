@@ -77,7 +77,7 @@ struct hsu_dma_desc {
 	enum dma_status status;
 };
 
-static inline struct hsu_dma_desc *to_hsu_dma_desc(struct virt_dma_desc *vdesc)
+static struct hsu_dma_desc *to_hsu_dma_desc(struct virt_dma_desc *vdesc)
 {
 	return container_of(vdesc, struct hsu_dma_desc, vdesc);
 }
@@ -94,17 +94,17 @@ struct hsu_dma_chan {
 	struct hsu_dma_desc *desc;
 };
 
-static inline struct hsu_dma_chan *to_hsu_dma_chan(struct dma_chan *chan)
+static struct hsu_dma_chan *to_hsu_dma_chan(struct dma_chan *chan)
 {
 	return container_of(chan, struct hsu_dma_chan, vchan.chan);
 }
 
-static inline u32 hsu_chan_readl(struct hsu_dma_chan *hsuc, int offset)
+static u32 hsu_chan_readl(struct hsu_dma_chan *hsuc, int offset)
 {
 	return readl(hsuc->reg + offset);
 }
 
-static inline void hsu_chan_writel(struct hsu_dma_chan *hsuc, int offset,
+static void hsu_chan_writel(struct hsu_dma_chan *hsuc, int offset,
 				   u32 value)
 {
 	writel(value, hsuc->reg + offset);
@@ -118,7 +118,7 @@ struct hsu_dma {
 	unsigned short			nr_channels;
 };
 
-static inline struct hsu_dma *to_hsu_dma(struct dma_device *ddev)
+static struct hsu_dma *to_hsu_dma(struct dma_device *ddev)
 {
 	return container_of(ddev, struct hsu_dma, dma);
 }

@@ -454,7 +454,7 @@ struct il3945_eeprom {
 /* Size of uCode instruction memory in bootstrap state machine */
 #define IL39_MAX_BSM_SIZE IL39_RTC_INST_SIZE
 
-static inline int
+static int
 il3945_hw_valid_rtc_data_addr(u32 addr)
 {
 	return (addr >= IL39_RTC_DATA_LOWER_BOUND &&

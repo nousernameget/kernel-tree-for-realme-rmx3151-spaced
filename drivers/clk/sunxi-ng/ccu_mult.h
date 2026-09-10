@@ -58,7 +58,7 @@ struct ccu_mult {
 		},							\
 	}
 
-static inline struct ccu_mult *hw_to_ccu_mult(struct clk_hw *hw)
+static struct ccu_mult *hw_to_ccu_mult(struct clk_hw *hw)
 {
 	struct ccu_common *common = hw_to_ccu_common(hw);
 

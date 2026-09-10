@@ -31,7 +31,7 @@ struct vsp1_hgt {
 	u8 hue_areas[HGT_NUM_HUE_AREAS * 2];
 };
 
-static inline struct vsp1_hgt *to_hgt(struct v4l2_subdev *subdev)
+static struct vsp1_hgt *to_hgt(struct v4l2_subdev *subdev)
 {
 	return container_of(subdev, struct vsp1_hgt, histo.entity.subdev);
 }

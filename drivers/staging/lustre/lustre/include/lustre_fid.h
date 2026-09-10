@@ -234,14 +234,14 @@ enum local_oid {
 	SLAVE_LLOG_CATALOGS_OID	= 4124UL,
 };
 
-static inline void lu_local_obj_fid(struct lu_fid *fid, __u32 oid)
+static void lu_local_obj_fid(struct lu_fid *fid, __u32 oid)
 {
 	fid->f_seq = FID_SEQ_LOCAL_FILE;
 	fid->f_oid = oid;
 	fid->f_ver = 0;
 }
 
-static inline void lu_local_name_obj_fid(struct lu_fid *fid, __u32 oid)
+static void lu_local_name_obj_fid(struct lu_fid *fid, __u32 oid)
 {
 	fid->f_seq = FID_SEQ_LOCAL_NAME;
 	fid->f_oid = oid;
@@ -252,50 +252,50 @@ static inline void lu_local_name_obj_fid(struct lu_fid *fid, __u32 oid)
  * [FID_SEQ_ROOT:1:0], for existing FS, (upgraded to 2.4),
  * the root FID will still be IGIF
  */
-static inline int fid_is_root(const struct lu_fid *fid)
+static int fid_is_root(const struct lu_fid *fid)
 {
 	return unlikely((fid_seq(fid) == FID_SEQ_ROOT &&
 			 fid_oid(fid) == 1));
 }
 
-static inline int fid_is_dot_lustre(const struct lu_fid *fid)
+static int fid_is_dot_lustre(const struct lu_fid *fid)
 {
 	return unlikely(fid_seq(fid) == FID_SEQ_DOT_LUSTRE &&
 			fid_oid(fid) == FID_OID_DOT_LUSTRE);
 }
 
-static inline int fid_is_obf(const struct lu_fid *fid)
+static int fid_is_obf(const struct lu_fid *fid)
 {
 	return unlikely(fid_seq(fid) == FID_SEQ_DOT_LUSTRE &&
 			fid_oid(fid) == FID_OID_DOT_LUSTRE_OBF);
 }
 
-static inline int fid_is_otable_it(const struct lu_fid *fid)
+static int fid_is_otable_it(const struct lu_fid *fid)
 {
 	return unlikely(fid_seq(fid) == FID_SEQ_LOCAL_FILE &&
 			fid_oid(fid) == OTABLE_IT_OID);
 }
 
-static inline int fid_is_acct(const struct lu_fid *fid)
+static int fid_is_acct(const struct lu_fid *fid)
 {
 	return fid_seq(fid) == FID_SEQ_LOCAL_FILE &&
 	       (fid_oid(fid) == ACCT_USER_OID ||
 		fid_oid(fid) == ACCT_GROUP_OID);
 }
 
-static inline int fid_is_quota(const struct lu_fid *fid)
+static int fid_is_quota(const struct lu_fid *fid)
 {
 	return fid_seq(fid) == FID_SEQ_QUOTA ||
 	       fid_seq(fid) == FID_SEQ_QUOTA_GLB;
 }
 
-static inline int fid_seq_in_fldb(__u64 seq)
+static int fid_seq_in_fldb(__u64 seq)
 {
 	return fid_seq_is_igif(seq) || fid_seq_is_norm(seq) ||
 	       fid_seq_is_root(seq) || fid_seq_is_dot(seq);
 }
 
-static inline void lu_last_id_fid(struct lu_fid *fid, __u64 seq, __u32 ost_idx)
+static void lu_last_id_fid(struct lu_fid *fid, __u64 seq, __u32 ost_idx)
 {
 	if (fid_seq_is_mdt0(seq)) {
 		fid->f_seq = fid_idif_seq(0, ost_idx);
@@ -383,7 +383,7 @@ struct ldlm_namespace;
  * but was moved into name[1] along with the OID to avoid consuming the
  * renaming name[2,3] fields that need to be used for the quota identifier.
  */
-static inline void
+static void
 fid_build_reg_res_name(const struct lu_fid *fid, struct ldlm_res_id *res)
 {
 	memset(res, 0, sizeof(*res));
@@ -394,7 +394,7 @@ fid_build_reg_res_name(const struct lu_fid *fid, struct ldlm_res_id *res)
 /*
  * Return true if resource is for object identified by FID.
  */
-static inline bool fid_res_name_eq(const struct lu_fid *fid,
+static bool fid_res_name_eq(const struct lu_fid *fid,
 				   const struct ldlm_res_id *res)
 {
 	return res->name[LUSTRE_RES_ID_SEQ_OFF] == fid_seq(fid) &&
@@ -404,7 +404,7 @@ static inline bool fid_res_name_eq(const struct lu_fid *fid,
 /*
  * Extract FID from LDLM resource. Reverse of fid_build_reg_res_name().
  */
-static inline void
+static void
 fid_extract_from_res_name(struct lu_fid *fid, const struct ldlm_res_id *res)
 {
 	fid->f_seq = res->name[LUSTRE_RES_ID_SEQ_OFF];
@@ -416,7 +416,7 @@ fid_extract_from_res_name(struct lu_fid *fid, const struct ldlm_res_id *res)
 /*
  * Build (DLM) resource identifier from global quota FID and quota ID.
  */
-static inline void
+static void
 fid_build_quota_res_name(const struct lu_fid *glb_fid, union lquota_id *qid,
 			 struct ldlm_res_id *res)
 {
@@ -428,7 +428,7 @@ fid_build_quota_res_name(const struct lu_fid *glb_fid, union lquota_id *qid,
 /*
  * Extract global FID and quota ID from resource name
  */
-static inline void fid_extract_from_quota_res(struct lu_fid *glb_fid,
+static void fid_extract_from_quota_res(struct lu_fid *glb_fid,
 					      union lquota_id *qid,
 					      const struct ldlm_res_id *res)
 {
@@ -439,7 +439,7 @@ static inline void fid_extract_from_quota_res(struct lu_fid *glb_fid,
 		(__u32)(res->name[LUSTRE_RES_ID_QUOTA_VER_OID_OFF] >> 32);
 }
 
-static inline void
+static void
 fid_build_pdo_res_name(const struct lu_fid *fid, unsigned int hash,
 		       struct ldlm_res_id *res)
 {
@@ -465,7 +465,7 @@ fid_build_pdo_res_name(const struct lu_fid *fid, unsigned int hash,
  *    res will be built from normal FID directly, i.e. res[0] = f_seq,
  *    res[1] = f_oid + f_ver.
  */
-static inline void ostid_build_res_name(const struct ost_id *oi,
+static void ostid_build_res_name(const struct ost_id *oi,
 					struct ldlm_res_id *name)
 {
 	memset(name, 0, sizeof(*name));
@@ -480,7 +480,7 @@ static inline void ostid_build_res_name(const struct ost_id *oi,
 /**
  * Return true if the resource is for the object identified by this id & group.
  */
-static inline int ostid_res_name_eq(const struct ost_id *oi,
+static int ostid_res_name_eq(const struct ost_id *oi,
 				    const struct ldlm_res_id *name)
 {
 	/* Note: it is just a trick here to save some effort, probably the
@@ -499,7 +499,7 @@ static inline int ostid_res_name_eq(const struct ost_id *oi,
  * Note: we need check oi_seq to decide where to set oi_id,
  * so oi_seq should always be set ahead of oi_id.
  */
-static inline int ostid_set_id(struct ost_id *oi, __u64 oid)
+static int ostid_set_id(struct ost_id *oi, __u64 oid)
 {
 	if (fid_seq_is_mdt0(oi->oi.oi_seq)) {
 		if (oid >= IDIF_MAX_OID)
@@ -521,7 +521,7 @@ static inline int ostid_set_id(struct ost_id *oi, __u64 oid)
 }
 
 /* pack any OST FID into an ostid (id/seq) for the wire/disk */
-static inline int fid_to_ostid(const struct lu_fid *fid, struct ost_id *ostid)
+static int fid_to_ostid(const struct lu_fid *fid, struct ost_id *ostid)
 {
 	int rc = 0;
 
@@ -542,7 +542,7 @@ static inline int fid_to_ostid(const struct lu_fid *fid, struct ost_id *ostid)
 }
 
 /* The same as osc_build_res_name() */
-static inline void ost_fid_build_resid(const struct lu_fid *fid,
+static void ost_fid_build_resid(const struct lu_fid *fid,
 				       struct ldlm_res_id *resname)
 {
 	if (fid_is_mdt0(fid) || fid_is_idif(fid)) {
@@ -568,7 +568,7 @@ static inline void ost_fid_build_resid(const struct lu_fid *fid,
  * the time between re-used inode numbers is very long - 2^40 SEQ numbers,
  * or about 2^40 client mounts, if clients create less than 2^24 files/mount.
  */
-static inline __u64 fid_flatten(const struct lu_fid *fid)
+static __u64 fid_flatten(const struct lu_fid *fid)
 {
 	__u64 ino;
 	__u64 seq;
@@ -585,7 +585,7 @@ static inline __u64 fid_flatten(const struct lu_fid *fid)
 	return ino ? ino : fid_oid(fid);
 }
 
-static inline __u32 fid_hash(const struct lu_fid *f, int bits)
+static __u32 fid_hash(const struct lu_fid *f, int bits)
 {
 	/* all objects with same id and different versions will belong to same
 	 * collisions list.
@@ -596,7 +596,7 @@ static inline __u32 fid_hash(const struct lu_fid *f, int bits)
 /**
  * map fid to 32 bit value for ino on 32bit systems.
  */
-static inline __u32 fid_flatten32(const struct lu_fid *fid)
+static __u32 fid_flatten32(const struct lu_fid *fid)
 {
 	__u32 ino;
 	__u64 seq;
@@ -621,7 +621,7 @@ static inline __u32 fid_flatten32(const struct lu_fid *fid)
 	return ino ? ino : fid_oid(fid);
 }
 
-static inline int lu_fid_diff(const struct lu_fid *fid1,
+static int lu_fid_diff(const struct lu_fid *fid1,
 			      const struct lu_fid *fid2)
 {
 	LASSERTF(fid_seq(fid1) == fid_seq(fid2), "fid1:" DFID ", fid2:" DFID "\n",
@@ -638,7 +638,7 @@ static inline int lu_fid_diff(const struct lu_fid *fid1,
 #define LUSTRE_SEQ_CTL_NAME "seq_ctl"
 
 /* Range common stuff */
-static inline void range_cpu_to_le(struct lu_seq_range *dst, const struct lu_seq_range *src)
+static void range_cpu_to_le(struct lu_seq_range *dst, const struct lu_seq_range *src)
 {
 	dst->lsr_start = cpu_to_le64(src->lsr_start);
 	dst->lsr_end = cpu_to_le64(src->lsr_end);
@@ -646,7 +646,7 @@ static inline void range_cpu_to_le(struct lu_seq_range *dst, const struct lu_seq
 	dst->lsr_flags = cpu_to_le32(src->lsr_flags);
 }
 
-static inline void range_le_to_cpu(struct lu_seq_range *dst, const struct lu_seq_range *src)
+static void range_le_to_cpu(struct lu_seq_range *dst, const struct lu_seq_range *src)
 {
 	dst->lsr_start = le64_to_cpu(src->lsr_start);
 	dst->lsr_end = le64_to_cpu(src->lsr_end);
@@ -654,7 +654,7 @@ static inline void range_le_to_cpu(struct lu_seq_range *dst, const struct lu_seq
 	dst->lsr_flags = le32_to_cpu(src->lsr_flags);
 }
 
-static inline void range_cpu_to_be(struct lu_seq_range *dst, const struct lu_seq_range *src)
+static void range_cpu_to_be(struct lu_seq_range *dst, const struct lu_seq_range *src)
 {
 	dst->lsr_start = cpu_to_be64(src->lsr_start);
 	dst->lsr_end = cpu_to_be64(src->lsr_end);
@@ -662,7 +662,7 @@ static inline void range_cpu_to_be(struct lu_seq_range *dst, const struct lu_seq
 	dst->lsr_flags = cpu_to_be32(src->lsr_flags);
 }
 
-static inline void range_be_to_cpu(struct lu_seq_range *dst, const struct lu_seq_range *src)
+static void range_be_to_cpu(struct lu_seq_range *dst, const struct lu_seq_range *src)
 {
 	dst->lsr_start = be64_to_cpu(src->lsr_start);
 	dst->lsr_end = be64_to_cpu(src->lsr_end);

@@ -445,18 +445,18 @@ int s5c73m3_write(struct s5c73m3 *state, u32 addr, u16 data);
 int s5c73m3_isp_command(struct s5c73m3 *state, u16 command, u16 data);
 int s5c73m3_init_controls(struct s5c73m3 *state);
 
-static inline struct v4l2_subdev *ctrl_to_sensor_sd(struct v4l2_ctrl *ctrl)
+static struct v4l2_subdev *ctrl_to_sensor_sd(struct v4l2_ctrl *ctrl)
 {
 	return &container_of(ctrl->handler, struct s5c73m3,
 			     ctrls.handler)->sensor_sd;
 }
 
-static inline struct s5c73m3 *sensor_sd_to_s5c73m3(struct v4l2_subdev *sd)
+static struct s5c73m3 *sensor_sd_to_s5c73m3(struct v4l2_subdev *sd)
 {
 	return container_of(sd, struct s5c73m3, sensor_sd);
 }
 
-static inline struct s5c73m3 *oif_sd_to_s5c73m3(struct v4l2_subdev *sd)
+static struct s5c73m3 *oif_sd_to_s5c73m3(struct v4l2_subdev *sd)
 {
 	return container_of(sd, struct s5c73m3, oif_sd);
 }

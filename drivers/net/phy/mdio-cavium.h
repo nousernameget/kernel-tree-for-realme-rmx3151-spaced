@@ -101,12 +101,12 @@ struct cavium_mdiobus {
 
 #include <asm/octeon/octeon.h>
 
-static inline void oct_mdio_writeq(u64 val, u64 addr)
+static void oct_mdio_writeq(u64 val, u64 addr)
 {
 	cvmx_write_csr(addr, val);
 }
 
-static inline u64 oct_mdio_readq(u64 addr)
+static u64 oct_mdio_readq(u64 addr)
 {
 	return cvmx_read_csr(addr);
 }

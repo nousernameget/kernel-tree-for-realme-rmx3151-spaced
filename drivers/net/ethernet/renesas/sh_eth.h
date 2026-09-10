@@ -550,7 +550,7 @@ struct sh_eth_private {
 	unsigned wol_enabled:1;
 };
 
-static inline void sh_eth_soft_swap(char *src, int len)
+static void sh_eth_soft_swap(char *src, int len)
 {
 #ifdef __LITTLE_ENDIAN__
 	u32 *p = (u32 *)src;
@@ -562,19 +562,19 @@ static inline void sh_eth_soft_swap(char *src, int len)
 #endif
 }
 
-static inline void *sh_eth_tsu_get_offset(struct sh_eth_private *mdp,
+static void *sh_eth_tsu_get_offset(struct sh_eth_private *mdp,
 					  int enum_index)
 {
 	return mdp->tsu_addr + mdp->reg_offset[enum_index];
 }
 
-static inline void sh_eth_tsu_write(struct sh_eth_private *mdp, u32 data,
+static void sh_eth_tsu_write(struct sh_eth_private *mdp, u32 data,
 				    int enum_index)
 {
 	iowrite32(data, mdp->tsu_addr + mdp->reg_offset[enum_index]);
 }
 
-static inline u32 sh_eth_tsu_read(struct sh_eth_private *mdp, int enum_index)
+static u32 sh_eth_tsu_read(struct sh_eth_private *mdp, int enum_index)
 {
 	return ioread32(mdp->tsu_addr + mdp->reg_offset[enum_index]);
 }

@@ -35,7 +35,7 @@ int sdio_enable_4bit_bus(struct mmc_card *card);
 #include <linux/sched.h>
 #define MMC_CMD_RETRIES        3
 
-static inline void mmc_delay(unsigned int ms)
+static void mmc_delay(unsigned int ms)
 {
 	if (ms < 1000 / HZ) {
 		cond_resched();

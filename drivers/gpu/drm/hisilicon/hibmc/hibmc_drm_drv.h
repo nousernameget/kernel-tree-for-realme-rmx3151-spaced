@@ -71,12 +71,12 @@ struct hibmc_bo {
 	int pin_count;
 };
 
-static inline struct hibmc_bo *hibmc_bo(struct ttm_buffer_object *bo)
+static struct hibmc_bo *hibmc_bo(struct ttm_buffer_object *bo)
 {
 	return container_of(bo, struct hibmc_bo, bo);
 }
 
-static inline struct hibmc_bo *gem_to_hibmc_bo(struct drm_gem_object *gem)
+static struct hibmc_bo *gem_to_hibmc_bo(struct drm_gem_object *gem)
 {
 	return container_of(gem, struct hibmc_bo, gem);
 }

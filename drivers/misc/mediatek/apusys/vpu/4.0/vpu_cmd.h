@@ -39,7 +39,7 @@ int vpu_cmd_boost(struct vpu_device *vd, int prio);
 void vpu_cmd_alg_set(struct vpu_device *vd, int prio, struct __vpu_algo *alg);
 struct __vpu_algo *vpu_cmd_alg(struct vpu_device *vd, int prio);
 const char *vpu_cmd_alg_name(struct vpu_device *vd, int prio);
-static inline void vpu_cmd_alg_clr(struct vpu_device *vd, int prio)
+static void vpu_cmd_alg_clr(struct vpu_device *vd, int prio)
 {
 	vpu_cmd_alg_set(vd, prio, NULL);
 }

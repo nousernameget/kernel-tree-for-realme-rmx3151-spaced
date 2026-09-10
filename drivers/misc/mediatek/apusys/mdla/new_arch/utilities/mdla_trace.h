@@ -25,9 +25,9 @@ void mdla_trace_end(u32 core_id, int preempt, struct command_entry *ce);
 void mdla_trace_reset(u32 core_id, const char *str);
 void mdla_trace_pmu_polling(u32 core_id, u32 *c);
 #else
-static inline void mdla_trace_begin(u32 core_id,
+static void mdla_trace_begin(u32 core_id,
 					struct command_entry *ce) {}
-static inline void mdla_trace_end(u32 core_id, int preempt,
+static void mdla_trace_end(u32 core_id, int preempt,
 					struct command_entry *ce) {}
 static inline void mdla_trace_reset(u32 core_id, const char *str) {}
 static inline void mdla_trace_pmu_polling(u32 core_id, u32 *c) {}

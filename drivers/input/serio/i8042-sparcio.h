@@ -22,22 +22,22 @@ static void __iomem *kbd_iobase;
 #define I8042_COMMAND_REG	(kbd_iobase + 0x64UL)
 #define I8042_DATA_REG		(kbd_iobase + 0x60UL)
 
-static inline int i8042_read_data(void)
+static int i8042_read_data(void)
 {
 	return readb(kbd_iobase + 0x60UL);
 }
 
-static inline int i8042_read_status(void)
+static int i8042_read_status(void)
 {
 	return readb(kbd_iobase + 0x64UL);
 }
 
-static inline void i8042_write_data(int val)
+static void i8042_write_data(int val)
 {
 	writeb(val, kbd_iobase + 0x60UL);
 }
 
-static inline void i8042_write_command(int val)
+static void i8042_write_command(int val)
 {
 	writeb(val, kbd_iobase + 0x64UL);
 }
@@ -136,7 +136,7 @@ static int __init i8042_platform_init(void)
 	return 0;
 }
 
-static inline void i8042_platform_exit(void)
+static void i8042_platform_exit(void)
 {
 	struct device_node *root = of_find_node_by_path("/");
 
@@ -150,7 +150,7 @@ static int __init i8042_platform_init(void)
 	return -ENODEV;
 }
 
-static inline void i8042_platform_exit(void)
+static void i8042_platform_exit(void)
 {
 }
 #endif /* !CONFIG_PCI */

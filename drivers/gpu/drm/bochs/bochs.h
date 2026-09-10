@@ -106,19 +106,19 @@ struct bochs_bo {
 	int pin_count;
 };
 
-static inline struct bochs_bo *bochs_bo(struct ttm_buffer_object *bo)
+static struct bochs_bo *bochs_bo(struct ttm_buffer_object *bo)
 {
 	return container_of(bo, struct bochs_bo, bo);
 }
 
-static inline struct bochs_bo *gem_to_bochs_bo(struct drm_gem_object *gem)
+static struct bochs_bo *gem_to_bochs_bo(struct drm_gem_object *gem)
 {
 	return container_of(gem, struct bochs_bo, gem);
 }
 
 #define DRM_FILE_PAGE_OFFSET (0x100000000ULL >> PAGE_SHIFT)
 
-static inline u64 bochs_bo_mmap_offset(struct bochs_bo *bo)
+static u64 bochs_bo_mmap_offset(struct bochs_bo *bo)
 {
 	return drm_vma_node_offset_addr(&bo->bo.vma_node);
 }

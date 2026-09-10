@@ -545,19 +545,19 @@ union nic_mbx {
 #define NIC_NODE_ID_MASK	0x03
 #define NIC_NODE_ID_SHIFT	44
 
-static inline int nic_get_node_id(struct pci_dev *pdev)
+static int nic_get_node_id(struct pci_dev *pdev)
 {
 	u64 addr = pci_resource_start(pdev, PCI_CFG_REG_BAR_NUM);
 	return ((addr >> NIC_NODE_ID_SHIFT) & NIC_NODE_ID_MASK);
 }
 
-static inline bool pass1_silicon(struct pci_dev *pdev)
+static bool pass1_silicon(struct pci_dev *pdev)
 {
 	return (pdev->revision < 8) &&
 		(pdev->subsystem_device == PCI_SUBSYS_DEVID_88XX_NIC_PF);
 }
 
-static inline bool pass2_silicon(struct pci_dev *pdev)
+static bool pass2_silicon(struct pci_dev *pdev)
 {
 	return (pdev->revision >= 8) &&
 		(pdev->subsystem_device == PCI_SUBSYS_DEVID_88XX_NIC_PF);

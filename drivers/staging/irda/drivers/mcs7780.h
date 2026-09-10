@@ -133,18 +133,18 @@ struct mcs_cb {
 static int mcs_set_reg(struct mcs_cb *mcs, __u16 reg, __u16 val);
 static int mcs_get_reg(struct mcs_cb *mcs, __u16 reg, __u16 * val);
 
-static inline int mcs_setup_transceiver_vishay(struct mcs_cb *mcs);
-static inline int mcs_setup_transceiver_agilent(struct mcs_cb *mcs);
-static inline int mcs_setup_transceiver_sharp(struct mcs_cb *mcs);
-static inline int mcs_setup_transceiver(struct mcs_cb *mcs);
-static inline int mcs_wrap_sir_skb(struct sk_buff *skb, __u8 * buf);
+static int mcs_setup_transceiver_vishay(struct mcs_cb *mcs);
+static int mcs_setup_transceiver_agilent(struct mcs_cb *mcs);
+static int mcs_setup_transceiver_sharp(struct mcs_cb *mcs);
+static int mcs_setup_transceiver(struct mcs_cb *mcs);
+static int mcs_wrap_sir_skb(struct sk_buff *skb, __u8 * buf);
 static unsigned mcs_wrap_fir_skb(const struct sk_buff *skb, __u8 *buf);
 static unsigned mcs_wrap_mir_skb(const struct sk_buff *skb, __u8 *buf);
 static void mcs_unwrap_mir(struct mcs_cb *mcs, __u8 *buf, int len);
 static void mcs_unwrap_fir(struct mcs_cb *mcs, __u8 *buf, int len);
-static inline int mcs_setup_urbs(struct mcs_cb *mcs);
-static inline int mcs_receive_start(struct mcs_cb *mcs);
-static inline int mcs_find_endpoints(struct mcs_cb *mcs,
+static int mcs_setup_urbs(struct mcs_cb *mcs);
+static int mcs_receive_start(struct mcs_cb *mcs);
+static int mcs_find_endpoints(struct mcs_cb *mcs,
 				     struct usb_host_endpoint *ep, int epnum);
 
 static int mcs_speed_change(struct mcs_cb *mcs);

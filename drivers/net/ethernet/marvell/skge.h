@@ -2479,32 +2479,32 @@ struct skge_port {
 
 
 /* Register accessor for memory mapped device */
-static inline u32 skge_read32(const struct skge_hw *hw, int reg)
+static u32 skge_read32(const struct skge_hw *hw, int reg)
 {
 	return readl(hw->regs + reg);
 }
 
-static inline u16 skge_read16(const struct skge_hw *hw, int reg)
+static u16 skge_read16(const struct skge_hw *hw, int reg)
 {
 	return readw(hw->regs + reg);
 }
 
-static inline u8 skge_read8(const struct skge_hw *hw, int reg)
+static u8 skge_read8(const struct skge_hw *hw, int reg)
 {
 	return readb(hw->regs + reg);
 }
 
-static inline void skge_write32(const struct skge_hw *hw, int reg, u32 val)
+static void skge_write32(const struct skge_hw *hw, int reg, u32 val)
 {
 	writel(val, hw->regs + reg);
 }
 
-static inline void skge_write16(const struct skge_hw *hw, int reg, u16 val)
+static void skge_write16(const struct skge_hw *hw, int reg, u16 val)
 {
 	writew(val, hw->regs + reg);
 }
 
-static inline void skge_write8(const struct skge_hw *hw, int reg, u8 val)
+static void skge_write8(const struct skge_hw *hw, int reg, u8 val)
 {
 	writeb(val, hw->regs + reg);
 }
@@ -2514,7 +2514,7 @@ static inline void skge_write8(const struct skge_hw *hw, int reg, u8 val)
 #define SK_XMAC_REG(port, reg) \
 	((BASE_XMAC_1 + (port) * (BASE_XMAC_2 - BASE_XMAC_1)) | (reg) << 1)
 
-static inline u32 xm_read32(const struct skge_hw *hw, int port, int reg)
+static u32 xm_read32(const struct skge_hw *hw, int port, int reg)
 {
 	u32 v;
 	v = skge_read16(hw, SK_XMAC_REG(port, reg));
@@ -2522,23 +2522,23 @@ static inline u32 xm_read32(const struct skge_hw *hw, int port, int reg)
 	return v;
 }
 
-static inline u16 xm_read16(const struct skge_hw *hw, int port, int reg)
+static u16 xm_read16(const struct skge_hw *hw, int port, int reg)
 {
 	return skge_read16(hw, SK_XMAC_REG(port,reg));
 }
 
-static inline void xm_write32(const struct skge_hw *hw, int port, int r, u32 v)
+static void xm_write32(const struct skge_hw *hw, int port, int r, u32 v)
 {
 	skge_write16(hw, SK_XMAC_REG(port,r), v & 0xffff);
 	skge_write16(hw, SK_XMAC_REG(port,r+2), v >> 16);
 }
 
-static inline void xm_write16(const struct skge_hw *hw, int port, int r, u16 v)
+static void xm_write16(const struct skge_hw *hw, int port, int r, u16 v)
 {
 	skge_write16(hw, SK_XMAC_REG(port,r), v);
 }
 
-static inline void xm_outhash(const struct skge_hw *hw, int port, int reg,
+static void xm_outhash(const struct skge_hw *hw, int port, int reg,
 				   const u8 *hash)
 {
 	xm_write16(hw, port, reg,   (u16)hash[0] | ((u16)hash[1] << 8));
@@ -2547,7 +2547,7 @@ static inline void xm_outhash(const struct skge_hw *hw, int port, int reg,
 	xm_write16(hw, port, reg+6, (u16)hash[6] | ((u16)hash[7] << 8));
 }
 
-static inline void xm_outaddr(const struct skge_hw *hw, int port, int reg,
+static void xm_outaddr(const struct skge_hw *hw, int port, int reg,
 				   const u8 *addr)
 {
 	xm_write16(hw, port, reg,   (u16)addr[0] | ((u16)addr[1] << 8));
@@ -2558,23 +2558,23 @@ static inline void xm_outaddr(const struct skge_hw *hw, int port, int reg,
 #define SK_GMAC_REG(port,reg) \
 	(BASE_GMAC_1 + (port) * (BASE_GMAC_2-BASE_GMAC_1) + (reg))
 
-static inline u16 gma_read16(const struct skge_hw *hw, int port, int reg)
+static u16 gma_read16(const struct skge_hw *hw, int port, int reg)
 {
 	return skge_read16(hw, SK_GMAC_REG(port,reg));
 }
 
-static inline u32 gma_read32(const struct skge_hw *hw, int port, int reg)
+static u32 gma_read32(const struct skge_hw *hw, int port, int reg)
 {
 	return (u32) skge_read16(hw, SK_GMAC_REG(port,reg))
 		| ((u32)skge_read16(hw, SK_GMAC_REG(port,reg+4)) << 16);
 }
 
-static inline void gma_write16(const struct skge_hw *hw, int port, int r, u16 v)
+static void gma_write16(const struct skge_hw *hw, int port, int r, u16 v)
 {
 	skge_write16(hw, SK_GMAC_REG(port,r), v);
 }
 
-static inline void gma_set_addr(struct skge_hw *hw, int port, int reg,
+static void gma_set_addr(struct skge_hw *hw, int port, int reg,
 				    const u8 *addr)
 {
 	gma_write16(hw, port, reg,  (u16) addr[0] | ((u16) addr[1] << 8));

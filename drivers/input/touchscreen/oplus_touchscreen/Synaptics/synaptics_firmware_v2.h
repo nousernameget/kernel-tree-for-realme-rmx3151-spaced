@@ -77,13 +77,13 @@ struct boot_config {
     unsigned short word3_b1__15:15;
 } __packed;
 
-static inline unsigned int le2_to_uint(const unsigned char *src)
+static unsigned int le2_to_uint(const unsigned char *src)
 {
     return (unsigned int)src[0] +
             (unsigned int)src[1] * 0x100;
 }
 
-static inline unsigned int le4_to_uint(const unsigned char *src)
+static unsigned int le4_to_uint(const unsigned char *src)
 {
     return (unsigned int)src[0] +
             (unsigned int)src[1] * 0x100 +

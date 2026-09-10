@@ -32,12 +32,12 @@
 
 #include <linux/scatterlist.h>
 
-static inline struct usb_hcd *musb_to_hcd(struct musb *musb)
+static struct usb_hcd *musb_to_hcd(struct musb *musb)
 {
 	return container_of((void *)musb, struct usb_hcd, hcd_priv);
 }
 
-static inline struct musb *hcd_to_musb(struct usb_hcd *hcd)
+static struct musb *hcd_to_musb(struct usb_hcd *hcd)
 {
 	return (struct musb *)(hcd->hcd_priv);
 }
@@ -76,7 +76,7 @@ struct musb_qh {
 };
 
 /* map from control or bulk queue head to the first qh on that ring */
-static inline struct musb_qh *first_qh(struct list_head *q)
+static struct musb_qh *first_qh(struct list_head *q)
 {
 	if (list_empty(q))
 		return NULL;
@@ -98,7 +98,7 @@ extern int musb_hub_control(struct usb_hcd *hcd,
 
 extern const struct hc_driver musb_hc_driver;
 
-static inline struct urb *next_urb(struct musb_qh *qh)
+static struct urb *next_urb(struct musb_qh *qh)
 {
 	struct list_head *queue;
 

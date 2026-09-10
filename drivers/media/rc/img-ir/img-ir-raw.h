@@ -28,7 +28,7 @@ struct img_ir_priv_raw {
 	u32			last_status;
 };
 
-static inline bool img_ir_raw_enabled(struct img_ir_priv_raw *raw)
+static bool img_ir_raw_enabled(struct img_ir_priv_raw *raw)
 {
 	return raw->rdev;
 };
@@ -42,21 +42,21 @@ void img_ir_remove_raw(struct img_ir_priv *priv);
 
 struct img_ir_priv_raw {
 };
-static inline bool img_ir_raw_enabled(struct img_ir_priv_raw *raw)
+static bool img_ir_raw_enabled(struct img_ir_priv_raw *raw)
 {
 	return false;
 };
-static inline void img_ir_isr_raw(struct img_ir_priv *priv, u32 irq_status)
+static void img_ir_isr_raw(struct img_ir_priv *priv, u32 irq_status)
 {
 }
-static inline void img_ir_setup_raw(struct img_ir_priv *priv)
+static void img_ir_setup_raw(struct img_ir_priv *priv)
 {
 }
-static inline int img_ir_probe_raw(struct img_ir_priv *priv)
+static int img_ir_probe_raw(struct img_ir_priv *priv)
 {
 	return -ENODEV;
 }
-static inline void img_ir_remove_raw(struct img_ir_priv *priv)
+static void img_ir_remove_raw(struct img_ir_priv *priv)
 {
 }
 

@@ -666,7 +666,7 @@ struct short_record {
 
 extern int gt8x_rawdiff_mode;
 
-static inline u8 checksum_u8(u8 *data, u32 size)
+static u8 checksum_u8(u8 *data, u32 size)
 {
     u8 checksum = 0;
     u32 i = 0;

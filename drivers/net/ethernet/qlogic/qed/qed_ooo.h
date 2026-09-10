@@ -136,11 +136,11 @@ void qed_ooo_join_isles(struct qed_hwfn *p_hwfn,
 			struct qed_ooo_info *p_ooo_info, u32 cid,
 			u8 left_isle);
 #else /* IS_ENABLED(CONFIG_QED_ISCSI) */
-static inline void qed_ooo_save_history_entry(struct qed_hwfn *p_hwfn,
+static void qed_ooo_save_history_entry(struct qed_hwfn *p_hwfn,
 					      struct qed_ooo_info *p_ooo_info,
 					      struct ooo_opaque *p_cqe) {}
 
-static inline int qed_ooo_alloc(struct qed_hwfn *p_hwfn)
+static int qed_ooo_alloc(struct qed_hwfn *p_hwfn)
 {
 	return -EINVAL;
 }
@@ -149,48 +149,48 @@ static inline void qed_ooo_setup(struct qed_hwfn *p_hwfn) {}
 
 static inline void qed_ooo_free(struct qed_hwfn *p_hwfn) {}
 
-static inline void
+static void
 qed_ooo_release_connection_isles(struct qed_hwfn *p_hwfn,
 				 struct qed_ooo_info *p_ooo_info,
 				 u32 cid) {}
 
-static inline void qed_ooo_release_all_isles(struct qed_hwfn *p_hwfn,
+static void qed_ooo_release_all_isles(struct qed_hwfn *p_hwfn,
 					     struct qed_ooo_info *p_ooo_info)
 					     {}
 
-static inline void qed_ooo_put_free_buffer(struct qed_hwfn *p_hwfn,
+static void qed_ooo_put_free_buffer(struct qed_hwfn *p_hwfn,
 					   struct qed_ooo_info *p_ooo_info,
 					   struct qed_ooo_buffer *p_buffer) {}
 
-static inline struct qed_ooo_buffer *
+static struct qed_ooo_buffer *
 qed_ooo_get_free_buffer(struct qed_hwfn *p_hwfn,
 			struct qed_ooo_info *p_ooo_info) { return NULL; }
 
-static inline void qed_ooo_put_ready_buffer(struct qed_hwfn *p_hwfn,
+static void qed_ooo_put_ready_buffer(struct qed_hwfn *p_hwfn,
 					    struct qed_ooo_info *p_ooo_info,
 					    struct qed_ooo_buffer *p_buffer,
 					    u8 on_tail) {}
 
-static inline struct qed_ooo_buffer *
+static struct qed_ooo_buffer *
 qed_ooo_get_ready_buffer(struct qed_hwfn *p_hwfn,
 			 struct qed_ooo_info *p_ooo_info) { return NULL; }
 
-static inline void qed_ooo_delete_isles(struct qed_hwfn *p_hwfn,
+static void qed_ooo_delete_isles(struct qed_hwfn *p_hwfn,
 					struct qed_ooo_info *p_ooo_info,
 					u32 cid, u8 drop_isle, u8 drop_size) {}
 
-static inline void qed_ooo_add_new_isle(struct qed_hwfn *p_hwfn,
+static void qed_ooo_add_new_isle(struct qed_hwfn *p_hwfn,
 					struct qed_ooo_info *p_ooo_info,
 					u32 cid, u8 ooo_isle,
 					struct qed_ooo_buffer *p_buffer) {}
 
-static inline void qed_ooo_add_new_buffer(struct qed_hwfn *p_hwfn,
+static void qed_ooo_add_new_buffer(struct qed_hwfn *p_hwfn,
 					  struct qed_ooo_info *p_ooo_info,
 					  u32 cid, u8 ooo_isle,
 					  struct qed_ooo_buffer *p_buffer,
 					  u8 buffer_side) {}
 
-static inline void qed_ooo_join_isles(struct qed_hwfn *p_hwfn,
+static void qed_ooo_join_isles(struct qed_hwfn *p_hwfn,
 				      struct qed_ooo_info *p_ooo_info, u32 cid,
 				      u8 left_isle) {}
 #endif /* IS_ENABLED(CONFIG_QED_ISCSI) */

@@ -91,7 +91,7 @@ void kbase_clk_rate_trace_manager_gpu_idle(struct kbase_device *kbdev);
  *
  * kbase_clk_rate_trace_manager:lock must be held by the caller.
  */
-static inline void kbase_clk_rate_trace_manager_subscribe_no_lock(
+static void kbase_clk_rate_trace_manager_subscribe_no_lock(
 	struct kbase_clk_rate_trace_manager *clk_rtm,
 	struct kbase_clk_rate_listener *listener)
 {
@@ -105,7 +105,7 @@ static inline void kbase_clk_rate_trace_manager_subscribe_no_lock(
  * @clk_rtm:    Clock rate manager instance.
  * @listener:   Listener handle
  */
-static inline void kbase_clk_rate_trace_manager_subscribe(
+static void kbase_clk_rate_trace_manager_subscribe(
 	struct kbase_clk_rate_trace_manager *clk_rtm,
 	struct kbase_clk_rate_listener *listener)
 {
@@ -123,7 +123,7 @@ static inline void kbase_clk_rate_trace_manager_subscribe(
  * @clk_rtm:    Clock rate manager instance.
  * @listener:   Listener handle
  */
-static inline void kbase_clk_rate_trace_manager_unsubscribe(
+static void kbase_clk_rate_trace_manager_unsubscribe(
 	struct kbase_clk_rate_trace_manager *clk_rtm,
 	struct kbase_clk_rate_listener *listener)
 {

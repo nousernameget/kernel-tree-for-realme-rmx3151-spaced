@@ -398,7 +398,7 @@ struct ar9170_rx_frame {
 	} __packed;
 } __packed;
 
-static inline u8 ar9170_get_decrypt_type(struct ar9170_rx_macstatus *t)
+static u8 ar9170_get_decrypt_type(struct ar9170_rx_macstatus *t)
 {
 	return (t->SAidx & 0xc0) >> 4 |
 	       (t->DAidx & 0xc0) >> 6;

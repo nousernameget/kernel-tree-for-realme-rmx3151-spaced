@@ -53,7 +53,7 @@ struct i2o_message {
 };
 #pragma pack()
 
-static inline unsigned short outgoing_message_size(unsigned int data_size)
+static unsigned short outgoing_message_size(unsigned int data_size)
 {
 	unsigned int size;
 	unsigned short i2o_size;
@@ -71,7 +71,7 @@ static inline unsigned short outgoing_message_size(unsigned int data_size)
 	return i2o_size;
 }
 
-static inline u32 incoming_data_size(struct i2o_message *i2o_message)
+static u32 incoming_data_size(struct i2o_message *i2o_message)
 {
 	return (sizeof(u32) * i2o_message->header.message_size);
 }

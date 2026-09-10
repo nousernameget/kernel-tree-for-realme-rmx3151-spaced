@@ -105,12 +105,12 @@ void tb_cfg_request_cancel(struct tb_cfg_request *req, int err);
 struct tb_cfg_result tb_cfg_request_sync(struct tb_ctl *ctl,
 			struct tb_cfg_request *req, int timeout_msec);
 
-static inline u64 tb_cfg_get_route(const struct tb_cfg_header *header)
+static u64 tb_cfg_get_route(const struct tb_cfg_header *header)
 {
 	return (u64) header->route_hi << 32 | header->route_lo;
 }
 
-static inline struct tb_cfg_header tb_cfg_make_header(u64 route)
+static struct tb_cfg_header tb_cfg_make_header(u64 route)
 {
 	struct tb_cfg_header header = {
 		.route_hi = route >> 32,

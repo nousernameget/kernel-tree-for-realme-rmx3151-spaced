@@ -408,7 +408,7 @@ void gsc_ctrls_delete(struct gsc_ctx *ctx);
 int gsc_prepare_addr(struct gsc_ctx *ctx, struct vb2_buffer *vb,
 		     struct gsc_frame *frame, struct gsc_addr *addr);
 
-static inline void gsc_ctx_state_lock_set(u32 state, struct gsc_ctx *ctx)
+static void gsc_ctx_state_lock_set(u32 state, struct gsc_ctx *ctx)
 {
 	unsigned long flags;
 
@@ -417,7 +417,7 @@ static inline void gsc_ctx_state_lock_set(u32 state, struct gsc_ctx *ctx)
 	spin_unlock_irqrestore(&ctx->gsc_dev->slock, flags);
 }
 
-static inline void gsc_ctx_state_lock_clear(u32 state, struct gsc_ctx *ctx)
+static void gsc_ctx_state_lock_clear(u32 state, struct gsc_ctx *ctx)
 {
 	unsigned long flags;
 
@@ -426,12 +426,12 @@ static inline void gsc_ctx_state_lock_clear(u32 state, struct gsc_ctx *ctx)
 	spin_unlock_irqrestore(&ctx->gsc_dev->slock, flags);
 }
 
-static inline int is_tiled(const struct gsc_fmt *fmt)
+static int is_tiled(const struct gsc_fmt *fmt)
 {
 	return fmt->pixelformat == V4L2_PIX_FMT_NV12MT_16X16;
 }
 
-static inline void gsc_hw_enable_control(struct gsc_dev *dev, bool on)
+static void gsc_hw_enable_control(struct gsc_dev *dev, bool on)
 {
 	u32 cfg = readl(dev->regs + GSC_ENABLE);
 
@@ -443,7 +443,7 @@ static inline void gsc_hw_enable_control(struct gsc_dev *dev, bool on)
 	writel(cfg, dev->regs + GSC_ENABLE);
 }
 
-static inline int gsc_hw_get_irq_status(struct gsc_dev *dev)
+static int gsc_hw_get_irq_status(struct gsc_dev *dev)
 {
 	u32 cfg = readl(dev->regs + GSC_IRQ);
 	if (cfg & GSC_IRQ_STATUS_OR_IRQ)
@@ -453,7 +453,7 @@ static inline int gsc_hw_get_irq_status(struct gsc_dev *dev)
 
 }
 
-static inline void gsc_hw_clear_irq(struct gsc_dev *dev, int irq)
+static void gsc_hw_clear_irq(struct gsc_dev *dev, int irq)
 {
 	u32 cfg = readl(dev->regs + GSC_IRQ);
 	if (irq == GSC_IRQ_OVERRUN)
@@ -463,7 +463,7 @@ static inline void gsc_hw_clear_irq(struct gsc_dev *dev, int irq)
 	writel(cfg, dev->regs + GSC_IRQ);
 }
 
-static inline bool gsc_ctx_state_is_set(u32 mask, struct gsc_ctx *ctx)
+static bool gsc_ctx_state_is_set(u32 mask, struct gsc_ctx *ctx)
 {
 	unsigned long flags;
 	bool ret;
@@ -474,7 +474,7 @@ static inline bool gsc_ctx_state_is_set(u32 mask, struct gsc_ctx *ctx)
 	return ret;
 }
 
-static inline struct gsc_frame *ctx_get_frame(struct gsc_ctx *ctx,
+static struct gsc_frame *ctx_get_frame(struct gsc_ctx *ctx,
 					      enum v4l2_buf_type type)
 {
 	struct gsc_frame *frame;

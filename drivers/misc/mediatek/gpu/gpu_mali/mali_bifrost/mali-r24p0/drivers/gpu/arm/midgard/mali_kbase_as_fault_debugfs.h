@@ -36,7 +36,7 @@ void kbase_as_fault_debugfs_init(struct kbase_device *kbdev);
  * @kbdev: Pointer to kbase_device
  * @as_no: The address space the fault occurred on
  */
-static inline void
+static void
 kbase_as_fault_debugfs_new(struct kbase_device *kbdev, int as_no)
 {
 #ifdef CONFIG_DEBUG_FS

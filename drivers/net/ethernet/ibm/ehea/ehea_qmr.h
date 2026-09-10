@@ -207,7 +207,7 @@ struct ehea_eqe {
 #define ERROR_DATA_LENGTH  EHEA_BMASK_IBM(52, 63)
 #define ERROR_DATA_TYPE    EHEA_BMASK_IBM(0, 7)
 
-static inline void *hw_qeit_calc(struct hw_queue *queue, u64 q_offset)
+static void *hw_qeit_calc(struct hw_queue *queue, u64 q_offset)
 {
 	struct ehea_page *current_page;
 
@@ -217,12 +217,12 @@ static inline void *hw_qeit_calc(struct hw_queue *queue, u64 q_offset)
 	return &current_page->entries[q_offset & (EHEA_PAGESIZE - 1)];
 }
 
-static inline void *hw_qeit_get(struct hw_queue *queue)
+static void *hw_qeit_get(struct hw_queue *queue)
 {
 	return hw_qeit_calc(queue, queue->current_q_offset);
 }
 
-static inline void hw_qeit_inc(struct hw_queue *queue)
+static void hw_qeit_inc(struct hw_queue *queue)
 {
 	queue->current_q_offset += queue->qe_size;
 	if (queue->current_q_offset >= queue->queue_length) {
@@ -232,14 +232,14 @@ static inline void hw_qeit_inc(struct hw_queue *queue)
 	}
 }
 
-static inline void *hw_qeit_get_inc(struct hw_queue *queue)
+static void *hw_qeit_get_inc(struct hw_queue *queue)
 {
 	void *retvalue = hw_qeit_get(queue);
 	hw_qeit_inc(queue);
 	return retvalue;
 }
 
-static inline void *hw_qeit_get_inc_valid(struct hw_queue *queue)
+static void *hw_qeit_get_inc_valid(struct hw_queue *queue)
 {
 	struct ehea_cqe *retvalue = hw_qeit_get(queue);
 	u8 valid = retvalue->valid;
@@ -256,7 +256,7 @@ static inline void *hw_qeit_get_inc_valid(struct hw_queue *queue)
 	return retvalue;
 }
 
-static inline void *hw_qeit_get_valid(struct hw_queue *queue)
+static void *hw_qeit_get_valid(struct hw_queue *queue)
 {
 	struct ehea_cqe *retvalue = hw_qeit_get(queue);
 	void *pref;
@@ -272,13 +272,13 @@ static inline void *hw_qeit_get_valid(struct hw_queue *queue)
 	return retvalue;
 }
 
-static inline void *hw_qeit_reset(struct hw_queue *queue)
+static void *hw_qeit_reset(struct hw_queue *queue)
 {
 	queue->current_q_offset = 0;
 	return hw_qeit_get(queue);
 }
 
-static inline void *hw_qeit_eq_get_inc(struct hw_queue *queue)
+static void *hw_qeit_eq_get_inc(struct hw_queue *queue)
 {
 	u64 last_entry_in_q = queue->queue_length - queue->qe_size;
 	void *retvalue;
@@ -292,7 +292,7 @@ static inline void *hw_qeit_eq_get_inc(struct hw_queue *queue)
 	return retvalue;
 }
 
-static inline void *hw_eqit_eq_get_inc_valid(struct hw_queue *queue)
+static void *hw_eqit_eq_get_inc_valid(struct hw_queue *queue)
 {
 	void *retvalue = hw_qeit_get(queue);
 	u32 qe = *(u8 *)retvalue;
@@ -303,7 +303,7 @@ static inline void *hw_eqit_eq_get_inc_valid(struct hw_queue *queue)
 	return retvalue;
 }
 
-static inline struct ehea_rwqe *ehea_get_next_rwqe(struct ehea_qp *qp,
+static struct ehea_rwqe *ehea_get_next_rwqe(struct ehea_qp *qp,
 						   int rq_nr)
 {
 	struct hw_queue *queue;
@@ -318,7 +318,7 @@ static inline struct ehea_rwqe *ehea_get_next_rwqe(struct ehea_qp *qp,
 	return hw_qeit_get_inc(queue);
 }
 
-static inline struct ehea_swqe *ehea_get_swqe(struct ehea_qp *my_qp,
+static struct ehea_swqe *ehea_get_swqe(struct ehea_qp *my_qp,
 					      int *wqe_index)
 {
 	struct hw_queue *queue = &my_qp->hw_squeue;
@@ -330,13 +330,13 @@ static inline struct ehea_swqe *ehea_get_swqe(struct ehea_qp *my_qp,
 	return wqe_p;
 }
 
-static inline void ehea_post_swqe(struct ehea_qp *my_qp, struct ehea_swqe *swqe)
+static void ehea_post_swqe(struct ehea_qp *my_qp, struct ehea_swqe *swqe)
 {
 	iosync();
 	ehea_update_sqa(my_qp, 1);
 }
 
-static inline struct ehea_cqe *ehea_poll_rq1(struct ehea_qp *qp, int *wqe_index)
+static struct ehea_cqe *ehea_poll_rq1(struct ehea_qp *qp, int *wqe_index)
 {
 	struct hw_queue *queue = &qp->hw_rqueue1;
 
@@ -344,17 +344,17 @@ static inline struct ehea_cqe *ehea_poll_rq1(struct ehea_qp *qp, int *wqe_index)
 	return hw_qeit_get_valid(queue);
 }
 
-static inline void ehea_inc_cq(struct ehea_cq *cq)
+static void ehea_inc_cq(struct ehea_cq *cq)
 {
 	hw_qeit_inc(&cq->hw_queue);
 }
 
-static inline void ehea_inc_rq1(struct ehea_qp *qp)
+static void ehea_inc_rq1(struct ehea_qp *qp)
 {
 	hw_qeit_inc(&qp->hw_rqueue1);
 }
 
-static inline struct ehea_cqe *ehea_poll_cq(struct ehea_cq *my_cq)
+static struct ehea_cqe *ehea_poll_cq(struct ehea_cq *my_cq)
 {
 	return hw_qeit_get_valid(&my_cq->hw_queue);
 }

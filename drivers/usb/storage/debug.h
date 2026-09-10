@@ -57,7 +57,7 @@ __printf(2, 3) void usb_stor_dbg(const struct us_data *us,
 #define US_DEBUG(x)		x
 #else
 __printf(2, 3)
-static inline void _usb_stor_dbg(const struct us_data *us,
+static void _usb_stor_dbg(const struct us_data *us,
 				 const char *fmt, ...)
 {
 }

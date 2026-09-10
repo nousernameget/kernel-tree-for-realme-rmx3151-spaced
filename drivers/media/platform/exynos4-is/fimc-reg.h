@@ -330,7 +330,7 @@ void fimc_deactivate_capture(struct fimc_dev *fimc);
  * the 32 available output buffer address registers will be used by the DMA
  * engine.
  */
-static inline void fimc_hw_set_dma_seq(struct fimc_dev *dev, u32 mask)
+static void fimc_hw_set_dma_seq(struct fimc_dev *dev, u32 mask)
 {
 	writel(mask, dev->regs + FIMC_REG_CIFCNTSEQ);
 }

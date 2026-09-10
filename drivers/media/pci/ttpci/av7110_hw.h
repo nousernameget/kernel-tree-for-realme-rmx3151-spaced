@@ -385,20 +385,20 @@ extern u32 av7110_debiread(struct av7110 *av7110, u32 config,
 
 /* DEBI during interrupt */
 /* single word writes */
-static inline void iwdebi(struct av7110 *av7110, u32 config, int addr, u32 val, unsigned int count)
+static void iwdebi(struct av7110 *av7110, u32 config, int addr, u32 val, unsigned int count)
 {
 	av7110_debiwrite(av7110, config, addr, val, count);
 }
 
 /* buffer writes */
-static inline void mwdebi(struct av7110 *av7110, u32 config, int addr,
+static void mwdebi(struct av7110 *av7110, u32 config, int addr,
 			  const u8 *val, int count)
 {
 	memcpy(av7110->debi_virt, val, count);
 	av7110_debiwrite(av7110, config, addr, 0, count);
 }
 
-static inline u32 irdebi(struct av7110 *av7110, u32 config, int addr, u32 val, unsigned int count)
+static u32 irdebi(struct av7110 *av7110, u32 config, int addr, u32 val, unsigned int count)
 {
 	u32 res;
 
@@ -409,7 +409,7 @@ static inline u32 irdebi(struct av7110 *av7110, u32 config, int addr, u32 val, u
 }
 
 /* DEBI outside interrupts, only for count <= 4! */
-static inline void wdebi(struct av7110 *av7110, u32 config, int addr, u32 val, unsigned int count)
+static void wdebi(struct av7110 *av7110, u32 config, int addr, u32 val, unsigned int count)
 {
 	unsigned long flags;
 
@@ -418,7 +418,7 @@ static inline void wdebi(struct av7110 *av7110, u32 config, int addr, u32 val, u
 	spin_unlock_irqrestore(&av7110->debilock, flags);
 }
 
-static inline u32 rdebi(struct av7110 *av7110, u32 config, int addr, u32 val, unsigned int count)
+static u32 rdebi(struct av7110 *av7110, u32 config, int addr, u32 val, unsigned int count)
 {
 	unsigned long flags;
 	u32 res;
@@ -430,7 +430,7 @@ static inline u32 rdebi(struct av7110 *av7110, u32 config, int addr, u32 val, un
 }
 
 /* handle mailbox registers of the dual ported RAM */
-static inline void ARM_ResetMailBox(struct av7110 *av7110)
+static void ARM_ResetMailBox(struct av7110 *av7110)
 {
 	unsigned long flags;
 
@@ -440,12 +440,12 @@ static inline void ARM_ResetMailBox(struct av7110 *av7110)
 	spin_unlock_irqrestore(&av7110->debilock, flags);
 }
 
-static inline void ARM_ClearMailBox(struct av7110 *av7110)
+static void ARM_ClearMailBox(struct av7110 *av7110)
 {
 	iwdebi(av7110, DEBINOSWAP, IRQ_RX, 0, 2);
 }
 
-static inline void ARM_ClearIrq(struct av7110 *av7110)
+static void ARM_ClearIrq(struct av7110 *av7110)
 {
 	irdebi(av7110, DEBINOSWAP, IRQ_RX, 0, 2);
 }
@@ -454,30 +454,30 @@ static inline void ARM_ClearIrq(struct av7110 *av7110)
  * Firmware commands
  ****************************************************************************/
 
-static inline int SendDAC(struct av7110 *av7110, u8 addr, u8 data)
+static int SendDAC(struct av7110 *av7110, u8 addr, u8 data)
 {
 	return av7110_fw_cmd(av7110, COMTYPE_AUDIODAC, AudioDAC, 2, addr, data);
 }
 
-static inline int av7710_set_video_mode(struct av7110 *av7110, int mode)
+static int av7710_set_video_mode(struct av7110 *av7110, int mode)
 {
 	return av7110_fw_cmd(av7110, COMTYPE_ENCODER, SetVidMode, 1, mode);
 }
 
-static inline int vidcom(struct av7110 *av7110, u32 com, u32 arg)
+static int vidcom(struct av7110 *av7110, u32 com, u32 arg)
 {
 	return av7110_fw_cmd(av7110, COMTYPE_MISC, AV7110_FW_VIDEO_COMMAND, 4,
 			     (com>>16), (com&0xffff),
 			     (arg>>16), (arg&0xffff));
 }
 
-static inline int audcom(struct av7110 *av7110, u32 com)
+static int audcom(struct av7110 *av7110, u32 com)
 {
 	return av7110_fw_cmd(av7110, COMTYPE_MISC, AV7110_FW_AUDIO_COMMAND, 2,
 			     (com>>16), (com&0xffff));
 }
 
-static inline int Set22K(struct av7110 *av7110, int state)
+static int Set22K(struct av7110 *av7110, int state)
 {
 	return av7110_fw_cmd(av7110, COMTYPE_AUDIODAC, (state ? ON22K : OFF22K), 0);
 }

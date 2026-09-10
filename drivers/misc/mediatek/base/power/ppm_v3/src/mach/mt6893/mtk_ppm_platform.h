@@ -149,7 +149,7 @@ unsigned int __attribute__((weak))
 }
 
 static inline int ppm_get_nr_clusters(void) { return NR_PPM_CLUSTERS; }
-static inline void ppm_get_cl_cpus(struct cpumask *cpu_mask, unsigned int cid)
+static void ppm_get_cl_cpus(struct cpumask *cpu_mask, unsigned int cid)
 {
 	if (cid == 0) {
 		cpumask_setall(cpu_mask);
@@ -168,7 +168,7 @@ static inline void ppm_get_cl_cpus(struct cpumask *cpu_mask, unsigned int cid)
 	}
 }
 
-static inline unsigned int get_cluster_cpu_core(unsigned int id)
+static unsigned int get_cluster_cpu_core(unsigned int id)
 {
 	if (id == 0)
 		return CORE_NUM_L;
@@ -180,7 +180,7 @@ static inline unsigned int get_cluster_cpu_core(unsigned int id)
 	return 0;
 }
 
-static inline unsigned int get_cl_by_core(unsigned int core)
+static unsigned int get_cl_by_core(unsigned int core)
 {
 	if (core < CORE_NUM_L)
 		return 0;
@@ -192,7 +192,7 @@ static inline unsigned int get_cl_by_core(unsigned int core)
 	return 0;
 }
 
-static inline unsigned int get_cl_cid(unsigned int core)
+static unsigned int get_cl_cid(unsigned int core)
 {
 	if (core < CORE_NUM_L)
 		return core;
@@ -203,7 +203,7 @@ static inline unsigned int get_cl_cid(unsigned int core)
 
 }
 
-static inline unsigned int get_cl_first_core_id(unsigned int cl)
+static unsigned int get_cl_first_core_id(unsigned int cl)
 {
 	if (cl == 0)
 		return 0;

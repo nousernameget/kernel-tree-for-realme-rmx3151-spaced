@@ -319,7 +319,7 @@ struct kbase_io_history {
  *
  * Return: readonly reference to dependee atom.
  */
-static inline const struct kbase_jd_atom *
+static const struct kbase_jd_atom *
 kbase_jd_katom_dep_atom(const struct kbase_jd_atom_dependency *dep)
 {
 	LOCAL_ASSERT(dep != NULL);
@@ -334,7 +334,7 @@ kbase_jd_katom_dep_atom(const struct kbase_jd_atom_dependency *dep)
  *
  * Return: the type of dependency there is on the dependee atom.
  */
-static inline u8 kbase_jd_katom_dep_type(const struct kbase_jd_atom_dependency *dep)
+static u8 kbase_jd_katom_dep_type(const struct kbase_jd_atom_dependency *dep)
 {
 	LOCAL_ASSERT(dep != NULL);
 
@@ -348,7 +348,7 @@ static inline u8 kbase_jd_katom_dep_type(const struct kbase_jd_atom_dependency *
  * @a:            pointer to the dependee atom.
  * @type:         type of dependency there is on the dependee atom.
  */
-static inline void kbase_jd_katom_dep_set(const struct kbase_jd_atom_dependency *const_dep,
+static void kbase_jd_katom_dep_set(const struct kbase_jd_atom_dependency *const_dep,
 		struct kbase_jd_atom *a, u8 type)
 {
 	struct kbase_jd_atom_dependency *dep;
@@ -366,7 +366,7 @@ static inline void kbase_jd_katom_dep_set(const struct kbase_jd_atom_dependency 
  *
  * @const_dep:    pointer to the dependency info structure to be setup.
  */
-static inline void kbase_jd_katom_dep_clear(const struct kbase_jd_atom_dependency *const_dep)
+static void kbase_jd_katom_dep_clear(const struct kbase_jd_atom_dependency *const_dep)
 {
 	struct kbase_jd_atom_dependency *dep;
 
@@ -762,7 +762,7 @@ struct kbase_debug_copy_buffer {
 	int nr_extres_pages;
 };
 
-static inline bool kbase_jd_katom_is_protected(const struct kbase_jd_atom *katom)
+static bool kbase_jd_katom_is_protected(const struct kbase_jd_atom *katom)
 {
 	return (bool)(katom->atom_flags & KBASE_KATOM_FLAG_PROTECTED);
 }
@@ -935,12 +935,12 @@ struct kbase_mmu_table {
 	struct kbase_context *kctx;
 };
 
-static inline int kbase_as_has_bus_fault(struct kbase_as *as)
+static int kbase_as_has_bus_fault(struct kbase_as *as)
 {
 	return as->fault_type == KBASE_MMU_FAULT_TYPE_BUS;
 }
 
-static inline int kbase_as_has_page_fault(struct kbase_as *as)
+static int kbase_as_has_page_fault(struct kbase_as *as)
 {
 	return as->fault_type == KBASE_MMU_FAULT_TYPE_PAGE;
 }
@@ -2195,7 +2195,7 @@ enum kbase_share_attr_bits {
  *
  * Return: true if the device access are coherent, false if not.
  */
-static inline bool kbase_device_is_cpu_coherent(struct kbase_device *kbdev)
+static bool kbase_device_is_cpu_coherent(struct kbase_device *kbdev)
 {
 	if ((kbdev->system_coherency == COHERENCY_ACE_LITE) ||
 			(kbdev->system_coherency == COHERENCY_ACE))

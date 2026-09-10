@@ -44,7 +44,7 @@ int btrtl_setup_realtek(struct hci_dev *hdev);
 
 #else
 
-static inline int btrtl_setup_realtek(struct hci_dev *hdev)
+static int btrtl_setup_realtek(struct hci_dev *hdev)
 {
 	return -EOPNOTSUPP;
 }

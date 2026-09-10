@@ -53,7 +53,7 @@ void register_dock_dependent_device(struct acpi_device *adev,
 int dock_notify(struct acpi_device *adev, u32 event);
 void acpi_dock_add(struct acpi_device *adev);
 #else
-static inline void register_dock_dependent_device(struct acpi_device *adev,
+static void register_dock_dependent_device(struct acpi_device *adev,
 						  acpi_handle dshandle) {}
 static inline int dock_notify(struct acpi_device *adev, u32 event) { return -ENODEV; }
 static inline void acpi_dock_add(struct acpi_device *adev) {}

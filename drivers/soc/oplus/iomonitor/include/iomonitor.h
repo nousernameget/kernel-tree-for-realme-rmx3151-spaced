@@ -237,13 +237,13 @@ struct proc_dir_entry *create_uid_proc(struct proc_dir_entry *parent);
 /* extern void iomonitor_get_disk_info(struct super_block *sb, void *arg); */
 
 void add_pid_to_list(struct task_struct *task, size_t bytes, bool opt);
-static inline void iomonitor_record_task_io(struct task_struct *task,
+static void iomonitor_record_task_io(struct task_struct *task,
 					    size_t bytes, bool rw)
 {
 	add_pid_to_list(task, bytes, rw);
 }
 
-static inline void iomonitor_init_reqstats(struct request *rq)
+static void iomonitor_init_reqstats(struct request *rq)
 {
 	rq->req_tg = ktime_get();
 	rq->req_ti = ktime_set(0, 0);
@@ -252,7 +252,7 @@ static inline void iomonitor_init_reqstats(struct request *rq)
 }
 
 void reqstats_record(struct request *req, unsigned nr_bytes);
-static inline void iomonitor_record_reqstats(struct request *req,
+static void iomonitor_record_reqstats(struct request *req,
 					     unsigned int nr_bytes)
 {
 	req->req_tc = ktime_get();

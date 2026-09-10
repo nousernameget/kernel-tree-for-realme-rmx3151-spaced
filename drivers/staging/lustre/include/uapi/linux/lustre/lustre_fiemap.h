@@ -45,13 +45,13 @@
 /* XXX: We use fiemap_extent::fe_reserved[0] */
 #define fe_device	fe_reserved[0]
 
-static inline size_t fiemap_count_to_size(size_t extent_count)
+static size_t fiemap_count_to_size(size_t extent_count)
 {
 	return sizeof(struct fiemap) + extent_count *
 				       sizeof(struct fiemap_extent);
 }
 
-static inline unsigned fiemap_size_to_count(size_t array_size)
+static unsigned fiemap_size_to_count(size_t array_size)
 {
 	return (array_size - sizeof(struct fiemap)) /
 		sizeof(struct fiemap_extent);

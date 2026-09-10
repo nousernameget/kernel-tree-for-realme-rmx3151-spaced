@@ -122,7 +122,7 @@ struct vsp1_entity {
 	struct mutex lock;	/* Protects the pad config */
 };
 
-static inline struct vsp1_entity *to_vsp1_entity(struct v4l2_subdev *subdev)
+static struct vsp1_entity *to_vsp1_entity(struct v4l2_subdev *subdev)
 {
 	return container_of(subdev, struct vsp1_entity, subdev);
 }

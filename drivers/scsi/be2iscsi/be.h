@@ -42,38 +42,38 @@ struct be_queue_info {
 	u16 used;		/* Number of valid elements in the queue */
 };
 
-static inline u32 MODULO(u16 val, u16 limit)
+static u32 MODULO(u16 val, u16 limit)
 {
 	WARN_ON(limit & (limit - 1));
 	return val & (limit - 1);
 }
 
-static inline void index_inc(u16 *index, u16 limit)
+static void index_inc(u16 *index, u16 limit)
 {
 	*index = MODULO((*index + 1), limit);
 }
 
-static inline void *queue_head_node(struct be_queue_info *q)
+static void *queue_head_node(struct be_queue_info *q)
 {
 	return q->dma_mem.va + q->head * q->entry_size;
 }
 
-static inline void *queue_get_wrb(struct be_queue_info *q, unsigned int wrb_num)
+static void *queue_get_wrb(struct be_queue_info *q, unsigned int wrb_num)
 {
 	return q->dma_mem.va + wrb_num * q->entry_size;
 }
 
-static inline void *queue_tail_node(struct be_queue_info *q)
+static void *queue_tail_node(struct be_queue_info *q)
 {
 	return q->dma_mem.va + q->tail * q->entry_size;
 }
 
-static inline void queue_head_inc(struct be_queue_info *q)
+static void queue_head_inc(struct be_queue_info *q)
 {
 	index_inc(&q->head, q->len);
 }
 
-static inline void queue_tail_inc(struct be_queue_info *q)
+static void queue_tail_inc(struct be_queue_info *q)
 {
 	index_inc(&q->tail, q->len);
 }
@@ -162,12 +162,12 @@ struct be_ctrl_info {
 		(((size_t)&(((_struct *)0)->field))%32)
 
 /* Returns the bit mask of the field that is NOT shifted into location. */
-static inline u32 amap_mask(u32 bitsize)
+static u32 amap_mask(u32 bitsize)
 {
 	return (bitsize == 32 ? 0xFFFFFFFF : (1 << bitsize) - 1);
 }
 
-static inline void amap_set(void *ptr, u32 dw_offset, u32 mask,
+static void amap_set(void *ptr, u32 dw_offset, u32 mask,
 					u32 offset, u32 value)
 {
 	u32 *dw = (u32 *) ptr + dw_offset;
@@ -182,7 +182,7 @@ static inline void amap_set(void *ptr, u32 dw_offset, u32 mask,
 			AMAP_BIT_OFFSET(_struct, field),		\
 			val)
 
-static inline u32 amap_get(void *ptr, u32 dw_offset, u32 mask, u32 offset)
+static u32 amap_get(void *ptr, u32 dw_offset, u32 mask, u32 offset)
 {
 	u32 *dw = ptr;
 	return mask & (*(dw + dw_offset) >> offset);
@@ -196,7 +196,7 @@ static inline u32 amap_get(void *ptr, u32 dw_offset, u32 mask, u32 offset)
 
 #define be_dws_cpu_to_le(wrb, len) swap_dws(wrb, len)
 #define be_dws_le_to_cpu(wrb, len) swap_dws(wrb, len)
-static inline void swap_dws(void *wrb, int len)
+static void swap_dws(void *wrb, int len)
 {
 #ifdef __BIG_ENDIAN
 	u32 *dw = wrb;

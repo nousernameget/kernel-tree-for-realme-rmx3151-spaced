@@ -151,7 +151,7 @@ struct zip_operation {
 	u32   sizeofzops;
 };
 
-static inline int zip_poll_result(union zip_zres_s *result)
+static int zip_poll_result(union zip_zres_s *result)
 {
 	int retries = 1000;
 

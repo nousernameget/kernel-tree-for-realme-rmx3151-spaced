@@ -34,7 +34,7 @@ extern const struct nvkm_object_func nv40_gr_object;
 /* returns 1 if device is one of the nv4x using the 0x4497 object class,
  * helpful to determine a number of other hardware features
  */
-static inline int
+static int
 nv44_gr_class(struct nvkm_device *device)
 {
 	if ((device->chipset & 0xf0) == 0x60)

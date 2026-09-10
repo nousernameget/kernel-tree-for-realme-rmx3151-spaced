@@ -498,47 +498,47 @@ struct alx_hw {
 	struct alx_hw_stats stats;
 };
 
-static inline int alx_hw_revision(struct alx_hw *hw)
+static int alx_hw_revision(struct alx_hw *hw)
 {
 	return hw->pdev->revision >> ALX_PCI_REVID_SHIFT;
 }
 
-static inline bool alx_hw_with_cr(struct alx_hw *hw)
+static bool alx_hw_with_cr(struct alx_hw *hw)
 {
 	return hw->pdev->revision & 1;
 }
 
-static inline bool alx_hw_giga(struct alx_hw *hw)
+static bool alx_hw_giga(struct alx_hw *hw)
 {
 	return hw->pdev->device & 1;
 }
 
-static inline void alx_write_mem8(struct alx_hw *hw, u32 reg, u8 val)
+static void alx_write_mem8(struct alx_hw *hw, u32 reg, u8 val)
 {
 	writeb(val, hw->hw_addr + reg);
 }
 
-static inline void alx_write_mem16(struct alx_hw *hw, u32 reg, u16 val)
+static void alx_write_mem16(struct alx_hw *hw, u32 reg, u16 val)
 {
 	writew(val, hw->hw_addr + reg);
 }
 
-static inline u16 alx_read_mem16(struct alx_hw *hw, u32 reg)
+static u16 alx_read_mem16(struct alx_hw *hw, u32 reg)
 {
 	return readw(hw->hw_addr + reg);
 }
 
-static inline void alx_write_mem32(struct alx_hw *hw, u32 reg, u32 val)
+static void alx_write_mem32(struct alx_hw *hw, u32 reg, u32 val)
 {
 	writel(val, hw->hw_addr + reg);
 }
 
-static inline u32 alx_read_mem32(struct alx_hw *hw, u32 reg)
+static u32 alx_read_mem32(struct alx_hw *hw, u32 reg)
 {
 	return readl(hw->hw_addr + reg);
 }
 
-static inline void alx_post_write(struct alx_hw *hw)
+static void alx_post_write(struct alx_hw *hw)
 {
 	readl(hw->hw_addr);
 }
@@ -566,7 +566,7 @@ void alx_disable_rss(struct alx_hw *hw);
 bool alx_get_phy_info(struct alx_hw *hw);
 void alx_update_hw_stats(struct alx_hw *hw);
 
-static inline u32 alx_speed_to_ethadv(int speed, u8 duplex)
+static u32 alx_speed_to_ethadv(int speed, u8 duplex)
 {
 	if (speed == SPEED_1000 && duplex == DUPLEX_FULL)
 		return ADVERTISED_1000baseT_Full;

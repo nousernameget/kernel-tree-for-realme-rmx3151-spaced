@@ -538,7 +538,7 @@ struct device_hcd {
     int (*report_touch) (struct syna_tcm_data *tcm_info);
 };
 
-static inline int secure_memcpy(unsigned char *dest, unsigned int dest_size,
+static int secure_memcpy(unsigned char *dest, unsigned int dest_size,
                                 const unsigned char *src, unsigned int src_size,
                                 unsigned int count)
 {
@@ -556,7 +556,7 @@ static inline int secure_memcpy(unsigned char *dest, unsigned int dest_size,
     return 0;
 }
 
-static inline int syna_tcm_realloc_mem(struct syna_tcm_buffer *buffer, unsigned int size)
+static int syna_tcm_realloc_mem(struct syna_tcm_buffer *buffer, unsigned int size)
 {
     int retval;
     unsigned char *temp;
@@ -589,7 +589,7 @@ static inline int syna_tcm_realloc_mem(struct syna_tcm_buffer *buffer, unsigned 
     return 0;
 }
 
-static inline int syna_tcm_alloc_mem(struct syna_tcm_buffer *buffer, unsigned int size)
+static int syna_tcm_alloc_mem(struct syna_tcm_buffer *buffer, unsigned int size)
 {
     if (size > buffer->buf_size) {
         kfree(buffer->buf);
@@ -610,7 +610,7 @@ static inline int syna_tcm_alloc_mem(struct syna_tcm_buffer *buffer, unsigned in
 }
 
 
-static inline unsigned int ceil_div(unsigned int dividend, unsigned divisor)
+static unsigned int ceil_div(unsigned int dividend, unsigned divisor)
 {
     return (dividend + divisor - 1) / divisor;
 }

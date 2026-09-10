@@ -64,7 +64,7 @@ char *libcfs_next_nidstring(void);
 int libcfs_isknown_lnd(__u32 lnd);
 char *libcfs_lnd2modname(__u32 lnd);
 char *libcfs_lnd2str_r(__u32 lnd, char *buf, size_t buf_size);
-static inline char *libcfs_lnd2str(__u32 lnd)
+static char *libcfs_lnd2str(__u32 lnd)
 {
 	return libcfs_lnd2str_r(lnd, libcfs_next_nidstring(),
 				LNET_NIDSTR_SIZE);
@@ -72,14 +72,14 @@ static inline char *libcfs_lnd2str(__u32 lnd)
 
 int libcfs_str2lnd(const char *str);
 char *libcfs_net2str_r(__u32 net, char *buf, size_t buf_size);
-static inline char *libcfs_net2str(__u32 net)
+static char *libcfs_net2str(__u32 net)
 {
 	return libcfs_net2str_r(net, libcfs_next_nidstring(),
 				LNET_NIDSTR_SIZE);
 }
 
 char *libcfs_nid2str_r(lnet_nid_t nid, char *buf, size_t buf_size);
-static inline char *libcfs_nid2str(lnet_nid_t nid)
+static char *libcfs_nid2str(lnet_nid_t nid)
 {
 	return libcfs_nid2str_r(nid, libcfs_next_nidstring(),
 				LNET_NIDSTR_SIZE);

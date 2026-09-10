@@ -53,7 +53,7 @@ struct qce_cipher_reqctx {
 	unsigned int cryptlen;
 };
 
-static inline struct qce_alg_template *to_cipher_tmpl(struct crypto_tfm *tfm)
+static struct qce_alg_template *to_cipher_tmpl(struct crypto_tfm *tfm)
 {
 	struct crypto_alg *alg = tfm->__crt_alg;
 	return container_of(alg, struct qce_alg_template, alg.crypto);

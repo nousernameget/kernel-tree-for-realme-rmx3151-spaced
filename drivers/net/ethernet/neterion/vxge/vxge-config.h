@@ -1478,7 +1478,7 @@ vxge_hw_device_trace_level_get(struct __vxge_hw_device *devh);
  *
  * This function returns the size of RxD for given buffer mode
  */
-static inline u32 vxge_hw_ring_rxd_size_get(u32 buf_mode)
+static u32 vxge_hw_ring_rxd_size_get(u32 buf_mode)
 {
 	return sizeof(struct vxge_hw_ring_rxd_1);
 }
@@ -1489,7 +1489,7 @@ static inline u32 vxge_hw_ring_rxd_size_get(u32 buf_mode)
  *
  * This function returns the number of RxD for RxD block for given buffer mode
  */
-static inline u32 vxge_hw_ring_rxds_per_block_get(u32 buf_mode)
+static u32 vxge_hw_ring_rxds_per_block_get(u32 buf_mode)
 {
 	return (u32)((VXGE_HW_BLOCK_SIZE-16) /
 		sizeof(struct vxge_hw_ring_rxd_1));
@@ -1506,7 +1506,7 @@ static inline u32 vxge_hw_ring_rxds_per_block_get(u32 buf_mode)
  * Prepare 1-buffer-mode Rx	descriptor for posting
  * (via	vxge_hw_ring_rxd_post()).
  *
- * This	inline helper-function does not	return any parameters and always
+ * This	helper-function does not	return any parameters and always
  * succeeds.
  *
  */
@@ -1532,7 +1532,7 @@ void vxge_hw_ring_rxd_1b_set(
  * @pkt_length:	Length (in bytes) of the data in the buffer pointed by
  *
  * Retrieve protocol data from the completed 1-buffer-mode Rx descriptor.
- * This	inline helper-function uses completed descriptor to populate receive
+ * This	helper-function uses completed descriptor to populate receive
  * buffer pointer and other "out" parameters. The function always succeeds.
  *
  */
@@ -1609,7 +1609,7 @@ void vxge_hw_ring_rxd_1b_info_get(
  * driver requests	per-descriptor space via vxge_hw_ring_attr.
  *
  */
-static inline void *vxge_hw_ring_rxd_private_get(void *rxdh)
+static void *vxge_hw_ring_rxd_private_get(void *rxdh)
 {
 	struct vxge_hw_ring_rxd_1 *rxdp = (struct vxge_hw_ring_rxd_1 *)rxdh;
 	return (void *)(size_t)rxdp->host_control;
@@ -1631,7 +1631,7 @@ static inline void *vxge_hw_ring_rxd_private_get(void *rxdh)
  * in accordance with the Titan specification.
  *
  */
-static inline void vxge_hw_fifo_txdl_cksum_set_bits(void *txdlh, u64 cksum_bits)
+static void vxge_hw_fifo_txdl_cksum_set_bits(void *txdlh, u64 cksum_bits)
 {
 	struct vxge_hw_fifo_txd *txdp = (struct vxge_hw_fifo_txd *)txdlh;
 	txdp->control_1 |= cksum_bits;
@@ -1651,7 +1651,7 @@ static inline void vxge_hw_fifo_txdl_cksum_set_bits(void *txdlh, u64 cksum_bits)
  * in accordance with the Titan specification.
  *
  */
-static inline void vxge_hw_fifo_txdl_mss_set(void *txdlh, int mss)
+static void vxge_hw_fifo_txdl_mss_set(void *txdlh, int mss)
 {
 	struct vxge_hw_fifo_txd *txdp = (struct vxge_hw_fifo_txd *)txdlh;
 
@@ -1667,7 +1667,7 @@ static inline void vxge_hw_fifo_txdl_mss_set(void *txdlh, int mss)
  * Insert VLAN tag into specified transmit descriptor.
  * The actual insertion of the tag into outgoing frame is done by the hardware.
  */
-static inline void vxge_hw_fifo_txdl_vlan_set(void *txdlh, u16 vlan_tag)
+static void vxge_hw_fifo_txdl_vlan_set(void *txdlh, u16 vlan_tag)
 {
 	struct vxge_hw_fifo_txd *txdp = (struct vxge_hw_fifo_txd *)txdlh;
 
@@ -1686,7 +1686,7 @@ static inline void vxge_hw_fifo_txdl_vlan_set(void *txdlh, u16 vlan_tag)
  *
  * Returns: private driver data associated with the descriptor.
  */
-static inline void *vxge_hw_fifo_txdl_private_get(void *txdlh)
+static void *vxge_hw_fifo_txdl_private_get(void *txdlh)
 {
 	struct vxge_hw_fifo_txd *txdp  = (struct vxge_hw_fifo_txd *)txdlh;
 
@@ -1894,7 +1894,7 @@ enum vxge_hw_status vxge_hw_device_setpause_data(
 	u32 tx,
 	u32 rx);
 
-static inline void *vxge_os_dma_malloc(struct pci_dev *pdev,
+static void *vxge_os_dma_malloc(struct pci_dev *pdev,
 			unsigned long size,
 			struct pci_dev **p_dmah,
 			struct pci_dev **p_dma_acch)
@@ -1933,7 +1933,7 @@ out:
 	return vaddr;
 }
 
-static inline void vxge_os_dma_free(struct pci_dev *pdev, const void *vaddr,
+static void vxge_os_dma_free(struct pci_dev *pdev, const void *vaddr,
 			struct pci_dev **p_dma_acch)
 {
 	unsigned long misaligned = *(unsigned long *)p_dma_acch;
@@ -1945,7 +1945,7 @@ static inline void vxge_os_dma_free(struct pci_dev *pdev, const void *vaddr,
 /*
  * __vxge_hw_mempool_item_priv - will return pointer on per item private space
  */
-static inline void*
+static void*
 __vxge_hw_mempool_item_priv(
 	struct vxge_hw_mempool *mempool,
 	u32 memblock_idx,
@@ -1972,7 +1972,7 @@ __vxge_hw_mempool_item_priv(
  * @fifo: Fifo
  * @txdp: Poniter to a TxD
  */
-static inline struct __vxge_hw_fifo_txdl_priv *
+static struct __vxge_hw_fifo_txdl_priv *
 __vxge_hw_fifo_txdl_priv(
 	struct __vxge_hw_fifo *fifo,
 	struct vxge_hw_fifo_txd *txdp)
@@ -2012,7 +2012,7 @@ void
 vxge_hw_vpath_rx_doorbell_init(struct __vxge_hw_vpath_handle *vp);
 
 #ifndef readq
-static inline u64 readq(void __iomem *addr)
+static u64 readq(void __iomem *addr)
 {
 	u64 ret = 0;
 	ret = readl(addr + 4);
@@ -2024,19 +2024,19 @@ static inline u64 readq(void __iomem *addr)
 #endif
 
 #ifndef writeq
-static inline void writeq(u64 val, void __iomem *addr)
+static void writeq(u64 val, void __iomem *addr)
 {
 	writel((u32) (val), addr);
 	writel((u32) (val >> 32), (addr + 4));
 }
 #endif
 
-static inline void __vxge_hw_pio_mem_write32_upper(u32 val, void __iomem *addr)
+static void __vxge_hw_pio_mem_write32_upper(u32 val, void __iomem *addr)
 {
 	writel(val, addr + 4);
 }
 
-static inline void __vxge_hw_pio_mem_write32_lower(u32 val, void __iomem *addr)
+static void __vxge_hw_pio_mem_write32_lower(u32 val, void __iomem *addr)
 {
 	writel(val, addr);
 }

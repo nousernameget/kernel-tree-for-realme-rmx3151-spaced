@@ -199,7 +199,7 @@ struct enic {
 	struct vnic_gen_stats gen_stats;
 };
 
-static inline struct net_device *vnic_get_netdev(struct vnic_dev *vdev)
+static struct net_device *vnic_get_netdev(struct vnic_dev *vdev)
 {
 	struct enic *enic = vdev->priv;
 
@@ -222,59 +222,59 @@ static inline struct net_device *vnic_get_netdev(struct vnic_dev *vdev)
 #define vdev_netinfo(vdev, fmt, ...)					\
 	netdev_info(vnic_get_netdev(vdev), fmt, ##__VA_ARGS__)
 
-static inline struct device *enic_get_dev(struct enic *enic)
+static struct device *enic_get_dev(struct enic *enic)
 {
 	return &(enic->pdev->dev);
 }
 
-static inline unsigned int enic_cq_rq(struct enic *enic, unsigned int rq)
+static unsigned int enic_cq_rq(struct enic *enic, unsigned int rq)
 {
 	return rq;
 }
 
-static inline unsigned int enic_cq_wq(struct enic *enic, unsigned int wq)
+static unsigned int enic_cq_wq(struct enic *enic, unsigned int wq)
 {
 	return enic->rq_count + wq;
 }
 
-static inline unsigned int enic_legacy_io_intr(void)
+static unsigned int enic_legacy_io_intr(void)
 {
 	return 0;
 }
 
-static inline unsigned int enic_legacy_err_intr(void)
+static unsigned int enic_legacy_err_intr(void)
 {
 	return 1;
 }
 
-static inline unsigned int enic_legacy_notify_intr(void)
+static unsigned int enic_legacy_notify_intr(void)
 {
 	return 2;
 }
 
-static inline unsigned int enic_msix_rq_intr(struct enic *enic,
+static unsigned int enic_msix_rq_intr(struct enic *enic,
 	unsigned int rq)
 {
 	return enic->cq[enic_cq_rq(enic, rq)].interrupt_offset;
 }
 
-static inline unsigned int enic_msix_wq_intr(struct enic *enic,
+static unsigned int enic_msix_wq_intr(struct enic *enic,
 	unsigned int wq)
 {
 	return enic->cq[enic_cq_wq(enic, wq)].interrupt_offset;
 }
 
-static inline unsigned int enic_msix_err_intr(struct enic *enic)
+static unsigned int enic_msix_err_intr(struct enic *enic)
 {
 	return enic->rq_count + enic->wq_count;
 }
 
-static inline unsigned int enic_msix_notify_intr(struct enic *enic)
+static unsigned int enic_msix_notify_intr(struct enic *enic)
 {
 	return enic->rq_count + enic->wq_count + 1;
 }
 
-static inline bool enic_is_err_intr(struct enic *enic, int intr)
+static bool enic_is_err_intr(struct enic *enic, int intr)
 {
 	switch (vnic_dev_get_intr_mode(enic->vdev)) {
 	case VNIC_DEV_INTR_MODE_INTX:
@@ -287,7 +287,7 @@ static inline bool enic_is_err_intr(struct enic *enic, int intr)
 	}
 }
 
-static inline bool enic_is_notify_intr(struct enic *enic, int intr)
+static bool enic_is_notify_intr(struct enic *enic, int intr)
 {
 	switch (vnic_dev_get_intr_mode(enic->vdev)) {
 	case VNIC_DEV_INTR_MODE_INTX:
@@ -300,7 +300,7 @@ static inline bool enic_is_notify_intr(struct enic *enic, int intr)
 	}
 }
 
-static inline int enic_dma_map_check(struct enic *enic, dma_addr_t dma_addr)
+static int enic_dma_map_check(struct enic *enic, dma_addr_t dma_addr)
 {
 	if (unlikely(pci_dma_mapping_error(enic->pdev, dma_addr))) {
 		net_warn_ratelimited("%s: PCI dma mapping failed!\n",

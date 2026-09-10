@@ -454,7 +454,7 @@ struct nfp_net_fw_version {
 	u8 resv;
 } __packed;
 
-static inline bool nfp_net_fw_ver_eq(struct nfp_net_fw_version *fw_ver,
+static bool nfp_net_fw_ver_eq(struct nfp_net_fw_version *fw_ver,
 				     u8 resv, u8 class, u8 major, u8 minor)
 {
 	return fw_ver->resv == resv &&
@@ -653,48 +653,48 @@ struct nfp_net {
 /* Functions to read/write from/to a BAR
  * Performs any endian conversion necessary.
  */
-static inline u16 nn_readb(struct nfp_net *nn, int off)
+static u16 nn_readb(struct nfp_net *nn, int off)
 {
 	return readb(nn->dp.ctrl_bar + off);
 }
 
-static inline void nn_writeb(struct nfp_net *nn, int off, u8 val)
+static void nn_writeb(struct nfp_net *nn, int off, u8 val)
 {
 	writeb(val, nn->dp.ctrl_bar + off);
 }
 
-static inline u16 nn_readw(struct nfp_net *nn, int off)
+static u16 nn_readw(struct nfp_net *nn, int off)
 {
 	return readw(nn->dp.ctrl_bar + off);
 }
 
-static inline void nn_writew(struct nfp_net *nn, int off, u16 val)
+static void nn_writew(struct nfp_net *nn, int off, u16 val)
 {
 	writew(val, nn->dp.ctrl_bar + off);
 }
 
-static inline u32 nn_readl(struct nfp_net *nn, int off)
+static u32 nn_readl(struct nfp_net *nn, int off)
 {
 	return readl(nn->dp.ctrl_bar + off);
 }
 
-static inline void nn_writel(struct nfp_net *nn, int off, u32 val)
+static void nn_writel(struct nfp_net *nn, int off, u32 val)
 {
 	writel(val, nn->dp.ctrl_bar + off);
 }
 
-static inline u64 nn_readq(struct nfp_net *nn, int off)
+static u64 nn_readq(struct nfp_net *nn, int off)
 {
 	return readq(nn->dp.ctrl_bar + off);
 }
 
-static inline void nn_writeq(struct nfp_net *nn, int off, u64 val)
+static void nn_writeq(struct nfp_net *nn, int off, u64 val)
 {
 	writeq(val, nn->dp.ctrl_bar + off);
 }
 
 /* Flush posted PCI writes by reading something without side effects */
-static inline void nn_pci_flush(struct nfp_net *nn)
+static void nn_pci_flush(struct nfp_net *nn)
 {
 	nn_readl(nn, NFP_NET_CFG_VERSION);
 }
@@ -733,7 +733,7 @@ enum nfp_qcp_ptr {
  */
 #define NFP_QCP_MAX_ADD				0x3f
 
-static inline void _nfp_qcp_ptr_add(u8 __iomem *q,
+static void _nfp_qcp_ptr_add(u8 __iomem *q,
 				    enum nfp_qcp_ptr ptr, u32 val)
 {
 	u32 off;
@@ -759,7 +759,7 @@ static inline void _nfp_qcp_ptr_add(u8 __iomem *q,
  *
  * If @val is greater than @NFP_QCP_MAX_ADD multiple writes are performed.
  */
-static inline void nfp_qcp_rd_ptr_add(u8 __iomem *q, u32 val)
+static void nfp_qcp_rd_ptr_add(u8 __iomem *q, u32 val)
 {
 	_nfp_qcp_ptr_add(q, NFP_QCP_READ_PTR, val);
 }
@@ -772,12 +772,12 @@ static inline void nfp_qcp_rd_ptr_add(u8 __iomem *q, u32 val)
  *
  * If @val is greater than @NFP_QCP_MAX_ADD multiple writes are performed.
  */
-static inline void nfp_qcp_wr_ptr_add(u8 __iomem *q, u32 val)
+static void nfp_qcp_wr_ptr_add(u8 __iomem *q, u32 val)
 {
 	_nfp_qcp_ptr_add(q, NFP_QCP_WRITE_PTR, val);
 }
 
-static inline u32 _nfp_qcp_read(u8 __iomem *q, enum nfp_qcp_ptr ptr)
+static u32 _nfp_qcp_read(u8 __iomem *q, enum nfp_qcp_ptr ptr)
 {
 	u32 off;
 	u32 val;
@@ -801,7 +801,7 @@ static inline u32 _nfp_qcp_read(u8 __iomem *q, enum nfp_qcp_ptr ptr)
  *
  * Return: Value read.
  */
-static inline u32 nfp_qcp_rd_ptr_read(u8 __iomem *q)
+static u32 nfp_qcp_rd_ptr_read(u8 __iomem *q)
 {
 	return _nfp_qcp_read(q, NFP_QCP_READ_PTR);
 }
@@ -812,23 +812,23 @@ static inline u32 nfp_qcp_rd_ptr_read(u8 __iomem *q)
  *
  * Return: Value read.
  */
-static inline u32 nfp_qcp_wr_ptr_read(u8 __iomem *q)
+static u32 nfp_qcp_wr_ptr_read(u8 __iomem *q)
 {
 	return _nfp_qcp_read(q, NFP_QCP_WRITE_PTR);
 }
 
-static inline bool nfp_net_is_data_vnic(struct nfp_net *nn)
+static bool nfp_net_is_data_vnic(struct nfp_net *nn)
 {
 	WARN_ON_ONCE(!nn->dp.netdev && nn->port);
 	return !!nn->dp.netdev;
 }
 
-static inline bool nfp_net_running(struct nfp_net *nn)
+static bool nfp_net_running(struct nfp_net *nn)
 {
 	return nn->dp.ctrl & NFP_NET_CFG_CTRL_ENABLE;
 }
 
-static inline const char *nfp_net_name(struct nfp_net *nn)
+static const char *nfp_net_name(struct nfp_net *nn)
 {
 	return nn->dp.netdev ? nn->dp.netdev->name : "ctrl";
 }
@@ -838,7 +838,7 @@ extern const char nfp_driver_version[];
 
 extern const struct net_device_ops nfp_net_netdev_ops;
 
-static inline bool nfp_netdev_is_nfp_net(struct net_device *netdev)
+static bool nfp_netdev_is_nfp_net(struct net_device *netdev)
 {
 	return netdev->netdev_ops == &nfp_net_netdev_ops;
 }
@@ -885,25 +885,25 @@ struct dentry *nfp_net_debugfs_device_add(struct pci_dev *pdev);
 void nfp_net_debugfs_vnic_add(struct nfp_net *nn, struct dentry *ddir, int id);
 void nfp_net_debugfs_dir_clean(struct dentry **dir);
 #else
-static inline void nfp_net_debugfs_create(void)
+static void nfp_net_debugfs_create(void)
 {
 }
 
-static inline void nfp_net_debugfs_destroy(void)
+static void nfp_net_debugfs_destroy(void)
 {
 }
 
-static inline struct dentry *nfp_net_debugfs_device_add(struct pci_dev *pdev)
+static struct dentry *nfp_net_debugfs_device_add(struct pci_dev *pdev)
 {
 	return NULL;
 }
 
-static inline void
+static void
 nfp_net_debugfs_vnic_add(struct nfp_net *nn, struct dentry *ddir, int id)
 {
 }
 
-static inline void nfp_net_debugfs_dir_clean(struct dentry **dir)
+static void nfp_net_debugfs_dir_clean(struct dentry **dir)
 {
 }
 #endif /* CONFIG_NFP_DEBUG */

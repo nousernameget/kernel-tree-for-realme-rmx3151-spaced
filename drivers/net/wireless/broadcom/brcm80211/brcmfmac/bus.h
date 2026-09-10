@@ -162,19 +162,19 @@ struct brcmf_bus {
 /*
  * callback wrappers
  */
-static inline int brcmf_bus_preinit(struct brcmf_bus *bus)
+static int brcmf_bus_preinit(struct brcmf_bus *bus)
 {
 	if (!bus->ops->preinit)
 		return 0;
 	return bus->ops->preinit(bus->dev);
 }
 
-static inline void brcmf_bus_stop(struct brcmf_bus *bus)
+static void brcmf_bus_stop(struct brcmf_bus *bus)
 {
 	bus->ops->stop(bus->dev);
 }
 
-static inline int brcmf_bus_txdata(struct brcmf_bus *bus, struct sk_buff *skb)
+static int brcmf_bus_txdata(struct brcmf_bus *bus, struct sk_buff *skb)
 {
 	return bus->ops->txdata(bus->dev, skb);
 }
@@ -207,7 +207,7 @@ void brcmf_bus_wowl_config(struct brcmf_bus *bus, bool enabled)
 		bus->ops->wowl_config(bus->dev, enabled);
 }
 
-static inline size_t brcmf_bus_get_ramsize(struct brcmf_bus *bus)
+static size_t brcmf_bus_get_ramsize(struct brcmf_bus *bus)
 {
 	if (!bus->ops->get_ramsize)
 		return 0;

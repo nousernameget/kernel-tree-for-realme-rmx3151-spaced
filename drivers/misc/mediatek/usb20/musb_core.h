@@ -316,12 +316,12 @@ struct musb_hw_ep {
 	struct musb_ep ep_out;	/* RX */
 };
 
-static inline struct musb_request *next_in_request(struct musb_hw_ep *hw_ep)
+static struct musb_request *next_in_request(struct musb_hw_ep *hw_ep)
 {
 	return next_request(&hw_ep->ep_in);
 }
 
-static inline struct musb_request *next_out_request(struct musb_hw_ep *hw_ep)
+static struct musb_request *next_out_request(struct musb_hw_ep *hw_ep)
 {
 	return next_request(&hw_ep->ep_out);
 }
@@ -526,12 +526,12 @@ struct musb {
 	bool host_suspend;
 };
 
-static inline struct musb *gadget_to_musb(struct usb_gadget *g)
+static struct musb *gadget_to_musb(struct usb_gadget *g)
 {
 	return container_of(g, struct musb, g);
 }
 
-static inline int musb_read_fifosize
+static int musb_read_fifosize
 	(struct musb *musb, struct musb_hw_ep *hw_ep, u8 epnum)
 {
 	void __iomem *mbase = musb->mregs;
@@ -560,7 +560,7 @@ static inline int musb_read_fifosize
 	return 0;
 }
 
-static inline void musb_configure_ep0(struct musb *musb)
+static void musb_configure_ep0(struct musb *musb)
 {
 	musb->endpoints[0].max_packet_sz_tx = MUSB_EP0_FIFOSIZE;
 	musb->endpoints[0].max_packet_sz_rx = MUSB_EP0_FIFOSIZE;
@@ -587,25 +587,25 @@ extern irqreturn_t dma_controller_irq(int irq, void *private_data);
 
 extern void musb_hnp_stop(struct musb *musb);
 
-static inline void musb_platform_set_vbus(struct musb *musb, int is_on)
+static void musb_platform_set_vbus(struct musb *musb, int is_on)
 {
 	if (musb->ops->set_vbus)
 		musb->ops->set_vbus(musb, is_on);
 }
 
-static inline void musb_platform_enable(struct musb *musb)
+static void musb_platform_enable(struct musb *musb)
 {
 	if (musb->ops->enable)
 		musb->ops->enable(musb);
 }
 
-static inline void musb_platform_disable(struct musb *musb)
+static void musb_platform_disable(struct musb *musb)
 {
 	if (musb->ops->disable)
 		musb->ops->disable(musb);
 }
 
-static inline int musb_platform_set_mode(struct musb *musb, u8 mode)
+static int musb_platform_set_mode(struct musb *musb, u8 mode)
 {
 	if (!musb->ops->set_mode)
 		return 0;
@@ -613,14 +613,14 @@ static inline int musb_platform_set_mode(struct musb *musb, u8 mode)
 	return musb->ops->set_mode(musb, mode);
 }
 
-static inline void
+static void
 	musb_platform_try_idle(struct musb *musb, unsigned long timeout)
 {
 	if (musb->ops->try_idle)
 		musb->ops->try_idle(musb, timeout);
 }
 
-static inline int musb_platform_get_vbus_status(struct musb *musb)
+static int musb_platform_get_vbus_status(struct musb *musb)
 {
 	if (!musb->ops->vbus_status)
 		return 0;
@@ -628,7 +628,7 @@ static inline int musb_platform_get_vbus_status(struct musb *musb)
 	return musb->ops->vbus_status(musb);
 }
 
-static inline int musb_platform_init(struct musb *musb)
+static int musb_platform_init(struct musb *musb)
 {
 	if (!musb->ops->init)
 		return -EINVAL;
@@ -636,7 +636,7 @@ static inline int musb_platform_init(struct musb *musb)
 	return musb->ops->init(musb);
 }
 
-static inline int musb_platform_exit(struct musb *musb)
+static int musb_platform_exit(struct musb *musb)
 {
 	if (!musb->ops->exit)
 		return -EINVAL;
@@ -644,37 +644,37 @@ static inline int musb_platform_exit(struct musb *musb)
 	return musb->ops->exit(musb);
 }
 
-static inline void musb_platform_enable_clk(struct musb *musb)
+static void musb_platform_enable_clk(struct musb *musb)
 {
 	if (musb->ops->enable_clk)
 		musb->ops->enable_clk(musb);
 }
 
-static inline void musb_platform_disable_clk(struct musb *musb)
+static void musb_platform_disable_clk(struct musb *musb)
 {
 	if (musb->ops->disable_clk)
 		musb->ops->disable_clk(musb);
 }
 
-static inline void musb_platform_prepare_clk(struct musb *musb)
+static void musb_platform_prepare_clk(struct musb *musb)
 {
 	if (musb->ops->prepare_clk)
 		musb->ops->prepare_clk(musb);
 }
 
-static inline void musb_platform_unprepare_clk(struct musb *musb)
+static void musb_platform_unprepare_clk(struct musb *musb)
 {
 	if (musb->ops->unprepare_clk)
 		musb->ops->unprepare_clk(musb);
 }
 
-static inline void musb_platform_enable_wakeup(struct musb *musb)
+static void musb_platform_enable_wakeup(struct musb *musb)
 {
 	if (musb->ops->enable_wakeup)
 		musb->ops->enable_wakeup(musb, true);
 }
 
-static inline void musb_platform_disable_wakeup(struct musb *musb)
+static void musb_platform_disable_wakeup(struct musb *musb)
 {
 	if (musb->ops->enable_wakeup)
 		musb->ops->enable_wakeup(musb, false);
@@ -682,7 +682,7 @@ static inline void musb_platform_disable_wakeup(struct musb *musb)
 
 /* #if LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0) */
 #if 1
-static inline const char *otg_state_string(enum usb_otg_state state)
+static const char *otg_state_string(enum usb_otg_state state)
 {
 	return usb_otg_state_string(state);
 }

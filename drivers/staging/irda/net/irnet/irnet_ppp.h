@@ -42,16 +42,16 @@
 /**************************** PROTOTYPES ****************************/
 
 /* ----------------------- CONTROL CHANNEL ----------------------- */
-static inline ssize_t
+static ssize_t
 	irnet_ctrl_write(irnet_socket *,
 			 const char *,
 			 size_t);
-static inline ssize_t
+static ssize_t
 	irnet_ctrl_read(irnet_socket *,
 			struct file *,
 			char *,
 			size_t);
-static inline unsigned int
+static unsigned int
 	irnet_ctrl_poll(irnet_socket *,
 			struct file *,
 			poll_table *);
@@ -78,7 +78,7 @@ static long
 			unsigned int,
 			unsigned long);
 /* ------------------------ PPP INTERFACE ------------------------ */
-static inline struct sk_buff *
+static struct sk_buff *
 	irnet_prepare_skb(irnet_socket *,
 			  struct sk_buff *);
 static int

@@ -78,38 +78,38 @@ int btbcm_finalize(struct hci_dev *hdev);
 
 #else
 
-static inline int btbcm_check_bdaddr(struct hci_dev *hdev)
+static int btbcm_check_bdaddr(struct hci_dev *hdev)
 {
 	return -EOPNOTSUPP;
 }
 
-static inline int btbcm_set_bdaddr(struct hci_dev *hdev, const bdaddr_t *bdaddr)
+static int btbcm_set_bdaddr(struct hci_dev *hdev, const bdaddr_t *bdaddr)
 {
 	return -EOPNOTSUPP;
 }
 
-static inline int btbcm_patchram(struct hci_dev *hdev, const struct firmware *fw)
+static int btbcm_patchram(struct hci_dev *hdev, const struct firmware *fw)
 {
 	return -EOPNOTSUPP;
 }
 
-static inline int btbcm_setup_patchram(struct hci_dev *hdev)
+static int btbcm_setup_patchram(struct hci_dev *hdev)
 {
 	return 0;
 }
 
-static inline int btbcm_setup_apple(struct hci_dev *hdev)
+static int btbcm_setup_apple(struct hci_dev *hdev)
 {
 	return 0;
 }
 
-static inline int btbcm_initialize(struct hci_dev *hdev, char *fw_name,
+static int btbcm_initialize(struct hci_dev *hdev, char *fw_name,
 				   size_t len)
 {
 	return 0;
 }
 
-static inline int btbcm_finalize(struct hci_dev *hdev)
+static int btbcm_finalize(struct hci_dev *hdev)
 {
 	return 0;
 }

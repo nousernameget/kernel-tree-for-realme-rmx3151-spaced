@@ -224,7 +224,7 @@ int pseudo_config_port_tee(int kernelport);
 int m4u_switch_acp(unsigned int port,
 		unsigned long iova, size_t size, bool is_acp);
 
-static inline bool m4u_enable_4G(void)
+static bool m4u_enable_4G(void)
 {
 	return (max_pfn > (0xffffffffUL >> PAGE_SHIFT));
 }

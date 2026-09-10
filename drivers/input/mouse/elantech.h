@@ -150,11 +150,11 @@ struct elantech_data {
 int elantech_detect(struct psmouse *psmouse, bool set_properties);
 int elantech_init(struct psmouse *psmouse);
 #else
-static inline int elantech_detect(struct psmouse *psmouse, bool set_properties)
+static int elantech_detect(struct psmouse *psmouse, bool set_properties)
 {
 	return -ENOSYS;
 }
-static inline int elantech_init(struct psmouse *psmouse)
+static int elantech_init(struct psmouse *psmouse)
 {
 	return -ENOSYS;
 }

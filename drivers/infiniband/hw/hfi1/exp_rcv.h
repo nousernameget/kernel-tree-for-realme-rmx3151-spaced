@@ -131,7 +131,7 @@ struct tid_group {
  * of the WC performance improvements. The HFI will ignore this
  * write to the RcvArray entry.
  */
-static inline void rcv_array_wc_fill(struct hfi1_devdata *dd, u32 index)
+static void rcv_array_wc_fill(struct hfi1_devdata *dd, u32 index)
 {
 	/*
 	 * Doing the WC fill writes only makes sense if the device is
@@ -144,21 +144,21 @@ static inline void rcv_array_wc_fill(struct hfi1_devdata *dd, u32 index)
 	}
 }
 
-static inline void tid_group_add_tail(struct tid_group *grp,
+static void tid_group_add_tail(struct tid_group *grp,
 				      struct exp_tid_set *set)
 {
 	list_add_tail(&grp->list, &set->list);
 	set->count++;
 }
 
-static inline void tid_group_remove(struct tid_group *grp,
+static void tid_group_remove(struct tid_group *grp,
 				    struct exp_tid_set *set)
 {
 	list_del_init(&grp->list);
 	set->count--;
 }
 
-static inline void tid_group_move(struct tid_group *group,
+static void tid_group_move(struct tid_group *group,
 				  struct exp_tid_set *s1,
 				  struct exp_tid_set *s2)
 {
@@ -166,7 +166,7 @@ static inline void tid_group_move(struct tid_group *group,
 	tid_group_add_tail(group, s2);
 }
 
-static inline struct tid_group *tid_group_pop(struct exp_tid_set *set)
+static struct tid_group *tid_group_pop(struct exp_tid_set *set)
 {
 	struct tid_group *grp =
 		list_first_entry(&set->list, struct tid_group, list);
@@ -175,7 +175,7 @@ static inline struct tid_group *tid_group_pop(struct exp_tid_set *set)
 	return grp;
 }
 
-static inline u32 rcventry2tidinfo(u32 rcventry)
+static u32 rcventry2tidinfo(u32 rcventry)
 {
 	u32 pair = rcventry & ~0x1;
 

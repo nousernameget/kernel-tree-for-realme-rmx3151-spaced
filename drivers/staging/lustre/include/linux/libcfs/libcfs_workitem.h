@@ -82,7 +82,7 @@ struct cfs_workitem {
 	unsigned short   wi_scheduled:1;
 };
 
-static inline void
+static void
 cfs_wi_init(struct cfs_workitem *wi, void *data, cfs_wi_action_t action)
 {
 	INIT_LIST_HEAD(&wi->wi_list);

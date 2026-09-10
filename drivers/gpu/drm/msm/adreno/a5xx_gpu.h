@@ -42,7 +42,7 @@ struct a5xx_gpu {
 int a5xx_power_init(struct msm_gpu *gpu);
 void a5xx_gpmu_ucode_init(struct msm_gpu *gpu);
 
-static inline int spin_usecs(struct msm_gpu *gpu, uint32_t usecs,
+static int spin_usecs(struct msm_gpu *gpu, uint32_t usecs,
 		uint32_t reg, uint32_t mask, uint32_t value)
 {
 	while (usecs--) {

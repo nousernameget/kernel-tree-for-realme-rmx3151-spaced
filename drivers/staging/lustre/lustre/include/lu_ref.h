@@ -110,65 +110,65 @@
 struct lu_ref {};
 struct lu_ref_link {};
 
-static inline void lu_ref_init(struct lu_ref *ref)
+static void lu_ref_init(struct lu_ref *ref)
 {
 }
 
-static inline void lu_ref_fini(struct lu_ref *ref)
+static void lu_ref_fini(struct lu_ref *ref)
 {
 }
 
-static inline struct lu_ref_link *lu_ref_add(struct lu_ref *ref,
+static struct lu_ref_link *lu_ref_add(struct lu_ref *ref,
 					     const char *scope,
 					     const void *source)
 {
 	return NULL;
 }
 
-static inline struct lu_ref_link *lu_ref_add_atomic(struct lu_ref *ref,
+static struct lu_ref_link *lu_ref_add_atomic(struct lu_ref *ref,
 						    const char *scope,
 						    const void *source)
 {
 	return NULL;
 }
 
-static inline void lu_ref_add_at(struct lu_ref *ref,
+static void lu_ref_add_at(struct lu_ref *ref,
 				 struct lu_ref_link *link,
 				 const char *scope,
 				 const void *source)
 {
 }
 
-static inline void lu_ref_del(struct lu_ref *ref, const char *scope,
+static void lu_ref_del(struct lu_ref *ref, const char *scope,
 			      const void *source)
 {
 }
 
-static inline void lu_ref_set_at(struct lu_ref *ref, struct lu_ref_link *link,
+static void lu_ref_set_at(struct lu_ref *ref, struct lu_ref_link *link,
 				 const char *scope, const void *source0,
 				 const void *source1)
 {
 }
 
-static inline void lu_ref_del_at(struct lu_ref *ref, struct lu_ref_link *link,
+static void lu_ref_del_at(struct lu_ref *ref, struct lu_ref_link *link,
 				 const char *scope, const void *source)
 {
 }
 
-static inline int lu_ref_global_init(void)
+static int lu_ref_global_init(void)
 {
 	return 0;
 }
 
-static inline void lu_ref_global_fini(void)
+static void lu_ref_global_fini(void)
 {
 }
 
-static inline void lu_ref_print(const struct lu_ref *ref)
+static void lu_ref_print(const struct lu_ref *ref)
 {
 }
 
-static inline void lu_ref_print_all(void)
+static void lu_ref_print_all(void)
 {
 }
 

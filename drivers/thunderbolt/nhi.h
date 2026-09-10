@@ -122,7 +122,7 @@ int __ring_enqueue(struct tb_ring *ring, struct ring_frame *frame);
  *
  * Return: Returns ESHUTDOWN if ring_stop has been called. Zero otherwise.
  */
-static inline int ring_rx(struct tb_ring *ring, struct ring_frame *frame)
+static int ring_rx(struct tb_ring *ring, struct ring_frame *frame)
 {
 	WARN_ON(ring->is_tx);
 	return __ring_enqueue(ring, frame);
@@ -141,7 +141,7 @@ static inline int ring_rx(struct tb_ring *ring, struct ring_frame *frame)
  *
  * Return: Returns ESHUTDOWN if ring_stop has been called. Zero otherwise.
  */
-static inline int ring_tx(struct tb_ring *ring, struct ring_frame *frame)
+static int ring_tx(struct tb_ring *ring, struct ring_frame *frame)
 {
 	WARN_ON(!ring->is_tx);
 	return __ring_enqueue(ring, frame);

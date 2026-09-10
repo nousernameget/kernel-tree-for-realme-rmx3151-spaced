@@ -187,7 +187,7 @@ void liquidio_set_ethtool_ops(struct net_device *netdev);
 #define MIN_SKB_SIZE       256 /* 8 bytes and more - 8 bytes for PTP */
 #define LIO_RXBUFFER_SZ    2048
 
-static inline void
+static void
 *recv_buffer_alloc(struct octeon_device *oct,
 		   struct octeon_skb_page_info *pg_info)
 {
@@ -234,7 +234,7 @@ static inline void
 	return (void *)skb;
 }
 
-static inline void
+static void
 *recv_buffer_fast_alloc(u32 size)
 {
 	struct sk_buff *skb;
@@ -258,7 +258,7 @@ static inline void
 	return skb;
 }
 
-static inline int
+static int
 recv_buffer_recycle(struct octeon_device *oct, void *buf)
 {
 	struct octeon_skb_page_info *pg_info = buf;
@@ -290,7 +290,7 @@ recv_buffer_recycle(struct octeon_device *oct, void *buf)
 	return 0;
 }
 
-static inline void
+static void
 *recv_buffer_reuse(struct octeon_device *oct, void *buf)
 {
 	struct octeon_skb_page_info *pg_info = buf, *skb_pg_info;
@@ -318,7 +318,7 @@ static inline void
 	return skb;
 }
 
-static inline void
+static void
 recv_buffer_destroy(void *buffer, struct octeon_skb_page_info *pg_info)
 {
 	struct sk_buff *skb = (struct sk_buff *)buffer;
@@ -332,7 +332,7 @@ recv_buffer_destroy(void *buffer, struct octeon_skb_page_info *pg_info)
 		dev_kfree_skb_any(skb);
 }
 
-static inline void recv_buffer_free(void *buffer)
+static void recv_buffer_free(void *buffer)
 {
 	struct sk_buff *skb = (struct sk_buff *)buffer;
 	struct octeon_skb_page_info *pg_info;
@@ -349,13 +349,13 @@ static inline void recv_buffer_free(void *buffer)
 	dev_kfree_skb_any((struct sk_buff *)buffer);
 }
 
-static inline void
+static void
 recv_buffer_fast_free(void *buffer)
 {
 	dev_kfree_skb_any((struct sk_buff *)buffer);
 }
 
-static inline void tx_buffer_free(void *buffer)
+static void tx_buffer_free(void *buffer)
 {
 	dev_kfree_skb_any((struct sk_buff *)buffer);
 }
@@ -377,7 +377,7 @@ void *get_rbd(struct sk_buff *skb)
 	return va;
 }
 
-static inline u64
+static u64
 lio_map_ring(void *buf)
 {
 	dma_addr_t dma_addr;
@@ -403,7 +403,7 @@ lio_map_ring(void *buf)
 	return (u64)dma_addr;
 }
 
-static inline void
+static void
 lio_unmap_ring(struct pci_dev *pci_dev,
 	       u64 buf_ptr)
 
@@ -413,12 +413,12 @@ lio_unmap_ring(struct pci_dev *pci_dev,
 		       DMA_FROM_DEVICE);
 }
 
-static inline void *octeon_fast_packet_alloc(u32 size)
+static void *octeon_fast_packet_alloc(u32 size)
 {
 	return recv_buffer_fast_alloc(size);
 }
 
-static inline void octeon_fast_packet_next(struct octeon_droq *droq,
+static void octeon_fast_packet_next(struct octeon_droq *droq,
 					   struct sk_buff *nicbuf,
 					   int copy_len,
 					   int idx)
@@ -432,7 +432,7 @@ static inline void octeon_fast_packet_next(struct octeon_droq *droq,
  * @param lio per-network private data
  * @param state_flag flag state to check
  */
-static inline int ifstate_check(struct lio *lio, int state_flag)
+static int ifstate_check(struct lio *lio, int state_flag)
 {
 	return atomic_read(&lio->ifstate) & state_flag;
 }
@@ -442,7 +442,7 @@ static inline int ifstate_check(struct lio *lio, int state_flag)
  * @param lio per-network private data
  * @param state_flag flag state to set
  */
-static inline void ifstate_set(struct lio *lio, int state_flag)
+static void ifstate_set(struct lio *lio, int state_flag)
 {
 	atomic_set(&lio->ifstate, (atomic_read(&lio->ifstate) | state_flag));
 }
@@ -452,7 +452,7 @@ static inline void ifstate_set(struct lio *lio, int state_flag)
  * @param lio per-network private data
  * @param state_flag flag state to clear
  */
-static inline void ifstate_reset(struct lio *lio, int state_flag)
+static void ifstate_reset(struct lio *lio, int state_flag)
 {
 	atomic_set(&lio->ifstate, (atomic_read(&lio->ifstate) & ~(state_flag)));
 }
@@ -463,7 +463,7 @@ static inline void ifstate_reset(struct lio *lio, int state_flag)
  *
  * Called during shutdown sequence
  */
-static inline int wait_for_pending_requests(struct octeon_device *oct)
+static int wait_for_pending_requests(struct octeon_device *oct)
 {
 	int i, pcount = 0;
 

@@ -74,75 +74,75 @@ struct dm_space_map {
 
 /*----------------------------------------------------------------*/
 
-static inline void dm_sm_destroy(struct dm_space_map *sm)
+static void dm_sm_destroy(struct dm_space_map *sm)
 {
 	sm->destroy(sm);
 }
 
-static inline int dm_sm_extend(struct dm_space_map *sm, dm_block_t extra_blocks)
+static int dm_sm_extend(struct dm_space_map *sm, dm_block_t extra_blocks)
 {
 	return sm->extend(sm, extra_blocks);
 }
 
-static inline int dm_sm_get_nr_blocks(struct dm_space_map *sm, dm_block_t *count)
+static int dm_sm_get_nr_blocks(struct dm_space_map *sm, dm_block_t *count)
 {
 	return sm->get_nr_blocks(sm, count);
 }
 
-static inline int dm_sm_get_nr_free(struct dm_space_map *sm, dm_block_t *count)
+static int dm_sm_get_nr_free(struct dm_space_map *sm, dm_block_t *count)
 {
 	return sm->get_nr_free(sm, count);
 }
 
-static inline int dm_sm_get_count(struct dm_space_map *sm, dm_block_t b,
+static int dm_sm_get_count(struct dm_space_map *sm, dm_block_t b,
 				  uint32_t *result)
 {
 	return sm->get_count(sm, b, result);
 }
 
-static inline int dm_sm_count_is_more_than_one(struct dm_space_map *sm,
+static int dm_sm_count_is_more_than_one(struct dm_space_map *sm,
 					       dm_block_t b, int *result)
 {
 	return sm->count_is_more_than_one(sm, b, result);
 }
 
-static inline int dm_sm_set_count(struct dm_space_map *sm, dm_block_t b,
+static int dm_sm_set_count(struct dm_space_map *sm, dm_block_t b,
 				  uint32_t count)
 {
 	return sm->set_count(sm, b, count);
 }
 
-static inline int dm_sm_commit(struct dm_space_map *sm)
+static int dm_sm_commit(struct dm_space_map *sm)
 {
 	return sm->commit(sm);
 }
 
-static inline int dm_sm_inc_block(struct dm_space_map *sm, dm_block_t b)
+static int dm_sm_inc_block(struct dm_space_map *sm, dm_block_t b)
 {
 	return sm->inc_block(sm, b);
 }
 
-static inline int dm_sm_dec_block(struct dm_space_map *sm, dm_block_t b)
+static int dm_sm_dec_block(struct dm_space_map *sm, dm_block_t b)
 {
 	return sm->dec_block(sm, b);
 }
 
-static inline int dm_sm_new_block(struct dm_space_map *sm, dm_block_t *b)
+static int dm_sm_new_block(struct dm_space_map *sm, dm_block_t *b)
 {
 	return sm->new_block(sm, b);
 }
 
-static inline int dm_sm_root_size(struct dm_space_map *sm, size_t *result)
+static int dm_sm_root_size(struct dm_space_map *sm, size_t *result)
 {
 	return sm->root_size(sm, result);
 }
 
-static inline int dm_sm_copy_root(struct dm_space_map *sm, void *copy_to_here_le, size_t len)
+static int dm_sm_copy_root(struct dm_space_map *sm, void *copy_to_here_le, size_t len)
 {
 	return sm->copy_root(sm, copy_to_here_le, len);
 }
 
-static inline int dm_sm_register_threshold_callback(struct dm_space_map *sm,
+static int dm_sm_register_threshold_callback(struct dm_space_map *sm,
 						    dm_block_t threshold,
 						    dm_sm_threshold_fn fn,
 						    void *context)

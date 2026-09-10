@@ -183,13 +183,13 @@ struct qeth_sbp_info {
 	__u32 reflect_promisc_primary:1;
 };
 
-static inline int qeth_is_ipa_supported(struct qeth_ipa_info *ipa,
+static int qeth_is_ipa_supported(struct qeth_ipa_info *ipa,
 		enum qeth_ipa_funcs func)
 {
 	return (ipa->supported_funcs & func);
 }
 
-static inline int qeth_is_ipa_enabled(struct qeth_ipa_info *ipa,
+static int qeth_is_ipa_enabled(struct qeth_ipa_info *ipa,
 		enum qeth_ipa_funcs func)
 {
 	return (ipa->supported_funcs & ipa->enabled_funcs & func);
@@ -580,7 +580,7 @@ struct qeth_cmd_buffer {
 	void (*callback) (struct qeth_channel *, struct qeth_cmd_buffer *);
 };
 
-static inline struct qeth_ipa_cmd *__ipa_cmd(struct qeth_cmd_buffer *iob)
+static struct qeth_ipa_cmd *__ipa_cmd(struct qeth_cmd_buffer *iob)
 {
 	return (struct qeth_ipa_cmd *)(iob->data + IPA_PDU_HEADER_SIZE);
 }
@@ -837,17 +837,17 @@ struct qeth_trap_id {
  * Returns the number of pages, and thus QDIO buffer elements, needed to cover
  * the specified address range.
  */
-static inline int qeth_get_elements_for_range(addr_t start, addr_t end)
+static int qeth_get_elements_for_range(addr_t start, addr_t end)
 {
 	return PFN_UP(end) - PFN_DOWN(start);
 }
 
-static inline int qeth_get_micros(void)
+static int qeth_get_micros(void)
 {
 	return (int) (get_tod_clock() >> 12);
 }
 
-static inline int qeth_get_ip_version(struct sk_buff *skb)
+static int qeth_get_ip_version(struct sk_buff *skb)
 {
 	__be16 *p = &((struct ethhdr *)skb->data)->h_proto;
 
@@ -863,13 +863,13 @@ static inline int qeth_get_ip_version(struct sk_buff *skb)
 	}
 }
 
-static inline void qeth_put_buffer_pool_entry(struct qeth_card *card,
+static void qeth_put_buffer_pool_entry(struct qeth_card *card,
 		struct qeth_buffer_pool_entry *entry)
 {
 	list_add_tail(&entry->list, &card->qdio.in_buf_pool.entry_list);
 }
 
-static inline int qeth_is_diagass_supported(struct qeth_card *card,
+static int qeth_is_diagass_supported(struct qeth_card *card,
 		enum qeth_diags_cmds cmd)
 {
 	return card->info.diagass_support & (__u32)cmd;

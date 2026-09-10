@@ -142,7 +142,7 @@ void nvmf_free_options(struct nvmf_ctrl_options *opts);
 int nvmf_get_address(struct nvme_ctrl *ctrl, char *buf, int size);
 bool nvmf_should_reconnect(struct nvme_ctrl *ctrl);
 
-static inline blk_status_t nvmf_check_init_req(struct nvme_ctrl *ctrl,
+static blk_status_t nvmf_check_init_req(struct nvme_ctrl *ctrl,
 		struct request *rq)
 {
 	struct nvme_command *cmd = nvme_req(rq)->cmd;

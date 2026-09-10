@@ -60,15 +60,15 @@ int mdw_tags_init(void);
 void mdw_tags_destroy(void);
 void mdw_tags_show(struct seq_file *s);
 #else
-static inline int mdw_tags_init(void)
+static int mdw_tags_init(void)
 {
 	return 0;
 }
 
-static inline void mdw_tags_destroy(void)
+static void mdw_tags_destroy(void)
 {
 }
-static inline void mdw_tags_show(struct seq_file *s)
+static void mdw_tags_show(struct seq_file *s)
 {
 }
 #endif

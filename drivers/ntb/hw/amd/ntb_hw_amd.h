@@ -67,7 +67,7 @@
 #define read64 readq
 #else
 #define read64 _read64
-static inline u64 _read64(void __iomem *mmio)
+static u64 _read64(void __iomem *mmio)
 {
 	u64 low, high;
 
@@ -83,7 +83,7 @@ static inline u64 _read64(void __iomem *mmio)
 #define write64 writeq
 #else
 #define write64 _write64
-static inline void _write64(u64 val, void __iomem *mmio)
+static void _write64(u64 val, void __iomem *mmio)
 {
 	writel(val, mmio);
 	writel(val >> 32, mmio + sizeof(u32));

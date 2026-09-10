@@ -304,11 +304,11 @@ void __free_iova(struct iova_domain *iovad, struct iova *iova);
 #endif
 void __iommu_dma_unmap(struct iommu_domain *domain, dma_addr_t dma_addr);
 
-static inline int mtk_smi_vp_setting(bool osd_4k)
+static int mtk_smi_vp_setting(bool osd_4k)
 {
 	return 0;
 }
-static inline int mtk_smi_init_setting(void)
+static int mtk_smi_init_setting(void)
 {
 	return 0;
 }

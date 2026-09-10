@@ -82,14 +82,14 @@ enum hdmi_acr_cts {
 #define HDMI_ACR_PKT_CTRL_SEND					0x00000002
 #define HDMI_ACR_PKT_CTRL_SELECT__MASK				0x00000030
 #define HDMI_ACR_PKT_CTRL_SELECT__SHIFT				4
-static inline uint32_t HDMI_ACR_PKT_CTRL_SELECT(enum hdmi_acr_cts val)
+static uint32_t HDMI_ACR_PKT_CTRL_SELECT(enum hdmi_acr_cts val)
 {
 	return ((val) << HDMI_ACR_PKT_CTRL_SELECT__SHIFT) & HDMI_ACR_PKT_CTRL_SELECT__MASK;
 }
 #define HDMI_ACR_PKT_CTRL_SOURCE				0x00000100
 #define HDMI_ACR_PKT_CTRL_N_MULTIPLIER__MASK			0x00070000
 #define HDMI_ACR_PKT_CTRL_N_MULTIPLIER__SHIFT			16
-static inline uint32_t HDMI_ACR_PKT_CTRL_N_MULTIPLIER(uint32_t val)
+static uint32_t HDMI_ACR_PKT_CTRL_N_MULTIPLIER(uint32_t val)
 {
 	return ((val) << HDMI_ACR_PKT_CTRL_N_MULTIPLIER__SHIFT) & HDMI_ACR_PKT_CTRL_N_MULTIPLIER__MASK;
 }
@@ -114,25 +114,25 @@ static inline uint32_t HDMI_ACR_PKT_CTRL_N_MULTIPLIER(uint32_t val)
 #define REG_HDMI_INFOFRAME_CTRL1				0x00000030
 #define HDMI_INFOFRAME_CTRL1_AVI_INFO_LINE__MASK		0x0000003f
 #define HDMI_INFOFRAME_CTRL1_AVI_INFO_LINE__SHIFT		0
-static inline uint32_t HDMI_INFOFRAME_CTRL1_AVI_INFO_LINE(uint32_t val)
+static uint32_t HDMI_INFOFRAME_CTRL1_AVI_INFO_LINE(uint32_t val)
 {
 	return ((val) << HDMI_INFOFRAME_CTRL1_AVI_INFO_LINE__SHIFT) & HDMI_INFOFRAME_CTRL1_AVI_INFO_LINE__MASK;
 }
 #define HDMI_INFOFRAME_CTRL1_AUDIO_INFO_LINE__MASK		0x00003f00
 #define HDMI_INFOFRAME_CTRL1_AUDIO_INFO_LINE__SHIFT		8
-static inline uint32_t HDMI_INFOFRAME_CTRL1_AUDIO_INFO_LINE(uint32_t val)
+static uint32_t HDMI_INFOFRAME_CTRL1_AUDIO_INFO_LINE(uint32_t val)
 {
 	return ((val) << HDMI_INFOFRAME_CTRL1_AUDIO_INFO_LINE__SHIFT) & HDMI_INFOFRAME_CTRL1_AUDIO_INFO_LINE__MASK;
 }
 #define HDMI_INFOFRAME_CTRL1_MPEG_INFO_LINE__MASK		0x003f0000
 #define HDMI_INFOFRAME_CTRL1_MPEG_INFO_LINE__SHIFT		16
-static inline uint32_t HDMI_INFOFRAME_CTRL1_MPEG_INFO_LINE(uint32_t val)
+static uint32_t HDMI_INFOFRAME_CTRL1_MPEG_INFO_LINE(uint32_t val)
 {
 	return ((val) << HDMI_INFOFRAME_CTRL1_MPEG_INFO_LINE__SHIFT) & HDMI_INFOFRAME_CTRL1_MPEG_INFO_LINE__MASK;
 }
 #define HDMI_INFOFRAME_CTRL1_VENSPEC_INFO_LINE__MASK		0x3f000000
 #define HDMI_INFOFRAME_CTRL1_VENSPEC_INFO_LINE__SHIFT		24
-static inline uint32_t HDMI_INFOFRAME_CTRL1_VENSPEC_INFO_LINE(uint32_t val)
+static uint32_t HDMI_INFOFRAME_CTRL1_VENSPEC_INFO_LINE(uint32_t val)
 {
 	return ((val) << HDMI_INFOFRAME_CTRL1_VENSPEC_INFO_LINE__SHIFT) & HDMI_INFOFRAME_CTRL1_VENSPEC_INFO_LINE__MASK;
 }
@@ -142,7 +142,7 @@ static inline uint32_t HDMI_INFOFRAME_CTRL1_VENSPEC_INFO_LINE(uint32_t val)
 #define HDMI_GEN_PKT_CTRL_GENERIC0_CONT				0x00000002
 #define HDMI_GEN_PKT_CTRL_GENERIC0_UPDATE__MASK			0x0000000c
 #define HDMI_GEN_PKT_CTRL_GENERIC0_UPDATE__SHIFT		2
-static inline uint32_t HDMI_GEN_PKT_CTRL_GENERIC0_UPDATE(uint32_t val)
+static uint32_t HDMI_GEN_PKT_CTRL_GENERIC0_UPDATE(uint32_t val)
 {
 	return ((val) << HDMI_GEN_PKT_CTRL_GENERIC0_UPDATE__SHIFT) & HDMI_GEN_PKT_CTRL_GENERIC0_UPDATE__MASK;
 }
@@ -150,13 +150,13 @@ static inline uint32_t HDMI_GEN_PKT_CTRL_GENERIC0_UPDATE(uint32_t val)
 #define HDMI_GEN_PKT_CTRL_GENERIC1_CONT				0x00000020
 #define HDMI_GEN_PKT_CTRL_GENERIC0_LINE__MASK			0x003f0000
 #define HDMI_GEN_PKT_CTRL_GENERIC0_LINE__SHIFT			16
-static inline uint32_t HDMI_GEN_PKT_CTRL_GENERIC0_LINE(uint32_t val)
+static uint32_t HDMI_GEN_PKT_CTRL_GENERIC0_LINE(uint32_t val)
 {
 	return ((val) << HDMI_GEN_PKT_CTRL_GENERIC0_LINE__SHIFT) & HDMI_GEN_PKT_CTRL_GENERIC0_LINE__MASK;
 }
 #define HDMI_GEN_PKT_CTRL_GENERIC1_LINE__MASK			0x3f000000
 #define HDMI_GEN_PKT_CTRL_GENERIC1_LINE__SHIFT			24
-static inline uint32_t HDMI_GEN_PKT_CTRL_GENERIC1_LINE(uint32_t val)
+static uint32_t HDMI_GEN_PKT_CTRL_GENERIC1_LINE(uint32_t val)
 {
 	return ((val) << HDMI_GEN_PKT_CTRL_GENERIC1_LINE__SHIFT) & HDMI_GEN_PKT_CTRL_GENERIC1_LINE__MASK;
 }
@@ -183,7 +183,7 @@ static inline uint32_t REG_HDMI_ACR(enum hdmi_acr_cts i0) { return 0x000000c4 + 
 static inline uint32_t REG_HDMI_ACR_0(enum hdmi_acr_cts i0) { return 0x000000c4 + 0x8*i0; }
 #define HDMI_ACR_0_CTS__MASK					0xfffff000
 #define HDMI_ACR_0_CTS__SHIFT					12
-static inline uint32_t HDMI_ACR_0_CTS(uint32_t val)
+static uint32_t HDMI_ACR_0_CTS(uint32_t val)
 {
 	return ((val) << HDMI_ACR_0_CTS__SHIFT) & HDMI_ACR_0_CTS__MASK;
 }
@@ -191,7 +191,7 @@ static inline uint32_t HDMI_ACR_0_CTS(uint32_t val)
 static inline uint32_t REG_HDMI_ACR_1(enum hdmi_acr_cts i0) { return 0x000000c8 + 0x8*i0; }
 #define HDMI_ACR_1_N__MASK					0xffffffff
 #define HDMI_ACR_1_N__SHIFT					0
-static inline uint32_t HDMI_ACR_1_N(uint32_t val)
+static uint32_t HDMI_ACR_1_N(uint32_t val)
 {
 	return ((val) << HDMI_ACR_1_N__SHIFT) & HDMI_ACR_1_N__MASK;
 }
@@ -199,13 +199,13 @@ static inline uint32_t HDMI_ACR_1_N(uint32_t val)
 #define REG_HDMI_AUDIO_INFO0					0x000000e4
 #define HDMI_AUDIO_INFO0_CHECKSUM__MASK				0x000000ff
 #define HDMI_AUDIO_INFO0_CHECKSUM__SHIFT			0
-static inline uint32_t HDMI_AUDIO_INFO0_CHECKSUM(uint32_t val)
+static uint32_t HDMI_AUDIO_INFO0_CHECKSUM(uint32_t val)
 {
 	return ((val) << HDMI_AUDIO_INFO0_CHECKSUM__SHIFT) & HDMI_AUDIO_INFO0_CHECKSUM__MASK;
 }
 #define HDMI_AUDIO_INFO0_CC__MASK				0x00000700
 #define HDMI_AUDIO_INFO0_CC__SHIFT				8
-static inline uint32_t HDMI_AUDIO_INFO0_CC(uint32_t val)
+static uint32_t HDMI_AUDIO_INFO0_CC(uint32_t val)
 {
 	return ((val) << HDMI_AUDIO_INFO0_CC__SHIFT) & HDMI_AUDIO_INFO0_CC__MASK;
 }
@@ -213,13 +213,13 @@ static inline uint32_t HDMI_AUDIO_INFO0_CC(uint32_t val)
 #define REG_HDMI_AUDIO_INFO1					0x000000e8
 #define HDMI_AUDIO_INFO1_CA__MASK				0x000000ff
 #define HDMI_AUDIO_INFO1_CA__SHIFT				0
-static inline uint32_t HDMI_AUDIO_INFO1_CA(uint32_t val)
+static uint32_t HDMI_AUDIO_INFO1_CA(uint32_t val)
 {
 	return ((val) << HDMI_AUDIO_INFO1_CA__SHIFT) & HDMI_AUDIO_INFO1_CA__MASK;
 }
 #define HDMI_AUDIO_INFO1_LSV__MASK				0x00007800
 #define HDMI_AUDIO_INFO1_LSV__SHIFT				11
-static inline uint32_t HDMI_AUDIO_INFO1_LSV(uint32_t val)
+static uint32_t HDMI_AUDIO_INFO1_LSV(uint32_t val)
 {
 	return ((val) << HDMI_AUDIO_INFO1_LSV__SHIFT) & HDMI_AUDIO_INFO1_LSV__MASK;
 }
@@ -254,7 +254,7 @@ static inline uint32_t HDMI_AUDIO_INFO1_LSV(uint32_t val)
 #define HDMI_HDCP_LINK0_STATUS_V_MATCHES			0x00100000
 #define HDMI_HDCP_LINK0_STATUS_KEY_STATE__MASK			0x70000000
 #define HDMI_HDCP_LINK0_STATUS_KEY_STATE__SHIFT			28
-static inline uint32_t HDMI_HDCP_LINK0_STATUS_KEY_STATE(enum hdmi_hdcp_key_state val)
+static uint32_t HDMI_HDCP_LINK0_STATUS_KEY_STATE(enum hdmi_hdcp_key_state val)
 {
 	return ((val) << HDMI_HDCP_LINK0_STATUS_KEY_STATE__SHIFT) & HDMI_HDCP_LINK0_STATUS_KEY_STATE__MASK;
 }
@@ -327,7 +327,7 @@ static inline uint32_t HDMI_HDCP_LINK0_STATUS_KEY_STATE(enum hdmi_hdcp_key_state
 #define HDMI_AUDIO_CFG_ENGINE_ENABLE				0x00000001
 #define HDMI_AUDIO_CFG_FIFO_WATERMARK__MASK			0x000000f0
 #define HDMI_AUDIO_CFG_FIFO_WATERMARK__SHIFT			4
-static inline uint32_t HDMI_AUDIO_CFG_FIFO_WATERMARK(uint32_t val)
+static uint32_t HDMI_AUDIO_CFG_FIFO_WATERMARK(uint32_t val)
 {
 	return ((val) << HDMI_AUDIO_CFG_FIFO_WATERMARK__SHIFT) & HDMI_AUDIO_CFG_FIFO_WATERMARK__MASK;
 }
@@ -341,7 +341,7 @@ static inline uint32_t HDMI_AUDIO_CFG_FIFO_WATERMARK(uint32_t val)
 #define HDMI_DDC_CTRL_SW_STATUS_RESET				0x00000008
 #define HDMI_DDC_CTRL_TRANSACTION_CNT__MASK			0x00300000
 #define HDMI_DDC_CTRL_TRANSACTION_CNT__SHIFT			20
-static inline uint32_t HDMI_DDC_CTRL_TRANSACTION_CNT(uint32_t val)
+static uint32_t HDMI_DDC_CTRL_TRANSACTION_CNT(uint32_t val)
 {
 	return ((val) << HDMI_DDC_CTRL_TRANSACTION_CNT__SHIFT) & HDMI_DDC_CTRL_TRANSACTION_CNT__MASK;
 }
@@ -366,13 +366,13 @@ static inline uint32_t HDMI_DDC_CTRL_TRANSACTION_CNT(uint32_t val)
 #define REG_HDMI_DDC_SPEED					0x00000220
 #define HDMI_DDC_SPEED_THRESHOLD__MASK				0x00000003
 #define HDMI_DDC_SPEED_THRESHOLD__SHIFT				0
-static inline uint32_t HDMI_DDC_SPEED_THRESHOLD(uint32_t val)
+static uint32_t HDMI_DDC_SPEED_THRESHOLD(uint32_t val)
 {
 	return ((val) << HDMI_DDC_SPEED_THRESHOLD__SHIFT) & HDMI_DDC_SPEED_THRESHOLD__MASK;
 }
 #define HDMI_DDC_SPEED_PRESCALE__MASK				0xffff0000
 #define HDMI_DDC_SPEED_PRESCALE__SHIFT				16
-static inline uint32_t HDMI_DDC_SPEED_PRESCALE(uint32_t val)
+static uint32_t HDMI_DDC_SPEED_PRESCALE(uint32_t val)
 {
 	return ((val) << HDMI_DDC_SPEED_PRESCALE__SHIFT) & HDMI_DDC_SPEED_PRESCALE__MASK;
 }
@@ -380,7 +380,7 @@ static inline uint32_t HDMI_DDC_SPEED_PRESCALE(uint32_t val)
 #define REG_HDMI_DDC_SETUP					0x00000224
 #define HDMI_DDC_SETUP_TIMEOUT__MASK				0xff000000
 #define HDMI_DDC_SETUP_TIMEOUT__SHIFT				24
-static inline uint32_t HDMI_DDC_SETUP_TIMEOUT(uint32_t val)
+static uint32_t HDMI_DDC_SETUP_TIMEOUT(uint32_t val)
 {
 	return ((val) << HDMI_DDC_SETUP_TIMEOUT__SHIFT) & HDMI_DDC_SETUP_TIMEOUT__MASK;
 }
@@ -390,7 +390,7 @@ static inline uint32_t REG_HDMI_I2C_TRANSACTION(uint32_t i0) { return 0x00000228
 static inline uint32_t REG_HDMI_I2C_TRANSACTION_REG(uint32_t i0) { return 0x00000228 + 0x4*i0; }
 #define HDMI_I2C_TRANSACTION_REG_RW__MASK			0x00000001
 #define HDMI_I2C_TRANSACTION_REG_RW__SHIFT			0
-static inline uint32_t HDMI_I2C_TRANSACTION_REG_RW(enum hdmi_ddc_read_write val)
+static uint32_t HDMI_I2C_TRANSACTION_REG_RW(enum hdmi_ddc_read_write val)
 {
 	return ((val) << HDMI_I2C_TRANSACTION_REG_RW__SHIFT) & HDMI_I2C_TRANSACTION_REG_RW__MASK;
 }
@@ -399,7 +399,7 @@ static inline uint32_t HDMI_I2C_TRANSACTION_REG_RW(enum hdmi_ddc_read_write val)
 #define HDMI_I2C_TRANSACTION_REG_STOP				0x00002000
 #define HDMI_I2C_TRANSACTION_REG_CNT__MASK			0x00ff0000
 #define HDMI_I2C_TRANSACTION_REG_CNT__SHIFT			16
-static inline uint32_t HDMI_I2C_TRANSACTION_REG_CNT(uint32_t val)
+static uint32_t HDMI_I2C_TRANSACTION_REG_CNT(uint32_t val)
 {
 	return ((val) << HDMI_I2C_TRANSACTION_REG_CNT__SHIFT) & HDMI_I2C_TRANSACTION_REG_CNT__MASK;
 }
@@ -407,19 +407,19 @@ static inline uint32_t HDMI_I2C_TRANSACTION_REG_CNT(uint32_t val)
 #define REG_HDMI_DDC_DATA					0x00000238
 #define HDMI_DDC_DATA_DATA_RW__MASK				0x00000001
 #define HDMI_DDC_DATA_DATA_RW__SHIFT				0
-static inline uint32_t HDMI_DDC_DATA_DATA_RW(enum hdmi_ddc_read_write val)
+static uint32_t HDMI_DDC_DATA_DATA_RW(enum hdmi_ddc_read_write val)
 {
 	return ((val) << HDMI_DDC_DATA_DATA_RW__SHIFT) & HDMI_DDC_DATA_DATA_RW__MASK;
 }
 #define HDMI_DDC_DATA_DATA__MASK				0x0000ff00
 #define HDMI_DDC_DATA_DATA__SHIFT				8
-static inline uint32_t HDMI_DDC_DATA_DATA(uint32_t val)
+static uint32_t HDMI_DDC_DATA_DATA(uint32_t val)
 {
 	return ((val) << HDMI_DDC_DATA_DATA__SHIFT) & HDMI_DDC_DATA_DATA__MASK;
 }
 #define HDMI_DDC_DATA_INDEX__MASK				0x00ff0000
 #define HDMI_DDC_DATA_INDEX__SHIFT				16
-static inline uint32_t HDMI_DDC_DATA_INDEX(uint32_t val)
+static uint32_t HDMI_DDC_DATA_INDEX(uint32_t val)
 {
 	return ((val) << HDMI_DDC_DATA_INDEX__SHIFT) & HDMI_DDC_DATA_INDEX__MASK;
 }
@@ -449,7 +449,7 @@ static inline uint32_t HDMI_DDC_DATA_INDEX(uint32_t val)
 #define REG_HDMI_HPD_CTRL					0x00000258
 #define HDMI_HPD_CTRL_TIMEOUT__MASK				0x00001fff
 #define HDMI_HPD_CTRL_TIMEOUT__SHIFT				0
-static inline uint32_t HDMI_HPD_CTRL_TIMEOUT(uint32_t val)
+static uint32_t HDMI_HPD_CTRL_TIMEOUT(uint32_t val)
 {
 	return ((val) << HDMI_HPD_CTRL_TIMEOUT__SHIFT) & HDMI_HPD_CTRL_TIMEOUT__MASK;
 }
@@ -459,7 +459,7 @@ static inline uint32_t HDMI_HPD_CTRL_TIMEOUT(uint32_t val)
 #define HDMI_DDC_REF_REFTIMER_ENABLE				0x00010000
 #define HDMI_DDC_REF_REFTIMER__MASK				0x0000ffff
 #define HDMI_DDC_REF_REFTIMER__SHIFT				0
-static inline uint32_t HDMI_DDC_REF_REFTIMER(uint32_t val)
+static uint32_t HDMI_DDC_REF_REFTIMER(uint32_t val)
 {
 	return ((val) << HDMI_DDC_REF_REFTIMER__SHIFT) & HDMI_DDC_REF_REFTIMER__MASK;
 }
@@ -491,13 +491,13 @@ static inline uint32_t HDMI_DDC_REF_REFTIMER(uint32_t val)
 #define REG_HDMI_ACTIVE_HSYNC					0x000002b4
 #define HDMI_ACTIVE_HSYNC_START__MASK				0x00001fff
 #define HDMI_ACTIVE_HSYNC_START__SHIFT				0
-static inline uint32_t HDMI_ACTIVE_HSYNC_START(uint32_t val)
+static uint32_t HDMI_ACTIVE_HSYNC_START(uint32_t val)
 {
 	return ((val) << HDMI_ACTIVE_HSYNC_START__SHIFT) & HDMI_ACTIVE_HSYNC_START__MASK;
 }
 #define HDMI_ACTIVE_HSYNC_END__MASK				0x0fff0000
 #define HDMI_ACTIVE_HSYNC_END__SHIFT				16
-static inline uint32_t HDMI_ACTIVE_HSYNC_END(uint32_t val)
+static uint32_t HDMI_ACTIVE_HSYNC_END(uint32_t val)
 {
 	return ((val) << HDMI_ACTIVE_HSYNC_END__SHIFT) & HDMI_ACTIVE_HSYNC_END__MASK;
 }
@@ -505,13 +505,13 @@ static inline uint32_t HDMI_ACTIVE_HSYNC_END(uint32_t val)
 #define REG_HDMI_ACTIVE_VSYNC					0x000002b8
 #define HDMI_ACTIVE_VSYNC_START__MASK				0x00001fff
 #define HDMI_ACTIVE_VSYNC_START__SHIFT				0
-static inline uint32_t HDMI_ACTIVE_VSYNC_START(uint32_t val)
+static uint32_t HDMI_ACTIVE_VSYNC_START(uint32_t val)
 {
 	return ((val) << HDMI_ACTIVE_VSYNC_START__SHIFT) & HDMI_ACTIVE_VSYNC_START__MASK;
 }
 #define HDMI_ACTIVE_VSYNC_END__MASK				0x1fff0000
 #define HDMI_ACTIVE_VSYNC_END__SHIFT				16
-static inline uint32_t HDMI_ACTIVE_VSYNC_END(uint32_t val)
+static uint32_t HDMI_ACTIVE_VSYNC_END(uint32_t val)
 {
 	return ((val) << HDMI_ACTIVE_VSYNC_END__SHIFT) & HDMI_ACTIVE_VSYNC_END__MASK;
 }
@@ -519,13 +519,13 @@ static inline uint32_t HDMI_ACTIVE_VSYNC_END(uint32_t val)
 #define REG_HDMI_VSYNC_ACTIVE_F2				0x000002bc
 #define HDMI_VSYNC_ACTIVE_F2_START__MASK			0x00001fff
 #define HDMI_VSYNC_ACTIVE_F2_START__SHIFT			0
-static inline uint32_t HDMI_VSYNC_ACTIVE_F2_START(uint32_t val)
+static uint32_t HDMI_VSYNC_ACTIVE_F2_START(uint32_t val)
 {
 	return ((val) << HDMI_VSYNC_ACTIVE_F2_START__SHIFT) & HDMI_VSYNC_ACTIVE_F2_START__MASK;
 }
 #define HDMI_VSYNC_ACTIVE_F2_END__MASK				0x1fff0000
 #define HDMI_VSYNC_ACTIVE_F2_END__SHIFT				16
-static inline uint32_t HDMI_VSYNC_ACTIVE_F2_END(uint32_t val)
+static uint32_t HDMI_VSYNC_ACTIVE_F2_END(uint32_t val)
 {
 	return ((val) << HDMI_VSYNC_ACTIVE_F2_END__SHIFT) & HDMI_VSYNC_ACTIVE_F2_END__MASK;
 }
@@ -533,13 +533,13 @@ static inline uint32_t HDMI_VSYNC_ACTIVE_F2_END(uint32_t val)
 #define REG_HDMI_TOTAL						0x000002c0
 #define HDMI_TOTAL_H_TOTAL__MASK				0x00001fff
 #define HDMI_TOTAL_H_TOTAL__SHIFT				0
-static inline uint32_t HDMI_TOTAL_H_TOTAL(uint32_t val)
+static uint32_t HDMI_TOTAL_H_TOTAL(uint32_t val)
 {
 	return ((val) << HDMI_TOTAL_H_TOTAL__SHIFT) & HDMI_TOTAL_H_TOTAL__MASK;
 }
 #define HDMI_TOTAL_V_TOTAL__MASK				0x1fff0000
 #define HDMI_TOTAL_V_TOTAL__SHIFT				16
-static inline uint32_t HDMI_TOTAL_V_TOTAL(uint32_t val)
+static uint32_t HDMI_TOTAL_V_TOTAL(uint32_t val)
 {
 	return ((val) << HDMI_TOTAL_V_TOTAL__SHIFT) & HDMI_TOTAL_V_TOTAL__MASK;
 }
@@ -547,7 +547,7 @@ static inline uint32_t HDMI_TOTAL_V_TOTAL(uint32_t val)
 #define REG_HDMI_VSYNC_TOTAL_F2					0x000002c4
 #define HDMI_VSYNC_TOTAL_F2_V_TOTAL__MASK			0x00001fff
 #define HDMI_VSYNC_TOTAL_F2_V_TOTAL__SHIFT			0
-static inline uint32_t HDMI_VSYNC_TOTAL_F2_V_TOTAL(uint32_t val)
+static uint32_t HDMI_VSYNC_TOTAL_F2_V_TOTAL(uint32_t val)
 {
 	return ((val) << HDMI_VSYNC_TOTAL_F2_V_TOTAL__SHIFT) & HDMI_VSYNC_TOTAL_F2_V_TOTAL__MASK;
 }
@@ -589,7 +589,7 @@ static inline uint32_t HDMI_VSYNC_TOTAL_F2_V_TOTAL(uint32_t val)
 #define REG_HDMI_8x60_PHY_REG0					0x00000000
 #define HDMI_8x60_PHY_REG0_DESER_DEL_CTRL__MASK			0x0000001c
 #define HDMI_8x60_PHY_REG0_DESER_DEL_CTRL__SHIFT		2
-static inline uint32_t HDMI_8x60_PHY_REG0_DESER_DEL_CTRL(uint32_t val)
+static uint32_t HDMI_8x60_PHY_REG0_DESER_DEL_CTRL(uint32_t val)
 {
 	return ((val) << HDMI_8x60_PHY_REG0_DESER_DEL_CTRL__SHIFT) & HDMI_8x60_PHY_REG0_DESER_DEL_CTRL__MASK;
 }
@@ -597,13 +597,13 @@ static inline uint32_t HDMI_8x60_PHY_REG0_DESER_DEL_CTRL(uint32_t val)
 #define REG_HDMI_8x60_PHY_REG1					0x00000004
 #define HDMI_8x60_PHY_REG1_DTEST_MUX_SEL__MASK			0x000000f0
 #define HDMI_8x60_PHY_REG1_DTEST_MUX_SEL__SHIFT			4
-static inline uint32_t HDMI_8x60_PHY_REG1_DTEST_MUX_SEL(uint32_t val)
+static uint32_t HDMI_8x60_PHY_REG1_DTEST_MUX_SEL(uint32_t val)
 {
 	return ((val) << HDMI_8x60_PHY_REG1_DTEST_MUX_SEL__SHIFT) & HDMI_8x60_PHY_REG1_DTEST_MUX_SEL__MASK;
 }
 #define HDMI_8x60_PHY_REG1_OUTVOL_SWING_CTRL__MASK		0x0000000f
 #define HDMI_8x60_PHY_REG1_OUTVOL_SWING_CTRL__SHIFT		0
-static inline uint32_t HDMI_8x60_PHY_REG1_OUTVOL_SWING_CTRL(uint32_t val)
+static uint32_t HDMI_8x60_PHY_REG1_OUTVOL_SWING_CTRL(uint32_t val)
 {
 	return ((val) << HDMI_8x60_PHY_REG1_OUTVOL_SWING_CTRL__SHIFT) & HDMI_8x60_PHY_REG1_OUTVOL_SWING_CTRL__MASK;
 }

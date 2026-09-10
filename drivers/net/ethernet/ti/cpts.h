@@ -136,27 +136,27 @@ struct cpts *cpts_create(struct device *dev, void __iomem *regs,
 			 struct device_node *node);
 void cpts_release(struct cpts *cpts);
 
-static inline void cpts_rx_enable(struct cpts *cpts, int enable)
+static void cpts_rx_enable(struct cpts *cpts, int enable)
 {
 	cpts->rx_enable = enable;
 }
 
-static inline bool cpts_is_rx_enabled(struct cpts *cpts)
+static bool cpts_is_rx_enabled(struct cpts *cpts)
 {
 	return !!cpts->rx_enable;
 }
 
-static inline void cpts_tx_enable(struct cpts *cpts, int enable)
+static void cpts_tx_enable(struct cpts *cpts, int enable)
 {
 	cpts->tx_enable = enable;
 }
 
-static inline bool cpts_is_tx_enabled(struct cpts *cpts)
+static bool cpts_is_tx_enabled(struct cpts *cpts)
 {
 	return !!cpts->tx_enable;
 }
 
-static inline bool cpts_can_timestamp(struct cpts *cpts, struct sk_buff *skb)
+static bool cpts_can_timestamp(struct cpts *cpts, struct sk_buff *skb)
 {
 	unsigned int class = ptp_classify_raw(skb);
 
@@ -169,10 +169,10 @@ static inline bool cpts_can_timestamp(struct cpts *cpts, struct sk_buff *skb)
 #else
 struct cpts;
 
-static inline void cpts_rx_timestamp(struct cpts *cpts, struct sk_buff *skb)
+static void cpts_rx_timestamp(struct cpts *cpts, struct sk_buff *skb)
 {
 }
-static inline void cpts_tx_timestamp(struct cpts *cpts, struct sk_buff *skb)
+static void cpts_tx_timestamp(struct cpts *cpts, struct sk_buff *skb)
 {
 }
 
@@ -183,39 +183,39 @@ struct cpts *cpts_create(struct device *dev, void __iomem *regs,
 	return NULL;
 }
 
-static inline void cpts_release(struct cpts *cpts)
+static void cpts_release(struct cpts *cpts)
 {
 }
 
-static inline int
+static int
 cpts_register(struct cpts *cpts)
 {
 	return 0;
 }
 
-static inline void cpts_unregister(struct cpts *cpts)
+static void cpts_unregister(struct cpts *cpts)
 {
 }
 
-static inline void cpts_rx_enable(struct cpts *cpts, int enable)
+static void cpts_rx_enable(struct cpts *cpts, int enable)
 {
 }
 
-static inline bool cpts_is_rx_enabled(struct cpts *cpts)
-{
-	return false;
-}
-
-static inline void cpts_tx_enable(struct cpts *cpts, int enable)
-{
-}
-
-static inline bool cpts_is_tx_enabled(struct cpts *cpts)
+static bool cpts_is_rx_enabled(struct cpts *cpts)
 {
 	return false;
 }
 
-static inline bool cpts_can_timestamp(struct cpts *cpts, struct sk_buff *skb)
+static void cpts_tx_enable(struct cpts *cpts, int enable)
+{
+}
+
+static bool cpts_is_tx_enabled(struct cpts *cpts)
+{
+	return false;
+}
+
+static bool cpts_can_timestamp(struct cpts *cpts, struct sk_buff *skb)
 {
 	return false;
 }

@@ -54,14 +54,14 @@ cxgb_find_route6(struct cxgb4_lld_info *,
 
 /* Returns whether a CPL status conveys negative advice.
  */
-static inline bool cxgb_is_neg_adv(unsigned int status)
+static bool cxgb_is_neg_adv(unsigned int status)
 {
 	return status == CPL_ERR_RTX_NEG_ADVICE ||
 	       status == CPL_ERR_PERSIST_NEG_ADVICE ||
 	       status == CPL_ERR_KEEPALV_NEG_ADVICE;
 }
 
-static inline void
+static void
 cxgb_best_mtu(const unsigned short *mtus, unsigned short mtu,
 	      unsigned int *idx, int use_ts, int ipv6)
 {
@@ -76,7 +76,7 @@ cxgb_best_mtu(const unsigned short *mtus, unsigned short mtu,
 	cxgb4_best_aligned_mtu(mtus, hdr_size, data_size, 8, idx);
 }
 
-static inline u32 cxgb_compute_wscale(u32 win)
+static u32 cxgb_compute_wscale(u32 win)
 {
 	u32 wscale = 0;
 
@@ -85,7 +85,7 @@ static inline u32 cxgb_compute_wscale(u32 win)
 	return wscale;
 }
 
-static inline void
+static void
 cxgb_mk_tid_release(struct sk_buff *skb, u32 len, u32 tid, u16 chan)
 {
 	struct cpl_tid_release *req;
@@ -98,7 +98,7 @@ cxgb_mk_tid_release(struct sk_buff *skb, u32 len, u32 tid, u16 chan)
 	set_wr_txq(skb, CPL_PRIORITY_SETUP, chan);
 }
 
-static inline void
+static void
 cxgb_mk_close_con_req(struct sk_buff *skb, u32 len, u32 tid, u16 chan,
 		      void *handle, arp_err_handler_t handler)
 {
@@ -113,7 +113,7 @@ cxgb_mk_close_con_req(struct sk_buff *skb, u32 len, u32 tid, u16 chan,
 	t4_set_arp_err_handler(skb, handle, handler);
 }
 
-static inline void
+static void
 cxgb_mk_abort_req(struct sk_buff *skb, u32 len, u32 tid, u16 chan,
 		  void *handle, arp_err_handler_t handler)
 {
@@ -129,7 +129,7 @@ cxgb_mk_abort_req(struct sk_buff *skb, u32 len, u32 tid, u16 chan,
 	t4_set_arp_err_handler(skb, handle, handler);
 }
 
-static inline void
+static void
 cxgb_mk_abort_rpl(struct sk_buff *skb, u32 len, u32 tid, u16 chan)
 {
 	struct cpl_abort_rpl *rpl;
@@ -143,7 +143,7 @@ cxgb_mk_abort_rpl(struct sk_buff *skb, u32 len, u32 tid, u16 chan)
 	set_wr_txq(skb, CPL_PRIORITY_DATA, chan);
 }
 
-static inline void
+static void
 cxgb_mk_rx_data_ack(struct sk_buff *skb, u32 len, u32 tid, u16 chan,
 		    u32 credit_dack)
 {

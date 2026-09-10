@@ -190,7 +190,7 @@ struct w83977af_ir {
 	__u32 new_speed;
 };
 
-static inline void switch_bank( int iobase, int set)
+static void switch_bank( int iobase, int set)
 {
 	outb(set, iobase+SSR);
 }

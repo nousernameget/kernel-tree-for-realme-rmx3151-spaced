@@ -174,7 +174,7 @@ struct zd_usb_interrupt {
 	u8 read_regs_int_overridden:1;
 };
 
-static inline struct usb_int_regs *get_read_regs(struct zd_usb_interrupt *intr)
+static struct usb_int_regs *get_read_regs(struct zd_usb_interrupt *intr)
 {
 	return (struct usb_int_regs *)intr->read_regs.buffer;
 }
@@ -229,17 +229,17 @@ struct zd_usb {
 
 #define zd_usb_dev(usb) (&usb->intf->dev)
 
-static inline struct usb_device *zd_usb_to_usbdev(struct zd_usb *usb)
+static struct usb_device *zd_usb_to_usbdev(struct zd_usb *usb)
 {
 	return interface_to_usbdev(usb->intf);
 }
 
-static inline struct ieee80211_hw *zd_intf_to_hw(struct usb_interface *intf)
+static struct ieee80211_hw *zd_intf_to_hw(struct usb_interface *intf)
 {
 	return usb_get_intfdata(intf);
 }
 
-static inline struct ieee80211_hw *zd_usb_to_hw(struct zd_usb *usb)
+static struct ieee80211_hw *zd_usb_to_hw(struct zd_usb *usb)
 {
 	return zd_intf_to_hw(usb->intf);
 }
@@ -270,7 +270,7 @@ int zd_usb_tx(struct zd_usb *usb, struct sk_buff *skb);
 int zd_usb_ioread16v(struct zd_usb *usb, u16 *values,
 	         const zd_addr_t *addresses, unsigned int count);
 
-static inline int zd_usb_ioread16(struct zd_usb *usb, u16 *value,
+static int zd_usb_ioread16(struct zd_usb *usb, u16 *value,
 	                      const zd_addr_t addr)
 {
 	return zd_usb_ioread16v(usb, value, &addr, 1);

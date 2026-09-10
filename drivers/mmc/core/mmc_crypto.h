@@ -16,12 +16,12 @@
 	(((u32)(host->crypto_capabilities.config_count) & 0xFF))
 
 /* vendor's host structure will be hook by mmc_host->private */
-static inline void *get_ll_mmc_host(struct mmc_host *host)
+static void *get_ll_mmc_host(struct mmc_host *host)
 {
 	return (void *)host->private;
 }
 
-static inline bool mmc_keyslot_valid(struct mmc_host *host, unsigned int slot)
+static bool mmc_keyslot_valid(struct mmc_host *host, unsigned int slot)
 {
 	/*
 	 * The actual number of configurations supported is (CFGC+1), so slot
@@ -30,12 +30,12 @@ static inline bool mmc_keyslot_valid(struct mmc_host *host, unsigned int slot)
 	return slot < NUM_KEYSLOTS(host);
 }
 
-static inline bool mmc_is_crypto_supported(struct mmc_host *host)
+static bool mmc_is_crypto_supported(struct mmc_host *host)
 {
 	return host->crypto_capabilities.reg_val != 0;
 }
 
-static inline bool mmc_is_crypto_enabled(struct mmc_host *host)
+static bool mmc_is_crypto_enabled(struct mmc_host *host)
 {
 	return host->caps2 & MMC_CAP2_CRYPTO;
 }
@@ -64,51 +64,51 @@ void mmc_crypto_set_vops(struct mmc_host *host,
 
 #else /* CONFIG_MMC_CRYPTO */
 #include "queue.h"
-static inline bool mmc_keyslot_valid(struct mmc_host *host,
+static bool mmc_keyslot_valid(struct mmc_host *host,
 					unsigned int slot)
 {
 	return false;
 }
 
-static inline bool mmc_is_crypto_supported(struct mmc_host *host)
+static bool mmc_is_crypto_supported(struct mmc_host *host)
 {
 	return false;
 }
 
-static inline bool mmc_is_crypto_enabled(struct mmc_host *host)
+static bool mmc_is_crypto_enabled(struct mmc_host *host)
 {
 	return false;
 }
 
-static inline int mmc_init_crypto(struct mmc_host *host)
+static int mmc_init_crypto(struct mmc_host *host)
 {
 	return 0;
 }
 
-static inline int mmc_swcq_prepare_mqr_crypto(struct mmc_host *host,
+static int mmc_swcq_prepare_mqr_crypto(struct mmc_host *host,
 					struct mmc_request *mrq)
 {
 	return 0;
 }
 
-static inline int mmc_complete_mqr_crypto(struct mmc_host *host)
+static int mmc_complete_mqr_crypto(struct mmc_host *host)
 {
 	return 0;
 }
 
 static inline void mmc_crypto_debug(struct mmc_host *host) { }
 
-static inline int mmc_crypto_suspend(struct mmc_host *host)
+static int mmc_crypto_suspend(struct mmc_host *host)
 {
 	return 0;
 }
 
-static inline int mmc_crypto_resume(struct mmc_host *host)
+static int mmc_crypto_resume(struct mmc_host *host)
 {
 	return 0;
 }
 
-static inline void mmc_crypto_set_vops(struct mmc_host *host,
+static void mmc_crypto_set_vops(struct mmc_host *host,
 			struct mmc_crypto_variant_ops *crypto_vops) { }
 
 #endif /* CONFIG_MMC_CRYPTO */

@@ -545,70 +545,70 @@ int bgmac_enet_resume(struct bgmac *bgmac);
 struct mii_bus *bcma_mdio_mii_register(struct bgmac *bgmac);
 void bcma_mdio_mii_unregister(struct mii_bus *mii_bus);
 
-static inline u32 bgmac_read(struct bgmac *bgmac, u16 offset)
+static u32 bgmac_read(struct bgmac *bgmac, u16 offset)
 {
 	return bgmac->read(bgmac, offset);
 }
 
-static inline void bgmac_write(struct bgmac *bgmac, u16 offset, u32 value)
+static void bgmac_write(struct bgmac *bgmac, u16 offset, u32 value)
 {
 	bgmac->write(bgmac, offset, value);
 }
 
-static inline u32 bgmac_idm_read(struct bgmac *bgmac, u16 offset)
+static u32 bgmac_idm_read(struct bgmac *bgmac, u16 offset)
 {
 	return bgmac->idm_read(bgmac, offset);
 }
 
-static inline void bgmac_idm_write(struct bgmac *bgmac, u16 offset, u32 value)
+static void bgmac_idm_write(struct bgmac *bgmac, u16 offset, u32 value)
 {
 	bgmac->idm_write(bgmac, offset, value);
 }
 
-static inline bool bgmac_clk_enabled(struct bgmac *bgmac)
+static bool bgmac_clk_enabled(struct bgmac *bgmac)
 {
 	return bgmac->clk_enabled(bgmac);
 }
 
-static inline void bgmac_clk_enable(struct bgmac *bgmac, u32 flags)
+static void bgmac_clk_enable(struct bgmac *bgmac, u32 flags)
 {
 	bgmac->clk_enable(bgmac, flags);
 }
 
-static inline void bgmac_cco_ctl_maskset(struct bgmac *bgmac, u32 offset,
+static void bgmac_cco_ctl_maskset(struct bgmac *bgmac, u32 offset,
 					 u32 mask, u32 set)
 {
 	bgmac->cco_ctl_maskset(bgmac, offset, mask, set);
 }
 
-static inline u32 bgmac_get_bus_clock(struct bgmac *bgmac)
+static u32 bgmac_get_bus_clock(struct bgmac *bgmac)
 {
 	return bgmac->get_bus_clock(bgmac);
 }
 
-static inline void bgmac_cmn_maskset32(struct bgmac *bgmac, u16 offset,
+static void bgmac_cmn_maskset32(struct bgmac *bgmac, u16 offset,
 				       u32 mask, u32 set)
 {
 	bgmac->cmn_maskset32(bgmac, offset, mask, set);
 }
 
-static inline void bgmac_maskset(struct bgmac *bgmac, u16 offset, u32 mask,
+static void bgmac_maskset(struct bgmac *bgmac, u16 offset, u32 mask,
 				   u32 set)
 {
 	bgmac_write(bgmac, offset, (bgmac_read(bgmac, offset) & mask) | set);
 }
 
-static inline void bgmac_mask(struct bgmac *bgmac, u16 offset, u32 mask)
+static void bgmac_mask(struct bgmac *bgmac, u16 offset, u32 mask)
 {
 	bgmac_maskset(bgmac, offset, mask, 0);
 }
 
-static inline void bgmac_set(struct bgmac *bgmac, u16 offset, u32 set)
+static void bgmac_set(struct bgmac *bgmac, u16 offset, u32 set)
 {
 	bgmac_maskset(bgmac, offset, ~0, set);
 }
 
-static inline int bgmac_phy_connect(struct bgmac *bgmac)
+static int bgmac_phy_connect(struct bgmac *bgmac)
 {
 	return bgmac->phy_connect(bgmac);
 }

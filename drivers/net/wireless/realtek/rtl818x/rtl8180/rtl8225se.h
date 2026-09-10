@@ -37,13 +37,13 @@ enum rtl8187se_power_state {
 	RTL8187SE_POWER_SLEEP
 };
 
-static inline void rtl8225se_write_phy_ofdm(struct ieee80211_hw *dev,
+static void rtl8225se_write_phy_ofdm(struct ieee80211_hw *dev,
 					  u8 addr, u8 data)
 {
 	rtl8180_write_phy(dev, addr, data);
 }
 
-static inline void rtl8225se_write_phy_cck(struct ieee80211_hw *dev,
+static void rtl8225se_write_phy_cck(struct ieee80211_hw *dev,
 					 u8 addr, u8 data)
 {
 	rtl8180_write_phy(dev, addr, data | 0x10000);

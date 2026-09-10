@@ -94,7 +94,7 @@ struct dma_fence *kbase_fence_out_new(struct kbase_jd_atom *katom);
  *
  * This will also release the reference to this fence which the atom keeps
  */
-static inline void kbase_fence_out_remove(struct kbase_jd_atom *katom)
+static void kbase_fence_out_remove(struct kbase_jd_atom *katom)
 {
 	if (katom->dma_fence.fence) {
 		dma_fence_put(katom->dma_fence.fence);
@@ -109,7 +109,7 @@ static inline void kbase_fence_out_remove(struct kbase_jd_atom *katom)
  *
  * This will also release the reference to this fence which the atom keeps
  */
-static inline void kbase_fence_in_remove(struct kbase_jd_atom *katom)
+static void kbase_fence_in_remove(struct kbase_jd_atom *katom)
 {
 	if (katom->dma_fence.fence_in) {
 		dma_fence_put(katom->dma_fence.fence_in);
@@ -124,7 +124,7 @@ static inline void kbase_fence_in_remove(struct kbase_jd_atom *katom)
  *
  * Return: true if fence exists and is valid, otherwise false
  */
-static inline bool kbase_fence_out_is_ours(struct kbase_jd_atom *katom)
+static bool kbase_fence_out_is_ours(struct kbase_jd_atom *katom)
 {
 	return katom->dma_fence.fence &&
 				katom->dma_fence.fence->ops == &kbase_fence_ops;
@@ -137,7 +137,7 @@ static inline bool kbase_fence_out_is_ours(struct kbase_jd_atom *katom)
  *
  * Return: 0 on success, < 0 on error
  */
-static inline int kbase_fence_out_signal(struct kbase_jd_atom *katom,
+static int kbase_fence_out_signal(struct kbase_jd_atom *katom,
 					 int status)
 {
 	if (status) {
@@ -200,7 +200,7 @@ int kbase_fence_add_callback(struct kbase_jd_atom *katom,
  * executes once. This is typically done by setting dep_count to -1 for the
  * thread that takes on this responsibility.
  */
-static inline void
+static void
 kbase_fence_dep_count_set(struct kbase_jd_atom *katom, int val)
 {
 	atomic_set(&katom->dma_fence.dep_count, val);
@@ -214,7 +214,7 @@ kbase_fence_dep_count_set(struct kbase_jd_atom *katom, int val)
  *
  * Return: true if value was decremented to zero, otherwise false
  */
-static inline bool
+static bool
 kbase_fence_dep_count_dec_and_test(struct kbase_jd_atom *katom)
 {
 	return atomic_dec_and_test(&katom->dma_fence.dep_count);
@@ -228,7 +228,7 @@ kbase_fence_dep_count_dec_and_test(struct kbase_jd_atom *katom)
  *
  * Return: The current dep_count value
  */
-static inline int kbase_fence_dep_count_read(struct kbase_jd_atom *katom)
+static int kbase_fence_dep_count_read(struct kbase_jd_atom *katom)
 {
 	return atomic_read(&katom->dma_fence.dep_count);
 }

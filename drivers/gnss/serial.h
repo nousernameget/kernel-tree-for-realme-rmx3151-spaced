@@ -39,7 +39,7 @@ void gnss_serial_free(struct gnss_serial *gserial);
 int gnss_serial_register(struct gnss_serial *gserial);
 void gnss_serial_deregister(struct gnss_serial *gserial);
 
-static inline void *gnss_serial_get_drvdata(struct gnss_serial *gserial)
+static void *gnss_serial_get_drvdata(struct gnss_serial *gserial)
 {
 	return gserial->drvdata;
 }

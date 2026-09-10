@@ -150,7 +150,7 @@ struct at91_udc {
 	struct regmap			*matrix;
 };
 
-static inline struct at91_udc *to_udc(struct usb_gadget *g)
+static struct at91_udc *to_udc(struct usb_gadget *g)
 {
 	return container_of(g, struct at91_udc, gadget);
 }

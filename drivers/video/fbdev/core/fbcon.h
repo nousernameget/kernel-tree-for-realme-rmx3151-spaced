@@ -107,7 +107,7 @@ struct fbcon_ops {
 	((s) & 0x8000)
 	
 
-static inline int mono_col(const struct fb_info *info)
+static int mono_col(const struct fb_info *info)
 {
 	__u32 max_len;
 	max_len = max(info->var.green.length, info->var.red.length);
@@ -115,7 +115,7 @@ static inline int mono_col(const struct fb_info *info)
 	return (~(0xfff << max_len)) & 0xff;
 }
 
-static inline int attr_col_ec(int shift, struct vc_data *vc,
+static int attr_col_ec(int shift, struct vc_data *vc,
 			      struct fb_info *info, int is_fg)
 {
 	int is_mono01;
@@ -224,7 +224,7 @@ extern int  soft_cursor(struct fb_info *info, struct fb_cursor *cursor);
 #define FBCON_ATTRIBUTE_REVERSE   2
 #define FBCON_ATTRIBUTE_BOLD      4
 
-static inline int real_y(struct display *p, int ypos)
+static int real_y(struct display *p, int ypos)
 {
 	int rows = p->vrows;
 
@@ -233,7 +233,7 @@ static inline int real_y(struct display *p, int ypos)
 }
 
 
-static inline int get_attribute(struct fb_info *info, u16 c)
+static int get_attribute(struct fb_info *info, u16 c)
 {
 	int attribute = 0;
 

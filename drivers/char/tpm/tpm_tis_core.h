@@ -111,47 +111,47 @@ struct tpm_tis_phy_ops {
 	int (*write32)(struct tpm_tis_data *data, u32 addr, u32 src);
 };
 
-static inline int tpm_tis_read_bytes(struct tpm_tis_data *data, u32 addr,
+static int tpm_tis_read_bytes(struct tpm_tis_data *data, u32 addr,
 				     u16 len, u8 *result)
 {
 	return data->phy_ops->read_bytes(data, addr, len, result);
 }
 
-static inline int tpm_tis_read8(struct tpm_tis_data *data, u32 addr, u8 *result)
+static int tpm_tis_read8(struct tpm_tis_data *data, u32 addr, u8 *result)
 {
 	return data->phy_ops->read_bytes(data, addr, 1, result);
 }
 
-static inline int tpm_tis_read16(struct tpm_tis_data *data, u32 addr,
+static int tpm_tis_read16(struct tpm_tis_data *data, u32 addr,
 				 u16 *result)
 {
 	return data->phy_ops->read16(data, addr, result);
 }
 
-static inline int tpm_tis_read32(struct tpm_tis_data *data, u32 addr,
+static int tpm_tis_read32(struct tpm_tis_data *data, u32 addr,
 				 u32 *result)
 {
 	return data->phy_ops->read32(data, addr, result);
 }
 
-static inline int tpm_tis_write_bytes(struct tpm_tis_data *data, u32 addr,
+static int tpm_tis_write_bytes(struct tpm_tis_data *data, u32 addr,
 				      u16 len, const u8 *value)
 {
 	return data->phy_ops->write_bytes(data, addr, len, value);
 }
 
-static inline int tpm_tis_write8(struct tpm_tis_data *data, u32 addr, u8 value)
+static int tpm_tis_write8(struct tpm_tis_data *data, u32 addr, u8 value)
 {
 	return data->phy_ops->write_bytes(data, addr, 1, &value);
 }
 
-static inline int tpm_tis_write32(struct tpm_tis_data *data, u32 addr,
+static int tpm_tis_write32(struct tpm_tis_data *data, u32 addr,
 				  u32 value)
 {
 	return data->phy_ops->write32(data, addr, value);
 }
 
-static inline bool is_bsw(void)
+static bool is_bsw(void)
 {
 #ifdef CONFIG_X86
 	return ((boot_cpu_data.x86_model == INTEL_FAM6_ATOM_AIRMONT) ? 1 : 0);

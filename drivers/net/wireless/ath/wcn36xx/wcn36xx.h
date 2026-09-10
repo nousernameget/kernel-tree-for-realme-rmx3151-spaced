@@ -94,7 +94,7 @@ enum wcn36xx_ampdu_state {
 #define WCN36XX_FLAGS(__wcn) (__wcn->hw->flags)
 #define WCN36XX_MAX_POWER(__wcn) (__wcn->hw->conf.chandef.chan->max_power)
 
-static inline void buff_to_be(u32 *buf, size_t len)
+static void buff_to_be(u32 *buf, size_t len)
 {
 	int i;
 	for (i = 0; i < len; i++)
@@ -248,7 +248,7 @@ struct wcn36xx {
 
 };
 
-static inline bool wcn36xx_is_fw_version(struct wcn36xx *wcn,
+static bool wcn36xx_is_fw_version(struct wcn36xx *wcn,
 					 u8 major,
 					 u8 minor,
 					 u8 version,

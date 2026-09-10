@@ -110,24 +110,24 @@ struct serial8250_config {
 #define SERIAL8250_PORT(_base, _irq) SERIAL8250_PORT_FLAGS(_base, _irq, 0)
 
 
-static inline int serial_in(struct uart_8250_port *up, int offset)
+static int serial_in(struct uart_8250_port *up, int offset)
 {
 	return up->port.serial_in(&up->port, offset);
 }
 
-static inline void serial_out(struct uart_8250_port *up, int offset, int value)
+static void serial_out(struct uart_8250_port *up, int offset, int value)
 {
 	up->port.serial_out(&up->port, offset, value);
 }
 
 void serial8250_clear_and_reinit_fifos(struct uart_8250_port *p);
 
-static inline int serial_dl_read(struct uart_8250_port *up)
+static int serial_dl_read(struct uart_8250_port *up)
 {
 	return up->dl_read(up);
 }
 
-static inline void serial_dl_write(struct uart_8250_port *up, int value)
+static void serial_dl_write(struct uart_8250_port *up, int value)
 {
 	up->dl_write(up, value);
 }
@@ -143,12 +143,12 @@ void serial8250_rpm_put_tx(struct uart_8250_port *p);
 int serial8250_em485_init(struct uart_8250_port *p);
 void serial8250_em485_destroy(struct uart_8250_port *p);
 
-static inline void serial8250_out_MCR(struct uart_8250_port *up, int value)
+static void serial8250_out_MCR(struct uart_8250_port *up, int value)
 {
 	serial_out(up, UART_MCR, value);
 }
 
-static inline int serial8250_in_MCR(struct uart_8250_port *up)
+static int serial8250_in_MCR(struct uart_8250_port *up)
 {
 	return serial_in(up, UART_MCR);
 }
@@ -179,7 +179,7 @@ static inline int fintek_8250_probe(struct uart_8250_port *uart) { return 0; }
 #endif
 
 #ifdef CONFIG_ARCH_OMAP1
-static inline int is_omap1_8250(struct uart_8250_port *pt)
+static int is_omap1_8250(struct uart_8250_port *pt)
 {
 	int res;
 
@@ -197,7 +197,7 @@ static inline int is_omap1_8250(struct uart_8250_port *pt)
 	return res;
 }
 
-static inline int is_omap1510_8250(struct uart_8250_port *pt)
+static int is_omap1510_8250(struct uart_8250_port *pt)
 {
 	if (!cpu_is_omap1510())
 		return 0;
@@ -205,11 +205,11 @@ static inline int is_omap1510_8250(struct uart_8250_port *pt)
 	return is_omap1_8250(pt);
 }
 #else
-static inline int is_omap1_8250(struct uart_8250_port *pt)
+static int is_omap1_8250(struct uart_8250_port *pt)
 {
 	return 0;
 }
-static inline int is_omap1510_8250(struct uart_8250_port *pt)
+static int is_omap1510_8250(struct uart_8250_port *pt)
 {
 	return 0;
 }
@@ -222,23 +222,23 @@ extern void serial8250_rx_dma_flush(struct uart_8250_port *);
 extern int serial8250_request_dma(struct uart_8250_port *);
 extern void serial8250_release_dma(struct uart_8250_port *);
 #else
-static inline int serial8250_tx_dma(struct uart_8250_port *p)
+static int serial8250_tx_dma(struct uart_8250_port *p)
 {
 	return -1;
 }
-static inline int serial8250_rx_dma(struct uart_8250_port *p)
+static int serial8250_rx_dma(struct uart_8250_port *p)
 {
 	return -1;
 }
 static inline void serial8250_rx_dma_flush(struct uart_8250_port *p) { }
-static inline int serial8250_request_dma(struct uart_8250_port *p)
+static int serial8250_request_dma(struct uart_8250_port *p)
 {
 	return -1;
 }
 static inline void serial8250_release_dma(struct uart_8250_port *p) { }
 #endif
 
-static inline int ns16550a_goto_highspeed(struct uart_8250_port *up)
+static int ns16550a_goto_highspeed(struct uart_8250_port *up)
 {
 	unsigned char status;
 
@@ -255,7 +255,7 @@ static inline int ns16550a_goto_highspeed(struct uart_8250_port *up)
 	return 1;
 }
 
-static inline int serial_index(struct uart_port *port)
+static int serial_index(struct uart_port *port)
 {
 	return port->minor - 64;
 }

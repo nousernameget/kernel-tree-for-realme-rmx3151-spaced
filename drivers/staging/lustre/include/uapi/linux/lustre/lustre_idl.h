@@ -388,7 +388,7 @@ enum lu_dirpage_flags {
 	LDF_COLLIDE = 1 << 1
 };
 
-static inline struct lu_dirent *lu_dirent_start(struct lu_dirpage *dp)
+static struct lu_dirent *lu_dirent_start(struct lu_dirpage *dp)
 {
 	if (__le32_to_cpu(dp->ldp_flags) & LDF_EMPTY)
 		return NULL;
@@ -396,7 +396,7 @@ static inline struct lu_dirent *lu_dirent_start(struct lu_dirpage *dp)
 		return dp->ldp_entries;
 }
 
-static inline struct lu_dirent *lu_dirent_next(struct lu_dirent *ent)
+static struct lu_dirent *lu_dirent_next(struct lu_dirent *ent)
 {
 	struct lu_dirent *next;
 
@@ -408,7 +408,7 @@ static inline struct lu_dirent *lu_dirent_next(struct lu_dirent *ent)
 	return next;
 }
 
-static inline size_t lu_dirent_calc_size(size_t namelen, __u16 attr)
+static size_t lu_dirent_calc_size(size_t namelen, __u16 attr)
 {
 	size_t size;
 
@@ -449,18 +449,18 @@ struct lustre_handle {
 
 #define DEAD_HANDLE_MAGIC 0xdeadbeefcafebabeULL
 
-static inline bool lustre_handle_is_used(const struct lustre_handle *lh)
+static bool lustre_handle_is_used(const struct lustre_handle *lh)
 {
 	return lh->cookie != 0ull;
 }
 
-static inline bool lustre_handle_equal(const struct lustre_handle *lh1,
+static bool lustre_handle_equal(const struct lustre_handle *lh1,
 				       const struct lustre_handle *lh2)
 {
 	return lh1->cookie == lh2->cookie;
 }
 
-static inline void lustre_handle_copy(struct lustre_handle *tgt,
+static void lustre_handle_copy(struct lustre_handle *tgt,
 				      const struct lustre_handle *src)
 {
 	tgt->cookie = src->cookie;
@@ -943,7 +943,7 @@ struct lov_mds_md_v3 {	    /* LOV EA mds/wire data (little-endian) */
 	struct lov_ost_data_v1 lmm_objects[0]; /* per-stripe data */
 };
 
-static inline __u32 lov_mds_md_size(__u16 stripes, __u32 lmm_magic)
+static __u32 lov_mds_md_size(__u16 stripes, __u32 lmm_magic)
 {
 	if (lmm_magic == LOV_MAGIC_V3)
 		return sizeof(struct lov_mds_md_v3) +
@@ -953,7 +953,7 @@ static inline __u32 lov_mds_md_size(__u16 stripes, __u32 lmm_magic)
 				stripes * sizeof(struct lov_ost_data_v1);
 }
 
-static inline __u32
+static __u32
 lov_mds_md_max_stripe_count(size_t buf_size, __u32 lmm_magic)
 {
 	switch (lmm_magic) {
@@ -992,7 +992,7 @@ lov_mds_md_max_stripe_count(size_t buf_size, __u32 lmm_magic)
 #define OBD_MD_FLFLAGS     (0x00000800ULL) /* flags word */
 #define OBD_MD_FLNLINK     (0x00002000ULL) /* link count */
 #define OBD_MD_FLGENER     (0x00004000ULL) /* generation number */
-/*#define OBD_MD_FLINLINE    (0x00008000ULL)  inline data. used until 1.6.5 */
+/*#define OBD_MD_FLINLINE    (0x00008000ULL)  data. used until 1.6.5 */
 #define OBD_MD_FLRDEV      (0x00010000ULL) /* device number */
 #define OBD_MD_FLEASIZE    (0x00020000ULL) /* extended attribute data */
 #define OBD_MD_LINKNAME    (0x00040000ULL) /* symbolic link target */
@@ -1002,7 +1002,7 @@ lov_mds_md_max_stripe_count(size_t buf_size, __u32 lmm_magic)
 /*#define OBD_MD_FLOSCOPQ    (0x00400000ULL) osc opaque data, never used */
 /*	OBD_MD_FLCOOKIE    (0x00800000ULL) obsolete in 2.8 */
 #define OBD_MD_FLGROUP     (0x01000000ULL) /* group */
-#define OBD_MD_FLFID       (0x02000000ULL) /* ->ost write inline fid */
+#define OBD_MD_FLFID       (0x02000000ULL) /* ->ost write fid */
 #define OBD_MD_FLEPOCH     (0x04000000ULL) /* ->ost write with ioepoch */
 					   /* ->mds if epoch opens or closes
 					    */
@@ -1356,7 +1356,7 @@ enum {
 #define LUSTRE_DIRSYNC_FL      0x00010000 /* dirsync behaviour (dir only) */
 #define LUSTRE_TOPDIR_FL	0x00020000 /* Top of directory hierarchies*/
 #define LUSTRE_DIRECTIO_FL	0x00100000 /* Use direct i/o */
-#define LUSTRE_INLINE_DATA_FL	0x10000000 /* Inode has inline data. */
+#define LUSTRE_INLINE_DATA_FL	0x10000000 /* Inode has data. */
 
 /* Convert wire LUSTRE_*_FL to corresponding client local VFS S_* values
  * for the client inode i_flags.  The LUSTRE_*_FL are the Lustre wire
@@ -1365,7 +1365,7 @@ enum {
  * versions.  These flags are set/cleared via FSFILT_IOC_{GET,SET}_FLAGS.
  * See b=16526 for a full history.
  */
-static inline int ll_ext_to_inode_flags(int flags)
+static int ll_ext_to_inode_flags(int flags)
 {
 	return (((flags & LUSTRE_SYNC_FL)      ? S_SYNC      : 0) |
 		((flags & LUSTRE_NOATIME_FL)   ? S_NOATIME   : 0) |
@@ -1374,7 +1374,7 @@ static inline int ll_ext_to_inode_flags(int flags)
 		((flags & LUSTRE_IMMUTABLE_FL) ? S_IMMUTABLE : 0));
 }
 
-static inline int ll_inode_to_ext_flags(int iflags)
+static int ll_inode_to_ext_flags(int iflags)
 {
 	return (((iflags & S_SYNC)      ? LUSTRE_SYNC_FL      : 0) |
 		((iflags & S_NOATIME)   ? LUSTRE_NOATIME_FL   : 0) |
@@ -1802,7 +1802,7 @@ struct lmv_mds_md_v1 {
  **/
 #define LUSTRE_FNV_1A_64_PRIME		0x100000001b3ULL
 #define LUSTRE_FNV_1A_64_OFFSET_BIAS	0xcbf29ce484222325ULL
-static inline __u64 lustre_hash_fnv_1a_64(const void *buf, size_t size)
+static __u64 lustre_hash_fnv_1a_64(const void *buf, size_t size)
 {
 	__u64 hash = LUSTRE_FNV_1A_64_OFFSET_BIAS;
 	const unsigned char *p = buf;
@@ -1822,7 +1822,7 @@ union lmv_mds_md {
 	struct lmv_user_md	lmv_user_md;
 };
 
-static inline ssize_t lmv_mds_md_size(int stripe_count, unsigned int lmm_magic)
+static ssize_t lmv_mds_md_size(int stripe_count, unsigned int lmm_magic)
 {
 	ssize_t len = -EINVAL;
 
@@ -1839,7 +1839,7 @@ static inline ssize_t lmv_mds_md_size(int stripe_count, unsigned int lmm_magic)
 	return len;
 }
 
-static inline int lmv_mds_md_stripe_count_get(const union lmv_mds_md *lmm)
+static int lmv_mds_md_stripe_count_get(const union lmv_mds_md *lmm)
 {
 	switch (__le32_to_cpu(lmm->lmv_magic)) {
 	case LMV_MAGIC_V1:
@@ -2322,7 +2322,7 @@ enum agent_req_status {
 	ARS_SUCCEED,
 };
 
-static inline const char *agent_req_status2name(const enum agent_req_status ars)
+static const char *agent_req_status2name(const enum agent_req_status ars)
 {
 	switch (ars) {
 	case ARS_WAITING:

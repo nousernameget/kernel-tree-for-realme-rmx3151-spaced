@@ -144,7 +144,7 @@ static struct hfcusb_symbolic_list urb_errlist[] = {
 	{-1, NULL}
 };
 
-static inline const char *
+static const char *
 symbolic(struct hfcusb_symbolic_list list[], const int num)
 {
 	int i;

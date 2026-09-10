@@ -237,7 +237,7 @@ struct NCR5380_cmd {
 /* Time limit (ms) to poll registers when IRQs are disabled, e.g. during PDMA */
 #define NCR5380_REG_POLL_TIME		10
 
-static inline struct scsi_cmnd *NCR5380_to_scmd(struct NCR5380_cmd *ncmd_ptr)
+static struct scsi_cmnd *NCR5380_to_scmd(struct NCR5380_cmd *ncmd_ptr)
 {
 	return ((struct scsi_cmnd *)ncmd_ptr) - 1;
 }
@@ -282,7 +282,7 @@ static int NCR5380_poll_politely2(struct NCR5380_hostdata *,
                                   unsigned int, u8, u8,
                                   unsigned int, u8, u8, unsigned long);
 
-static inline int NCR5380_poll_politely(struct NCR5380_hostdata *hostdata,
+static int NCR5380_poll_politely(struct NCR5380_hostdata *hostdata,
                                         unsigned int reg, u8 bit, u8 val,
                                         unsigned long wait)
 {
@@ -301,19 +301,19 @@ static int NCR5380_dma_recv_setup(struct NCR5380_hostdata *,
                                   unsigned char *, int);
 static int NCR5380_dma_residual(struct NCR5380_hostdata *);
 
-static inline int NCR5380_dma_xfer_none(struct NCR5380_hostdata *hostdata,
+static int NCR5380_dma_xfer_none(struct NCR5380_hostdata *hostdata,
                                         struct scsi_cmnd *cmd)
 {
 	return 0;
 }
 
-static inline int NCR5380_dma_setup_none(struct NCR5380_hostdata *hostdata,
+static int NCR5380_dma_setup_none(struct NCR5380_hostdata *hostdata,
                                          unsigned char *data, int count)
 {
 	return 0;
 }
 
-static inline int NCR5380_dma_residual_none(struct NCR5380_hostdata *hostdata)
+static int NCR5380_dma_residual_none(struct NCR5380_hostdata *hostdata)
 {
 	return 0;
 }

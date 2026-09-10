@@ -237,7 +237,7 @@ struct ll_inode_info {
 	struct list_head		lli_xattrs;/* ll_xattr_entry->xe_list */
 };
 
-static inline __u32 ll_layout_version_get(struct ll_inode_info *lli)
+static __u32 ll_layout_version_get(struct ll_inode_info *lli)
 {
 	__u32 gen;
 
@@ -248,7 +248,7 @@ static inline __u32 ll_layout_version_get(struct ll_inode_info *lli)
 	return gen;
 }
 
-static inline void ll_layout_version_set(struct ll_inode_info *lli, __u32 gen)
+static void ll_layout_version_set(struct ll_inode_info *lli, __u32 gen)
 {
 	spin_lock(&lli->lli_layout_lock);
 	lli->lli_layout_gen = gen;
@@ -274,8 +274,8 @@ void ll_inode_size_lock(struct inode *inode);
 void ll_inode_size_unlock(struct inode *inode);
 
 /* FIXME: replace the name of this with LL_I to conform to kernel stuff */
-/* static inline struct ll_inode_info *LL_I(struct inode *inode) */
-static inline struct ll_inode_info *ll_i2info(struct inode *inode)
+/* static struct ll_inode_info *LL_I(struct inode *inode) */
+static struct ll_inode_info *ll_i2info(struct inode *inode)
 {
 	return container_of(inode, struct ll_inode_info, lli_vfs_inode);
 }
@@ -624,7 +624,7 @@ struct ll_file_data {
 extern struct dentry *llite_root;
 extern struct kset *llite_kset;
 
-static inline struct inode *ll_info2i(struct ll_inode_info *lli)
+static struct inode *ll_info2i(struct ll_inode_info *lli)
 {
 	return &lli->lli_vfs_inode;
 }
@@ -632,7 +632,7 @@ static inline struct inode *ll_info2i(struct ll_inode_info *lli)
 __u32 ll_i2suppgid(struct inode *i);
 void ll_i2gids(__u32 *suppgids, struct inode *i1, struct inode *i2);
 
-static inline int ll_need_32bit_api(struct ll_sb_info *sbi)
+static int ll_need_32bit_api(struct ll_sb_info *sbi)
 {
 #if BITS_PER_LONG == 32
 	return 1;
@@ -839,7 +839,7 @@ ssize_t ll_copy_user_md(const struct lov_user_md __user *md,
 			struct lov_user_md **kbuf);
 
 /* Compute expected user md size when passing in a md from user space */
-static inline ssize_t ll_lov_user_md_size(const struct lov_user_md *lum)
+static ssize_t ll_lov_user_md_size(const struct lov_user_md *lum)
 {
 	switch (lum->lmm_magic) {
 	case LOV_USER_MAGIC_V1:
@@ -895,7 +895,7 @@ struct ll_thread_info {
 };
 
 extern struct lu_context_key ll_thread_key;
-static inline struct ll_thread_info *ll_env_info(const struct lu_env *env)
+static struct ll_thread_info *ll_env_info(const struct lu_env *env)
 {
 	struct ll_thread_info *lti;
 
@@ -904,7 +904,7 @@ static inline struct ll_thread_info *ll_env_info(const struct lu_env *env)
 	return lti;
 }
 
-static inline struct vvp_io_args *ll_env_args(const struct lu_env *env)
+static struct vvp_io_args *ll_env_args(const struct lu_env *env)
 {
 	return &ll_env_info(env)->lti_args;
 }
@@ -918,7 +918,7 @@ void policy_from_vma(union ldlm_policy_data *policy, struct vm_area_struct *vma,
 struct vm_area_struct *our_vma(struct mm_struct *mm, unsigned long addr,
 			       size_t count);
 
-static inline void ll_invalidate_page(struct page *vmpage)
+static void ll_invalidate_page(struct page *vmpage)
 {
 	struct address_space *mapping = vmpage->mapping;
 	loff_t offset = vmpage->index << PAGE_SHIFT;
@@ -938,18 +938,18 @@ static inline void ll_invalidate_page(struct page *vmpage)
 #define    ll_s2sbi(sb)	(s2lsi(sb)->lsi_llsbi)
 
 /* don't need an addref as the sb_info should be holding one */
-static inline struct obd_export *ll_s2dtexp(struct super_block *sb)
+static struct obd_export *ll_s2dtexp(struct super_block *sb)
 {
 	return ll_s2sbi(sb)->ll_dt_exp;
 }
 
 /* don't need an addref as the sb_info should be holding one */
-static inline struct obd_export *ll_s2mdexp(struct super_block *sb)
+static struct obd_export *ll_s2mdexp(struct super_block *sb)
 {
 	return ll_s2sbi(sb)->ll_md_exp;
 }
 
-static inline struct client_obd *sbi2mdc(struct ll_sb_info *sbi)
+static struct client_obd *sbi2mdc(struct ll_sb_info *sbi)
 {
 	struct obd_device *obd = sbi->ll_md_exp->exp_obd;
 
@@ -959,22 +959,22 @@ static inline struct client_obd *sbi2mdc(struct ll_sb_info *sbi)
 }
 
 /* FIXME: replace the name of this with LL_SB to conform to kernel stuff */
-static inline struct ll_sb_info *ll_i2sbi(struct inode *inode)
+static struct ll_sb_info *ll_i2sbi(struct inode *inode)
 {
 	return ll_s2sbi(inode->i_sb);
 }
 
-static inline struct obd_export *ll_i2dtexp(struct inode *inode)
+static struct obd_export *ll_i2dtexp(struct inode *inode)
 {
 	return ll_s2dtexp(inode->i_sb);
 }
 
-static inline struct obd_export *ll_i2mdexp(struct inode *inode)
+static struct obd_export *ll_i2mdexp(struct inode *inode)
 {
 	return ll_s2mdexp(inode->i_sb);
 }
 
-static inline struct lu_fid *ll_inode2fid(struct inode *inode)
+static struct lu_fid *ll_inode2fid(struct inode *inode)
 {
 	struct lu_fid *fid;
 
@@ -984,7 +984,7 @@ static inline struct lu_fid *ll_inode2fid(struct inode *inode)
 	return fid;
 }
 
-static inline loff_t ll_file_maxbytes(struct inode *inode)
+static loff_t ll_file_maxbytes(struct inode *inode)
 {
 	struct cl_object *obj = ll_i2info(inode)->lli_clob;
 
@@ -1090,17 +1090,17 @@ int cl_glimpse_size0(struct inode *inode, int agl);
 int cl_glimpse_lock(const struct lu_env *env, struct cl_io *io,
 		    struct inode *inode, struct cl_object *clob, int agl);
 
-static inline int cl_glimpse_size(struct inode *inode)
+static int cl_glimpse_size(struct inode *inode)
 {
 	return cl_glimpse_size0(inode, 0);
 }
 
-static inline int cl_agl(struct inode *inode)
+static int cl_agl(struct inode *inode)
 {
 	return cl_glimpse_size0(inode, 1);
 }
 
-static inline int ll_glimpse_size(struct inode *inode)
+static int ll_glimpse_size(struct inode *inode)
 {
 	struct ll_inode_info *lli = ll_i2info(inode);
 	int rc;
@@ -1116,7 +1116,7 @@ static inline int ll_glimpse_size(struct inode *inode)
  * dentry may statahead when statahead is enabled and current process has opened
  * parent directory, and this dentry hasn't accessed statahead cache before
  */
-static inline bool
+static bool
 dentry_may_statahead(struct inode *dir, struct dentry *dentry)
 {
 	struct ll_inode_info  *lli;
@@ -1228,7 +1228,7 @@ ssize_t ll_direct_rw_pages(const struct lu_env *env, struct cl_io *io,
 			   int rw, struct inode *inode,
 			   struct ll_dio_pages *pv);
 
-static inline int ll_file_nolock(const struct file *file)
+static int ll_file_nolock(const struct file *file)
 {
 	struct ll_file_data *fd = LUSTRE_FPRIVATE(file);
 	struct inode *inode = file_inode(file);
@@ -1237,7 +1237,7 @@ static inline int ll_file_nolock(const struct file *file)
 		(ll_i2sbi(inode)->ll_flags & LL_SBI_NOLCK));
 }
 
-static inline void ll_set_lock_data(struct obd_export *exp, struct inode *inode,
+static void ll_set_lock_data(struct obd_export *exp, struct inode *inode,
 				    struct lookup_intent *it, __u64 *bits)
 {
 	if (!it->it_lock_set) {
@@ -1272,7 +1272,7 @@ static inline void ll_set_lock_data(struct obd_export *exp, struct inode *inode,
 		*bits = it->it_lock_bits;
 }
 
-static inline int d_lustre_invalid(const struct dentry *dentry)
+static int d_lustre_invalid(const struct dentry *dentry)
 {
 	return ll_d2d(dentry)->lld_invalid;
 }
@@ -1282,7 +1282,7 @@ static inline int d_lustre_invalid(const struct dentry *dentry)
  * ll_md_blocking_ast), unhash this dentry, and let dcache to reclaim it later;
  * else dput() of the last refcount will unhash this dentry and kill it.
  */
-static inline void d_lustre_invalidate(struct dentry *dentry, int nested)
+static void d_lustre_invalidate(struct dentry *dentry, int nested)
 {
 	CDEBUG(D_DENTRY, "invalidate dentry %pd (%p) parent %p inode %p refc %d\n",
 	       dentry, dentry,
@@ -1304,7 +1304,7 @@ static inline void d_lustre_invalidate(struct dentry *dentry, int nested)
 	spin_unlock(&dentry->d_lock);
 }
 
-static inline void d_lustre_revalidate(struct dentry *dentry)
+static void d_lustre_revalidate(struct dentry *dentry)
 {
 	spin_lock(&dentry->d_lock);
 	LASSERT(ll_d2d(dentry));

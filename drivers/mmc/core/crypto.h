@@ -21,7 +21,7 @@ void mmc_crypto_prepare_req(struct mmc_queue_req *mqrq);
 
 #else /* CONFIG_MMC_CRYPTO */
 
-static inline void mmc_crypto_setup_queue(struct mmc_host *host,
+static void mmc_crypto_setup_queue(struct mmc_host *host,
 					  struct request_queue *q) { }
 
 static inline void mmc_crypto_free_host(struct mmc_host *host) { }

@@ -199,7 +199,7 @@ int scif_destroy_loopback_qp(struct scif_dev *scifdev);
 void scif_poll_qp_state(struct work_struct *work);
 void scif_destroy_p2p(struct scif_dev *scifdev);
 void scif_send_exit(struct scif_dev *scifdev);
-static inline struct device *scif_get_peer_dev(struct scif_dev *scifdev)
+static struct device *scif_get_peer_dev(struct scif_dev *scifdev)
 {
 	struct scif_peer_dev *spdev;
 	struct device *spdev_ret;
@@ -214,7 +214,7 @@ static inline struct device *scif_get_peer_dev(struct scif_dev *scifdev)
 	return spdev_ret;
 }
 
-static inline void scif_put_peer_dev(struct device *dev)
+static void scif_put_peer_dev(struct device *dev)
 {
 	put_device(dev);
 }

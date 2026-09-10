@@ -84,7 +84,7 @@ int __drm_legacy_mapbufs(struct drm_device *, void *, int *,
 #ifdef CONFIG_DRM_VM
 void drm_legacy_vma_flush(struct drm_device *d);
 #else
-static inline void drm_legacy_vma_flush(struct drm_device *d)
+static void drm_legacy_vma_flush(struct drm_device *d)
 {
 	/* do nothing */
 }

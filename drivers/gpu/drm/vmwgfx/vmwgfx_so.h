@@ -83,7 +83,7 @@ extern const SVGACOTableType vmw_so_cotables[];
  * The validity of the simplified calculation is verified in the
  * vmw_so_build_asserts() function.
  */
-static inline enum vmw_view_type vmw_view_cmd_to_type(u32 id)
+static enum vmw_view_type vmw_view_cmd_to_type(u32 id)
 {
 	u32 tmp = (id - SVGA_3D_CMD_DX_DEFINE_SHADERRESOURCE_VIEW) / 2;
 
@@ -104,7 +104,7 @@ static inline enum vmw_view_type vmw_view_cmd_to_type(u32 id)
  * return vmw_so_max. We should perhaps optimize this function using
  * a similar strategy as vmw_view_cmd_to_type().
  */
-static inline enum vmw_so_type vmw_so_cmd_to_type(u32 id)
+static enum vmw_so_type vmw_so_cmd_to_type(u32 id)
 {
 	switch (id) {
 	case SVGA_3D_CMD_DX_DEFINE_ELEMENTLAYOUT:

@@ -221,7 +221,7 @@ int  irda_device_is_media_busy(struct net_device *dev);
 int  irda_device_is_receiving(struct net_device *dev);
 
 /* Interface for internal use */
-static inline int irda_device_txqueue_empty(const struct net_device *dev)
+static int irda_device_txqueue_empty(const struct net_device *dev)
 {
 	return qdisc_all_tx_empty(dev);
 }
@@ -236,7 +236,7 @@ void irda_setup_dma(int channel, dma_addr_t buffer, int count, int mode);
  *    Utility function for getting the minimum turnaround time out of 
  *    the skb, where it has been hidden in the cb field.
  */
-static inline __u16 irda_get_mtt(const struct sk_buff *skb)
+static __u16 irda_get_mtt(const struct sk_buff *skb)
 {
 	const struct irda_skb_cb *cb = (const struct irda_skb_cb *) skb->cb;
 	return (cb->magic == LAP_MAGIC) ? cb->mtt : 10000;
@@ -249,7 +249,7 @@ static inline __u16 irda_get_mtt(const struct sk_buff *skb)
  *
  * Note : return -1 for user space frames
  */
-static inline __u32 irda_get_next_speed(const struct sk_buff *skb)
+static __u32 irda_get_next_speed(const struct sk_buff *skb)
 {
 	const struct irda_skb_cb *cb = (const struct irda_skb_cb *) skb->cb;
 	return (cb->magic == LAP_MAGIC) ? cb->next_speed : -1;
@@ -262,7 +262,7 @@ static inline __u32 irda_get_next_speed(const struct sk_buff *skb)
  *
  * Note : default to 10 for user space frames
  */
-static inline __u16 irda_get_xbofs(const struct sk_buff *skb)
+static __u16 irda_get_xbofs(const struct sk_buff *skb)
 {
 	const struct irda_skb_cb *cb = (const struct irda_skb_cb *) skb->cb;
 	return (cb->magic == LAP_MAGIC) ? cb->xbofs : 10;
@@ -275,7 +275,7 @@ static inline __u16 irda_get_xbofs(const struct sk_buff *skb)
  *
  * Note : return -1 for user space frames
  */
-static inline __u16 irda_get_next_xbofs(const struct sk_buff *skb)
+static __u16 irda_get_next_xbofs(const struct sk_buff *skb)
 {
 	const struct irda_skb_cb *cb = (const struct irda_skb_cb *) skb->cb;
 	return (cb->magic == LAP_MAGIC) ? cb->next_xbofs : -1;

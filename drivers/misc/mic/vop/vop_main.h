@@ -158,7 +158,7 @@ struct vop_vdev {
 };
 
 /* Helper API to check if a virtio device is running */
-static inline bool vop_vdevup(struct vop_vdev *vdev)
+static bool vop_vdevup(struct vop_vdev *vdev)
 {
 	return !!vdev->dd->status;
 }

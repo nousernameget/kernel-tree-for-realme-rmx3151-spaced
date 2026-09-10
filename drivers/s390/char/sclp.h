@@ -113,7 +113,7 @@ struct read_cpu_info_sccb {
 	u8	reserved[4096 - 16];
 } __attribute__((packed, aligned(PAGE_SIZE)));
 
-static inline void sclp_fill_core_info(struct sclp_core_info *info,
+static void sclp_fill_core_info(struct sclp_core_info *info,
 				       struct read_cpu_info_sccb *sccb)
 {
 	char *page = (char *) sccb;
@@ -234,7 +234,7 @@ int sclp_early_set_event_mask(struct init_sccb *sccb,
 /* useful inlines */
 
 /* Perform service call. Return 0 on success, non-zero otherwise. */
-static inline int sclp_service_call(sclp_cmdw_t command, void *sccb)
+static int sclp_service_call(sclp_cmdw_t command, void *sccb)
 {
 	int cc = 4; /* Initialize for program check handling */
 
@@ -258,27 +258,27 @@ static inline int sclp_service_call(sclp_cmdw_t command, void *sccb)
 
 /* VM uses EBCDIC 037, LPAR+native(SE+HMC) use EBCDIC 500 */
 /* translate single character from ASCII to EBCDIC */
-static inline unsigned char
+static unsigned char
 sclp_ascebc(unsigned char ch)
 {
 	return (MACHINE_IS_VM) ? _ascebc[ch] : _ascebc_500[ch];
 }
 
 /* translate string from EBCDIC to ASCII */
-static inline void
+static void
 sclp_ebcasc_str(unsigned char *str, int nr)
 {
 	(MACHINE_IS_VM) ? EBCASC(str, nr) : EBCASC_500(str, nr);
 }
 
 /* translate string from ASCII to EBCDIC */
-static inline void
+static void
 sclp_ascebc_str(unsigned char *str, int nr)
 {
 	(MACHINE_IS_VM) ? ASCEBC(str, nr) : ASCEBC_500(str, nr);
 }
 
-static inline struct gds_vector *
+static struct gds_vector *
 sclp_find_gds_vector(void *start, void *end, u16 id)
 {
 	struct gds_vector *v;
@@ -289,7 +289,7 @@ sclp_find_gds_vector(void *start, void *end, u16 id)
 	return NULL;
 }
 
-static inline struct gds_subvector *
+static struct gds_subvector *
 sclp_find_gds_subvector(void *start, void *end, u8 key)
 {
 	struct gds_subvector *sv;

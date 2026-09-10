@@ -45,7 +45,7 @@ extern struct dvb_frontend *cx24116_attach(
 	const struct cx24116_config *config,
 	struct i2c_adapter *i2c);
 #else
-static inline struct dvb_frontend *cx24116_attach(
+static struct dvb_frontend *cx24116_attach(
 	const struct cx24116_config *config,
 	struct i2c_adapter *i2c)
 {

@@ -42,12 +42,12 @@ void mlxsw_sp_dpipe_fini(struct mlxsw_sp *mlxsw_sp);
 
 #else
 
-static inline int mlxsw_sp_dpipe_init(struct mlxsw_sp *mlxsw_sp)
+static int mlxsw_sp_dpipe_init(struct mlxsw_sp *mlxsw_sp)
 {
 	return 0;
 }
 
-static inline void mlxsw_sp_dpipe_fini(struct mlxsw_sp *mlxsw_sp)
+static void mlxsw_sp_dpipe_fini(struct mlxsw_sp *mlxsw_sp)
 {
 }
 

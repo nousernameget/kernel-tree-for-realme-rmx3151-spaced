@@ -98,7 +98,7 @@
 This macro versions are added back as we are mixing types in usage of inline.
 This causes corner cases of calculations to be incorrect due to conversions
 between signed and unsigned variables or overflows.
-Before the addition of the inline functions, max, min and ceil_div were macros
+Before the addition of the functions, max, min and ceil_div were macros
 and therefore adding them back.
 
 Leaving out the other math utility functions as they are newly added

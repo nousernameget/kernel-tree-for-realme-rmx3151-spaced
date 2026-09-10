@@ -239,7 +239,7 @@ int dss_mgr_check(struct omap_overlay_manager *mgr,
 		const struct dss_lcd_mgr_config *config,
 		struct omap_overlay_info **overlay_infos);
 
-static inline bool dss_mgr_is_lcd(enum omap_channel id)
+static bool dss_mgr_is_lcd(enum omap_channel id)
 {
 	if (id == OMAP_DSS_CHANNEL_LCD || id == OMAP_DSS_CHANNEL_LCD2 ||
 			id == OMAP_DSS_CHANNEL_LCD3)
@@ -326,12 +326,12 @@ void sdi_uninit_platform_driver(void);
 int sdi_init_port(struct platform_device *pdev, struct device_node *port);
 void sdi_uninit_port(struct device_node *port);
 #else
-static inline int sdi_init_port(struct platform_device *pdev,
+static int sdi_init_port(struct platform_device *pdev,
 		struct device_node *port)
 {
 	return 0;
 }
-static inline void sdi_uninit_port(struct device_node *port)
+static void sdi_uninit_port(struct device_node *port)
 {
 }
 #endif
@@ -352,7 +352,7 @@ void dsi_irq_handler(void);
 u8 dsi_get_pixel_size(enum omap_dss_dsi_pixel_format fmt);
 
 #else
-static inline u8 dsi_get_pixel_size(enum omap_dss_dsi_pixel_format fmt)
+static u8 dsi_get_pixel_size(enum omap_dss_dsi_pixel_format fmt)
 {
 	WARN(1, "%s: DSI not compiled in, returning pixel_size as 0\n",
 	     __func__);
@@ -368,12 +368,12 @@ void dpi_uninit_platform_driver(void);
 int dpi_init_port(struct platform_device *pdev, struct device_node *port);
 void dpi_uninit_port(struct device_node *port);
 #else
-static inline int dpi_init_port(struct platform_device *pdev,
+static int dpi_init_port(struct platform_device *pdev,
 		struct device_node *port)
 {
 	return 0;
 }
-static inline void dpi_uninit_port(struct device_node *port)
+static void dpi_uninit_port(struct device_node *port)
 {
 }
 #endif
@@ -478,7 +478,7 @@ void rfbi_uninit_platform_driver(void);
 
 
 #ifdef CONFIG_FB_OMAP2_DSS_COLLECT_IRQ_STATS
-static inline void dss_collect_irq_stats(u32 irqstatus, unsigned *irq_arr)
+static void dss_collect_irq_stats(u32 irqstatus, unsigned *irq_arr)
 {
 	int b;
 	for (b = 0; b < 32; ++b) {

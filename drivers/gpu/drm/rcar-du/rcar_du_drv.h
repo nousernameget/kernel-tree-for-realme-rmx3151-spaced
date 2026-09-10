@@ -99,24 +99,24 @@ struct rcar_du_device {
 	struct rcar_du_lvdsenc *lvds[RCAR_DU_MAX_LVDS];
 };
 
-static inline bool rcar_du_has(struct rcar_du_device *rcdu,
+static bool rcar_du_has(struct rcar_du_device *rcdu,
 			       unsigned int feature)
 {
 	return rcdu->info->features & feature;
 }
 
-static inline bool rcar_du_needs(struct rcar_du_device *rcdu,
+static bool rcar_du_needs(struct rcar_du_device *rcdu,
 				 unsigned int quirk)
 {
 	return rcdu->info->quirks & quirk;
 }
 
-static inline u32 rcar_du_read(struct rcar_du_device *rcdu, u32 reg)
+static u32 rcar_du_read(struct rcar_du_device *rcdu, u32 reg)
 {
 	return ioread32(rcdu->mmio + reg);
 }
 
-static inline void rcar_du_write(struct rcar_du_device *rcdu, u32 reg, u32 data)
+static void rcar_du_write(struct rcar_du_device *rcdu, u32 reg, u32 data)
 {
 	iowrite32(data, rcdu->mmio + reg);
 }

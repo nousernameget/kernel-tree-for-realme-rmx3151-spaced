@@ -143,7 +143,7 @@ void iwl_fw_runtime_init(struct iwl_fw_runtime *fwrt, struct iwl_trans *trans,
 			 const struct iwl_fw *fw,
 			 const struct iwl_fw_runtime_ops *ops, void *ops_ctx);
 
-static inline void iwl_fw_set_current_image(struct iwl_fw_runtime *fwrt,
+static void iwl_fw_set_current_image(struct iwl_fw_runtime *fwrt,
 					    enum iwl_ucode_type cur_fw_img)
 {
 	fwrt->cur_fw_img = cur_fw_img;

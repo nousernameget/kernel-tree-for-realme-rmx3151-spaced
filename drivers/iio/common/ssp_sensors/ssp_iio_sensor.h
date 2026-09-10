@@ -44,7 +44,7 @@ int ssp_common_process_data(struct iio_dev *indio_dev, void *buf,
 			    unsigned int len, int64_t timestamp);
 
 /* Converts time in ms to frequency */
-static inline void ssp_convert_to_freq(u32 time, int *integer_part,
+static void ssp_convert_to_freq(u32 time, int *integer_part,
 				       int *fractional)
 {
 	if (time == 0) {
@@ -59,7 +59,7 @@ static inline void ssp_convert_to_freq(u32 time, int *integer_part,
 }
 
 /* Converts frequency to time in ms */
-static inline int ssp_convert_to_time(int integer_part, int fractional)
+static int ssp_convert_to_time(int integer_part, int fractional)
 {
 	u64 value;
 

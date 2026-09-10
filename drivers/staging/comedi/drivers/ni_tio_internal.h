@@ -164,7 +164,7 @@ void ni_tio_write(struct ni_gpct *counter, unsigned int value,
 		  enum ni_gpct_register);
 unsigned int ni_tio_read(struct ni_gpct *counter, enum ni_gpct_register);
 
-static inline bool
+static bool
 ni_tio_counting_mode_registers_present(const struct ni_gpct_device *counter_dev)
 {
 	/* m series and 660x variants have counting mode registers */

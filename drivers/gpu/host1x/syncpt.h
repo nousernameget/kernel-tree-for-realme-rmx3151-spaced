@@ -72,7 +72,7 @@ unsigned int host1x_syncpt_nb_mlocks(struct host1x *host);
  *
  * Client managed sync point are not tracked.
  * */
-static inline bool host1x_syncpt_check_max(struct host1x_syncpt *sp, u32 real)
+static bool host1x_syncpt_check_max(struct host1x_syncpt *sp, u32 real)
 {
 	u32 max;
 	if (sp->client_managed)
@@ -82,7 +82,7 @@ static inline bool host1x_syncpt_check_max(struct host1x_syncpt *sp, u32 real)
 }
 
 /* Return true if sync point is client managed. */
-static inline bool host1x_syncpt_client_managed(struct host1x_syncpt *sp)
+static bool host1x_syncpt_client_managed(struct host1x_syncpt *sp)
 {
 	return sp->client_managed;
 }
@@ -91,7 +91,7 @@ static inline bool host1x_syncpt_client_managed(struct host1x_syncpt *sp)
  * Returns true if syncpoint min == max, which means that there are no
  * outstanding operations.
  */
-static inline bool host1x_syncpt_idle(struct host1x_syncpt *sp)
+static bool host1x_syncpt_idle(struct host1x_syncpt *sp)
 {
 	int min, max;
 	smp_rmb();
@@ -119,7 +119,7 @@ u32 host1x_syncpt_load_wait_base(struct host1x_syncpt *sp);
 u32 host1x_syncpt_incr_max(struct host1x_syncpt *sp, u32 incrs);
 
 /* Check if sync point id is valid. */
-static inline int host1x_syncpt_is_valid(struct host1x_syncpt *sp)
+static int host1x_syncpt_is_valid(struct host1x_syncpt *sp)
 {
 	return sp->id < host1x_syncpt_nb_pts(sp->host);
 }

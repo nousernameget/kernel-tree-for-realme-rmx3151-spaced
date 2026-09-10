@@ -57,7 +57,7 @@ struct ps3_vuart_port_driver {
 int ps3_vuart_port_driver_register(struct ps3_vuart_port_driver *drv);
 void ps3_vuart_port_driver_unregister(struct ps3_vuart_port_driver *drv);
 
-static inline struct ps3_vuart_port_driver *
+static struct ps3_vuart_port_driver *
 	ps3_system_bus_dev_to_vuart_drv(struct ps3_system_bus_device *_dev)
 {
 	struct ps3_system_bus_driver *sbd =
@@ -65,7 +65,7 @@ static inline struct ps3_vuart_port_driver *
 	BUG_ON(!sbd);
 	return container_of(sbd, struct ps3_vuart_port_driver, core);
 }
-static inline struct ps3_system_bus_device *ps3_vuart_work_to_system_bus_dev(
+static struct ps3_system_bus_device *ps3_vuart_work_to_system_bus_dev(
 	struct work_struct *_work)
 {
 	struct ps3_vuart_work *vw = container_of(_work, struct ps3_vuart_work,

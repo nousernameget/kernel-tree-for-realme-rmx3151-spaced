@@ -20,7 +20,7 @@
 
 #include "snic_fwint.h"
 
-static inline unsigned int
+static unsigned int
 vnic_cq_fw_service(struct vnic_cq *cq,
 		   int (*q_service)(struct vnic_dev *vdev,
 				    unsigned int index,

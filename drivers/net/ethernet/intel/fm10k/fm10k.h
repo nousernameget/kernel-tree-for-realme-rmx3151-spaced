@@ -181,7 +181,7 @@ struct fm10k_ring_container {
 #define FM10K_RX_ITR_DEFAULT	FM10K_ITR_20K
 #define FM10K_ITR_ENABLE	(FM10K_ITR_AUTOMASK | FM10K_ITR_MASK_CLEAR)
 
-static inline struct netdev_queue *txring_txq(const struct fm10k_ring *ring)
+static struct netdev_queue *txring_txq(const struct fm10k_ring *ring)
 {
 	return &ring->netdev->_tx[ring->queue_index];
 }
@@ -382,7 +382,7 @@ struct fm10k_intfc {
 	u16 vid;
 };
 
-static inline void fm10k_mbx_lock(struct fm10k_intfc *interface)
+static void fm10k_mbx_lock(struct fm10k_intfc *interface)
 {
 	/* busy loop if we cannot obtain the lock as some calls
 	 * such as ndo_set_rx_mode may be made in atomic context
@@ -391,27 +391,27 @@ static inline void fm10k_mbx_lock(struct fm10k_intfc *interface)
 		udelay(20);
 }
 
-static inline void fm10k_mbx_unlock(struct fm10k_intfc *interface)
+static void fm10k_mbx_unlock(struct fm10k_intfc *interface)
 {
 	/* flush memory to make sure state is correct */
 	smp_mb__before_atomic();
 	clear_bit(__FM10K_MBX_LOCK, interface->state);
 }
 
-static inline int fm10k_mbx_trylock(struct fm10k_intfc *interface)
+static int fm10k_mbx_trylock(struct fm10k_intfc *interface)
 {
 	return !test_and_set_bit(__FM10K_MBX_LOCK, interface->state);
 }
 
 /* fm10k_test_staterr - test bits in Rx descriptor status and error fields */
-static inline __le32 fm10k_test_staterr(union fm10k_rx_desc *rx_desc,
+static __le32 fm10k_test_staterr(union fm10k_rx_desc *rx_desc,
 					const u32 stat_err_bits)
 {
 	return rx_desc->d.staterr & cpu_to_le32(stat_err_bits);
 }
 
 /* fm10k_desc_unused - calculate if we have unused descriptors */
-static inline u16 fm10k_desc_unused(struct fm10k_ring *ring)
+static u16 fm10k_desc_unused(struct fm10k_ring *ring)
 {
 	s16 unused = ring->next_to_clean - ring->next_to_use - 1;
 

@@ -331,7 +331,7 @@ struct i40iw_handler {
  * to_iwdev - get device
  * @ibdev: ib device
  **/
-static inline struct i40iw_device *to_iwdev(struct ib_device *ibdev)
+static struct i40iw_device *to_iwdev(struct ib_device *ibdev)
 {
 	return container_of(ibdev, struct i40iw_ib_device, ibdev)->iwdev;
 }
@@ -340,7 +340,7 @@ static inline struct i40iw_device *to_iwdev(struct ib_device *ibdev)
  * to_ucontext - get user context
  * @ibucontext: ib user context
  **/
-static inline struct i40iw_ucontext *to_ucontext(struct ib_ucontext *ibucontext)
+static struct i40iw_ucontext *to_ucontext(struct ib_ucontext *ibucontext)
 {
 	return container_of(ibucontext, struct i40iw_ucontext, ibucontext);
 }
@@ -349,7 +349,7 @@ static inline struct i40iw_ucontext *to_ucontext(struct ib_ucontext *ibucontext)
  * to_iwpd - get protection domain
  * @ibpd: ib pd
  **/
-static inline struct i40iw_pd *to_iwpd(struct ib_pd *ibpd)
+static struct i40iw_pd *to_iwpd(struct ib_pd *ibpd)
 {
 	return container_of(ibpd, struct i40iw_pd, ibpd);
 }
@@ -358,7 +358,7 @@ static inline struct i40iw_pd *to_iwpd(struct ib_pd *ibpd)
  * to_iwmr - get device memory region
  * @ibdev: ib memory region
  **/
-static inline struct i40iw_mr *to_iwmr(struct ib_mr *ibmr)
+static struct i40iw_mr *to_iwmr(struct ib_mr *ibmr)
 {
 	return container_of(ibmr, struct i40iw_mr, ibmr);
 }
@@ -367,7 +367,7 @@ static inline struct i40iw_mr *to_iwmr(struct ib_mr *ibmr)
  * to_iwmr_from_ibfmr - get device memory region
  * @ibfmr: ib fmr
  **/
-static inline struct i40iw_mr *to_iwmr_from_ibfmr(struct ib_fmr *ibfmr)
+static struct i40iw_mr *to_iwmr_from_ibfmr(struct ib_fmr *ibfmr)
 {
 	return container_of(ibfmr, struct i40iw_mr, ibfmr);
 }
@@ -376,7 +376,7 @@ static inline struct i40iw_mr *to_iwmr_from_ibfmr(struct ib_fmr *ibfmr)
  * to_iwmw - get device memory window
  * @ibmw: ib memory window
  **/
-static inline struct i40iw_mr *to_iwmw(struct ib_mw *ibmw)
+static struct i40iw_mr *to_iwmw(struct ib_mw *ibmw)
 {
 	return container_of(ibmw, struct i40iw_mr, ibmw);
 }
@@ -385,7 +385,7 @@ static inline struct i40iw_mr *to_iwmw(struct ib_mw *ibmw)
  * to_iwcq - get completion queue
  * @ibcq: ib cqdevice
  **/
-static inline struct i40iw_cq *to_iwcq(struct ib_cq *ibcq)
+static struct i40iw_cq *to_iwcq(struct ib_cq *ibcq)
 {
 	return container_of(ibcq, struct i40iw_cq, ibcq);
 }
@@ -394,7 +394,7 @@ static inline struct i40iw_cq *to_iwcq(struct ib_cq *ibcq)
  * to_iwqp - get device qp
  * @ibqp: ib qp
  **/
-static inline struct i40iw_qp *to_iwqp(struct ib_qp *ibqp)
+static struct i40iw_qp *to_iwqp(struct ib_qp *ibqp)
 {
 	return container_of(ibqp, struct i40iw_qp, ibqp);
 }
@@ -429,7 +429,7 @@ void i40iw_put_cqp_request(struct i40iw_cqp *cqp, struct i40iw_cqp_request *cqp_
  * @req_resources_num: Allocated resource number
  * @next: next free id
  **/
-static inline int i40iw_alloc_resource(struct i40iw_device *iwdev,
+static int i40iw_alloc_resource(struct i40iw_device *iwdev,
 				       unsigned long *resource_array,
 				       u32 max_resources,
 				       u32 *req_resource_num,
@@ -464,7 +464,7 @@ static inline int i40iw_alloc_resource(struct i40iw_device *iwdev,
  * @resource_array: resource array for the resource_num
  * @resource_num: resource number to check
  **/
-static inline bool i40iw_is_resource_allocated(struct i40iw_device *iwdev,
+static bool i40iw_is_resource_allocated(struct i40iw_device *iwdev,
 					       unsigned long *resource_array,
 					       u32 resource_num)
 {
@@ -485,7 +485,7 @@ static inline bool i40iw_is_resource_allocated(struct i40iw_device *iwdev,
  * @resource_array: resource array for the resource_num
  * @resource_num: resource number to free
  **/
-static inline void i40iw_free_resource(struct i40iw_device *iwdev,
+static void i40iw_free_resource(struct i40iw_device *iwdev,
 				       unsigned long *resource_array,
 				       u32 resource_num)
 {
@@ -500,7 +500,7 @@ static inline void i40iw_free_resource(struct i40iw_device *iwdev,
  * to_iwhdl - Get the handler from the device pointer
  * @iwdev: device pointer
  **/
-static inline struct i40iw_handler *to_iwhdl(struct i40iw_device *iw_dev)
+static struct i40iw_handler *to_iwhdl(struct i40iw_device *iw_dev)
 {
 	return container_of(iw_dev, struct i40iw_handler, device);
 }

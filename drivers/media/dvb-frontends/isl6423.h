@@ -50,7 +50,7 @@ extern struct dvb_frontend *isl6423_attach(struct dvb_frontend *fe,
 					   const struct isl6423_config *config);
 
 #else
-static inline struct dvb_frontend *isl6423_attach(struct dvb_frontend *fe,
+static struct dvb_frontend *isl6423_attach(struct dvb_frontend *fe,
 						  struct i2c_adapter *i2c,
 						  const struct isl6423_config *config)
 {

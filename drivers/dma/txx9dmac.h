@@ -30,13 +30,13 @@
  */
 
 #ifdef CONFIG_MACH_TX49XX
-static inline bool txx9_dma_have_SMPCHN(void)
+static bool txx9_dma_have_SMPCHN(void)
 {
 	return true;
 }
 #define TXX9_DMA_USE_SIMPLE_CHAIN
 #else
-static inline bool txx9_dma_have_SMPCHN(void)
+static bool txx9_dma_have_SMPCHN(void)
 {
 	return false;
 }
@@ -188,12 +188,12 @@ struct txx9dmac_dev {
 	unsigned int		descsize;
 };
 
-static inline bool __is_dmac64(const struct txx9dmac_dev *ddev)
+static bool __is_dmac64(const struct txx9dmac_dev *ddev)
 {
 	return ddev->have_64bit_regs;
 }
 
-static inline bool is_dmac64(const struct txx9dmac_chan *dc)
+static bool is_dmac64(const struct txx9dmac_chan *dc)
 {
 	return __is_dmac64(dc->ddev);
 }
@@ -237,27 +237,27 @@ struct txx9dmac_desc {
 
 #ifdef TXX9_DMA_USE_SIMPLE_CHAIN
 
-static inline bool txx9dmac_chan_INTENT(struct txx9dmac_chan *dc)
+static bool txx9dmac_chan_INTENT(struct txx9dmac_chan *dc)
 {
 	return (dc->ccr & TXX9_DMA_CCR_INTENT) != 0;
 }
 
-static inline void txx9dmac_chan_set_INTENT(struct txx9dmac_chan *dc)
+static void txx9dmac_chan_set_INTENT(struct txx9dmac_chan *dc)
 {
 	dc->ccr |= TXX9_DMA_CCR_INTENT;
 }
 
-static inline void txx9dmac_desc_set_INTENT(struct txx9dmac_dev *ddev,
+static void txx9dmac_desc_set_INTENT(struct txx9dmac_dev *ddev,
 					    struct txx9dmac_desc *desc)
 {
 }
 
-static inline void txx9dmac_chan_set_SMPCHN(struct txx9dmac_chan *dc)
+static void txx9dmac_chan_set_SMPCHN(struct txx9dmac_chan *dc)
 {
 	dc->ccr |= TXX9_DMA_CCR_SMPCHN;
 }
 
-static inline void txx9dmac_desc_set_nosimple(struct txx9dmac_dev *ddev,
+static void txx9dmac_desc_set_nosimple(struct txx9dmac_dev *ddev,
 					      struct txx9dmac_desc *desc,
 					      u32 sair, u32 dair, u32 ccr)
 {
@@ -265,7 +265,7 @@ static inline void txx9dmac_desc_set_nosimple(struct txx9dmac_dev *ddev,
 
 #else /* TXX9_DMA_USE_SIMPLE_CHAIN */
 
-static inline bool txx9dmac_chan_INTENT(struct txx9dmac_chan *dc)
+static bool txx9dmac_chan_INTENT(struct txx9dmac_chan *dc)
 {
 	return true;
 }
@@ -274,7 +274,7 @@ static void txx9dmac_chan_set_INTENT(struct txx9dmac_chan *dc)
 {
 }
 
-static inline void txx9dmac_desc_set_INTENT(struct txx9dmac_dev *ddev,
+static void txx9dmac_desc_set_INTENT(struct txx9dmac_dev *ddev,
 					    struct txx9dmac_desc *desc)
 {
 	if (__is_dmac64(ddev))
@@ -283,11 +283,11 @@ static inline void txx9dmac_desc_set_INTENT(struct txx9dmac_dev *ddev,
 		desc->hwdesc32.CCR |= TXX9_DMA_CCR_INTENT;
 }
 
-static inline void txx9dmac_chan_set_SMPCHN(struct txx9dmac_chan *dc)
+static void txx9dmac_chan_set_SMPCHN(struct txx9dmac_chan *dc)
 {
 }
 
-static inline void txx9dmac_desc_set_nosimple(struct txx9dmac_dev *ddev,
+static void txx9dmac_desc_set_nosimple(struct txx9dmac_dev *ddev,
 					      struct txx9dmac_desc *desc,
 					      u32 sai, u32 dai, u32 ccr)
 {

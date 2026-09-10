@@ -543,7 +543,7 @@ struct ef4_link_state {
 	unsigned int speed;
 };
 
-static inline bool ef4_link_state_equal(const struct ef4_link_state *left,
+static bool ef4_link_state_equal(const struct ef4_link_state *left,
 					const struct ef4_link_state *right)
 {
 	return left->up == right->up && left->fd == right->fd &&
@@ -606,7 +606,7 @@ enum ef4_phy_mode {
 	PHY_MODE_SPECIAL	= 8,
 };
 
-static inline bool ef4_phy_mode_disabled(enum ef4_phy_mode mode)
+static bool ef4_phy_mode_disabled(enum ef4_phy_mode mode)
 {
 	return !!(mode & ~PHY_MODE_TX_DISABLED);
 }
@@ -904,12 +904,12 @@ struct ef4_nic {
 	atomic_t n_rx_noskb_drops;
 };
 
-static inline int ef4_dev_registered(struct ef4_nic *efx)
+static int ef4_dev_registered(struct ef4_nic *efx)
 {
 	return efx->net_dev->reg_state == NETREG_REGISTERED;
 }
 
-static inline unsigned int ef4_port_num(struct ef4_nic *efx)
+static unsigned int ef4_port_num(struct ef4_nic *efx)
 {
 	return efx->port_num;
 }
@@ -1162,11 +1162,11 @@ struct ef4_nic_type {
 
 /**************************************************************************
  *
- * Prototypes and inline functions
+ * Prototypes and functions
  *
  *************************************************************************/
 
-static inline struct ef4_channel *
+static struct ef4_channel *
 ef4_get_channel(struct ef4_nic *efx, unsigned index)
 {
 	EF4_BUG_ON_PARANOID(index >= efx->n_channels);
@@ -1187,7 +1187,7 @@ ef4_get_channel(struct ef4_nic *efx, unsigned index)
 	     _channel = _channel->channel ?				\
 		     (_efx)->channel[_channel->channel - 1] : NULL)
 
-static inline struct ef4_tx_queue *
+static struct ef4_tx_queue *
 ef4_get_tx_queue(struct ef4_nic *efx, unsigned index, unsigned type)
 {
 	EF4_BUG_ON_PARANOID(index >= efx->n_tx_channels ||
@@ -1195,13 +1195,13 @@ ef4_get_tx_queue(struct ef4_nic *efx, unsigned index, unsigned type)
 	return &efx->channel[efx->tx_channel_offset + index]->tx_queue[type];
 }
 
-static inline bool ef4_channel_has_tx_queues(struct ef4_channel *channel)
+static bool ef4_channel_has_tx_queues(struct ef4_channel *channel)
 {
 	return channel->channel - channel->efx->tx_channel_offset <
 		channel->efx->n_tx_channels;
 }
 
-static inline struct ef4_tx_queue *
+static struct ef4_tx_queue *
 ef4_channel_get_tx_queue(struct ef4_channel *channel, unsigned type)
 {
 	EF4_BUG_ON_PARANOID(!ef4_channel_has_tx_queues(channel) ||
@@ -1209,7 +1209,7 @@ ef4_channel_get_tx_queue(struct ef4_channel *channel, unsigned type)
 	return &channel->tx_queue[type];
 }
 
-static inline bool ef4_tx_queue_used(struct ef4_tx_queue *tx_queue)
+static bool ef4_tx_queue_used(struct ef4_tx_queue *tx_queue)
 {
 	return !(tx_queue->efx->net_dev->num_tc < 2 &&
 		 tx_queue->queue & EF4_TXQ_TYPE_HIGHPRI);
@@ -1234,12 +1234,12 @@ static inline bool ef4_tx_queue_used(struct ef4_tx_queue *tx_queue)
 		     _tx_queue < (_channel)->tx_queue + EF4_TXQ_TYPES;	\
 		     _tx_queue++)
 
-static inline bool ef4_channel_has_rx_queue(struct ef4_channel *channel)
+static bool ef4_channel_has_rx_queue(struct ef4_channel *channel)
 {
 	return channel->rx_queue.core_index >= 0;
 }
 
-static inline struct ef4_rx_queue *
+static struct ef4_rx_queue *
 ef4_channel_get_rx_queue(struct ef4_channel *channel)
 {
 	EF4_BUG_ON_PARANOID(!ef4_channel_has_rx_queue(channel));
@@ -1255,13 +1255,13 @@ ef4_channel_get_rx_queue(struct ef4_channel *channel)
 		     _rx_queue;						\
 		     _rx_queue = NULL)
 
-static inline struct ef4_channel *
+static struct ef4_channel *
 ef4_rx_queue_channel(struct ef4_rx_queue *rx_queue)
 {
 	return container_of(rx_queue, struct ef4_channel, rx_queue);
 }
 
-static inline int ef4_rx_queue_index(struct ef4_rx_queue *rx_queue)
+static int ef4_rx_queue_index(struct ef4_rx_queue *rx_queue)
 {
 	return ef4_rx_queue_channel(rx_queue)->channel;
 }
@@ -1269,7 +1269,7 @@ static inline int ef4_rx_queue_index(struct ef4_rx_queue *rx_queue)
 /* Returns a pointer to the specified receive buffer in the RX
  * descriptor queue.
  */
-static inline struct ef4_rx_buffer *ef4_rx_buffer(struct ef4_rx_queue *rx_queue,
+static struct ef4_rx_buffer *ef4_rx_buffer(struct ef4_rx_queue *rx_queue,
 						  unsigned int index)
 {
 	return &rx_queue->buffer[index];
@@ -1301,7 +1301,7 @@ static inline struct ef4_rx_buffer *ef4_rx_buffer(struct ef4_rx_queue *rx_queue,
  * If a feature is fixed, it does not present in hw_features, but
  * always in features.
  */
-static inline netdev_features_t ef4_supported_features(const struct ef4_nic *efx)
+static netdev_features_t ef4_supported_features(const struct ef4_nic *efx)
 {
 	const struct net_device *net_dev = efx->net_dev;
 
@@ -1309,21 +1309,21 @@ static inline netdev_features_t ef4_supported_features(const struct ef4_nic *efx
 }
 
 /* Get the current TX queue insert index. */
-static inline unsigned int
+static unsigned int
 ef4_tx_queue_get_insert_index(const struct ef4_tx_queue *tx_queue)
 {
 	return tx_queue->insert_count & tx_queue->ptr_mask;
 }
 
 /* Get a TX buffer. */
-static inline struct ef4_tx_buffer *
+static struct ef4_tx_buffer *
 __ef4_tx_queue_get_insert_buffer(const struct ef4_tx_queue *tx_queue)
 {
 	return &tx_queue->buffer[ef4_tx_queue_get_insert_index(tx_queue)];
 }
 
 /* Get a TX buffer, checking it's not currently in use. */
-static inline struct ef4_tx_buffer *
+static struct ef4_tx_buffer *
 ef4_tx_queue_get_insert_buffer(const struct ef4_tx_queue *tx_queue)
 {
 	struct ef4_tx_buffer *buffer =

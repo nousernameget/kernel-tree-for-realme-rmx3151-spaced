@@ -107,7 +107,7 @@ struct cphy {
 };
 
 /* Convenience MDIO read/write wrappers */
-static inline int cphy_mdio_read(struct cphy *cphy, int mmd, int reg,
+static int cphy_mdio_read(struct cphy *cphy, int mmd, int reg,
 				 unsigned int *valp)
 {
 	int rc = cphy->mdio.mdio_read(cphy->mdio.dev, cphy->mdio.prtad, mmd,
@@ -116,27 +116,27 @@ static inline int cphy_mdio_read(struct cphy *cphy, int mmd, int reg,
 	return (rc >= 0) ? 0 : rc;
 }
 
-static inline int cphy_mdio_write(struct cphy *cphy, int mmd, int reg,
+static int cphy_mdio_write(struct cphy *cphy, int mmd, int reg,
 				  unsigned int val)
 {
 	return cphy->mdio.mdio_write(cphy->mdio.dev, cphy->mdio.prtad, mmd,
 				     reg, val);
 }
 
-static inline int simple_mdio_read(struct cphy *cphy, int reg,
+static int simple_mdio_read(struct cphy *cphy, int reg,
 				   unsigned int *valp)
 {
 	return cphy_mdio_read(cphy, MDIO_DEVAD_NONE, reg, valp);
 }
 
-static inline int simple_mdio_write(struct cphy *cphy, int reg,
+static int simple_mdio_write(struct cphy *cphy, int reg,
 				    unsigned int val)
 {
 	return cphy_mdio_write(cphy, MDIO_DEVAD_NONE, reg, val);
 }
 
 /* Convenience initializer */
-static inline void cphy_init(struct cphy *phy, struct net_device *dev,
+static void cphy_init(struct cphy *phy, struct net_device *dev,
 			     int phy_addr, const struct cphy_ops *phy_ops,
 			     const struct mdio_ops *mdio_ops)
 {

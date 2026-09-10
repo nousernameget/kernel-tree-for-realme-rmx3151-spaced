@@ -47,22 +47,22 @@
 #define NUM_CACHEPAGES totalram_pages
 #endif
 
-static inline unsigned int memory_pressure_get(void)
+static unsigned int memory_pressure_get(void)
 {
 	return current->flags & PF_MEMALLOC;
 }
 
-static inline void memory_pressure_set(void)
+static void memory_pressure_set(void)
 {
 	current->flags |= PF_MEMALLOC;
 }
 
-static inline void memory_pressure_clr(void)
+static void memory_pressure_clr(void)
 {
 	current->flags &= ~PF_MEMALLOC;
 }
 
-static inline int cfs_memory_pressure_get_and_set(void)
+static int cfs_memory_pressure_get_and_set(void)
 {
 	int old = memory_pressure_get();
 
@@ -71,7 +71,7 @@ static inline int cfs_memory_pressure_get_and_set(void)
 	return old;
 }
 
-static inline void cfs_memory_pressure_restore(int old)
+static void cfs_memory_pressure_restore(int old)
 {
 	if (old)
 		memory_pressure_set();

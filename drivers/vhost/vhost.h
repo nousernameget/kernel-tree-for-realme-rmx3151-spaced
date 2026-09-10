@@ -246,50 +246,50 @@ enum {
 			 (1ULL << VIRTIO_F_VERSION_1)
 };
 
-static inline bool vhost_has_feature(struct vhost_virtqueue *vq, int bit)
+static bool vhost_has_feature(struct vhost_virtqueue *vq, int bit)
 {
 	return vq->acked_features & (1ULL << bit);
 }
 
 #ifdef CONFIG_VHOST_CROSS_ENDIAN_LEGACY
-static inline bool vhost_is_little_endian(struct vhost_virtqueue *vq)
+static bool vhost_is_little_endian(struct vhost_virtqueue *vq)
 {
 	return vq->is_le;
 }
 #else
-static inline bool vhost_is_little_endian(struct vhost_virtqueue *vq)
+static bool vhost_is_little_endian(struct vhost_virtqueue *vq)
 {
 	return virtio_legacy_is_little_endian() || vq->is_le;
 }
 #endif
 
 /* Memory accessors */
-static inline u16 vhost16_to_cpu(struct vhost_virtqueue *vq, __virtio16 val)
+static u16 vhost16_to_cpu(struct vhost_virtqueue *vq, __virtio16 val)
 {
 	return __virtio16_to_cpu(vhost_is_little_endian(vq), val);
 }
 
-static inline __virtio16 cpu_to_vhost16(struct vhost_virtqueue *vq, u16 val)
+static __virtio16 cpu_to_vhost16(struct vhost_virtqueue *vq, u16 val)
 {
 	return __cpu_to_virtio16(vhost_is_little_endian(vq), val);
 }
 
-static inline u32 vhost32_to_cpu(struct vhost_virtqueue *vq, __virtio32 val)
+static u32 vhost32_to_cpu(struct vhost_virtqueue *vq, __virtio32 val)
 {
 	return __virtio32_to_cpu(vhost_is_little_endian(vq), val);
 }
 
-static inline __virtio32 cpu_to_vhost32(struct vhost_virtqueue *vq, u32 val)
+static __virtio32 cpu_to_vhost32(struct vhost_virtqueue *vq, u32 val)
 {
 	return __cpu_to_virtio32(vhost_is_little_endian(vq), val);
 }
 
-static inline u64 vhost64_to_cpu(struct vhost_virtqueue *vq, __virtio64 val)
+static u64 vhost64_to_cpu(struct vhost_virtqueue *vq, __virtio64 val)
 {
 	return __virtio64_to_cpu(vhost_is_little_endian(vq), val);
 }
 
-static inline __virtio64 cpu_to_vhost64(struct vhost_virtqueue *vq, u64 val)
+static __virtio64 cpu_to_vhost64(struct vhost_virtqueue *vq, u64 val)
 {
 	return __cpu_to_virtio64(vhost_is_little_endian(vq), val);
 }

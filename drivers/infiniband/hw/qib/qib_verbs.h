@@ -90,7 +90,7 @@ struct qib_verbs_txreq;
 #define IB_VL_VL0_7     4
 #define IB_VL_VL0_14    5
 
-static inline int qib_num_vls(int vls)
+static int qib_num_vls(int vls)
 {
 	switch (vls) {
 	default:
@@ -207,7 +207,7 @@ struct qib_verbs_counters {
 	u32 vl15_dropped;
 };
 
-static inline struct qib_ibdev *to_idev(struct ib_device *ibdev)
+static struct qib_ibdev *to_idev(struct ib_device *ibdev)
 {
 	struct rvt_dev_info *rdi;
 
@@ -219,7 +219,7 @@ static inline struct qib_ibdev *to_idev(struct ib_device *ibdev)
  * Send if not busy or waiting for I/O and either
  * a RC response is pending or we can process send work requests.
  */
-static inline int qib_send_ok(struct rvt_qp *qp)
+static int qib_send_ok(struct rvt_qp *qp)
 {
 	return !(qp->s_flags & (RVT_S_BUSY | RVT_S_ANY_WAIT_IO)) &&
 		(qp->s_hdrwords || (qp->s_flags & RVT_S_RESP_PENDING) ||
@@ -229,7 +229,7 @@ static inline int qib_send_ok(struct rvt_qp *qp)
 void _qib_schedule_send(struct rvt_qp *qp);
 void qib_schedule_send(struct rvt_qp *qp);
 
-static inline int qib_pkey_ok(u16 pkey1, u16 pkey2)
+static int qib_pkey_ok(u16 pkey1, u16 pkey2)
 {
 	u16 p1 = pkey1 & 0x7FFF;
 	u16 p2 = pkey2 & 0x7FFF;
@@ -258,7 +258,7 @@ void qib_notify_free_mad_agent(struct rvt_dev_info *rdi, int port_idx);
  * Compare the lower 24 bits of the two values.
  * Returns an integer <, ==, or > than zero.
  */
-static inline int qib_cmp24(u32 a, u32 b)
+static int qib_cmp24(u32 a, u32 b)
 {
 	return (((int) a) - ((int) b)) << 8;
 }

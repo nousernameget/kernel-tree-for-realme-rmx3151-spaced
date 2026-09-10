@@ -36,9 +36,9 @@ void scsi_init_command(struct scsi_device *dev, struct scsi_cmnd *cmd);
 void scsi_log_send(struct scsi_cmnd *cmd);
 void scsi_log_completion(struct scsi_cmnd *cmd, int disposition);
 #else
-static inline void scsi_log_send(struct scsi_cmnd *cmd) 
+static void scsi_log_send(struct scsi_cmnd *cmd) 
 	{ };
-static inline void scsi_log_completion(struct scsi_cmnd *cmd, int disposition)
+static void scsi_log_completion(struct scsi_cmnd *cmd, int disposition)
 	{ };
 #endif
 

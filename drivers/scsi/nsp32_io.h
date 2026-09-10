@@ -9,40 +9,40 @@
 #ifndef _NSP32_IO_H
 #define _NSP32_IO_H
 
-static inline void nsp32_write1(unsigned int  base,
+static void nsp32_write1(unsigned int  base,
 				unsigned int  index,
 				unsigned char val)
 {
 	outb(val, (base + index));
 }
 
-static inline unsigned char nsp32_read1(unsigned int base,
+static unsigned char nsp32_read1(unsigned int base,
 					unsigned int index)
 {
 	return inb(base + index);
 }
 
-static inline void nsp32_write2(unsigned int   base,
+static void nsp32_write2(unsigned int   base,
 				unsigned int   index,
 				unsigned short val)
 {
 	outw(val, (base + index));
 }
 
-static inline unsigned short nsp32_read2(unsigned int base,
+static unsigned short nsp32_read2(unsigned int base,
 					 unsigned int index)
 {
 	return inw(base + index);
 }
 
-static inline void nsp32_write4(unsigned int  base,
+static void nsp32_write4(unsigned int  base,
 				unsigned int  index,
 				unsigned long val)
 {
 	outl(val, (base + index));
 }
 
-static inline unsigned long nsp32_read4(unsigned int base,
+static unsigned long nsp32_read4(unsigned int base,
 					unsigned int index)
 {
 	return inl(base + index);
@@ -50,7 +50,7 @@ static inline unsigned long nsp32_read4(unsigned int base,
 
 /*==============================================*/
 
-static inline void nsp32_mmio_write1(unsigned long base,
+static void nsp32_mmio_write1(unsigned long base,
 				     unsigned int  index,
 				     unsigned char val)
 {
@@ -61,7 +61,7 @@ static inline void nsp32_mmio_write1(unsigned long base,
 	writeb(val, ptr);
 }
 
-static inline unsigned char nsp32_mmio_read1(unsigned long base,
+static unsigned char nsp32_mmio_read1(unsigned long base,
 					     unsigned int  index)
 {
 	volatile unsigned char *ptr;
@@ -71,7 +71,7 @@ static inline unsigned char nsp32_mmio_read1(unsigned long base,
 	return readb(ptr);
 }
 
-static inline void nsp32_mmio_write2(unsigned long  base,
+static void nsp32_mmio_write2(unsigned long  base,
 				     unsigned int   index,
 				     unsigned short val)
 {
@@ -82,7 +82,7 @@ static inline void nsp32_mmio_write2(unsigned long  base,
 	writew(cpu_to_le16(val), ptr);
 }
 
-static inline unsigned short nsp32_mmio_read2(unsigned long base,
+static unsigned short nsp32_mmio_read2(unsigned long base,
 					      unsigned int  index)
 {
 	volatile unsigned short *ptr;
@@ -92,7 +92,7 @@ static inline unsigned short nsp32_mmio_read2(unsigned long base,
 	return le16_to_cpu(readw(ptr));
 }
 
-static inline void nsp32_mmio_write4(unsigned long base,
+static void nsp32_mmio_write4(unsigned long base,
 				     unsigned int  index,
 				     unsigned long val)
 {
@@ -103,7 +103,7 @@ static inline void nsp32_mmio_write4(unsigned long base,
 	writel(cpu_to_le32(val), ptr);
 }
 
-static inline unsigned long nsp32_mmio_read4(unsigned long base,
+static unsigned long nsp32_mmio_read4(unsigned long base,
 					     unsigned int  index)
 {
 	volatile unsigned long *ptr;
@@ -115,14 +115,14 @@ static inline unsigned long nsp32_mmio_read4(unsigned long base,
 
 /*==============================================*/
 
-static inline unsigned char nsp32_index_read1(unsigned int base,
+static unsigned char nsp32_index_read1(unsigned int base,
 					      unsigned int reg)
 {
 	outb(reg, base + INDEX_REG);
 	return inb(base + DATA_REG_LOW);
 }
 
-static inline void nsp32_index_write1(unsigned int  base,
+static void nsp32_index_write1(unsigned int  base,
 				      unsigned int  reg,
 				      unsigned char val)
 {
@@ -130,14 +130,14 @@ static inline void nsp32_index_write1(unsigned int  base,
 	outb(val, base + DATA_REG_LOW);
 }
 
-static inline unsigned short nsp32_index_read2(unsigned int base,
+static unsigned short nsp32_index_read2(unsigned int base,
 					       unsigned int reg)
 {
 	outb(reg, base + INDEX_REG);
 	return inw(base + DATA_REG_LOW);
 }
 
-static inline void nsp32_index_write2(unsigned int   base,
+static void nsp32_index_write2(unsigned int   base,
 				      unsigned int   reg,
 				      unsigned short val)
 {
@@ -145,7 +145,7 @@ static inline void nsp32_index_write2(unsigned int   base,
 	outw(val, base + DATA_REG_LOW);
 }
 
-static inline unsigned long nsp32_index_read4(unsigned int base,
+static unsigned long nsp32_index_read4(unsigned int base,
 					      unsigned int reg)
 {
 	unsigned long h,l;
@@ -157,7 +157,7 @@ static inline unsigned long nsp32_index_read4(unsigned int base,
 	return ((h << 16) | l);
 }
 
-static inline void nsp32_index_write4(unsigned int  base,
+static void nsp32_index_write4(unsigned int  base,
 				      unsigned int  reg,
 				      unsigned long val)
 {
@@ -173,7 +173,7 @@ static inline void nsp32_index_write4(unsigned int  base,
 
 /*==============================================*/
 
-static inline unsigned char nsp32_mmio_index_read1(unsigned long base,
+static unsigned char nsp32_mmio_index_read1(unsigned long base,
 						   unsigned int reg)
 {
 	volatile unsigned short *index_ptr, *data_ptr;
@@ -185,7 +185,7 @@ static inline unsigned char nsp32_mmio_index_read1(unsigned long base,
 	return readb(data_ptr);
 }
 
-static inline void nsp32_mmio_index_write1(unsigned long base,
+static void nsp32_mmio_index_write1(unsigned long base,
 					   unsigned int  reg,
 					   unsigned char val)
 {
@@ -198,7 +198,7 @@ static inline void nsp32_mmio_index_write1(unsigned long base,
 	writeb(val, data_ptr );
 }
 
-static inline unsigned short nsp32_mmio_index_read2(unsigned long base,
+static unsigned short nsp32_mmio_index_read2(unsigned long base,
 						    unsigned int  reg)
 {
 	volatile unsigned short *index_ptr, *data_ptr;
@@ -210,7 +210,7 @@ static inline unsigned short nsp32_mmio_index_read2(unsigned long base,
 	return le16_to_cpu(readw(data_ptr));
 }
 
-static inline void nsp32_mmio_index_write2(unsigned long  base,
+static void nsp32_mmio_index_write2(unsigned long  base,
 					   unsigned int   reg,
 					   unsigned short val)
 {
@@ -225,7 +225,7 @@ static inline void nsp32_mmio_index_write2(unsigned long  base,
 
 /*==============================================*/
 
-static inline void nsp32_multi_read4(unsigned int   base,
+static void nsp32_multi_read4(unsigned int   base,
 				     unsigned int   reg,
 				     void          *buf,
 				     unsigned long  count)
@@ -233,14 +233,14 @@ static inline void nsp32_multi_read4(unsigned int   base,
 	insl(base + reg, buf, count);
 }
 
-static inline void nsp32_fifo_read(unsigned int   base,
+static void nsp32_fifo_read(unsigned int   base,
 				   void          *buf,
 				   unsigned long  count)
 {
 	nsp32_multi_read4(base, FIFO_DATA_LOW, buf, count);
 }
 
-static inline void nsp32_multi_write4(unsigned int   base,
+static void nsp32_multi_write4(unsigned int   base,
 				      unsigned int   reg,
 				      void          *buf,
 				      unsigned long  count)
@@ -248,7 +248,7 @@ static inline void nsp32_multi_write4(unsigned int   base,
 	outsl(base + reg, buf, count);
 }
 
-static inline void nsp32_fifo_write(unsigned int   base,
+static void nsp32_fifo_write(unsigned int   base,
 				    void          *buf,
 				    unsigned long  count)
 {

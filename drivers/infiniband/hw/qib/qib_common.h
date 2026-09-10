@@ -756,47 +756,47 @@ struct qib_tid_session_member {
 
 /* functions for extracting fields from rcvhdrq entries for the driver.
  */
-static inline __u32 qib_hdrget_err_flags(const __le32 *rbuf)
+static __u32 qib_hdrget_err_flags(const __le32 *rbuf)
 {
 	return __le32_to_cpu(rbuf[1]) & QLOGIC_IB_RHF_H_ERR_MASK;
 }
 
-static inline __u32 qib_hdrget_rcv_type(const __le32 *rbuf)
+static __u32 qib_hdrget_rcv_type(const __le32 *rbuf)
 {
 	return (__le32_to_cpu(rbuf[0]) >> QLOGIC_IB_RHF_RCVTYPE_SHIFT) &
 		QLOGIC_IB_RHF_RCVTYPE_MASK;
 }
 
-static inline __u32 qib_hdrget_length_in_bytes(const __le32 *rbuf)
+static __u32 qib_hdrget_length_in_bytes(const __le32 *rbuf)
 {
 	return ((__le32_to_cpu(rbuf[0]) >> QLOGIC_IB_RHF_LENGTH_SHIFT) &
 		QLOGIC_IB_RHF_LENGTH_MASK) << 2;
 }
 
-static inline __u32 qib_hdrget_index(const __le32 *rbuf)
+static __u32 qib_hdrget_index(const __le32 *rbuf)
 {
 	return (__le32_to_cpu(rbuf[0]) >> QLOGIC_IB_RHF_EGRINDEX_SHIFT) &
 		QLOGIC_IB_RHF_EGRINDEX_MASK;
 }
 
-static inline __u32 qib_hdrget_seq(const __le32 *rbuf)
+static __u32 qib_hdrget_seq(const __le32 *rbuf)
 {
 	return (__le32_to_cpu(rbuf[1]) >> QLOGIC_IB_RHF_SEQ_SHIFT) &
 		QLOGIC_IB_RHF_SEQ_MASK;
 }
 
-static inline __u32 qib_hdrget_offset(const __le32 *rbuf)
+static __u32 qib_hdrget_offset(const __le32 *rbuf)
 {
 	return (__le32_to_cpu(rbuf[1]) >> QLOGIC_IB_RHF_HDRQ_OFFSET_SHIFT) &
 		QLOGIC_IB_RHF_HDRQ_OFFSET_MASK;
 }
 
-static inline __u32 qib_hdrget_use_egr_buf(const __le32 *rbuf)
+static __u32 qib_hdrget_use_egr_buf(const __le32 *rbuf)
 {
 	return __le32_to_cpu(rbuf[0]) & QLOGIC_IB_RHF_L_USE_EGR;
 }
 
-static inline __u32 qib_hdrget_qib_ver(__le32 hdrword)
+static __u32 qib_hdrget_qib_ver(__le32 hdrword)
 {
 	return (__le32_to_cpu(hdrword) >> QLOGIC_IB_I_VERS_SHIFT) &
 		QLOGIC_IB_I_VERS_MASK;

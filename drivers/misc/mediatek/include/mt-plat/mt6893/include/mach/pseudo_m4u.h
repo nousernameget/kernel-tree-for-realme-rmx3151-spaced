@@ -238,7 +238,7 @@ void pseudo_m4u_db_debug(unsigned int m4uid,
 		struct seq_file *s);
 int m4u_get_dma_buf_port(struct device *dev);
 
-static inline bool m4u_enable_4G(void)
+static bool m4u_enable_4G(void)
 {
 	return (max_pfn > (0xffffffffUL >> PAGE_SHIFT));
 }

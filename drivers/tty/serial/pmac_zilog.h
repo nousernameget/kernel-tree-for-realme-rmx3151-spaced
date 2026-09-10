@@ -69,7 +69,7 @@ struct uart_pmac_port {
 
 #define to_pmz(p) ((struct uart_pmac_port *)(p))
 
-static inline struct uart_pmac_port *pmz_get_port_A(struct uart_pmac_port *uap)
+static struct uart_pmac_port *pmz_get_port_A(struct uart_pmac_port *uap)
 {
 	if (uap->flags & PMACZILOG_FLAG_IS_CHANNEL_A)
 		return uap;
@@ -82,31 +82,31 @@ static inline struct uart_pmac_port *pmz_get_port_A(struct uart_pmac_port *uap)
  * though if we try to use this driver on older machines, we might have
  * to add it back
  */
-static inline u8 read_zsreg(struct uart_pmac_port *port, u8 reg)
+static u8 read_zsreg(struct uart_pmac_port *port, u8 reg)
 {
 	if (reg != 0)
 		writeb(reg, port->control_reg);
 	return readb(port->control_reg);
 }
 
-static inline void write_zsreg(struct uart_pmac_port *port, u8 reg, u8 value)
+static void write_zsreg(struct uart_pmac_port *port, u8 reg, u8 value)
 {
 	if (reg != 0)
 		writeb(reg, port->control_reg);
 	writeb(value, port->control_reg);
 }
 
-static inline u8 read_zsdata(struct uart_pmac_port *port)
+static u8 read_zsdata(struct uart_pmac_port *port)
 {
 	return readb(port->data_reg);
 }
 
-static inline void write_zsdata(struct uart_pmac_port *port, u8 data)
+static void write_zsdata(struct uart_pmac_port *port, u8 data)
 {
 	writeb(data, port->data_reg);
 }
 
-static inline void zssync(struct uart_pmac_port *port)
+static void zssync(struct uart_pmac_port *port)
 {
 	(void)readb(port->control_reg);
 }

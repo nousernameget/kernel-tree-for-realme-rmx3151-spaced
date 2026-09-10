@@ -136,7 +136,7 @@ struct scif_endpt {
 	struct file *anon;
 };
 
-static inline int scifdev_alive(struct scif_endpt *ep)
+static int scifdev_alive(struct scif_endpt *ep)
 {
 	return _scifdev_alive(ep->remote_dev);
 }
@@ -148,7 +148,7 @@ static inline int scifdev_alive(struct scif_endpt *ep)
  * Checks several generic error conditions and returns the
  * appropriate error.
  */
-static inline int scif_verify_epd(struct scif_endpt *ep)
+static int scif_verify_epd(struct scif_endpt *ep)
 {
 	if (ep->state == SCIFEP_DISCONNECTED)
 		return -ECONNRESET;
@@ -162,7 +162,7 @@ static inline int scif_verify_epd(struct scif_endpt *ep)
 	return 0;
 }
 
-static inline int scif_anon_inode_getfile(scif_epd_t epd)
+static int scif_anon_inode_getfile(scif_epd_t epd)
 {
 	epd->anon = anon_inode_getfile("scif", &scif_anon_fops, NULL, 0);
 	if (IS_ERR(epd->anon))
@@ -170,7 +170,7 @@ static inline int scif_anon_inode_getfile(scif_epd_t epd)
 	return 0;
 }
 
-static inline void scif_anon_inode_fput(scif_epd_t epd)
+static void scif_anon_inode_fput(scif_epd_t epd)
 {
 	if (epd->anon) {
 		fput(epd->anon);

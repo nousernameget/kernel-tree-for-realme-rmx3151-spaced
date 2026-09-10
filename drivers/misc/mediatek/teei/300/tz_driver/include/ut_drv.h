@@ -73,7 +73,7 @@ enum {
 	UT_DRV_CLOSE,
 };
 
-static inline void prepare_params(struct TEEC_Operation *op,
+static void prepare_params(struct TEEC_Operation *op,
 					void *data, size_t size)
 {
 	op->params[0].tmpref.buffer = data;
@@ -86,7 +86,7 @@ static inline void prepare_params(struct TEEC_Operation *op,
 					TEEC_NONE);
 }
 
-static inline uint32_t get_result(struct TEEC_Operation *op)
+static uint32_t get_result(struct TEEC_Operation *op)
 {
 	return op->params[1].value.a;
 }

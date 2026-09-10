@@ -238,7 +238,7 @@ struct qe_frame{
 #define frame_get_privdata(frm) (frm->privdata)
 #define frame_set_privdata(frm, dat) (frm->privdata = dat)
 
-static inline void qe_frame_clean(struct qe_frame *frm)
+static void qe_frame_clean(struct qe_frame *frm)
 {
 	frame_set_data(frm, NULL);
 	frame_set_length(frm, 0);
@@ -247,7 +247,7 @@ static inline void qe_frame_clean(struct qe_frame *frm)
 	frame_set_privdata(frm, NULL);
 }
 
-static inline void qe_frame_init(struct qe_frame *frm)
+static void qe_frame_init(struct qe_frame *frm)
 {
 	qe_frame_clean(frm);
 	INIT_LIST_HEAD(&(frm->node));

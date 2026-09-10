@@ -114,42 +114,42 @@ struct iwch_dev {
 	struct delayed_work db_drop_task;
 };
 
-static inline struct iwch_dev *to_iwch_dev(struct ib_device *ibdev)
+static struct iwch_dev *to_iwch_dev(struct ib_device *ibdev)
 {
 	return container_of(ibdev, struct iwch_dev, ibdev);
 }
 
-static inline struct iwch_dev *rdev_to_iwch_dev(struct cxio_rdev *rdev)
+static struct iwch_dev *rdev_to_iwch_dev(struct cxio_rdev *rdev)
 {
 	return container_of(rdev, struct iwch_dev, rdev);
 }
 
-static inline int t3b_device(const struct iwch_dev *rhp)
+static int t3b_device(const struct iwch_dev *rhp)
 {
 	return rhp->rdev.t3cdev_p->type == T3B;
 }
 
-static inline int t3a_device(const struct iwch_dev *rhp)
+static int t3a_device(const struct iwch_dev *rhp)
 {
 	return rhp->rdev.t3cdev_p->type == T3A;
 }
 
-static inline struct iwch_cq *get_chp(struct iwch_dev *rhp, u32 cqid)
+static struct iwch_cq *get_chp(struct iwch_dev *rhp, u32 cqid)
 {
 	return idr_find(&rhp->cqidr, cqid);
 }
 
-static inline struct iwch_qp *get_qhp(struct iwch_dev *rhp, u32 qpid)
+static struct iwch_qp *get_qhp(struct iwch_dev *rhp, u32 qpid)
 {
 	return idr_find(&rhp->qpidr, qpid);
 }
 
-static inline struct iwch_mr *get_mhp(struct iwch_dev *rhp, u32 mmid)
+static struct iwch_mr *get_mhp(struct iwch_dev *rhp, u32 mmid)
 {
 	return idr_find(&rhp->mmidr, mmid);
 }
 
-static inline int insert_handle(struct iwch_dev *rhp, struct idr *idr,
+static int insert_handle(struct iwch_dev *rhp, struct idr *idr,
 				void *handle, u32 id)
 {
 	int ret;
@@ -166,7 +166,7 @@ static inline int insert_handle(struct iwch_dev *rhp, struct idr *idr,
 	return ret < 0 ? ret : 0;
 }
 
-static inline void remove_handle(struct iwch_dev *rhp, struct idr *idr, u32 id)
+static void remove_handle(struct iwch_dev *rhp, struct idr *idr, u32 id)
 {
 	spin_lock_irq(&rhp->lock);
 	idr_remove(idr, id);

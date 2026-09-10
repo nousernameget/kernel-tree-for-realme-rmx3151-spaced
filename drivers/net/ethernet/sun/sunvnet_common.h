@@ -90,7 +90,7 @@ struct vnet_port {
 	u16			q_index;
 };
 
-static inline struct vnet_port *to_vnet_port(struct vio_driver_state *vio)
+static struct vnet_port *to_vnet_port(struct vio_driver_state *vio)
 {
 	return container_of(vio, struct vnet_port, vio);
 }
@@ -98,7 +98,7 @@ static inline struct vnet_port *to_vnet_port(struct vio_driver_state *vio)
 #define VNET_PORT_HASH_SIZE	16
 #define VNET_PORT_HASH_MASK	(VNET_PORT_HASH_SIZE - 1)
 
-static inline unsigned int vnet_hashfn(u8 *mac)
+static unsigned int vnet_hashfn(u8 *mac)
 {
 	unsigned int val = mac[4] ^ mac[5];
 

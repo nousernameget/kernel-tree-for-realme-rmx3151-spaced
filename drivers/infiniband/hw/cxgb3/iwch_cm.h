@@ -193,17 +193,17 @@ struct iwch_ep {
 	u32 ord;
 };
 
-static inline struct iwch_ep *to_ep(struct iw_cm_id *cm_id)
+static struct iwch_ep *to_ep(struct iw_cm_id *cm_id)
 {
 	return cm_id->provider_data;
 }
 
-static inline struct iwch_listen_ep *to_listen_ep(struct iw_cm_id *cm_id)
+static struct iwch_listen_ep *to_listen_ep(struct iw_cm_id *cm_id)
 {
 	return cm_id->provider_data;
 }
 
-static inline int compute_wscale(int win)
+static int compute_wscale(int win)
 {
 	int wscale = 0;
 

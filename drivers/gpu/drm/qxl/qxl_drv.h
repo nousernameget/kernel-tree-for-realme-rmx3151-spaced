@@ -352,14 +352,14 @@ void qxl_ring_free(struct qxl_ring *ring);
 void qxl_ring_init_hdr(struct qxl_ring *ring);
 int qxl_check_idle(struct qxl_ring *ring);
 
-static inline void *
+static void *
 qxl_fb_virtual_address(struct qxl_device *qdev, unsigned long physical)
 {
 	QXL_INFO(qdev, "not implemented (%lu)\n", physical);
 	return 0;
 }
 
-static inline uint64_t
+static uint64_t
 qxl_bo_physical_address(struct qxl_device *qdev, struct qxl_bo *bo,
 			unsigned long offset)
 {

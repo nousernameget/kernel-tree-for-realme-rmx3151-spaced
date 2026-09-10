@@ -48,7 +48,7 @@
 #define NIC_CFG_RSS_HASH_TYPE_IPV6_EX		(1 << 5)
 #define NIC_CFG_RSS_HASH_TYPE_TCP_IPV6_EX	(1 << 6)
 
-static inline void vnic_set_nic_cfg(u32 *nic_cfg,
+static void vnic_set_nic_cfg(u32 *nic_cfg,
 	u8 rss_default_cpu, u8 rss_hash_type,
 	u8 rss_hash_bits, u8 rss_base_cpu,
 	u8 rss_enable, u8 tso_ipid_split_en,

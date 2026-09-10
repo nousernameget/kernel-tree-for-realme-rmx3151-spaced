@@ -272,7 +272,7 @@ struct bfa_fcs_fabric_s;
 #define bfa_fcs_lport_get_nrports(_lport)	\
 	((_lport) ? (_lport)->num_rports : 0)
 
-static inline struct bfad_port_s *
+static struct bfad_port_s *
 bfa_fcs_lport_get_drvport(struct bfa_fcs_lport_s *port)
 {
 	return port->bfad_port;
@@ -457,7 +457,7 @@ struct bfa_fcs_rport_s {
 	bfa_boolean_t   scn_online;	/* SCN online flag */
 };
 
-static inline struct bfa_rport_s *
+static struct bfa_rport_s *
 bfa_fcs_rport_get_halrport(struct bfa_fcs_rport_s *rport)
 {
 	return rport->bfa_rport;
@@ -527,63 +527,63 @@ struct bfa_fcs_itnim_s {
 	bfa_fcxp_req_rsp_alloc_wait(__bfa, __wqe, __alloc_cbfn,		\
 		__alloc_cbarg, NULL, 0, 0, NULL, NULL, NULL, NULL, __req)
 
-static inline struct bfad_port_s *
+static struct bfad_port_s *
 bfa_fcs_itnim_get_drvport(struct bfa_fcs_itnim_s *itnim)
 {
 	return itnim->rport->port->bfad_port;
 }
 
 
-static inline struct bfa_fcs_lport_s *
+static struct bfa_fcs_lport_s *
 bfa_fcs_itnim_get_port(struct bfa_fcs_itnim_s *itnim)
 {
 	return itnim->rport->port;
 }
 
 
-static inline wwn_t
+static wwn_t
 bfa_fcs_itnim_get_nwwn(struct bfa_fcs_itnim_s *itnim)
 {
 	return itnim->rport->nwwn;
 }
 
 
-static inline wwn_t
+static wwn_t
 bfa_fcs_itnim_get_pwwn(struct bfa_fcs_itnim_s *itnim)
 {
 	return itnim->rport->pwwn;
 }
 
 
-static inline u32
+static u32
 bfa_fcs_itnim_get_fcid(struct bfa_fcs_itnim_s *itnim)
 {
 	return itnim->rport->pid;
 }
 
 
-static inline	u32
+static u32
 bfa_fcs_itnim_get_maxfrsize(struct bfa_fcs_itnim_s *itnim)
 {
 	return itnim->rport->maxfrsize;
 }
 
 
-static inline	enum fc_cos
+static enum fc_cos
 bfa_fcs_itnim_get_cos(struct bfa_fcs_itnim_s *itnim)
 {
 	return itnim->rport->fc_cos;
 }
 
 
-static inline struct bfad_itnim_s *
+static struct bfad_itnim_s *
 bfa_fcs_itnim_get_drvitn(struct bfa_fcs_itnim_s *itnim)
 {
 	return itnim->itnim_drv;
 }
 
 
-static inline struct bfa_itnim_s *
+static struct bfa_itnim_s *
 bfa_fcs_itnim_get_halitn(struct bfa_fcs_itnim_s *itnim)
 {
 	return itnim->bfa_itnim;

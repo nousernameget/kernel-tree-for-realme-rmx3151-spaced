@@ -107,7 +107,7 @@
 #define SMC_IRQ_FLAGS		(-1)	/* from resource */
 
 /* We actually can't write halfwords properly if not word aligned */
-static inline void _SMC_outw_align4(u16 val, void __iomem *ioaddr, int reg,
+static void _SMC_outw_align4(u16 val, void __iomem *ioaddr, int reg,
 				    bool use_align4_workaround)
 {
 	if (use_align4_workaround) {
@@ -198,14 +198,14 @@ static inline void _SMC_outw_align4(u16 val, void __iomem *ioaddr, int reg,
 #define SMC_CAN_USE_32BIT	0
 #define SMC_NOWAIT		1
 
-static inline void mcf_insw(void *a, unsigned char *p, int l)
+static void mcf_insw(void *a, unsigned char *p, int l)
 {
 	u16 *wp = (u16 *) p;
 	while (l-- > 0)
 		*wp++ = readw(a);
 }
 
-static inline void mcf_outsw(void *a, unsigned char *p, int l)
+static void mcf_outsw(void *a, unsigned char *p, int l)
 {
 	u16 *wp = (u16 *) p;
 	while (l-- > 0)
@@ -333,7 +333,7 @@ struct smc_local {
 #undef SMC_insl
 #define SMC_insl(a, r, p, l) \
 	smc_pxa_dma_insl(a, lp, r, dev->dma, p, l)
-static inline void
+static void
 smc_pxa_dma_inpump(struct smc_local *lp, u_char *buf, int len)
 {
 	dma_addr_t dmabuf;
@@ -359,7 +359,7 @@ smc_pxa_dma_inpump(struct smc_local *lp, u_char *buf, int len)
 	dma_unmap_single(lp->device, dmabuf, len, DMA_FROM_DEVICE);
 }
 
-static inline void
+static void
 smc_pxa_dma_insl(void __iomem *ioaddr, struct smc_local *lp, int reg, int dma,
 		 u_char *buf, int len)
 {
@@ -402,7 +402,7 @@ smc_pxa_dma_insl(void __iomem *ioaddr, struct smc_local *lp, int reg, int dma,
 #undef SMC_insw
 #define SMC_insw(a, r, p, l) \
 	smc_pxa_dma_insw(a, lp, r, dev->dma, p, l)
-static inline void
+static void
 smc_pxa_dma_insw(void __iomem *ioaddr, struct smc_local *lp, int reg, int dma,
 		 u_char *buf, int len)
 {
@@ -874,10 +874,10 @@ static const char * chip_ids[ 16 ] =  {
  * be done separately as needed in the main code.  The SMC_REG() macro
  * only uses the bank argument for debugging purposes (when enabled).
  *
- * Note: despite inline functions being safer, everything leading to this
+ * Note: despite functions being safer, everything leading to this
  * should preferably be macros to let BUG() display the line number in
  * the core source code since we're interested in the top call site
- * not in any inline function location.
+ * not in any function location.
  */
 
 #if SMC_DEBUG > 0

@@ -65,14 +65,14 @@ struct i2c_adapter *dib7000m_get_i2c_master(struct dvb_frontend *demod,
 	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);
 	return NULL;
 }
-static inline int dib7000m_pid_filter(struct dvb_frontend *fe, u8 id,
+static int dib7000m_pid_filter(struct dvb_frontend *fe, u8 id,
 						u16 pid, u8 onoff)
 {
 	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);
 	return -ENODEV;
 }
 
-static inline int dib7000m_pid_filter_ctrl(struct dvb_frontend *fe,
+static int dib7000m_pid_filter_ctrl(struct dvb_frontend *fe,
 						uint8_t onoff)
 {
 	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);

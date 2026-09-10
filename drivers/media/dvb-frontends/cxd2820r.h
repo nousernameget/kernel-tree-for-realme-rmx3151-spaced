@@ -104,7 +104,7 @@ extern struct dvb_frontend *cxd2820r_attach(
 	int *gpio_chip_base
 );
 #else
-static inline struct dvb_frontend *cxd2820r_attach(
+static struct dvb_frontend *cxd2820r_attach(
 	const struct cxd2820r_config *config,
 	struct i2c_adapter *i2c,
 	int *gpio_chip_base

@@ -165,7 +165,7 @@ struct uvc_device {
 	unsigned int event_setup_out : 1;
 };
 
-static inline struct uvc_device *to_uvc(struct usb_function *f)
+static struct uvc_device *to_uvc(struct usb_function *f)
 {
 	return container_of(f, struct uvc_device, func);
 }

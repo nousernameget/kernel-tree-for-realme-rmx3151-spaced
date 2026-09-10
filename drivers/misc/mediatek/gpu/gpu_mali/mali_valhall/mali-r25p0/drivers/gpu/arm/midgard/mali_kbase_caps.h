@@ -42,22 +42,22 @@ typedef enum mali_kbase_cap {
 
 extern bool mali_kbase_supports_cap(unsigned long api_version, mali_kbase_cap cap);
 
-static inline bool mali_kbase_supports_system_monitor(unsigned long api_version)
+static bool mali_kbase_supports_system_monitor(unsigned long api_version)
 {
 	return mali_kbase_supports_cap(api_version, MALI_KBASE_CAP_SYSTEM_MONITOR);
 }
 
-static inline bool mali_kbase_supports_jit_pressure_limit(unsigned long api_version)
+static bool mali_kbase_supports_jit_pressure_limit(unsigned long api_version)
 {
 	return mali_kbase_supports_cap(api_version, MALI_KBASE_CAP_JIT_PRESSURE_LIMIT);
 }
 
-static inline bool mali_kbase_supports_mem_grow_on_gpf(unsigned long api_version)
+static bool mali_kbase_supports_mem_grow_on_gpf(unsigned long api_version)
 {
 	return mali_kbase_supports_cap(api_version, MALI_KBASE_CAP_MEM_GROW_ON_GPF);
 }
 
-static inline bool mali_kbase_supports_mem_protected(unsigned long api_version)
+static bool mali_kbase_supports_mem_protected(unsigned long api_version)
 {
 	return mali_kbase_supports_cap(api_version, MALI_KBASE_CAP_MEM_PROTECTED);
 }

@@ -19,12 +19,12 @@
  * This file is included on every cell {SP,ISP,host} and on every system
  * that uses the IRQ device. It defines the API to DLI bridge
  *
- * System and cell specific interfaces and inline code are included
+ * System and cell specific interfaces and code are included
  * conditionally through Makefile path settings.
  *
  *  - .        system and cell agnostic interfaces, constants and identifiers
  *	- public:  system agnostic, cell specific interfaces
- *	- private: system dependent, cell specific interfaces & inline implementations
+ *	- private: system dependent, cell specific interfaces & implementations
  *	- global:  system specific constants and identifiers
  *	- local:   system and cell specific constants and identifiers
  */

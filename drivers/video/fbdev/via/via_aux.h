@@ -55,7 +55,7 @@ void via_aux_free(struct via_aux_bus *bus);
 const struct fb_videomode *via_aux_get_preferred_mode(struct via_aux_bus *bus);
 
 
-static inline bool via_aux_add(struct via_aux_drv *drv)
+static bool via_aux_add(struct via_aux_drv *drv)
 {
 	struct via_aux_drv *data = kmalloc(sizeof(*data), GFP_KERNEL);
 
@@ -67,7 +67,7 @@ static inline bool via_aux_add(struct via_aux_drv *drv)
 	return true;
 }
 
-static inline bool via_aux_read(struct via_aux_drv *drv, u8 start, u8 *buf,
+static bool via_aux_read(struct via_aux_drv *drv, u8 start, u8 *buf,
 	u8 len)
 {
 	struct i2c_msg msg[2] = {

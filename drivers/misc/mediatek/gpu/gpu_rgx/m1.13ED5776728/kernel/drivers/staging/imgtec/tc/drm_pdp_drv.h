@@ -161,7 +161,7 @@ struct pdp_fbdev {
 };
 #endif
 
-static inline u32 pdp_drm_fb_cpp(struct drm_framebuffer *fb)
+static u32 pdp_drm_fb_cpp(struct drm_framebuffer *fb)
 {
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0))
 	return fb->format->cpp[0];
@@ -170,7 +170,7 @@ static inline u32 pdp_drm_fb_cpp(struct drm_framebuffer *fb)
 #endif
 }
 
-static inline u32 pdp_drm_fb_format(struct drm_framebuffer *fb)
+static u32 pdp_drm_fb_format(struct drm_framebuffer *fb)
 {
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0))
 	return fb->format->format;

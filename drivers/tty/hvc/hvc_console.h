@@ -98,7 +98,7 @@ void hvc_kick(void);
 /* Resize hvc tty terminal window */
 extern void __hvc_resize(struct hvc_struct *hp, struct winsize ws);
 
-static inline void hvc_resize(struct hvc_struct *hp, struct winsize ws)
+static void hvc_resize(struct hvc_struct *hp, struct winsize ws)
 {
 	unsigned long flags;
 
@@ -116,7 +116,7 @@ extern void notifier_hangup_irq(struct hvc_struct *hp, int data);
 #if defined(CONFIG_XMON) && defined(CONFIG_SMP)
 #include <asm/xmon.h>
 #else
-static inline int cpus_are_in_xmon(void)
+static int cpus_are_in_xmon(void)
 {
 	return 0;
 }

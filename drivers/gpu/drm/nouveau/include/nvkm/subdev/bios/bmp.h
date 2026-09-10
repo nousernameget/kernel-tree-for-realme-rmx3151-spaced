@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: GPL-2.0 */
 #ifndef __NVBIOS_BMP_H__
 #define __NVBIOS_BMP_H__
-static inline u16
+static u16
 bmp_version(struct nvkm_bios *bios)
 {
 	if (bios->bmp_offset) {
@@ -12,7 +12,7 @@ bmp_version(struct nvkm_bios *bios)
 	return 0x0000;
 }
 
-static inline u16
+static u16
 bmp_mem_init_table(struct nvkm_bios *bios)
 {
 	if (bmp_version(bios) >= 0x0300)
@@ -20,7 +20,7 @@ bmp_mem_init_table(struct nvkm_bios *bios)
 	return 0x0000;
 }
 
-static inline u16
+static u16
 bmp_sdr_seq_table(struct nvkm_bios *bios)
 {
 	if (bmp_version(bios) >= 0x0300)
@@ -28,7 +28,7 @@ bmp_sdr_seq_table(struct nvkm_bios *bios)
 	return 0x0000;
 }
 
-static inline u16
+static u16
 bmp_ddr_seq_table(struct nvkm_bios *bios)
 {
 	if (bmp_version(bios) >= 0x0300)

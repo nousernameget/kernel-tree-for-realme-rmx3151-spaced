@@ -124,12 +124,12 @@ void mlx5_accel_ipsec_cleanup(struct mlx5_core_dev *mdev);
 
 #define MLX5_IPSEC_DEV(mdev) false
 
-static inline int mlx5_accel_ipsec_init(struct mlx5_core_dev *mdev)
+static int mlx5_accel_ipsec_init(struct mlx5_core_dev *mdev)
 {
 	return 0;
 }
 
-static inline void mlx5_accel_ipsec_cleanup(struct mlx5_core_dev *mdev)
+static void mlx5_accel_ipsec_cleanup(struct mlx5_core_dev *mdev)
 {
 }
 

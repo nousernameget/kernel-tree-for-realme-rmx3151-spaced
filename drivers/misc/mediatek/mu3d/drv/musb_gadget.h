@@ -58,7 +58,7 @@ struct musb_request {
 	enum buffer_map_state map_state;
 };
 
-static inline struct musb_request *to_musb_request(struct usb_request *req)
+static struct musb_request *to_musb_request(struct usb_request *req)
 {
 	return req ? container_of(req, struct musb_request, request) : NULL;
 }
@@ -96,12 +96,12 @@ struct musb_ep {
 	u8 hb_mult;
 };
 
-static inline struct musb_ep *to_musb_ep(struct usb_ep *ep)
+static struct musb_ep *to_musb_ep(struct usb_ep *ep)
 {
 	return ep ? container_of(ep, struct musb_ep, end_point) : NULL;
 }
 
-static inline struct musb_request *next_request(struct musb_ep *ep)
+static struct musb_request *next_request(struct musb_ep *ep)
 {
 	struct list_head *queue = &ep->req_list;
 

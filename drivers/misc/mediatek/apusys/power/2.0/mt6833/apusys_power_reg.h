@@ -26,17 +26,17 @@
 #define GET_BITS_VAL(_bits_, _val_) (((_val_) & \
 (BITMASK(_bits_))) >> ((0) ? _bits_))
 
-static inline void DRV_WriteReg32(void *addr, uint32_t value)
+static void DRV_WriteReg32(void *addr, uint32_t value)
 {
 	mt_reg_sync_writel(value, addr);
 }
 
-static inline u32 DRV_Reg32(void *addr)
+static u32 DRV_Reg32(void *addr)
 {
 	return ioread32(addr);
 }
 
-static inline void DRV_SetBitReg32(void *addr, uint32_t bit_mask)
+static void DRV_SetBitReg32(void *addr, uint32_t bit_mask)
 {
 	u32 tmp = ioread32(addr);
 
@@ -44,7 +44,7 @@ static inline void DRV_SetBitReg32(void *addr, uint32_t bit_mask)
 	mt_reg_sync_writel(tmp, addr);
 }
 
-static inline void DRV_ClearBitReg32(void *addr, uint32_t bit_mask)
+static void DRV_ClearBitReg32(void *addr, uint32_t bit_mask)
 {
 	u32 tmp = ioread32(addr);
 

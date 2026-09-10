@@ -510,7 +510,7 @@ struct delta_dev {
 	struct rpmsg_device *rpmsg_device;
 };
 
-static inline char *frame_type_str(u32 flags)
+static char *frame_type_str(u32 flags)
 {
 	if (flags & V4L2_BUF_FLAG_KEYFRAME)
 		return "I";
@@ -523,7 +523,7 @@ static inline char *frame_type_str(u32 flags)
 	return "?";
 }
 
-static inline char *frame_field_str(enum v4l2_field field)
+static char *frame_field_str(enum v4l2_field field)
 {
 	if (field == V4L2_FIELD_NONE)
 		return "-";
@@ -540,7 +540,7 @@ static inline char *frame_field_str(enum v4l2_field field)
 	return "?";
 }
 
-static inline char *frame_state_str(u32 state, char *str, unsigned int len)
+static char *frame_state_str(u32 state, char *str, unsigned int len)
 {
 	snprintf(str, len, "%s %s %s %s %s %s",
 		 (state & DELTA_FRAME_REF)  ? "ref" : "   ",

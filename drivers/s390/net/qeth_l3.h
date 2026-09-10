@@ -42,7 +42,7 @@ struct qeth_ipaddr {
 	} u;
 };
 
-static inline bool qeth_l3_addr_match_ip(struct qeth_ipaddr *a1,
+static bool qeth_l3_addr_match_ip(struct qeth_ipaddr *a1,
 					 struct qeth_ipaddr *a2)
 {
 	if (a1->proto != a2->proto)
@@ -52,7 +52,7 @@ static inline bool qeth_l3_addr_match_ip(struct qeth_ipaddr *a1,
 	return a1->u.a4.addr == a2->u.a4.addr;
 }
 
-static inline bool qeth_l3_addr_match_all(struct qeth_ipaddr *a1,
+static bool qeth_l3_addr_match_all(struct qeth_ipaddr *a1,
 					  struct qeth_ipaddr *a2)
 {
 	/* Assumes that the pair was obtained via qeth_l3_addr_find_by_ip(),
@@ -74,7 +74,7 @@ static inline bool qeth_l3_addr_match_all(struct qeth_ipaddr *a1,
 	return a1->u.a4.mask == a2->u.a4.mask;
 }
 
-static inline  u64 qeth_l3_ipaddr_hash(struct qeth_ipaddr *addr)
+static u64 qeth_l3_ipaddr_hash(struct qeth_ipaddr *addr)
 {
 	u64  ret = 0;
 	u8 *point;

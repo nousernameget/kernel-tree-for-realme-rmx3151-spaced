@@ -101,7 +101,7 @@
 #define LEN_ON_SIZE(pa, size)	((size) - ((pa) & ((size) - 1)))
 #define LEN_ON_PAGE(pa)		LEN_ON_SIZE(pa, PAGE_SIZE)
 
-static inline unsigned long nx842_get_pa(void *addr)
+static unsigned long nx842_get_pa(void *addr)
 {
 	if (!is_vmalloc_addr(addr))
 		return __pa(addr);

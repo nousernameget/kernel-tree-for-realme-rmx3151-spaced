@@ -50,7 +50,7 @@
 #define REG_FLD_MOD(reg, val, start, end) \
 	REG_WRITE(reg, FLD_MOD(REG_READ(reg), val, start, end))
 
-static inline int REGISTER_FLD_WAIT(struct drm_device *dev, u32 reg,
+static int REGISTER_FLD_WAIT(struct drm_device *dev, u32 reg,
 		u32 val, int start, int end)
 {
 	int t = 100000;
@@ -266,7 +266,7 @@ struct mdfld_dsi_config {
 	int dvr_ic_inited;
 };
 
-static inline struct mdfld_dsi_connector *mdfld_dsi_connector(
+static struct mdfld_dsi_connector *mdfld_dsi_connector(
 		struct drm_connector *connector)
 {
 	struct gma_connector *gma_connector;
@@ -276,7 +276,7 @@ static inline struct mdfld_dsi_connector *mdfld_dsi_connector(
 	return container_of(gma_connector, struct mdfld_dsi_connector, base);
 }
 
-static inline struct mdfld_dsi_encoder *mdfld_dsi_encoder(
+static struct mdfld_dsi_encoder *mdfld_dsi_encoder(
 		struct drm_encoder *encoder)
 {
 	struct gma_encoder *gma_encoder;
@@ -286,7 +286,7 @@ static inline struct mdfld_dsi_encoder *mdfld_dsi_encoder(
 	return container_of(gma_encoder, struct mdfld_dsi_encoder, base);
 }
 
-static inline struct mdfld_dsi_config *
+static struct mdfld_dsi_config *
 	mdfld_dsi_get_config(struct mdfld_dsi_connector *connector)
 {
 	if (!connector)
@@ -294,7 +294,7 @@ static inline struct mdfld_dsi_config *
 	return (struct mdfld_dsi_config *)connector->private;
 }
 
-static inline void *mdfld_dsi_get_pkg_sender(struct mdfld_dsi_config *config)
+static void *mdfld_dsi_get_pkg_sender(struct mdfld_dsi_config *config)
 {
 	struct mdfld_dsi_connector *dsi_connector;
 
@@ -309,7 +309,7 @@ static inline void *mdfld_dsi_get_pkg_sender(struct mdfld_dsi_config *config)
 	return dsi_connector->pkg_sender;
 }
 
-static inline struct mdfld_dsi_config *
+static struct mdfld_dsi_config *
 	mdfld_dsi_encoder_get_config(struct mdfld_dsi_encoder *encoder)
 {
 	if (!encoder)
@@ -317,7 +317,7 @@ static inline struct mdfld_dsi_config *
 	return (struct mdfld_dsi_config *)encoder->private;
 }
 
-static inline struct mdfld_dsi_connector *
+static struct mdfld_dsi_connector *
 	mdfld_dsi_encoder_get_connector(struct mdfld_dsi_encoder *encoder)
 {
 	struct mdfld_dsi_config *config;
@@ -332,7 +332,7 @@ static inline struct mdfld_dsi_connector *
 	return config->connector;
 }
 
-static inline void *mdfld_dsi_encoder_get_pkg_sender(
+static void *mdfld_dsi_encoder_get_pkg_sender(
 				struct mdfld_dsi_encoder *encoder)
 {
 	struct mdfld_dsi_config *dsi_config;
@@ -344,7 +344,7 @@ static inline void *mdfld_dsi_encoder_get_pkg_sender(
 	return mdfld_dsi_get_pkg_sender(dsi_config);
 }
 
-static inline int mdfld_dsi_encoder_get_pipe(struct mdfld_dsi_encoder *encoder)
+static int mdfld_dsi_encoder_get_pipe(struct mdfld_dsi_encoder *encoder)
 {
 	struct mdfld_dsi_connector *connector;
 

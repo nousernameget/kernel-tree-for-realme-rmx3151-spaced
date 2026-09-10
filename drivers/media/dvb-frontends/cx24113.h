@@ -32,14 +32,14 @@ extern struct dvb_frontend *cx24113_attach(struct dvb_frontend *,
 
 extern void cx24113_agc_callback(struct dvb_frontend *fe);
 #else
-static inline struct dvb_frontend *cx24113_attach(struct dvb_frontend *fe,
+static struct dvb_frontend *cx24113_attach(struct dvb_frontend *fe,
 	const struct cx24113_config *config, struct i2c_adapter *i2c)
 {
 	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);
 	return NULL;
 }
 
-static inline void cx24113_agc_callback(struct dvb_frontend *fe)
+static void cx24113_agc_callback(struct dvb_frontend *fe)
 {
 	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);
 }

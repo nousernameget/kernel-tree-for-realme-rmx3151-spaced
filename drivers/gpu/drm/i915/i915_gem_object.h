@@ -231,7 +231,7 @@ struct drm_i915_gem_object {
 	struct reservation_object __builtin_resv;
 };
 
-static inline struct drm_i915_gem_object *
+static struct drm_i915_gem_object *
 to_intel_bo(struct drm_gem_object *gem)
 {
 	/* Assert that to_intel_bo(NULL) == NULL */
@@ -251,7 +251,7 @@ to_intel_bo(struct drm_gem_object *gem)
  * otherwise. This object is only valid whilst under the RCU read lock, and
  * note carefully the object may be in the process of being destroyed.
  */
-static inline struct drm_i915_gem_object *
+static struct drm_i915_gem_object *
 i915_gem_object_lookup_rcu(struct drm_file *file, u32 handle)
 {
 #ifdef CONFIG_LOCKDEP
@@ -260,7 +260,7 @@ i915_gem_object_lookup_rcu(struct drm_file *file, u32 handle)
 	return idr_find(&file->object_idr, handle);
 }
 
-static inline struct drm_i915_gem_object *
+static struct drm_i915_gem_object *
 i915_gem_object_lookup(struct drm_file *file, u32 handle)
 {
 	struct drm_i915_gem_object *obj;
@@ -279,7 +279,7 @@ extern struct drm_gem_object *
 drm_gem_object_lookup(struct drm_file *file, u32 handle);
 
 __attribute__((nonnull))
-static inline struct drm_i915_gem_object *
+static struct drm_i915_gem_object *
 i915_gem_object_get(struct drm_i915_gem_object *obj)
 {
 	drm_gem_object_reference(&obj->base);
@@ -290,7 +290,7 @@ __deprecated
 extern void drm_gem_object_reference(struct drm_gem_object *);
 
 __attribute__((nonnull))
-static inline void
+static void
 i915_gem_object_put(struct drm_i915_gem_object *obj)
 {
 	__drm_gem_object_unreference(&obj->base);
@@ -302,60 +302,60 @@ extern void drm_gem_object_unreference(struct drm_gem_object *);
 __deprecated
 extern void drm_gem_object_unreference_unlocked(struct drm_gem_object *);
 
-static inline void i915_gem_object_lock(struct drm_i915_gem_object *obj)
+static void i915_gem_object_lock(struct drm_i915_gem_object *obj)
 {
 	reservation_object_lock(obj->resv, NULL);
 }
 
-static inline void i915_gem_object_unlock(struct drm_i915_gem_object *obj)
+static void i915_gem_object_unlock(struct drm_i915_gem_object *obj)
 {
 	reservation_object_unlock(obj->resv);
 }
 
-static inline void
+static void
 i915_gem_object_set_readonly(struct drm_i915_gem_object *obj)
 {
 	obj->base.vma_node.readonly = true;
 }
 
-static inline bool
+static bool
 i915_gem_object_is_readonly(const struct drm_i915_gem_object *obj)
 {
 	return obj->base.vma_node.readonly;
 }
 
-static inline bool
+static bool
 i915_gem_object_has_struct_page(const struct drm_i915_gem_object *obj)
 {
 	return obj->ops->flags & I915_GEM_OBJECT_HAS_STRUCT_PAGE;
 }
 
-static inline bool
+static bool
 i915_gem_object_is_shrinkable(const struct drm_i915_gem_object *obj)
 {
 	return obj->ops->flags & I915_GEM_OBJECT_IS_SHRINKABLE;
 }
 
-static inline bool
+static bool
 i915_gem_object_is_active(const struct drm_i915_gem_object *obj)
 {
 	return obj->active_count;
 }
 
-static inline bool
+static bool
 i915_gem_object_has_active_reference(const struct drm_i915_gem_object *obj)
 {
 	return test_bit(I915_BO_ACTIVE_REF, &obj->flags);
 }
 
-static inline void
+static void
 i915_gem_object_set_active_reference(struct drm_i915_gem_object *obj)
 {
 	lockdep_assert_held(&obj->base.dev->struct_mutex);
 	__set_bit(I915_BO_ACTIVE_REF, &obj->flags);
 }
 
-static inline void
+static void
 i915_gem_object_clear_active_reference(struct drm_i915_gem_object *obj)
 {
 	lockdep_assert_held(&obj->base.dev->struct_mutex);
@@ -364,44 +364,44 @@ i915_gem_object_clear_active_reference(struct drm_i915_gem_object *obj)
 
 void __i915_gem_object_release_unless_active(struct drm_i915_gem_object *obj);
 
-static inline bool
+static bool
 i915_gem_object_is_framebuffer(const struct drm_i915_gem_object *obj)
 {
 	return READ_ONCE(obj->framebuffer_references);
 }
 
-static inline unsigned int
+static unsigned int
 i915_gem_object_get_tiling(struct drm_i915_gem_object *obj)
 {
 	return obj->tiling_and_stride & TILING_MASK;
 }
 
-static inline bool
+static bool
 i915_gem_object_is_tiled(struct drm_i915_gem_object *obj)
 {
 	return i915_gem_object_get_tiling(obj) != I915_TILING_NONE;
 }
 
-static inline unsigned int
+static unsigned int
 i915_gem_object_get_stride(struct drm_i915_gem_object *obj)
 {
 	return obj->tiling_and_stride & STRIDE_MASK;
 }
 
-static inline unsigned int
+static unsigned int
 i915_gem_tile_height(unsigned int tiling)
 {
 	GEM_BUG_ON(!tiling);
 	return tiling == I915_TILING_Y ? 32 : 8;
 }
 
-static inline unsigned int
+static unsigned int
 i915_gem_object_get_tile_height(struct drm_i915_gem_object *obj)
 {
 	return i915_gem_tile_height(i915_gem_object_get_tiling(obj));
 }
 
-static inline unsigned int
+static unsigned int
 i915_gem_object_get_tile_row_size(struct drm_i915_gem_object *obj)
 {
 	return (i915_gem_object_get_stride(obj) *
@@ -411,7 +411,7 @@ i915_gem_object_get_tile_row_size(struct drm_i915_gem_object *obj)
 int i915_gem_object_set_tiling(struct drm_i915_gem_object *obj,
 			       unsigned int tiling, unsigned int stride);
 
-static inline struct intel_engine_cs *
+static struct intel_engine_cs *
 i915_gem_object_last_write_engine(struct drm_i915_gem_object *obj)
 {
 	struct intel_engine_cs *engine = NULL;

@@ -41,7 +41,7 @@ extern struct dvb_frontend *mb86a16_attach(const struct mb86a16_config *config,
 
 #else
 
-static inline struct dvb_frontend *mb86a16_attach(const struct mb86a16_config *config,
+static struct dvb_frontend *mb86a16_attach(const struct mb86a16_config *config,
 					   struct i2c_adapter *i2c_adap)
 {
 	printk(KERN_WARNING "%s: Driver disabled by Kconfig\n", __func__);

@@ -292,14 +292,14 @@ struct board_info {
 	const char             *desc;
 };
 
-static inline int t1_is_asic(const adapter_t *adapter)
+static int t1_is_asic(const adapter_t *adapter)
 {
 	return adapter->params.is_asic;
 }
 
 extern const struct pci_device_id t1_pci_tbl[];
 
-static inline int adapter_matches_type(const adapter_t *adapter,
+static int adapter_matches_type(const adapter_t *adapter,
 				       int version, int revision)
 {
 	return adapter->params.chip_version == version &&
@@ -310,7 +310,7 @@ static inline int adapter_matches_type(const adapter_t *adapter,
 #define is_T2(adap)     adapter_matches_type(adap, CHBT_TERM_T2, TERM_T2)
 
 /* Returns true if an adapter supports VLAN acceleration and TSO */
-static inline int vlan_tso_capable(const adapter_t *adapter)
+static int vlan_tso_capable(const adapter_t *adapter)
 {
 	return !t1_is_T1B(adapter);
 }
@@ -321,7 +321,7 @@ static inline int vlan_tso_capable(const adapter_t *adapter)
 #define board_info(adapter) ((adapter)->params.brd_info)
 #define is_10G(adapter) (board_info(adapter)->caps & SUPPORTED_10000baseT_Full)
 
-static inline unsigned int core_ticks_per_usec(const adapter_t *adap)
+static unsigned int core_ticks_per_usec(const adapter_t *adap)
 {
 	return board_info(adap)->clock_core / 1000000;
 }

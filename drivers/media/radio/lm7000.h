@@ -18,7 +18,7 @@
 #define LM7000_FM_25	(2 << 20)
 #define LM7000_BIT_FM	(1 << 23)
 
-static inline void lm7000_set_freq(u32 freq, void *handle,
+static void lm7000_set_freq(u32 freq, void *handle,
 				void (*set_pins)(void *handle, u8 pins))
 {
 	int i;

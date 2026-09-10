@@ -393,7 +393,7 @@ void btmtk_cif_dump_fw_no_rsp(unsigned int flag);
 void btmtk_cif_dump_rxd_backtrace(void);
 void btmtk_reset_init(void);
 
-static void inline bt_notify_state(struct btmtk_dev *bdev)
+static void bt_notify_state(struct btmtk_dev *bdev)
 {
 	int32_t i = 0;
 	for(i = 0; i < MAX_STATE_MONITORS; i++)
@@ -401,7 +401,7 @@ static void inline bt_notify_state(struct btmtk_dev *bdev)
 			bdev->state_change_cb[i](bdev->bt_state);
 }
 
-static inline void bt_wake_lock_init(struct bt_wake_lock *plock)
+static void bt_wake_lock_init(struct bt_wake_lock *plock)
 {
 	if (plock) {
 		plock->ws = wakeup_source_register(NULL, plock->name);
@@ -414,7 +414,7 @@ static inline void bt_wake_lock_init(struct bt_wake_lock *plock)
 	}
 }
 
-static inline void bt_wake_lock_deinit(struct bt_wake_lock *plock)
+static void bt_wake_lock_deinit(struct bt_wake_lock *plock)
 {
 	if (plock && plock->ws) {
 		wakeup_source_unregister(plock->ws);
@@ -424,7 +424,7 @@ static inline void bt_wake_lock_deinit(struct bt_wake_lock *plock)
 	}
 }
 
-static inline void bt_hold_wake_lock(struct bt_wake_lock *plock)
+static void bt_hold_wake_lock(struct bt_wake_lock *plock)
 {
 	if (plock && plock->ws) {
 		__pm_stay_awake(plock->ws);
@@ -434,7 +434,7 @@ static inline void bt_hold_wake_lock(struct bt_wake_lock *plock)
 	}
 }
 
-static inline void bt_hold_wake_lock_timeout(struct bt_wake_lock *plock, uint32_t ms)
+static void bt_hold_wake_lock_timeout(struct bt_wake_lock *plock, uint32_t ms)
 {
 	if (plock && plock->ws) {
 		__pm_wakeup_event(plock->ws, ms);
@@ -444,7 +444,7 @@ static inline void bt_hold_wake_lock_timeout(struct bt_wake_lock *plock, uint32_
 	}
 }
 
-static inline void bt_release_wake_lock(struct bt_wake_lock *plock)
+static void bt_release_wake_lock(struct bt_wake_lock *plock)
 {
 	if (plock && plock->ws) {
 		__pm_relax(plock->ws);
@@ -454,7 +454,7 @@ static inline void bt_release_wake_lock(struct bt_wake_lock *plock)
 	}
 }
 
-static inline void bt_psm_init(struct bt_psm_ctrl *psm)
+static void bt_psm_init(struct bt_psm_ctrl *psm)
 {
 	init_completion(&psm->comp);
 	strncpy(psm->wake_lock.name, "bt_psm", 6);
@@ -462,7 +462,7 @@ static inline void bt_psm_init(struct bt_psm_ctrl *psm)
 	bt_wake_lock_init(&psm->wake_lock);
 }
 
-static inline void bt_psm_deinit(struct bt_psm_ctrl *psm)
+static void bt_psm_deinit(struct bt_psm_ctrl *psm)
 {
 	bt_wake_lock_deinit(&psm->wake_lock);
 }

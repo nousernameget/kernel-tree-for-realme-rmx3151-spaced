@@ -267,7 +267,7 @@ void irlap_apply_connection_parameters(struct irlap_cb *self, int now);
 
 /* Return TRUE if the node is in primary mode (i.e. master)
  * - Jean II */
-static inline int irlap_is_primary(struct irlap_cb *self)
+static int irlap_is_primary(struct irlap_cb *self)
 {
 	int ret;
 	switch(self->state) {
@@ -286,7 +286,7 @@ static inline int irlap_is_primary(struct irlap_cb *self)
 }
 
 /* Clear a pending IrLAP disconnect. - Jean II */
-static inline void irlap_clear_disconnect(struct irlap_cb *self)
+static void irlap_clear_disconnect(struct irlap_cb *self)
 {
 	self->disconnect_pending = FALSE;
 }
@@ -297,7 +297,7 @@ static inline void irlap_clear_disconnect(struct irlap_cb *self)
  *    Switches state and provides debug information
  *
  */
-static inline void irlap_next_state(struct irlap_cb *self, IRLAP_STATE state)
+static void irlap_next_state(struct irlap_cb *self, IRLAP_STATE state)
 {
 	/*
 	if (!self || self->magic != LAP_MAGIC)

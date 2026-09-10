@@ -94,7 +94,7 @@ enum {
 	BFA_REQQ_QOS_HI	= 3,	/*  all high priority IO	*/
 };
 
-static inline void
+static void
 bfa_reqq_winit(struct bfa_reqq_wait_s *wqe, void (*qresume) (void *cbarg),
 	       void *cbarg)
 {
@@ -105,7 +105,7 @@ bfa_reqq_winit(struct bfa_reqq_wait_s *wqe, void (*qresume) (void *cbarg),
 #define bfa_reqq(__bfa, __reqq)	(&(__bfa)->reqq_waitq[__reqq])
 
 /*
- * static inline void
+ * static void
  * bfa_reqq_wait(struct bfa_s *bfa, int reqq, struct bfa_reqq_wait_s *wqe)
  */
 #define bfa_reqq_wait(__bfa, __reqq, __wqe) do {			\

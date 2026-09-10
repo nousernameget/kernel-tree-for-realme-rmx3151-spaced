@@ -4,22 +4,22 @@
  * is 16 bits, but aligned on a 32 bit PCI boundary
  */
 
-static inline u16 get_u16(const u32 __iomem *p)
+static u16 get_u16(const u32 __iomem *p)
 {
 	return (u16)readl(p);
 }
 
-static inline void set_u16(u32 __iomem *p, u16 val)
+static void set_u16(u32 __iomem *p, u16 val)
 {
 	writel(val, p);
 }
 
-static inline s16 get_s16(const s32 __iomem *p)
+static s16 get_s16(const s32 __iomem *p)
 {
 	return (s16)readl(p);
 }
 
-static inline void set_s16(s32 __iomem *p, s16 val)
+static void set_s16(s32 __iomem *p, s16 val)
 {
 	writel(val, p);
 }

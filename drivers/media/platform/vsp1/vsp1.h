@@ -107,12 +107,12 @@ void vsp1_device_put(struct vsp1_device *vsp1);
 
 int vsp1_reset_wpf(struct vsp1_device *vsp1, unsigned int index);
 
-static inline u32 vsp1_read(struct vsp1_device *vsp1, u32 reg)
+static u32 vsp1_read(struct vsp1_device *vsp1, u32 reg)
 {
 	return ioread32(vsp1->mmio + reg);
 }
 
-static inline void vsp1_write(struct vsp1_device *vsp1, u32 reg, u32 data)
+static void vsp1_write(struct vsp1_device *vsp1, u32 reg, u32 data)
 {
 	iowrite32(data, vsp1->mmio + reg);
 }

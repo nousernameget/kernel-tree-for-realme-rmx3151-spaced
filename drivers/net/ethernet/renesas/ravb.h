@@ -1042,14 +1042,14 @@ struct ravb_private {
 	unsigned wol_enabled:1;
 };
 
-static inline u32 ravb_read(struct net_device *ndev, enum ravb_reg reg)
+static u32 ravb_read(struct net_device *ndev, enum ravb_reg reg)
 {
 	struct ravb_private *priv = netdev_priv(ndev);
 
 	return ioread32(priv->addr + reg);
 }
 
-static inline void ravb_write(struct net_device *ndev, u32 data,
+static void ravb_write(struct net_device *ndev, u32 data,
 			      enum ravb_reg reg)
 {
 	struct ravb_private *priv = netdev_priv(ndev);

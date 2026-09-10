@@ -78,7 +78,7 @@ void isp1760_hcd_unregister(struct isp1760_hcd *priv);
 int isp1760_init_kmem_once(void);
 void isp1760_deinit_kmem_cache(void);
 #else
-static inline int isp1760_hcd_register(struct isp1760_hcd *priv,
+static int isp1760_hcd_register(struct isp1760_hcd *priv,
 				       void __iomem *regs, struct resource *mem,
 				       int irq, unsigned long irqflags,
 				       struct device *dev)
@@ -86,16 +86,16 @@ static inline int isp1760_hcd_register(struct isp1760_hcd *priv,
 	return 0;
 }
 
-static inline void isp1760_hcd_unregister(struct isp1760_hcd *priv)
+static void isp1760_hcd_unregister(struct isp1760_hcd *priv)
 {
 }
 
-static inline int isp1760_init_kmem_once(void)
+static int isp1760_init_kmem_once(void)
 {
 	return 0;
 }
 
-static inline void isp1760_deinit_kmem_cache(void)
+static void isp1760_deinit_kmem_cache(void)
 {
 }
 #endif

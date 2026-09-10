@@ -48,7 +48,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <linux/version.h>
 
 #if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 17, 0))
-static inline void pvr_fence_cleanup(void)
+static void pvr_fence_cleanup(void)
 {
 }
 #else
@@ -133,19 +133,19 @@ struct pvr_fence {
 extern const struct dma_fence_ops pvr_fence_ops;
 extern const struct dma_fence_ops pvr_fence_foreign_ops;
 
-static inline bool is_our_fence(struct pvr_fence_context *fctx,
+static bool is_our_fence(struct pvr_fence_context *fctx,
 				struct dma_fence *fence)
 {
 	return (fence->context == fctx->fence_context);
 }
 
-static inline bool is_pvr_fence(struct dma_fence *fence)
+static bool is_pvr_fence(struct dma_fence *fence)
 {
 	return ((fence->ops == &pvr_fence_ops) ||
 		(fence->ops == &pvr_fence_foreign_ops));
 }
 
-static inline struct pvr_fence *to_pvr_fence(struct dma_fence *fence)
+static struct pvr_fence *to_pvr_fence(struct dma_fence *fence)
 {
 	if (is_pvr_fence(fence))
 		return container_of(fence, struct pvr_fence, base);
@@ -193,7 +193,7 @@ enum tag_img_bool pvr_fence_checkpoint_ufo_has_signalled(u32 fwaddr, u32 value);
 void pvr_fence_check_state(void);
 #endif
 
-static inline void pvr_fence_cleanup(void)
+static void pvr_fence_cleanup(void)
 {
 	/*
 	 * Ensure all PVR fence contexts have been destroyed, by flushing

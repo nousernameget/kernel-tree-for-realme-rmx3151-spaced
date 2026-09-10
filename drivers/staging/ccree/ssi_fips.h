@@ -34,7 +34,7 @@ void cc_set_ree_fips_status(struct ssi_drvdata *drvdata, bool ok);
 
 #else  /* CONFIG_CRYPTO_FIPS */
 
-static inline int ssi_fips_init(struct ssi_drvdata *p_drvdata)
+static int ssi_fips_init(struct ssi_drvdata *p_drvdata)
 {
 	return 0;
 }

@@ -371,7 +371,7 @@ struct atio_from_isp {
 	} u;
 } __packed;
 
-static inline int fcpcmd_is_corrupted(struct atio *atio)
+static int fcpcmd_is_corrupted(struct atio *atio)
 {
 	if (atio->entry_type == ATIO_TYPE7 &&
 	    ((le16_to_cpu(atio->attr_n_length) & FCP_CMD_LENGTH_MASK) <
@@ -382,13 +382,13 @@ static inline int fcpcmd_is_corrupted(struct atio *atio)
 }
 
 /* adjust corrupted atio so we won't trip over the same entry again. */
-static inline void adjust_corrupted_atio(struct atio_from_isp *atio)
+static void adjust_corrupted_atio(struct atio_from_isp *atio)
 {
 	atio->u.raw.attr_n_length = cpu_to_le16(FCP_CMD_LENGTH_MIN);
 	atio->u.isp24.fcp_cmnd.add_cdb_len = 0;
 }
 
-static inline int get_datalen_for_atio(struct atio_from_isp *atio)
+static int get_datalen_for_atio(struct atio_from_isp *atio)
 {
 	int len = atio->u.isp24.fcp_cmnd.add_cdb_len;
 
@@ -1025,22 +1025,22 @@ extern void qlt_update_vp_map(struct scsi_qla_host *, int);
 
 extern int ql2x_ini_mode;
 
-static inline bool qla_tgt_mode_enabled(struct scsi_qla_host *ha)
+static bool qla_tgt_mode_enabled(struct scsi_qla_host *ha)
 {
 	return ha->host->active_mode == MODE_TARGET;
 }
 
-static inline bool qla_ini_mode_enabled(struct scsi_qla_host *ha)
+static bool qla_ini_mode_enabled(struct scsi_qla_host *ha)
 {
 	return ha->host->active_mode == MODE_INITIATOR;
 }
 
-static inline bool qla_dual_mode_enabled(struct scsi_qla_host *ha)
+static bool qla_dual_mode_enabled(struct scsi_qla_host *ha)
 {
 	return (ha->host->active_mode == MODE_DUAL);
 }
 
-static inline uint32_t sid_to_key(const uint8_t *s_id)
+static uint32_t sid_to_key(const uint8_t *s_id)
 {
 	uint32_t key;
 
@@ -1050,7 +1050,7 @@ static inline uint32_t sid_to_key(const uint8_t *s_id)
 	return key;
 }
 
-static inline void sid_to_portid(const uint8_t *s_id, port_id_t *p)
+static void sid_to_portid(const uint8_t *s_id, port_id_t *p)
 {
 	memset(p, 0, sizeof(*p));
 	p->b.domain = s_id[0];

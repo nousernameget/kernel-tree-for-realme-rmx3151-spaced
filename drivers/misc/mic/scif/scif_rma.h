@@ -365,7 +365,7 @@ struct scif_window_iter {
 	int index;
 };
 
-static inline void
+static void
 scif_init_window_iter(struct scif_window *window, struct scif_window_iter *iter)
 {
 	iter->offset = window->offset;
@@ -381,7 +381,7 @@ dma_addr_t __scif_off_to_dma_addr(struct scif_window *window, s64 off)
 	return scif_off_to_dma_addr(window, off, NULL, NULL);
 }
 
-static inline bool scif_unaligned(off_t src_offset, off_t dst_offset)
+static bool scif_unaligned(off_t src_offset, off_t dst_offset)
 {
 	src_offset = src_offset & (L1_CACHE_BYTES - 1);
 	dst_offset = dst_offset & (L1_CACHE_BYTES - 1);
@@ -396,7 +396,7 @@ static inline bool scif_unaligned(off_t src_offset, off_t dst_offset)
  * __get_free_pages(..) first and then falls back on
  * vzalloc(..) if that fails.
  */
-static inline void *scif_zalloc(size_t size)
+static void *scif_zalloc(size_t size)
 {
 	void *ret = NULL;
 	size_t align = ALIGN(size, PAGE_SIZE);
@@ -413,7 +413,7 @@ static inline void *scif_zalloc(size_t size)
  * @size: Size of the allocation.
  * Helper API which frees memory allocated via scif_zalloc().
  */
-static inline void scif_free(void *addr, size_t size)
+static void scif_free(void *addr, size_t size)
 {
 	size_t align = ALIGN(size, PAGE_SIZE);
 
@@ -423,22 +423,22 @@ static inline void scif_free(void *addr, size_t size)
 		free_pages((unsigned long)addr, get_order(align));
 }
 
-static inline void scif_get_window(struct scif_window *window, int nr_pages)
+static void scif_get_window(struct scif_window *window, int nr_pages)
 {
 	window->ref_count += nr_pages;
 }
 
-static inline void scif_put_window(struct scif_window *window, int nr_pages)
+static void scif_put_window(struct scif_window *window, int nr_pages)
 {
 	window->ref_count -= nr_pages;
 }
 
-static inline void scif_set_window_ref(struct scif_window *window, int nr_pages)
+static void scif_set_window_ref(struct scif_window *window, int nr_pages)
 {
 	window->ref_count = nr_pages;
 }
 
-static inline void
+static void
 scif_queue_for_cleanup(struct scif_window *window, struct list_head *list)
 {
 	spin_lock(&scif_info.rmalock);
@@ -447,13 +447,13 @@ scif_queue_for_cleanup(struct scif_window *window, struct list_head *list)
 	schedule_work(&scif_info.misc_work);
 }
 
-static inline void __scif_rma_destroy_tcw_helper(struct scif_window *window)
+static void __scif_rma_destroy_tcw_helper(struct scif_window *window)
 {
 	list_del_init(&window->list);
 	scif_queue_for_cleanup(window, &scif_info.rma_tc);
 }
 
-static inline bool scif_is_iommu_enabled(void)
+static bool scif_is_iommu_enabled(void)
 {
 #ifdef CONFIG_INTEL_IOMMU
 	return intel_iommu_enabled;

@@ -37,7 +37,7 @@
  *
  * Returns corresponding domain of the ttm mem_type
  */
-static inline unsigned radeon_mem_type_to_domain(u32 mem_type)
+static unsigned radeon_mem_type_to_domain(u32 mem_type)
 {
 	switch (mem_type) {
 	case TTM_PL_VRAM:
@@ -61,7 +61,7 @@ static inline unsigned radeon_mem_type_to_domain(u32 mem_type)
  * -ERESTARTSYS: A wait for the buffer to become unreserved was interrupted by
  * a signal. Release all buffer reservations and return to user-space.
  */
-static inline int radeon_bo_reserve(struct radeon_bo *bo, bool no_intr)
+static int radeon_bo_reserve(struct radeon_bo *bo, bool no_intr)
 {
 	int r;
 
@@ -74,7 +74,7 @@ static inline int radeon_bo_reserve(struct radeon_bo *bo, bool no_intr)
 	return 0;
 }
 
-static inline void radeon_bo_unreserve(struct radeon_bo *bo)
+static void radeon_bo_unreserve(struct radeon_bo *bo)
 {
 	ttm_bo_unreserve(&bo->tbo);
 }
@@ -88,22 +88,22 @@ static inline void radeon_bo_unreserve(struct radeon_bo *bo)
  * Note: object should either be pinned or reserved when calling this
  * function, it might be useful to add check for this for debugging.
  */
-static inline u64 radeon_bo_gpu_offset(struct radeon_bo *bo)
+static u64 radeon_bo_gpu_offset(struct radeon_bo *bo)
 {
 	return bo->tbo.offset;
 }
 
-static inline unsigned long radeon_bo_size(struct radeon_bo *bo)
+static unsigned long radeon_bo_size(struct radeon_bo *bo)
 {
 	return bo->tbo.num_pages << PAGE_SHIFT;
 }
 
-static inline unsigned radeon_bo_ngpu_pages(struct radeon_bo *bo)
+static unsigned radeon_bo_ngpu_pages(struct radeon_bo *bo)
 {
 	return (bo->tbo.num_pages << PAGE_SHIFT) / RADEON_GPU_PAGE_SIZE;
 }
 
-static inline unsigned radeon_bo_gpu_page_alignment(struct radeon_bo *bo)
+static unsigned radeon_bo_gpu_page_alignment(struct radeon_bo *bo)
 {
 	return (bo->tbo.mem.page_alignment << PAGE_SHIFT) / RADEON_GPU_PAGE_SIZE;
 }
@@ -114,7 +114,7 @@ static inline unsigned radeon_bo_gpu_page_alignment(struct radeon_bo *bo)
  *
  * Returns mmap offset of the object.
  */
-static inline u64 radeon_bo_mmap_offset(struct radeon_bo *bo)
+static u64 radeon_bo_mmap_offset(struct radeon_bo *bo)
 {
 	return drm_vma_node_offset_addr(&bo->tbo.vma_node);
 }
@@ -161,12 +161,12 @@ extern void radeon_bo_fence(struct radeon_bo *bo, struct radeon_fence *fence,
  * sub allocation
  */
 
-static inline uint64_t radeon_sa_bo_gpu_addr(struct radeon_sa_bo *sa_bo)
+static uint64_t radeon_sa_bo_gpu_addr(struct radeon_sa_bo *sa_bo)
 {
 	return sa_bo->manager->gpu_addr + sa_bo->soffset;
 }
 
-static inline void * radeon_sa_bo_cpu_addr(struct radeon_sa_bo *sa_bo)
+static void * radeon_sa_bo_cpu_addr(struct radeon_sa_bo *sa_bo)
 {
 	return sa_bo->manager->cpu_ptr + sa_bo->soffset;
 }

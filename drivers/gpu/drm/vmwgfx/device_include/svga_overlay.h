@@ -133,7 +133,7 @@ struct {
  *----------------------------------------------------------------------
  */
 
-static inline bool
+static bool
 VMwareVideoGetAttributes(const SVGAOverlayFormat format,    /* IN */
                          uint32 *width,                     /* IN / OUT */
                          uint32 *height,                    /* IN / OUT */

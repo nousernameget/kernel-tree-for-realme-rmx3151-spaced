@@ -42,7 +42,7 @@ extern void mt_usb_clock_unprepare(struct musb *musb);
 extern bool usb_enable_clock(bool enable);
 extern spinlock_t usb_io_lock;
 
-static inline u16 musb_readw(const void __iomem *addr, unsigned int offset)
+static u16 musb_readw(const void __iomem *addr, unsigned int offset)
 {
 	u16 rc = 0;
 
@@ -62,7 +62,7 @@ static inline u16 musb_readw(const void __iomem *addr, unsigned int offset)
 	return rc;
 }
 
-static inline u32
+static u32
 	musb_readl(const void __iomem *addr, unsigned int offset)
 {
 	u32 rc = 0;
@@ -84,7 +84,7 @@ static inline u32
 }
 
 
-static inline void
+static void
 	musb_writew(void __iomem *addr, unsigned int offset, u16 data)
 {
 	if (likely(mtk_usb_power)) {
@@ -102,7 +102,7 @@ static inline void
 	}
 }
 
-static inline void
+static void
 	musb_writel(void __iomem *addr, unsigned int offset, u32 data)
 {
 	if (likely(mtk_usb_power)) {
@@ -120,7 +120,7 @@ static inline void
 	}
 }
 
-static inline u8 musb_readb(const void __iomem *addr, unsigned int offset)
+static u8 musb_readb(const void __iomem *addr, unsigned int offset)
 {
 	u8 rc = 0;
 
@@ -140,7 +140,7 @@ static inline u8 musb_readb(const void __iomem *addr, unsigned int offset)
 	return rc;
 }
 
-static inline void musb_writeb
+static void musb_writeb
 	(void __iomem *addr, unsigned int offset, u8 data)
 {
 	if (likely(mtk_usb_power)) {

@@ -157,22 +157,22 @@ struct etnaviv_gpu {
 	unsigned long base_rate_shader;
 };
 
-static inline void gpu_write(struct etnaviv_gpu *gpu, u32 reg, u32 data)
+static void gpu_write(struct etnaviv_gpu *gpu, u32 reg, u32 data)
 {
 	etnaviv_writel(data, gpu->mmio + reg);
 }
 
-static inline u32 gpu_read(struct etnaviv_gpu *gpu, u32 reg)
+static u32 gpu_read(struct etnaviv_gpu *gpu, u32 reg)
 {
 	return etnaviv_readl(gpu->mmio + reg);
 }
 
-static inline bool fence_completed(struct etnaviv_gpu *gpu, u32 fence)
+static bool fence_completed(struct etnaviv_gpu *gpu, u32 fence)
 {
 	return fence_after_eq(gpu->completed_fence, fence);
 }
 
-static inline bool fence_retired(struct etnaviv_gpu *gpu, u32 fence)
+static bool fence_retired(struct etnaviv_gpu *gpu, u32 fence)
 {
 	return fence_after_eq(gpu->retired_fence, fence);
 }

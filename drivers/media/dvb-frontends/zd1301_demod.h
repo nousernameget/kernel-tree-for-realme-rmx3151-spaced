@@ -55,13 +55,13 @@ struct i2c_adapter *zd1301_demod_get_i2c_adapter(struct platform_device *);
 
 #else
 
-static inline struct dvb_frontend *zd1301_demod_get_dvb_frontend(struct platform_device *dev)
+static struct dvb_frontend *zd1301_demod_get_dvb_frontend(struct platform_device *dev)
 {
 	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);
 
 	return NULL;
 }
-static inline struct i2c_adapter *zd1301_demod_get_i2c_adapter(struct platform_device *dev)
+static struct i2c_adapter *zd1301_demod_get_i2c_adapter(struct platform_device *dev)
 {
 	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);
 

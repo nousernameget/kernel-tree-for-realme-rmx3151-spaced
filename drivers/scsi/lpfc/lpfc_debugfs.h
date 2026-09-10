@@ -323,7 +323,7 @@ enum {
  * This function dumps an entry indexed by @idx from a queue specified by the
  * queue descriptor @q.
  **/
-static inline void
+static void
 lpfc_debug_dump_qe(struct lpfc_queue *q, uint32_t idx)
 {
 	char line_buf[LPFC_LBUF_SZ];
@@ -371,7 +371,7 @@ lpfc_debug_dump_qe(struct lpfc_queue *q, uint32_t idx)
  * This function dumps all entries from a queue specified by the queue
  * descriptor @q.
  **/
-static inline void
+static void
 lpfc_debug_dump_q(struct lpfc_queue *q)
 {
 	int idx, entry_count;
@@ -402,7 +402,7 @@ lpfc_debug_dump_q(struct lpfc_queue *q)
  * This function dumps all entries from a FCP or NVME work queue specified
  * by the wqidx.
  **/
-static inline void
+static void
 lpfc_debug_dump_wq(struct lpfc_hba *phba, int qtype, int wqidx)
 {
 	struct lpfc_queue *wq;
@@ -445,7 +445,7 @@ lpfc_debug_dump_wq(struct lpfc_hba *phba, int qtype, int wqidx)
  * This function dumps all entries from a FCP or NVME completion queue
  * which is associated to the work queue specified by the @wqidx.
  **/
-static inline void
+static void
 lpfc_debug_dump_cq(struct lpfc_hba *phba, int qtype, int wqidx)
 {
 	struct lpfc_queue *wq, *cq, *eq;
@@ -510,7 +510,7 @@ lpfc_debug_dump_cq(struct lpfc_hba *phba, int qtype, int wqidx)
  * This function dumps all entries from a FCP event queue which is
  * associated to the FCP work queue specified by the @fcp_wqidx.
  **/
-static inline void
+static void
 lpfc_debug_dump_hba_eq(struct lpfc_hba *phba, int qidx)
 {
 	struct lpfc_queue *qp;
@@ -528,7 +528,7 @@ lpfc_debug_dump_hba_eq(struct lpfc_hba *phba, int qidx)
  *
  * This function dumps all entries from the receive data queue.
  **/
-static inline void
+static void
 lpfc_debug_dump_dat_rq(struct lpfc_hba *phba)
 {
 	printk(KERN_ERR "DAT RQ: RQ[Qid:%d]\n",
@@ -542,7 +542,7 @@ lpfc_debug_dump_dat_rq(struct lpfc_hba *phba)
  *
  * This function dumps all entries from the receive header queue.
  **/
-static inline void
+static void
 lpfc_debug_dump_hdr_rq(struct lpfc_hba *phba)
 {
 	printk(KERN_ERR "HDR RQ: RQ[Qid:%d]\n",
@@ -558,7 +558,7 @@ lpfc_debug_dump_hdr_rq(struct lpfc_hba *phba)
  * This function dumps all entries from a work queue identified by the queue
  * identifier.
  **/
-static inline void
+static void
 lpfc_debug_dump_wq_by_id(struct lpfc_hba *phba, int qid)
 {
 	int wq_idx;
@@ -601,7 +601,7 @@ lpfc_debug_dump_wq_by_id(struct lpfc_hba *phba, int qid)
  * This function dumps all entries from a mbox work queue identified by the
  * queue identifier.
  **/
-static inline void
+static void
 lpfc_debug_dump_mq_by_id(struct lpfc_hba *phba, int qid)
 {
 	if (phba->sli4_hba.mbx_wq->queue_id == qid) {
@@ -618,7 +618,7 @@ lpfc_debug_dump_mq_by_id(struct lpfc_hba *phba, int qid)
  * This function dumps all entries from a receive queue identified by the
  * queue identifier.
  **/
-static inline void
+static void
 lpfc_debug_dump_rq_by_id(struct lpfc_hba *phba, int qid)
 {
 	if (phba->sli4_hba.hdr_rq->queue_id == qid) {
@@ -640,7 +640,7 @@ lpfc_debug_dump_rq_by_id(struct lpfc_hba *phba, int qid)
  * This function dumps all entries from a complete queue identified by the
  * queue identifier.
  **/
-static inline void
+static void
 lpfc_debug_dump_cq_by_id(struct lpfc_hba *phba, int qid)
 {
 	int cq_idx;
@@ -691,7 +691,7 @@ lpfc_debug_dump_cq_by_id(struct lpfc_hba *phba, int qid)
  * This function dumps all entries from an event queue identified by the
  * queue identifier.
  **/
-static inline void
+static void
 lpfc_debug_dump_eq_by_id(struct lpfc_hba *phba, int qid)
 {
 	int eq_idx;

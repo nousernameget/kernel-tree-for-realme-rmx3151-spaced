@@ -43,7 +43,7 @@ enum {
 
 uint32_t get_imsg_log_level(void);
 
-static inline unsigned long now_ms(void)
+static unsigned long now_ms(void)
 {
 	struct timeval now_time;
 

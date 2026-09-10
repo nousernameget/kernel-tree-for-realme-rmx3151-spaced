@@ -267,7 +267,7 @@ enum {
 extern int wa_nep_create(struct wahc *, struct usb_interface *);
 extern void wa_nep_destroy(struct wahc *);
 
-static inline int wa_nep_arm(struct wahc *wa, gfp_t gfp_mask)
+static int wa_nep_arm(struct wahc *wa, gfp_t gfp_mask)
 {
 	struct urb *urb = wa->nep_urb;
 	urb->transfer_buffer = wa->nep_buffer;
@@ -275,21 +275,21 @@ static inline int wa_nep_arm(struct wahc *wa, gfp_t gfp_mask)
 	return usb_submit_urb(urb, gfp_mask);
 }
 
-static inline void wa_nep_disarm(struct wahc *wa)
+static void wa_nep_disarm(struct wahc *wa)
 {
 	usb_kill_urb(wa->nep_urb);
 }
 
 
 /* RPipes */
-static inline void wa_rpipe_init(struct wahc *wa)
+static void wa_rpipe_init(struct wahc *wa)
 {
 	INIT_LIST_HEAD(&wa->rpipe_delayed_list);
 	spin_lock_init(&wa->rpipe_lock);
 	mutex_init(&wa->rpipe_mutex);
 }
 
-static inline void wa_init(struct wahc *wa)
+static void wa_init(struct wahc *wa)
 {
 	int index;
 
@@ -326,7 +326,7 @@ void __rpipe_get(struct wa_rpipe *rpipe)
 }
 extern int rpipe_get_by_ep(struct wahc *, struct usb_host_endpoint *,
 			   struct urb *, gfp_t);
-static inline void rpipe_put(struct wa_rpipe *rpipe)
+static void rpipe_put(struct wa_rpipe *rpipe)
 {
 	kref_put(&rpipe->refcnt, rpipe_destroy);
 
@@ -336,7 +336,7 @@ extern void rpipe_clear_feature_stalled(struct wahc *,
 			struct usb_host_endpoint *);
 extern int wa_rpipes_create(struct wahc *);
 extern void wa_rpipes_destroy(struct wahc *);
-static inline void rpipe_avail_dec(struct wa_rpipe *rpipe)
+static void rpipe_avail_dec(struct wa_rpipe *rpipe)
 {
 	atomic_dec(&rpipe->segs_available);
 }
@@ -344,7 +344,7 @@ static inline void rpipe_avail_dec(struct wa_rpipe *rpipe)
 /**
  * Returns true if the rpipe is ready to submit more segments.
  */
-static inline int rpipe_avail_inc(struct wa_rpipe *rpipe)
+static int rpipe_avail_inc(struct wa_rpipe *rpipe)
 {
 	return atomic_inc_return(&rpipe->segs_available) > 0
 		&& !list_empty(&rpipe->seg_list);
@@ -369,19 +369,19 @@ extern void wa_handle_notif_xfer(struct wahc *, struct wa_notif_hdr *);
  *
  * FIXME: has to go away in favour of a 'struct' hcd based solution
  */
-static inline struct wahc *wa_get(struct wahc *wa)
+static struct wahc *wa_get(struct wahc *wa)
 {
 	usb_get_intf(wa->usb_iface);
 	return wa;
 }
 
-static inline void wa_put(struct wahc *wa)
+static void wa_put(struct wahc *wa)
 {
 	usb_put_intf(wa->usb_iface);
 }
 
 
-static inline int __wa_feature(struct wahc *wa, unsigned op, u16 feature)
+static int __wa_feature(struct wahc *wa, unsigned op, u16 feature)
 {
 	return usb_control_msg(wa->usb_dev, usb_sndctrlpipe(wa->usb_dev, 0),
 			op ? USB_REQ_SET_FEATURE : USB_REQ_CLEAR_FEATURE,
@@ -392,13 +392,13 @@ static inline int __wa_feature(struct wahc *wa, unsigned op, u16 feature)
 }
 
 
-static inline int __wa_set_feature(struct wahc *wa, u16 feature)
+static int __wa_set_feature(struct wahc *wa, u16 feature)
 {
 	return  __wa_feature(wa, 1, feature);
 }
 
 
-static inline int __wa_clear_feature(struct wahc *wa, u16 feature)
+static int __wa_clear_feature(struct wahc *wa, u16 feature)
 {
 	return __wa_feature(wa, 0, feature);
 }
@@ -441,7 +441,7 @@ s32 __wa_get_status(struct wahc *wa)
  * FIXME: is there an official specification on how long status
  *        changes can take?
  */
-static inline s32 __wa_wait_status(struct wahc *wa, u32 mask, u32 value)
+static s32 __wa_wait_status(struct wahc *wa, u32 mask, u32 value)
 {
 	s32 result;
 	unsigned loops = 10;
@@ -460,7 +460,7 @@ static inline s32 __wa_wait_status(struct wahc *wa, u32 mask, u32 value)
 
 
 /** Command @hwahc to stop, @returns 0 if ok, < 0 errno code on error */
-static inline int __wa_stop(struct wahc *wa)
+static int __wa_stop(struct wahc *wa)
 {
 	int result;
 	struct device *dev = &wa->usb_iface->dev;

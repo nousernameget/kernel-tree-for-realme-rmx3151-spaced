@@ -48,7 +48,7 @@ struct dbs_data {
 	unsigned int io_is_busy;
 };
 
-static inline struct dbs_data *to_dbs_data(struct gov_attr_set *attr_set)
+static struct dbs_data *to_dbs_data(struct gov_attr_set *attr_set)
 {
 	return container_of(attr_set, struct dbs_data, attr_set);
 }
@@ -103,7 +103,7 @@ struct policy_dbs_info {
 	bool work_in_progress;	/* Work is being queued up or in progress */
 };
 
-static inline void gov_update_sample_delay(struct policy_dbs_info *policy_dbs,
+static void gov_update_sample_delay(struct policy_dbs_info *policy_dbs,
 					   unsigned int delay_us)
 {
 	policy_dbs->sample_delay_ns = delay_us * NSEC_PER_USEC;
@@ -144,7 +144,7 @@ struct dbs_governor {
 	void (*start)(struct cpufreq_policy *policy);
 };
 
-static inline struct dbs_governor *dbs_governor_of(struct cpufreq_policy *policy)
+static struct dbs_governor *dbs_governor_of(struct cpufreq_policy *policy)
 {
 	return container_of(policy->governor, struct dbs_governor, gov);
 }

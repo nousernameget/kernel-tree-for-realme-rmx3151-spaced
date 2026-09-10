@@ -72,7 +72,7 @@ struct mpu_data
 	u32	checksum2;		/* 0x9c - */	
 }; /* Total size = 0xa0 */
 
-static inline const struct mpu_data *wf_get_mpu(int cpu)
+static const struct mpu_data *wf_get_mpu(int cpu)
 {
 	struct device_node *np;
 	char nodename[64];

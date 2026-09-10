@@ -126,13 +126,13 @@ struct aq_ring_param_s {
 	cpumask_t affinity_mask;
 };
 
-static inline unsigned int aq_ring_next_dx(struct aq_ring_s *self,
+static unsigned int aq_ring_next_dx(struct aq_ring_s *self,
 					   unsigned int dx)
 {
 	return (++dx >= self->size) ? 0U : dx;
 }
 
-static inline unsigned int aq_ring_avail_dx(struct aq_ring_s *self)
+static unsigned int aq_ring_avail_dx(struct aq_ring_s *self)
 {
 	return (((self->sw_tail >= self->sw_head)) ?
 		(self->size - 1) - self->sw_tail + self->sw_head :

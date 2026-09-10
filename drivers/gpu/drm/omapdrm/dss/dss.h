@@ -238,13 +238,13 @@ struct seq_file;
 struct platform_device;
 
 /* core */
-static inline int dss_set_min_bus_tput(struct device *dev, unsigned long tput)
+static int dss_set_min_bus_tput(struct device *dev, unsigned long tput)
 {
 	/* To be implemented when the OMAP platform will provide this feature */
 	return 0;
 }
 
-static inline bool dss_mgr_is_lcd(enum omap_channel id)
+static bool dss_mgr_is_lcd(enum omap_channel id)
 {
 	if (id == OMAP_DSS_CHANNEL_LCD || id == OMAP_DSS_CHANNEL_LCD2 ||
 			id == OMAP_DSS_CHANNEL_LCD3)
@@ -257,7 +257,7 @@ static inline bool dss_mgr_is_lcd(enum omap_channel id)
 #if defined(CONFIG_OMAP2_DSS_DEBUGFS)
 int dss_debugfs_create_file(const char *name, void (*write)(struct seq_file *));
 #else
-static inline int dss_debugfs_create_file(const char *name,
+static int dss_debugfs_create_file(const char *name,
 					  void (*write)(struct seq_file *))
 {
 	return 0;
@@ -312,12 +312,12 @@ bool dss_div_calc(unsigned long pck, unsigned long fck_min,
 int sdi_init_port(struct platform_device *pdev, struct device_node *port);
 void sdi_uninit_port(struct device_node *port);
 #else
-static inline int sdi_init_port(struct platform_device *pdev,
+static int sdi_init_port(struct platform_device *pdev,
 		struct device_node *port)
 {
 	return 0;
 }
-static inline void sdi_uninit_port(struct device_node *port)
+static void sdi_uninit_port(struct device_node *port)
 {
 }
 #endif
@@ -344,12 +344,12 @@ int dpi_init_port(struct platform_device *pdev, struct device_node *port,
 		  enum dss_model dss_model);
 void dpi_uninit_port(struct device_node *port);
 #else
-static inline int dpi_init_port(struct platform_device *pdev,
+static int dpi_init_port(struct platform_device *pdev,
 		struct device_node *port, enum dss_model dss_model)
 {
 	return 0;
 }
-static inline void dpi_uninit_port(struct device_node *port)
+static void dpi_uninit_port(struct device_node *port)
 {
 }
 #endif
@@ -413,7 +413,7 @@ void hdmi5_uninit_platform_driver(void);
 
 
 #ifdef CONFIG_OMAP2_DSS_COLLECT_IRQ_STATS
-static inline void dss_collect_irq_stats(u32 irqstatus, unsigned *irq_arr)
+static void dss_collect_irq_stats(u32 irqstatus, unsigned *irq_arr)
 {
 	int b;
 	for (b = 0; b < 32; ++b) {

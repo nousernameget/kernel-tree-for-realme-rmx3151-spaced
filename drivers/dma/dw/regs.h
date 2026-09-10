@@ -284,7 +284,7 @@ struct dw_dma_chan {
 	struct dma_slave_config dma_sconfig;
 };
 
-static inline struct dw_dma_chan_regs __iomem *
+static struct dw_dma_chan_regs __iomem *
 __dwc_regs(struct dw_dma_chan *dwc)
 {
 	return dwc->ch_regs;
@@ -295,7 +295,7 @@ __dwc_regs(struct dw_dma_chan *dwc)
 #define channel_writel(dwc, name, val) \
 	writel((val), &(__dwc_regs(dwc)->name))
 
-static inline struct dw_dma_chan *to_dw_dma_chan(struct dma_chan *chan)
+static struct dw_dma_chan *to_dw_dma_chan(struct dma_chan *chan)
 {
 	return container_of(chan, struct dw_dma_chan, chan);
 }
@@ -316,7 +316,7 @@ struct dw_dma {
 	struct dw_dma_platform_data	*pdata;
 };
 
-static inline struct dw_dma_regs __iomem *__dw_regs(struct dw_dma *dw)
+static struct dw_dma_regs __iomem *__dw_regs(struct dw_dma *dw)
 {
 	return dw->regs;
 }
@@ -336,7 +336,7 @@ static inline struct dw_dma_regs __iomem *__dw_regs(struct dw_dma *dw)
 #define channel_clear_bit(dw, reg, mask) \
 	dma_writel(dw, reg, ((mask) << 8) | 0)
 
-static inline struct dw_dma *to_dw_dma(struct dma_device *ddev)
+static struct dw_dma *to_dw_dma(struct dma_device *ddev)
 {
 	return container_of(ddev, struct dw_dma, dma);
 }
@@ -377,7 +377,7 @@ struct dw_desc {
 
 #define to_dw_desc(h)	list_entry(h, struct dw_desc, desc_node)
 
-static inline struct dw_desc *
+static struct dw_desc *
 txd_to_dw_desc(struct dma_async_tx_descriptor *txd)
 {
 	return container_of(txd, struct dw_desc, txd);

@@ -676,7 +676,7 @@ void
 iser_reg_desc_put_fmr(struct ib_conn *ib_conn,
 		      struct iser_fr_desc *desc);
 
-static inline struct ib_send_wr *
+static struct ib_send_wr *
 iser_tx_next_wr(struct iser_tx_desc *tx_desc)
 {
 	struct ib_send_wr *cur_wr = &tx_desc->wrs[tx_desc->wr_idx].send;
@@ -691,25 +691,25 @@ iser_tx_next_wr(struct iser_tx_desc *tx_desc)
 	return cur_wr;
 }
 
-static inline struct iser_conn *
+static struct iser_conn *
 to_iser_conn(struct ib_conn *ib_conn)
 {
 	return container_of(ib_conn, struct iser_conn, ib_conn);
 }
 
-static inline struct iser_rx_desc *
+static struct iser_rx_desc *
 iser_rx(struct ib_cqe *cqe)
 {
 	return container_of(cqe, struct iser_rx_desc, cqe);
 }
 
-static inline struct iser_tx_desc *
+static struct iser_tx_desc *
 iser_tx(struct ib_cqe *cqe)
 {
 	return container_of(cqe, struct iser_tx_desc, cqe);
 }
 
-static inline struct iser_login_desc *
+static struct iser_login_desc *
 iser_login(struct ib_cqe *cqe)
 {
 	return container_of(cqe, struct iser_login_desc, cqe);

@@ -567,7 +567,7 @@ extern const struct ath10k_hw_ops qca6174_ops;
 
 extern const struct ath10k_hw_clk_params qca6174_clk[];
 
-static inline int
+static int
 ath10k_rx_desc_get_l3_pad_bytes(struct ath10k_hw_params *hw,
 				struct htt_rx_desc *rxd)
 {

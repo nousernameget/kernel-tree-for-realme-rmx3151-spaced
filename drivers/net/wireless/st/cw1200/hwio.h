@@ -166,7 +166,7 @@ int cw1200_reg_read(struct cw1200_common *priv, u16 addr,
 int cw1200_reg_write(struct cw1200_common *priv, u16 addr,
 		     const void *buf, size_t buf_len);
 
-static inline int cw1200_reg_read_16(struct cw1200_common *priv,
+static int cw1200_reg_read_16(struct cw1200_common *priv,
 				     u16 addr, u16 *val)
 {
 	__le32 tmp;
@@ -176,14 +176,14 @@ static inline int cw1200_reg_read_16(struct cw1200_common *priv,
 	return i;
 }
 
-static inline int cw1200_reg_write_16(struct cw1200_common *priv,
+static int cw1200_reg_write_16(struct cw1200_common *priv,
 				      u16 addr, u16 val)
 {
 	__le32 tmp = cpu_to_le32((u32)val);
 	return cw1200_reg_write(priv, addr, &tmp, sizeof(tmp));
 }
 
-static inline int cw1200_reg_read_32(struct cw1200_common *priv,
+static int cw1200_reg_read_32(struct cw1200_common *priv,
 				     u16 addr, u32 *val)
 {
 	__le32 tmp;
@@ -192,7 +192,7 @@ static inline int cw1200_reg_read_32(struct cw1200_common *priv,
 	return i;
 }
 
-static inline int cw1200_reg_write_32(struct cw1200_common *priv,
+static int cw1200_reg_write_32(struct cw1200_common *priv,
 				      u16 addr, u32 val)
 {
 	__le32 tmp = cpu_to_le32(val);
@@ -204,7 +204,7 @@ int cw1200_indirect_read(struct cw1200_common *priv, u32 addr, void *buf,
 int cw1200_apb_write(struct cw1200_common *priv, u32 addr, const void *buf,
 		     size_t buf_len);
 
-static inline int cw1200_apb_read(struct cw1200_common *priv, u32 addr,
+static int cw1200_apb_read(struct cw1200_common *priv, u32 addr,
 				  void *buf, size_t buf_len)
 {
 	return cw1200_indirect_read(priv, addr, buf, buf_len,
@@ -212,7 +212,7 @@ static inline int cw1200_apb_read(struct cw1200_common *priv, u32 addr,
 				    ST90TDS_SRAM_DPORT_REG_ID);
 }
 
-static inline int cw1200_ahb_read(struct cw1200_common *priv, u32 addr,
+static int cw1200_ahb_read(struct cw1200_common *priv, u32 addr,
 				  void *buf, size_t buf_len)
 {
 	return cw1200_indirect_read(priv, addr, buf, buf_len,
@@ -220,7 +220,7 @@ static inline int cw1200_ahb_read(struct cw1200_common *priv, u32 addr,
 				    ST90TDS_AHB_DPORT_REG_ID);
 }
 
-static inline int cw1200_apb_read_32(struct cw1200_common *priv,
+static int cw1200_apb_read_32(struct cw1200_common *priv,
 				     u32 addr, u32 *val)
 {
 	__le32 tmp;
@@ -229,13 +229,13 @@ static inline int cw1200_apb_read_32(struct cw1200_common *priv,
 	return i;
 }
 
-static inline int cw1200_apb_write_32(struct cw1200_common *priv,
+static int cw1200_apb_write_32(struct cw1200_common *priv,
 				      u32 addr, u32 val)
 {
 	__le32 tmp = cpu_to_le32(val);
 	return cw1200_apb_write(priv, addr, &tmp, sizeof(val));
 }
-static inline int cw1200_ahb_read_32(struct cw1200_common *priv,
+static int cw1200_ahb_read_32(struct cw1200_common *priv,
 				     u32 addr, u32 *val)
 {
 	__le32 tmp;

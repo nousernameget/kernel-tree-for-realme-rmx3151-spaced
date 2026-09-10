@@ -586,7 +586,7 @@ vchiq_loud_error_footer(void);
 extern void
 request_poll(VCHIQ_STATE_T *state, VCHIQ_SERVICE_T *service, int poll_type);
 
-static inline VCHIQ_SERVICE_T *
+static VCHIQ_SERVICE_T *
 handle_to_service(VCHIQ_SERVICE_HANDLE_T handle)
 {
 	VCHIQ_STATE_T *state = vchiq_states[(handle / VCHIQ_MAX_SERVICES) &

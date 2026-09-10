@@ -2056,7 +2056,7 @@ int bnx2x_get_cur_phy_idx(struct bnx2x *bp);
 
 bool bnx2x_port_after_undi(struct bnx2x *bp);
 
-static inline u32 reg_poll(struct bnx2x *bp, u32 reg, u32 expected, int ms,
+static u32 reg_poll(struct bnx2x *bp, u32 reg, u32 expected, int ms,
 			   int wait)
 {
 	u32 val;

@@ -230,13 +230,13 @@ extern const struct attribute_group *ctcm_attr_groups[];
  * Compatibility macros for busy handling
  * of network devices.
  */
-static inline void ctcm_clear_busy_do(struct net_device *dev)
+static void ctcm_clear_busy_do(struct net_device *dev)
 {
 	clear_bit(0, &(((struct ctcm_priv *)dev->ml_priv)->tbusy));
 	netif_wake_queue(dev);
 }
 
-static inline void ctcm_clear_busy(struct net_device *dev)
+static void ctcm_clear_busy(struct net_device *dev)
 {
 	struct mpc_group *grp;
 	grp = ((struct ctcm_priv *)dev->ml_priv)->mpcg;
@@ -246,7 +246,7 @@ static inline void ctcm_clear_busy(struct net_device *dev)
 }
 
 
-static inline int ctcm_test_and_set_busy(struct net_device *dev)
+static int ctcm_test_and_set_busy(struct net_device *dev)
 {
 	netif_stop_queue(dev);
 	return test_and_set_bit(0,
@@ -262,7 +262,7 @@ void ctcm_unpack_skb(struct channel *ch, struct sk_buff *pskb);
  * Functions related to setup and device detection.
  */
 
-static inline int ctcm_less_than(char *id1, char *id2)
+static int ctcm_less_than(char *id1, char *id2)
 {
 	unsigned long dev1, dev2;
 
@@ -277,7 +277,7 @@ static inline int ctcm_less_than(char *id1, char *id2)
 
 int ctcm_ch_alloc_buffer(struct channel *ch);
 
-static inline int ctcm_checkalloc_buffer(struct channel *ch)
+static int ctcm_checkalloc_buffer(struct channel *ch)
 {
 	if (ch->trans_skb == NULL)
 		return ctcm_ch_alloc_buffer(ch);
@@ -298,7 +298,7 @@ struct mpc_group *ctcmpc_init_mpc_group(struct ctcm_priv *priv);
 /* test if struct ctcm_priv of struct net_device has MPC protocol setting */
 #define IS_MPCDEV(dev) IS_MPC((struct ctcm_priv *)dev->ml_priv)
 
-static inline gfp_t gfp_type(void)
+static gfp_t gfp_type(void)
 {
 	return in_interrupt() ? GFP_ATOMIC : GFP_KERNEL;
 }

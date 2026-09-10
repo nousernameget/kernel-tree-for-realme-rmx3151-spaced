@@ -402,14 +402,14 @@ void _OUTREGP(struct radeonfb_info *rinfo, u32 addr, u32 val, u32 mask);
  * be done at irq time if an oops is in progress.
  */
 void radeon_pll_errata_after_index_slow(struct radeonfb_info *rinfo);
-static inline void radeon_pll_errata_after_index(struct radeonfb_info *rinfo)
+static void radeon_pll_errata_after_index(struct radeonfb_info *rinfo)
 {
 	if (rinfo->errata & CHIP_ERRATA_PLL_DUMMYREADS)
 		radeon_pll_errata_after_index_slow(rinfo);
 }
 
 void radeon_pll_errata_after_data_slow(struct radeonfb_info *rinfo);
-static inline void radeon_pll_errata_after_data(struct radeonfb_info *rinfo)
+static void radeon_pll_errata_after_data(struct radeonfb_info *rinfo)
 {
 	if (rinfo->errata & (CHIP_ERRATA_PLL_DELAY|CHIP_ERRATA_R300_CG))
 		radeon_pll_errata_after_data_slow(rinfo);
@@ -436,19 +436,19 @@ void __OUTPLLP(struct radeonfb_info *rinfo, unsigned int index,
 /*
  * Inline utilities
  */
-static inline int round_div(int num, int den)
+static int round_div(int num, int den)
 {
         return (num + (den / 2)) / den;
 }
 
-static inline int var_to_depth(const struct fb_var_screeninfo *var)
+static int var_to_depth(const struct fb_var_screeninfo *var)
 {
 	if (var->bits_per_pixel != 16)
 		return var->bits_per_pixel;
 	return (var->green.length == 5) ? 15 : 16;
 }
 
-static inline u32 radeon_get_dstbpp(u16 depth)
+static u32 radeon_get_dstbpp(u16 depth)
 {
 	switch (depth) {
        	case 8:
